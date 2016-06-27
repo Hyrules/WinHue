@@ -1,0 +1,26 @@
+{
+    "modelid": "ZLL Light",
+    "name": "GE Link",
+    "type": "Dimmable light",
+    "img": {
+      "on": "ZLL Light_on.png",
+      "off": "ZLL Light_off.png",
+      "unr": "ZLL Light_unr.png"
+    },
+    "hue": {
+      "min": "0",
+      "max": "0"
+    },
+    "bri": {
+      "min": "0",
+      "max": "254"
+    },
+    "sat": {
+      "min": "0",
+      "max": "0"
+    },
+    "ct": {
+      "min": "0",
+      "max": "0"
+    }
+}

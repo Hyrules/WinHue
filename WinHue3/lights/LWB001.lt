@@ -1,0 +1,26 @@
+{
+    "modelid": "LWB001",
+    "name": "Living White Bulb",
+    "type": "Dimmable light",
+    "img": {
+      "on": "LWB001_on.png",
+      "off": "LWB001_off.png",
+      "unr": "LWB001_unr.png"
+    },
+    "hue": {
+      "min": "0",
+      "max": "0"
+    },
+    "bri": {
+      "min": "0",
+      "max": "254"
+    },
+    "sat": {
+      "min": "0",
+      "max": "0"
+    },
+    "ct": {
+      "min": "0",
+      "max": "0"
+    }
+}

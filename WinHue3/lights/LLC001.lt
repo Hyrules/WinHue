@@ -1,0 +1,26 @@
+{
+    "modelid": "LLC001",
+    "name": "Living Colors",
+    "type": "Color light",
+    "img": {
+      "on": "LLC001_on.png",
+      "off": "LLC001_off.png",
+      "unr": "LLC001_unr.png"
+    },
+    "hue": {
+      "min": "0",
+      "max": "65535"
+    },
+    "bri": {
+      "min": "0",
+      "max": "254"
+    },
+    "sat": {
+      "min": "0",
+      "max": "254"
+    },
+    "ct": {
+      "min": "0",
+      "max": "0"
+    }
+}

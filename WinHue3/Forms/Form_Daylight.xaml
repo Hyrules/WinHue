@@ -1,0 +1,56 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:winHue3="clr-namespace:WinHue3"
+        x:Class="WinHue3.Form_Daylight"
+        Title="{x:Static resx:GUI.DaylightForm_Title}" Height="190" Width="288" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png">
+    <Window.Resources>
+        <Style TargetType="{x:Type xctk:WatermarkTextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel DockPanel.Dock="Right">
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                            <TextBlock Margin="3" Foreground="Red">!</TextBlock>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="btnSet">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=tbLat, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=tbLong, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Button x:Name="btnSet" Style="{StaticResource btnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.DaylightForm_CancelButton}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click"/>
+        <Label Content="{x:Static resx:GUI.DaylightForm_Longitude}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="77"/>
+        <Label Content="{x:Static resx:GUI.DaylightForm_Latitude}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="77"/>
+        <Label Content="{x:Static resx:GUI.DaylightForm_SunriseOffset}" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="92"/>
+        <Label Content="{x:Static resx:GUI.DaylightForm_SunsetOffset}" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
+        <Slider x:Name="slSunriseOffset" HorizontalAlignment="Left" Margin="141,72,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="2" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunriseOffset_ToolTip}" Value="{Binding SunriseOffset}"/>
+        <Slider x:Name="slSunsetOffset" HorizontalAlignment="Left" Margin="141,95,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="3" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunsetOffset_ToolTip}" Value="{Binding SunsetOffset}"/>
+        <Label Content="{Binding Value, ElementName=slSunriseOffset}" HorizontalAlignment="Left" Margin="102,63,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Value, ElementName=slSunsetOffset}" HorizontalAlignment="Left" Margin="102,89,0,0" VerticalAlignment="Top"/>
+        <xctk:WatermarkTextBox x:Name="tbLong" HorizontalAlignment="Left" Margin="141,9,0,0" TextWrapping="Wrap" Text="{Binding Longitude , ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{W|E}" MaxLength="9" TabIndex="0" Width="120"/>
+        <xctk:WatermarkTextBox x:Name="tbLat" HorizontalAlignment="Left" Margin="141,38,0,0" TextWrapping="Wrap" Text="{Binding Latitude , ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{N|S}" MaxLength="9" TabIndex="1" Width="120"/>
+    </Grid>
+</Window>

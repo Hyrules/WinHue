@@ -1,0 +1,26 @@
+{
+    "modelid": "LWB006",
+    "name": "Hue White Bulb",
+    "type": "Dimmable light",
+    "img": {
+      "on": "Classic A60 TW_on.png",
+      "off": "Classic A60 TW_off.png",
+      "unr": "Classic A60 TW_unr.png"
+    },
+    "hue": {
+      "min": "0",
+      "max": "0"
+    },
+    "bri": {
+      "min": "0",
+      "max": "254"
+    },
+    "sat": {
+      "min": "0",
+      "max": "0"
+    },
+    "ct": {
+      "min": "0",
+      "max": "0"
+    }
+}

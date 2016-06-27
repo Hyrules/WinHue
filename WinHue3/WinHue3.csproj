@@ -1,0 +1,755 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E08F8332-0232-47BC-A7D7-212F49296577}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WinHue3</RootNamespace>
+    <AssemblyName>WinHue3</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>WinHue.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GOLD Engine, Version=5.0.4337.25397, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\GoldParser\GOLD Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit.AddIn">
+      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\AddIns\DisplayBindings\AvalonEdit\ICSharpCode.AvalonEdit.AddIn.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory">
+      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpDevelop">
+      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.SharpDevelop.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenHardwareMonitorLib">
+      <HintPath>..\packages\OpenHardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="system.windows.controls.ribbon" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Forms\Form_AddManualIp.xaml.cs">
+      <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_AnimationCreator.xaml.cs">
+      <DependentUpon>Form_AnimationCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Wait.xaml.cs">
+      <DependentUpon>Form_Wait.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_HotKeyCreator.xaml.cs">
+      <DependentUpon>Form_HotKeyCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hotkeys\HotKey.cs" />
+    <Compile Include="Interpreter\AnimatorCommand.cs" />
+    <Compile Include="Interpreter\Parser.cs" />
+    <Compile Include="Interpreter\ResourceLoader.cs" />
+    <Compile Include="Utils\DataGridViewAppender.cs" />
+    <Compile Include="Utils\DgLogEntry.cs" />
+    <Compile Include="Utils\MessageBoxError.cs" />
+    <Compile Include="Utils\DelegateCommand.cs" />
+    <Compile Include="Forms\Form_BridgeDetectionPairing.xaml.cs">
+      <DependentUpon>Form_BridgeDetectionPairing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interface\GDIManager.cs" />
+    <Compile Include="Plugins\RibbonSplitButtonPlugin.cs" />
+    <Compile Include="Forms\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SupportedLights\ManagedLights.cs" />
+    <Compile Include="Interface\Marker.cs" />
+    <Compile Include="Mood\Mood.cs" />
+    <Compile Include="Mood\MoodHandler.cs" />
+    <Compile Include="Plugins\PluginServices.cs" />
+    <Compile Include="ExtensionMethods\ExtensionMethods.cs" />
+    <Compile Include="Interface\ScreenPixelHandler.cs" />
+    <Compile Include="Interface\TypeGroupDescription.cs" />
+    <Compile Include="Utils\HueObjectHelper.cs" />
+    <Compile Include="Views\AddManualIPView.cs" />
+    <Compile Include="Views\AnimatorView.cs" />
+    <Compile Include="Views\BridgeSettingsView.cs" />
+    <Compile Include="Views\BridgeDetectionPairingView.cs" />
+    <Compile Include="Views\HotKeyCreatorView.cs" />
+    <Compile Include="Views\WaitView.cs" />
+    <Compile Include="Views\ColorFromImageView.cs" />
+    <Compile Include="Views\EventViewerView.cs" />
+    <Compile Include="Views\MainFormView.cs" />
+    <Compile Include="Views\RuleCreatorView.cs" />
+    <Compile Include="Views\SceneCreatorView.cs" />
+    <Compile Include="Views\SensorCreatorView.cs" />
+    <Compile Include="Views\View.cs" />
+    <Compile Include="Utils\WinHueSettings.cs" />
+    <Page Include="Forms\Form_AnimationCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_BridgeSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\AppSettings\Form_AppSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_GroupCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_HueTapConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_Daylight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_RulesCreator2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_SceneCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_ScheduleCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_EventLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_SelectColorFromImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_SensorCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_RenameObject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_BridgeDetectionPairing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_AddManualIp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_Wait.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_HotKeyCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Color\ColorPicker.cs" />
+    <Compile Include="SupportedLights\SupportedLight.cs" />
+    <Compile Include="Interface\Cursor_Tools.cs" />
+    <Compile Include="Forms\Form_BridgeSettings.xaml.cs">
+      <DependentUpon>Form_BridgeSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AppSettings\Form_AppSettings.xaml.cs">
+      <DependentUpon>Form_AppSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_GroupCreator.xaml.cs">
+      <DependentUpon>Form_GroupCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_HueTapConfig.xaml.cs">
+      <DependentUpon>Form_HueTapConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Daylight.xaml.cs">
+      <DependentUpon>Form_Daylight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_RulesCreator2.xaml.cs">
+      <DependentUpon>Form_RulesCreator2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_SceneCreator.xaml.cs">
+      <DependentUpon>Form_SceneCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_ScheduleCreator.xaml.cs">
+      <DependentUpon>Form_ScheduleCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_EventLog.xaml.cs">
+      <DependentUpon>Form_EventLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_SelectColorFromImage.xaml.cs">
+      <DependentUpon>Form_SelectColorFromImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_SensorCreator.xaml.cs">
+      <DependentUpon>Form_SensorCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_RenameObject.xaml.cs">
+      <DependentUpon>Form_RenameObject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Color\HueXYArray.cs" />
+    <Compile Include="Color\HueColorConverter.cs" />
+    <Compile Include="Views\DaylightView.cs" />
+    <Compile Include="Views\GroupCreatorView.cs" />
+    <Compile Include="Views\ScheduleView.cs" />
+    <Compile Include="Resources\GUI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GUI.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\GUI.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GUI.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\MainForm_Moods.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Color\ColorConversion.cs" />
+    <Compile Include="Color\HSLColor.cs" />
+    <Compile Include="Converters\ReverseBoolConverter.cs" />
+    <Compile Include="Interface\VisualHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Content Include="lights\images\Classic A60 TW_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\Classic A60 TW_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\Classic A60 TW_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\HML006_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\HML006_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\HML006_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT001_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT001_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT001_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT002_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT002_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT002_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT003_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT003_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LCT003_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC001_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC001_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC001_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC007_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC007_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC007_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC012_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC012_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC012_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC013_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC013_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC013_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC020_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC020_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC020_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LST001_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LST001_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LST001_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC010_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC010_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LLC010_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWB001_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWB001_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWB001_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWL001_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWL001_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWL001_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWB004_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWB004_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\LWB004_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\ZLL Light_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\ZLL Light_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\images\ZLL Light_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\1465102684_preferences-desktop-keyboard-shortcuts.png" />
+    <Resource Include="Resources\close_delete.png" />
+    <Resource Include="Resources\1464410361_check.png" />
+    <Resource Include="Resources\1464410333_next.png" />
+    <Resource Include="Resources\1464410329_pause.png" />
+    <Resource Include="Resources\1464410315_play.png" />
+    <Resource Include="Resources\animation.png" />
+    <EmbeddedResource Include="GlobalStrings.de.resx" />
+    <EmbeddedResource Include="Interpreter\Syntax.xshd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interpreter\WH3A.grm" />
+    <EmbeddedResource Include="Interpreter\WH3A.egt" />
+    <None Include="lights\LCT007.lt" />
+    <None Include="lights\LST002.lt" />
+    <None Include="Resources\icon.ico" />
+    <Resource Include="Resources\dimmer.png" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="WinHue.snk" />
+    <Resource Include="Resources\unknown.png" />
+    <Resource Include="Resources\HueLightOn-Large.png" />
+    <Resource Include="Resources\HueLightOff-Large-Unr.png" />
+    <Resource Include="Resources\HueLightOff-Large.png" />
+    <Resource Include="Resources\cputemp.png" />
+    <Resource Include="Resources\weatheralert.png" />
+    <Resource Include="Resources\powerfailure.png" />
+    <Resource Include="Resources\HueTapFull.jpg" />
+    <Resource Include="Resources\HueGroupOn.png" />
+    <Resource Include="Resources\UpdateSearch.png" />
+    <Resource Include="Resources\1417332335_Warning.png" />
+    <Resource Include="Resources\1417331999_Gear.png" />
+    <Resource Include="Resources\SensorSearch.png" />
+    <Resource Include="Resources\huetap.png" />
+    <Resource Include="Resources\HueLightSearch.png" />
+    <Resource Include="Resources\sensor.png" />
+    <Resource Include="Resources\rules.png" />
+    <Resource Include="Resources\1416205084_Book_edit.png" />
+    <Resource Include="Resources\1416184952_Gnome-Web-Browser-32.png" />
+    <Resource Include="Resources\1416183787_Community Help.png" />
+    <EmbeddedResource Include="Forms\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.fr.resx" />
+    <EmbeddedResource Include="GlobalStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GUI.de.resx" />
+    <EmbeddedResource Include="Resources\GUI.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GUI.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GUI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GUI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Resource Include="icon.ico" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="lights\Classic A60 TW.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\HML006.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LCT001.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LCT002.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LCT003.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC001.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC006.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC007.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC010.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC011.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC012.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC013.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LLC020.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LST001.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LWB001.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LWB004.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LWB006.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\LWL001.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="lights\ZLL Light.lt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bridge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\gear_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\door_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\flashlight_shine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\magnifier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\moods64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueLightOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SchedulesSmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupOn-Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupOff-Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pair-bridge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\1409707765_reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\effects.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SceneLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\timer_clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\stock_alarm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SchedulesLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rgbcolor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bridgeAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HueLib\HueLib.csproj">
+      <Project>{cfbd593d-56f3-46f8-8eb4-2184669fceaa}</Project>
+      <Name>HueLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HueLib_base\HueLibBase.csproj">
+      <Project>{88e71b52-56b4-49cd-965c-e44c3ed5d275}</Project>
+      <Name>HueLibBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IWinHuePlugin\IWinHuePlugin\WinHuePluginModule.csproj">
+      <Project>{fe2bea8f-0b23-4b6b-96cf-df29ae67d31f}</Project>
+      <Name>WinHuePluginModule</Name>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

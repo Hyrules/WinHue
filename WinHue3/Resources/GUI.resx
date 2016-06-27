@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BridgeSettingsForm_ApplyButton" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="BridgeSettingsForm_DoneButton" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings" xml:space="preserve">
+    <value>General Settings</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_ApiVersion" xml:space="preserve">
+    <value>Api Version :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_LinkButtonState" xml:space="preserve">
+    <value>Link button State :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_LocalTime" xml:space="preserve">
+    <value>local time :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_Name" xml:space="preserve">
+    <value>Name :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_SwVersion" xml:space="preserve">
+    <value>Sw Version :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_Timezone" xml:space="preserve">
+    <value>Timezone :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_UTC" xml:space="preserve">
+    <value>UTC</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_GeneralSettings_ZigBeeChannel" xml:space="preserve">
+    <value>Zigbee Channel :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings" xml:space="preserve">
+    <value>Network Settings</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings_DHCP" xml:space="preserve">
+    <value>DHCP</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings_Gateway" xml:space="preserve">
+    <value>Gateway : </value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings_IPAddress" xml:space="preserve">
+    <value>IP Address :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings_MAC" xml:space="preserve">
+    <value>MAC</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings_Netmask" xml:space="preserve">
+    <value>Netmask :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress" xml:space="preserve">
+    <value>Proxy Address :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_NetworkSettings_ProxyPort" xml:space="preserve">
+    <value>Proxy Port :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_PortalStatus" xml:space="preserve">
+    <value>Portal Status</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_PortalStatus_Communication" xml:space="preserve">
+    <value>Communication :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_PortalStatus_Connection" xml:space="preserve">
+    <value>Connection :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_PortalStatus_Incoming" xml:space="preserve">
+    <value>Incoming :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_PortalStatus_Outgoing" xml:space="preserve">
+    <value>Outgoing :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_PortalStatus_PortalService" xml:space="preserve">
+    <value>Portal Service</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_PortalStatus_SignedOn" xml:space="preserve">
+    <value>Signed On :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_SoftwareUpdate" xml:space="preserve">
+    <value>Software Update Information</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_SoftwareUpdate_Notify" xml:space="preserve">
+    <value>Notify</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_SoftwareUpdate_Text" xml:space="preserve">
+    <value>Text :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState" xml:space="preserve">
+    <value>Update State :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_SoftwareUpdate_URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList" xml:space="preserve">
+    <value>WhiteList / UserManagement</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_Apikey" xml:space="preserve">
+    <value>ApiKey :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_AppName" xml:space="preserve">
+    <value>App Name :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_CreateButton" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_CreateDate" xml:space="preserve">
+    <value>Create date :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_DeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_DeviceName" xml:space="preserve">
+    <value>Device Name :</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_WhiteList_LastUseDate" xml:space="preserve">
+    <value>Last Use date :</value>
+  </data>
+  <data name="BridgeSettingsForm_Title" xml:space="preserve">
+    <value>Modify bridge settings...</value>
+  </data>
+  <data name="DaylightForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DaylightForm_Latitude" xml:space="preserve">
+    <value>Latitude : </value>
+  </data>
+  <data name="DaylightForm_Longitude" xml:space="preserve">
+    <value>Longitude :</value>
+  </data>
+  <data name="DaylightForm_SetButton" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="DaylightForm_SunriseOffset" xml:space="preserve">
+    <value>Sunrise Offset :</value>
+  </data>
+  <data name="DaylightForm_SunriseOffset_ToolTip" xml:space="preserve">
+    <value>Offset in minutes of the sunrise. Use keyboard left right for more precision.</value>
+  </data>
+  <data name="DaylightForm_SunsetOffset" xml:space="preserve">
+    <value>Sunset Offset :</value>
+  </data>
+  <data name="DaylightForm_SunsetOffset_ToolTip" xml:space="preserve">
+    <value>Offset in minutes of the sunset. Use keyboard left right for more precision.</value>
+  </data>
+  <data name="DaylightForm_Title" xml:space="preserve">
+    <value>Configure the daylight sensor...</value>
+  </data>
+  <data name="EventLogForm_Title" xml:space="preserve">
+    <value>Event Log...</value>
+  </data>
+  <data name="GroupCreatorForm_ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="GroupCreatorForm_CreateGroupButton" xml:space="preserve">
+    <value>Create Group</value>
+  </data>
+  <data name="GroupCreatorForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="GroupCreatorForm_GroupName" xml:space="preserve">
+    <value>Group name :</value>
+  </data>
+  <data name="GroupCreatorForm_ModifyGroupButton" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="GroupCreatorForm_ModifyingGroup_Title" xml:space="preserve">
+    <value>Modifying group {0}...</value>
+  </data>
+  <data name="GroupCreatorForm_Title" xml:space="preserve">
+    <value>Create a group...</value>
+  </data>
+  <data name="HueTapSetupForm_AssignButton" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="HueTapSetupForm_DoneButton" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="HueTapSetupForm_SelectedButton" xml:space="preserve">
+    <value>No button selected</value>
+  </data>
+  <data name="HueTapSetupForm_Title" xml:space="preserve">
+    <value>Setup a hue tap...</value>
+  </data>
+  <data name="HueTapSetupForm_TopMessage" xml:space="preserve">
+    <value>Select a button to assign an action...</value>
+  </data>
+  <data name="ListView_Other" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="MainForm_Menu_Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="MainForm_Menu_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MainForm_Sliders_Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="MainForm_Sliders_ColorTemp" xml:space="preserve">
+    <value>Color Temperature</value>
+  </data>
+  <data name="MainForm_Sliders_HueColor" xml:space="preserve">
+    <value>Hue / Color</value>
+  </data>
+  <data name="MainForm_Sliders_Saturation" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
+  <data name="MainForm_Sliders_TransitionTime" xml:space="preserve">
+    <value>Transition Time</value>
+  </data>
+  <data name="MainForm_Sliders_TransitionTime_Instant" xml:space="preserve">
+    <value>Instantaneous</value>
+  </data>
+  <data name="MainForm_Sliders_TransitionTime_Unit_Millisec" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="MainForm_Sliders_TransitionTime_Unit_Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="MainForm_Sliders_TransitionTime_Unit_None" xml:space="preserve">
+    <value>default</value>
+  </data>
+  <data name="MainForm_Sliders_TransitionTime_Unit_Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="MainForm_Sliders_XColorSpace" xml:space="preserve">
+    <value>X Color Space</value>
+  </data>
+  <data name="MainForm_Sliders_YColorSpace" xml:space="preserve">
+    <value>Y Color Space</value>
+  </data>
+  <data name="MainForm_Tab_Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="MainForm_Tab_Help_About" xml:space="preserve">
+    <value>About...</value>
+  </data>
+  <data name="MainForm_Tab_Help_Forum" xml:space="preserve">
+    <value>Support Forum</value>
+  </data>
+  <data name="MainForm_Tab_Help_Website" xml:space="preserve">
+    <value>WinHue Website</value>
+  </data>
+  <data name="MainForm_Tab_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Commands" xml:space="preserve">
+    <value>Commands</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_CommandsAllOFF" xml:space="preserve">
+    <value>All OFF</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_CommandsAllON" xml:space="preserve">
+    <value>All ON</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators" xml:space="preserve">
+    <value>Creators</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateGroup" xml:space="preserve">
+    <value>Create a group...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateMood" xml:space="preserve">
+    <value>Create a mood...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateRule" xml:space="preserve">
+    <value>Create a rule...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateScene" xml:space="preserve">
+    <value>Create a scene...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateSchedule" xml:space="preserve">
+    <value>Create a schedule...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateSensor" xml:space="preserve">
+    <value>Create a sensor...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_EventsLogButton" xml:space="preserve">
+    <value>EventLog</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_RefreshButton" xml:space="preserve">
+    <value>Refresh View</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SearchLight" xml:space="preserve">
+    <value>Search for new Lights</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SearchSensor" xml:space="preserve">
+    <value>Search for new Sensors</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SettingsButton" xml:space="preserve">
+    <value>Bridge Settings</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SettingsUpdateButton" xml:space="preserve">
+    <value>Update Firmware</value>
+  </data>
+  <data name="MainForm_Tab_Plugins" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="MainForm_ListView_Context_Delete" xml:space="preserve">
+    <value>Delete...</value>
+  </data>
+  <data name="MainForm_ListView_Context_Identify" xml:space="preserve">
+    <value>Identify</value>
+  </data>
+  <data name="MainForm_ListView_Context_Long" xml:space="preserve">
+    <value>Long</value>
+  </data>
+  <data name="MainForm_ListView_Context_Rename" xml:space="preserve">
+    <value>Rename...</value>
+  </data>
+  <data name="MainForm_ListView_Context_Short" xml:space="preserve">
+    <value>Short</value>
+  </data>
+  <data name="MoodCreatorForm_Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="MoodCreatorForm_ColorTemp" xml:space="preserve">
+    <value>Color Temp.</value>
+  </data>
+  <data name="MoodCreatorForm_Hue" xml:space="preserve">
+    <value>Hue / Color</value>
+  </data>
+  <data name="MoodCreatorForm_Saturation" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
+  <data name="MoodCreatorForm_XYColorSpace" xml:space="preserve">
+    <value>XY Color Space</value>
+  </data>
+  <data name="RenameObjectForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RenameObjectForm_NewName" xml:space="preserve">
+    <value>New name :</value>
+  </data>
+  <data name="RenameObjectForm_RenameButton" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="RenameObjectForm_Title" xml:space="preserve">
+    <value>Rename {0} ...</value>
+  </data>
+  <data name="RuleCreatorForm_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="RuleCreatorForm_CancelButton" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="RuleCreatorForm_Conditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="RuleCreatorForm_CreateButton" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="RuleCreatorForm_Message1" xml:space="preserve">
+    <value>The maximum number of actions is 8 and the maximum number of conditions is 8.</value>
+  </data>
+  <data name="RuleCreatorForm_Message2" xml:space="preserve">
+    <value>The bridge can contain a maximum of 100 rules of 4 actions and 4 conditions.</value>
+  </data>
+  <data name="RuleCreatorForm_Name" xml:space="preserve">
+    <value>Name : </value>
+  </data>
+  <data name="RuleCreatorForm_Object" xml:space="preserve">
+    <value>Object :</value>
+  </data>
+  <data name="RuleCreatorForm_Operator" xml:space="preserve">
+    <value>Operator : </value>
+  </data>
+  <data name="RuleCreatorForm_Operator_ToolTip" xml:space="preserve">
+    <value>eq : is Equal , gt : Greater than, lt : Lower than, dx : On change</value>
+  </data>
+  <data name="RuleCreatorForm_Sensor" xml:space="preserve">
+    <value>Sensor : </value>
+  </data>
+  <data name="RuleCreatorForm_Type" xml:space="preserve">
+    <value>Type : </value>
+  </data>
+  <data name="RuleCreatorForm_Value" xml:space="preserve">
+    <value>Value :</value>
+  </data>
+  <data name="SceneCreatorForm_AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="SceneCreatorForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SceneCreatorForm_FromImageButton" xml:space="preserve">
+    <value>From Image</value>
+  </data>
+  <data name="SceneCreatorForm_Message" xml:space="preserve">
+    <value>NOTE : Scenes cannot be deleted from the bridge. When the maximum number of scenes has been reached the scene which has been used the least is recycled. Limitations are : 50 scenes per lamp / 200 scenes in the bridge.</value>
+  </data>
+  <data name="SceneCreatorForm_On" xml:space="preserve">
+    <value>ON</value>
+  </data>
+  <data name="SceneCreatorForm_PreviewButton" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="SceneCreatorForm_RandomColorButton" xml:space="preserve">
+    <value>Random Color</value>
+  </data>
+  <data name="SceneCreatorForm_RemoveButton" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="SceneCreatorForm_SaveButton" xml:space="preserve">
+    <value>Save Scene</value>
+  </data>
+  <data name="SceneCreatorForm_SelectedLights" xml:space="preserve">
+    <value>Selected Lights</value>
+  </data>
+  <data name="SceneCreatorForm_Step1" xml:space="preserve">
+    <value>STEP 1 : Pick a name</value>
+  </data>
+  <data name="SceneCreatorForm_Step2" xml:space="preserve">
+    <value>STEP 2 : Pick a color</value>
+  </data>
+  <data name="SceneCreatorForm_Step3" xml:space="preserve">
+    <value>STEP 3 : Chose one or more lights</value>
+  </data>
+  <data name="SceneCreatorForm_Title" xml:space="preserve">
+    <value>Create / Edit a scene...</value>
+  </data>
+  <data name="ScheduleCreatorForm_Alarm" xml:space="preserve">
+    <value>Alarm</value>
+  </data>
+  <data name="ScheduleCreatorForm_Autodelete" xml:space="preserve">
+    <value>Autodelete</value>
+  </data>
+  <data name="ScheduleCreatorForm_Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="ScheduleCreatorForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ScheduleCreatorForm_ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ScheduleCreatorForm_ColorTemp" xml:space="preserve">
+    <value>Color Temp.</value>
+  </data>
+  <data name="ScheduleCreatorForm_DaysOfWeek" xml:space="preserve">
+    <value>Days of week :</value>
+  </data>
+  <data name="ScheduleCreatorForm_Description" xml:space="preserve">
+    <value>Description :</value>
+  </data>
+  <data name="ScheduleCreatorForm_Enable" xml:space="preserve">
+    <value>Schedule Enabled</value>
+  </data>
+  <data name="ScheduleCreatorForm_Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="ScheduleCreatorForm_Hue" xml:space="preserve">
+    <value>Hue / Color</value>
+  </data>
+  <data name="ScheduleCreatorForm_Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="ScheduleCreatorForm_Name" xml:space="preserve">
+    <value>Name :</value>
+  </data>
+  <data name="ScheduleCreatorForm_ON" xml:space="preserve">
+    <value>ON</value>
+  </data>
+  <data name="ScheduleCreatorForm_Randomize" xml:space="preserve">
+    <value>Randomize</value>
+  </data>
+  <data name="ScheduleCreatorForm_Saturation" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
+  <data name="ScheduleCreatorForm_Saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="ScheduleCreatorForm_SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ScheduleCreatorForm_Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="ScheduleCreatorForm_ScheduleInformation" xml:space="preserve">
+    <value>Schedule Information</value>
+  </data>
+  <data name="ScheduleCreatorForm_ScheduleSettings" xml:space="preserve">
+    <value>Schedule Settings</value>
+  </data>
+  <data name="ScheduleCreatorForm_StartTime" xml:space="preserve">
+    <value>Start Date/Time :</value>
+  </data>
+  <data name="ScheduleCreatorForm_Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="ScheduleCreatorForm_Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="ScheduleCreatorForm_Timer" xml:space="preserve">
+    <value>Timer</value>
+  </data>
+  <data name="ScheduleCreatorForm_Title" xml:space="preserve">
+    <value>Create / Edit a Schedule...</value>
+  </data>
+  <data name="ScheduleCreatorForm_Title_Create" xml:space="preserve">
+    <value>Creating Schedule for : </value>
+  </data>
+  <data name="ScheduleCreatorForm_Title_Modify" xml:space="preserve">
+    <value>Modifying Schedule : </value>
+  </data>
+  <data name="ScheduleCreatorForm_TransitionTime_Legend" xml:space="preserve">
+    <value>x 100 ms ( 1000 ms = 1 sec )</value>
+  </data>
+  <data name="ScheduleCreatorForm_Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="ScheduleCreatorForm_Type" xml:space="preserve">
+    <value>Type :</value>
+  </data>
+  <data name="ScheduleCreatorForm_Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="ScheduleCreatorForm_XColorSpace" xml:space="preserve">
+    <value>X Color Space</value>
+  </data>
+  <data name="ScheduleCreatorForm_YColorSpace" xml:space="preserve">
+    <value>Y Color space</value>
+  </data>
+  <data name="SelectColorFromImageForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SelectColorFromImageForm_LoadImageButton" xml:space="preserve">
+    <value>Load Image</value>
+  </data>
+  <data name="SelectColorFromImageForm_LoadRGBImageButton" xml:space="preserve">
+    <value>Load RGB Image</value>
+  </data>
+  <data name="SelectColorFromImageForm_SelectButton" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectColorFromImageForm_Title" xml:space="preserve">
+    <value>Select a color from an image...</value>
+  </data>
+  <data name="SensorCreatorForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SensorCreatorForm_CreateButton" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="SensorCreatorForm_MfgName" xml:space="preserve">
+    <value>Mfg Name :</value>
+  </data>
+  <data name="SensorCreatorForm_ModelId" xml:space="preserve">
+    <value>Model Id : </value>
+  </data>
+  <data name="SensorCreatorForm_Name" xml:space="preserve">
+    <value>Name :</value>
+  </data>
+  <data name="SensorCreatorForm_On" xml:space="preserve">
+    <value>ON</value>
+  </data>
+  <data name="SensorCreatorForm_SensorBody" xml:space="preserve">
+    <value>Sensor Body</value>
+  </data>
+  <data name="SensorCreatorForm_SensorConfig" xml:space="preserve">
+    <value>Sensor Config</value>
+  </data>
+  <data name="SensorCreatorForm_SensorType" xml:space="preserve">
+    <value>Sensor Type : </value>
+  </data>
+  <data name="SensorCreatorForm_SwVersion" xml:space="preserve">
+    <value>SwVersion : </value>
+  </data>
+  <data name="SensorCreatorForm_TestURLButton" xml:space="preserve">
+    <value>Test URL</value>
+  </data>
+  <data name="SensorCreatorForm_UniqueId" xml:space="preserve">
+    <value>Unique Id :</value>
+  </data>
+  <data name="SensorCreatorForm_Url" xml:space="preserve">
+    <value>Url :</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings" xml:space="preserve">
+    <value>Main Settings</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_ApplyButton" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Controls" xml:space="preserve">
+    <value>Controls</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Controls_Delay" xml:space="preserve">
+    <value>Delay :</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Controls_HiddenScenes" xml:space="preserve">
+    <value>Show hidden scenes</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip" xml:space="preserve">
+    <value>Checking this box will show the hidden scenes in the main view.</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Controls_LiveSliders" xml:space="preserve">
+    <value>Live Sliders</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Controls_LiveSliders_ToolTip" xml:space="preserve">
+    <value>Checking this box will change the light/group state while sliding the slider.</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Debug_EnableDebug" xml:space="preserve">
+    <value>Enable debugging</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip" xml:space="preserve">
+    <value>Checking this box will allow WinHue 3 to output debugging information to a debug file.</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Network" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Network_DetectProxy" xml:space="preserve">
+    <value>Detect Proxy</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip" xml:space="preserve">
+    <value>Checking this box will force WinHue 3 to detect local proxy and use it.</value>
+  </data>
+  <data name="SettingsForm_Title" xml:space="preserve">
+    <value>WinHue 3 Settings...</value>
+  </data>
+  <data name="RuleCreatorForm_Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="RuleCreatorForm_Lights" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="RuleCreatorForm_Scenes" xml:space="preserve">
+    <value>Scenes</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout" xml:space="preserve">
+    <value>Upnp Timeout :</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip" xml:space="preserve">
+    <value>Upnp Timeout in seconds</value>
+  </data>
+  <data name="RuleCreatorForm_AddProperty" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="RuleCreatorForm_AddAction" xml:space="preserve">
+    <value>Add Action</value>
+  </data>
+  <data name="RuleCreatorForm_Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="ScheduleCreatorForm_Desc_Tooltip" xml:space="preserve">
+    <value>Optional.</value>
+  </data>
+  <data name="ScheduleCreatorForm_Name_Tooltip" xml:space="preserve">
+    <value>The Bridge will generate a new name if not specified.</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListView_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListView_IPAddress" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListView_ApiKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="BridgeDetectionPairing_Pair" xml:space="preserve">
+    <value>Pair</value>
+  </data>
+  <data name="BridgeDetectionPairing_Scan" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="BridgeDetectionPairing_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListBridge" xml:space="preserve">
+    <value>The following bridges have been found :</value>
+  </data>
+  <data name="BridgeDetectionPairing_Scan_Tooltip" xml:space="preserve">
+    <value>Scan you local network for a bridge. Will only be available if no bridge are found.</value>
+  </data>
+  <data name="BridgeDetectionPairing_Pair_Tooltip" xml:space="preserve">
+    <value>Begin the pairing procedure. You will have 60 seconds to press the link button on the bridge.</value>
+  </data>
+  <data name="BridgeDetectionPairing_Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="BridgeDetectionPairing_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="BridgeDetectionPairing_Default_Tooltip" xml:space="preserve">
+    <value>This will set the selected bridge as the default bridge.</value>
+  </data>
+  <data name="MainForm_Menu_BridgePairing" xml:space="preserve">
+    <value>Detect and Pair bridges...</value>
+  </data>
+  <data name="BridgeDetectionPairing_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MainForm_ListView_Context_Edit" xml:space="preserve">
+    <value>Edit...</value>
+  </data>
+  <data name="RuleCreatorForm_Sensors" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="SceneCreatorForm_ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="MainForm_ListView_Context_ReplaceLightsState" xml:space="preserve">
+    <value>Replace...</value>
+  </data>
+  <data name="RuleCreatorForm_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="SensorCreatorForm_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Tooltip_Optional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="BridgeDetectionPairing_ManualIP" xml:space="preserve">
+    <value>Manual IP</value>
+  </data>
+  <data name="Form_AddManualIP_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Form_AddManualIP_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Form_AddManualIP_Title" xml:space="preserve">
+    <value>Manual IP</value>
+  </data>
+  <data name="Form_AddManualIP_IP" xml:space="preserve">
+    <value>IP : </value>
+  </data>
+  <data name="ScheduleCreatorForm_StartTimeTimer" xml:space="preserve">
+    <value>Occurs every :</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateAnimation" xml:space="preserve">
+    <value>Create an Animation</value>
+  </data>
+  <data name="WaitForm_Title" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Startup" xml:space="preserve">
+    <value>Startup</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Start_Windows" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Start_Minimized" xml:space="preserve">
+    <value>Start Minimized</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Start_Tray" xml:space="preserve">
+    <value>Start in tray</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Start_Normally" xml:space="preserve">
+    <value>Start normally</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Warning_Group" xml:space="preserve">
+    <value>Warnings</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Warning_Message_Upnp" xml:space="preserve">
+    <value>Show upnp warning</value>
+  </data>
+  <data name="ListView_Light" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="ListView_Schedule" xml:space="preserve">
+    <value>Schedules</value>
+  </data>
+  <data name="ListView_Scene" xml:space="preserve">
+    <value>Scenes</value>
+  </data>
+  <data name="ListView_Group" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="ListView_Sensor" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="ListView_Rule" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="Form_HotKeyCreator_Title" xml:space="preserve">
+    <value>HotKey Creator...</value>
+  </data>
+  <data name="Form_HotKeyCreator_BridgeObject" xml:space="preserve">
+    <value>Bridge Object</value>
+  </data>
+  <data name="Form_HotKeyCreator_HotKey" xml:space="preserve">
+    <value>Hotkey</value>
+  </data>
+  <data name="Form_HotKeyCreator_AddHotkey" xml:space="preserve">
+    <value>Add Hotkey</value>
+  </data>
+  <data name="Form_HotKeyCreator_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Form_HotKeyCreator_Preset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="Form_HotKeyCreator_Lights" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="Form_HotKeyCreator_Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Form_HotKeyCreator_Scenes" xml:space="preserve">
+    <value>Scenes</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateHotkey" xml:space="preserve">
+    <value>Hotkey Creator...</value>
+  </data>
+  <data name="Form_HotKeyCreator_Record" xml:space="preserve">
+    <value>Record Hotkey</value>
+  </data>
+  <data name="Form_HotKeyCreator_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Form_HotKeyCreator_Description" xml:space="preserve">
+    <value>Desc</value>
+  </data>
+  <data name="Form_HotKeyCreator_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Form_HotKeyCreator_ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Form_HotKeyCreator_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Form_HotKeyCreator_Generic" xml:space="preserve">
+    <value>Generic preset</value>
+  </data>
+  <data name="Form_HotKeyCreator_Generic_Tooltip" xml:space="preserve">
+    <value>Will apply this preset to any selected light or group on trigger.</value>
+  </data>
+</root>

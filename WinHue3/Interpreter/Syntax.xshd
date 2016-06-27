@@ -1,0 +1,50 @@
+﻿<SyntaxDefinition name="WH3A" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="Green" />
+  <Color name="String" foreground="Blue" />
+  <RuleSet>
+    <Span color="Comment" begin="//" />
+    <Span color="Comment" multiline="true" begin="/\*" end="\*/" />
+
+    <Span color="String">
+      <Begin>"</Begin>
+      <End>"</End>
+      <RuleSet>
+        <!-- nested span for escape sequences -->
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+
+    <Keywords fontWeight="bold" foreground="Blue">
+      <Word>wait</Word>
+      <Word>loop</Word>
+      <Word>{</Word>
+      <Word>}</Word>
+      <Word>-></Word>
+    </Keywords>
+
+    <Keywords fontStyle="italic" foreground="Red">
+      <Word>light</Word>
+      <Word>group</Word>
+    </Keywords>
+
+    <Keywords fontWeight="bold" foreground="Purple">
+      <Word>hue</Word>
+      <Word>bri</Word>
+      <Word>sat</Word>
+      <Word>ct</Word>
+      <Word>x</Word>
+      <Word>y</Word>
+      <Word>tt</Word>
+    </Keywords>
+    
+    <!-- Digits -->
+    <Rule foreground="DarkBlue">
+      \b0[xX][0-9a-fA-F]+  # hex number
+      |    \b
+      (    \d+(\.[0-9]+)?   #number with optional floating point
+      |    \.[0-9]+         #or just starting with floating point
+      )
+      ([eE][+-]?[0-9]+)? # optional exponent
+    </Rule>
+  </RuleSet>  
+</SyntaxDefinition>

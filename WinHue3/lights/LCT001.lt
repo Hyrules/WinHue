@@ -1,0 +1,26 @@
+  {
+    "modelid": "LCT001",
+    "name": "Hue Bulb",
+    "type": "Extented color light",
+    "img": {
+      "on": "LCT001_on.png",
+      "off": "LCT001_off.png",
+      "unr": "LCT001_unr.png"
+    },
+    "hue": {
+      "min": "0",
+      "max": "65535"
+    },
+    "bri": {
+      "min": "0",
+      "max": "254"
+    },
+    "sat": {
+      "min": "0",
+      "max": "254"
+    },
+    "ct": {
+      "min": "153",
+      "max": "500"
+    }
+  }

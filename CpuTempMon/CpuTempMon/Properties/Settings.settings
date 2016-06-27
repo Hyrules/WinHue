@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CpuTempMon.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CPUTemp_gradientStartColor" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">25000</Value>
+    </Setting>
+    <Setting Name="CPUTemp_gradientStopColor" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="CPUTemp_gradientStartTemp" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">35</Value>
+    </Setting>
+    <Setting Name="CPUTemp_gradientStopTemp" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">75</Value>
+    </Setting>
+    <Setting Name="CPUTemp_SensorName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CPU Package</Value>
+    </Setting>
+    <Setting Name="CPUTemp_ObjectID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="CPUTemp_ObjectType" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CPUTemp_Saturation" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">254</Value>
+    </Setting>
+    <Setting Name="CpuTemp_Brightness" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">254</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

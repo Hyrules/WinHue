@@ -1,0 +1,51 @@
+! Welcome to GOLD Parser Builder 5.2
+
+"Case Sensitive" = FALSE
+"Start Symbol" = <statements>
+
+number = {number}{number}{number}{number}{number}{number}{number} 
+       | {number}{number}{number}{number}{number}{number}
+       | {number}{number}{number}{number}{number}
+       | {number}{number}{number}{number}
+       | {number}{number}{number}
+       | {number}{number}
+       | {number}
+
+{WS} = {Whitespace} - {CR} - {LF}
+
+<loopval> ::= number 
+            |
+
+float = 0'.'{number}{number}{number}
+      | 1'.'000         
+
+Whitespace = {WS}+
+
+bool = true | false 
+
+SC = ';'{CR}{LF} | ';'{CR} | ';'           
+
+<sc> ::= SC <sc>
+        | SC    
+
+<object>  ::= light number
+           | group number
+
+<statements> ::= <statement> <statements>
+               | <statement> 
+               
+<statement> ::= <object> '->' <properties> <sc>
+              | wait number <sc>
+              | loop <loopval> '(' <statements> ')' <sc>
+           
+<properties> ::= <property> <properties>
+              | <property> 
+
+<property> ::= hue number
+             | bri number
+             | sat number
+             | tt number
+             | x float y float
+             | ct number
+             | on bool             
+       

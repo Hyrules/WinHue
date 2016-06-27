@@ -1,0 +1,62 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="Form_EventLogger" x:Class="WinHue3.Form_EventLog"
+        Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/1416205084_Book_edit.png" ResizeMode="CanResizeWithGrip">
+    <Grid>
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" Margin="0,0,0,19">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn MinWidth="100" Header="Timestamp">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding evdatetime}" Padding="5,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn MinWidth="40" Header="Thread">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding thread}" TextAlignment="Center" Padding="5,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn MinWidth="40" Header="Level" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding level}" Padding="5,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn MinWidth="40" Header="Logger">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding logger}" Padding="5,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn MinWidth="40" Header="Method">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding method}" Padding="5,2" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn MinWidth="40" Header="Line">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding line}" Padding="5,2" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn MinWidth="40" Width="*" Header="Message">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding message}" TextWrapping="Wrap" Padding="5,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>                
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
