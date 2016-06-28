@@ -6,7 +6,7 @@
 
 <b>Description :</b>
 
-WinHue is a windows desktop application to control the philips hue lighting system. It is was create for desktop pc using the microsoft .net framework. It is not intended to run on Windows phones and tablet and those plateforms will not be supported. WinHue also include a console version that comes with the installer. 
+WinHue is a windows desktop application to control the philips hue lighting system. It is was created for desktop pc using the microsoft .net framework. It is not intended to run on Windows phones and tablet and those plateforms will not be supported. WinHue also include a console version that comes with the installer. 
 
 <b>Features : </b>
 
