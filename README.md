@@ -1,8 +1,8 @@
 <h2>WinHue 3</h2>
 ****************************************
 
-NOTE : You need Microsoft Dot Net Framework 4.5.1 for this program to work properly. <br/>
-You might also need Visual C++ 2010 Redistributable library. <br/>
+NOTE : You need [Microsoft Dot Net Framework 4.5.1](https://www.microsoft.com/en-ca/download/details.aspx?id=40773) for this program to work properly. <br/>
+You might also need [Visual C++ 2010 Redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=5555) library. <br/>
 Both are available at Microsoft's website. 
 
 ****************************************
