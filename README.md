@@ -29,3 +29,15 @@ WinHue is a windows desktop application to control the philips hue lighting syst
 - See the [Usage wiki](../../wiki/Basic Usage) page for WinHue usage.<br/>
 - See the [Console wiki](../../wiki/Console usage) page for the Console usage.<br/>
 
+<b>Licence : </b>
+
+[Creative Commons Attribution Non-Commercial License V2.0](https://creativecommons.org/licenses/by-nc/2.0/)
+
+The creator of this projet cannot be held responsible for any problem that might arise for the use of the software.
+
+You are free to:
+
+    Share — copy and redistribute the material in any medium or format
+    Adapt — remix, transform, and build upon the material 
+
+http://creativecommons.org/licenses/by-nc/2.0/ca/
