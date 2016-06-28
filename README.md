@@ -1,10 +1,10 @@
 <h2>WinHue 3</h2>
-****************************************
+
 Requirements : <br/>
 - [Microsoft Dot Net Framework 4.5.1](https://www.microsoft.com/en-ca/download/details.aspx?id=40773) <br/>
 - [Visual C++ 2010 Redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=5555)<br/>
 
-****************************************
+<b>Description :</b>
 
 WinHue is a windows desktop application to control the philips hue lighting system. It is was create for desktop pc using the microsoft .net framework. It is not intended to run on Windows phones and tablet and those plateforms will not be supported. WinHue also include a console version that comes with the installer. 
 
