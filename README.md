@@ -6,7 +6,7 @@ Requirements : <br/>
 
 ****************************************
 
-WinHue is a windows desktop application to control the philips hue lighting system. It is was create for desktop pc using the microsoft .net framework. It is not intended to run on Windows phones and tablet and those plateforms will not be supported. Winhue also has a console version that comes with the installer. 
+WinHue is a windows desktop application to control the philips hue lighting system. It is was create for desktop pc using the microsoft .net framework. It is not intended to run on Windows phones and tablet and those plateforms will not be supported. WinHue also include a console version that comes with the installer. 
 
 <b>Features : </b>
 
@@ -24,3 +24,8 @@ WinHue is a windows desktop application to control the philips hue lighting syst
 2. Install the release.
 3. Pair the bridge with WinHue.
 4. Have fun !
+
+<b>Usage : </b>
+- See the [Usage wiki](../../wiki/Basic Usage) page for WinHue usage.<br/>
+- See the [Console wiki](../../wiki/Console usage) page for the Console usage.<br/>
+
