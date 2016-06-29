@@ -1,0 +1,6 @@
+{
+  "name": "Winhue3",
+  "tagline": "Controlling the Philips Hue lighting system from your Windows PC.",
+  "body": "### Description\r\nWinHue is a windows desktop application to control the philips hue lighting system. It is was created for desktop pc using the microsoft .net framework. It is not intended to run on Windows phones and tablet and those plateforms will not be supported. WinHue also include a console version that comes with the installer.\r\n\r\n### Features\r\n\r\n* Control the Philips Hue Lighting system via Microsoft Windows.\r\n* Create / Modify and delete : Groups, Schedules, Scenes and more.\r\n* Full control over lights / groups color, brightness, temperature, saturation, name.\r\n* Recurring Schedules and Timers !\r\n* Control your light from console.\r\n* Add rules or sensors.\r\n* IT'S FREE !\r\n\r\n### Support or Contact\r\nHaving trouble with WinHue? Check out our [issues forum](https://github.com/Hyrules/WinHue3/issues) and we’ll help you sort it out.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
