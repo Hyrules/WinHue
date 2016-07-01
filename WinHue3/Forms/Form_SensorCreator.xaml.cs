@@ -58,7 +58,7 @@ namespace WinHue3
                 _br.UpdateSensor(_id,sensor);
             }
 
-            if (_id != null)
+            if (_id != "")
             {
                 DialogResult = true;
                 Close();

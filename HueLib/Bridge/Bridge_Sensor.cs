@@ -1,5 +1,9 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net;
+using HueLib.BridgeMessages.Error;
 using HueLib_base;
 
 namespace HueLib
@@ -14,24 +18,28 @@ namespace HueLib
         public SearchResult GetNewSensors()
         {
             SearchResult newSensors = new SearchResult();
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights/new"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights/new"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    newSensors = Serializer.DeserializeSearchResult(message);
-                else
-                {
+                case WebExceptionStatus.Success:
+                    newSensors = Serializer.DeserializeSearchResult(comres.data);
+                    if (newSensors != null) return newSensors;
+                    newSensors = new SearchResult();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                newSensors = null;
 
-            }
+
             return newSensors;
         } 
 
@@ -43,25 +51,31 @@ namespace HueLib
         public bool DeleteSensor(string ID)
         {
             bool deleted = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + ID), WebRequestType.DELETE);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + ID), WebRequestType.DELETE);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        deleted = true;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            deleted = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                deleted = false;
-            }
+
             return deleted;
         }
         
@@ -71,26 +85,26 @@ namespace HueLib
         /// <returns>A list of sensors available on the bridge.</returns>
         public Dictionary<string,Sensor> GetSensorList()
         {
-            Dictionary<string, Sensor> sensorsList;
+            Dictionary<string, Sensor> sensorsList = new Dictionary<string, Sensor>();
             
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    sensorsList = Serializer.DeserializeToObject<Dictionary<string, Sensor>>(message);
-                //sensorsList = Serializer.DeserializeSensorList<Dictionary<string, Sensor>>(message);
-                else
-                {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
+                case WebExceptionStatus.Success:
+                    sensorsList = Serializer.DeserializeToObject<Dictionary<string, Sensor>>(comres.data);
+                    if(sensorsList !=null) return sensorsList;
+                    sensorsList = new Dictionary<string, Sensor>();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    sensorsList = null;
-                }
-            }
-            catch(Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                sensorsList = null;
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return sensorsList;
@@ -103,29 +117,28 @@ namespace HueLib
         /// <returns>The requested sensor.</returns>
         public Sensor GetSensor(string id)
         {
-            Sensor sensor;
-            try
+            Sensor sensor = new Sensor();
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString()), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString()), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    sensor = Serializer.DeserializeToObject<Sensor>(message);
-                    if (sensor == null)
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                }
-                else
-                {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
+                case WebExceptionStatus.Success:
+                    sensor = Serializer.DeserializeToObject<Sensor>(comres.data);
+                    if (sensor != null) return sensor;
+                    sensor = new Sensor();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    sensor = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                sensor = null;
-            }
+
             return sensor;
         }
 
@@ -136,26 +149,30 @@ namespace HueLib
         /// <returns>The created sensor id or null.</returns>
         public string CreateSensor(Sensor newSensor)
         {
-            string result;
-            try
+            string result = "";
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors"), WebRequestType.POST, Serializer.SerializeToJson<Sensor>(newSensor));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors"), WebRequestType.POST, Serializer.SerializeToJson<Sensor>(newSensor));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    result = lastMessages.SuccessCount == 1 ? ((CreationSuccess) _lastmessages[0]).id : null;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        result = lastMessages.SuccessCount == 1 ? ((CreationSuccess)_lastmessages[0]).id : "";
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    result = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = null;
-            }
+
             return result;
         }
 
@@ -168,40 +185,46 @@ namespace HueLib
         public bool UpdateSensor(string id, Sensor sensor)
         {
             bool result = false;
-            try
+
+            sensor.state.lastupdated = null;
+            sensor.name = null;
+            sensor.modelid = null;
+            sensor.type = null;
+            sensor.manufacturername = null;
+            sensor.swversion = null;
+            sensor.uniqueid = null;
+            if (sensor.config != null)
             {
-                sensor.state.lastupdated = null;
-                sensor.name = null;
-                sensor.modelid = null;
-                sensor.type = null;
-                sensor.manufacturername = null;
-                sensor.swversion = null;
-                sensor.uniqueid = null;
-                if (sensor.config != null)
-                {
-                    sensor.config.on = null;
-                    sensor.config.reachable = null;
-                }
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Sensor>(sensor));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.FailureCount == 0)
+                sensor.config.on = null;
+                sensor.config.reachable = null;
+            }
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Sensor>(sensor));
+
+            switch (comres.status)
+            {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
                     {
-                        result = true;
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.FailureCount == 0)
+                        {
+                            result = true;
+                        }
                     }
-                }
-                else
-                {
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = false;
 
-            }
             return result;
         }
 
@@ -212,26 +235,32 @@ namespace HueLib
         public bool FindNewSensors()
         {
             bool result = false;
-            try
-            {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors"), WebRequestType.POST);
-                if (!string.IsNullOrEmpty(message))
-                {
 
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        result = true;
-                }
-                else
-                {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors"), WebRequestType.POST);
+
+
+            switch (comres.status)
+            {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection();
+                        if (lastMessages.SuccessCount == 1)
+                            result = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                result = false;
-            }
+
             return result;
         }
 
@@ -243,21 +272,28 @@ namespace HueLib
         /// <returns>The new sensor config.</returns>
         public MessageCollection ChangeSensorConfig(string id, SensorConfig newConfig)
         {
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString() + "/config"), WebRequestType.PUT, Serializer.SerializeToJson<SensorConfig>(newConfig));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString() + "/config"), WebRequestType.PUT, Serializer.SerializeToJson<SensorConfig>(newConfig));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                lastMessages = new MessageCollection();
-            }
+
             return lastMessages;
         }
 
@@ -269,20 +305,27 @@ namespace HueLib
         /// <returns>A collection of messages.</returns>
         public MessageCollection ChangeSensorName(string id, string newName)
         {
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Sensor>(new Sensor() { name = newName }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Sensor>(new Sensor() {name = newName}));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return lastMessages;
@@ -297,20 +340,26 @@ namespace HueLib
         public MessageCollection SetSensorFlag(string id,SensorState config)
         {
           
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString() + "/state"), WebRequestType.PUT, Serializer.SerializeToJson<SensorState>(config));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/sensors/" + id.ToString() + "/state"), WebRequestType.PUT, Serializer.SerializeToJson<SensorState>(config));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return lastMessages;
