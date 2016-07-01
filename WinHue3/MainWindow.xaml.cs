@@ -34,7 +34,6 @@ namespace WinHue3
         /// Form of the Eventlog.
         /// </summary>
 
-
         public MainWindow(Form_EventLog formEventLog)
         {
             _fel = formEventLog;

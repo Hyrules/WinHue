@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using HueLib.BridgeMessages.Error;
 using HueLib_base;
 
 namespace HueLib
@@ -14,25 +16,28 @@ namespace HueLib
         public bool DeleteLight(string ID)
         {
             bool id = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID),WebRequestType.DELETE);
+            if (comres.status == WebExceptionStatus.Success)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID), WebRequestType.DELETE);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        id = lastMessages[0].GetType() == typeof (DeletionSuccess) ? true : false;
-                }
-                else
-                {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
-                }
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                if (lastMessages.SuccessCount == 1)
+                    id = lastMessages[0].GetType() == typeof(DeletionSuccess) ? true : false;
             }
-            catch (Exception)
+            else if(comres.status == WebExceptionStatus.Timeout)
             {
-                id = false;
+                lastMessages = new MessageCollection { _bridgeNotResponding };
+                BridgeNotResponding?.Invoke(this, _e);
             }
+            else
+            {
+                lastMessages = new MessageCollection
+                {
+                    new UnkownError(comres)
+                };
+            }
+           
+
             return id;
         }
         
@@ -44,23 +49,24 @@ namespace HueLib
         /// <returns>A list of MessageCollection from the bridge.</returns>
         public MessageCollection SetLightState(string ID, State newState)
         {
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID + "/state"),WebRequestType.PUT, Serializer.SerializeToJson<State>(newState));
+            if (comres.status == WebExceptionStatus.Success)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID + "/state"), WebRequestType.PUT, Serializer.SerializeToJson<State>(newState));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                }
-                else
-                {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
-                }
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
             }
-            catch (Exception)
+            else if(comres.status == WebExceptionStatus.Timeout)
             {
-                lastMessages = new MessageCollection();
+                lastMessages = new MessageCollection { _bridgeNotResponding };
+                BridgeNotResponding?.Invoke(this, _e);
             }
+            else
+            {
+                lastMessages = new MessageCollection
+                {
+                    new UnkownError(comres) 
+                };
+            }
+            
             return lastMessages;
         }
 
@@ -71,21 +77,24 @@ namespace HueLib
         /// <param name="Name">The name of the light.</param>
         /// <returns>A list of MessageCollection from the bridge.</returns>
         public MessageCollection ChangeLightName(string ID, string Name)
-        {      
-            try
+        {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID), WebRequestType.PUT, Serializer.SerializeToJson<Light>(new Light() { name = Name }));
+
+            if (comres.status == WebExceptionStatus.Success)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID), WebRequestType.PUT, Serializer.SerializeToJson<Light>(new Light() {name = Name}));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
-                }
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
             }
-            catch (Exception)
+            else if (comres.status == WebExceptionStatus.Timeout)
             {
-                lastMessages = new MessageCollection();
+                lastMessages = new MessageCollection { _bridgeNotResponding };
+                BridgeNotResponding?.Invoke(this, _e);
+            }
+            else
+            {
+                lastMessages = new MessageCollection
+                {
+                    new UnkownError(comres)
+                };
             }
             return lastMessages;
         }
@@ -97,25 +106,31 @@ namespace HueLib
         public Dictionary<string, Light> GetLightList()
         {
             Dictionary<string, Light> lightList;
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights"), WebRequestType.GET);
+
+            if (comres.status == WebExceptionStatus.Success)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    lightList = Serializer.DeserializeToObject<Dictionary<string, Light>>(message);
-                else
+                lightList = Serializer.DeserializeToObject<Dictionary<string, Light>>(comres.data);
+                if (lightList == null)
                 {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
-                    lightList = null;
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
                 }
             }
-            catch (Exception)
+            else if (comres.status == WebExceptionStatus.Timeout)
             {
-                if(!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-
+                lastMessages = new MessageCollection { _bridgeNotResponding };
+                BridgeNotResponding?.Invoke(this, _e);
                 lightList = null;
             }
+            else
+            {
+                lastMessages = new MessageCollection
+                {
+                    new UnkownError(comres)
+                };
+                lightList = null;
+            }
+
             return lightList;
         }
 
@@ -126,24 +141,28 @@ namespace HueLib
         public SearchResult GetNewLights()
         {
             SearchResult newLights = new SearchResult();
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights/new"), WebRequestType.GET);
+            if (comres.status == WebExceptionStatus.Success)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights/new"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    newLights = Serializer.DeserializeSearchResult(message);
-                else
+                newLights = Serializer.DeserializeSearchResult(comres.data);
+                if (newLights == null)
                 {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
                 }
             }
-            catch (Exception)
+            else if (comres.status == WebExceptionStatus.Timeout)
             {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                newLights = null;
-
+                lastMessages = new MessageCollection { _bridgeNotResponding };
+                BridgeNotResponding?.Invoke(this, _e);
             }
+            else
+            {
+                lastMessages = new MessageCollection
+                {
+                    new UnkownError(comres)
+                };
+            }
+
             return newLights;
         }
 
@@ -155,28 +174,35 @@ namespace HueLib
         public Light GetLight(string ID)
         {
             Light light = null;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID), WebRequestType.GET);
+
+            if (comres.status == WebExceptionStatus.Success)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights/" + ID), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    light = Serializer.DeserializeToObject<Light>(message);
-                    if(light == null)
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                }
+                light = Serializer.DeserializeToObject<Light>(comres.data);
+                if (light != null) return light;
+                List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);               
+                if(lstmsg != null)
+                    lastMessages = new MessageCollection(lstmsg);
                 else
                 {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
-                    BridgeNotResponding?.Invoke(this, _e);
+                    lastMessages = new MessageCollection();
+                    lastMessages.Add(new UnkownError(comres));
                 }
-
             }
-            catch (Exception)
+            else if (comres.status == WebExceptionStatus.Timeout)
             {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                light = null;            
+                lastMessages = new MessageCollection { _bridgeNotResponding };
+                BridgeNotResponding?.Invoke(this, _e);
             }
+            else
+            {
+                lastMessages = new MessageCollection
+                {
+                    new UnkownError(comres)
+                };
+            }
+
             return light;
         }
 
@@ -187,24 +213,37 @@ namespace HueLib
         public bool SearchNewLights()
         {
             bool result = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/lights"), WebRequestType.POST);
+
+            if (comres.status == WebExceptionStatus.Success)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/lights"), WebRequestType.POST);
-                if (!string.IsNullOrEmpty(message))
+                List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+
+                if (lstmsg != null)
                 {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
+                    lastMessages = new MessageCollection(lstmsg);
                     if (lastMessages.SuccessCount == 1)
                         result = true;
                 }
                 else
                 {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    lastMessages = new MessageCollection();
+                    lastMessages.Add(new UnkownError(comres));
                 }
+                    
             }
-            catch (Exception)
+            else if (comres.status == WebExceptionStatus.Timeout)
             {
-                result = false;
+                lastMessages = new MessageCollection { _bridgeNotResponding };
+                BridgeNotResponding?.Invoke(this, _e);
+            }
+            else
+            {
+                lastMessages = new MessageCollection
+                {
+                    new UnkownError(comres)
+                };
             }
             return result;
         }

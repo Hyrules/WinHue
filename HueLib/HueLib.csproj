@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BridgeMessages\Error\Error.cs" />
+    <Compile Include="BridgeMessages\Error\UnkownError.cs" />
     <Compile Include="BridgeMessages\Message.cs" />
     <Compile Include="BridgeMessages\MessageCollection.cs" />
     <Compile Include="BridgeMessages\Success\CreationSuccess.cs" />

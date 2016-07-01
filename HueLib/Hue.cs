@@ -77,16 +77,17 @@ namespace HueLib
                 try
                 {
                     // Detect using Portal
-                    List<Device> portalDevices = Serializer.DeserializeToObject<List<Device>>(Communication.SendRequest(new Uri("http://www.meethue.com/api/nupnp"), WebRequestType.GET));
-                    foreach (Device dev in portalDevices)
+                    CommResult comres = Communication.SendRequest(new Uri("http://www.meethue.com/api/nupnp"),WebRequestType.GET);
+                    if (comres.status == WebExceptionStatus.Success)
                     {
-                        if (!newdetectedBridge.ContainsKey(dev.internalipaddress))
+                        List<Device> portalDevices = Serializer.DeserializeToObject<List<Device>>(comres.data);
+                        foreach (Device dev in portalDevices)
                         {
+                            if (newdetectedBridge.ContainsKey(dev.internalipaddress)) continue;
                             BasicConfig bc = GetBridgeBasicConfig(IPAddress.Parse(dev.internalipaddress));
-                            newdetectedBridge.Add(dev.internalipaddress,bc);
+                            newdetectedBridge.Add(dev.internalipaddress, bc);
                         }
                     }
-
                 }
                 catch (System.TimeoutException ex)
                 {
