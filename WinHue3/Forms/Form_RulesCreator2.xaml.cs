@@ -73,7 +73,7 @@ namespace WinHue3
 
             cr = editedRule == null ? _br.CreateRule(newRule) : _br.ModifyRule(editedRule.Id, newRule);
 
-            if (cr != null)
+            if (cr != "")
             {
                 log.Info(editedRule == null ? $"Created new rule : {newRule.name}" : $"Updated rule : {newRule.name}");
                 DialogResult = true;

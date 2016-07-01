@@ -78,7 +78,7 @@ namespace WinHue3
             newScene.version = null;
 
             log.Info("Scene to be created : " + newScene);
-            _id = _id == null ? _br.CreateScene(newScene) : _br.ChangeScene(_id, newScene.name,newScene.lights);
+            _id = _id == "" ? _br.CreateScene(newScene) : _br.ChangeScene(_id, newScene.name,newScene.lights);
             log.Info("Id of the new scene" + _id);
 
             if (!string.IsNullOrEmpty(_id))

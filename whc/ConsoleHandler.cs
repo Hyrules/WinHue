@@ -869,7 +869,7 @@ namespace whc
         {
             if (grp.name != null && grp.lights != null)
             {
-                if(bridge.CreateGroup(grp.name, grp.lights) != null)
+                if(bridge.CreateGroup(grp.name, grp.lights) != 0)
                 {
                     WriteMessageToConsole("Groupe named " + grp.name + " created succesfully");                    
                 }

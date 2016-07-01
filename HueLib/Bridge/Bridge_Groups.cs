@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using Action = HueLib_base.Action;
 using HueLib_base;
-using System.Collections.Specialized;
+using System.Net;
+using System.Windows.Documents.DocumentStructures;
+using HueLib.BridgeMessages.Error;
 
 namespace HueLib
 {
@@ -18,22 +19,29 @@ namespace HueLib
         /// <param name="Name">The name of the group.</param>
         /// <returns>A list of MessageCollection from the bridge.</returns>
         public MessageCollection ChangeGroupName(string ID, string Name)
-        {          
-            try
+        {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.PUT, Serializer.SerializeToJson<Group>(new Group() { name = Name }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.PUT, Serializer.SerializeToJson<Group>(new Group() { name = Name }));
-                if(!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
-                    BridgeNotResponding?.Invoke(this,_e);
-                }
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }                       
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
+                    BridgeNotResponding?.Invoke(this, _e);
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
-            }
+
             return lastMessages;
         }
 
@@ -44,24 +52,26 @@ namespace HueLib
         public Dictionary<string, Group> GetGroupList()
         {
             Dictionary<string, Group> groupList = new Dictionary<string, Group>();
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    groupList = Serializer.DeserializeToObject<Dictionary<string, Group>>(message);
-                else
-                {
+                case WebExceptionStatus.Success:
+                    groupList = Serializer.DeserializeToObject<Dictionary<string, Group>>(comres.data);
+                    if (groupList != null) return groupList;
+                    groupList = new Dictionary<string, Group>();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg == null ? new MessageCollection { new UnkownError(comres) } : new MessageCollection(lstmsg);
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    groupList = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if(!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                groupList = null;          
-            }
+
             return groupList;
         }
 
@@ -71,28 +81,35 @@ namespace HueLib
         /// <param name="Name">Name of the new group.</param>
         /// <param name="lightList">A List of lights in the group.</param>
         /// <return>Return the ID of the group created</return>
-        public byte? CreateGroup(string Name, List<string> lightList)
+        public byte CreateGroup(string Name, List<string> lightList)
         {
-            byte? Id = null;
-            try
+            byte Id = 0;
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups"), WebRequestType.POST, Serializer.SerializeToJson<Group>(new Group() { name = Name, lights = lightList }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups"), WebRequestType.POST, Serializer.SerializeToJson<Group>(new Group() {name = Name, lights = lightList}));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        Id = byte.Parse(((CreationSuccess) lastMessages[0]).id);
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                    {
+                        goto default;
+                    }
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            Id = byte.Parse(((CreationSuccess)lastMessages[0]).id);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                Id = null;
-            }
+
             return Id;
         }
 
@@ -103,26 +120,31 @@ namespace HueLib
         /// <returns>Return the ID of the group created.</returns>
         public string CreateGroup(Group newgroup)
         {
-            string Id = null;
-            try
+            string Id = "";
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups"), WebRequestType.POST, Serializer.SerializeToJson<Group>(newgroup));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups"), WebRequestType.POST, Serializer.SerializeToJson<Group>(newgroup));
-                if(!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if(lastMessages.SuccessCount == 1)
-                        Id = (((CreationSuccess)lastMessages[0]).id);
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            Id = (((CreationSuccess)lastMessages[0]).id);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                Id = null;
-            }
+
             return Id;
         }
 
@@ -133,21 +155,27 @@ namespace HueLib
         /// <param name="action">The action of the group.</param>
         /// <returns>A list of MessageCollection from the bridge.</returns>
         public MessageCollection SetGroupAction(string ID, Action action)
-        {           
-            try
+        {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID + "/action"), WebRequestType.PUT, Serializer.SerializeToJson<Action>(action));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID + "/action"), WebRequestType.PUT, Serializer.SerializeToJson<Action>(action));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch
-            {
-                lastMessages = new MessageCollection();
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return lastMessages;
@@ -161,29 +189,27 @@ namespace HueLib
         public Group GetGroup(string ID)
         {
             Group result = new Group();
-            try
-            {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.GET);
 
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    result = Serializer.DeserializeToObject<Group>(message);
-                    if(result == null)
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                }
-                else
-                {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
-                    BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
+            switch (comres.status)
             {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                result = null;
-                
+                case WebExceptionStatus.Success:
+                    result = Serializer.DeserializeToObject<Group>(comres.data);
+                    if (result != null) return result;
+                    result = new Group();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
+                    BridgeNotResponding?.Invoke(this, _e);
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
+
+
             return result;
         }
 
@@ -195,26 +221,30 @@ namespace HueLib
         public bool DeleteGroup(string ID)
         {
             bool result = false;
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.DELETE);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.DELETE);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        result = lastMessages[0].GetType() == typeof (DeletionSuccess) ? true : false;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = lastMessages[0].GetType() == typeof(DeletionSuccess) ? true : false;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                
-                result = false;
-            }
+
             return result;
         }
 
@@ -226,21 +256,28 @@ namespace HueLib
         /// <returns>A collection of messages.</returns>
         public MessageCollection ChangeGroup(string ID, Group newgroup)
         {
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.PUT, Serializer.SerializeToJson<Group>(newgroup));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + ID), WebRequestType.PUT, Serializer.SerializeToJson<Group>(newgroup));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
-            }
+
             return lastMessages;
 
         }
@@ -252,21 +289,29 @@ namespace HueLib
         /// <returns>A collection of messages.</returns>
         public MessageCollection ChangeGroup(Group newgroup)
         {
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + newgroup.Id), WebRequestType.PUT, Serializer.SerializeToJson<Group>(newgroup));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups/" + newgroup.Id), WebRequestType.PUT, Serializer.SerializeToJson<Group>(newgroup));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
-            }
+
             return lastMessages;
         }
     }
