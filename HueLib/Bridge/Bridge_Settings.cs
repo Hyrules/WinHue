@@ -196,7 +196,7 @@ namespace HueLib
                         goto default;
                     else
                     {
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(lstmsg));
+                        lastMessages = new MessageCollection(lstmsg);
                         if (lastMessages.SuccessCount == 1)
                             result = true;
                     }

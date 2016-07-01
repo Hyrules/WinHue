@@ -81,7 +81,8 @@ namespace WinHue3
             string msg = null;
             try
             {
-                msg = Communication.SendRequest(new Uri(tbSensorUrl.Text), WebRequestType.GET);
+                CommResult comres = Communication.SendRequest(new Uri(tbSensorUrl.Text), WebRequestType.GET);
+                msg = comres.data;
                 if (msg != null)
                 {
                     if (msg.Length > 10)
