@@ -15,6 +15,7 @@ using System.Threading;
 using System.Windows.Threading;
 using ManagedUPnP.Components;
 using System.ServiceProcess;
+using HueLib.BridgeMessages.Error;
 
 namespace HueLib
 {
@@ -187,32 +188,39 @@ namespace HueLib
                 _ipscanBgw.ReportProgress(0,x);
                 if (x == currentip) continue;
                 ipArray[3] = x;
-                try
+
+                Communication.Timeout = 50;
+                if (_ipscanBgw.CancellationPending) break;
+
+                CommResult comres = Communication.SendRequest(new Uri($@"http://{new IPAddress(ipArray)}/api/config"), WebRequestType.GET);
+
+                switch (comres.status)
                 {
-                    Communication.Timeout = 50;
-                    if (_ipscanBgw.CancellationPending) break;
-                    string message = Communication.SendRequest(new Uri($@"http://{new IPAddress(ipArray)}/api/config"), WebRequestType.GET);
-                    if (message == null) continue; // if null it means the request has timed out. continue to the next ip.
-                    desc = Serializer.DeserializeToObject<BridgeSettings>(message); // try to deserialize the received message.
-                    if (newlist.Count > 0)
-                    {
-                        if (!newlist.Any(y => Equals(y.IpAddress, ipArray)))
+                    case WebExceptionStatus.Success:
+                        desc = Serializer.DeserializeToObject<BridgeSettings>(comres.data); // try to deserialize the received message.
+                        if(desc == null) continue; // if the deserialisation didn't work it means this is not a bridge continue with next ip.
+                        if (newlist.Count > 0)
+                        {
+                            if (!newlist.Any(y => Equals(y.IpAddress, ipArray)))
+                            {
+                                newlist.Add(new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
+                            }
+                        }
+                        else
                         {
                             newlist.Add(new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
                         }
-                    }
-                    else
-                    {
-                        newlist.Add(new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
-                    }
+                        break;
+                    case WebExceptionStatus.Timeout:
 
-                }
-                catch (Exception)
-                {
-                    // Cannot deserialize means that the ip address is not a bridge do nothing.
+                        break;
+                    default:
+                        
+                        break;
                 }
                 
             }
+
             e.Result = newlist;
         }
 
@@ -278,17 +286,23 @@ namespace HueLib
         /// <returns>The basic configuration of the bridge.</returns>
         public static BasicConfig GetBridgeBasicConfig(IPAddress BridgeIP)
         {
-            BasicConfig config = null;
+            BasicConfig config = new BasicConfig();
 
-            try
-            {
-                string result = Communication.SendRequest(new Uri($@"http://{BridgeIP}/api/config"), WebRequestType.GET);
-                config = Serializer.DeserializeToObject<BasicConfig>(result);
-            }
-            catch(Exception)
-            {
+            CommResult comres = Communication.SendRequest(new Uri($@"http://{BridgeIP}/api/config"), WebRequestType.GET);
 
+            switch (comres.status)
+            {
+                case WebExceptionStatus.Success:
+                    config = Serializer.DeserializeToObject<BasicConfig>(comres.data);
+                    if(config != null) return config;
+                    config = new BasicConfig();
+                    break;
+                case WebExceptionStatus.Timeout:
+                    break;
+                default:
+                    break;
             }
+
             return config;
         }
 

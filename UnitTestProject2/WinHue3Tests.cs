@@ -1,22 +1,22 @@
 ﻿using System;
-
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows;
 using System.Collections.Generic;
-//using HueLib;
+using HueLib;
 using System.ComponentModel;
 using System.Windows.Media;
+using HueLib_base;
+using WinHue3;
 
 namespace UnitTestProject2
 {
     [TestClass]
     public class TestScheduleView
     {
-        /*     [TestMethod]
+             [TestMethod]
              public void TestScheduleTimeConverterConvertBack()
              {
-                 ScheduleTimeConverter stc = new ScheduleTimeConverter();
+             /*    ScheduleTimeConverter stc = new ScheduleTimeConverter();
                  DateTime dt = (DateTime)stc.ConvertBack("2015-12-31T11:35:35", typeof(DateTime), null, null);
                  Assert.IsTrue(dt.Equals(DateTime.Parse("2015-12-31 11:35:35")),"Test Normal Time");
                  dt = (DateTime)stc.ConvertBack("W000/T11:35:35", typeof(DateTime), null, null);
@@ -26,21 +26,21 @@ namespace UnitTestProject2
                  dt = (DateTime)stc.ConvertBack("PATATE", typeof(DateTime), null, null);
                  Assert.IsTrue(dt.Year == DateTime.Now.Year && dt.Month == DateTime.Now.Month && dt.Day == DateTime.Now.Day && dt.Hour == DateTime.Now.Hour && dt.Minute == DateTime.Now.Minute,"Test Invalid string time");
                  dt = (DateTime)stc.ConvertBack(null, typeof(DateTime), null, null);
-                 Assert.IsTrue(dt.Year == DateTime.Now.Year && dt.Month == DateTime.Now.Month && dt.Day == DateTime.Now.Day && dt.Hour == DateTime.Now.Hour && dt.Minute == DateTime.Now.Minute,"Test Null value");
+                 Assert.IsTrue(dt.Year == DateTime.Now.Year && dt.Month == DateTime.Now.Month && dt.Day == DateTime.Now.Day && dt.Hour == DateTime.Now.Hour && dt.Minute == DateTime.Now.Minute,"Test Null value");*/
              }
 
              [TestMethod]
              public void TestScheduleTimeConverterConvert()
              {
-                 ScheduleTimeConverter stc = new ScheduleTimeConverter();
+                 //ScheduleTimeConverter stc = new ScheduleTimeConverter();
               //   String result = stc.Convert(new DateTime)
 
              }
-             */
+             
         [TestMethod]
         public void TestScheduleViewModel()
         {
-     /*       ScheduleView sl = new ScheduleView(new Light() { Id = "2" }, "thisisanapikeyfortest");
+            ScheduleView sl = new ScheduleView(new Light() { Id = "2" }, "thisisanapikeyfortest");
             sl.Bri = 254;
             Assert.AreEqual(254, (int)sl.Bri, "Test Brightness set/get");
             sl.Ct = 420;
@@ -103,7 +103,7 @@ namespace UnitTestProject2
 
             ScheduleView sv = new ScheduleView(new Light() { Id = "1" }, "thisisanapikeyfortest");
 
-            Schedule ns = sv.GetSchedule();*/
+            Schedule ns = sv.GetSchedule();
 
 
             //   sl.Localtime = "2012-12-31 11:34:22";
@@ -116,7 +116,7 @@ namespace UnitTestProject2
         [TestMethod]
         public void TestScheduleViewWithInit()
         {
-       /*     Schedule sched = new Schedule()
+            Schedule sched = new Schedule()
             {
                 name = "TestSchedule",
                 description = "Schedule for testing",
@@ -170,7 +170,7 @@ namespace UnitTestProject2
             Assert.AreEqual("Mon,Tue,Wed,Thu,Fri,Sat,Sun", sl2.ScheduleMask);
             sl2.ScheduleMask = "Mon,Tue,Wed";
             Assert.AreEqual("Mon,Tue,Wed", sl2.ScheduleMask);
-            Assert.AreEqual(Visibility.Visible, sl2.IsAlarm, "Test Is Alarm get");*/
+            Assert.AreEqual(Visibility.Visible, sl2.IsAlarm, "Test Is Alarm get");
         }
     }
 
@@ -180,7 +180,7 @@ namespace UnitTestProject2
         [TestMethod]
         public void TestDaylightView()
         {
-   /*         Sensor sensor = new Sensor
+            Sensor sensor = new Sensor
             {
                 config = new SensorConfig() { lat = "45.5082N", @long = "75.6070W", sunriseoffset = 60, sunsetoffset = 24 },
                 state = new DaylightSensorState(),
@@ -206,7 +206,7 @@ namespace UnitTestProject2
             Assert.IsFalse(dv.SunriseOffset == 500, "Test Invalid value Sunrise");
 
             dv.SunsetOffset = -145;
-            Assert.IsFalse(dv.SunsetOffset == -145, "Test invalid value sunset");*/
+            Assert.IsFalse(dv.SunsetOffset == -145, "Test invalid value sunset");
         }
     }
 
@@ -216,7 +216,7 @@ namespace UnitTestProject2
         [TestMethod]
         public void TestGroupView()
         {
-            /*    GroupCreatorView gc = new GroupCreatorView(new Dictionary<string, Light>() { { "1", new Light() { name = "Test1" } }, { "2", new Light() { name = "Test2" } },{ "3", new Light() {name = "Test3" } } });
+             /*   GroupCreatorView gc = new GroupCreatorView(new Dictionary<string, Light>() { { "1", new Light() { name = "Test1" } }, { "2", new Light() { name = "Test2" } },{ "3", new Light() {name = "Test3" } } });
                 gc.SelectedLights = new List<string>() { "1", "2", "3" };
                 gc.GroupName = "Patate";
                 Assert.AreEqual("Patate", gc.GroupName,"Test Group name set/get");
@@ -224,19 +224,19 @@ namespace UnitTestProject2
                 List<string> expected = new List<string>() { "1", "2", "3" };
                 Assert.AreEqual(expected[0],result[0]);
                 Assert.AreEqual(expected[1], result[1]);
-                Assert.AreEqual(expected[2], result[2]);
-                */
+                Assert.AreEqual(expected[2], result[2]);*/
+                
         }
 
         [TestMethod]
         public void TestGroupViewInitGroup()
         {
-            /*   GroupCreatorView gc = new GroupCreatorView(new Dictionary<string, Light>() { { "1", new Light() { name = "Test1" } }, { "2", new Light() { name = "Test2" } }, { "3", new Light() { name = "Test3" } } }, new Group() { name="Test1", lights= new List<string>() {"1","2","3" } });
+          /*     GroupCreatorView gc = new GroupCreatorView(new Dictionary<string, Light>() { { "1", new Light() { name = "Test1" } }, { "2", new Light() { name = "Test2" } }, { "3", new Light() { name = "Test3" } } }, new Group() { name="Test1", lights= new List<string>() {"1","2","3" } });
                Group grp = gc.GetGroup();
                Assert.AreEqual("Test1", grp.name,"Test get group function");
 
                GroupCreatorView gc2 = new GroupCreatorView(new Dictionary<string, Light>() { { "1", new Light() { name = "Test1" } }, { "2", new Light() { name = "Test2" } }, { "3", new Light() { name = "Test3" } } }, new Group() { name = "Test1"});
-               Assert.IsNotNull(gc2.SelectedLights,"Teste get null group lights");*/
+             //  Assert.IsNotNull(gc2.SelectedLights,"Teste get null group lights");*/
         }
     }
 
@@ -247,7 +247,7 @@ namespace UnitTestProject2
         [TestMethod]
         public void TestSceneCreator()
         {
-      /*      SensorCreatorView scv = new SensorCreatorView();
+            SensorCreatorView scv = new SensorCreatorView();
             Assert.AreEqual(string.Empty, scv.ModelID, "Test ipsensor creation get default");
             Assert.AreEqual(string.Empty, scv.SwVersion, "Test swversion creation get default");
             Assert.AreEqual(0, scv.Type, "Test type creation get default");
@@ -311,7 +311,7 @@ namespace UnitTestProject2
             Assert.AreEqual("1.0", scv.SwVersion, "Test SwVersion init");
             Assert.AreEqual(0, scv.Type, "Test Type init");
             Assert.IsTrue(scv.HasUrl, "Test HasUrl init");
-            Assert.IsTrue(scv.On, "test On init");*/
+            Assert.IsTrue(scv.On, "test On init");
         }
         
     }

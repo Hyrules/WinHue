@@ -576,8 +576,13 @@ namespace whc
                     decimal x;
                     if (decimal.TryParse(v, out x))
                     {
-                        if(x >= 0 && x <=1)
+                        if (x >= 0 && x <= 1)
+                        {
+                            if(action.xy == null)
+                                action.xy = new XY();
+
                             action.xy.x = x;
+                        }
                         else
                         {
                             WriteMessageToConsole("X invalid value " + v);
@@ -596,8 +601,12 @@ namespace whc
                     decimal y;
                     if (decimal.TryParse(v, out y))
                     {
-                        if(y >= 0 && y <= 1)
+                        if (y >= 0 && y <= 1)
+                        {
+                            if(action.xy == null)
+                                action.xy = new XY();
                             action.xy.y = y;
+                        }
                         else
                         {
                             WriteMessageToConsole("Y invalid value " + v);

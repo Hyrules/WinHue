@@ -87,7 +87,23 @@ namespace HueLib
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
+                    if (!comres.data.Contains("\"error\""))
+                    {
 
+                        Match mt = Regex.Match(comres.data, "\"swupdate\":{(.*?)}");
+                        swu = Serializer.DeserializeToObject<SwUpdate>(mt.Value.Remove(0, 11) + "}");
+                        return swu.updatestate == 2;
+                    }
+                    else
+                    {
+                        List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                        if(lstmsg == null)
+                            goto default;
+                        else
+                        {
+                            lastMessages = new MessageCollection(lstmsg);
+                        }
+                    }
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
@@ -98,35 +114,6 @@ namespace HueLib
                     break;
             }
 
-            try
-            {
-                string message = 
-                if (!string.IsNullOrEmpty(message))
-                {
-                    if (!message.Contains("\"error\""))
-                    {
-
-                        Match mt = Regex.Match(message, "\"swupdate\":{(.*?)}");
-                        swu = Serializer.DeserializeToObject<SwUpdate>(mt.Value.Remove(0, 11) + "}");
-                        return swu.updatestate == 2;
-                    }
-                    else
-                    {
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                        swu = null;
-                    }
-                }
-                else
-                {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
-                    swu = null;
-                }
-            }
-            catch (Exception)
-            {
-                swu = null;
-            }
             return false;
         }
 

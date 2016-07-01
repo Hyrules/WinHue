@@ -7,6 +7,7 @@ using HueLib;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Automation.Peers;
+using HueLib.BridgeMessages.Error;
 using Newtonsoft.Json;
 
 namespace HueLib
@@ -171,7 +172,8 @@ namespace HueLib
         /// <returns>json test resulting of the command.</returns>
         public string SendRawCommand(string url,string data, WebRequestType type)
         {
-            return Communication.SendRequest(new Uri(url), type, data);
+            CommResult comres = Communication.SendRequest(new Uri(url), type, data);
+            return comres.data;
         }
 
         /// <summary>
@@ -180,28 +182,28 @@ namespace HueLib
         /// <returns>A DataStore of objects from the bridge.</returns>
         public DataStore GetBridgeDataStore()
         {
-            DataStore listObjets;
+            DataStore listObjets = new DataStore();
 
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string result = Communication.SendRequest(new Uri(BridgeUrl), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(result))
-                {
-                    listObjets = Serializer.DeserializeToObject<DataStore>(result);
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    listObjets = Serializer.DeserializeToObject<DataStore>(comres.data);
+                    if(listObjets != null) return listObjets;
+                    listObjets = new DataStore();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    listObjets = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                listObjets = null;
-            }
+
             return listObjets;
         }
 
