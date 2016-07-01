@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using HueLib.BridgeMessages.Error;
 using HueLib_base;
 
 namespace HueLib
@@ -13,25 +15,34 @@ namespace HueLib
         public Dictionary<string,Scene> GetScenesList()
         {
             
-            Dictionary<string,Scene> listScenes;
-            try
+            Dictionary<string,Scene> listScenes = new Dictionary<string, Scene>(); 
+   
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/scenes"), WebRequestType.GET);
+            
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/scenes"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    listScenes = Serializer.DeserializeToObject<Dictionary<string,Scene>>(message);
-                else
-                {
+                case WebExceptionStatus.Success:
+                    listScenes = Serializer.DeserializeToObject<Dictionary<string, Scene>>(comres.data);
+                    if (listScenes == null)
+                    {
+                        listScenes = new Dictionary<string, Scene>();
+                        List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                        lastMessages = lstmsg == null ? new MessageCollection { new UnkownError(comres) } : new MessageCollection(lstmsg);
+
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    listScenes = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection
+                    {
+                        new UnkownError(comres)
+                    };
+                    break;
             }
-            catch
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                listScenes = null;
-            }
+
             return listScenes;
         }
 
@@ -43,22 +54,24 @@ namespace HueLib
         /// <param name="newState">The desired state of the light.</param>
         /// <returns>A list of MessageCollection from the bridge.</returns>
         public MessageCollection SetSceneLightState(string sceneName, string lightId, State newState)
-        {    
-            try
+        {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + sceneName + "/lightstates/" + lightId), WebRequestType.PUT, Serializer.SerializeToJson(newState));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + sceneName + "/lightstates/" + lightId), WebRequestType.PUT, Serializer.SerializeToJson(newState));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    lastMessages = lstmsg == null ? new MessageCollection {new UnkownError(comres)} : new MessageCollection(lstmsg);
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection{new UnkownError(comres)};
+                    break;
             }
-            catch
-            {
-                lastMessages = new MessageCollection();
-            }
+
             return lastMessages;
         }
 
@@ -69,26 +82,30 @@ namespace HueLib
         /// <returns>The ID of the created scene.</returns>
         public string CreateScene(Scene newScene)
         {
-            string sceneId = null;
-            try
+            string sceneId = "";
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/"), WebRequestType.POST, Serializer.SerializeToJson<Scene>(newScene));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/"), WebRequestType.POST,Serializer.SerializeToJson<Scene>(newScene));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    sceneId = lastMessages.FailureCount >= 1 ? "" : ((CreationSuccess) lastMessages[0]).id;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        sceneId = lastMessages.FailureCount >= 1 ? "" : ((CreationSuccess)lastMessages[0]).id;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    sceneId = "";
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch
-            {
-                sceneId = "";
-            }
+
             return sceneId;
         }
 
@@ -100,25 +117,30 @@ namespace HueLib
         public bool ActivateScene(string sceneId)
         {
             bool result = false;
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/0/action"), WebRequestType.PUT, "{\"scene\":\"" + sceneId + "\"}");
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/groups/0/action"), WebRequestType.PUT, "{\"scene\":\"" + sceneId + "\"}");
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        result = true;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch
-            {
-                result = false;
-            }
+
             return result;
         }
 
@@ -130,17 +152,28 @@ namespace HueLib
         public bool DeleteScene(string sceneId)
         {
             bool result = false;
-            string message = Communication.SendRequest(new Uri(BridgeUrl + $@"/scenes/{sceneId}"), WebRequestType.DELETE);
-            if (!string.IsNullOrEmpty(message))
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/scenes/{sceneId}"), WebRequestType.DELETE);
+
+            switch (comres.status)
             {
-                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                if (lastMessages.SuccessCount == 1)
-                    result = true;
-            }
-            else
-            {
-                lastMessages = new MessageCollection { _bridgeNotResponding };
-                BridgeNotResponding?.Invoke(this, _e);
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
+                    BridgeNotResponding?.Invoke(this, _e);
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return result;
@@ -155,25 +188,24 @@ namespace HueLib
         /// <returns>A message collection.</returns>
         public MessageCollection ChangeSceneName(string id, string newName)
         {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.PUT, Serializer.SerializeToJson<Scene>(new Scene() { name = newName }));
 
-            try
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.PUT, Serializer.SerializeToJson<Scene>(new Scene() { name = newName }));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    lastMessages = lstmsg == null ? new MessageCollection { new UnkownError(comres)} : new MessageCollection(lstmsg);
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return lastMessages;
-
         }
 
         /// <summary>
@@ -185,26 +217,31 @@ namespace HueLib
         /// <returns>the id of the modified scene or null</returns>
         public string ChangeScene(string id, string newname, List<string> newlightsList)
         {
-            string modifiedid = null;
-            try
+            string modifiedid = "";
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.PUT, Serializer.SerializeToJson<Scene>(new Scene() { name = newname, lights = newlightsList }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.PUT, Serializer.SerializeToJson<Scene>(new Scene() {name = newname, lights = newlightsList}));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 2)
-                        modifiedid = id;
-                }
-                else
-                {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 2)
+                            modifiedid = id;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
-            }
+
 
             return modifiedid;
 
@@ -218,25 +255,31 @@ namespace HueLib
         /// <returns>the id of the modified scene or null</returns>
         public string SetScene(string id)
         {
-            string modifiedid = null;
-            try
+            string modifiedid = "";
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.PUT, Serializer.SerializeToJson<Scene>(new Scene() { storelightstate = true }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.PUT, Serializer.SerializeToJson<Scene>(new Scene() { storelightstate = true}));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                    lastMessages = new MessageCollection(lstmsg);
                     if (lastMessages.SuccessCount == 2)
                         modifiedid = id;
-                }
-                else
-                {
+
+                    }
+                    lastMessages = new MessageCollection();
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return modifiedid;
@@ -250,28 +293,36 @@ namespace HueLib
         /// <returns>The requested scene.</returns>
         public Scene GetScene(string id)
         {
-            Scene scene = null;
-            try
+            Scene scene = new Scene();
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/scenes/" + id), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    scene = Serializer.DeserializeToObject<Scene>(message);
-                    if(scene == null)
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                }
-                else
-                {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
+                case WebExceptionStatus.Success:
+                    scene = Serializer.DeserializeToObject<Scene>(comres.data);
+                    if (scene == null)
+                    {
+                        List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                        if (lstmsg == null)
+                        {
+                            scene = new Scene();
+                            goto default;
+                        }
+                        else
+                        {
+                            lastMessages = new MessageCollection(lstmsg);
+                        }
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                scene = null;
-            }
+
             return scene;
         }
 
