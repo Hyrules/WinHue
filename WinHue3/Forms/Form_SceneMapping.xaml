@@ -1,0 +1,27 @@
+﻿<Window x:Class="WinHue3.Form_SceneMapping"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3"
+        xmlns:resources="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="{x:Static resources:GUI.Form_SceneMapping_Title}" Height="653.956" Width="891.887" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SceneMapping.png" ResizeMode="CanResizeWithGrip">
+    <Grid>
+        <DataGrid x:Name="dgSceneMap" CanUserResizeRows="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" HorizontalGridLinesBrush="#FFB2B2B2" IsTabStop="True" VerticalGridLinesBrush="#FFB2B2B2" Margin="0,29,0.333,-0.333" HorizontalContentAlignment="Center" ItemsSource="{Binding SceneMapping}" AlternationCount="2" AlternatingRowBackground="#FFF0F0F0" Background="White"/>
+        <ToolBarTray Height="29" VerticalAlignment="Top" Margin="0,0,0.333,0">
+            <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Margin="0,0,-212,-16.333" VerticalAlignment="Top" Height="29" Width="auto">
+                <Button Command="{Binding RefreshMappingCommand}" ToolTip="{x:Static resources:GUI.Form_SceneMapping_RefreshTooltip}">
+                    <Image Source="/WinHue3;component/Resources/1409707765_reload.png" />
+                </Button>
+                <Separator/>
+                <xctk:WatermarkTextBox x:Name="tbFilter" Width="180" Text="{Binding Filter,UpdateSourceTrigger=PropertyChanged}" Margin="1" Watermark="Filter data here..." />
+            </ToolBar>
+        </ToolBarTray>
+
+
+
+
+    </Grid>
+</Window>

@@ -53,7 +53,7 @@ namespace WinHue3
             log.Debug($@"Getting new lights from bridge {bridge.IpAddress}");
             SearchResult sr = bridge.GetNewLights();
             log.Debug("Search Result : " + sr);
-            return bridge == null ? new List<HueObject>() : ProcessSearchResult(bridge, sr, true);
+            return ProcessSearchResult(bridge, sr, true);
         }
 
         /// <summary>

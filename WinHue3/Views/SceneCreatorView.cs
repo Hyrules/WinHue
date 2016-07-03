@@ -11,6 +11,8 @@ using WinHue3.Resources;
 using Xceed.Wpf.Toolkit;
 using System.Threading;
 using System.ComponentModel;
+using System.Data;
+using System.Windows.Controls;
 using HueLib;
 
 namespace WinHue3
@@ -543,7 +545,6 @@ namespace WinHue3
             CanCancel = state;
             CanSaveScene = state;
         }
-
 
         #endregion
 

@@ -835,6 +835,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Form_SceneMapping_RefreshTooltip {
+            get {
+                return ResourceManager.GetString("Form_SceneMapping_RefreshTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scenes Mapping and Informations.
+        /// </summary>
+        public static string Form_SceneMapping_Title {
+            get {
+                return ResourceManager.GetString("Form_SceneMapping_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string GroupCreatorForm_CancelButton {
@@ -1452,6 +1470,24 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Plugins {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Plugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Views.
+        /// </summary>
+        public static string MainForm_Tab_View {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scenes Mapping.
+        /// </summary>
+        public static string MainForm_Tab_View_SceneMapping {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_SceneMapping", resourceCulture);
             }
         }
         

@@ -73,6 +73,11 @@
                 </RibbonGroup>
 
             </RibbonTab>
+            <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_View}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <RibbonGroup x:Name="rgViews" Header="" Width="auto">
+                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png"/>
+                </RibbonGroup>
+            </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <RibbonGroup>
                     <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Website}" x:Name="btnWebsite" Click="btnWebsite_Click" LargeImageSource="Resources/1416184952_Gnome-Web-Browser-32.png" />
