@@ -160,6 +160,9 @@
     <Compile Include="Forms\Form_AnimationCreator.xaml.cs">
       <DependentUpon>Form_AnimationCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Form_BulbsView.xaml.cs">
+      <DependentUpon>Form_BulbsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Form_SceneMapping.xaml.cs">
       <DependentUpon>Form_SceneMapping.xaml</DependentUpon>
     </Compile>
@@ -201,6 +204,7 @@
     <Compile Include="Views\AnimatorView.cs" />
     <Compile Include="Views\BridgeSettingsView.cs" />
     <Compile Include="Views\BridgeDetectionPairingView.cs" />
+    <Compile Include="Views\BulbsViewView.cs" />
     <Compile Include="Views\HotKeyCreatorView.cs" />
     <Compile Include="Views\SceneMappingView.cs" />
     <Compile Include="Views\WaitView.cs" />
@@ -221,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\AppSettings\Form_AppSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_BulbsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -519,6 +527,7 @@
     <Content Include="lights\images\ZLL Light_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\BulbView.png" />
     <Resource Include="Resources\SceneMapping.png" />
     <Resource Include="Resources\1465102684_preferences-desktop-keyboard-shortcuts.png" />
     <Resource Include="Resources\close_delete.png" />

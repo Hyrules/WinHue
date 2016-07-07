@@ -85,12 +85,14 @@ namespace WinHue3
             //log.Debug("Automatic refresh in progress");
 
             List<HueObject> ll = _listBridgeObjects.Where(x => x.GetType() == typeof(Light)).ToList();
-
+            HueObject _selectedHueObject = SelectedObject;
             foreach (HueObject obj in ll)
             {
+                
                 RefreshObject(obj);
+                
             }
-
+            SelectedObject = _selectedHueObject;
         }
 
         #endregion
@@ -802,6 +804,8 @@ namespace WinHue3
         private void RefreshObject(HueObject obj, bool logging = false)
         {
             HueObject newobj;
+            int index = _listBridgeObjects.FindIndex(x => x.Id == obj.Id && x.GetType() == obj.GetType());
+            if (index == -1) return;
 
             if (obj is Light)
             {
@@ -833,14 +837,19 @@ namespace WinHue3
             }
 
             if(logging) log.Debug("Refreshing Object : " + newobj.ToString());
-            if (newobj == null) return;
 
-            int index = _listBridgeObjects.FindIndex(x => x.Id == obj.Id && x.GetType() == obj.GetType());
-            if (index == -1) return;
-            _listBridgeObjects[index] = newobj;
+            if (newobj == null) return;
+            _listBridgeObjects[index].Image = newobj.Image;
+            PropertyInfo[] pi = newobj.GetType().GetProperties();
+            foreach (PropertyInfo p in pi)
+            {
+                if (_listBridgeObjects[index].HasProperty(p.Name))
+                    p.SetValue(_listBridgeObjects[index], _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
+            }
+
             //SelectedObject = newobj;
-            OnPropertyChanged("ListBridgeObjects");
-            if(logging) log.Info($"Refreshed Object ID: {index}");
+            // OnPropertyChanged("ListBridgeObjects");
+            if (logging) log.Info($"Refreshed Object ID: {index}");
         }
 
         private void EditObject()
@@ -1218,6 +1227,11 @@ namespace WinHue3
             _fsm.Show();
         }
 
+        private void ViewBulbs()
+        {
+            
+        }
+
         #region PLUGINS
         /// <summary>
         /// Load all the plugins in the plugin folder.
@@ -1397,7 +1411,7 @@ namespace WinHue3
         //*************** View Commands ************************
 
         public ICommand ViewSceneMappingCommand => new RelayCommand(param => ViewSceneMapping());
-
+        public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs());
         #endregion
     }
 }

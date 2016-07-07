@@ -981,4 +981,10 @@
   <data name="Form_SceneMapping_RefreshTooltip" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="MainForm_Tab_View_BulbsView" xml:space="preserve">
+    <value>Bulbs View</value>
+  </data>
+  <data name="Form_BulbsView_Title" xml:space="preserve">
+    <value>Bulbs View</value>
+  </data>
 </root>
