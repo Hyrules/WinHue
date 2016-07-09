@@ -691,6 +691,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reverse.
+        /// </summary>
+        public static string Form_BulbsViewView_Reverse {
+            get {
+                return ResourceManager.GetString("Form_BulbsViewView_Reverse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Hotkey.
         /// </summary>
         public static string Form_HotKeyCreator_AddHotkey {

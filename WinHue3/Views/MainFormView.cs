@@ -41,6 +41,7 @@ namespace WinHue3
         private ObservableCollection<Bridge> _listBridges = new ObservableCollection<Bridge>();
         public Form_EventLog _fel;
         private Form_SceneMapping _fsm;
+        private Form_BulbsView _fbv;
         private ushort? _transitiontime = null;
         private double _ttvalue = -1;
         private string _lastmessage = string.Empty;
@@ -1229,7 +1230,8 @@ namespace WinHue3
 
         private void ViewBulbs()
         {
-            
+            _fbv = new Form_BulbsView(_selectedBridge) {Owner = Application.Current.MainWindow};
+            _fbv.Show();
         }
 
         #region PLUGINS

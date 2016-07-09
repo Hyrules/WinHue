@@ -987,4 +987,7 @@
   <data name="Form_BulbsView_Title" xml:space="preserve">
     <value>Vue des ampoules</value>
   </data>
+  <data name="Form_BulbsViewView_Reverse" xml:space="preserve">
+    <value>Inverser</value>
+  </data>
 </root>
