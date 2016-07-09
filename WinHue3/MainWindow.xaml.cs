@@ -158,12 +158,12 @@ namespace WinHue3
 
         private void lvMainObjects_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            mfv.KeyPress(e.Key);
+            mfv?.KeyPress(e.Key);
         }
 
         private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            mfv.HandleHotkey(e);
+            mfv?.HandleHotkey(e);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

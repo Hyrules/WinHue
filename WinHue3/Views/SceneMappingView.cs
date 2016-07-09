@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using HueLib;
 using HueLib_base;
+using Button = System.Windows.Controls.Button;
 
 namespace WinHue3
 {
@@ -17,6 +19,7 @@ namespace WinHue3
         private DataTable _dt;
         private string _filter;
         private object _selectedcell;
+        private object _row;
 
         public SceneMappingView(Bridge br)
         {
@@ -38,6 +41,19 @@ namespace WinHue3
             }
         }
 
+        public object Row
+        {
+            get
+            {
+                return _row;           
+            }
+            set
+            {
+                _row = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void FilterData()
         {
             if (_filter == string.Empty)
@@ -49,7 +65,7 @@ namespace WinHue3
                 StringBuilder sb = new StringBuilder();
 
                 foreach (DataColumn column in _dt.Columns)
-                {
+                {                 
                     sb.Append($"[{column.ColumnName}] Like '%{_filter}%' OR ");
                 }
 
@@ -72,8 +88,11 @@ namespace WinHue3
             Dictionary<string, Light> llights = _bridge.GetLightList();
 
             DataTable dt = new DataTable();
-            dt.Columns.Add("Scenes",typeof(Button));
 
+   
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Name");
+            
             // Add all light columns
             foreach (KeyValuePair<string, Light> kvp in llights)
             {
@@ -88,20 +107,11 @@ namespace WinHue3
             foreach (KeyValuePair<string, Scene> svp in lscenes)
             {
 
-                object[] data = new object[llights.Count + 4];
-                Button btn = new Button
-                {
-                    Content = new TextBlock() {Text = svp.Value.name, TextWrapping = TextWrapping.Wrap,Height = Double.NaN, TextAlignment = TextAlignment.Center},
-                    
-                };
+                object[] data = new object[llights.Count + 5];
 
-                btn.Click += (o, e) =>
-                {
-                    _bridge.ActivateScene(svp.Key);
-                };
-                data[0] = btn;
-
-                int i = 1;
+                data[0] = new string(svp.Key.ToCharArray()); 
+                data[1] = new string(svp.Value.name.ToCharArray());
+                int i = 2;
                 foreach (KeyValuePair<string, Light> lvp in llights)
                 {
                     string value = svp.Value.lights.Contains(lvp.Key) ? "Assigned" : "";
@@ -115,6 +125,7 @@ namespace WinHue3
 
                 dt.Rows.Add(data);
             }
+            
 
             _dt = dt;
             OnPropertyChanged("SceneMapping");
@@ -127,12 +138,13 @@ namespace WinHue3
             FilterData();
         }
 
-        public void ProcessDoubleClick(object val)
+        public void ProcessDoubleClick()
         {
-            
+            if (_row == null) return;
+            _bridge.ActivateScene(((DataRowView)_row).Row.ItemArray[0].ToString());
         }
 
         public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping());
-        public ICommand DoubleClickObjectCommand => new RelayCommand(ProcessDoubleClick);
+        public ICommand DoubleClickObjectCommand => new RelayCommand(param => ProcessDoubleClick());
     }
 }

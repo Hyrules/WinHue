@@ -33,5 +33,10 @@ namespace WinHue3
             DataContext = _smv;
         }
 
+        private void dgListScenes_ItemsSourceChangeCompleted(object sender, EventArgs e)
+        {
+            if (dgListScenes.Columns.Count < 1) return;
+            dgListScenes.Columns[0].Visible = false;
+        }
     }
 }

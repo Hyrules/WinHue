@@ -7,9 +7,12 @@
         xmlns:resources="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="WinHue3.Form_SceneMapping"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" xmlns:Classes="clr-namespace:WinHue3.Classes" x:Class="WinHue3.Form_SceneMapping"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_SceneMapping_Title}" Height="653.956" Width="891.887" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SceneMapping.png" ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <xcdg:DataGridCollectionViewSource x:Key="scenes" Source="{Binding SceneMapping}" AutoCreateItemProperties="True"></xcdg:DataGridCollectionViewSource>
+    </Window.Resources>
     <Grid>
         <ToolBarTray Height="29" VerticalAlignment="Top" Margin="0,0,0.333,0">
             <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Margin="0,0,-212,-16.333" VerticalAlignment="Top" Height="29" Width="auto">
@@ -21,7 +24,17 @@
             </ToolBar>
         </ToolBarTray>
 
-        <xcdg:DataGridControl Margin="0,29,0.333,-0.333" ItemsSource="{Binding SceneMapping}" IsCopyCommandEnabled="False" AlternationCount="2" ReadOnly="True" SelectionMode="Single" IsTextSearchEnabled="True"/>
+        <xcdg:DataGridControl x:Name="dgListScenes" Margin="0,29,0.333,-0.333" IsCopyCommandEnabled="False" AlternationCount="2" ReadOnly="True" SelectionMode="Single" IsTextSearchEnabled="True" ItemsSource="{Binding Source={StaticResource scenes}}" UpdateSourceTrigger="CellContentChanged" AllowDetailToggle="False" AutomationProperties.IsColumnHeader="True" AutomationProperties.IsRowHeader="True" HorizontalContentAlignment="Center" NavigationBehavior="RowOnly" SynchronizeSelectionWithCurrent="True" SelectedItem="{Binding Row}" ItemsSourceChangeCompleted="dgListScenes_ItemsSourceChangeCompleted">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding DoubleClickObjectCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <xcdg:DataGridControl.View>
+                <xcdg:TableView IsAlternatingRowStyleEnabled="True"/>
+            </xcdg:DataGridControl.View>
+        </xcdg:DataGridControl>
+      
 
 
 
