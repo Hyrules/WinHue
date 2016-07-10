@@ -85,6 +85,7 @@ namespace WinHue3
             else
                 lscenes = _bridge.GetScenesList();
 
+
             Dictionary<string, Light> llights = _bridge.GetLightList();
 
             DataTable dt = new DataTable();

@@ -700,6 +700,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Groups View.
+        /// </summary>
+        public static string Form_GroupView_Title {
+            get {
+                return ResourceManager.GetString("Form_GroupView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Hotkey.
         /// </summary>
         public static string Form_HotKeyCreator_AddHotkey {
@@ -1506,6 +1515,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_View_BulbsView {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View_BulbsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups View.
+        /// </summary>
+        public static string MainForm_Tab_View_GroupsView {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_GroupsView", resourceCulture);
             }
         }
         

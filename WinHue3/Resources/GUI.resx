@@ -990,4 +990,10 @@
   <data name="Form_BulbsViewView_Reverse" xml:space="preserve">
     <value>Reverse</value>
   </data>
+  <data name="Form_GroupView_Title" xml:space="preserve">
+    <value>Groups View</value>
+  </data>
+  <data name="MainForm_Tab_View_GroupsView" xml:space="preserve">
+    <value>Groups View</value>
+  </data>
 </root>

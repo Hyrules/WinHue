@@ -47,6 +47,7 @@ namespace WinHue3
         private void BuildBulbsView()
         {
             Dictionary<string, Light> llights = _bridge.GetLightList();
+            if (llights == null) return;
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Properties");
@@ -95,6 +96,7 @@ namespace WinHue3
         private void BuildBulbsViewReverse()
         {
             Dictionary<string, Light> llights = _bridge.GetLightList();
+            if (llights == null) return;
             DataTable dt = new DataTable();
             dt.Columns.Add("Lights");
 

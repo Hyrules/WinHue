@@ -42,6 +42,7 @@ namespace WinHue3
         public Form_EventLog _fel;
         private Form_SceneMapping _fsm;
         private Form_BulbsView _fbv;
+        private Form_GroupView _fgv;
         private ushort? _transitiontime = null;
         private double _ttvalue = -1;
         private string _lastmessage = string.Empty;
@@ -1234,6 +1235,12 @@ namespace WinHue3
             _fbv.Show();
         }
 
+        private void ViewGroups()
+        {
+            _fgv = new Form_GroupView(_selectedBridge) {Owner = Application.Current.MainWindow};
+            _fgv.Show();
+        }
+
         #region PLUGINS
         /// <summary>
         /// Load all the plugins in the plugin folder.
@@ -1414,6 +1421,7 @@ namespace WinHue3
 
         public ICommand ViewSceneMappingCommand => new RelayCommand(param => ViewSceneMapping());
         public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs());
+        public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups());
         #endregion
     }
 }
