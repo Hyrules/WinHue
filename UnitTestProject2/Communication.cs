@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text;
 
-namespace HueLib
+namespace UnitTestProject2
 {
     public enum WebRequestType { PUT, GET, POST, DELETE };
     public static class Communication
@@ -53,16 +53,23 @@ namespace HueLib
                     result.status = WebExceptionStatus.Success;
                     result.data = received;
                 }
+                else
+                {
+                    result.status = WebExceptionStatus.UnknownError;
+                    result.data = received;
+                }
 
                 lastjson = received;
             }
             catch (WebException ex)
             {
                 result.status = ex.Status;
-                result.data = "{}";
+                result.data = ex.Message;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                result.status = WebExceptionStatus.UnknownError;
+                result.data = ex.Message;
                 lastjson = null;
             }
             return result;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using HueLib.BridgeMessages.Error;
 using HueLib_base;
 
 namespace HueLib
@@ -14,26 +16,27 @@ namespace HueLib
         /// <returns>A list of rules.</returns>
         public Dictionary<string,Rule> GetRulesList()
         {
-            Dictionary<string, Rule> listRules;
-            try
-            {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/rules"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    listRules = Serializer.DeserializeToObject<Dictionary<string,Rule>>(message);
-                else
-                {
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
-                    listRules = null;
-                    
-                }
-            }
-            catch(Exception)
-            {
-                if(!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
+            Dictionary<string, Rule> listRules = new Dictionary<string, Rule>();
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/rules"), WebRequestType.GET);
 
-                listRules = null;
+            switch (comres.status)
+            {
+                case WebExceptionStatus.Success:
+                    listRules = Serializer.DeserializeToObject<Dictionary<string, Rule>>(comres.data);
+                    if (listRules != null) return listRules;
+                    listRules = new Dictionary<string, Rule>();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg == null ? new MessageCollection { new UnkownError(comres) } : new MessageCollection(lstmsg);
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
+                    BridgeNotResponding?.Invoke(this, _e);
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
+
             return listRules;
         }
 
@@ -45,24 +48,26 @@ namespace HueLib
         public Rule GetRule(string id)
         {
             Rule rule = new Rule();
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    rule = Serializer.DeserializeToObject<Rule>(message);
-                else
-                {
+                case WebExceptionStatus.Success:
+                    rule = Serializer.DeserializeToObject<Rule>(comres.data);
+                    if (rule != null) return rule;
+                    rule = new Rule();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg == null ? new MessageCollection { new UnkownError(comres) } : new MessageCollection(lstmsg);
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    rule = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                rule = null;
-            }
+
             return rule;
         }
 
@@ -73,27 +78,31 @@ namespace HueLib
         /// <returns>The ID of the created rule if succesful.</returns>
         public string CreateRule(Rule newRule)
         {
-            string id = null;
-            try
+            string id = "";
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/rules"), WebRequestType.POST, Serializer.SerializeToJson<Rule>(newRule));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/rules"), WebRequestType.POST, Serializer.SerializeToJson<Rule>(newRule));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        id = ((CreationSuccess) lastMessages[0]).id;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            id = ((CreationSuccess) lastMessages[0]).id;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
- 
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                id = null;             
-            }
+
             return id;
         }
 
@@ -105,28 +114,32 @@ namespace HueLib
         /// <returns>The id of the modified rule if successful</returns>
         public string ModifyRule(string id, Rule modifiedRule)
         {
-            string result = null;
+            string result = "";
 
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Rule>(modifiedRule));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Rule>(modifiedRule));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount > 0)
-                        result = ((Success) lastMessages[0]).id;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount > 0)
+                            result = ((Success)lastMessages[0]).id;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = null;
-          
-            }
+
             return result;
         }
 
@@ -138,26 +151,31 @@ namespace HueLib
         public bool DeleteRule(string id)
         {
             bool result = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.DELETE);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.DELETE);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        result = true;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = false;
 
-            }
             return result;
         }
 
@@ -169,21 +187,26 @@ namespace HueLib
         /// <returns>A message collection.</returns>
         public MessageCollection ChangeRuleName(string id, string newName)
         {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Rule>(new Rule() { name = newName }));
 
-            try
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/rules/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Rule>(new Rule() {name = newName}));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }                      
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return lastMessages;

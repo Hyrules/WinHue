@@ -56,6 +56,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Communication.cs" />
+    <Compile Include="WebClientTimeout.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinHue3Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

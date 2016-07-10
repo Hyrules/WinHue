@@ -113,6 +113,16 @@ namespace WinHue3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap BulbView {
+            get {
+                object obj = ResourceManager.GetObject("BulbView", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap check {
             get {
                 object obj = ResourceManager.GetObject("check", resourceCulture);
@@ -396,6 +406,16 @@ namespace WinHue3.Properties {
         public static System.Drawing.Bitmap SceneLarge {
             get {
                 object obj = ResourceManager.GetObject("SceneLarge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SceneMapping {
+            get {
+                object obj = ResourceManager.GetObject("SceneMapping", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

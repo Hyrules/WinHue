@@ -1,9 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
 using HueLib;
+using HueLib.BridgeMessages.Error;
 
 namespace HueLib
 {
@@ -44,28 +46,31 @@ namespace HueLib
         public bool ForceCheckForUpdate()
         {
             bool result = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"checkforupdate\":true}}");
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"checkforupdate\":true}}");
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    lastMessages = new MessageCollection(lstmsg);
                     if (lastMessages.SuccessCount == 1)
                     {
                         result = true;
 
                     }
-                }
-                else
-                {
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = false;
-            }
+
             return result;
         }
         
@@ -76,35 +81,39 @@ namespace HueLib
         public bool GetSwUpdate()
         {
             SwUpdate swu = new SwUpdate();
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    if (!message.Contains("\"error\""))
+                case WebExceptionStatus.Success:
+                    if (!comres.data.Contains("\"error\""))
                     {
 
-                        Match mt = Regex.Match(message, "\"swupdate\":{(.*?)}");
+                        Match mt = Regex.Match(comres.data, "\"swupdate\":{(.*?)}");
                         swu = Serializer.DeserializeToObject<SwUpdate>(mt.Value.Remove(0, 11) + "}");
                         return swu.updatestate == 2;
                     }
                     else
                     {
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                        swu = null;
+                        List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                        if(lstmsg == null)
+                            goto default;
+                        else
+                        {
+                            lastMessages = new MessageCollection(lstmsg);
+                        }
                     }
-                }
-                else
-                {
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    swu = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                swu = null;
-            }
+
             return false;
         }
 
@@ -115,27 +124,29 @@ namespace HueLib
         public bool DoSwUpdate()
         {
             bool result = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\":" + Serializer.SerializeToJson<SwUpdate>(new SwUpdate() { updatestate = 3 }) + "}");
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\":" + Serializer.SerializeToJson<SwUpdate>(new SwUpdate() {updatestate = 3}) + "}");
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    lastMessages = new MessageCollection(lstmsg);
                     if (lastMessages.SuccessCount == 1)
                     {
                         result = true;
-                        
+
                     }
-                }
-                else
-                {
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                result = false;
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return result;
@@ -148,25 +159,28 @@ namespace HueLib
         public bool SetNotify()
         {
             bool result = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"notify\":false}}");
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"notify\":false}}");
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    lastMessages = new MessageCollection(lstmsg);
                     if (lastMessages.SuccessCount == 1)
                         result = true;
-                }
-                else
-                {
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = false;
-            }
+
             return result;
         }
     }

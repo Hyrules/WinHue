@@ -682,6 +682,33 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulbs View.
+        /// </summary>
+        public static string Form_BulbsView_Title {
+            get {
+                return ResourceManager.GetString("Form_BulbsView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reverse.
+        /// </summary>
+        public static string Form_BulbsViewView_Reverse {
+            get {
+                return ResourceManager.GetString("Form_BulbsViewView_Reverse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups View.
+        /// </summary>
+        public static string Form_GroupView_Title {
+            get {
+                return ResourceManager.GetString("Form_GroupView_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Hotkey.
         /// </summary>
         public static string Form_HotKeyCreator_AddHotkey {
@@ -831,6 +858,24 @@ namespace WinHue3.Resources {
         public static string Form_HotKeyCreator_Type {
             get {
                 return ResourceManager.GetString("Form_HotKeyCreator_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Form_SceneMapping_RefreshTooltip {
+            get {
+                return ResourceManager.GetString("Form_SceneMapping_RefreshTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scenes Mapping and Informations.
+        /// </summary>
+        public static string Form_SceneMapping_Title {
+            get {
+                return ResourceManager.GetString("Form_SceneMapping_Title", resourceCulture);
             }
         }
         
@@ -1452,6 +1497,42 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Plugins {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Plugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Views.
+        /// </summary>
+        public static string MainForm_Tab_View {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulbs View.
+        /// </summary>
+        public static string MainForm_Tab_View_BulbsView {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_BulbsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups View.
+        /// </summary>
+        public static string MainForm_Tab_View_GroupsView {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_GroupsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scenes Mapping.
+        /// </summary>
+        public static string MainForm_Tab_View_SceneMapping {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_SceneMapping", resourceCulture);
             }
         }
         

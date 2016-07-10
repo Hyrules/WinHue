@@ -143,7 +143,7 @@ namespace WinHue3
                             }
                         }
                     };
-                    if (_bridge.CreateRule(newRule) == null) return;
+                    if (_bridge.CreateRule(newRule) == "") return;
                     btnOne.Background = new SolidColorBrush(deselectedColor);
                     btnTwo.Background = new SolidColorBrush(deselectedColor);
                     btnThree.Background = new SolidColorBrush(deselectedColor);

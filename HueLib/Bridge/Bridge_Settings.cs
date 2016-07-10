@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using HueLib.BridgeMessages.Error;
 
 namespace HueLib
 {
@@ -14,21 +16,28 @@ namespace HueLib
         public MessageCollection ChangeBridgeName(string name)
         {
 
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, Serializer.SerializeToJson<BridgeSettings>(new BridgeSettings() { name = name }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, Serializer.SerializeToJson<BridgeSettings>(new BridgeSettings() {name = name}));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
-            }
+
             return lastMessages;
         }
 
@@ -38,25 +47,28 @@ namespace HueLib
         /// <returns>The Settings of the bridge or null.</returns>
         public BridgeSettings GetBridgeSettings()
         {
-            BridgeSettings bridgeSettings;
-            try
+            BridgeSettings bridgeSettings = new BridgeSettings();
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    bridgeSettings = Serializer.DeserializeToObject<BridgeSettings>(message);
-                else
-                {
+                case WebExceptionStatus.Success:
+                    bridgeSettings = Serializer.DeserializeToObject<BridgeSettings>(comres.data);
+                    if(bridgeSettings != null) return bridgeSettings;
+                    bridgeSettings = new BridgeSettings();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    bridgeSettings = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                bridgeSettings = null;      
-            }
+
             return bridgeSettings;
         }
 
@@ -67,21 +79,29 @@ namespace HueLib
         /// <return>The new settings of the bridge.</return>
         public MessageCollection SetBridgeSettings(BridgeSettings settings)
         {
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, Serializer.SerializeToJson<BridgeSettings>(settings));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, Serializer.SerializeToJson<BridgeSettings>(settings));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch(Exception)
-            {
-                lastMessages = new MessageCollection();
-            }
+
             return lastMessages;
         }
 
@@ -93,26 +113,30 @@ namespace HueLib
         /// <return>The new API Key.</return>
         public string CreateUser(string DeviceType)
         {
-            string apikey = string.Empty;   
-            try
+            string apikey = string.Empty;
+
+            CommResult comres = Communication.SendRequest(new Uri("http://" + _ipAddress + "/api"), WebRequestType.POST, Serializer.SerializeToJson<User>(new User() { devicetype = DeviceType }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri("http://" + _ipAddress + "/api"), WebRequestType.POST, Serializer.SerializeToJson<User>(new User() {devicetype = DeviceType}));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if(lastMessages.SuccessCount == 1)
-                        apikey = ((Success) lastMessages[0]).Value;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            apikey = ((Success)lastMessages[0]).Value;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch(Exception)
-            {
-                lastMessages = new MessageCollection();
-                apikey = string.Empty;
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return apikey;
@@ -125,26 +149,29 @@ namespace HueLib
         /// <returns>True or false the Registration has been succesfull. This will automaically populate the ApiKey with the one generated.</returns>
         public bool RegisterApplication(string ApplicationName)
         {
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri("http://" + _ipAddress + "/api"), WebRequestType.POST, Serializer.SerializeToJson<User>(new User() { devicetype = ApplicationName }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri("http://" + _ipAddress + "/api"), WebRequestType.POST, Serializer.SerializeToJson<User>(new User() { devicetype = ApplicationName }));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        ApiKey = ((Success)lastMessages[0]).Value;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            ApiKey = ((Success)lastMessages[0]).Value;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-                
-            }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
-                ApiKey = string.Empty;
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return ApiKey == string.Empty;
@@ -158,26 +185,31 @@ namespace HueLib
         public bool RemoveUser(string username)
         {
             bool result = false;
-            try
-            {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config/whitelist/" + username), WebRequestType.DELETE);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
 
-                    if (lastMessages.SuccessCount == 1)
-                        result = true;
-                }
-                else
-                {
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config/whitelist/" + username), WebRequestType.DELETE);
+
+            switch (comres.status)
+            {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = false;
-            }
+
             return result;
         }
 
@@ -188,27 +220,28 @@ namespace HueLib
         /// <returns>The List of user or null on error.</returns>
         public Dictionary<string, Whitelist> GetUserList()
         {
-            Dictionary<string, Whitelist> list = null;
-            try
+            Dictionary<string, Whitelist> list = new Dictionary<string, Whitelist>();
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    BridgeSettings brs = Serializer.DeserializeToObject<BridgeSettings>(message);
-                    list = brs.whitelist;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    BridgeSettings brs = Serializer.DeserializeToObject<BridgeSettings>(comres.data);
+                    if(brs != null) return brs.whitelist;
+                    list = new Dictionary<string, Whitelist>();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                list = null;
-            }
+
             return list;
         }
 
@@ -218,23 +251,28 @@ namespace HueLib
         /// <returns>a list of all the timezones supported by the bridge.</returns>
         public List<string> GetTimeZones()
         {
-            List<string> timezones = null;
-            try
+            List<string> timezones = new List<string>();
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/info/timezones"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/info/timezones"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    timezones = Serializer.DeserializeToObject<List<string>>(message);
-                else
-                {
+                case WebExceptionStatus.Success:
+                    timezones = Serializer.DeserializeToObject<List<string>>(comres.data);
+                    if(timezones != null) return timezones;
+                    timezones = new List<string>();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-            }
+
             return timezones;
 
         }

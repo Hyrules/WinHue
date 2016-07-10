@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using HueLib.BridgeMessages.Error;
 using HueLib_base;
 
 namespace HueLib
@@ -14,53 +16,67 @@ namespace HueLib
         public bool DeleteSchedule(string id)
         {
             bool result = false;
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id), WebRequestType.DELETE);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id), WebRequestType.DELETE);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        result = true;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                result = false;    
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
 
             return result;
         }
 
-
+        /// <summary>
+        /// Update the specified Schedule
+        /// </summary>
+        /// <param name="id">Id of the scedule to update</param>
+        /// <param name="schedule">new schedule settings</param>
+        /// <returns>true or false of the update was applied</returns>
         public bool UpdateSchedule(string id, Schedule schedule)
         {
             bool result = false;
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id), WebRequestType.PUT,Serializer.SerializeToJson<Schedule>(schedule));
+
+            switch (comres.status)
             {
-                string message = (Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id), WebRequestType.PUT, Serializer.SerializeToJson<Schedule>(schedule)));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        result = true;
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = true;
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
 
-                result = false;
-            }
             return result;
         }
 
@@ -71,25 +87,27 @@ namespace HueLib
         public Dictionary<string,Schedule> GetScheduleList()
         {
             Dictionary<string, Schedule> result = new Dictionary<string, Schedule>();
-            try
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/schedules"), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/schedules"), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                    result = Serializer.DeserializeToObject<Dictionary<string, Schedule>>(message);
-                else
-                {
+                case WebExceptionStatus.Success:
+                    result = Serializer.DeserializeToObject<Dictionary<string, Schedule>>(comres.data);
+                    if (result != null) return result;
+                    result = new Dictionary<string, Schedule>();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if(!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));            
 
-                result = null;
-                
-            }
             return result;
         }
 
@@ -101,26 +119,31 @@ namespace HueLib
         /// <returns>ID of the newly created schedule.</returns>
         public string CreateSchedule(Schedule schedule)
         {
-            string result = null;
-            try
+            string result = "";
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/schedules"), WebRequestType.POST, Serializer.SerializeToJson<Schedule>(schedule));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/schedules"), WebRequestType.POST, Serializer.SerializeToJson<Schedule>(schedule));
-                if (!string.IsNullOrEmpty(message))
-                {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                    if (lastMessages.SuccessCount == 1)
-                        result = (((CreationSuccess) lastMessages[0]).id);
-                }
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if (lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                        if (lastMessages.SuccessCount == 1)
+                            result = (((CreationSuccess)lastMessages[0]).id);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                result = null;
-            }
+
             return result;
         }
 
@@ -132,29 +155,33 @@ namespace HueLib
         /// <returns>Return the requested schedule.</returns>
         public Schedule GetSchedule(string id)
         {
-            Schedule result;
-            try
+            Schedule result = new Schedule();
+
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id), WebRequestType.GET);
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id), WebRequestType.GET);
-                if (!string.IsNullOrEmpty(message))
-                {
-                    result = Serializer.DeserializeToObject<Schedule>(message);
-                    if (result == null)
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                }
-                else
-                {
-                    lastMessages = new MessageCollection {_bridgeNotResponding};
+                case WebExceptionStatus.Success:
+                    result = Serializer.DeserializeToObject<Schedule>(comres.data);
+                    if (result != null) return result;
+                    result = new Schedule();
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                    result = null;
-                }
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
-            catch (Exception)
-            {
-                if (!string.IsNullOrEmpty(Communication.lastjson))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(Communication.lastjson));
-                result = null;
-            }
+
             return result;
         }
 
@@ -166,21 +193,26 @@ namespace HueLib
         /// <returns>A collection of messages.</returns>
         public MessageCollection ChangeScheduleName(string id, string newName)
         {
-            try
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Schedule>(new Schedule() { name = newName }));
+
+            switch (comres.status)
             {
-                string message = Communication.SendRequest(new Uri(BridgeUrl + "/schedules/" + id.ToString()), WebRequestType.PUT, Serializer.SerializeToJson<Schedule>(new Schedule() { name = newName }));
-                if (!string.IsNullOrEmpty(message))
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(message));
-                else
-                {
+                case WebExceptionStatus.Success:
+                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
+                    if(lstmsg == null)
+                        goto default;
+                    else
+                    {
+                        lastMessages = new MessageCollection(lstmsg);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
-                }
-            }
-            catch (Exception)
-            {
-                lastMessages = new MessageCollection();
-
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    break;
             }
             return lastMessages;
             

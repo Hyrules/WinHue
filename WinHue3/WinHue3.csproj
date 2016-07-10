@@ -160,6 +160,15 @@
     <Compile Include="Forms\Form_AnimationCreator.xaml.cs">
       <DependentUpon>Form_AnimationCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Form_GroupView.xaml.cs">
+      <DependentUpon>Form_GroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_BulbsView.xaml.cs">
+      <DependentUpon>Form_BulbsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_SceneMapping.xaml.cs">
+      <DependentUpon>Form_SceneMapping.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Form_Wait.xaml.cs">
       <DependentUpon>Form_Wait.xaml</DependentUpon>
     </Compile>
@@ -198,7 +207,10 @@
     <Compile Include="Views\AnimatorView.cs" />
     <Compile Include="Views\BridgeSettingsView.cs" />
     <Compile Include="Views\BridgeDetectionPairingView.cs" />
+    <Compile Include="Views\GroupViewView.cs" />
+    <Compile Include="Views\BulbsViewView.cs" />
     <Compile Include="Views\HotKeyCreatorView.cs" />
+    <Compile Include="Views\SceneMappingView.cs" />
     <Compile Include="Views\WaitView.cs" />
     <Compile Include="Views\ColorFromImageView.cs" />
     <Compile Include="Views\EventViewerView.cs" />
@@ -220,6 +232,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Form_GroupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Form_BulbsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Form_GroupCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -237,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Form_SceneCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Form_SceneMapping.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -511,6 +535,9 @@
     <Content Include="lights\images\ZLL Light_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\BulbView.png" />
+    <Resource Include="Resources\GroupView.png" />
+    <Resource Include="Resources\SceneMapping.png" />
     <Resource Include="Resources\1465102684_preferences-desktop-keyboard-shortcuts.png" />
     <Resource Include="Resources\close_delete.png" />
     <Resource Include="Resources\1464410361_check.png" />

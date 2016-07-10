@@ -40,6 +40,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 [Files]
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\*.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\whc.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Xceed.Wpf.DataGrid.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\WinHue3.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\HueLib_base.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\HueLib.dll"; DestDir: "{app}"; Flags: ignoreversion

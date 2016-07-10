@@ -40,6 +40,9 @@ namespace WinHue3
         private readonly ObservableCollection<RibbonSplitButtonPlugin> _plugins = new ObservableCollection<RibbonSplitButtonPlugin>();
         private ObservableCollection<Bridge> _listBridges = new ObservableCollection<Bridge>();
         public Form_EventLog _fel;
+        private Form_SceneMapping _fsm;
+        private Form_BulbsView _fbv;
+        private Form_GroupView _fgv;
         private ushort? _transitiontime = null;
         private double _ttvalue = -1;
         private string _lastmessage = string.Empty;
@@ -55,7 +58,6 @@ namespace WinHue3
         public MainFormView(Form_EventLog fel)
         {
             _fel = fel;
-
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;
             _findsensortimer.Interval = new TimeSpan(0,1,0);
@@ -63,7 +65,7 @@ namespace WinHue3
             _refreshStates.Interval = new TimeSpan(0, 0, 3);
             _refreshStates.Tick += _refreshStates_Tick;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-
+            _refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
 
             // Load from the settings.
@@ -82,12 +84,17 @@ namespace WinHue3
         private void _refreshStates_Tick(object sender, EventArgs e)
         {
             if (_listBridgeObjects == null) return;
-            log.Debug("Automatic refresh in progress");
-            foreach (HueObject obj in _listBridgeObjects)
-            {
-                RefreshObject(obj);
+            //log.Debug("Automatic refresh in progress");
 
+            List<HueObject> ll = _listBridgeObjects.Where(x => x.GetType() == typeof(Light)).ToList();
+            HueObject _selectedHueObject = SelectedObject;
+            foreach (HueObject obj in ll)
+            {
+                
+                RefreshObject(obj);
+                
             }
+            SelectedObject = _selectedHueObject;
         }
 
         #endregion
@@ -796,31 +803,33 @@ namespace WinHue3
             log.Info($"Renamed object ID : {index} renamed.");
         }
 
-        private void RefreshObject(HueObject obj)
+        private void RefreshObject(HueObject obj, bool logging = false)
         {
             HueObject newobj;
+            int index = _listBridgeObjects.FindIndex(x => x.Id == obj.Id && x.GetType() == obj.GetType());
+            if (index == -1) return;
 
-            if (_selectedObject is Light)
+            if (obj is Light)
             {
                 newobj = HueObjectHelper.GetBridgeLight(_selectedBridge, obj.Id);
             }
-            else if (_selectedObject is Group)
+            else if (obj is Group)
             {
                 newobj = HueObjectHelper.GetBridgeGroup(_selectedBridge, obj.Id);
             }
-            else if (_selectedObject is Scene)
+            else if (obj is Scene)
             {
                 newobj = HueObjectHelper.GetBridgeScene(_selectedBridge, obj.Id);
             }
-            else if (_selectedObject is Sensor)
+            else if (obj is Sensor)
             {
                 newobj = HueObjectHelper.GetBridgeSensor(_selectedBridge, obj.Id);
             }
-            else if (_selectedObject is Rule)
+            else if (obj is Rule)
             {
                 newobj = HueObjectHelper.GetBridgeRule(_selectedBridge, obj.Id);
             }
-            else if (_selectedObject is Schedule)
+            else if (obj is Schedule)
             {
                 newobj = HueObjectHelper.GetBridgeSchedule(_selectedBridge,obj.Id);
             }
@@ -829,15 +838,20 @@ namespace WinHue3
                 newobj = null;
             }
 
-            log.Debug("Refreshing Object : " + newobj);
-            if (newobj == null) return;
+            if(logging) log.Debug("Refreshing Object : " + newobj.ToString());
 
-            int index = _listBridgeObjects.FindIndex(x => x.Id == _selectedObject.Id && x.GetType() == _selectedObject.GetType());
-            if (index == -1) return;
-            _listBridgeObjects[index] = newobj;
-            SelectedObject = newobj;
-            OnPropertyChanged("ListBridgeObjects");
-            log.Info($"Refreshed Object ID: {index}");
+            if (newobj == null) return;
+            _listBridgeObjects[index].Image = newobj.Image;
+            PropertyInfo[] pi = newobj.GetType().GetProperties();
+            foreach (PropertyInfo p in pi)
+            {
+                if (_listBridgeObjects[index].HasProperty(p.Name))
+                    p.SetValue(_listBridgeObjects[index], _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
+            }
+
+            //SelectedObject = newobj;
+            // OnPropertyChanged("ListBridgeObjects");
+            if (logging) log.Info($"Refreshed Object ID: {index}");
         }
 
         private void EditObject()
@@ -1209,6 +1223,24 @@ namespace WinHue3
             }
         }
 
+        private void ViewSceneMapping()
+        {
+            _fsm = new Form_SceneMapping(_selectedBridge) {Owner = Application.Current.MainWindow};
+            _fsm.Show();
+        }
+
+        private void ViewBulbs()
+        {
+            _fbv = new Form_BulbsView(_selectedBridge) {Owner = Application.Current.MainWindow};
+            _fbv.Show();
+        }
+
+        private void ViewGroups()
+        {
+            _fgv = new Form_GroupView(_selectedBridge) {Owner = Application.Current.MainWindow};
+            _fgv.Show();
+        }
+
         #region PLUGINS
         /// <summary>
         /// Load all the plugins in the plugin folder.
@@ -1385,6 +1417,11 @@ namespace WinHue3
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new RelayCommand(param => DoubleClickObject());
 
+        //*************** View Commands ************************
+
+        public ICommand ViewSceneMappingCommand => new RelayCommand(param => ViewSceneMapping());
+        public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs());
+        public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups());
         #endregion
     }
 }
