@@ -13,7 +13,7 @@ namespace WinHue3
     /// </summary>
     public partial class App : Application
     {
-        public string ver = "BETA 16";
+        public string ver = "BETA 17";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         Form_EventLog fel = new Form_EventLog();
 
