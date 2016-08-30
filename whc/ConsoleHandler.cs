@@ -9,9 +9,9 @@ using NDesk.Options;
 using WinHue3;
 using System.Text;
 using HueLib;
-using Action = HueLib_base.Action;
-using Rule = HueLib_base.Rule;
-using HueLib_base;
+using Action = HueLib2.Action;
+using Rule = HueLib2.Rule;
+using HueLib2;
 
 namespace whc
 {

@@ -1,10 +1,7 @@
-﻿using OpenHardwareMonitor.Hardware;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 using Microsoft.Win32;
 
 namespace WinHue3

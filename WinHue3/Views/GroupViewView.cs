@@ -4,13 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
-using HueLib;
-using HueLib_base;
-using Xceed.Wpf.DataGrid;
-using Action = HueLib_base.Action;
-using Group = HueLib_base.Group;
+using HueLib2;
+using Action = HueLib2.Action;
+using Group = HueLib2.Group;
 
 namespace WinHue3
 {

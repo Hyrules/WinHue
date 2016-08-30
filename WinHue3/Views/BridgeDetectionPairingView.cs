@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Net;
-using System.Threading;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using HueLib;
 using WinHue3.Resources;
-using System.Net.NetworkInformation;
 using System.Windows;
-using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Windows.Markup.Localizer;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -337,7 +329,16 @@ namespace WinHue3
                 if (!WinHueSettings.settings.BridgeInfo.ContainsKey(br.Mac)) continue;
                 br.ApiKey = WinHueSettings.settings.BridgeInfo[br.Mac].apikey;
                 log.Debug($@"Associating ApiKey :{br.ApiKey} with bridge : {br.IpAddress}");
-                if (!HueObjectHelper.IsAuthorized(br)) br.ApiKey = string.Empty;
+                HelperResult hr = HueObjectHelper.IsAuthorized(br);
+                if (hr.Success)
+                {
+                    br.ApiKey = string.Empty;                    
+                }
+                else
+                {
+                    br.ApiKey = string.Empty;
+                    MessageBoxError.ShowLastErrorMessages(br);
+                }
                 br.IsDefault = br.Mac == WinHueSettings.settings.DefaultBridge;
                 _defaultset |= br.IsDefault;
                 OnPropertyChanged("CanDone");
@@ -371,7 +372,13 @@ namespace WinHue3
 
         private void _pairTimer_Tick(object sender, EventArgs e)
         {
-            string result = _selectedBridge.CreateUser("WinHue");
+            CommandResult bresult = _selectedBridge.CreateUser("WinHue");
+            string result = string.Empty;
+            if (bresult.Success)
+            {
+                result = (string) bresult.resultobject;
+            }
+            
             ProgressBarValue += 2;
             if (result == string.Empty) return;
             ProgressBarValue = ProgressBarMax;

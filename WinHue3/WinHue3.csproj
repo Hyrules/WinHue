@@ -73,6 +73,9 @@
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HueLib2">
+      <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -187,7 +190,6 @@
       <DependentUpon>Form_BridgeDetectionPairing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interface\GDIManager.cs" />
-    <Compile Include="Plugins\RibbonSplitButtonPlugin.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,7 +200,6 @@
     <Compile Include="Interface\Marker.cs" />
     <Compile Include="Mood\Mood.cs" />
     <Compile Include="Mood\MoodHandler.cs" />
-    <Compile Include="Plugins\PluginServices.cs" />
     <Compile Include="ExtensionMethods\ExtensionMethods.cs" />
     <Compile Include="Interface\ScreenPixelHandler.cs" />
     <Compile Include="Interface\TypeGroupDescription.cs" />
@@ -755,21 +756,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\HueLib\HueLib.csproj">
-      <Project>{cfbd593d-56f3-46f8-8eb4-2184669fceaa}</Project>
-      <Name>HueLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HueLib_base\HueLibBase.csproj">
-      <Project>{88e71b52-56b4-49cd-965c-e44c3ed5d275}</Project>
-      <Name>HueLibBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IWinHuePlugin\IWinHuePlugin\WinHuePluginModule.csproj">
-      <Project>{fe2bea8f-0b23-4b6b-96cf-df29ae67d31f}</Project>
-      <Name>WinHuePluginModule</Name>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

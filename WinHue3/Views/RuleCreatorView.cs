@@ -1,18 +1,12 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
-using HueLib;
-using HueLib_base;
-using Action = HueLib_base.Action;
+using HueLib2;
+using Action = HueLib2.Action;
 using MessageBox = System.Windows.MessageBox;
 
 

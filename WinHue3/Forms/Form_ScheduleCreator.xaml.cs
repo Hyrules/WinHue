@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using HueLib;
-using HueLib_base;
-using Group = HueLib_base.Group;
+﻿using System.Windows;
+using HueLib2;
 using WinHue3.Resources;
 namespace WinHue3
 {

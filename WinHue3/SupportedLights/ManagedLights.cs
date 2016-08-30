@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media;
-using HueLib;
-using HueLib_base;
 using Newtonsoft.Json;
 
 namespace WinHue3

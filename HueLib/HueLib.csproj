@@ -79,6 +79,7 @@
     <Compile Include="BridgeMessages\Success\Success.cs" />
     <Compile Include="Bridge\BasicConfig.cs" />
     <Compile Include="Bridge\DataStore.cs" />
+    <Compile Include="Bridge\HueResult.cs" />
     <Compile Include="Bridge\SearchResult.cs" />
     <Compile Include="Communication.cs" />
     <Compile Include="ExtensionMethods.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Bridge\Bridge_Schedules.cs" />
     <Compile Include="Bridge\Bridge_Sensor.cs" />
     <Compile Include="Bridge\Bridge_Settings.cs" />
-    <Compile Include="Bridge\Bridge_Update.cs" />
     <Compile Include="Bridge\Description.cs" />
     <Compile Include="Bridge\PortalState.cs" />
     <Compile Include="Bridge\SwUpdate.cs" />
@@ -109,12 +109,6 @@
   <ItemGroup>
     <None Include="HueLib.snk" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HueLib_base\HueLibBase.csproj">
-      <Project>{88e71b52-56b4-49cd-965c-e44c3ed5d275}</Project>
-      <Name>HueLibBase</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

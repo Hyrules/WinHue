@@ -6,15 +6,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 using System.Threading;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Drawing;
-using System.Windows.Input;
-using Xceed.Wpf.Toolkit.Core.Converters;
-using Hardcodet.Wpf.TaskbarNotification;
 
 namespace WinHue3
 {

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using HueLib_base;
-using Xceed.Wpf.Toolkit.PropertyGrid;
+using HueLib2;
 using System.Windows.Input;
-using System.Windows;
 
 namespace WinHue3
 {

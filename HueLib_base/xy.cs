@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace HueLib_base
+namespace HueLib2
 {
     /// <summary>
     /// XY Class

@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Windows;
 using System.Collections.Generic;
-using HueLib_base;
+using HueLib2;
 
 namespace RssFeedMonitor
 {

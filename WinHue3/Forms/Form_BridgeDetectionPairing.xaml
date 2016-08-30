@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:WinHue3"
         mc:Ignorable="d"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        xmlns:hueLib="clr-namespace:HueLib;assembly=HueLib"
         Title="Bridge Detection and Pairing..." Height="355.11" Width="537.251" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/bridge.png" ContentRendered="Window_ContentRendered">
     <Grid Margin="0,0,0,2">
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="191" Margin="10,36,0,0" VerticalAlignment="Top" Width="501" ItemsSource="{Binding ListViewSource}" SelectedItem="{Binding SelectedBridge}" IsEnabled="{Binding CanChangeSelection}">

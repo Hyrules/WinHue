@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using HueLib_base;
+using HueLib2;
 
 namespace HueLib
 {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Media;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 
 namespace WinHue3
 {

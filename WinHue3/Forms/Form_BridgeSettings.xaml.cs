@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using HueLib;
+﻿using System.Windows;
 using Xceed.Wpf.Toolkit;
+using HueLib2;
 
 namespace WinHue3
 {

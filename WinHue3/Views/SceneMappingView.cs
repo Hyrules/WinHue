@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
-using HueLib;
-using HueLib_base;
-using Button = System.Windows.Controls.Button;
+using HueLib2;
 
 namespace WinHue3
 {

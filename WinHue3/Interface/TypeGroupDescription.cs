@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
-using System.ComponentModel;
-using System.Diagnostics;
 using WinHue3.Resources;
 
 namespace WinHue3

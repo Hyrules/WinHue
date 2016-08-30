@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Drawing;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 using WinHue3.Resources;
-using Group = HueLib_base.Group;
+using Group = HueLib2.Group;
 
 namespace WinHue3
 {
@@ -41,20 +30,38 @@ namespace WinHue3
         {
             InitializeComponent();
             _bridge = bridge;
-            gcv = new GroupCreatorView(HueObjectHelper.GetBridgeLights(_bridge));
-            DataContext = gcv;
-            
+            HelperResult hr = HueObjectHelper.GetBridgeLights(_bridge);
+
+            if (hr.Success)
+            {
+                gcv = new GroupCreatorView((List<HueObject>)hr.Hrobject);
+                DataContext = gcv;
+            }
+            else
+            {           
+                MessageBoxError.ShowLastErrorMessages(_bridge);
+                this.Close();
+            }
         }
 
         public Form_GroupCreator(Bridge bridge, HueObject selectedGroup)
         {
             InitializeComponent();
             _bridge = bridge;
-            gcv = new GroupCreatorView(HueObjectHelper.GetBridgeLights(_bridge),(Group)selectedGroup);
-            DataContext = gcv;
-            Title = string.Format(GUI.GroupCreatorForm_ModifyingGroup_Title, ((Group)selectedGroup).name);
-            btnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
-            DataContext = gcv;
+            HelperResult hr = HueObjectHelper.GetBridgeLights(_bridge);
+            if (hr.Success)
+            {
+                gcv = new GroupCreatorView((List<HueObject>)hr.Hrobject, (Group)selectedGroup);
+                Title = string.Format(GUI.GroupCreatorForm_ModifyingGroup_Title, ((Group)selectedGroup).name);
+                btnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
+                DataContext = gcv;
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
+                this.Close();
+            }
+           
         }
 
 
@@ -67,32 +74,39 @@ namespace WinHue3
         private void btnCreateGroup_Click(object sender, RoutedEventArgs e)
         {
             Group grp = gcv.GetGroup();
-            string result = "0";
 
             if (grp.Id == null)
             {
-                string @group = _bridge.CreateGroup(grp);
-                if (@group != null)
-                    result = @group;
+                CommandResult bresult = _bridge.CreateObject<Group>(grp);
+                if (bresult.Success)
+                {
+                    DialogResult = true;
+                    _id = (string) bresult.resultobject;
+                    Close();
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(_bridge);                   
+                }
+                
             }
             else
             {
 
-                _bridge.ChangeGroup(grp);
-                if (_bridge.lastMessages.SuccessCount >= 1)
-                    result = grp.Id;
+                CommandResult bresult = _bridge.ModifyObject<Group>(new Group() {name = grp.name,lights = grp.lights,@class = grp.@class},grp.Id);
+                if (bresult.Success)
+                {
+                    DialogResult = true;
+                    _id = grp.Id;
+                    Close();
+
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                }
             }
 
-            if (result != "0")
-            {
-                DialogResult = true;
-                _id = result;
-                Close();
-            }
-            else
-            {
-                MessageBoxError.ShowLastErrorMessages(_bridge);   
-            }
         }
 
         public string GetCreatedOrModifiedID()

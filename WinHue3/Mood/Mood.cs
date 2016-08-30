@@ -1,6 +1,5 @@
 ﻿using System;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 
 namespace WinHue3
 {

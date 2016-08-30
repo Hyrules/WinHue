@@ -6,8 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 using System.Windows;
 using System.Reflection;
 using System.Windows.Controls.Ribbon;
@@ -16,10 +15,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using WinHue3.Classes;
-using WinHuePluginModule;
-using Action = HueLib_base.Action;
+using Action = HueLib2.Action;
 using Color = System.Windows.Media.Color;
 using System.Collections.ObjectModel;
+using System.Windows.Documents;
 using WinHue3.Resources;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
@@ -37,7 +36,7 @@ namespace WinHue3
         private readonly DispatcherTimer _findsensortimer = new DispatcherTimer();
         private readonly DispatcherTimer _refreshStates = new DispatcherTimer();
         private ObservableCollection<HueObject> _listBridgeObjects;
-        private readonly ObservableCollection<RibbonSplitButtonPlugin> _plugins = new ObservableCollection<RibbonSplitButtonPlugin>();
+
         private ObservableCollection<Bridge> _listBridges = new ObservableCollection<Bridge>();
         public Form_EventLog _fel;
         private Form_SceneMapping _fsm;
@@ -47,11 +46,6 @@ namespace WinHue3
         private double _ttvalue = -1;
         private string _lastmessage = string.Empty;
         private List<HotKey> _listHotKeys;
-
-        #pragma warning disable 649
-        [ImportMany(typeof(IWinHuePluginModule), AllowRecomposition = true)]
-        private IEnumerable<IWinHuePluginModule> _availablePlugins;
-        #pragma warning restore 649
 
         #region CTOR
 
@@ -154,8 +148,6 @@ namespace WinHue3
         }
 
         public SolidColorBrush XYRectangleColor => new SolidColorBrush(ColorConversion.ConvertXYToColor(new PointF((float)SliderX, (float)SliderY), 1));
-
-        public ObservableCollection<RibbonSplitButtonPlugin> ListPlugins => _plugins;
 
         public bool CanDeleteObject
         {
@@ -466,11 +458,16 @@ namespace WinHue3
             get { return _selectedObject; }
             set
             {
-                _selectedObject = HueObjectHelper.GetBridgeObject(_selectedBridge, value);
+                HueObject val = value;
+                MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
+                MethodInfo generic = mi.MakeGenericMethod(value.GetType());
+                HelperResult hr = (HelperResult)mi.Invoke(this, new object[] {_selectedBridge, value});
+                if (!hr.Success) return;
+                _selectedObject = (HueObject)hr.Hrobject;
                 log.Debug("Selected object : " + _selectedObject);
                 OnPropertyChanged();
                 OnPropertyChanged("EnableSliders");
-                OnPropertyChanged("CanSchedule");                
+                OnPropertyChanged("CanSchedule");
                 OnPropertyChanged("EnableHueSlider");
                 OnPropertyChanged("EnableBriSlider");
                 OnPropertyChanged("EnableCTSlider");
@@ -516,7 +513,17 @@ namespace WinHue3
             get
             {
                 if (_selectedBridge == null) return Visibility.Collapsed;
-                return _selectedBridge.GetSwUpdate() ? Visibility.Visible : Visibility.Collapsed;
+                CommandResult bresult = _selectedBridge.GetSwUpdate();
+                SwUpdate update;
+                if (bresult.Success)
+                {
+                    update = (SwUpdate) bresult.resultobject;
+                }
+                else
+                {
+                    update = new SwUpdate() {updatestate = 0};
+                }
+                return update.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
 
         }
@@ -549,7 +556,11 @@ namespace WinHue3
                 if (!WinHueSettings.settings.BridgeInfo.ContainsKey(br.Mac)) continue;
                 log.Debug($"Associating bridge {br.IpAddress} with APIkey {WinHueSettings.settings.BridgeInfo[br.Mac].apikey}");
                 br.ApiKey = WinHueSettings.settings.BridgeInfo[br.Mac].apikey;
-                if (!HueObjectHelper.IsAuthorized(br)) br.ApiKey = string.Empty;
+                HelperResult hr = HueObjectHelper.IsAuthorized(br);
+                if (hr.Success)
+                {
+                    if (!(bool)hr.Hrobject) br.ApiKey = string.Empty;
+                }
                 br.IsDefault = br.Mac == WinHueSettings.settings.DefaultBridge;
             }
             return bridge;
@@ -592,7 +603,7 @@ namespace WinHue3
                 temp.OnMessageAdded += MessageAdded;
                 SelectedBridge = temp;
 
-                LoadPlugins();
+                //LoadPlugins();
                 Cursor_Tools.ShowNormalCursor();
             }
 
@@ -616,7 +627,8 @@ namespace WinHue3
             if (_selectedBridge == null) return;
             if (MessageBox.Show(GlobalStrings.Update_Confirmation, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
             log.Info("Updating bridge to the latest firmware.");
-            if (!_selectedBridge.DoSwUpdate())
+            CommandResult bresult = _selectedBridge.DoSwUpdate();
+            if (!bresult.Success)
             {
                 log.Error("An error occured while trying to start a bridge update. Please try again later.");
                 return;
@@ -625,9 +637,11 @@ namespace WinHue3
             {
                 Form_Wait fw = new Form_Wait();
                 fw.ShowWait(GlobalStrings.ApplyingUpdate,new TimeSpan(0,0,0,180), Application.Current.MainWindow );
-                BridgeSettings brs = _selectedBridge.GetBridgeSettings();
-                if (brs != null)
+                CommandResult bsettings = _selectedBridge.GetBridgeSettings();
+                if (bsettings.Success)
                 {
+                    BridgeSettings brs = (BridgeSettings) bsettings.resultobject;
+
                     switch (brs.swupdate.updatestate)
                     {
                         case 0:
@@ -640,13 +654,16 @@ namespace WinHue3
                         case 2:
                             log.Info("Bridge update still available or a new update is available.");
                             break;
+                        case null:
+                            log.Error("Bride update state was null.");
+                            break;
                         default:
                             log.Error("An error occured while updating the bridge. Please try again later.");
                             break;
 
                     }
+                    
                 }
-
             }
             
             OnPropertyChanged("UpdateAvailable");
@@ -655,8 +672,8 @@ namespace WinHue3
         private void CheckForNewBulb()
         {
             if (_selectedBridge == null) return;
-            
-            if (_selectedBridge.SearchNewLights())
+            CommandResult bresult = _selectedBridge.FindNewObjects<Light>();
+            if (bresult.Success)
             {
                 log.Info("Seaching for new lights...");
                 _findlighttimer.Start();
@@ -674,23 +691,33 @@ namespace WinHue3
         {
             _findlighttimer.Stop();
             log.Info("Done searching for new lights.");
-            List<HueObject> newlights = HueObjectHelper.GetBridgeNewLights(_selectedBridge);
+            HelperResult hr = HueObjectHelper.GetBridgeNewLights(_selectedBridge);
+            if (hr.Success)
+            {
+                List<HueObject> newlights = (List<HueObject>) hr.Hrobject;
+                log.Info($"Found {newlights.Count} new sensors.");
+                _listBridgeObjects.AddRange(newlights);
+                OnPropertyChanged("ListBridgeObjects");
+                OnPropertyChanged("EnableSearchLights");
 
-            log.Info($"Found {newlights.Count} new sensors.");
-            _listBridgeObjects.AddRange(newlights);
-            OnPropertyChanged("ListBridgeObjects");
-            OnPropertyChanged("EnableSearchLights");
+            }
         }
 
         private void _findsensortimer_Tick(object sender, EventArgs e)
         {
             _findsensortimer.Stop();
             log.Info("Done searching for new sensors.");
-            List<HueObject> newsensors = HueObjectHelper.GetBridgeNewSensors(_selectedBridge);
-            log.Info($"Found {newsensors.Count} new sensors.");
-            _listBridgeObjects.AddRange(newsensors);
-            OnPropertyChanged("ListBridgeObjects");
-            OnPropertyChanged("EnableSearchSensors");
+            HelperResult hr = HueObjectHelper.GetBridgeNewSensors(_selectedBridge);
+            if (hr.Success)
+            {
+                List<HueObject> newsensors = (List<HueObject>) hr.Hrobject;
+                log.Info($"Found {newsensors.Count} new sensors.");
+                _listBridgeObjects.AddRange(newsensors);
+                OnPropertyChanged("ListBridgeObjects");
+                OnPropertyChanged("EnableSearchSensors");
+            }
+            
+
         }
 
         private void SliderChangeHue()
@@ -754,40 +781,26 @@ namespace WinHue3
             if (_selectedObject == null) return;
             if (MessageBox.Show(string.Format(GlobalStrings.Confirm_Delete_Object, _selectedObject.GetName()),GlobalStrings.Warning,MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                bool result = false;
-                if (_selectedObject is Light)
+
+                MethodInfo method = typeof(Bridge).GetMethod("RemoveObject");
+                MethodInfo generic = method.MakeGenericMethod(_selectedObject.GetType());
+                CommandResult bresult = (CommandResult) generic.Invoke(this, new object[]{ _selectedObject.Id });
+   
+                log.Debug("Result : " + bresult.resultobject);
+                if (bresult.Success)
                 {
-                    result = _selectedBridge.DeleteLight(_selectedObject.Id);
-                }
-                else if (_selectedObject is Group)
-                {
-                    result = _selectedBridge.DeleteGroup(_selectedObject.Id);
-                }
-                else if(_selectedObject is Scene)
-                {
-                    result = _selectedBridge.DeleteScene(_selectedObject.Id);
-                }
-                else if (_selectedObject is Sensor)
-                {
-                    result = _selectedBridge.DeleteSensor(_selectedObject.Id);
-                }
-                else if(_selectedObject is Rule)
-                {
-                    result = _selectedBridge.DeleteRule(_selectedObject.Id);
-                }
-                else if (_selectedObject is Schedule)
-                {
-                    result = _selectedBridge.DeleteSchedule(_selectedObject.Id);
-                }
-                log.Debug("Result : " + result);
-                if (result)
-                {
-                    int index = _listBridgeObjects.FindIndex(x => x.Id == _selectedObject.Id && x.GetType() == _selectedObject.GetType());
+                    int index =
+                        _listBridgeObjects.FindIndex(
+                            x => x.Id == _selectedObject.Id && x.GetType() == _selectedObject.GetType());
                     if (index == -1) return;
                     _listBridgeObjects.RemoveAt(index);
                     OnPropertyChanged("ListBridgeObjects");
                     SelectedObject = null;
                     log.Info($"Object ID : {index} removed.");
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(_selectedBridge);
                 }
             }
         }
@@ -808,49 +821,25 @@ namespace WinHue3
             HueObject newobj;
             int index = _listBridgeObjects.FindIndex(x => x.Id == obj.Id && x.GetType() == obj.GetType());
             if (index == -1) return;
+       
+            MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
+            MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
+            HelperResult hr = (HelperResult)generic.Invoke(this, new object[] {obj.Id});
 
-            if (obj is Light)
+            if (hr.Success)
             {
-                newobj = HueObjectHelper.GetBridgeLight(_selectedBridge, obj.Id);
-            }
-            else if (obj is Group)
-            {
-                newobj = HueObjectHelper.GetBridgeGroup(_selectedBridge, obj.Id);
-            }
-            else if (obj is Scene)
-            {
-                newobj = HueObjectHelper.GetBridgeScene(_selectedBridge, obj.Id);
-            }
-            else if (obj is Sensor)
-            {
-                newobj = HueObjectHelper.GetBridgeSensor(_selectedBridge, obj.Id);
-            }
-            else if (obj is Rule)
-            {
-                newobj = HueObjectHelper.GetBridgeRule(_selectedBridge, obj.Id);
-            }
-            else if (obj is Schedule)
-            {
-                newobj = HueObjectHelper.GetBridgeSchedule(_selectedBridge,obj.Id);
-            }
-            else
-            {
-                newobj = null;
+                newobj = (HueObject)hr.Hrobject;
+                if (logging) log.Debug("Refreshing Object : " + newobj.ToString());
+                _listBridgeObjects[index].Image = newobj.Image;
+                PropertyInfo[] pi = newobj.GetType().GetProperties();
+                foreach (PropertyInfo p in pi)
+                {
+                    if (_listBridgeObjects[index].HasProperty(p.Name))
+                        p.SetValue(_listBridgeObjects[index], _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
+                }
+
             }
 
-            if(logging) log.Debug("Refreshing Object : " + newobj.ToString());
-
-            if (newobj == null) return;
-            _listBridgeObjects[index].Image = newobj.Image;
-            PropertyInfo[] pi = newobj.GetType().GetProperties();
-            foreach (PropertyInfo p in pi)
-            {
-                if (_listBridgeObjects[index].HasProperty(p.Name))
-                    p.SetValue(_listBridgeObjects[index], _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
-            }
-
-            //SelectedObject = newobj;
-            // OnPropertyChanged("ListBridgeObjects");
             if (logging) log.Info($"Refreshed Object ID: {index}");
         }
 
@@ -937,17 +926,22 @@ namespace WinHue3
             Form_BridgeSettings frs = new Form_BridgeSettings(_selectedBridge) { Owner = Application.Current.MainWindow };
             if (frs.ShowDialog() == true)
             {
-                string newname = _selectedBridge.GetBridgeSettings().name;
-                if (_selectedBridge.Name != newname)
+                CommandResult bresult = _selectedBridge.GetBridgeSettings();
+                if (bresult.Success)
                 {
-                    _selectedBridge.Name = newname;
-                    _listBridges[_listBridges.IndexOf(_selectedBridge)].Name = newname;
-                    Bridge selbr = _selectedBridge;
-                    SelectedBridge = null;
-                    SelectedBridge = selbr;
-                    OnPropertyChanged("ListBridges");
+                    string newname = ((BridgeSettings)(bresult.resultobject)).name;
+                    if (_selectedBridge.Name != newname)
+                    {
+                        _selectedBridge.Name = newname;
+                        _listBridges[_listBridges.IndexOf(_selectedBridge)].Name = newname;
+                        Bridge selbr = _selectedBridge;
+                        SelectedBridge = null;
+                        SelectedBridge = selbr;
+                        OnPropertyChanged("ListBridges");
+                    }
+                    RefreshView();
+
                 }
-                RefreshView();
             }
 
         }
@@ -1026,7 +1020,8 @@ namespace WinHue3
         {
             if (_selectedBridge == null) return;
             log.Info("Sending all on command to bridge" + _selectedBridge.IpAddress);
-            if (_selectedBridge.SetGroupAction("0", new Action() {@on = true}).SuccessCount == 1)
+            CommandResult bresult = _selectedBridge.SetState<Action>(new Action() {@on = true}, "0");
+            if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
                 RefreshView();
@@ -1037,7 +1032,8 @@ namespace WinHue3
         {
             if (_selectedBridge == null) return;
             log.Info("Sending all off command to bridge" + _selectedBridge.IpAddress);
-            if (_selectedBridge.SetGroupAction("0", new Action() {@on = false}).SuccessCount == 1)
+            CommandResult bresult = _selectedBridge.SetState<Action>(new Action() {@on = false}, "0");
+            if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
                 RefreshView();
@@ -1056,7 +1052,8 @@ namespace WinHue3
         private void SearchNewSensors()
         {
             if (_selectedBridge == null) return;
-            if(_selectedBridge.FindNewSensors())
+            CommandResult bresult = _selectedBridge.FindNewObjects<Sensor>();
+            if(bresult.Success)
             {
                 log.Info("Looking for new sensors for 1 minute.");
                 _findsensortimer.Start();
@@ -1075,35 +1072,34 @@ namespace WinHue3
             log.Debug("Double click on : " + _selectedObject);
             if ((_selectedObject is Light) || (_selectedObject is Group))
             {
-                ImageSource newimg = HueObjectHelper.ToggleObjectOnOffState(_selectedBridge, _selectedObject);
-                if (newimg == null) return;
-                _selectedObject.Image = newimg;
-                int index = _listBridgeObjects.FindIndex(x => x.Id == _selectedObject.Id && x.GetType() == _selectedObject.GetType());
-                if (index == -1) return;
-                if (_selectedObject.HasProperty("state"))
+                HelperResult hr = HueObjectHelper.ToggleObjectOnOffState(_selectedBridge, _selectedObject);
+                if (hr.Success)
                 {
-                    ((Light) _selectedObject).state.on = !((Light) _selectedObject).state.on;
-                    ((Light) _listBridgeObjects[index]).state.on = !((Light) _listBridgeObjects[index]).state.on;
-                }
-                else
-                {
-                    ((Group) _selectedObject).action.on = !((Group) _selectedObject).action.on;
-                    ((Group) _listBridgeObjects[index]).action.on = !((Group) _listBridgeObjects[index]).action.on;
-                }
+                    ImageSource newimg = (ImageSource)hr.Hrobject;
+                    if (newimg == null) return;
+                    _selectedObject.Image = newimg;
+                    int index = _listBridgeObjects.FindIndex(x => x.Id == _selectedObject.Id && x.GetType() == _selectedObject.GetType());
+                    if (index == -1) return;
+                    if (_selectedObject.HasProperty("state"))
+                    {
+                        ((Light)_selectedObject).state.on = !((Light)_selectedObject).state.on;
+                        ((Light)_listBridgeObjects[index]).state.on = !((Light)_listBridgeObjects[index]).state.on;
+                    }
+                    else
+                    {
+                        ((Group)_selectedObject).action.on = !((Group)_selectedObject).action.on;
+                        ((Group)_listBridgeObjects[index]).action.on = !((Group)_listBridgeObjects[index]).action.on;
+                    }
 
-                _listBridgeObjects[index].Image = newimg;
-                OnPropertyChanged("SelectedObject");
+                    _listBridgeObjects[index].Image = newimg;
+                    OnPropertyChanged("SelectedObject");
+                }
             }
             else
             {
                 log.Info($"Activating scene : {_selectedObject.Id}");
-                _selectedBridge.ActivateScene(_selectedObject.Id);
-              /*  Scene scene = (Scene) _selectedObject;
-                foreach (string s in scene.lights)
-                {
-                    HueObject hueobj = _listBridgeObjects.First(x => x.Id == s && x.GetType() == typeof (Light));
-                    RefreshObject(hueobj);
-                }*/
+                _selectedBridge.SetState<Scene>(_selectedObject.Id);
+
             }
             
         }
@@ -1112,32 +1108,22 @@ namespace WinHue3
         {
             if (_selectedObject == null) return;
             if (!(_selectedObject is Light) && !(_selectedObject is Group)) return;
-            if(_selectedObject is Light)
-            {
-                log.Info($@"Sending the long Identify command to light ID : {_selectedObject.Id}");
-                _selectedBridge.SetLightState(_selectedObject.Id, new State() { alert = "lselect" });
-            }
-            else
-            {
-                log.Info($@"Sending the long Identify command to group ID : {_selectedObject.Id}");
-                _selectedBridge.SetGroupAction(_selectedObject.Id, new Action() { alert = "lselect" });
-            }
+
+            MethodInfo mi = typeof(Bridge).GetMethod("SetState");
+            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
+            log.Info($@"Sending the long Identify command to object ID : {_selectedObject.Id}");
+            HelperResult hr = (HelperResult) mi.Invoke(this, new object[] {new CommonProperties() {alert = "lselect"}});
         }
 
         private void IdentifyShort()
         {
             if (_selectedObject == null) return;
             if (!(_selectedObject is Light) && !(_selectedObject is Group)) return;
-            if (_selectedObject is Light)
-            {
-                log.Info($@"Sending the short Identify command to light ID : {_selectedObject.Id}");
-                _selectedBridge.SetLightState(_selectedObject.Id, new State() { alert = "select" });
-            }
-            else
-            {
-                log.Info($@"Sending the short Identify command to group ID : {_selectedObject.Id}");
-                _selectedBridge.SetGroupAction(_selectedObject.Id, new Action() { alert = "select" });
-            }
+
+            MethodInfo mi = typeof(Bridge).GetMethod("SetState");
+            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
+            log.Info($@"Sending the long Identify command to object ID : {_selectedObject.Id}");
+            HelperResult hr = (HelperResult)mi.Invoke(this, new object[] { new CommonProperties() { alert = "select" } });
         }
 
 
@@ -1175,43 +1161,17 @@ namespace WinHue3
             try
             {
                 HotKey h = _listHotKeys.First(x => x.Modifier == m && x.Key == k);
-                if (h.objecType != null)
-                {
-                    if (h.objecType == typeof(Light))
-                    {
-                        _selectedBridge.SetLightState(h.id, new State(h.properties));
-                    }
-                    else if (h.objecType == typeof(Group))
-                    {
-                        _selectedBridge.SetGroupAction(h.id, new Action(h.properties));
-                    }
-                    else if (h.objecType == typeof(Scene))
-                    {
-                        _selectedBridge.ActivateScene(h.id);
-                    }
-                }
-                else
-                {
-                    if (_selectedObject != null)
-                    {
-                        if (_selectedObject is Light)
-                        {
-                            _selectedBridge.SetLightState(_selectedObject.Id, new State(h.properties));
-                        }
-                        else if (_selectedObject is Group)
-                        {
-                            _selectedBridge.SetGroupAction(_selectedObject.Id, new Action(h.properties));
-                        }
-                        else
-                        {
-                            log.Warn("Cannot apply this Hotkey to this type of object.");
-                        }
-                    }
-                    else
-                    {
+                MethodInfo mi = typeof(Bridge).GetMethod("SetState");
+                MethodInfo generic = mi.MakeGenericMethod(h.objecType);
+                List<object> listparams = new List<object>();
 
-                    }
+                if (h.objecType != typeof(Scene))
+                {
+                    listparams.Add(Convert.ChangeType(h.properties, h.objecType));
                 }
+
+                listparams.Add(h.objecType != null ? h.id : _selectedObject.Id);
+                HelperResult hr = (HelperResult)generic.Invoke(this, listparams.ToArray());
             }
             catch (InvalidOperationException)
             {
@@ -1246,6 +1206,8 @@ namespace WinHue3
         /// Load all the plugins in the plugin folder.
         /// </summary>
         /// <returns></returns>
+        
+            /*
         public bool LoadPlugins()
         {
             log.Info("Loading plugins...");
@@ -1328,12 +1290,14 @@ namespace WinHue3
             log.Info("Finished loading plugins.");
             return true;
         }
-
+        */
+        /*
         private static void GeneratePluginExceptionFile(Exception excpt, IWinHuePluginModule plugin)
         {
             log.Debug($@"Exception in plugin {plugin.pluginName}", excpt);
         }
-
+        */
+        /*
         private static void Pluginbutton_Click(object sender, RoutedEventArgs e)
         {
             RibbonSplitButtonPlugin button = (RibbonSplitButtonPlugin)sender;
@@ -1367,7 +1331,7 @@ namespace WinHue3
                     GeneratePluginExceptionFile(ex, button.Plugin);
                 }
             }
-        }
+        }*/
         #endregion
 
         #endregion

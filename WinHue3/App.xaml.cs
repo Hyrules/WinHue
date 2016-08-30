@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using log4net.Repository.Hierarchy;
@@ -13,7 +11,7 @@ namespace WinHue3
     /// </summary>
     public partial class App : Application
     {
-        public string ver = "BETA 17";
+        public string ver = "BETA 18";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         Form_EventLog fel = new Form_EventLog();
 

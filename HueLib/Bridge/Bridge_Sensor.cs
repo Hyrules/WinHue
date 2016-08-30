@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using HueLib.BridgeMessages.Error;
-using HueLib_base;
+using HueLib2;
 
 namespace HueLib
 {

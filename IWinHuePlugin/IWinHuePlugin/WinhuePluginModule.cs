@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using HueLib_base;
+using HueLib2;
 using System.Drawing;
 using System.Windows.Media;
 
