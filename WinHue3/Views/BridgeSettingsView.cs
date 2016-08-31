@@ -22,11 +22,26 @@ namespace WinHue3
         public BridgeSettingsView(Bridge selectedbridge)
         {
             _br = selectedbridge;
-            _brs = _br.GetBridgeSettings();
-            _listtimezones = _br.GetTimeZones();
-            _listusers = new ObservableCollection<Whitelist>(HueObjectHelper.GetBridgeUsers(_br));
-            int winhue = _listusers.FindIndex(x => x.id == selectedbridge.ApiKey);
-            _listusers.RemoveAt(winhue);
+            CommandResult comres = _br.GetBridgeSettings();
+            if (comres.Success)
+            {
+                _brs = (BridgeSettings)comres.resultobject;
+                CommandResult comres2 = _br.GetTimeZones();
+                if (comres2.Success)
+                {
+                    _listtimezones = (List<string>)comres2.resultobject;
+                    HelperResult hr = HueObjectHelper.GetBridgeUsers(_br);
+                    if (hr.Success)
+                    {
+                        _listusers = new ObservableCollection<Whitelist>((List<Whitelist>)hr.Hrobject);
+                        int winhue = _listusers.FindIndex(x => x.id == selectedbridge.ApiKey);
+                        _listusers.RemoveAt(winhue);
+
+                    }
+                }
+            }
+           
+            
         }
 
         #endregion
@@ -339,7 +354,9 @@ namespace WinHue3
         {
             if (_selecteduser == null) return;
             if (!_listusers.Contains(_selecteduser)) return;
-            if (!_br.RemoveUser(_selecteduser.id)) return;
+
+            CommandResult comres = _br.RemoveUser(_selecteduser.id);
+            if (!comres.Success) return;           
             log.Info($"Removed user {_selecteduser.Name}");
             _listusers.Remove(_selecteduser);
         }
@@ -353,18 +370,23 @@ namespace WinHue3
 
         private void CreateUser()
         {
-            string result = _br.CreateUser($"{_appname}#{_devicename}");
-            if(result == string.Empty)
-            {
-                MessageBoxError.ShowLastErrorMessages(_br);
-            }
-            else
+            CommandResult comres = _br.CreateUser($"{_appname}#{_devicename}");
+            if (comres.Success)
             {
                 BridgeWhiteListAppName = string.Empty;
                 BridgeWhiteListDevName = string.Empty;
                 BridgeListUsersSelectedUser = null;
-                _listusers = new ObservableCollection<Whitelist>(HueObjectHelper.GetBridgeUsers(_br));
-                OnPropertyChanged("BridgeListUsers");
+                HelperResult hr = HueObjectHelper.GetBridgeUsers(_br);
+                if (hr.Success)
+                {
+                    _listusers = new ObservableCollection<Whitelist>((List<Whitelist>)hr.Hrobject);
+                    OnPropertyChanged("BridgeListUsers");
+                }
+                
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_br);
             }
         }
 
@@ -389,8 +411,12 @@ namespace WinHue3
                 brs.netmask = _brs.netmask;
                 brs.dhcp = false;
             }
-            if (_br.SetBridgeSettings(brs).FailureCount <= 0) return;
-            MessageBoxError.ShowLastErrorMessages(_br);
+            CommandResult comres = _br.SetBridgeSettings(brs);
+            if (!comres.Success)
+            {
+                MessageBoxError.ShowLastErrorMessages(_br);
+            }
+            
         }
 
         private void ApplyGeneralSettings()
@@ -398,9 +424,12 @@ namespace WinHue3
             BridgeSettings brs = new BridgeSettings() { name = _brs.name, timezone = _brs.timezone };
             WinHueSettings.settings.BridgeInfo[_brs.mac].name = _brs.name;
             WinHueSettings.Save();
-            if (_br.SetBridgeSettings(brs).FailureCount <= 0) return;
-            MessageBoxError.ShowLastErrorMessages(_br);
-
+            CommandResult comres = _br.SetBridgeSettings(brs);
+            if (!comres.Success)
+            {
+                MessageBoxError.ShowLastErrorMessages(_br);
+            }
+           
         }
 
         #endregion

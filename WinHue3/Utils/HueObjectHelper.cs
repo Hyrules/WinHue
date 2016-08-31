@@ -28,7 +28,7 @@ namespace WinHue3
         /// <returns>A List fo lights.</returns>
         public static HelperResult GetBridgeLights(Bridge bridge)
         {
-            if (bridge == null) return new HelperResult() {Hrobject = "Bridge cannot be NULL",Success=false};
+            if (bridge == null) return new HelperResult() { Hrobject = "Bridge cannot be NULL", Success = false };
             log.Debug($@"Getting all lights from bridge : {bridge.IpAddress}");
             CommandResult bresult = bridge.GetListObjects<Light>();
             HelperResult hr = new HelperResult
@@ -36,11 +36,11 @@ namespace WinHue3
                 Success = bresult.Success,
                 Hrobject =
                     bresult.Success
-                        ? ProcessLights((Dictionary<string, Light>) bresult.resultobject)
+                        ? ProcessLights((Dictionary<string, Light>)bresult.resultobject)
                         : bresult.resultobject
             };
             log.Debug("List lights : " + hr.Hrobject);
-    
+
             return hr;
         }
 
@@ -59,7 +59,7 @@ namespace WinHue3
                 Success = bresult.Success,
                 Hrobject =
                     bresult.Success
-                        ? ProcessSearchResult(bridge, (SearchResult) bresult.resultobject, true)
+                        ? ProcessSearchResult(bridge, (SearchResult)bresult.resultobject, true)
                         : bresult.resultobject
             };
             log.Debug("Search Result : " + hr.Hrobject);
@@ -115,7 +115,7 @@ namespace WinHue3
                 {
                     CommandResult bresult = bridge.GetObject<Sensor>(kvp.Key);
                     if (!bresult.Success) continue;
-                    Sensor newSensor = (Sensor) bresult.resultobject;
+                    Sensor newSensor = (Sensor)bresult.resultobject;
                     if (newSensor == null) continue;
                     newSensor.Id = kvp.Key;
                     switch (newSensor.type)
@@ -180,7 +180,7 @@ namespace WinHue3
         /// <returns>A List of Group.</returns>
         public static HelperResult GetBridgeGroups(Bridge bridge)
         {
-            if (bridge == null) return new HelperResult() {Success = false, Hrobject = "Bridge cannot be NULL" };
+            if (bridge == null) return new HelperResult() { Success = false, Hrobject = "Bridge cannot be NULL" };
             log.Debug($@"Getting all groups from bridge {bridge.IpAddress}");
             CommandResult bresult = bridge.GetListObjects<Group>();
             HelperResult hr = new HelperResult
@@ -188,7 +188,7 @@ namespace WinHue3
                 Success = bresult.Success,
                 Hrobject =
                     bresult.Success
-                        ? ProcessGroups((Dictionary<string, Group>) bresult.resultobject)
+                        ? ProcessGroups((Dictionary<string, Group>)bresult.resultobject)
                         : bresult.resultobject
             };
 
@@ -250,7 +250,7 @@ namespace WinHue3
         /// <returns>A List of scenes.</returns>
         public static HelperResult GetBridgeScenes(Bridge bridge)
         {
-            if (bridge == null) return new HelperResult() {Success = false,Hrobject = "Bridge cannot be NULL"};
+            if (bridge == null) return new HelperResult() { Success = false, Hrobject = "Bridge cannot be NULL" };
             log.Debug($@"Getting all scenes from bridge {bridge.IpAddress}");
             CommandResult bresult = bridge.GetListObjects<Scene>();
             HelperResult hr = new HelperResult
@@ -258,7 +258,7 @@ namespace WinHue3
                 Success = bresult.Success,
                 Hrobject =
                     bresult.Success
-                        ? ProcessScenes((Dictionary<string, Scene>) bresult.resultobject)
+                        ? ProcessScenes((Dictionary<string, Scene>)bresult.resultobject)
                         : bresult.resultobject
             };
 
@@ -329,7 +329,7 @@ namespace WinHue3
                 Success = bresult.Success,
                 Hrobject =
                     bresult.Success
-                        ? ProcessSchedules((Dictionary<string, Schedule>) bresult.resultobject)
+                        ? ProcessSchedules((Dictionary<string, Schedule>)bresult.resultobject)
                         : bresult.resultobject
             };
 
@@ -458,7 +458,7 @@ namespace WinHue3
                 Success = bresult.Success,
                 Hrobject =
                     bresult.Success
-                        ? ProcessRules((Dictionary<string, Rule>) bresult.resultobject)
+                        ? ProcessRules((Dictionary<string, Rule>)bresult.resultobject)
                         : bresult.resultobject
             };
 
@@ -474,7 +474,7 @@ namespace WinHue3
         private static List<HueObject> ProcessRules(Dictionary<string, Rule> listrules)
         {
             List<HueObject> newlist = new List<HueObject>();
-  
+
             foreach (KeyValuePair<string, Rule> kvp in listrules)
             {
                 kvp.Value.Id = kvp.Key;
@@ -530,7 +530,7 @@ namespace WinHue3
                 Success = bresult.Success,
                 Hrobject =
                     bresult.Success
-                        ? ProcessSensors((Dictionary<string, Sensor>) bresult.resultobject)
+                        ? ProcessSensors((Dictionary<string, Sensor>)bresult.resultobject)
                         : bresult.resultobject
             };
 
@@ -636,7 +636,7 @@ namespace WinHue3
             HelperResult hr = new HelperResult
             {
                 Success = bresult.Success,
-                Hrobject = bresult.Success ? ProcessDataStore((DataStore) bresult.resultobject) : bresult.resultobject
+                Hrobject = bresult.Success ? ProcessDataStore((DataStore)bresult.resultobject) : bresult.resultobject
             };
 
             log.Debug("Bridge data store : " + hr.Hrobject);
@@ -697,13 +697,13 @@ namespace WinHue3
         /// <returns>Returns the mac address of the bridge.</returns>
         public static HelperResult GetBridgeMac(Bridge bridge)
         {
-            if(bridge == null) return new HelperResult() {Success = false,Hrobject = "The bridge cannot be NULL"};
-            
+            if (bridge == null) return new HelperResult() { Success = false, Hrobject = "The bridge cannot be NULL" };
+
             CommandResult bresult = bridge.GetBridgeSettings();
-            HelperResult hr = new HelperResult {Success = bresult.Success};
+            HelperResult hr = new HelperResult { Success = bresult.Success };
             if (bresult.Success)
             {
-                BridgeSettings brs = (BridgeSettings) bresult.resultobject;
+                BridgeSettings brs = (BridgeSettings)bresult.resultobject;
                 log.Debug("Fetching bridge mac : " + brs.mac);
                 hr.Hrobject = brs.mac;
             }
@@ -724,10 +724,10 @@ namespace WinHue3
         {
             if (bridge == null) return new HelperResult() { Success = false, Hrobject = "The bridge cannot be NULL" };
             CommandResult bresult = bridge.GetBridgeSettings();
-            HelperResult hr = new HelperResult {Success = bresult.Success};
+            HelperResult hr = new HelperResult { Success = bresult.Success };
             if (bresult.Success)
             {
-                BridgeSettings brs = (BridgeSettings) bresult.resultobject;
+                BridgeSettings brs = (BridgeSettings)bresult.resultobject;
                 hr.Hrobject = brs.portalservices != null;
             }
             else
@@ -747,13 +747,13 @@ namespace WinHue3
         /// <returns>The new image of the object.</returns>
         public static HelperResult ToggleObjectOnOffState(Bridge bridge, HueObject obj)
         {
-            if (obj == null) return new HelperResult() {Success = false,Hrobject = "The object cannot be null"};
-            if (bridge == null) return new HelperResult() {Success = false,Hrobject = "The bridge cannot be null"};
-            if (!(obj is Light) && !(obj is Group)) return new HelperResult() {Success = false,Hrobject = "Object must be of type group or light"};
-            HelperResult hr = new HelperResult() {Success = false,Hrobject = obj.Image};
+            if (obj == null) return new HelperResult() { Success = false, Hrobject = "The object cannot be null" };
+            if (bridge == null) return new HelperResult() { Success = false, Hrobject = "The bridge cannot be null" };
+            if (!(obj is Light) && !(obj is Group)) return new HelperResult() { Success = false, Hrobject = "Object must be of type group or light" };
+            HelperResult hr = new HelperResult() { Success = false, Hrobject = obj.Image };
             if (obj is Light)
             {
-                    
+
                 CommandResult bresult = bridge.GetObject<Light>(obj.Id);
                 if (bresult.Success)
                 {
@@ -813,11 +813,11 @@ namespace WinHue3
 
                 if (bresult.Success)
                 {
-                    Group currentstate = (Group) bresult.resultobject;
+                    Group currentstate = (Group)bresult.resultobject;
                     if (currentstate.action.on == true)
                     {
                         log.Debug("Toggling group state : ON");
-                        CommandResult bsetgroupstate = bridge.SetState(new HueLib2.Action() {on = false}, obj.Id);
+                        CommandResult bsetgroupstate = bridge.SetState(new HueLib2.Action() { on = false }, obj.Id);
 
                         if (bsetgroupstate.Success)
                         {
@@ -832,7 +832,7 @@ namespace WinHue3
                     else
                     {
                         log.Debug("Toggling group state : OFF");
-                        CommandResult bsetgroupstate = bridge.SetState(new HueLib2.Action() {on = true}, obj.Id);
+                        CommandResult bsetgroupstate = bridge.SetState(new HueLib2.Action() { on = true }, obj.Id);
                         if (bsetgroupstate.Success)
                         {
                             hr.Success = true;
@@ -863,10 +863,10 @@ namespace WinHue3
         public static HelperResult GetBridgeUsers(Bridge bridge)
         {
             CommandResult bresult = bridge.GetUserList();
-            HelperResult hr = new HelperResult() {Success = false};
+            HelperResult hr = new HelperResult() { Success = false };
             if (bresult.Success)
             {
-                Dictionary<string, Whitelist> brlisteusers = (Dictionary<string, Whitelist>) bresult.resultobject;
+                Dictionary<string, Whitelist> brlisteusers = (Dictionary<string, Whitelist>)bresult.resultobject;
                 List<Whitelist> listusers = new List<Whitelist>();
                 foreach (KeyValuePair<string, Whitelist> kvp in brlisteusers)
                 {
@@ -887,7 +887,7 @@ namespace WinHue3
         /// <summary>
         /// List of possible light state.
         /// </summary>
-        public enum LightImageState { On = 0, Off = 1, Unr = 3};
+        public enum LightImageState { On = 0, Off = 1, Unr = 3 };
 
         /// <summary>
         /// Return the new image from the light
@@ -897,10 +897,10 @@ namespace WinHue3
         /// <returns>New image of the light</returns>
         public static ImageSource GetImageForLight(LightImageState imagestate, string modelid = null)
         {
-            string modelID = modelid ?? "default";                        
+            string modelID = modelid ?? "default";
             string state = string.Empty;
 
-            switch(imagestate)
+            switch (imagestate)
             {
                 case LightImageState.Off:
                     state = "off";
@@ -937,10 +937,10 @@ namespace WinHue3
             return newImage;
         }
 
-        public static HelperResult GetObject<T>(Bridge bridge,string id) where T : HueObject
+        public static HelperResult GetObject<T>(Bridge bridge, string id) where T : HueObject
         {
             CommandResult bresult = bridge.GetObject<T>(id);
-            HelperResult hr = new HelperResult() {Success = bresult.Success };
+            HelperResult hr = new HelperResult() { Success = bresult.Success };
             if (bresult.Success)
             {
                 if (typeof(T) == typeof(Light))
@@ -1018,7 +1018,7 @@ namespace WinHue3
                 }
                 else if (typeof(T) == typeof(Resourcelink))
                 {
-                    
+
                 }
             }
             else

@@ -12,14 +12,16 @@ namespace WinHue3
 {
     public class GroupViewView : View
     {
-        private Bridge _bridge;
+        private Dictionary<string, Group> _groups;
+        private Dictionary<string, Light> _lights;
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
 
-        public GroupViewView(Bridge br)
+        public GroupViewView(Dictionary<string, Group> groups, Dictionary<string,Light> lights  )
         {
-            _bridge = br;
+            _groups = groups;
+            _lights = lights;
             BuildGroupViewReverse();
         }
 
@@ -45,8 +47,8 @@ namespace WinHue3
 
         private void BuildGroupView()
         {
-            Dictionary<string, Group> lgroups = _bridge.GetGroupList();
-            Dictionary<string, Light> llights = _bridge.GetLightList();
+            Dictionary<string, Group> lgroups = _groups;
+            Dictionary<string, Light> llights = _lights;
             if (lgroups == null) return;
             DataTable dt = new DataTable();
 
@@ -119,8 +121,8 @@ namespace WinHue3
 
         private void BuildGroupViewReverse()
         {
-            Dictionary<string, Group> lgroups = _bridge.GetGroupList();
-            Dictionary<string, Light> llights = _bridge.GetLightList();
+            Dictionary<string, Group> lgroups = _groups;
+            Dictionary<string, Light> llights = _lights;
             if (lgroups == null) return;
             DataTable dt = new DataTable();
             dt.Columns.Add("Groups");

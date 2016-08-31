@@ -723,46 +723,40 @@ namespace WinHue3
         private void SliderChangeHue()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            if (_selectedObject is Light)
-                _selectedBridge.SetLightState(_selectedObject.Id, new State() { hue = (ushort)SliderHue, transitiontime = _transitiontime});
-            if (_selectedObject is Group)
-                _selectedBridge.SetGroupAction(_selectedObject.Id, new Action() { hue = (ushort)SliderHue, transitiontime = _transitiontime });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState",new object[] {new CommonProperties() {hue = (ushort) SliderHue, transitiontime = _transitiontime}});
+
+        }
+
+        private T ExecuteGenericMethod<T>(object objectmethod,string methodname,object[] paramsarray) where T : new()
+        {
+            MethodInfo mi = objectmethod.GetType().GetMethod(methodname);
+            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
+            return (T)generic.Invoke(this, paramsarray);
         }
 
         private void SliderChangeBri()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            if (_selectedObject is Light)
-                _selectedBridge.SetLightState(_selectedObject.Id, new State() { bri = (byte)SliderBri, transitiontime = _transitiontime });
-            if (_selectedObject is Group)
-                _selectedBridge.SetGroupAction(_selectedObject.Id, new Action() { bri = (byte)SliderBri, transitiontime = _transitiontime });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { bri = (byte)SliderBri, transitiontime = _transitiontime } });
         }
 
         private void SliderChangeCT()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            if (_selectedObject is Light)
-                _selectedBridge.SetLightState(_selectedObject.Id, new State() { ct = (ushort)SliderCT, transitiontime = _transitiontime });
-            if (_selectedObject is Group)
-                _selectedBridge.SetGroupAction(_selectedObject.Id, new Action() { ct = (ushort)SliderCT, transitiontime = _transitiontime });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { ct = (ushort)SliderCT, transitiontime = _transitiontime } });
         }
 
         private void SliderChangeSat()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            if (_selectedObject is Light)
-                _selectedBridge.SetLightState(_selectedObject.Id, new State() { sat = (byte)SliderSat, transitiontime = _transitiontime });
-            if (_selectedObject is Group)
-                _selectedBridge.SetGroupAction(_selectedObject.Id, new Action() { sat = (byte)SliderSat, transitiontime = _transitiontime });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { sat = (byte)SliderSat, transitiontime = _transitiontime } });
         }
 
         private void SliderChangeXY()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            if (_selectedObject is Light)
-                _selectedBridge.SetLightState(_selectedObject.Id, new State() { xy = new XY() {x = (decimal)SliderX,y = (decimal)SliderY}, transitiontime = _transitiontime });
-            if (_selectedObject is Group)
-                _selectedBridge.SetGroupAction(_selectedObject.Id, new Action() { xy = new XY() { x = (decimal)SliderX, y = (decimal)SliderY }, transitiontime = _transitiontime });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = (decimal)SliderX, y = (decimal)SliderY }, transitiontime = _transitiontime } });
+
         }
 
         private void DoBridgePairing()
@@ -951,25 +945,44 @@ namespace WinHue3
             _listBridgeObjects = null;
             OnPropertyChanged("ListBridgeObjects");
             log.Info($"Getting list of objects from bridge at {_selectedBridge.IpAddress}.");
-            _listBridgeObjects = new ObservableCollection<HueObject>(HueObjectHelper.GetBridgeDataStore(_selectedBridge));
-            log.Info($"Found {_listBridgeObjects.Count} objects in the bridge.");
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_listBridgeObjects);
-            view.GroupDescriptions?.Clear();
-            PropertyGroupDescription groupDesc = new TypeGroupDescription();
-            view.GroupDescriptions?.Add(groupDesc);
-            OnPropertyChanged("ListBridgeObjects");
-            _selectedObject = null;
-            OnPropertyChanged("SelectedObject");
-            log.Info($"Finished refreshing view.");
+            HelperResult hr = HueObjectHelper.GetBridgeDataStore(_selectedBridge);
+            if (hr.Success)
+            {
+                _listBridgeObjects = new ObservableCollection<HueObject>((List<HueObject>)hr.Hrobject);
+                log.Info($"Found {_listBridgeObjects.Count} objects in the bridge.");
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_listBridgeObjects);
+                view.GroupDescriptions?.Clear();
+                PropertyGroupDescription groupDesc = new TypeGroupDescription();
+                view.GroupDescriptions?.Add(groupDesc);
+                OnPropertyChanged("ListBridgeObjects");
+                _selectedObject = null;
+                OnPropertyChanged("SelectedObject");
+                log.Info($"Finished refreshing view.");
+            }
+            else
+            {
+                log.Error(hr.Hrobject);
+            }
+            
+
         }
+
+
 
         private void CreateGroup()
         {
             Form_GroupCreator fgc = new Form_GroupCreator(_selectedBridge) { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the Group creator window for bridge {_selectedBridge.IpAddress} ");
             if (fgc.ShowDialog() != true) return;
-            log.Debug($@"Getting the newly created group ID {fgc.GetCreatedOrModifiedID()} from bridge {_selectedBridge.IpAddress}");
-            _listBridgeObjects.Add(HueObjectHelper.GetBridgeGroup(_selectedBridge,fgc.GetCreatedOrModifiedID()));
+            HelperResult hr = HueObjectHelper.GetObject<Scene>(_selectedBridge, fgc.GetCreatedOrModifiedID());
+            if (hr.Success)
+            {
+                _listBridgeObjects.Add((HueObject)hr.Hrobject);
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_selectedBridge);
+            }
         }
 
         private void CreateScene()
@@ -978,8 +991,15 @@ namespace WinHue3
             log.Debug($@"Opening the scene creator window for bridge {_selectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created scene ID {fsc.GetCreatedOrModifiedID()} from bridge {_selectedBridge.IpAddress}");
-            _listBridgeObjects.Add(HueObjectHelper.GetBridgeScene(_selectedBridge,fsc.GetCreatedOrModifiedID()));
-            
+            HelperResult hr = HueObjectHelper.GetObject<Scene>(_selectedBridge, fsc.GetCreatedOrModifiedID());
+            if (hr.Success)
+            {
+                _listBridgeObjects.Add((HueObject)hr.Hrobject);
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_selectedBridge);
+            }
         }
 
         private void CreateSchedule()
@@ -988,7 +1008,16 @@ namespace WinHue3
             log.Debug($@"Opening the schedule creator window passing bridge {_selectedBridge.IpAddress} ");
             if (fscc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created schedule ID {fscc.GetCreatedOrModifiedID()} from bridge {_selectedBridge.IpAddress}");
-            _listBridgeObjects.Add(HueObjectHelper.GetBridgeSchedule(_selectedBridge,fscc.GetCreatedOrModifiedID()));
+            HelperResult hr = HueObjectHelper.GetObject<Schedule>(_selectedBridge, fscc.GetCreatedOrModifiedID());
+            if (hr.Success)
+            {
+                _listBridgeObjects.Add((HueObject)hr.Hrobject);
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_selectedBridge);
+            }
+
         }
 
         private void CreateRule()
@@ -997,7 +1026,16 @@ namespace WinHue3
             log.Debug($@"Opening the rule creator window passing bridge {_selectedBridge.IpAddress} ");
             if (frc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created rule ID {frc.GetCreatedOrModifiedId()} from bridge {_selectedBridge.IpAddress}");
-            _listBridgeObjects.Add(HueObjectHelper.GetBridgeRule(_selectedBridge,frc.GetCreatedOrModifiedId()));
+            HelperResult hr = HueObjectHelper.GetObject<Rule>(_selectedBridge, frc.GetCreatedOrModifiedId());
+            if (hr.Success)
+            {
+                _listBridgeObjects.Add((HueObject)hr.Hrobject);
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_selectedBridge);
+            }
+            
         }
 
         private void CreateSensor()
@@ -1006,7 +1044,15 @@ namespace WinHue3
             log.Debug($@"Opening the sensor creator window passing bridge {_selectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created sensor ID {fsc.GetCreatedOrModifiedID()} from bridge {_selectedBridge.IpAddress}");
-            _listBridgeObjects.Add(HueObjectHelper.GetBridgeSensor(_selectedBridge, fsc.GetCreatedOrModifiedID()));
+            HelperResult hr = HueObjectHelper.GetObject<Sensor>(_selectedBridge, fsc.GetCreatedOrModifiedID());
+            if (hr.Success)
+            {
+                _listBridgeObjects.Add((HueObject)hr.Hrobject);
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_selectedBridge);
+            }
         }
 
         private void CreateAnimation()
@@ -1133,7 +1179,8 @@ namespace WinHue3
             if (!(_selectedObject is Scene)) return;
             if (MessageBox.Show(GlobalStrings.Scene_Replace_Current_States, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
             log.Info($@"Replacing scene {((Scene)_selectedObject).name} lights state with current one.");
-            _selectedBridge.SetScene(_selectedObject.Id);
+            _selectedBridge.SetState<Scene>(_selectedObject.Id);
+       
         }
 
         public void KeyPress(Key k)

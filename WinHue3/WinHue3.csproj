@@ -204,6 +204,7 @@
     <Compile Include="Interface\ScreenPixelHandler.cs" />
     <Compile Include="Interface\TypeGroupDescription.cs" />
     <Compile Include="Utils\HueObjectHelper.cs" />
+    <Compile Include="Utils\Utils.cs" />
     <Compile Include="Views\AddManualIPView.cs" />
     <Compile Include="Views\AnimatorView.cs" />
     <Compile Include="Views\BridgeSettingsView.cs" />

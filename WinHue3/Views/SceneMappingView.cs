@@ -78,51 +78,58 @@ namespace WinHue3
             else
                 lscenes = _bridge.GetScenesList();
 
-
-            Dictionary<string, Light> llights = _bridge.GetLightList();
-
-            DataTable dt = new DataTable();
-
-   
-            dt.Columns.Add("ID");
-            dt.Columns.Add("Name");
-            
-            // Add all light columns
-            foreach (KeyValuePair<string, Light> kvp in llights)
+            CommandResult resscenes = _bridge.GetListObjects<Light>();
+            if (resscenes.Success)
             {
-                dt.Columns.Add(kvp.Value.name);
-            }
+                Dictionary<string, Light> llights = (Dictionary<string, Light>) resscenes.resultobject;
 
-            dt.Columns.Add("Locked");
-            dt.Columns.Add("Recycle");
-            dt.Columns.Add("Version");
+                DataTable dt = new DataTable();
 
-            // Map each scenes and lights
-            foreach (KeyValuePair<string, Scene> svp in lscenes)
-            {
 
-                object[] data = new object[llights.Count + 5];
+                dt.Columns.Add("ID");
+                dt.Columns.Add("Name");
 
-                data[0] = new string(svp.Key.ToCharArray()); 
-                data[1] = new string(svp.Value.name.ToCharArray());
-                int i = 2;
-                foreach (KeyValuePair<string, Light> lvp in llights)
+                // Add all light columns
+                foreach (KeyValuePair<string, Light> kvp in llights)
                 {
-                    string value = svp.Value.lights.Contains(lvp.Key) ? "Assigned" : "";
-                  
-                    data[i] = new string(value.ToCharArray());
-                    i++;
+                    dt.Columns.Add(kvp.Value.name);
                 }
-                data[i] = new string(svp.Value.locked.ToString().ToCharArray());
-                data[i + 1] = new string(svp.Value.recycle.ToString().ToCharArray());
-                data[i + 2] = new string(svp.Value.version.ToString().ToCharArray());
 
-                dt.Rows.Add(data);
+                dt.Columns.Add("Locked");
+                dt.Columns.Add("Recycle");
+                dt.Columns.Add("Version");
+
+                // Map each scenes and lights
+                foreach (KeyValuePair<string, Scene> svp in lscenes)
+                {
+
+                    object[] data = new object[llights.Count + 5];
+
+                    data[0] = new string(svp.Key.ToCharArray());
+                    data[1] = new string(svp.Value.name.ToCharArray());
+                    int i = 2;
+                    foreach (KeyValuePair<string, Light> lvp in llights)
+                    {
+                        string value = svp.Value.lights.Contains(lvp.Key) ? "Assigned" : "";
+
+                        data[i] = new string(value.ToCharArray());
+                        i++;
+                    }
+                    data[i] = new string(svp.Value.locked.ToString().ToCharArray());
+                    data[i + 1] = new string(svp.Value.recycle.ToString().ToCharArray());
+                    data[i + 2] = new string(svp.Value.version.ToString().ToCharArray());
+
+                    dt.Rows.Add(data);
+                }
+
+
+                _dt = dt;
+                OnPropertyChanged("SceneMapping");
             }
-            
-
-            _dt = dt;
-            OnPropertyChanged("SceneMapping");
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
+            }
             
         }
 
