@@ -458,12 +458,16 @@ namespace WinHue3
             get { return _selectedObject; }
             set
             {
-                HueObject val = value;
-                MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
-                MethodInfo generic = mi.MakeGenericMethod(value.GetType());
-                HelperResult hr = (HelperResult)mi.Invoke(this, new object[] {_selectedBridge, value});
-                if (!hr.Success) return;
-                _selectedObject = (HueObject)hr.Hrobject;
+
+                if (value != null)
+                {
+                    MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
+                    MethodInfo generic = mi.MakeGenericMethod(value.GetType());
+                    HelperResult hr = (HelperResult) generic.Invoke(_selectedBridge, new object[] {_selectedBridge, value.Id});
+                    if (!hr.Success) return;
+                    _selectedObject = (HueObject)hr.Hrobject;
+                }
+                
                 log.Debug("Selected object : " + _selectedObject);
                 OnPropertyChanged();
                 OnPropertyChanged("EnableSliders");
@@ -723,7 +727,7 @@ namespace WinHue3
         private void SliderChangeHue()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState",new object[] {new CommonProperties() {hue = (ushort) SliderHue, transitiontime = _transitiontime}});
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState",new object[] {new CommonProperties() {hue = (ushort) SliderHue, transitiontime = _transitiontime},_selectedObject.Id});
 
         }
 
@@ -731,31 +735,33 @@ namespace WinHue3
         {
             MethodInfo mi = objectmethod.GetType().GetMethod(methodname);
             MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
-            return (T)generic.Invoke(this, paramsarray);
+            object result = generic.Invoke(_selectedBridge, paramsarray);
+            return (T) result;
+
         }
 
         private void SliderChangeBri()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { bri = (byte)SliderBri, transitiontime = _transitiontime } });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { bri = (byte)SliderBri, transitiontime = _transitiontime }, _selectedObject.Id});
         }
 
         private void SliderChangeCT()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { ct = (ushort)SliderCT, transitiontime = _transitiontime } });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { ct = (ushort)SliderCT, transitiontime = _transitiontime }, _selectedObject.Id });
         }
 
         private void SliderChangeSat()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { sat = (byte)SliderSat, transitiontime = _transitiontime } });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { sat = (byte)SliderSat, transitiontime = _transitiontime }, _selectedObject.Id });
         }
 
         private void SliderChangeXY()
         {
             if (_selectedObject == null || _selectedBridge == null) return;
-            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = (decimal)SliderX, y = (decimal)SliderY }, transitiontime = _transitiontime } });
+            ExecuteGenericMethod<CommandResult>(_selectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = (decimal)SliderX, y = (decimal)SliderY }, transitiontime = _transitiontime }, _selectedObject.Id });
 
         }
 
@@ -778,7 +784,7 @@ namespace WinHue3
 
                 MethodInfo method = typeof(Bridge).GetMethod("RemoveObject");
                 MethodInfo generic = method.MakeGenericMethod(_selectedObject.GetType());
-                CommandResult bresult = (CommandResult) generic.Invoke(this, new object[]{ _selectedObject.Id });
+                CommandResult bresult = (CommandResult) generic.Invoke(_selectedBridge, new object[]{ _selectedObject.Id });
    
                 log.Debug("Result : " + bresult.resultobject);
                 if (bresult.Success)
@@ -818,7 +824,7 @@ namespace WinHue3
        
             MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
             MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
-            HelperResult hr = (HelperResult)generic.Invoke(this, new object[] {obj.Id});
+            HelperResult hr = (HelperResult)generic.Invoke(_selectedBridge, new object[] {_selectedBridge,obj.Id});
 
             if (hr.Success)
             {
@@ -864,8 +870,7 @@ namespace WinHue3
                 Sensor obj = (Sensor)_selectedObject;
                 if (obj.modelid == "PHDL00")
                 {
-                    Form_Daylight dl = new Form_Daylight(_selectedBridge, obj);
-                    dl.Owner = Application.Current.MainWindow;
+                    Form_Daylight dl = new Form_Daylight(_selectedBridge, obj) {Owner = Application.Current.MainWindow};
                     if(dl.ShowDialog() == true)
                     {
                         RefreshObject(_selectedObject);
@@ -873,8 +878,10 @@ namespace WinHue3
                 }
                 else if (obj.modelid == "ZGPSWITCH")
                 {
-                    Form_HueTapConfig htc = new Form_HueTapConfig(_selectedBridge, obj.Id);
-                    htc.Owner = Application.Current.MainWindow;
+                    Form_HueTapConfig htc = new Form_HueTapConfig(_selectedBridge, obj.Id)
+                    {
+                        Owner = Application.Current.MainWindow
+                    };
                     if(htc.ShowDialog() == true)
                     {
                         RefreshObject(_selectedObject);
@@ -883,8 +890,10 @@ namespace WinHue3
                 }
                 else
                 {
-                    Form_SensorCreator fsc = new Form_SensorCreator(_selectedBridge,obj);
-                    fsc.Owner = Application.Current.MainWindow;
+                    Form_SensorCreator fsc = new Form_SensorCreator(_selectedBridge, obj)
+                    {
+                        Owner = Application.Current.MainWindow
+                    };
                     if (fsc.ShowDialog() == true)
                     {
                         RefreshObject(_selectedObject);
@@ -974,7 +983,7 @@ namespace WinHue3
             Form_GroupCreator fgc = new Form_GroupCreator(_selectedBridge) { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the Group creator window for bridge {_selectedBridge.IpAddress} ");
             if (fgc.ShowDialog() != true) return;
-            HelperResult hr = HueObjectHelper.GetObject<Scene>(_selectedBridge, fgc.GetCreatedOrModifiedID());
+            HelperResult hr = HueObjectHelper.GetObject<Group>(_selectedBridge, fgc.GetCreatedOrModifiedID());
             if (hr.Success)
             {
                 _listBridgeObjects.Add((HueObject)hr.Hrobject);
@@ -1066,7 +1075,7 @@ namespace WinHue3
         {
             if (_selectedBridge == null) return;
             log.Info("Sending all on command to bridge" + _selectedBridge.IpAddress);
-            CommandResult bresult = _selectedBridge.SetState<Action>(new Action() {@on = true}, "0");
+            CommandResult bresult = _selectedBridge.SetState<Group>(new Action() {@on = true}, "0");
             if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
@@ -1078,7 +1087,7 @@ namespace WinHue3
         {
             if (_selectedBridge == null) return;
             log.Info("Sending all off command to bridge" + _selectedBridge.IpAddress);
-            CommandResult bresult = _selectedBridge.SetState<Action>(new Action() {@on = false}, "0");
+            CommandResult bresult = _selectedBridge.SetState<Group>(new Action() {@on = false}, "0");
             if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
@@ -1144,7 +1153,7 @@ namespace WinHue3
             else
             {
                 log.Info($"Activating scene : {_selectedObject.Id}");
-                _selectedBridge.SetState<Scene>(_selectedObject.Id);
+                _selectedBridge.ActivateScene(_selectedObject.Id);
 
             }
             
@@ -1158,7 +1167,7 @@ namespace WinHue3
             MethodInfo mi = typeof(Bridge).GetMethod("SetState");
             MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
             log.Info($@"Sending the long Identify command to object ID : {_selectedObject.Id}");
-            HelperResult hr = (HelperResult) mi.Invoke(this, new object[] {new CommonProperties() {alert = "lselect"}});
+            CommandResult hr = (CommandResult) generic.Invoke(_selectedBridge, new object[] {new CommonProperties() {alert = "lselect"},_selectedObject.Id});
         }
 
         private void IdentifyShort()
@@ -1169,7 +1178,7 @@ namespace WinHue3
             MethodInfo mi = typeof(Bridge).GetMethod("SetState");
             MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
             log.Info($@"Sending the long Identify command to object ID : {_selectedObject.Id}");
-            HelperResult hr = (HelperResult)mi.Invoke(this, new object[] { new CommonProperties() { alert = "select" } });
+            CommandResult hr = (CommandResult)generic.Invoke(_selectedBridge, new object[] { new CommonProperties() { alert = "select" }, _selectedObject.Id });
         }
 
 
@@ -1179,7 +1188,7 @@ namespace WinHue3
             if (!(_selectedObject is Scene)) return;
             if (MessageBox.Show(GlobalStrings.Scene_Replace_Current_States, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
             log.Info($@"Replacing scene {((Scene)_selectedObject).name} lights state with current one.");
-            _selectedBridge.SetState<Scene>(_selectedObject.Id);
+            _selectedBridge.StoreCurrentLightState(_selectedObject.Id);
        
         }
 

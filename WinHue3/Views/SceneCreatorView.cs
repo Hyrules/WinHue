@@ -521,14 +521,14 @@ namespace WinHue3
 
             foreach (HueObject obj in li)
             {
-                _bridge.SetState(((Light) obj).state,obj.Id);
+                _bridge.SetState<Light>(((Light) obj).state,obj.Id);
             }
 
             Thread.Sleep(5000);
 
             foreach (HueObject obj in liOriginalState)
             {
-                _bridge.SetState(((Light)obj).state,obj.Id);
+                _bridge.SetState<Light>(((Light)obj).state,obj.Id);
             }
 
             Thread.Sleep(2000);

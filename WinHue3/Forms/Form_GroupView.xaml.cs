@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using HueLib2;
 
 namespace WinHue3
@@ -14,8 +15,16 @@ namespace WinHue3
         {
             InitializeComponent();
             _br = br;
-            _gvv = new GroupViewView(br);
-            DataContext = _gvv;
+            CommandResult comlgt = _br.GetListObjects<Light>();
+            CommandResult comgrp = _br.GetListObjects<Group>();
+
+            if (comlgt.Success && comgrp.Success)
+            {
+                _gvv = new GroupViewView((Dictionary<string, Group>) comgrp.resultobject,
+                    (Dictionary<string, Light>) comlgt.resultobject);
+                DataContext = _gvv;
+            }
+
         }
     }
 }

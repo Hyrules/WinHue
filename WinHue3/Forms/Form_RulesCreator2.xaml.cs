@@ -17,14 +17,23 @@ namespace WinHue3
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Dictionary<PropertyInfo,dynamic> listproperties = new Dictionary<PropertyInfo, dynamic>();
         private readonly Rule editedRule;
-        private string _id;
         private readonly RuleCreatorView rcv;
 
         public Form_RulesCreator2(Bridge bridge)
         {
             InitializeComponent();
             _br = bridge;
-            rcv = new RuleCreatorView(HueObjectHelper.GetBridgeDataStore(bridge));
+            HelperResult hr = HueObjectHelper.GetBridgeDataStore(bridge);
+            List<HueObject> listobj;
+            if (hr.Success)
+            {
+                listobj = (List<HueObject>) hr.Hrobject;
+            }
+            else
+            {
+                listobj = new List<HueObject>();
+            }
+            rcv = new RuleCreatorView(listobj);
             DataContext = rcv;
         }
 
@@ -32,7 +41,17 @@ namespace WinHue3
         {
             InitializeComponent();
             _br = bridge;
-            rcv = new RuleCreatorView(HueObjectHelper.GetBridgeDataStore(bridge),rule);
+            HelperResult hr = HueObjectHelper.GetBridgeDataStore(bridge);
+            List<HueObject> listobj;
+            if (hr.Success)
+            {
+                listobj = (List<HueObject>)hr.Hrobject;
+            }
+            else
+            {
+                listobj = new List<HueObject>();
+            }
+            rcv = new RuleCreatorView(listobj,rule);
             DataContext = rcv;
             editedRule = (Rule)rule;
             Title = $"Editing rule {((Rule)rule).name}...";
@@ -51,27 +70,25 @@ namespace WinHue3
             newRule.created = null;
             newRule.timestriggered = null;
             newRule.lasttriggered = null;
-            string cr = null;
 
-            cr = editedRule == null ? _br.CreateRule(newRule) : _br.ModifyRule(editedRule.Id, newRule);
+            CommandResult comres = editedRule == null ? _br.CreateObject<Rule>(newRule) : _br.ModifyObject<Rule>(newRule, editedRule.Id);
 
-            if (cr != "")
+            if (comres.Success)
             {
                 log.Info(editedRule == null ? $"Created new rule : {newRule.name}" : $"Updated rule : {newRule.name}");
                 DialogResult = true;
-                _id = cr;
                 Close();
             }
             else
             {
                 _br.ShowErrorMessages();
             }
-            
+                        
         }
 
         public string GetCreatedOrModifiedId()
         {
-            return _id;
+            return editedRule.Id;
         }
 
         private void lbConditions_ContextMenuOpening(object sender, ContextMenuEventArgs e)

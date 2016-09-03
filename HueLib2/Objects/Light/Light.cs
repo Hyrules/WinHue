@@ -16,24 +16,24 @@ namespace HueLib2
         /// <summary>
         /// State of the Light.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("State"), Description("State of the light"),ExpandableObject]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("State"), Description("State of the light"),ExpandableObject, HueLib(false, false)]
         public State state { get; set; }
         /// <summary>
         /// Type of light.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Type of Light"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Type of Light"), HueLib(false, false)]
         public string type { get; set; }
 
         /// <summary>
         /// Manufacturer name.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Manufacturer name"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Manufacturer name"), HueLib(false, false)]
         public string manufacturername { get; set; }
 
         /// <summary>
         /// Name of the light.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Light Name"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Light Name"), HueLib(true, true)]
         public string name {
             get { return _name; }
             set
@@ -45,18 +45,18 @@ namespace HueLib2
         /// <summary>
         /// Model ID of the Light.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Model ID"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Model ID"), HueLib(false, false)]
         public string modelid { get; set; }
         /// <summary>
         /// Software Version of the Light.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Software Version"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Software Version"), HueLib(false, false)]
         public string swversion { get; set; }
 
         /// <summary>
         /// Unique ID of the light.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Unique ID"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Unique ID"), HueLib(false, false)]
         public string uniqueid { get; set; }
 
         /// <summary>

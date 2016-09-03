@@ -43,104 +43,124 @@ namespace WinHue3
 
         private void BuildBulbsView()
         {
-            Dictionary<string, Light> llights = _bridge.GetLightList();
-            if (llights == null) return;
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("Properties");
-            foreach (KeyValuePair<string,Light> lvp in llights)
-            {
-                dt.Columns.Add(lvp.Value.name);
-            }
             
-            PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            PropertyInfo[] liststate = typeof(State).GetProperties();
-            PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
-
-            listproperties.CopyTo(listPropertyInfos,0);
-            liststate.CopyTo(listPropertyInfos,listproperties.Length);
-
-            object[] data = new object[llights.Count+1];
-
-            foreach (PropertyInfo pi in listPropertyInfos)
+            CommandResult comres = _bridge.GetListObjects<Light>();
+            if (comres.Success)
             {
-                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
+                Dictionary<string, Light> llights = (Dictionary<string,Light>)comres.resultobject;
+                DataTable dt = new DataTable();
 
-                data[0] = pi.Name;
-
-                int i = 1;
+                dt.Columns.Add("Properties");
                 foreach (KeyValuePair<string, Light> lvp in llights)
                 {
-                    if (Array.Find(liststate,x => x.Name == pi.Name) != null)
-                    {
-                        data[i] = pi.GetValue(lvp.Value.state);
-                    }
-                    else
-                    {
-                        data[i] = pi.GetValue(lvp.Value);
-                    }
-                    
-                    i++;
+                    dt.Columns.Add(lvp.Value.name);
                 }
-              
- 
-                dt.Rows.Add(data);
-            }
-            _dt = dt;
-            OnPropertyChanged("BulbsDetails");
-        }
 
-        private void BuildBulbsViewReverse()
-        {
-            Dictionary<string, Light> llights = _bridge.GetLightList();
-            if (llights == null) return;
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Lights");
+                PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                PropertyInfo[] liststate = typeof(State).GetProperties();
+                PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
 
-            PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            PropertyInfo[] liststate = typeof(State).GetProperties();
-            PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
+                listproperties.CopyTo(listPropertyInfos, 0);
+                liststate.CopyTo(listPropertyInfos, listproperties.Length);
 
-            listproperties.CopyTo(listPropertyInfos, 0);
-            liststate.CopyTo(listPropertyInfos, listproperties.Length);
-
-           
-
-            foreach (PropertyInfo pi in listPropertyInfos)
-            {
-                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
-                dt.Columns.Add(pi.Name);
-            }
-
-            int nbrcol = 1 + listPropertyInfos.Length - 2 - liststate.Count(x => x.Name.Contains("_inc"));
-
-            object[] data = new object[nbrcol];
-
-            foreach (KeyValuePair<string,Light> lvp in llights)
-            {
-                int i = 1;
-                data[0] = lvp.Value.name;
+                object[] data = new object[llights.Count + 1];
 
                 foreach (PropertyInfo pi in listPropertyInfos)
                 {
                     if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
 
-                    if (Array.Find(liststate, x => x.Name == pi.Name) != null)
-                    {
-                        data[i] = pi.GetValue(lvp.Value.state);
-                    }
-                    else
-                    {
-                        data[i] = pi.GetValue(lvp.Value);
-                    }
-                    i++;
+                    data[0] = pi.Name;
 
+                    int i = 1;
+                    foreach (KeyValuePair<string, Light> lvp in llights)
+                    {
+                        if (Array.Find(liststate, x => x.Name == pi.Name) != null)
+                        {
+                            data[i] = pi.GetValue(lvp.Value.state);
+                        }
+                        else
+                        {
+                            data[i] = pi.GetValue(lvp.Value);
+                        }
+
+                        i++;
+                    }
+
+
+                    dt.Rows.Add(data);
                 }
-                dt.Rows.Add(data);
+                _dt = dt;
+                OnPropertyChanged("BulbsDetails");
 
             }
-            _dt = dt;
-            OnPropertyChanged("BulbsDetails");
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
+            }
+        }
+
+        private void BuildBulbsViewReverse()
+        {
+
+            CommandResult comres = _bridge.GetListObjects<Light>();
+            if (comres.Success)
+            {
+
+                Dictionary<string, Light> llights = (Dictionary<string, Light>)comres.resultobject;
+                if (llights == null) return;
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Lights");
+
+                PropertyInfo[] listproperties =
+                    typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                PropertyInfo[] liststate = typeof(State).GetProperties();
+                PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
+
+                listproperties.CopyTo(listPropertyInfos, 0);
+                liststate.CopyTo(listPropertyInfos, listproperties.Length);
+
+
+
+                foreach (PropertyInfo pi in listPropertyInfos)
+                {
+                    if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
+                    dt.Columns.Add(pi.Name);
+                }
+
+                int nbrcol = 1 + listPropertyInfos.Length - 2 - liststate.Count(x => x.Name.Contains("_inc"));
+
+                object[] data = new object[nbrcol];
+
+                foreach (KeyValuePair<string, Light> lvp in llights)
+                {
+                    int i = 1;
+                    data[0] = lvp.Value.name;
+
+                    foreach (PropertyInfo pi in listPropertyInfos)
+                    {
+                        if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
+
+                        if (Array.Find(liststate, x => x.Name == pi.Name) != null)
+                        {
+                            data[i] = pi.GetValue(lvp.Value.state);
+                        }
+                        else
+                        {
+                            data[i] = pi.GetValue(lvp.Value);
+                        }
+                        i++;
+
+                    }
+                    dt.Rows.Add(data);
+
+                }
+                _dt = dt;
+                OnPropertyChanged("BulbsDetails");
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
+            }
         }
 
         public string Filter

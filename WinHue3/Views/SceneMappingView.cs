@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using HueLib2;
@@ -71,12 +72,21 @@ namespace WinHue3
         {
             Dictionary<string, Scene> lscenes;
 
-            if (!WinHueSettings.settings.ShowHiddenScenes)
-                lscenes = _bridge.GetScenesList()
-                    .Where(x => x.Value.name.Contains("HIDDEN") == false)
-                    .ToDictionary(p => p.Key, p => p.Value);
+            CommandResult comres = _bridge.GetListObjects<Scene>();
+            if (comres.Success)
+            {
+                if (!WinHueSettings.settings.ShowHiddenScenes)
+                    lscenes = ((Dictionary<string, Scene>) comres.resultobject).Where(
+                            x => x.Value.name.Contains("HIDDEN") == false)
+                        .ToDictionary(p => p.Key, p => p.Value);
+                else
+                    lscenes = ((Dictionary<string, Scene>) comres.resultobject);
+
+            }
             else
-                lscenes = _bridge.GetScenesList();
+            {
+                return;
+            }
 
             CommandResult resscenes = _bridge.GetListObjects<Light>();
             if (resscenes.Success)
@@ -142,7 +152,7 @@ namespace WinHue3
         public void ProcessDoubleClick()
         {
             if (_row == null) return;
-            _bridge.ActivateScene(((DataRowView)_row).Row.ItemArray[0].ToString());
+            _bridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
         public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping());

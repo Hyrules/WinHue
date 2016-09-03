@@ -97,32 +97,38 @@ namespace WinHue3
             }
         }
 
-        public bool CanSelectObjectAndType
-        {
-            get { return !_isgeneric; }
-        }
+        public bool CanSelectObjectAndType => !_isgeneric;
 
         private void FetchHueObject()
         {
+            if (_objectypeindex == -1)
+            {
+                ListHueObject = null;
+                return;
+            }
+
+            HelperResult hr;
 
             switch (_objectypeindex)
             {
-                case -1:
-                    ListHueObject = null;
-                    break;
                 case 0:
-                    ListHueObject = HueObjectHelper.GetBridgeLights(_bridge);
+                    hr = HueObjectHelper.GetBridgeLights(_bridge);
                     break;
                 case 1:
-                    ListHueObject = HueObjectHelper.GetBridgeGroups(_bridge);
+                    hr = HueObjectHelper.GetBridgeGroups(_bridge);
                     break;
                 case 2:
-                    ListHueObject = HueObjectHelper.GetBridgeScenes(_bridge);
+                    hr = HueObjectHelper.GetBridgeScenes(_bridge);
                     break;
                 default:
+                    hr = new HelperResult() {Success = false};
                     break;
             }
 
+            if (hr.Success)
+            {
+                ListHueObject = (List<HueObject>) hr.Hrobject;
+            }
         }
 
         public List<HueObject> ListHueObject

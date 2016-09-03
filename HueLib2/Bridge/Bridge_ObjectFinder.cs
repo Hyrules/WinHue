@@ -27,6 +27,7 @@ namespace HueLib2
                 {
                     bresult.resultobject = result.data;
                 }
+                
             }
             else
             {

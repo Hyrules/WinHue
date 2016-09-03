@@ -22,7 +22,6 @@ namespace HueLib2
         /// <summary>
         /// ID of the item.
         /// </summary>
-        [DataMember]
         string _id;
 
         #region PROPERTIES
@@ -30,7 +29,7 @@ namespace HueLib2
         /// <summary>
         /// Image accessor.
         /// </summary>
-        [Browsable(false)]
+        [Browsable(false), HueLib(false, false)]
         public ImageSource Image
         {
             get { return _image; }
@@ -44,7 +43,7 @@ namespace HueLib2
         /// <summary>
         /// Id accessor.
         /// </summary>
-        [Browsable(false)]
+        [Browsable(false), HueLib(false, false)]
         public string Id
         {
             get { return _id; }

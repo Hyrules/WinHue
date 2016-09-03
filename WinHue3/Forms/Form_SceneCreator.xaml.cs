@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +22,7 @@ namespace WinHue3
         /// <summary>
         /// Id of the new or modified scene.
         /// </summary>
-        string _id = null;
+        private Scene _currentscene;
 
         private SceneCreatorView scv;
 
@@ -32,7 +33,8 @@ namespace WinHue3
         public Form_SceneCreator(Bridge bridge)
         {
             InitializeComponent();
-            scv = new SceneCreatorView(HueObjectHelper.GetBridgeLights(bridge),bridge);
+            HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
+            scv = hr.Success ? new SceneCreatorView((List<HueObject>)hr.Hrobject, bridge) : new SceneCreatorView(new List<HueObject>(), bridge);
             DataContext = scv;
             _br = bridge;
         }
@@ -40,16 +42,23 @@ namespace WinHue3
         public Form_SceneCreator(Bridge bridge, HueObject obj)
         {
             InitializeComponent();
-            _id = ((Scene)obj).Id;
-            scv = new SceneCreatorView(HueObjectHelper.GetBridgeLights(bridge),obj,bridge);
+            _currentscene = ((Scene)obj);
+            HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
+            if (hr.Success)
+            {
+                scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, obj, bridge);
+            }
+            else
+            {
+                scv = new SceneCreatorView(new List<HueObject>(), bridge);
+            }
             DataContext = scv;
             _br = bridge;
-
         }
 
         public string GetCreatedOrModifiedID()
         {
-            return _id;
+            return _currentscene.Id;
         }
 
         private void lbSelectedLights_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -60,21 +69,19 @@ namespace WinHue3
         private void btnSaveScene_Click(object sender, RoutedEventArgs e)
         {
             Scene newScene = (Scene) scv.GetScene();
-            newScene.lastupdated = null;
-            newScene.locked = null;
-            newScene.recycle = null;
-            newScene.version = null;
 
             log.Info("Scene to be created : " + newScene);
-            _id = _id == "" ? _br.CreateScene(newScene) : _br.ChangeScene(_id, newScene.name,newScene.lights);
-            log.Info("Id of the new scene" + _id);
+            CommandResult comres = _currentscene == null? _br.CreateObject<Scene>(newScene) : _br.ModifyObject<Scene>(newScene,_currentscene.Id);
 
-            if (!string.IsNullOrEmpty(_id))
+            if (comres.Success)
             {
+                MessageCollection mc = ((MessageCollection) comres.resultobject);
+                string id = ((Success) mc[0]).id;                    
+                log.Info("Id of the scene" + id);
                 ObservableCollection<HueObject> listLightState = scv.GetSceneLights();
                 foreach (HueObject obj in listLightState)
                 {
-                    _br.SetSceneLightState(_id, obj.Id, ((Light) obj).state);
+                    _br.SetSceneLightState(id, obj.Id, ((Light)obj).state);
                 }
 
                 DialogResult = true;
@@ -82,9 +89,10 @@ namespace WinHue3
             }
             else
             {
-                _br.ShowErrorMessages(); 
+                _br.ShowErrorMessages();
                 log.Error(_br.lastMessages);
             }
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

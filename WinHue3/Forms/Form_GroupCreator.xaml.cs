@@ -81,7 +81,7 @@ namespace WinHue3
                 if (bresult.Success)
                 {
                     DialogResult = true;
-                    _id = (string) bresult.resultobject;
+                    _id = ((MessageCollection)bresult.resultobject)[0].ToString();
                     Close();
                 }
                 else

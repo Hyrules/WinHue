@@ -21,17 +21,17 @@ namespace HueLib2
         /// <summary>
         /// Action (State) of the group
         /// </summary>
-        [DataMember, Category("Action"), Description("Action"),ExpandableObject]
+        [DataMember, Category("Action"), Description("Action"),ExpandableObject, HueLib(false, false)]
         public Action action { get; set; }
         /// <summary>
         /// List of lights in the group.
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Lights in the group"),Browsable(false)]
+        [DataMember, Category("Group Properties"), Description("Lights in the group"),Browsable(false), HueLib(true, true)]
         public List<string> lights { get; set;}
         /// <summary>
         /// Group name.
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Name of the group")]
+        [DataMember, Category("Group Properties"), Description("Name of the group"), HueLib(true, true)]
         public string name
         {
             get { return _name; }
@@ -45,25 +45,25 @@ namespace HueLib2
         /// <summary>
         /// Type of the group
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("The type of group")]
+        [DataMember, Category("Group Properties"), Description("The type of group"), HueLib(true, false)]
         public string type { get; set; }
 
         /// <summary>
         /// Model ID
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Model id of the group")]
+        [DataMember, Category("Group Properties"), Description("Model id of the group"), HueLib(false, false)]
         public string modelid { get; set; }
 
         /// <summary>
         /// Unique ID
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Unique id of group")]
+        [DataMember, Category("Group Properties"), Description("Unique id of group"), HueLib(false, false)]
         public string uniqueid { get; set; }
 
         /// <summary>
         /// Class
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Class of the group")]
+        [DataMember, Category("Group Properties"), Description("Class of the group"), HueLib(true,true)]
         public string @class { get; set; }
 
         /// <summary>

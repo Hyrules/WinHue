@@ -80,6 +80,7 @@
     <Compile Include="Bridge\Objects\SwUpdate.cs" />
     <Compile Include="Bridge\Objects\User.cs" />
     <Compile Include="Bridge\Objects\WhiteList.cs" />
+    <Compile Include="HueLibAttribute.cs" />
     <Compile Include="Objects\Device.cs" />
     <Compile Include="Hue.cs" />
     <Compile Include="Objects\CommonProperties.cs" />

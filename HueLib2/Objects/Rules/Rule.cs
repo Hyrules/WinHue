@@ -16,7 +16,7 @@ namespace HueLib2
         /// <summary>
         /// name.
         /// </summary>
-        [DataMember, Category("Rule Properties"), Description("Name of the rule")]
+        [DataMember, Category("Rule Properties"), Description("Name of the rule"), HueLib(true, true)]
         public string name
         {
             get { return _name; }
@@ -29,42 +29,42 @@ namespace HueLib2
         /// <summary>
         /// Conditions.
         /// </summary>
-        [DataMember, Category("Conditions"), Description("Conditions of the rule"),Browsable(false)]
+        [DataMember, Category("Conditions"), Description("Conditions of the rule"),Browsable(false), HueLib(true, true)]
         public List<RuleCondition> conditions { get; set; }
         /// <summary>
         /// actions.
         /// </summary>
-        [DataMember, Category("Actions"), Description("Actions of the rule"), Browsable(false)]
+        [DataMember, Category("Actions"), Description("Actions of the rule"), Browsable(false), HueLib(true, true)]
         public List<RuleAction> actions { get; set; }
 
         /// <summary>
         /// Owner of the rule.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Owner of the rule")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Owner of the rule"), HueLib(false, false)]
         public string owner { get; set; }
 
         /// <summary>
         /// Number of time triggered.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Number of times the rule has been triggered")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Number of times the rule has been triggered"), HueLib(false, false)]
         public int? timestriggered { get; set; }
 
         /// <summary>
         /// Last time the rule was triggered
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Last time the rule was triggered")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Last time the rule was triggered"), HueLib(false, false)]
         public string lasttriggered { get; set; }
 
         /// <summary>
         /// Date of creation.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Date of creation")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Date of creation"), HueLib(false, false)]
         public string created { get; set; }
 
         /// <summary>
         /// Enabled.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Current status of the rule")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Current status of the rule"), HueLib(true, true)]
         public string status { get; set; }
 
         /// <summary>

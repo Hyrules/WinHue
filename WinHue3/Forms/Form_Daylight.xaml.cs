@@ -30,6 +30,7 @@ namespace WinHue3
             }
             else
             {
+               
                 MessageBoxError.ShowLastErrorMessages(br);
             }
  

@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
+using System.Windows.Forms;
 using HueLib2;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WinHue3
 {
@@ -25,38 +28,21 @@ namespace WinHue3
 
         private void btnRename_Click(object sender, RoutedEventArgs e)
         {
-            if (_obj is Light)
+
+            MethodInfo mi = typeof(Bridge).GetMethod("RenameObject");
+            MethodInfo generic = mi.MakeGenericMethod(_obj.GetType());
+            CommandResult comres = (CommandResult)generic.Invoke(_bridge, new object[] {_obj.Id, tbNewName.Text});
+
+            if (comres.Success)
             {
-                _bridge.ChangeLightName(_obj.Id, tbNewName.Text);
-            }
-            else if (_obj is Group)
-            {
-                _bridge.ChangeGroupName(_obj.Id, tbNewName.Text);
-            }
-            else if (_obj is Schedule)
-            {
-                _bridge.ChangeScheduleName(_obj.Id, tbNewName.Text);
-            }
-            else if (_obj is Sensor)
-            {
-                _bridge.ChangeSensorName(_obj.Id, tbNewName.Text);
-            }
-            else if (_obj is Rule)
-            {
-                _bridge.ChangeRuleName(_obj.Id, tbNewName.Text);
-            }
-            else if(_obj is Scene)
-            {
-                _bridge.ChangeSceneName(_obj.Id, tbNewName.Text);
-            }
-            if(_bridge.lastMessages.FailureCount == 0)
                 DialogResult = true;
+                Close();
+            }
             else
             {
-                MessageBox.Show(GlobalStrings.Error_Renaming, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
-                DialogResult = false;
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
-            Close();
+ 
         }
 
         public string GetNewName()

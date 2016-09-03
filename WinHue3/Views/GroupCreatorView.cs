@@ -21,8 +21,7 @@ namespace WinHue3
         {
             _lightlist = new ObservableCollection<HueObject>(lightlist);
             _grouplights = new ObservableCollection<HueObject>();
-            _group = new Group();
-            _group.lights = new List<string>();
+            _group = new Group {lights = new List<string>()};
             SetError(GlobalStrings.Group_Select_One_Light, "GroupLightList");
         }
 
@@ -39,8 +38,7 @@ namespace WinHue3
                 }
             }
             _group = group;
-            _group.action = null;
-            _group.type = null;
+
         }
 
         #endregion
@@ -50,21 +48,9 @@ namespace WinHue3
         public ObservableCollection<HueObject> AvailableLightList => _lightlist;
         public ObservableCollection<HueObject> GroupLightList => _grouplights;
 
-        public bool CanRemoveLight
-        {
-            get
-            {
-                return _selectedgrouplight != null;
-            }
-        }
+        public bool CanRemoveLight => _selectedgrouplight != null;
 
-        public bool CanAddLight
-        {
-            get
-            {
-                return _selectedavailableLight != null;
-            }
-        }
+        public bool CanAddLight => _selectedavailableLight != null;
 
         public HueObject SelectedAvailableLight
         {

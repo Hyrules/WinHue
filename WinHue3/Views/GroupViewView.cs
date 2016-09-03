@@ -97,7 +97,6 @@ namespace WinHue3
                 int i = 1;
                 data[0] = pi.Name;
 
-                
                 foreach (KeyValuePair<string, Group> gvp in lgroups)
                 {
                     if (Array.Find(listaction,x => x.Name == pi.Name) != null)

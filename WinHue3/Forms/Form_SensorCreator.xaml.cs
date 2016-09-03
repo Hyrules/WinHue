@@ -10,7 +10,7 @@ namespace WinHue3
     public partial class Form_SensorCreator : Window
     {
         readonly Bridge _br;
-        string _id;
+        private Sensor modifiedsensor;
         readonly SensorCreatorView _scv;
 
         public Form_SensorCreator(Bridge bridge)
@@ -27,23 +27,25 @@ namespace WinHue3
             InitializeComponent();
             _scv = new SensorCreatorView(sensor);
             DataContext = _scv;
-            _id = sensor.Id;
+            modifiedsensor = sensor;
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             Sensor sensor = _scv.GetSensor();
-
-            if (sensor.Id == null)
+            CommandResult comres;
+            if (modifiedsensor == null)
             {
-                _id = _br.CreateSensor(sensor);            
+                comres = _br.CreateObject<Sensor>(sensor);
+                MessageCollection mc = (MessageCollection) comres.resultobject;
+                modifiedsensor = new Sensor() {Id = ((Success)mc[0]).id};
             }
             else
             {
-                _br.UpdateSensor(_id,sensor);
+                comres = _br.ModifyObject(modifiedsensor, modifiedsensor.Id);
             }
 
-            if (_id != "")
+            if (comres.Success)
             {
                 DialogResult = true;
                 Close();
@@ -58,7 +60,7 @@ namespace WinHue3
 
         public string GetCreatedOrModifiedID()
         {
-            return _id;
+            return modifiedsensor.Id;
         } 
 
         private void btnTestURL_Click(object sender, RoutedEventArgs e)
