@@ -25,9 +25,9 @@ namespace HueLib2
    
             if (result.status == WebExceptionStatus.Success)
             {
-                MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                bresult.Success = mc.FailureCount == 0;
-                bresult.resultobject = mc;
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
+                bresult.Success = lastMessages.FailureCount == 0;
+                bresult.resultobject = lastMessages;
             }
             else
             {
@@ -49,9 +49,9 @@ namespace HueLib2
             
             if (comres.status == WebExceptionStatus.Success)
             {
-                MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
-                bresult.Success = mc.FailureCount == 0;
-                bresult.resultobject = mc;
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                bresult.Success = lastMessages.FailureCount == 0;
+                bresult.resultobject = lastMessages;
             }
             else
             {
@@ -72,9 +72,9 @@ namespace HueLib2
             CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/scenes/{id}"), WebRequestType.PUT, Serializer.SerializeToJson(new Scene() {storelightstate = true}));
             if (comres.status == WebExceptionStatus.Success)
             {
-                MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
-                bresult.Success = mc.FailureCount == 0;
-                bresult.resultobject = mc;
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                bresult.Success = lastMessages.FailureCount == 0;
+                bresult.resultobject = lastMessages;
             }
             else
             {
@@ -97,9 +97,9 @@ namespace HueLib2
 
             if (comres.status == WebExceptionStatus.Success)
             {
-                MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
-                bresult.Success = mc.FailureCount == 0;
-                bresult.resultobject = mc;
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                bresult.Success = lastMessages.FailureCount == 0;
+                bresult.resultobject = lastMessages;
             }
             else
             {
@@ -132,9 +132,9 @@ namespace HueLib2
 
                 if (result.status == WebExceptionStatus.Success)
                 {
-                    MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                    bresult.Success = mc.FailureCount == 0;
-                    bresult.resultobject = mc;
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
+                    bresult.Success = lastMessages.FailureCount == 0;
+                    bresult.resultobject = lastMessages;
                 }
                 else
                 {
@@ -166,9 +166,9 @@ namespace HueLib2
                 CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}"), WebRequestType.POST, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(newobject)));
                 if (result.status == WebExceptionStatus.Success)
                 {
-                    MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                    bresult.Success = mc.FailureCount == 0;
-                    bresult.resultobject = mc;
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
+                    bresult.Success = lastMessages.FailureCount == 0;
+                    bresult.resultobject = lastMessages;
                 }
                 else
                 {
@@ -198,8 +198,8 @@ namespace HueLib2
                 CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}/{id}"), WebRequestType.DELETE);
                 if (result.status == WebExceptionStatus.Success)
                 {
-                    MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                    bresult.Success = mc.FailureCount == 0;
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
+                    bresult.Success = lastMessages.FailureCount == 0;
                     bresult.resultobject = true;
                 }
                 else
@@ -232,9 +232,9 @@ namespace HueLib2
                 CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}/{id}"), WebRequestType.PUT,Serializer.SerializeToJson(ClearNotAllowedModifyProperties(modifiedobject)));
                 if (result.status == WebExceptionStatus.Success)
                 {
-                    MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                    bresult.Success = mc.FailureCount == 0;
-                    bresult.resultobject = mc;
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
+                    bresult.Success = lastMessages.FailureCount == 0;
+                    bresult.resultobject = lastMessages;
                 }
                 else
                 {
@@ -251,21 +251,47 @@ namespace HueLib2
         }
 
         /// <summary>
-        /// Set to null all properties that are not allow to be set at modification.
+        /// Change the desired sensor config.
         /// </summary>
-        /// <param name="hueobject">Object to be parsed.</param>
-        /// <returns></returns>
-        private HueObject ClearNotAllowedModifyProperties(HueObject hueobject)
+        /// <param name="id">ID of the sensor</param>
+        /// <param name="newconfig">New config of the sensor</param>
+        /// <returns>BridgeCommResult</returns>
+        public CommandResult ChangeSensorConfig(string id,SensorConfig newconfig)
         {
-            PropertyInfo[] listproperties = hueobject.GetType().GetProperties();
-            foreach (PropertyInfo p in listproperties)
+            CommandResult bresult = new CommandResult();
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/config"),WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newconfig)));
+            if (comres.status == WebExceptionStatus.Success)
             {
-                HueLibAttribute hla = (HueLibAttribute)Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
-                if(!hla.Modify)
-                    p.SetValue(hueobject,null);
+                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                bresult.Success = lastMessages.FailureCount == 0;
+                bresult.resultobject = lastMessages;
+            }
+            else
+            {
+                bresult.resultobject = comres.data;
             }
 
-            return hueobject;            
+            return bresult;
+        }
+
+
+        /// <summary>
+        /// Set to null all properties that are not allow to be set at modification.
+        /// </summary>
+        /// <param name="obj">Object to be parsed.</param>
+        /// <returns></returns>
+        private object ClearNotAllowedModifyProperties(object obj)
+        {
+            PropertyInfo[] listproperties = obj.GetType().GetProperties();
+            foreach (PropertyInfo p in listproperties)
+            {
+                if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
+                HueLibAttribute hla = (HueLibAttribute) Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
+                if (!hla.Modify)
+                    p.SetValue(obj, null);
+            }
+
+            return obj;            
         }
 
         /// <summary>
@@ -273,17 +299,18 @@ namespace HueLib2
         /// </summary>
         /// <param name="hueobject">Object to be parsed</param>
         /// <returns></returns>
-        private HueObject ClearNotAllowedCreationProperties(HueObject hueobject)
+        private object ClearNotAllowedCreationProperties(object obj)
         {
-            PropertyInfo[] listproperties = hueobject.GetType().GetProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
+                if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
                 HueLibAttribute hla = (HueLibAttribute)Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
                 if (!hla.Create)
-                    p.SetValue(hueobject, null);
+                    p.SetValue(obj, null);
             }
 
-            return hueobject;
+            return obj;
         }
     }
 }

@@ -10,11 +10,10 @@ namespace WinHue3
     {
         private BulbsViewView _bvv;
         private Bridge _br;
-        public Form_BulbsView(Bridge br)
+        public Form_BulbsView()
         {
             InitializeComponent();
-            _br = br;
-            _bvv = new BulbsViewView(br);
+            _bvv = new BulbsViewView();
             DataContext = _bvv;
         }
     }

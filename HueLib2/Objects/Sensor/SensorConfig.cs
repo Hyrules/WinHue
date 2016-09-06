@@ -13,46 +13,46 @@ namespace HueLib2
         /// <summary>
         /// url.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(true, true)]
         public string url { get; set; }
         /// <summary>
         /// On off state.
         /// </summary>
-        [DataMember]
+        [DataMember,HueLib(false,false)]
         public bool? on { get; set; }
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(false, false)]
         public bool? reachable { get; set; }
         /// <summary>
         /// Battery state.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(false, false)]
         public bool? battery { get; set; }
 
         /// <summary>
         /// Longitude of the sensor.
         /// </summary>
-        [DataMember]
+        [DataMember,HueLib(true,true)]
         public string @long { get; set; }
 
         /// <summary>
         /// Latitude of the sensor.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(true, true)]
         public string lat { get; set; }
 
         /// <summary>
         /// Sunrise offset.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(true, true)]
         public sbyte? sunriseoffset { get; set; }
 
         /// <summary>
         /// Sunset offsett.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(true, true)]
         public sbyte? sunsetoffset { get; set; }
 
         /// <summary>

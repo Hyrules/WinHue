@@ -10,14 +10,13 @@ namespace WinHue3
 {
     public class BulbsViewView : View
     {
-        private Bridge _bridge;
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
 
-        public BulbsViewView(Bridge br)
+        public BulbsViewView()
         {
-            _bridge = br;
+
             BuildBulbsViewReverse();
         }
 
@@ -44,7 +43,7 @@ namespace WinHue3
         private void BuildBulbsView()
         {
             
-            CommandResult comres = _bridge.GetListObjects<Light>();
+            CommandResult comres = BridgeStore.SelectedBridge.GetListObjects<Light>();
             if (comres.Success)
             {
                 Dictionary<string, Light> llights = (Dictionary<string,Light>)comres.resultobject;
@@ -95,14 +94,14 @@ namespace WinHue3
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(_bridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
             }
         }
 
         private void BuildBulbsViewReverse()
         {
 
-            CommandResult comres = _bridge.GetListObjects<Light>();
+            CommandResult comres = BridgeStore.SelectedBridge.GetListObjects<Light>();
             if (comres.Success)
             {
 
@@ -159,7 +158,7 @@ namespace WinHue3
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(_bridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
             }
         }
 

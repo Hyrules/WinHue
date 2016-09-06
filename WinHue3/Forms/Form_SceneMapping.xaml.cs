@@ -12,11 +12,10 @@ namespace WinHue3
     {
         private Bridge _bridge;
         private SceneMappingView _smv;
-        public Form_SceneMapping(Bridge br)
+        public Form_SceneMapping()
         {
             InitializeComponent();
-            _bridge = br;
-            _smv = new SceneMappingView(br);
+            _smv = new SceneMappingView();
             DataContext = _smv;
         }
 

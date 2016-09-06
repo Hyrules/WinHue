@@ -19,9 +19,9 @@ namespace HueLib2
                 CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}"), WebRequestType.POST);
                 if (result.status == WebExceptionStatus.Success)
                 {
-                    MessageCollection mc = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                    bresult.Success = mc.FailureCount == 0;
-                    bresult.resultobject = mc;
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
+                    bresult.Success = lastMessages.FailureCount == 0;
+                    bresult.resultobject = lastMessages;
                 }
                 else
                 {

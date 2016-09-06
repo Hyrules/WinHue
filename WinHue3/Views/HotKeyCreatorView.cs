@@ -15,7 +15,6 @@ namespace WinHue3
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private Bridge _bridge;
         private List<HueObject> _listHueObject;
         private HueObject _selectedHueObject;
         private CommonProperties _propertyObject;
@@ -34,9 +33,9 @@ namespace WinHue3
 
         //*********************************** CTOR **********************************************
 
-        public HotKeyCreatorView(Bridge br)
+        public HotKeyCreatorView()
         {
-            _bridge = br;
+
             _listHotKeys = new ObservableCollection<HotKey>();
             _hotkeyrecordTimer.Interval = new TimeSpan(0,0,0,10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
@@ -112,13 +111,13 @@ namespace WinHue3
             switch (_objectypeindex)
             {
                 case 0:
-                    hr = HueObjectHelper.GetBridgeLights(_bridge);
+                    hr = HueObjectHelper.GetBridgeLights(BridgeStore.SelectedBridge);
                     break;
                 case 1:
-                    hr = HueObjectHelper.GetBridgeGroups(_bridge);
+                    hr = HueObjectHelper.GetBridgeGroups(BridgeStore.SelectedBridge);
                     break;
                 case 2:
-                    hr = HueObjectHelper.GetBridgeScenes(_bridge);
+                    hr = HueObjectHelper.GetBridgeScenes(BridgeStore.SelectedBridge);
                     break;
                 default:
                     hr = new HelperResult() {Success = false};

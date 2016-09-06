@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -26,7 +27,6 @@ namespace WinHue3
         private string _scanbuttontext = GUI.BridgeDetectionPairing_Scan;
         private bool _aborted = false;
         private bool _canscan = false;
-        private ObservableCollection<Bridge> _listBridge;
         private bool _canaddip = false;
         private bool _defaultset = false;
 
@@ -38,24 +38,18 @@ namespace WinHue3
             _pairTimer.Tick += _pairTimer_Tick;
             _timeoutTimer.Interval = new TimeSpan(0, 0, 1, 0);
             _timeoutTimer.Tick += _timeoutTimer_Tick;
-            _listBridge = new ObservableCollection<Bridge>();
 
-            if (_listBridge.Count == 0)
+            if (BridgeStore.ListBridges.Count == 0)
             {
+                Hue.DetectBridge();
                 CanAddManualIp = false;
                 Cursor_Tools.ShowWaitCursor();
                 Hue.OnDetectionComplete += Hue_OnDetectionComplete;
                 Hue.OnBridgeDetectionFailed += Hue_OnBridgeDetectionFailed;
                 log.Info("Starting bridge detection.");
-                Hue.DetectBridge();
-                
                 _canscan = false;
-                
-            }               
-            else
-            {
-                AssociateApiKey(_listBridge);
             }
+
         }
 
         #endregion
@@ -95,10 +89,10 @@ namespace WinHue3
 
         public ObservableCollection<Bridge> ListViewSource
         {
-            get { return _listBridge; }
+            get { return BridgeStore.ListBridges; }
             set
             {
-                _listBridge = value;
+                BridgeStore.ListBridges = value;
                 foreach (Bridge br in ListViewSource)
                 {
                     log.Debug("ListViewSource : " + br);
@@ -230,27 +224,22 @@ namespace WinHue3
             Form_AddManualIp fip = new Form_AddManualIp();
             if(fip.ShowDialog() == true)
             {
-                BasicConfig bridgeconfig = Hue.GetBridgeBasicConfig(IPAddress.Parse(fip.GetIPAddress()));
-                if (bridgeconfig != null)
+                switch (BridgeStore.AddManualBridge(IPAddress.Parse(fip.GetIPAddress())))
                 {
-                    Bridge br = new Bridge()
-                    {
-                        IpAddress = IPAddress.Parse(fip.GetIPAddress()),
-                        Mac = bridgeconfig.mac,
-                        SwVersion = bridgeconfig.swversion,
-                    };
-                    if(!_listBridge.Any(x =>x.IpAddress.Equals(br.IpAddress)))
-                        _listBridge.Add(br);
-                    else
-                    {
+                    case BridgeStore.AddManualBridgeResult.Success:
+                        break;
+                    case BridgeStore.AddManualBridgeResult.Alreadyexists:
                         MessageBox.Show(GlobalStrings.Bridge_Already_Detected, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
-                    }
+                        break;
+                    case BridgeStore.AddManualBridgeResult.NotResponding:
+                        MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error,MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    default:
+                        MessageBox.Show(GlobalStrings.Error_ErrorHasOccured, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
                 }
-                else
-                {
-
-                    MessageBox.Show(GlobalStrings.Error_Getting_Bridge_Basic_Config, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                
+            
             }
         }
 
@@ -297,7 +286,7 @@ namespace WinHue3
         private bool SetDefaultBridge()
         {
             bool result = false;
-            foreach (Bridge br in _listBridge)
+            foreach (Bridge br in BridgeStore.ListBridges)
             {
                 br.IsDefault = false;
             }
@@ -318,38 +307,14 @@ namespace WinHue3
             OnPropertyChanged("CanScan");
             CanAddManualIp = true;
             MessageBox.Show("Error detecting bridge. Try manual scan.", GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            log.Error("Error detecting bridge.", e.Error);
+            //log.Error("Error detecting bridge.", e.Error.ToString());
         }
 
-        private ObservableCollection<Bridge> AssociateApiKey(ObservableCollection<Bridge> bridge)
-        {
-            foreach (Bridge br in bridge)
-            {
-                
-                if (!WinHueSettings.settings.BridgeInfo.ContainsKey(br.Mac)) continue;
-                br.ApiKey = WinHueSettings.settings.BridgeInfo[br.Mac].apikey;
-                log.Debug($@"Associating ApiKey :{br.ApiKey} with bridge : {br.IpAddress}");
-                HelperResult hr = HueObjectHelper.IsAuthorized(br);
-                if (hr.Success)
-                {
-                    br.ApiKey = string.Empty;                    
-                }
-                else
-                {
-                    br.ApiKey = string.Empty;
-                    MessageBoxError.ShowLastErrorMessages(br);
-                }
-                br.IsDefault = br.Mac == WinHueSettings.settings.DefaultBridge;
-                _defaultset |= br.IsDefault;
-                OnPropertyChanged("CanDone");
-            }
-            return bridge;
-        }
-
-
+ 
         private void Hue_OnDetectionComplete(object sender, RunWorkerCompletedEventArgs e)
         {
-            ListViewSource = AssociateApiKey((ObservableCollection<Bridge>)e.Result);
+            Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>) e.Result;
+            ListViewSource = new ObservableCollection<Bridge>(brlist.Values);
             Cursor_Tools.ShowNormalCursor();
             _canscan = true;
             OnPropertyChanged("CanScan");
@@ -384,7 +349,7 @@ namespace WinHue3
             ProgressBarValue = ProgressBarMax;
             ListViewSource[ListViewSource.IndexOf(_selectedBridge)].ApiKey = result;
             UserMessage = GlobalStrings.BridgeDetectionPairing_PairingDone;
-            if (_listBridge.Count == 1)
+            if (BridgeStore.ListBridges.Count == 1)
             {
                 SetDefaultBridge();
             }

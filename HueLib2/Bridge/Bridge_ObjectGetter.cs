@@ -37,6 +37,7 @@ namespace HueLib2
                     if (bresult.resultobject == null) 
                     {                    
                         bresult.resultobject = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
+                        lastMessages = (MessageCollection)bresult.resultobject;
                     }
                 }
                 else

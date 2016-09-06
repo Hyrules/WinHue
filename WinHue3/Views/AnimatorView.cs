@@ -8,16 +8,16 @@ namespace WinHue3
 {
     public class AnimatorView : View
     {
-        private Bridge _bridge;
+
         private WinHueParser parser;
         private TextMarkerService tms;
         private TextEditor _textEditor;
 
         //****************** CTOR **********************************
 
-        public AnimatorView(Bridge br,TextEditor editor)
+        public AnimatorView(TextEditor editor)
         {
-            _bridge = br;
+     
             _textEditor = editor;
             parser = new WinHueParser();
             _textEditor.SyntaxHighlighting = ResourceLoader.LoadHighlightingDefinition("Interpreter.Syntax.xshd");

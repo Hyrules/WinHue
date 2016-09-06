@@ -9,15 +9,13 @@ namespace WinHue3
 {
     public class SceneMappingView : View
     {
-        private Bridge _bridge;
         private DataTable _dt;
         private string _filter;
         private object _selectedcell;
         private object _row;
 
-        public SceneMappingView(Bridge br)
+        public SceneMappingView()
         {
-            _bridge = br;
             BuildSceneMapping();
         }
 
@@ -72,7 +70,7 @@ namespace WinHue3
         {
             Dictionary<string, Scene> lscenes;
 
-            CommandResult comres = _bridge.GetListObjects<Scene>();
+            CommandResult comres = BridgeStore.SelectedBridge.GetListObjects<Scene>();
             if (comres.Success)
             {
                 if (!WinHueSettings.settings.ShowHiddenScenes)
@@ -88,7 +86,7 @@ namespace WinHue3
                 return;
             }
 
-            CommandResult resscenes = _bridge.GetListObjects<Light>();
+            CommandResult resscenes = BridgeStore.SelectedBridge.GetListObjects<Light>();
             if (resscenes.Success)
             {
                 Dictionary<string, Light> llights = (Dictionary<string, Light>) resscenes.resultobject;
@@ -138,7 +136,7 @@ namespace WinHue3
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(_bridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
             }
             
         }
@@ -152,7 +150,7 @@ namespace WinHue3
         public void ProcessDoubleClick()
         {
             if (_row == null) return;
-            _bridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
+            BridgeStore.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
         public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping());

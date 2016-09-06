@@ -34,7 +34,7 @@ namespace WinHue3
         {
             InitializeComponent();
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
-            scv = hr.Success ? new SceneCreatorView((List<HueObject>)hr.Hrobject, bridge) : new SceneCreatorView(new List<HueObject>(), bridge);
+            scv = hr.Success ? new SceneCreatorView((List<HueObject>)hr.Hrobject) : new SceneCreatorView(new List<HueObject>());
             DataContext = scv;
             _br = bridge;
         }
@@ -46,11 +46,11 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
             if (hr.Success)
             {
-                scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, obj, bridge);
+                scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, obj);
             }
             else
             {
-                scv = new SceneCreatorView(new List<HueObject>(), bridge);
+                scv = new SceneCreatorView(new List<HueObject>());
             }
             DataContext = scv;
             _br = bridge;

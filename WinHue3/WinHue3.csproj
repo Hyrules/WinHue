@@ -182,6 +182,7 @@
     <Compile Include="Interpreter\AnimatorCommand.cs" />
     <Compile Include="Interpreter\Parser.cs" />
     <Compile Include="Interpreter\ResourceLoader.cs" />
+    <Compile Include="Utils\BridgeStore.cs" />
     <Compile Include="Utils\DataGridViewAppender.cs" />
     <Compile Include="Utils\DgLogEntry.cs" />
     <Compile Include="Utils\MessageBoxError.cs" />

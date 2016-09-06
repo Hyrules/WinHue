@@ -23,7 +23,7 @@ namespace WinHue3
 
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
-            CommandResult bresult = br.ModifyObject<Sensor>(daylightView.GetSensor(), id);
+            CommandResult bresult = br.ChangeSensorConfig(id, daylightView.GetSensor().config);
             if(bresult.Success)
             {
                 this.Close();

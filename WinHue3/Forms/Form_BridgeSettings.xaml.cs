@@ -14,10 +14,10 @@ namespace WinHue3
 
         BridgeSettingsView _bsv;
 
-        public Form_BridgeSettings(Bridge bridge)
+        public Form_BridgeSettings()
         {
             InitializeComponent();
-            _bsv = new BridgeSettingsView(bridge);
+            _bsv = new BridgeSettingsView();
             DataContext = _bsv;
         }
 

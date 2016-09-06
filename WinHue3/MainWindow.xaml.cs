@@ -58,12 +58,12 @@ namespace WinHue3
 
         private void btnSupportForum_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://sourceforge.net/p/winhue/discussion/support/");
+            Process.Start("https://github.com/Hyrules/WinHue3/issues");
         }
 
         private void btnWebsite_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://sourceforge.net/projects/winhue/");
+            Process.Start("https://hyrules.github.io/WinHue3/");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

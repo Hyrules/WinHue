@@ -22,6 +22,9 @@ namespace HueLib2
         private static BackgroundWorker _ipscanBgw = new BackgroundWorker();
         private static BackgroundWorker _detectionBgw = new BackgroundWorker();
 
+
+
+
         private static int _timeout = 5000;
 
         static Hue()
@@ -36,13 +39,13 @@ namespace HueLib2
             _detectionBgw.RunWorkerCompleted += _detectionBgw_RunWorkerCompleted;
         }
 
+
+
         private static void _detectionBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if(e.Result != null)
                 OnDetectionComplete?.Invoke(null, e);
         }
-
-
 
         private static void _detectionBgw_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -56,65 +59,68 @@ namespace HueLib2
 
             foreach (ManagedUPnP.Device dev in upnpDevices)
             {
-                if (dev.ModelName.Contains("Philips hue bridge"))
-                {
-                    BasicConfig bc = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
-                    if (bc == null) continue;
+                if (!dev.ModelName.Contains("Philips hue bridge")) continue;
 
-                    newdetectedBridge.Add(dev.RootHostName, bc);
+                CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
+                if (bresult.Success)
+                {
+                    newdetectedBridge.Add(dev.RootHostName, (BasicConfig)bresult.resultobject);
                 }
+
             }
   
 
             // If not bridge are found via upnp try the portal.
             if (newdetectedBridge.Count == 0)
             {
-                try
+
+                // Detect using Portal
+                CommResult comres = Communication.SendRequest(new Uri("http://www.meethue.com/api/nupnp"), WebRequestType.GET);
+
+                switch (comres.status)
                 {
-                    // Detect using Portal
-                    CommResult comres = Communication.SendRequest(new Uri("http://www.meethue.com/api/nupnp"),WebRequestType.GET);
-                    if (comres.status == WebExceptionStatus.Success)
-                    {
+                    case WebExceptionStatus.Success:
                         List<Device> portalDevices = Serializer.DeserializeToObject<List<Device>>(comres.data);
                         foreach (Device dev in portalDevices)
                         {
                             if (newdetectedBridge.ContainsKey(dev.internalipaddress)) continue;
-                            BasicConfig bc = GetBridgeBasicConfig(IPAddress.Parse(dev.internalipaddress));
-                            newdetectedBridge.Add(dev.internalipaddress, bc);
+                            CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.internalipaddress));
+                            if (bresult.Success)
+                            {
+                                newdetectedBridge.Add(dev.internalipaddress, (BasicConfig) bresult.resultobject);
+                            }
+                            
                         }
-                    }
+                        break;
+                    case WebExceptionStatus.Timeout:
+                        OnPortalDetectionTimedOut?.Invoke(null, new DetectionErrorEventArgs(comres.data));
+                        OnBridgeDetectionFailed?.Invoke(null, new DetectionErrorEventArgs(comres.data));
+                        break;
+                    default:
+                        OnPortalDetectionError?.Invoke(null, new DetectionErrorEventArgs(comres.data));
+                        OnBridgeDetectionFailed?.Invoke(null, new DetectionErrorEventArgs(comres.data));
+                        break;
                 }
-                catch (System.TimeoutException ex)
-                {
-                    OnPortalDetectionTimedOut?.Invoke(null, new DetectionErrorEventArgs(ex));
-                    OnBridgeDetectionFailed?.Invoke(null, new DetectionErrorEventArgs(ex));
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    OnPortalDetectionError?.Invoke(null, new DetectionErrorEventArgs(ex));
-                    OnBridgeDetectionFailed?.Invoke(null, new DetectionErrorEventArgs(ex));
-                    return;
-                }
+
             }
 
-            
-            IList<Bridge> bridges = newdetectedBridge.Select(kvp => new Bridge
+
+            Dictionary<string, Bridge> bridges = newdetectedBridge.Select(kvp => new Bridge
             {
                 IpAddress = IPAddress.Parse(kvp.Key),
                 Mac = kvp.Value.mac,
                 ApiVersion = kvp.Value.apiversion,
                 SwVersion = kvp.Value.swversion,
                 Name = kvp.Value.name ?? ""
-            }).ToList();
+            }).ToDictionary(p => p.Mac, p => p);
 
             // Process all bridges to get needed settings.
+            e.Result = bridges;
 
-            e.Result = new ObservableCollection<Bridge>(bridges);
         }
 
         /// <summary>
-        /// Detect the aialable bridges. (This will clear the bridge already found)
+        /// Detect the available bridges. (This will clear the bridge already found)
         /// </summary>
         public static void DetectBridge()
         {
@@ -141,7 +147,6 @@ namespace HueLib2
         /// </summary>
         public static void ScanIpForBridge()
         {
-
             _timeout = Communication.Timeout;
             _ipscanBgw.RunWorkerAsync();
         }
@@ -171,9 +176,8 @@ namespace HueLib2
             IPAddress ip = IPAddress.Parse(GetLocalIPAddress());
             byte[] ipArray = ip.GetAddressBytes();
             byte currentip = ipArray[3];
-            ObservableCollection<Bridge> newlist = new ObservableCollection<Bridge>();
+            Dictionary<string,Bridge> newlist = new Dictionary<string, Bridge>();
 
-            Ping pingSender = new Ping() { };
             BridgeSettings desc = new BridgeSettings();
 
             for (byte x = 2; x <= 254; x++)
@@ -195,18 +199,17 @@ namespace HueLib2
                         if(desc == null) continue; // if the deserialisation didn't work it means this is not a bridge continue with next ip.
                         if (newlist.Count > 0)
                         {
-                            if (!newlist.Any(y => Equals(y.IpAddress, ipArray)))
+                            if (!newlist.Any(y => Equals(y.Value.IpAddress, ipArray)))
                             {
-                                newlist.Add(new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
+                                newlist.Add(desc.mac,new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
                             }
                         }
                         else
                         {
-                            newlist.Add(new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
+                            newlist.Add(desc.mac,new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
                         }
                         break;
                     case WebExceptionStatus.Timeout:
-
                         break;
                     default:
                         
@@ -256,7 +259,7 @@ namespace HueLib2
         /// </summary>
         /// <param name="BridgeIP">IP address of the brdge</param>
         /// <returns>Description of the Bridge in the form of a Root Object.</returns>
-        public static Description GetBridgeDescription(IPAddress BridgeIP)
+        private static Description GetBridgeDescription(IPAddress BridgeIP)
         {
             XmlSerializer ser = new XmlSerializer(typeof(Description));
             Description ro = null;
@@ -278,26 +281,33 @@ namespace HueLib2
         /// </summary>
         /// <param name="BridgeIP">IP Address of the bridge.</param>
         /// <returns>The basic configuration of the bridge.</returns>
-        public static BasicConfig GetBridgeBasicConfig(IPAddress BridgeIP)
+        public static CommandResult GetBridgeBasicConfig(IPAddress BridgeIP)
         {
-            BasicConfig config = new BasicConfig();
+            CommandResult bresult = new CommandResult() {Success = false};
 
             CommResult comres = Communication.SendRequest(new Uri($@"http://{BridgeIP}/api/config"), WebRequestType.GET);
 
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    config = Serializer.DeserializeToObject<BasicConfig>(comres.data);
-                    if(config != null) return config;
-                    config = new BasicConfig();
-                    break;
-                case WebExceptionStatus.Timeout:
+                    BasicConfig config = Serializer.DeserializeToObject<BasicConfig>(comres.data);
+                    if (config != null)
+                    {
+                        bresult.Success = true;
+                        bresult.resultobject = config;
+                    }
+                    else
+                    {
+                        bresult.resultobject = comres.data;
+                    }
+                    
                     break;
                 default:
+                    bresult.resultobject = comres.data;
                     break;
             }
 
-            return config;
+            return bresult;
         }
 
         #region EVENTS
@@ -326,12 +336,12 @@ namespace HueLib2
 
     public class DetectionErrorEventArgs : EventArgs
     {
-        public DetectionErrorEventArgs(Exception e)
+        public DetectionErrorEventArgs(object e)
         {
             Error = e;
         }
 
-        public Exception Error { get; }
+        public object Error { get; }
     }
 
     public class IpScanProgressEventArgs : EventArgs

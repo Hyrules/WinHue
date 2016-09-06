@@ -13,10 +13,10 @@ namespace WinHue3
     {
         private HotKeyCreatorView hkv;
 
-        public Form_HotKeyCreator(Bridge br)
+        public Form_HotKeyCreator()
         {
             InitializeComponent();
-            hkv = new HotKeyCreatorView(br);
+            hkv = new HotKeyCreatorView();
             DataContext = hkv;
         }
 

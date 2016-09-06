@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -21,28 +22,30 @@ namespace WinHue3
             InitializeComponent();
             _bridge = br;
             Dictionary<string, Scene> scenelist;
+            
             CommandResult comres = _bridge.GetListObjects<Scene>();
 
             if (comres.Success)
             {
-                scenelist = (Dictionary<string, Scene>) comres.resultobject;
-                foreach (KeyValuePair<string, Scene> kvp in scenelist)
-                {
-                    if (kvp.Value.name.StartsWith("HIDDEN"))
-                    {
-                        if (WinHueSettings.settings.ShowHiddenScenes)
-                            scenelist.Add(kvp.Key, kvp.Value);
-                    }
-                    else
-                    {
-                        scenelist.Add(kvp.Key, kvp.Value);
-                    }
-                }
 
+                if (WinHueSettings.settings.ShowHiddenScenes)
+                {
+                    scenelist = (Dictionary<string, Scene>)comres.resultobject;
+                }
+                else
+                {
+                    Dictionary<string, Scene> temp = ((Dictionary<string, Scene>) comres.resultobject);
+                    scenelist = temp.Where(x => !x.Value.name.StartsWith("HIDDEN")).ToDictionary(p => p.Key, p => p.Value);
+                }
+                
                 cbObject.ItemsSource = scenelist;
 
                 button = -1;
                 _sensorid = sensorid;
+            }
+            else
+            {
+                _bridge.ShowErrorMessages();
             }
         }
 

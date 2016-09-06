@@ -10,13 +10,12 @@ namespace WinHue3
     public partial class Form_GroupView : Window
     {
         private GroupViewView _gvv;
-        private Bridge _br;
-        public Form_GroupView(Bridge br)
+        public Form_GroupView()
         {
             InitializeComponent();
-            _br = br;
-            CommandResult comlgt = _br.GetListObjects<Light>();
-            CommandResult comgrp = _br.GetListObjects<Group>();
+
+            CommandResult comlgt = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            CommandResult comgrp = BridgeStore.SelectedBridge.GetListObjects<Group>();
 
             if (comlgt.Success && comgrp.Success)
             {
@@ -24,7 +23,10 @@ namespace WinHue3
                     (Dictionary<string, Light>) comlgt.resultobject);
                 DataContext = _gvv;
             }
-
+            else
+            {
+                BridgeStore.SelectedBridge.ShowErrorMessages();
+            }
         }
     }
 }
