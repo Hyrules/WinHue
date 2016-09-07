@@ -22,7 +22,7 @@ namespace WinHue3
             newLogEntry.classname = loggingEvent.LocationInformation.ClassName;
             newLogEntry.thread = loggingEvent.ThreadName;
 
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => this.DgEventLog.Add(newLogEntry)));
+            Application.Current?.Dispatcher?.BeginInvoke(new Action(() => this.DgEventLog.Add(newLogEntry)));
 
 
         }

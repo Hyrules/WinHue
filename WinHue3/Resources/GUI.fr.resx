@@ -811,7 +811,7 @@
     <value>Liste des passerelles trouvées :</value>
   </data>
   <data name="BridgeDetectionPairing_Scan_Tooltip" xml:space="preserve">
-    <value>Scan votre réseau local pour trouver vos passerelles. Seulement disponible si aucun passerelle n'est trouvée.</value>
+    <value>Scan toutes les addresses IP de votre réseau local pour trouver vos passerelles.</value>
   </data>
   <data name="BridgeDetectionPairing_Pair_Tooltip" xml:space="preserve">
     <value>Début la procédure de jumelage. Vous aurez 60 secondes pour appuyer sur le bouton link sur la passerelle.</value>
@@ -995,5 +995,11 @@
   </data>
   <data name="MainForm_Tab_View_GroupsView" xml:space="preserve">
     <value>Vue des groupes</value>
+  </data>
+  <data name="BridgeDetectionPairing_DetectBridge" xml:space="preserve">
+    <value>Trouver les passerelles</value>
+  </data>
+  <data name="BridgeDetectionPairing_DetectBridge_Tooltip" xml:space="preserve">
+    <value>Trouver vos passerelles en utilisant le portail de philips et l'UPNP.</value>
   </data>
 </root>

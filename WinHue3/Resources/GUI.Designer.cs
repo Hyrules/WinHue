@@ -97,6 +97,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detect Bridges.
+        /// </summary>
+        public static string BridgeDetectionPairing_DetectBridge {
+            get {
+                return ResourceManager.GetString("BridgeDetectionPairing_DetectBridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detect your bridges using the philips hue portal and UPNP..
+        /// </summary>
+        public static string BridgeDetectionPairing_DetectBridge_Tooltip {
+            get {
+                return ResourceManager.GetString("BridgeDetectionPairing_DetectBridge_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string BridgeDetectionPairing_Done {
@@ -178,7 +196,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan you local network for a bridge. Will only be available if no bridge are found..
+        ///   Looks up a localized string similar to Scan all IP Addresses on your local network for a bridge..
         /// </summary>
         public static string BridgeDetectionPairing_Scan_Tooltip {
             get {

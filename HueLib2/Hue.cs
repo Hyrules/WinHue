@@ -298,12 +298,12 @@ namespace HueLib2
                     }
                     else
                     {
-                        bresult.resultobject = comres.data;
+                        bresult.resultobject = comres.status;
                     }
                     
                     break;
                 default:
-                    bresult.resultobject = comres.data;
+                    bresult.resultobject = comres.status;
                     break;
             }
 
