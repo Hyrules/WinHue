@@ -23,7 +23,7 @@ namespace HueLib2
         private bool _isdefault = false;
         private IPAddress _ipAddress;
         private string _name;
-
+ 
         /// <summary>
         /// Api Key to access the bridge. If the application is not autorized the api key will not be set.
         /// </summary>
