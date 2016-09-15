@@ -20,7 +20,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Documents;
 using WinHue3.Resources;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using MessageBox = System.Windows.MessageBox;
@@ -37,7 +36,8 @@ namespace WinHue3
         private readonly DispatcherTimer _refreshStates = new DispatcherTimer();
         private ObservableCollection<HueObject> _listBridgeObjects;
         private BackgroundWorker _bgwRefresher = new BackgroundWorker();
-  
+
+
         public Form_EventLog _fel;
         private Form_SceneMapping _fsm;
         private Form_BulbsView _fbv;
@@ -60,7 +60,7 @@ namespace WinHue3
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-            // _refreshStates.Start();
+            _refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
 
             // Load from the settings.
@@ -452,8 +452,7 @@ namespace WinHue3
                 OnPropertyChanged("ListBridgeObjects");
                 OnPropertyChanged("EnableControls");
                 OnPropertyChanged("UpdateAvailable");
-                OnPropertyChanged("EnableSearchLights");
-                OnPropertyChanged("EnableSearchSensors");
+                
             }
         }
 
@@ -609,19 +608,12 @@ namespace WinHue3
                 }
                             
                 temp.OnMessageAdded += MessageAdded;
-                temp.BridgeNotResponding += Temp_BridgeNotResponding;
                 SelectedBridge = temp;
 
                 //LoadPlugins();
                 Cursor_Tools.ShowNormalCursor();
             }
 
-        }
-
-        private void Temp_BridgeNotResponding(object sender, EventArgs e)
-        {
-            MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
-            SelectedBridge = null;
         }
 
         void MessageAdded(object sender, EventArgs e)
@@ -845,15 +837,12 @@ namespace WinHue3
                 foreach (PropertyInfo p in pi)
                 {
                     if (_listBridgeObjects[index].HasProperty(p.Name))
-                        p.SetValue(_listBridgeObjects[index],
-                            _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
-
+                        p.SetValue(_listBridgeObjects[index], _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
                 }
 
             }
 
         }
-
 
         private void EditObject()
         {

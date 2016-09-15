@@ -75,9 +75,9 @@
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_View}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <RibbonGroup x:Name="rgViews" Header="" Width="auto">
-                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" IsEnabled="{Binding EnableControls}"  LargeImageSource="Resources/SceneMapping.png"/>
-                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" IsEnabled="{Binding EnableControls}" LargeImageSource="Resources/BulbView.png" />
-                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" IsEnabled="{Binding EnableControls}" LargeImageSource="Resources/GroupView.png" />
+                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png"/>
+                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeImageSource="Resources/BulbView.png" />
+                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeImageSource="Resources/GroupView.png" />
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">

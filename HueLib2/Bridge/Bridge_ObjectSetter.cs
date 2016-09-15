@@ -274,30 +274,6 @@ namespace HueLib2
             return bresult;
         }
 
-        /// <summary>
-        /// Change the state of a sensor.
-        /// </summary>
-        /// <param name="id">ID of the sensor</param>
-        /// <param name="newstate">New state of the sensor</param>
-        /// <returns>BridgeCommResult</returns>
-        public CommandResult ChangeSensorState(string id, SensorState newstate)
-        {
-
-            CommandResult bresult = new CommandResult();
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/state"),WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newstate)));
-            if (comres.status == WebExceptionStatus.Success)
-            {
-                lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
-                bresult.Success = lastMessages.FailureCount == 0;
-                bresult.resultobject = lastMessages;
-            }
-            else
-            {
-                bresult.resultobject = comres.data;
-            }
-            return bresult;
-
-        }
 
         /// <summary>
         /// Set to null all properties that are not allow to be set at modification.

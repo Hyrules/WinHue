@@ -8,6 +8,7 @@ using System.Runtime.Remoting.Channels;
 using NDesk.Options;
 using WinHue3;
 using System.Text;
+using HueLib;
 using Action = HueLib2.Action;
 using Rule = HueLib2.Rule;
 using HueLib2;
@@ -120,12 +121,10 @@ namespace whc
                         cmd = Command.DELETEGROUP;
                         if(PromptYesNo() || noprompt)
                         {
-                            CommandResult bresult = bridge.RemoveObject<Group>(v);
-
-                            if (bresult.Success)
+                            if (bridge.DeleteGroup(v) == true)
                             {
 
-                                WriteMessageToConsole($"Group {v} deleted succesfully.");
+                                WriteMessageToConsole(string.Format("Group {0} deleted succesfully.", v));
                             }
                             else
                                 WriteMessageToConsole("Error while deleting group :" + v);
@@ -139,12 +138,10 @@ namespace whc
                     if (cmd == Command.NONE)
                     {
                         if(PromptYesNo() || noprompt)
-                        {
-                            CommandResult bresult = bridge.RemoveObject<Schedule>(v);
-
-                            if (bresult.Success)
+                        { 
+                            if (bridge.DeleteSchedule(v) == true)
                             {
-                                WriteMessageToConsole($"Schedule {v} deleted succesfully.");
+                                WriteMessageToConsole(string.Format("Schedule {0} deleted succesfully.", v));
                             }
                             else
                                 WriteMessageToConsole("Error while deleting schedule :" + v);
@@ -158,12 +155,10 @@ namespace whc
                     if (cmd == Command.NONE)
                     {
                         if(PromptYesNo() || noprompt)
-                        {
-                            CommandResult bresult = bridge.RemoveObject<Light>(v);
-
-                            if (bresult.Success)
+                        {                        
+                            if (bridge.DeleteLight(v) == true)
                             {
-                                WriteMessageToConsole($"Light {v} deleted succesfully.");
+                                WriteMessageToConsole(string.Format("Light {0} deleted succesfully.", v));
                             }
                             else
                                 WriteMessageToConsole("Error while deleting light :" + v);
@@ -176,13 +171,11 @@ namespace whc
                 {
                     if (cmd == Command.NONE)
                     {
-                        CommandResult bresult = bridge.RemoveObject<Sensor>(v);
-
                         if(PromptYesNo() || noprompt)
                         { 
-                            if (bresult.Success)
+                            if (bridge.DeleteSensor(v) == true)
                             {
-                                WriteMessageToConsole($"Sensor {v} deleted succesfully.");
+                                WriteMessageToConsole(string.Format("Sensor {0} deleted succesfully.", v));
                             }
                             else
                                 WriteMessageToConsole("Error while deleting sensor :" + v);
@@ -195,13 +188,11 @@ namespace whc
                 {
                     if (cmd == Command.NONE)
                     {
-                        CommandResult bresult = bridge.RemoveObject<Rule>(v);
-
                         if(PromptYesNo() || noprompt)
                         { 
-                            if (bresult.Success)
+                            if (bridge.DeleteSensor(v) == true)
                             {
-                                WriteMessageToConsole($"Rule {v} deleted succesfully.");
+                                WriteMessageToConsole(string.Format("Rule {0} deleted succesfully.", v));
                             }
                             else
                                 WriteMessageToConsole("Error while deleting rule :" + v);
@@ -212,15 +203,12 @@ namespace whc
                 }},
                 {"ll", "List the lights available in the bridge", delegate(string v)
                 {
-                    
-                    CommandResult bresult = bridge.GetListObjects<Light>();
-                    if(bresult.Success)
-                    {
-                        Dictionary<string, Light> listLights = (Dictionary<string, Light>) bresult.resultobject;
+                    Dictionary<string, Light> listLights = bridge.GetLightList();
+                    if(listLights != null)
+                    { 
                         foreach(KeyValuePair<string,Light> kvp in listLights)
                         {
-                            WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, ModelID={kvp.Value.modelid}, Type={kvp.Value.type}");
+                            WriteMessageToConsole(string.Format("[ID]={0}, Name={1}, ModelID={2}, Type={3}", kvp.Key, kvp.Value.name, kvp.Value.modelid, kvp.Value.type));
                         } 
                     }               
                     else
@@ -230,15 +218,12 @@ namespace whc
                 }},
                 {"lg", "List the groups available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Group>();
-
-                    if(bresult.Success)
-                    {
-                        Dictionary<string, Group> listgroups = (Dictionary<string, Group>) bresult.resultobject;
+                    Dictionary<string, Group> listgroups = bridge.GetGroupList();
+                    if(listgroups != null)
+                    { 
                         foreach(KeyValuePair<string,Group> kvp in listgroups)
                         {
-                            WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, MembersID=[{string.Join(",", kvp.Value.lights)}], Type={kvp.Value.type}");
+                            WriteMessageToConsole(string.Format("[ID]={0}, Name={1}, MembersID=[{2}], Type={3}", kvp.Key, kvp.Value.name, string.Join(",", kvp.Value.lights), kvp.Value.type));
                         } 
                     }               
                     else
@@ -248,15 +233,12 @@ namespace whc
                 }},
                 {"ls", "List the scenes available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Light>();
-
-                    if(bresult.Success)
-                    {
-                        Dictionary<string, Scene> listscenes = (Dictionary<string, Scene>)bresult.resultobject;
+                    Dictionary<string, Scene> listscenes = bridge.GetScenesList();
+                    if(listscenes != null)
+                    { 
                         foreach(KeyValuePair<string,Scene> kvp in listscenes)
                         {
-                            WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, MembersID=[{string.Join(",", kvp.Value.lights)}]");
+                            WriteMessageToConsole(string.Format("[ID]={0}, Name={1}, MembersID=[{2}]", kvp.Key, kvp.Value.name, string.Join(",", kvp.Value.lights)));
                         } 
                     }               
                     else
@@ -266,15 +248,12 @@ namespace whc
                 }},
                 {"lc", "List the schedules available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Schedule>();
-
-                    if(bresult.Success)
-                    {
-                        Dictionary<string, Schedule> listscenes = (Dictionary<string, Schedule>)bresult.resultobject;
-
+                    Dictionary<string, Schedule> listscenes = bridge.GetScheduleList();
+                    if(listscenes != null)
+                    { 
                         foreach(KeyValuePair<string,Schedule> kvp in listscenes)
                         {
-                            WriteMessageToConsole($"[ID]={kvp.Key}, Name={kvp.Value.name}, Time={kvp.Value.localtime}");
+                            WriteMessageToConsole(string.Format("[ID]={0}, Name={1}, Time={2}", kvp.Key, kvp.Value.name, kvp.Value.localtime));
                         } 
                     }               
                     else
@@ -284,15 +263,12 @@ namespace whc
                 }},
                 {"lo", "List the sensors available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Sensor>();
-  
-                    if(bresult.Success)
-                    {
-                        Dictionary<string, Sensor> listsensors = (Dictionary<string, Sensor>) bresult.resultobject;
+                    Dictionary<string, Sensor> listsensors = bridge.GetSensorList();
+                    if(listsensors != null)
+                    { 
                         foreach(KeyValuePair<string,Sensor> kvp in listsensors)
                         {
-                            WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, Type={kvp.Value.type}, Model={kvp.Value.modelid}, SwVersion={kvp.Value.swversion}, Manufacturer={kvp.Value.manufacturername}");
+                            WriteMessageToConsole(string.Format("[ID]={0}, Name={1}, Type={2}, Model={3}, SwVersion={4}, Manufacturer={5}", kvp.Key, kvp.Value.name, kvp.Value.type, kvp.Value.modelid, kvp.Value.swversion, kvp.Value.manufacturername));
                         } 
                     }               
                     else
@@ -302,15 +278,12 @@ namespace whc
                 }},
                 {"lr", "List the rules available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Rule>();
-
-                    if(bresult.Success)
-                    {
-                        Dictionary<string, Rule> listrules = (Dictionary<string, Rule>)bresult.resultobject;
+                    Dictionary<string, Rule> listrules = bridge.GetRulesList();
+                    if(listrules != null)
+                    { 
                         foreach(KeyValuePair<string, Rule> kvp in listrules)
                         {
-                            WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, Owner={kvp.Value.owner}, Status={kvp.Value.status}, TimesTriggered={kvp.Value.timestriggered}");
+                            WriteMessageToConsole(string.Format("[ID]={0}, Name={1}, Owner={2}, Status={3}, TimesTriggered={4}", kvp.Key, kvp.Value.name, kvp.Value.owner, kvp.Value.status, kvp.Value.timestriggered));
                         } 
                     }               
                     else
@@ -323,23 +296,10 @@ namespace whc
                     byte value = 0;
                     bool isValidid = byte.TryParse(v,out value);
 
-                    
-
                     if (isValidid && v != "0")
                     {
-                        CommandResult bresult = bridge.GetObject<Light>(v);
-
-                        if (bresult.Success)
-                        {
-                            Light light = (Light) bresult.resultobject;
-                            WriteMessageToConsole(@light.state.ToString());
-                        }
-                        else
-                        {
-                            WriteMessagesToConsole();
-                        }
-   
-                        
+                        Light light = bridge.GetLight(v);
+                        WriteMessageToConsole(@light?.state.ToString() ?? bridge.lastMessages.ToString());
                     }
                     else
                     {
@@ -353,17 +313,8 @@ namespace whc
 
                     if (isValidid)
                     {
-                        CommandResult bresult = bridge.GetObject<Group>(v);
-
-                        if (bresult.Success)
-                        {
-                            Group group = (Group) bresult.resultobject;
-                            WriteMessageToConsole(@group?.action.ToString() ?? bridge.lastMessages.ToString());
-                        }
-                        else
-                        {
-                            WriteMessagesToConsole();
-                        }
+                        Group group = bridge.GetGroup(v);
+                        WriteMessageToConsole(@group?.action.ToString() ?? bridge.lastMessages.ToString());
                     }
                     else
                     {
@@ -433,22 +384,14 @@ namespace whc
                 {
                     if(v == null)
                     {
-                        CommandResult bresult = bridge.GetObject<Light>(id);
-                        if (bresult.Success)
+                        Light light = bridge.GetLight(id);
+                        if(light.state.@on != null && (bool)light.state.@on)
                         {
-                            Light light = (Light) bresult.resultobject;
-                            if (light.state.@on != null && (bool) light.state.@on)
-                            {
-                                state.on = false;
-                            }
-                            else
-                            {
-                                state.on = true;
-                            }
+                            state.on = false;
                         }
                         else
                         {
-                            WriteMessagesToConsole();
+                            state.on = true;
                         }
                     }
                     else
@@ -596,23 +539,14 @@ namespace whc
                 {
                     if(v == null)
                     {
-                        CommandResult bresult = bridge.GetObject<Group>(id);
-
-                        if (bresult.Success)
+                        Group group = bridge.GetGroup(id);
+                        if(@group.action.@on != null && (bool)@group.action.@on)
                         {
-                            Group group = (Group)bresult.resultobject;
-                            if (@group.action.@on != null && (bool) @group.action.@on)
-                            {
-                                action.on = false;
-                            }
-                            else
-                            {
-                                action.on = true;
-                            }
+                            action.on = false;
                         }
                         else
                         {
-                            WriteMessagesToConsole();
+                            action.on = true;
                         }
                     }
                     else
@@ -944,8 +878,7 @@ namespace whc
         {
             if (grp.name != null && grp.lights != null)
             {
-                CommandResult bresult = bridge.CreateObject<Group>(grp);
-                if(bresult.Success)
+                if(bridge.CreateGroup(grp.name, grp.lights) != 0)
                 {
                     WriteMessageToConsole("Groupe named " + grp.name + " created succesfully");                    
                 }
@@ -956,9 +889,8 @@ namespace whc
 
         private static void SetGroupAction()
         {
-            CommandResult bresult = bridge.SetState<Group>(action, id);
-
-            if (!bresult.Success || error == true)
+            bridge.SetGroupAction(id, action); ; 
+            if (bridge.lastMessages.FailureCount > 0 || error == true)
             {
                 WriteMessageToConsole("An error occured while sending the group state to the bridge.");
             }
@@ -974,7 +906,7 @@ namespace whc
             }
         }
 
-        private static void WriteMessagesToConsole()
+        private static void WriteMessagesToConsole(object sender, EventArgs e)
         {
             if (nomsg != false) return;
             foreach (Message m in bridge.lastMessages)
@@ -1005,9 +937,8 @@ namespace whc
 
         private static void SetLightState()
         {
-            CommandResult bresult = bridge.SetState<Light>(state, id);
-            
-            if (!bresult.Success || error)
+            bridge.SetLightState(id, state);  
+            if (bridge.lastMessages.FailureCount > 0 || error)
             {
                 Console.WriteLine(@"An error occured while sending the light state to the bridge.");
                 Console.WriteLine(bridge.lastMessages);
@@ -1018,9 +949,8 @@ namespace whc
 
         private static void SetSensorState()
         {
-            CommandResult bresult = bridge.ChangeSensorState(id,sensorstate);
-            
-            if (!bresult.Success || error)
+            bridge.SetSensorFlag(id, sensorstate);
+            if (bridge.lastMessages.FailureCount > 0 || error)
             {
                 Console.WriteLine(@"An error occured while sending the sensor state to the bridge.");
                 Console.WriteLine(bridge.lastMessages);
@@ -1031,7 +961,7 @@ namespace whc
             }
 
         }
-        
+
         /*
                 public static void SetIpAddress(string ip)
                 {
