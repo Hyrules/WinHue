@@ -46,6 +46,7 @@ namespace WinHue3
         private double _ttvalue = -1;
         private string _lastmessage = string.Empty;
         private List<HotKey> _listHotKeys;
+        private List<HotKeyHandle> _lhk;
 
         #region CTOR
 
@@ -60,7 +61,8 @@ namespace WinHue3
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-            _refreshStates.Start();
+            _lhk = new List<HotKeyHandle>();
+            //_refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
 
             // Load from the settings.
@@ -74,6 +76,11 @@ namespace WinHue3
 
             LoadBridge();
 
+            foreach (HotKey h in _listHotKeys)
+            {
+               _lhk.Add(new HotKeyHandle(h,new System.Action<HotKeyHandle>(HandleHotkey)));
+            }
+            
         }
 
         private void _bgwRefresher_DoWork(object sender, DoWorkEventArgs e)
@@ -1211,32 +1218,39 @@ namespace WinHue3
 
         #endregion
 
-        public void HandleHotkey(KeyEventArgs e)
+        public void HandleHotkey(HotKeyHandle e)
         {
-            ModifierKeys m = e.KeyboardDevice.Modifiers;
+
+            ModifierKeys m = e.KeyModifiers;
             Key k = e.Key;
             try
             {
                 
                 HotKey h = _listHotKeys.First(x => x.Modifier == m && x.Key == k);
-                Type objtype = h.objecType == null ? _selectedObject.GetType() : h.objecType;
+                if (!(h.objecType == null && _selectedObject == null))
+                {
+                    Type objtype = h.objecType == null ? _selectedObject.GetType() : h.objecType;
 
-                if (objtype == typeof(Scene))
-                {
-                    BridgeStore.SelectedBridge.ActivateScene(h.id);
-                }
-                else if (objtype == typeof(Group) || objtype == typeof(Light))
-                {
-                    MethodInfo mi = typeof(Bridge).GetMethod("SetState");
-                    MethodInfo generic = mi.MakeGenericMethod(objtype);
-                    List<object> listparams = new List<object>();
-                    listparams.Add(Convert.ChangeType(h.properties, typeof(CommonProperties)));
-                    listparams.Add(h.objecType != null ? h.id : _selectedObject.Id);
-                    HelperResult hr = (HelperResult)generic.Invoke(BridgeStore.SelectedBridge, listparams.ToArray());
+                    if (objtype == typeof(Scene))
+                    {
+                        BridgeStore.SelectedBridge.ActivateScene(h.id);
+                    }
+                    else if (objtype == typeof(Group) || objtype == typeof(Light))
+                    {
+
+                        List<object> listparams = new List<object>();
+                        listparams.Add(Convert.ChangeType(h.properties, typeof(CommonProperties)));
+                        listparams.Add(h.objecType != null ? h.id : _selectedObject.Id);
+                        ExecuteGenericMethod<CommandResult>(BridgeStore.SelectedBridge, "SetState", listparams.ToArray());
+                    }
+                    else
+                    {
+                        log.Warn($"Type of object {objtype} not supported");
+                    }
                 }
                 else
                 {
-                    log.Warn($"Type of object {objtype} not supported");
+                    log.Warn("You must select an object in WinHue in order to apply this hotkey.");
                 }
             }
             catch (InvalidOperationException)

@@ -185,6 +185,8 @@
     <Compile Include="Utils\BridgeStore.cs" />
     <Compile Include="Utils\DataGridViewAppender.cs" />
     <Compile Include="Utils\DgLogEntry.cs" />
+    <Compile Include="Utils\HotKey.cs" />
+    <Compile Include="Utils\HotkeyHandler.cs" />
     <Compile Include="Utils\MessageBoxError.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Forms\Form_BridgeDetectionPairing.xaml.cs">

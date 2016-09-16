@@ -6,8 +6,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using HueLib2;
 using System.Threading;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace WinHue3
@@ -19,6 +21,8 @@ namespace WinHue3
     {
         private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+       
 
         public string Version { get; set; }
         public Form_EventLog _fel;
@@ -41,8 +45,7 @@ namespace WinHue3
             Title += " " + Version;
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              trayicon.Icon = Properties.Resources.icon;
-
-
+           
         }
 
         private void lvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
@@ -78,6 +81,7 @@ namespace WinHue3
             mfv = new MainFormView(_fel);
             DataContext = mfv;
             _fel.Owner = this;
+      
         }
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -157,7 +161,7 @@ namespace WinHue3
 
         private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            mfv?.HandleHotkey(e);
+          //  mfv?.HandleHotkey(e);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

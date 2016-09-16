@@ -2,7 +2,10 @@
 using System.Linq;
 using System.Security.Principal;
 using System.Windows;
+using System.Windows.Forms;
 using log4net.Repository.Hierarchy;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WinHue3
 {
