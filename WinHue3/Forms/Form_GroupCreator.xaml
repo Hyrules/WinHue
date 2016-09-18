@@ -5,7 +5,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:winHue3="clr-namespace:WinHue3"
         x:Class="WinHue3.Form_GroupCreator"
-        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="528" Width="592.369" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png">
+        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="528" Width="592.369" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="{x:Type ListView}">
             <Style.Triggers>

@@ -47,13 +47,10 @@ namespace WinHue3
             if (hr.Success)
             {
                 scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, obj);
+                DataContext = scv;
+                _br = bridge;
             }
-            else
-            {
-                scv = new SceneCreatorView(new List<HueObject>());
-            }
-            DataContext = scv;
-            _br = bridge;
+
         }
 
         public string GetCreatedOrModifiedID()
@@ -106,7 +103,13 @@ namespace WinHue3
             scv.AddLightsToScene(lvAvailableLights.SelectedItems.Cast<HueObject>().ToList());
         }
 
-   
-
+        private void FormSceneCreator_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (scv == null)
+            {
+                DialogResult = false;
+                Close();
+            }
+        }
     }
 }

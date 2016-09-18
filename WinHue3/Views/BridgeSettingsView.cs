@@ -18,29 +18,17 @@ namespace WinHue3
 
         #region CTOR
 
-        public BridgeSettingsView()
+        public BridgeSettingsView(BridgeSettings brs)
         {
-
-            CommandResult comres = BridgeStore.SelectedBridge.GetBridgeSettings();
-            if (comres.Success)
-            {
-                _brs = (BridgeSettings)comres.resultobject;
-                CommandResult comres2 = BridgeStore.SelectedBridge.GetTimeZones();
-                if (comres2.Success)
-                {
-                    _listtimezones = (List<string>)comres2.resultobject;
-                    HelperResult hr = HueObjectHelper.GetBridgeUsers(BridgeStore.SelectedBridge);
-                    if (hr.Success)
-                    {
-                        _listusers = new ObservableCollection<Whitelist>((List<Whitelist>)hr.Hrobject);
-                        int winhue = _listusers.FindIndex(x => x.id == BridgeStore.SelectedBridge.ApiKey);
-                        _listusers.RemoveAt(winhue);
-
-                    }
-                }
-            }
-           
-            
+            _brs = brs;
+            CommandResult comres2 = BridgeStore.SelectedBridge.GetTimeZones();
+            if (!comres2.Success) return;
+            _listtimezones = (List<string>)comres2.resultobject;
+            HelperResult hr = HueObjectHelper.GetBridgeUsers(BridgeStore.SelectedBridge);
+            if (!hr.Success) return;
+            _listusers = new ObservableCollection<Whitelist>((List<Whitelist>)hr.Hrobject);
+            int winhue = _listusers.FindIndex(x => x.id == BridgeStore.SelectedBridge.ApiKey);
+            _listusers.RemoveAt(winhue);
         }
 
         #endregion

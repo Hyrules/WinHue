@@ -15,18 +15,18 @@ namespace WinHue3
             InitializeComponent();
 
             CommandResult comlgt = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            if (!comlgt.Success) return;
             CommandResult comgrp = BridgeStore.SelectedBridge.GetListObjects<Group>();
+            if (!comgrp.Success) return;
 
-            if (comlgt.Success && comgrp.Success)
-            {
-                _gvv = new GroupViewView((Dictionary<string, Group>) comgrp.resultobject,
-                    (Dictionary<string, Light>) comlgt.resultobject);
-                DataContext = _gvv;
-            }
-            else
-            {
-                BridgeStore.SelectedBridge.ShowErrorMessages();
-            }
+            _gvv = new GroupViewView((Dictionary<string, Group>) comgrp.resultobject,(Dictionary<string, Light>) comlgt.resultobject);
+            DataContext = _gvv;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(_gvv == null)
+                Close();
         }
     }
 }

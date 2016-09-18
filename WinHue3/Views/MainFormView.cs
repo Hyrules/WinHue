@@ -35,9 +35,9 @@ namespace WinHue3
         private readonly DispatcherTimer _findsensortimer = new DispatcherTimer();
         private readonly DispatcherTimer _refreshStates = new DispatcherTimer();
         private ObservableCollection<HueObject> _listBridgeObjects;
-        private BackgroundWorker _bgwRefresher = new BackgroundWorker();
-        private CpuTempMonitor ctm = new CpuTempMonitor();
-        private RssFeedMonitor rfm = new RssFeedMonitor();
+        private readonly BackgroundWorker _bgwRefresher = new BackgroundWorker();
+        private readonly CpuTempMonitor ctm = new CpuTempMonitor();
+        private readonly RssFeedMonitor rfm = new RssFeedMonitor();
 
         public Form_EventLog _fel;
         private Form_SceneMapping _fsm;
@@ -47,7 +47,7 @@ namespace WinHue3
         private double _ttvalue = -1;
         private string _lastmessage = string.Empty;
         private List<HotKey> _listHotKeys;
-        private List<HotKeyHandle> _lhk;
+        private readonly List<HotKeyHandle> _lhk;
 
         #region CTOR
 
@@ -94,7 +94,7 @@ namespace WinHue3
 
             foreach (HotKey h in _listHotKeys)
             {
-                _lhk.Add(new HotKeyHandle(h, new System.Action<HotKeyHandle>(HandleHotkey)));
+                _lhk.Add(new HotKeyHandle(h, HandleHotkey));
             }
 
 
@@ -134,7 +134,6 @@ namespace WinHue3
         {
             get
             {
-                if (_selectedObject == null) return false;
                 if (!(_selectedObject is Scene)) return false;
                 return ((Scene)_selectedObject).version != 1;
             }
@@ -645,9 +644,10 @@ namespace WinHue3
 
         private void Temp_BridgeNotResponding(object sender, EventArgs e)
         {
-            BridgeStore.SelectedBridge = null;
-            MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.YesNoCancel,
-                MessageBoxImage.Error);
+            //BridgeStore.SelectedBridge = null;
+            MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
+            ctm.Stop();
+            rfm.Stop();
         }
 
         void MessageAdded(object sender, EventArgs e)
@@ -733,15 +733,12 @@ namespace WinHue3
             _findlighttimer.Stop();
             log.Info("Done searching for new lights.");
             HelperResult hr = HueObjectHelper.GetBridgeNewLights(BridgeStore.SelectedBridge);
-            if (hr.Success)
-            {
-                List<HueObject> newlights = (List<HueObject>) hr.Hrobject;
-                log.Info($"Found {newlights.Count} new sensors.");
-                _listBridgeObjects.AddRange(newlights);
-                OnPropertyChanged("ListBridgeObjects");
-                OnPropertyChanged("EnableSearchLights");
-
-            }
+            if (!hr.Success) return;
+            List<HueObject> newlights = (List<HueObject>) hr.Hrobject;
+            log.Info($"Found {newlights.Count} new sensors.");
+            _listBridgeObjects.AddRange(newlights);
+            OnPropertyChanged("ListBridgeObjects");
+            OnPropertyChanged("EnableSearchLights");
         }
 
         private void _findsensortimer_Tick(object sender, EventArgs e)
@@ -749,16 +746,12 @@ namespace WinHue3
             _findsensortimer.Stop();
             log.Info("Done searching for new sensors.");
             HelperResult hr = HueObjectHelper.GetBridgeNewSensors(BridgeStore.SelectedBridge);
-            if (hr.Success)
-            {
-                List<HueObject> newsensors = (List<HueObject>) hr.Hrobject;
-                log.Info($"Found {newsensors.Count} new sensors.");
-                _listBridgeObjects.AddRange(newsensors);
-                OnPropertyChanged("ListBridgeObjects");
-                OnPropertyChanged("EnableSearchSensors");
-            }
-            
-
+            if (!hr.Success) return;
+            List<HueObject> newsensors = (List<HueObject>) hr.Hrobject;
+            log.Info($"Found {newsensors.Count} new sensors.");
+            _listBridgeObjects.AddRange(newsensors);
+            OnPropertyChanged("ListBridgeObjects");
+            OnPropertyChanged("EnableSearchSensors");
         }
 
         private void SliderChangeHue()
@@ -805,40 +798,38 @@ namespace WinHue3
         private void DoBridgePairing()
         {
             Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing() {Owner = Application.Current.MainWindow };
-            if(dp.ShowDialog() == true)
-            {
-                BridgeStore.ListBridges = dp.GetModifications();
-                LoadBridge();
-            }
+            if (dp.ShowDialog() != true) return;
+            BridgeStore.ListBridges = dp.GetModifications();
+            LoadBridge();
         }
 
         #region CONTEXT MENU COMMANDS
         private void DeleteObject()
         {
             if (_selectedObject == null) return;
-            if (MessageBox.Show(string.Format(GlobalStrings.Confirm_Delete_Object, _selectedObject.GetName()),GlobalStrings.Warning,MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-
-                MethodInfo method = typeof(Bridge).GetMethod("RemoveObject");
-                MethodInfo generic = method.MakeGenericMethod(_selectedObject.GetType());
-                CommandResult bresult = (CommandResult) generic.Invoke(BridgeStore.SelectedBridge, new object[]{ _selectedObject.Id });
+            if (
+                MessageBox.Show(string.Format(GlobalStrings.Confirm_Delete_Object, _selectedObject.GetName()),
+                    GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                return;
+            MethodInfo method = typeof(Bridge).GetMethod("RemoveObject");
+            MethodInfo generic = method.MakeGenericMethod(_selectedObject.GetType());
+            CommandResult bresult = (CommandResult) generic.Invoke(BridgeStore.SelectedBridge, new object[]{ _selectedObject.Id });
    
-                log.Debug("Result : " + bresult.resultobject);
-                if (bresult.Success)
-                {
-                    int index =
-                        _listBridgeObjects.FindIndex(
-                            x => x.Id == _selectedObject.Id && x.GetType() == _selectedObject.GetType());
-                    if (index == -1) return;
-                    _listBridgeObjects.RemoveAt(index);
-                    OnPropertyChanged("ListBridgeObjects");
-                    SelectedObject = null;
-                    log.Info($"Object ID : {index} removed.");
-                }
-                else
-                {
-                    MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
-                }
+            log.Debug("Result : " + bresult.resultobject);
+            if (bresult.Success)
+            {
+                int index =
+                    _listBridgeObjects.FindIndex(
+                        x => x.Id == _selectedObject.Id && x.GetType() == _selectedObject.GetType());
+                if (index == -1) return;
+                _listBridgeObjects.RemoveAt(index);
+                OnPropertyChanged("ListBridgeObjects");
+                SelectedObject = null;
+                log.Info($"Object ID : {index} removed.");
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
             }
         }
 
@@ -855,7 +846,6 @@ namespace WinHue3
 
         private void RefreshObject(HueObject obj, bool logging = false)
         {
-            HueObject newobj;
             int index = _listBridgeObjects.FindIndex(x => x.Id == obj.Id && x.GetType() == obj.GetType());
             if (index == -1) return;
        
@@ -863,19 +853,15 @@ namespace WinHue3
             MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
             HelperResult hr = (HelperResult)generic.Invoke(BridgeStore.SelectedBridge, new object[] {BridgeStore.SelectedBridge,obj.Id});
 
-            if (hr.Success)
+            if (!hr.Success) return;
+            HueObject newobj = (HueObject)hr.Hrobject;
+            _listBridgeObjects[index].Image = newobj.Image;
+            PropertyInfo[] pi = newobj.GetType().GetProperties();
+            foreach (PropertyInfo p in pi)
             {
-                newobj = (HueObject)hr.Hrobject;
-                _listBridgeObjects[index].Image = newobj.Image;
-                PropertyInfo[] pi = newobj.GetType().GetProperties();
-                foreach (PropertyInfo p in pi)
-                {
-                    if (_listBridgeObjects[index].HasProperty(p.Name))
-                        p.SetValue(_listBridgeObjects[index], _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
-                }
-
+                if (_listBridgeObjects[index].HasProperty(p.Name))
+                    p.SetValue(_listBridgeObjects[index], _listBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
             }
-
         }
 
         private void EditObject()
@@ -903,37 +889,35 @@ namespace WinHue3
             else if (_selectedObject is Sensor)
             {
                 Sensor obj = (Sensor)_selectedObject;
-                if (obj.modelid == "PHDL00")
+                switch (obj.modelid)
                 {
-                    Form_Daylight dl = new Form_Daylight(BridgeStore.SelectedBridge, obj) {Owner = Application.Current.MainWindow};
-                    if(dl.ShowDialog() == true)
-                    {
-                        RefreshObject(_selectedObject);
-                    }
-                }
-                else if (obj.modelid == "ZGPSWITCH")
-                {
-                    Form_HueTapConfig htc = new Form_HueTapConfig(BridgeStore.SelectedBridge, obj.Id)
-                    {
-                        Owner = Application.Current.MainWindow
-                    };
-                    if(htc.ShowDialog() == true)
-                    {
-                        RefreshObject(_selectedObject);
-                    }
-
-                }
-                else
-                {
-                    Form_SensorCreator fsc = new Form_SensorCreator(BridgeStore.SelectedBridge, obj)
-                    {
-                        Owner = Application.Current.MainWindow
-                    };
-                    if (fsc.ShowDialog() == true)
-                    {
-                        RefreshObject(_selectedObject);
-                    }
-
+                    case "PHDL00":
+                        Form_Daylight dl = new Form_Daylight(BridgeStore.SelectedBridge, obj) {Owner = Application.Current.MainWindow};
+                        if(dl.ShowDialog() == true)
+                        {
+                            RefreshObject(_selectedObject);
+                        }
+                        break;
+                    case "ZGPSWITCH":
+                        Form_HueTapConfig htc = new Form_HueTapConfig(BridgeStore.SelectedBridge, obj.Id)
+                        {
+                            Owner = Application.Current.MainWindow
+                        };
+                        if(htc.ShowDialog() == true)
+                        {
+                            RefreshObject(_selectedObject);
+                        }
+                        break;
+                    default:
+                        Form_SensorCreator fsc = new Form_SensorCreator(BridgeStore.SelectedBridge, obj)
+                        {
+                            Owner = Application.Current.MainWindow
+                        };
+                        if (fsc.ShowDialog() == true)
+                        {
+                            RefreshObject(_selectedObject);
+                        }
+                        break;
                 }
             }
             else if (_selectedObject is Rule)

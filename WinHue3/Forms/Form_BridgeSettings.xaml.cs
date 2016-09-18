@@ -17,7 +17,9 @@ namespace WinHue3
         public Form_BridgeSettings()
         {
             InitializeComponent();
-            _bsv = new BridgeSettingsView();
+            CommandResult bresult = BridgeStore.SelectedBridge.GetBridgeSettings();
+            if (!bresult.Success) return;
+            _bsv = new BridgeSettingsView((BridgeSettings)bresult.resultobject);
             DataContext = _bsv;
         }
 
@@ -39,5 +41,10 @@ namespace WinHue3
             }
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_bsv == null)
+                Close();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using HueLib2;
 
@@ -11,11 +12,16 @@ namespace WinHue3
     public partial class Form_SceneMapping : Window
     {
         private Bridge _bridge;
-        private SceneMappingView _smv;
+        private readonly SceneMappingView _smv;
         public Form_SceneMapping()
         {
             InitializeComponent();
-            _smv = new SceneMappingView();
+            CommandResult lresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            if (!lresult.Success) return;
+            CommandResult sresult = BridgeStore.SelectedBridge.GetListObjects<Scene>();
+            if (!sresult.Success) return;
+            _smv = new SceneMappingView((Dictionary<string, Scene>)sresult.resultobject,
+                (Dictionary<string, Light>)lresult.resultobject);
             DataContext = _smv;
         }
 
@@ -23,6 +29,12 @@ namespace WinHue3
         {
             if (dgListScenes.Columns.Count < 1) return;
             dgListScenes.Columns[0].Visible = false;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(_smv == null)
+                Close();
         }
     }
 }

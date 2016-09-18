@@ -37,11 +37,6 @@ namespace WinHue3
                 gcv = new GroupCreatorView((List<HueObject>)hr.Hrobject);
                 DataContext = gcv;
             }
-            else
-            {           
-                MessageBoxError.ShowLastErrorMessages(_bridge);
-                this.Close();
-            }
         }
 
         public Form_GroupCreator(Bridge bridge, HueObject selectedGroup)
@@ -114,7 +109,13 @@ namespace WinHue3
             return _id;
         }
 
- 
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (gcv == null)
+            {
+                DialogResult = false;
+                Close();
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using HueLib2;
 
 namespace WinHue3
@@ -13,8 +14,16 @@ namespace WinHue3
         public Form_BulbsView()
         {
             InitializeComponent();
-            _bvv = new BulbsViewView();
+            CommandResult lresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            if (!lresult.Success) return;
+            _bvv = new BulbsViewView((Dictionary<string, Light>) lresult.resultobject);
             DataContext = _bvv;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_bvv == null)
+                Close();
         }
     }
 }

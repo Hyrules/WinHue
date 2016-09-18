@@ -25,24 +25,30 @@ namespace HueLib2
             if (ns != null)
             {          
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}/{id}"),WebRequestType.GET);
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}/{id}"),WebRequestType.GET);
 
-                if (result.status == WebExceptionStatus.Success)
+                switch (comres.status)
                 {
-                   
-                    MethodInfo method = typeof(Serializer).GetMethod("DeserializeToObject");
-                    MethodInfo generic = method.MakeGenericMethod(typeof(T));
-                    bresult.resultobject = generic.Invoke(this, new object[]{ result.data });
-                    bresult.Success = bresult.resultobject != null;
-                    if (bresult.resultobject == null) 
-                    {                    
-                        bresult.resultobject = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                        lastMessages = (MessageCollection)bresult.resultobject;
-                    }
-                }
-                else
-                {
-                    bresult.resultobject = $"Bridge communication resulted in error : {result.status}";
+                    case WebExceptionStatus.Success:
+                        MethodInfo method = typeof(Serializer).GetMethod("DeserializeToObject");
+                        MethodInfo generic = method.MakeGenericMethod(typeof(T));
+                        bresult.resultobject = generic.Invoke(this, new object[] { comres.data });
+                        bresult.Success = bresult.resultobject != null;
+                        if (bresult.resultobject == null)
+                        {
+                            bresult.resultobject = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                            lastMessages = (MessageCollection)bresult.resultobject;
+                        }
+                        break;
+                    case WebExceptionStatus.Timeout:
+                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        BridgeNotResponding?.Invoke(this, _e);
+                        bresult.resultobject = comres.data;
+                        break;
+                    default:
+                        lastMessages = new MessageCollection { new UnkownError(comres) };
+                        bresult.resultobject = comres.data;
+                        break;
                 }
             }
             else
@@ -67,17 +73,25 @@ namespace HueLib2
             {
  
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}"),WebRequestType.GET);
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}"),WebRequestType.GET);
 
-                if (result.status == WebExceptionStatus.Success)
+                switch (comres.status)
                 {
-                    bresult.resultobject = Serializer.DeserializeToObject<Dictionary<string, T>>(result.data);
-                    bresult.Success = true;
+                    case WebExceptionStatus.Success:
+                        bresult.resultobject = Serializer.DeserializeToObject<Dictionary<string, T>>(comres.data);
+                        bresult.Success = true;
+                        break;
+                    case WebExceptionStatus.Timeout:
+                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        BridgeNotResponding?.Invoke(this, _e);
+                        bresult.resultobject = comres.data;
+                        break;
+                    default:
+                        lastMessages = new MessageCollection { new UnkownError(comres) };
+                        bresult.resultobject = comres.data;
+                        break;
                 }
-                else
-                {
-                    bresult.resultobject = $"Bridge communication resulted in error : {result.status}";
-                }
+
             }
             else
             {
@@ -98,16 +112,25 @@ namespace HueLib2
             if (ns != null)
             {
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}/new"), WebRequestType.GET);
-                if (result.status == WebExceptionStatus.Success)
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}/new"), WebRequestType.GET);
+
+                switch (comres.status)
                 {
-                    bresult.Success = true;
-                    bresult.resultobject = Serializer.DeserializeToObject<SearchResult>(result.data);
+                    case WebExceptionStatus.Success:
+                        bresult.Success = true;
+                        bresult.resultobject = Serializer.DeserializeToObject<SearchResult>(comres.data);
+                        break;
+                    case WebExceptionStatus.Timeout:
+                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        BridgeNotResponding?.Invoke(this, _e);
+                        bresult.resultobject = comres.data;
+                        break;
+                    default:
+                        lastMessages = new MessageCollection { new UnkownError(comres) };
+                        bresult.resultobject = comres.data;
+                        break;
                 }
-                else
-                {
-                    bresult.resultobject = result.data;
-                }
+
             }
             else
             {

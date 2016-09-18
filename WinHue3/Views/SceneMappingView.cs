@@ -13,9 +13,13 @@ namespace WinHue3
         private string _filter;
         private object _selectedcell;
         private object _row;
+        private readonly Dictionary<string, Scene> _listscenes;
+        private readonly Dictionary<string, Light> _listlights;
 
-        public SceneMappingView()
+        public SceneMappingView(Dictionary<string, Scene> scenes, Dictionary<string, Light> lights)
         {
+            _listscenes = scenes;
+            _listlights = lights;
             BuildSceneMapping();
         }
 
@@ -70,74 +74,58 @@ namespace WinHue3
         {
             Dictionary<string, Scene> lscenes;
 
-            CommandResult comres = BridgeStore.SelectedBridge.GetListObjects<Scene>();
-            if (comres.Success)
-            {
-                if (!WinHueSettings.settings.ShowHiddenScenes)
-                    lscenes = ((Dictionary<string, Scene>) comres.resultobject).Where(
-                            x => x.Value.name.Contains("HIDDEN") == false)
-                        .ToDictionary(p => p.Key, p => p.Value);
-                else
-                    lscenes = ((Dictionary<string, Scene>) comres.resultobject);
-
-            }
+            if (!WinHueSettings.settings.ShowHiddenScenes)
+                lscenes = _listscenes.Where(
+                        x => x.Value.name.Contains("HIDDEN") == false)
+                    .ToDictionary(p => p.Key, p => p.Value);
             else
+                lscenes = _listscenes;
+
+            Dictionary<string, Light> llights = _listlights;
+
+            DataTable dt = new DataTable();
+
+
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Name");
+
+            // Add all light columns
+            foreach (KeyValuePair<string, Light> kvp in llights)
             {
-                return;
+                dt.Columns.Add(kvp.Value.name);
             }
 
-            CommandResult resscenes = BridgeStore.SelectedBridge.GetListObjects<Light>();
-            if (resscenes.Success)
+            dt.Columns.Add("Locked");
+            dt.Columns.Add("Recycle");
+            dt.Columns.Add("Version");
+
+            // Map each scenes and lights
+            foreach (KeyValuePair<string, Scene> svp in lscenes)
             {
-                Dictionary<string, Light> llights = (Dictionary<string, Light>) resscenes.resultobject;
 
-                DataTable dt = new DataTable();
+                object[] data = new object[llights.Count + 5];
 
-
-                dt.Columns.Add("ID");
-                dt.Columns.Add("Name");
-
-                // Add all light columns
-                foreach (KeyValuePair<string, Light> kvp in llights)
+                data[0] = new string(svp.Key.ToCharArray());
+                data[1] = new string(svp.Value.name.ToCharArray());
+                int i = 2;
+                foreach (KeyValuePair<string, Light> lvp in llights)
                 {
-                    dt.Columns.Add(kvp.Value.name);
+                    string value = svp.Value.lights.Contains(lvp.Key) ? "Assigned" : "";
+
+                    data[i] = new string(value.ToCharArray());
+                    i++;
                 }
+                data[i] = new string(svp.Value.locked.ToString().ToCharArray());
+                data[i + 1] = new string(svp.Value.recycle.ToString().ToCharArray());
+                data[i + 2] = new string(svp.Value.version.ToString().ToCharArray());
 
-                dt.Columns.Add("Locked");
-                dt.Columns.Add("Recycle");
-                dt.Columns.Add("Version");
-
-                // Map each scenes and lights
-                foreach (KeyValuePair<string, Scene> svp in lscenes)
-                {
-
-                    object[] data = new object[llights.Count + 5];
-
-                    data[0] = new string(svp.Key.ToCharArray());
-                    data[1] = new string(svp.Value.name.ToCharArray());
-                    int i = 2;
-                    foreach (KeyValuePair<string, Light> lvp in llights)
-                    {
-                        string value = svp.Value.lights.Contains(lvp.Key) ? "Assigned" : "";
-
-                        data[i] = new string(value.ToCharArray());
-                        i++;
-                    }
-                    data[i] = new string(svp.Value.locked.ToString().ToCharArray());
-                    data[i + 1] = new string(svp.Value.recycle.ToString().ToCharArray());
-                    data[i + 2] = new string(svp.Value.version.ToString().ToCharArray());
-
-                    dt.Rows.Add(data);
-                }
-
-
-                _dt = dt;
-                OnPropertyChanged("SceneMapping");
+                dt.Rows.Add(data);
             }
-            else
-            {
-                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
-            }
+
+
+            _dt = dt;
+            OnPropertyChanged("SceneMapping");
+            
             
         }
 

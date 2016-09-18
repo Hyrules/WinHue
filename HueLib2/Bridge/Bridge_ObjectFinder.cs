@@ -16,16 +16,24 @@ namespace HueLib2
             if (ns != null)
             {
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult result = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}"), WebRequestType.POST);
-                if (result.status == WebExceptionStatus.Success)
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}"), WebRequestType.POST);
+
+                switch (comres.status)
                 {
-                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(result.data));
-                    bresult.Success = lastMessages.FailureCount == 0;
-                    bresult.resultobject = lastMessages;
-                }
-                else
-                {
-                    bresult.resultobject = result.data;
+                    case WebExceptionStatus.Success:
+                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                        bresult.Success = lastMessages.FailureCount == 0;
+                        bresult.resultobject = lastMessages;
+                        break;
+                    case WebExceptionStatus.Timeout:
+                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        BridgeNotResponding?.Invoke(this, _e);
+                        bresult.resultobject = comres.data;
+                        break;
+                    default:
+                        lastMessages = new MessageCollection { new UnkownError(comres) };
+                        bresult.resultobject = comres.data;
+                        break;
                 }
                 
             }
