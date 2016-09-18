@@ -426,8 +426,8 @@
   <data name="MainForm_Tab_Home_Group_SettingsUpdateButton" xml:space="preserve">
     <value>MAJ du micrologiciel</value>
   </data>
-  <data name="MainForm_Tab_Plugins" xml:space="preserve">
-    <value>Extensions</value>
+  <data name="MainForm_Tab_Tools" xml:space="preserve">
+    <value>Outils</value>
   </data>
   <data name="MainForm_ListView_Context_Delete" xml:space="preserve">
     <value>Effacer...</value>
@@ -1001,5 +1001,14 @@
   </data>
   <data name="BridgeDetectionPairing_DetectBridge_Tooltip" xml:space="preserve">
     <value>Trouver vos passerelles en utilisant le portail de philips et l'UPNP.</value>
+  </data>
+  <data name="MainForm_ToolsTab_CpuTempMon" xml:space="preserve">
+    <value>Moniteur de Température CPU</value>
+  </data>
+  <data name="MainForm_ToolsTab_RssFeed" xml:space="preserve">
+    <value>Moniteur de flux RSS</value>
+  </data>
+  <data name="MainForm_ToolsTab_Settings" xml:space="preserve">
+    <value>Paramètres</value>
   </data>
 </root>

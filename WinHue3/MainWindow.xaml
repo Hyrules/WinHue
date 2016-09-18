@@ -63,21 +63,22 @@
                 </RibbonGroup>
 
             </RibbonTab>
-            <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Plugins}">
-                <RibbonGroup x:Name="rgAvailablePlugins" Header="" Width="auto" ItemsSource="{Binding ListPlugins}"  >
-                    <RibbonGroup.ItemTemplate>
-                        <DataTemplate>
-                            <ContentControl Content="{Binding}"/>
-                        </DataTemplate>
-                    </RibbonGroup.ItemTemplate>
+            <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Tools}">
+                <RibbonGroup Header="" Width="auto">
+                    <RibbonSplitButton x:Name="btnCpuTempMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeImageSource="Resources/cputemp.png" IsEnabled="{Binding EnableControls}" >
+                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}" IsEnabled="{Binding CanSetCpuTempSettings}"/>
+                    </RibbonSplitButton>
+                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
+                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
+                    </RibbonSplitButton>
                 </RibbonGroup>
 
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_View}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <RibbonGroup x:Name="rgViews" Header="" Width="auto">
-                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png"/>
-                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeImageSource="Resources/BulbView.png" />
-                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeImageSource="Resources/GroupView.png" />
+                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png" IsEnabled="{Binding EnableControls}"/>
+                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeImageSource="Resources/BulbView.png" IsEnabled="{Binding EnableControls}" />
+                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeImageSource="Resources/GroupView.png" IsEnabled="{Binding EnableControls}"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -183,7 +184,7 @@
                     <Slider x:Name="slHue" Height="21" VerticalAlignment="Top" Maximum="65535" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding SliderHue}"  IsEnabled="{Binding EnableHueSlider, FallbackValue=false}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseUp">
-                                <i:InvokeCommandAction Command="{Binding SliderHueChangedCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding SliderHueChangedCommand}" />
                             </i:EventTrigger>
                             <i:EventTrigger EventName="PreviewKeyUp">
                                 <i:InvokeCommandAction Command="{Binding KeyPressHueColorCommand}"/>

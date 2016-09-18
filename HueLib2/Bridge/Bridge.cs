@@ -18,11 +18,11 @@ namespace HueLib2
         MessageCollection _lastmessages;
         private string _apiversion = string.Empty;
         private string _mac = string.Empty;
-        private readonly Error _bridgeNotResponding = new Error() { address = "none", description = "Bridge is not responding", type = -999 };
         private string _swversion;
         private bool _isdefault = false;
         private IPAddress _ipAddress;
         private string _name;
+        private readonly Error _bridgeNotResponding;
 
         /// <summary>
         /// Api Key to access the bridge. If the application is not autorized the api key will not be set.
@@ -97,7 +97,7 @@ namespace HueLib2
             {
                 _ipAddress = value;
                 OnPropertyChanged();
-
+                _bridgeNotResponding.address = _ipAddress.ToString();
             }
         }
 
@@ -133,6 +133,7 @@ namespace HueLib2
             _ipAddress = IPAddress.None;
             _apiKey = string.Empty;
             _lastmessages = new MessageCollection();
+            _bridgeNotResponding = new Error() { address = $"{_ipAddress}", description = "Bridge is not responding", type = -999 };
         }
 
         /// <summary>
@@ -153,6 +154,7 @@ namespace HueLib2
             _name = name;
             OnPropertyChanged("Mac");
             OnPropertyChanged("ApiVersion");
+            _bridgeNotResponding = new Error() { address = $"{_ipAddress}", description = "Bridge is not responding", type = -999 };
         }
 
         /// <summary>

@@ -36,7 +36,8 @@ namespace WinHue3
         private readonly DispatcherTimer _refreshStates = new DispatcherTimer();
         private ObservableCollection<HueObject> _listBridgeObjects;
         private BackgroundWorker _bgwRefresher = new BackgroundWorker();
-
+        private CpuTempMonitor ctm = new CpuTempMonitor();
+        private RssFeedMonitor rfm = new RssFeedMonitor();
 
         public Form_EventLog _fel;
         private Form_SceneMapping _fsm;
@@ -75,13 +76,31 @@ namespace WinHue3
             }
 
             LoadBridge();
+            LoadHotkeys();
+            
+        }
+
+        private void LoadHotkeys()
+        {
+
+            if (_lhk.Count > 0)
+            {
+                foreach (HotKeyHandle h in _lhk)
+                {
+                    h.Unregister();
+                    _lhk.Remove(h);
+                }
+            }
 
             foreach (HotKey h in _listHotKeys)
             {
-               _lhk.Add(new HotKeyHandle(h,new System.Action<HotKeyHandle>(HandleHotkey)));
+                _lhk.Add(new HotKeyHandle(h, new System.Action<HotKeyHandle>(HandleHotkey)));
             }
-            
+
+
         }
+
+        public bool CanSetCpuTempSettings => !ctm.IsRunning;
 
         private void _bgwRefresher_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -615,11 +634,18 @@ namespace WinHue3
                 }
                             
                 temp.OnMessageAdded += MessageAdded;
+                temp.BridgeNotResponding += Temp_BridgeNotResponding;
                 SelectedBridge = temp;
 
                 //LoadPlugins();
                 Cursor_Tools.ShowNormalCursor();
             }
+
+        }
+
+        private void Temp_BridgeNotResponding(object sender, EventArgs e)
+        {
+            BridgeStore.SelectedBridge = null;
 
         }
 
@@ -1214,6 +1240,7 @@ namespace WinHue3
             Form_HotKeyCreator fhkc = new Form_HotKeyCreator() {Owner = Application.Current.MainWindow};
             fhkc.ShowDialog();
             _listHotKeys = fhkc.GetHotKeys();
+            LoadHotkeys();
         }
 
         #endregion
@@ -1281,96 +1308,124 @@ namespace WinHue3
             _fgv.Show();
         }
 
+        private void RunCpuTempMon()
+        {
+            if(!ctm.IsRunning)
+                ctm.Start();
+            else
+                ctm.Stop();
+            OnPropertyChanged("CanSetCpuTempSettings");
+        }
+
+        private void RunRssFeedMon()
+        {
+            if (!rfm.IsRunning)
+                rfm.Start();
+            else
+                rfm.Stop();
+        }
+
+        private void CpuTempMonSettings()
+        {
+            ctm.ShowSettingsForm();
+        }
+
+        private void RssFeedMonSettings()
+        {
+            rfm.ShowSettingsForm();
+        }
+
+
         #region PLUGINS
         /// <summary>
         /// Load all the plugins in the plugin folder.
         /// </summary>
         /// <returns></returns>
-        
-            /*
-        public bool LoadPlugins()
+
+        /*
+    public bool LoadPlugins()
+    {
+        log.Info("Loading plugins...");
+        var catalog = new AggregateCatalog();
+        _plugins.Clear();
+
+        try
         {
-            log.Info("Loading plugins...");
-            var catalog = new AggregateCatalog();
-            _plugins.Clear();
-
-            try
+            if (!Directory.Exists("plugins"))
             {
-                if (!Directory.Exists("plugins"))
-                {
-                    log.Warn("Plugin directory not found. Creating it...");
-                    DirectoryInfo df = Directory.CreateDirectory("plugins"); // Directory Information for the created mood folder
-                }
-
-                if (!Directory.Exists("lights"))
-                {
-                    log.Warn("Lights directory not found. Creating it...");
-                    DirectoryInfo df = Directory.CreateDirectory("lights"); // Directory Information for the created light folder
-                }
-
-                catalog.Catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\plugins"));
-                catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-                CompositionContainer container = new CompositionContainer(catalog);
-                container.ComposeExportedValue("Bridge", BridgeStore.SelectedBridge);
-                container.ComposeParts(this);
-            }
-            catch (DirectoryNotFoundException ex)
-            {
-                log.Error("A needed directory was not found.", ex);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                log.Error("Authorisation denied while creating a directory.",ex);
-            }
-            catch (Exception ex)
-            {
-                log.Fatal("Errow while loading the plugins",ex);
+                log.Warn("Plugin directory not found. Creating it...");
+                DirectoryInfo df = Directory.CreateDirectory("plugins"); // Directory Information for the created mood folder
             }
 
-            if (_availablePlugins == null) return false;
-
-            foreach (IWinHuePluginModule plugin in _availablePlugins)
+            if (!Directory.Exists("lights"))
             {
-                log.Debug("Creating button for plugin" + plugin.pluginName);
-                RibbonSplitButtonPlugin pluginbutton = new RibbonSplitButtonPlugin()
-                {
-                    Label = plugin.pluginName,
-                    LargeImageSource = GDIManager.CreateImageSourceFromImage(plugin.pluginIcon),
-                    Plugin = plugin,
-                };
-
-                pluginbutton.SetBinding(UIElement.IsEnabledProperty, new Binding("EnableControls"));
-
-                pluginbutton.Click += Pluginbutton_Click;
-
-                RibbonButton settingsbutton = new RibbonButton() { Label = GlobalStrings.Plugin_Settings };
-
-                settingsbutton.Click += delegate
-                {
-                    pluginbutton.Plugin.Stop();
-                    pluginbutton.IsChecked = false;
-                    try
-                    {
-                        log.Debug("Showing settings for plugin " + plugin.pluginName);
-                        pluginbutton.Plugin.ShowSettingsForm();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(string.Format(GlobalStrings.Error, pluginbutton.Plugin.pluginName), GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                        GeneratePluginExceptionFile(ex, pluginbutton.Plugin);
-                        log.Fatal($@"Error trying to show plugin {pluginbutton.Plugin.pluginName} settings form",ex);
-                    }
-
-                };
-
-                pluginbutton.Items.Add(settingsbutton);
-                _plugins.Add(pluginbutton);
-                log.Info($"Loaded plugin {pluginbutton.Plugin.pluginName}.");
+                log.Warn("Lights directory not found. Creating it...");
+                DirectoryInfo df = Directory.CreateDirectory("lights"); // Directory Information for the created light folder
             }
-            log.Info("Finished loading plugins.");
-            return true;
+
+            catalog.Catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\plugins"));
+            catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+            CompositionContainer container = new CompositionContainer(catalog);
+            container.ComposeExportedValue("Bridge", BridgeStore.SelectedBridge);
+            container.ComposeParts(this);
         }
-        */
+        catch (DirectoryNotFoundException ex)
+        {
+            log.Error("A needed directory was not found.", ex);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            log.Error("Authorisation denied while creating a directory.",ex);
+        }
+        catch (Exception ex)
+        {
+            log.Fatal("Errow while loading the plugins",ex);
+        }
+
+        if (_availablePlugins == null) return false;
+
+        foreach (IWinHuePluginModule plugin in _availablePlugins)
+        {
+            log.Debug("Creating button for plugin" + plugin.pluginName);
+            RibbonSplitButtonPlugin pluginbutton = new RibbonSplitButtonPlugin()
+            {
+                Label = plugin.pluginName,
+                LargeImageSource = GDIManager.CreateImageSourceFromImage(plugin.pluginIcon),
+                Plugin = plugin,
+            };
+
+            pluginbutton.SetBinding(UIElement.IsEnabledProperty, new Binding("EnableControls"));
+
+            pluginbutton.Click += Pluginbutton_Click;
+
+            RibbonButton settingsbutton = new RibbonButton() { Label = GlobalStrings.Plugin_Settings };
+
+            settingsbutton.Click += delegate
+            {
+                pluginbutton.Plugin.Stop();
+                pluginbutton.IsChecked = false;
+                try
+                {
+                    log.Debug("Showing settings for plugin " + plugin.pluginName);
+                    pluginbutton.Plugin.ShowSettingsForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(string.Format(GlobalStrings.Error, pluginbutton.Plugin.pluginName), GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    GeneratePluginExceptionFile(ex, pluginbutton.Plugin);
+                    log.Fatal($@"Error trying to show plugin {pluginbutton.Plugin.pluginName} settings form",ex);
+                }
+
+            };
+
+            pluginbutton.Items.Add(settingsbutton);
+            _plugins.Add(pluginbutton);
+            log.Info($"Loaded plugin {pluginbutton.Plugin.pluginName}.");
+        }
+        log.Info("Finished loading plugins.");
+        return true;
+    }
+    */
         /*
         private static void GeneratePluginExceptionFile(Exception excpt, IWinHuePluginModule plugin)
         {
@@ -1466,6 +1521,14 @@ namespace WinHue3
         public ICommand ViewSceneMappingCommand => new RelayCommand(param => ViewSceneMapping());
         public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs());
         public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups());
+        
+        //*************** Toolbar ******************************
+
+        public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon());
+        public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon());
+        public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings());
+        public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings());
+
         #endregion
     }
 }

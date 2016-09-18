@@ -14,6 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -111,6 +111,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -157,6 +158,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Addons\CpuTempMon\CpuTemp.cs" />
+    <Compile Include="Addons\CpuTempMon\CpuTempMonitor.cs" />
+    <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
+      <DependentUpon>SettingsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Addons\RssFeedMonitor\Condition.cs" />
+    <Compile Include="Addons\RssFeedMonitor\Criteria.cs" />
+    <Compile Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml.cs">
+      <DependentUpon>Form_ActionPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Addons\RssFeedMonitor\Form_AlertCreator.xaml.cs">
+      <DependentUpon>Form_AlertCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Addons\RssFeedMonitor\RssFeedAlertHandler.cs" />
+    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitor.cs" />
+    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml.cs">
+      <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
     </Compile>
@@ -185,8 +204,7 @@
     <Compile Include="Utils\BridgeStore.cs" />
     <Compile Include="Utils\DataGridViewAppender.cs" />
     <Compile Include="Utils\DgLogEntry.cs" />
-    <Compile Include="Utils\HotKey.cs" />
-    <Compile Include="Utils\HotkeyHandler.cs" />
+    <Compile Include="Hotkeys\HotKeyHandle.cs" />
     <Compile Include="Utils\MessageBoxError.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Forms\Form_BridgeDetectionPairing.xaml.cs">
@@ -225,6 +243,22 @@
     <Compile Include="Views\SensorCreatorView.cs" />
     <Compile Include="Views\View.cs" />
     <Compile Include="Utils\WinHueSettings.cs" />
+    <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Addons\RssFeedMonitor\Form_AlertCreator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\Form_AnimationCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -540,6 +574,8 @@
     <Content Include="lights\images\ZLL Light_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\rss.png" />
+    <Resource Include="Resources\cputemp.png" />
     <Resource Include="Resources\BulbView.png" />
     <Resource Include="Resources\GroupView.png" />
     <Resource Include="Resources\SceneMapping.png" />
@@ -569,7 +605,6 @@
     <Resource Include="Resources\HueLightOn-Large.png" />
     <Resource Include="Resources\HueLightOff-Large-Unr.png" />
     <Resource Include="Resources\HueLightOff-Large.png" />
-    <Resource Include="Resources\cputemp.png" />
     <Resource Include="Resources\weatheralert.png" />
     <Resource Include="Resources\powerfailure.png" />
     <Resource Include="Resources\HueTapFull.jpg" />

@@ -1510,11 +1510,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plugins.
+        ///   Looks up a localized string similar to Tools.
         /// </summary>
-        public static string MainForm_Tab_Plugins {
+        public static string MainForm_Tab_Tools {
             get {
-                return ResourceManager.GetString("MainForm_Tab_Plugins", resourceCulture);
+                return ResourceManager.GetString("MainForm_Tab_Tools", resourceCulture);
             }
         }
         
@@ -1551,6 +1551,33 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_View_SceneMapping {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View_SceneMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cpu Temp Monitor.
+        /// </summary>
+        public static string MainForm_ToolsTab_CpuTempMon {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_CpuTempMon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RSS Feed Monitor.
+        /// </summary>
+        public static string MainForm_ToolsTab_RssFeed {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_RssFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string MainForm_ToolsTab_Settings {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_Settings", resourceCulture);
             }
         }
         
