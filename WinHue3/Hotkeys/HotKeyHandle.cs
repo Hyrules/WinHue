@@ -55,9 +55,12 @@ namespace WinHue3
                 ComponentDispatcher.ThreadFilterMessage += new ThreadMessageEventHandler(ComponentDispatcherThreadFilterMessage);
             }
 
-            _dictHotKeyToCalBackProc.Add(Id, this);
+            if (result)
+            {
+                _dictHotKeyToCalBackProc.Add(Id, this);
+                Debug.Print(result.ToString() + ", " + Id + ", " + virtualKeyCode);
+            }
 
-            Debug.Print(result.ToString() + ", " + Id + ", " + virtualKeyCode);
             return result;
         }
 
@@ -67,7 +70,10 @@ namespace WinHue3
             HotKeyHandle hotKey;
             if (_dictHotKeyToCalBackProc.TryGetValue(Id, out hotKey))
             {
-                UnregisterHotKey(IntPtr.Zero, Id);
+                if (UnregisterHotKey(IntPtr.Zero, Id))
+                {
+                    _dictHotKeyToCalBackProc.Remove(Id);
+                }
             }
         }
 

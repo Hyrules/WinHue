@@ -376,9 +376,19 @@ namespace WinHue3
 
                 if (!HotkeyAlreadyExists(hotkey, out existingKey))
                 {
-                    _listHotKeys.Add(hotkey);
-                    log.Info($"Adding new hotkey : {hotkey}");
-                    Clearfields();
+                    HotKeyHandle hkh = new HotKeyHandle(hotkey, null);
+                    if (hkh.Register())
+                    {
+                        hkh.Unregister();
+                        _listHotKeys.Add(hotkey);
+                        log.Info($"Adding new hotkey : {hotkey}");
+                        Clearfields();
+                    }
+                    else
+                    {
+                        MessageBox.Show(GlobalStrings.Error_Hotkey_Already_Assigned, GlobalStrings.Error,MessageBoxButton.OK, MessageBoxImage.Error);
+                        log.Error("Hotkey already assigned by another process. Please select another key combo.");                        
+                    }
                 }
                 else
                 {

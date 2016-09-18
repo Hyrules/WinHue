@@ -85,10 +85,10 @@ namespace WinHue3
 
             if (_lhk.Count > 0)
             {
-                foreach (HotKeyHandle h in _lhk)
+                while (_lhk.Count != 0)
                 {
-                    h.Unregister();
-                    _lhk.Remove(h);
+                    _lhk[0].Unregister();
+                    _lhk.Remove(_lhk[0]);                    
                 }
             }
 
@@ -646,7 +646,8 @@ namespace WinHue3
         private void Temp_BridgeNotResponding(object sender, EventArgs e)
         {
             BridgeStore.SelectedBridge = null;
-
+            MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Error);
         }
 
         void MessageAdded(object sender, EventArgs e)
