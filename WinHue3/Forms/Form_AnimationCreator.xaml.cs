@@ -1,22 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HueLib;
-using ICSharpCode.AvalonEdit.AddIn;
-using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.SharpDevelop.Editor;
-using ICSharpCode.AvalonEdit.Highlighting;
+﻿using System.Windows;
+using HueLib2;
+
 namespace WinHue3
 {
     /// <summary>
@@ -32,7 +16,7 @@ namespace WinHue3
         public Form_AnimationCreator(Bridge br)
         {
             InitializeComponent();
-            av = new AnimatorView(br,ateEditor);
+         //   av = new AnimatorView(br,ateEditor);
             DataContext = av;
             _bridge = br;
 

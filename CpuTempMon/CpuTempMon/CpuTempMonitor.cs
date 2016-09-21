@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHuePluginModule;
-using HueLib_base;
+using HueLib2;
 
 namespace CpuTempMon
 {
@@ -177,7 +177,7 @@ namespace CpuTempMon
             }
             else
             {
-                Host.SetGroupState(_objectId, new HueLib_base.Action() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 });
+                Host.SetGroupState(_objectId, new HueLib2.Action() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 });
             }
 
           }

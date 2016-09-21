@@ -1,19 +1,14 @@
-﻿using HueLib;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using HueLib2;
 
 namespace WinHue3
 {
     public class BridgeSettingsView : View
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Bridge _br;
         private BridgeSettings _brs;
         private List<string> _listtimezones;
         private ObservableCollection<Whitelist> _listusers;
@@ -23,13 +18,16 @@ namespace WinHue3
 
         #region CTOR
 
-        public BridgeSettingsView(Bridge selectedbridge)
+        public BridgeSettingsView(BridgeSettings brs)
         {
-            _br = selectedbridge;
-            _brs = _br.GetBridgeSettings();
-            _listtimezones = _br.GetTimeZones();
-            _listusers = new ObservableCollection<Whitelist>(HueObjectHelper.GetBridgeUsers(_br));
-            int winhue = _listusers.FindIndex(x => x.id == selectedbridge.ApiKey);
+            _brs = brs;
+            CommandResult comres2 = BridgeStore.SelectedBridge.GetTimeZones();
+            if (!comres2.Success) return;
+            _listtimezones = (List<string>)comres2.resultobject;
+            HelperResult hr = HueObjectHelper.GetBridgeUsers(BridgeStore.SelectedBridge);
+            if (!hr.Success) return;
+            _listusers = new ObservableCollection<Whitelist>((List<Whitelist>)hr.Hrobject);
+            int winhue = _listusers.FindIndex(x => x.id == BridgeStore.SelectedBridge.ApiKey);
             _listusers.RemoveAt(winhue);
         }
 
@@ -343,7 +341,9 @@ namespace WinHue3
         {
             if (_selecteduser == null) return;
             if (!_listusers.Contains(_selecteduser)) return;
-            if (!_br.RemoveUser(_selecteduser.id)) return;
+
+            CommandResult comres = BridgeStore.SelectedBridge.RemoveUser(_selecteduser.id);
+            if (!comres.Success) return;           
             log.Info($"Removed user {_selecteduser.Name}");
             _listusers.Remove(_selecteduser);
         }
@@ -357,18 +357,23 @@ namespace WinHue3
 
         private void CreateUser()
         {
-            string result = _br.CreateUser($"{_appname}#{_devicename}");
-            if(result == string.Empty)
-            {
-                MessageBoxError.ShowLastErrorMessages(_br);
-            }
-            else
+            CommandResult comres = BridgeStore.SelectedBridge.CreateUser($"{_appname}#{_devicename}");
+            if (comres.Success)
             {
                 BridgeWhiteListAppName = string.Empty;
                 BridgeWhiteListDevName = string.Empty;
                 BridgeListUsersSelectedUser = null;
-                _listusers = new ObservableCollection<Whitelist>(HueObjectHelper.GetBridgeUsers(_br));
-                OnPropertyChanged("BridgeListUsers");
+                HelperResult hr = HueObjectHelper.GetBridgeUsers(BridgeStore.SelectedBridge);
+                if (hr.Success)
+                {
+                    _listusers = new ObservableCollection<Whitelist>((List<Whitelist>)hr.Hrobject);
+                    OnPropertyChanged("BridgeListUsers");
+                }
+                
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
             }
         }
 
@@ -393,8 +398,12 @@ namespace WinHue3
                 brs.netmask = _brs.netmask;
                 brs.dhcp = false;
             }
-            if (_br.SetBridgeSettings(brs).FailureCount <= 0) return;
-            MessageBoxError.ShowLastErrorMessages(_br);
+            CommandResult comres = BridgeStore.SelectedBridge.SetBridgeSettings(brs);
+            if (!comres.Success)
+            {
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
+            }
+            
         }
 
         private void ApplyGeneralSettings()
@@ -402,9 +411,12 @@ namespace WinHue3
             BridgeSettings brs = new BridgeSettings() { name = _brs.name, timezone = _brs.timezone };
             WinHueSettings.settings.BridgeInfo[_brs.mac].name = _brs.name;
             WinHueSettings.Save();
-            if (_br.SetBridgeSettings(brs).FailureCount <= 0) return;
-            MessageBoxError.ShowLastErrorMessages(_br);
-
+            CommandResult comres = BridgeStore.SelectedBridge.SetBridgeSettings(brs);
+            if (!comres.Success)
+            {
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
+            }
+           
         }
 
         #endregion

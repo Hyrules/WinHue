@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using HueLib;
-using HueLib_base;
-using ICSharpCode.NRefactory.Semantics;
-using Action = HueLib_base.Action;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -22,7 +15,6 @@ namespace WinHue3
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private Bridge _bridge;
         private List<HueObject> _listHueObject;
         private HueObject _selectedHueObject;
         private CommonProperties _propertyObject;
@@ -41,9 +33,9 @@ namespace WinHue3
 
         //*********************************** CTOR **********************************************
 
-        public HotKeyCreatorView(Bridge br)
+        public HotKeyCreatorView()
         {
-            _bridge = br;
+
             _listHotKeys = new ObservableCollection<HotKey>();
             _hotkeyrecordTimer.Interval = new TimeSpan(0,0,0,10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
@@ -104,32 +96,38 @@ namespace WinHue3
             }
         }
 
-        public bool CanSelectObjectAndType
-        {
-            get { return !_isgeneric; }
-        }
+        public bool CanSelectObjectAndType => !_isgeneric;
 
         private void FetchHueObject()
         {
+            if (_objectypeindex == -1)
+            {
+                ListHueObject = null;
+                return;
+            }
+
+            HelperResult hr;
 
             switch (_objectypeindex)
             {
-                case -1:
-                    ListHueObject = null;
-                    break;
                 case 0:
-                    ListHueObject = HueObjectHelper.GetBridgeLights(_bridge);
+                    hr = HueObjectHelper.GetBridgeLights(BridgeStore.SelectedBridge);
                     break;
                 case 1:
-                    ListHueObject = HueObjectHelper.GetBridgeGroups(_bridge);
+                    hr = HueObjectHelper.GetBridgeGroups(BridgeStore.SelectedBridge);
                     break;
                 case 2:
-                    ListHueObject = HueObjectHelper.GetBridgeScenes(_bridge);
+                    hr = HueObjectHelper.GetBridgeScenes(BridgeStore.SelectedBridge);
                     break;
                 default:
+                    hr = new HelperResult() {Success = false};
                     break;
             }
 
+            if (hr.Success)
+            {
+                ListHueObject = (List<HueObject>) hr.Hrobject;
+            }
         }
 
         public List<HueObject> ListHueObject
@@ -378,9 +376,19 @@ namespace WinHue3
 
                 if (!HotkeyAlreadyExists(hotkey, out existingKey))
                 {
-                    _listHotKeys.Add(hotkey);
-                    log.Info($"Adding new hotkey : {hotkey}");
-                    Clearfields();
+                    HotKeyHandle hkh = new HotKeyHandle(hotkey, null);
+                    if (hkh.Register())
+                    {
+                        hkh.Unregister();
+                        _listHotKeys.Add(hotkey);
+                        log.Info($"Adding new hotkey : {hotkey}");
+                        Clearfields();
+                    }
+                    else
+                    {
+                        MessageBox.Show(GlobalStrings.Error_Hotkey_Already_Assigned, GlobalStrings.Error,MessageBoxButton.OK, MessageBoxImage.Error);
+                        log.Error("Hotkey already assigned by another process. Please select another key combo.");                        
+                    }
                 }
                 else
                 {

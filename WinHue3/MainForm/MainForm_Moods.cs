@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Ribbon;
-using HueLib_base;
-using Action = HueLib_base.Action;
-using System.IO;
+﻿using System.Windows;
+using HueLib2;
 
 namespace WinHue3
 {

@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
-using HueLib;
-using HueLib.BridgeMessages.Error;
+using HueLib2;
 
-namespace HueLib
+namespace HueLib2
 {
     public partial class Bridge
     {
@@ -43,23 +42,19 @@ namespace HueLib
         /// Force the bridge to check for an update.
         /// </summary>
         /// <returns>True or false if the operation is successful (does not return if there is an update)</returns>
-        public bool ForceCheckForUpdate()
+        public CommandResult ForceCheckForUpdate()
         {
-            bool result = false;
 
+            CommandResult bresult = new CommandResult { Success = false };
             CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"checkforupdate\":true}}");
 
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
-                    if(lstmsg == null)
-                        goto default;
-                    lastMessages = new MessageCollection(lstmsg);
-                    if (lastMessages.SuccessCount == 1)
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                    if (lastMessages.FailureCount == 0)
                     {
-                        result = true;
-
+                        bresult.Success = true;
                     }
                     break;
                 case WebExceptionStatus.Timeout:
@@ -70,74 +65,75 @@ namespace HueLib
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     break;
             }
-
-            return result;
+            bresult.resultobject = lastMessages;
+            return bresult;
         }
         
         /// <summary>
         /// Check if there is an update for the bridge.
         /// </summary>
         /// <returns>Software Update or null.</returns>
-        public bool GetSwUpdate()
+        public CommandResult GetSwUpdate()
         {
             SwUpdate swu = new SwUpdate();
-
+            CommandResult bresult = new CommandResult { Success = false };
             CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
 
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    if (!comres.data.Contains("\"error\""))
+                
+                    BridgeSettings brs = Serializer.DeserializeToObject<BridgeSettings>(comres.data);
+                    if (brs != null)
                     {
-
-                        Match mt = Regex.Match(comres.data, "\"swupdate\":{(.*?)}");
-                        swu = Serializer.DeserializeToObject<SwUpdate>(mt.Value.Remove(0, 11) + "}");
-                        return swu.updatestate == 2;
+                        bresult.Success = true;
+                        bresult.resultobject = brs.swupdate;
                     }
                     else
                     {
                         List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
-                        if(lstmsg == null)
+                        if (lstmsg == null)
                             goto default;
                         else
                         {
                             lastMessages = new MessageCollection(lstmsg);
+                            bresult.resultobject = lastMessages;
                         }
+
+                        bresult.resultobject = Serializer.DeserializeToObject<List<Message>>(comres.data);
                     }
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
+                    bresult.resultobject = lastMessages;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
+                    bresult.resultobject = lastMessages;
                     break;
             }
 
-            return false;
+            return bresult;
         }
 
         /// <summary>
         /// Update the bridge firmware.
         /// </summary>
         /// <returns>True or False command sent succesfully.</returns>
-        public bool DoSwUpdate()
+        public CommandResult DoSwUpdate()
         {
-            bool result = false;
-
+          
+            CommandResult bresult = new CommandResult { Success = false };
             CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\":" + Serializer.SerializeToJson<SwUpdate>(new SwUpdate() { updatestate = 3 }) + "}");
 
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
-                    if(lstmsg == null)
-                        goto default;
-                    lastMessages = new MessageCollection(lstmsg);
-                    if (lastMessages.SuccessCount == 1)
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                    if (lastMessages.FailureCount == 0)
                     {
-                        result = true;
-
+                        bresult.Success = true;
                     }
                     break;
                 case WebExceptionStatus.Timeout:
@@ -148,29 +144,26 @@ namespace HueLib
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     break;
             }
-
-            return result;
+            bresult.resultobject = lastMessages;
+            return bresult;
         }
 
         /// <summary>
         /// Set notify to false once the update has been done.
         /// </summary>
         /// <returns>True or false if the operation was successful or not</returns>
-        public bool SetNotify()
+        public CommandResult SetNotify()
         {
-            bool result = false;
-
+            
+            CommandResult bresult = new CommandResult { Success = false };
             CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"notify\":false}}");
 
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(comres.data);
-                    if(lstmsg == null)
-                        goto default;
-                    lastMessages = new MessageCollection(lstmsg);
-                    if (lastMessages.SuccessCount == 1)
-                        result = true;
+                    lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                    if (lastMessages.FailureCount == 0)
+                        bresult.Success = true;
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
@@ -180,8 +173,8 @@ namespace HueLib
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     break;
             }
-
-            return result;
+            bresult.resultobject = lastMessages;
+            return bresult;
         }
     }
 }

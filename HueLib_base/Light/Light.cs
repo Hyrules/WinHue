@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-namespace HueLib_base
+namespace HueLib2
 {
     /// <summary>
     /// Light Class.

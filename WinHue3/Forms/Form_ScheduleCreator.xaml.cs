@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using HueLib;
-using HueLib_base;
-using Group = HueLib_base.Group;
+﻿using System.Windows;
+using HueLib2;
 using WinHue3.Resources;
 namespace WinHue3
 {
@@ -25,11 +13,9 @@ namespace WinHue3
         /// </summary>
         readonly Bridge _bridge;
 
-        private string _id;
-
         private ScheduleView _scheduleMv;
 
-        private readonly HueObject actualobj;
+        private HueObject actualobj;
 
         /// <summary>
         /// ctor
@@ -60,23 +46,22 @@ namespace WinHue3
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Schedule sc = _scheduleMv.GetSchedule();
+            CommandResult comres;
             if (actualobj is Schedule)
             {
-                string id = sc.Id;
-                sc.Id = null;
-                sc.created = null;
-                sc.recycle = null;
-                _bridge.UpdateSchedule(id, sc);
+                comres = _bridge.ModifyObject<Schedule>(sc, actualobj.Id);
+                
             }
             else
             {
-                _id = _bridge.CreateSchedule(sc);
+                comres = _bridge.CreateObject<Schedule>(sc);
             }
 
-            if (_bridge.lastMessages.SuccessCount > 0 && _bridge.lastMessages.FailureCount == 0)
+            if (comres.Success)
             {
                 DialogResult = true;
-                if (actualobj is Schedule) _id = actualobj.Id;
+                MessageCollection mc = (MessageCollection) comres.resultobject;
+                actualobj = new Schedule() { Id = mc[0].ToString()};
                 Close();
             }
             else
@@ -88,7 +73,7 @@ namespace WinHue3
 
         public string GetCreatedOrModifiedID()
         {
-            return _id;
+            return actualobj.Id;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Net;
 using HueLib;
-using HueLib_base;
+using HueLib2;
 
 namespace WinHuebieLight
 {
@@ -170,7 +170,7 @@ namespace WinHuebieLight
 
                     foreach(int gid in Settings.groups )
                     {
-                        HueLib_base.Action a = new HueLib_base.Action();
+                        HueLib2.Action a = new HueLib2.Action();
                         a.on = true;
                         a.sat = setState.sat;
                         a.hue = setState.hue;

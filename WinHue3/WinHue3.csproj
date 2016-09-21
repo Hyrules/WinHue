@@ -14,6 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -73,6 +73,9 @@
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HueLib2">
+      <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -108,6 +111,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -154,6 +158,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Addons\CpuTempMon\CpuTemp.cs" />
+    <Compile Include="Addons\CpuTempMon\CpuTempMonitor.cs" />
+    <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
+      <DependentUpon>SettingsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Addons\RssFeedMonitor\Condition.cs" />
+    <Compile Include="Addons\RssFeedMonitor\Criteria.cs" />
+    <Compile Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml.cs">
+      <DependentUpon>Form_ActionPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Addons\RssFeedMonitor\Form_AlertCreator.xaml.cs">
+      <DependentUpon>Form_AlertCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Addons\RssFeedMonitor\RssFeedAlertHandler.cs" />
+    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitor.cs" />
+    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml.cs">
+      <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
     </Compile>
@@ -179,15 +201,16 @@
     <Compile Include="Interpreter\AnimatorCommand.cs" />
     <Compile Include="Interpreter\Parser.cs" />
     <Compile Include="Interpreter\ResourceLoader.cs" />
+    <Compile Include="Utils\BridgeStore.cs" />
     <Compile Include="Utils\DataGridViewAppender.cs" />
     <Compile Include="Utils\DgLogEntry.cs" />
+    <Compile Include="Hotkeys\HotKeyHandle.cs" />
     <Compile Include="Utils\MessageBoxError.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Forms\Form_BridgeDetectionPairing.xaml.cs">
       <DependentUpon>Form_BridgeDetectionPairing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interface\GDIManager.cs" />
-    <Compile Include="Plugins\RibbonSplitButtonPlugin.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,11 +221,11 @@
     <Compile Include="Interface\Marker.cs" />
     <Compile Include="Mood\Mood.cs" />
     <Compile Include="Mood\MoodHandler.cs" />
-    <Compile Include="Plugins\PluginServices.cs" />
     <Compile Include="ExtensionMethods\ExtensionMethods.cs" />
     <Compile Include="Interface\ScreenPixelHandler.cs" />
     <Compile Include="Interface\TypeGroupDescription.cs" />
     <Compile Include="Utils\HueObjectHelper.cs" />
+    <Compile Include="Utils\Utils.cs" />
     <Compile Include="Views\AddManualIPView.cs" />
     <Compile Include="Views\AnimatorView.cs" />
     <Compile Include="Views\BridgeSettingsView.cs" />
@@ -220,6 +243,22 @@
     <Compile Include="Views\SensorCreatorView.cs" />
     <Compile Include="Views\View.cs" />
     <Compile Include="Utils\WinHueSettings.cs" />
+    <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Addons\RssFeedMonitor\Form_AlertCreator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\Form_AnimationCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -535,6 +574,8 @@
     <Content Include="lights\images\ZLL Light_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\rss.png" />
+    <Resource Include="Resources\cputemp.png" />
     <Resource Include="Resources\BulbView.png" />
     <Resource Include="Resources\GroupView.png" />
     <Resource Include="Resources\SceneMapping.png" />
@@ -564,7 +605,6 @@
     <Resource Include="Resources\HueLightOn-Large.png" />
     <Resource Include="Resources\HueLightOff-Large-Unr.png" />
     <Resource Include="Resources\HueLightOff-Large.png" />
-    <Resource Include="Resources\cputemp.png" />
     <Resource Include="Resources\weatheralert.png" />
     <Resource Include="Resources\powerfailure.png" />
     <Resource Include="Resources\HueTapFull.jpg" />
@@ -755,21 +795,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\HueLib\HueLib.csproj">
-      <Project>{cfbd593d-56f3-46f8-8eb4-2184669fceaa}</Project>
-      <Name>HueLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HueLib_base\HueLibBase.csproj">
-      <Project>{88e71b52-56b4-49cd-965c-e44c3ed5d275}</Project>
-      <Name>HueLibBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IWinHuePlugin\IWinHuePlugin\WinHuePluginModule.csproj">
-      <Project>{fe2bea8f-0b23-4b6b-96cf-df29ae67d31f}</Project>
-      <Name>WinHuePluginModule</Name>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

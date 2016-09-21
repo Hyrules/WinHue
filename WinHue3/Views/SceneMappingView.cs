@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
-using HueLib;
-using HueLib_base;
-using Button = System.Windows.Controls.Button;
+using HueLib2;
 
 namespace WinHue3
 {
     public class SceneMappingView : View
     {
-        private Bridge _bridge;
         private DataTable _dt;
         private string _filter;
         private object _selectedcell;
         private object _row;
+        private readonly Dictionary<string, Scene> _listscenes;
+        private readonly Dictionary<string, Light> _listlights;
 
-        public SceneMappingView(Bridge br)
+        public SceneMappingView(Dictionary<string, Scene> scenes, Dictionary<string, Light> lights)
         {
-            _bridge = br;
+            _listscenes = scenes;
+            _listlights = lights;
             BuildSceneMapping();
         }
 
@@ -79,21 +75,20 @@ namespace WinHue3
             Dictionary<string, Scene> lscenes;
 
             if (!WinHueSettings.settings.ShowHiddenScenes)
-                lscenes = _bridge.GetScenesList()
-                    .Where(x => x.Value.name.Contains("HIDDEN") == false)
+                lscenes = _listscenes.Where(
+                        x => x.Value.name.Contains("HIDDEN") == false)
                     .ToDictionary(p => p.Key, p => p.Value);
             else
-                lscenes = _bridge.GetScenesList();
+                lscenes = _listscenes;
 
-
-            Dictionary<string, Light> llights = _bridge.GetLightList();
+            Dictionary<string, Light> llights = _listlights;
 
             DataTable dt = new DataTable();
 
-   
+
             dt.Columns.Add("ID");
             dt.Columns.Add("Name");
-            
+
             // Add all light columns
             foreach (KeyValuePair<string, Light> kvp in llights)
             {
@@ -110,13 +105,13 @@ namespace WinHue3
 
                 object[] data = new object[llights.Count + 5];
 
-                data[0] = new string(svp.Key.ToCharArray()); 
+                data[0] = new string(svp.Key.ToCharArray());
                 data[1] = new string(svp.Value.name.ToCharArray());
                 int i = 2;
                 foreach (KeyValuePair<string, Light> lvp in llights)
                 {
                     string value = svp.Value.lights.Contains(lvp.Key) ? "Assigned" : "";
-                  
+
                     data[i] = new string(value.ToCharArray());
                     i++;
                 }
@@ -126,10 +121,11 @@ namespace WinHue3
 
                 dt.Rows.Add(data);
             }
-            
+
 
             _dt = dt;
             OnPropertyChanged("SceneMapping");
+            
             
         }
 
@@ -142,7 +138,7 @@ namespace WinHue3
         public void ProcessDoubleClick()
         {
             if (_row == null) return;
-            _bridge.ActivateScene(((DataRowView)_row).Row.ItemArray[0].ToString());
+            BridgeStore.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
         public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping());

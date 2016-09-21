@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F92374A7-45C3-415D-9BEB-6A87380FAA5B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HueLib2</RootNamespace>
+    <AssemblyName>HueLib2</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ManagedUPnP">
+      <HintPath>..\packages\ManagedUPnP\ManagedUPnP.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.8\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BridgeMessages\Error\Error.cs" />
+    <Compile Include="BridgeMessages\Error\UnkownError.cs" />
+    <Compile Include="BridgeMessages\Message.cs" />
+    <Compile Include="BridgeMessages\MessageCollection.cs" />
+    <Compile Include="BridgeMessages\Success\CreationSuccess.cs" />
+    <Compile Include="BridgeMessages\Success\DeletionSuccess.cs" />
+    <Compile Include="BridgeMessages\Success\Success.cs" />
+    <Compile Include="Bridge\Bridge_Settings.cs" />
+    <Compile Include="Bridge\Bridge_Update.cs" />
+    <Compile Include="Bridge\Objects\BasicConfig.cs" />
+    <Compile Include="Bridge\Bridge.cs" />
+    <Compile Include="Bridge\Objects\BridgeCommResult.cs" />
+    <Compile Include="Bridge\Objects\BridgeSettings.cs" />
+    <Compile Include="Bridge\Bridge_Events.cs" />
+    <Compile Include="Bridge\Bridge_ObjectFinder.cs" />
+    <Compile Include="Bridge\Bridge_ObjectGetter.cs" />
+    <Compile Include="Bridge\Bridge_ObjectSetter.cs" />
+    <Compile Include="Bridge\Objects\DataStore.cs" />
+    <Compile Include="Bridge\Objects\Description.cs" />
+    <Compile Include="Bridge\Objects\PortalState.cs" />
+    <Compile Include="Bridge\SearchResult.cs" />
+    <Compile Include="Bridge\Objects\SwUpdate.cs" />
+    <Compile Include="Bridge\Objects\User.cs" />
+    <Compile Include="Bridge\Objects\WhiteList.cs" />
+    <Compile Include="HueLibAttribute.cs" />
+    <Compile Include="Objects\Device.cs" />
+    <Compile Include="Hue.cs" />
+    <Compile Include="Objects\CommonProperties.cs" />
+    <Compile Include="Communication\Communication.cs" />
+    <Compile Include="Objects\Group\Action.cs" />
+    <Compile Include="Objects\Group\Group.cs" />
+    <Compile Include="Objects\HueObject\HueObject.cs" />
+    <Compile Include="Objects\ItemSource\AlertItemsSource.cs" />
+    <Compile Include="Objects\ItemSource\EffectItemsSource.cs" />
+    <Compile Include="Objects\Light\Light.cs" />
+    <Compile Include="Objects\Light\State.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Objects\Resourcelinks\Resourcelink.cs" />
+    <Compile Include="Objects\Rules\Body\SceneBody.cs" />
+    <Compile Include="Objects\Rules\Rule.cs" />
+    <Compile Include="Objects\Rules\RuleAction.cs" />
+    <Compile Include="Objects\Rules\RuleBody.cs" />
+    <Compile Include="Objects\Rules\RuleCondition.cs" />
+    <Compile Include="Objects\Rules\RuleJsonConverter.cs" />
+    <Compile Include="Objects\Scene\AppData.cs" />
+    <Compile Include="Objects\Scene\Scene.cs" />
+    <Compile Include="Objects\Schedule\Body.cs" />
+    <Compile Include="Objects\Schedule\Command.cs" />
+    <Compile Include="Objects\Schedule\Schedule.cs" />
+    <Compile Include="Objects\Sensor\ClipGenericFlag\ClipGenericFlagSensorState.cs" />
+    <Compile Include="Objects\Sensor\ClipGenericStatus\ClipGenericStatusState.cs" />
+    <Compile Include="Objects\Sensor\ClipHumidty\ClipHumiditySensorState.cs" />
+    <Compile Include="Objects\Sensor\ClipOpenClose\ClipOpenCloseSensorState.cs" />
+    <Compile Include="Objects\Sensor\ClipPresence\ClipPresenceSensorState.cs" />
+    <Compile Include="Objects\Sensor\ClipTemperature\ClipTemperatureSensorState.cs" />
+    <Compile Include="Objects\Sensor\Daylight\DaylightSensorState.cs" />
+    <Compile Include="Objects\Sensor\HueDimmer\HueDimmerSensorState.cs" />
+    <Compile Include="Objects\Sensor\HueTap\HueTapSensorState.cs" />
+    <Compile Include="Objects\Sensor\Sensor.cs" />
+    <Compile Include="Objects\Sensor\SensorConfig.cs" />
+    <Compile Include="Objects\Sensor\SensorState.cs" />
+    <Compile Include="Communication\Serializer.cs" />
+    <Compile Include="Communication\WebClientTimeout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Objects\xy.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

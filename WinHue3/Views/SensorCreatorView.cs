@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HueLib_base;
+using HueLib2;
 using WinHue3.Resources;
 
 namespace WinHue3

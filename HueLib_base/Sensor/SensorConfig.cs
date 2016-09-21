@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace HueLib_base
+namespace HueLib2
 {
     /// <summary>
     /// SensorConfig Class.

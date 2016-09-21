@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Action = HueLib_base.Action;
-using HueLib_base;
+using Action = HueLib2.Action;
+using HueLib2;
 using System.Net;
 using System.Windows.Documents.DocumentStructures;
 using HueLib.BridgeMessages.Error;

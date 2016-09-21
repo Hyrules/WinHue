@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Design;
 using System.Text;
-using System.Net;
-using System.Net.NetworkInformation;
-using HueLib_base;
+using HueLib2;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
-using HueLib;
 
 namespace WinHue3
 {

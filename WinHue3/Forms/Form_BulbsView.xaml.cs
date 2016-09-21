@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HueLib;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -22,12 +11,19 @@ namespace WinHue3
     {
         private BulbsViewView _bvv;
         private Bridge _br;
-        public Form_BulbsView(Bridge br)
+        public Form_BulbsView()
         {
             InitializeComponent();
-            _br = br;
-            _bvv = new BulbsViewView(br);
+            CommandResult lresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            if (!lresult.Success) return;
+            _bvv = new BulbsViewView((Dictionary<string, Light>) lresult.resultobject);
             DataContext = _bvv;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_bvv == null)
+                Close();
         }
     }
 }

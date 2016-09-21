@@ -5,15 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Converters;
-using HueLib_base;
+using HueLib2;
 using WinHue3.Resources;
-using Xceed.Wpf.Toolkit;
 using System.Threading;
 using System.ComponentModel;
-using System.Data;
-using System.Windows.Controls;
-using HueLib;
 
 namespace WinHue3
 {
@@ -26,15 +21,13 @@ namespace WinHue3
         private HueObject _selectedAvailableLight;
         private State _newstate;
         private double _ttvalue = -1;
-        private Bridge _bridge;
         private bool _canpreviewscene = false;
         private bool _cansavescene = false;
         private bool _cancancel = true;
 
         #region CTOR
-        public SceneCreatorView(List<HueObject> listlights, Bridge br)
+        public SceneCreatorView(List<HueObject> listlights)
         {
-            _bridge = br;
             _scene = new Scene();
             _scene.lights = new List<string>();
             _scene.recycle = false;
@@ -48,12 +41,11 @@ namespace WinHue3
             SetError(GlobalStrings.Scene_SelectOneLight, "ListSceneLights");
         }
 
-        public SceneCreatorView(List<HueObject> listlights ,HueObject obj, Bridge br)
+        public SceneCreatorView(List<HueObject> listlights ,HueObject obj)
         {
             _scene = (Scene) obj;
             _listAvailableLights = new ObservableCollection<HueObject>(listlights);
             _listSceneLights = new ObservableCollection<HueObject>();
-            _bridge = br;
             _cansavescene = true;
             _canpreviewscene = true;
             OnPropertyChanged("CanSaveSecene");
@@ -515,21 +507,25 @@ namespace WinHue3
             ObservableCollection<HueObject> liOriginalState = new ObservableCollection<HueObject>();
             foreach (HueObject obj in li)
             {
-                HueObject newlight = HueObjectHelper.GetBridgeLight(_bridge,obj.Id);
-                ((Light)newlight).state.alert = null;
-                liOriginalState.Add(newlight);
+                HelperResult hr = HueObjectHelper.GetObject<Light>(BridgeStore.SelectedBridge, obj.Id);
+                if (hr.Success)
+                {
+                    HueObject newlight = (HueObject) hr.Hrobject;
+                    ((Light)newlight).state.alert = null;
+                    liOriginalState.Add(newlight);
+                }
             }
 
             foreach (HueObject obj in li)
             {
-                _bridge.SetLightState(obj.Id, ((Light)obj).state);
+                BridgeStore.SelectedBridge.SetState<Light>(((Light) obj).state,obj.Id);
             }
 
             Thread.Sleep(5000);
 
             foreach (HueObject obj in liOriginalState)
             {
-                _bridge.SetLightState(obj.Id, ((Light)obj).state);
+                BridgeStore.SelectedBridge.SetState<Light>(((Light)obj).state,obj.Id);
             }
 
             Thread.Sleep(2000);

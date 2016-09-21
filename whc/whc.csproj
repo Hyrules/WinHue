@@ -36,6 +36,10 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HueLib2, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
+    </Reference>
     <Reference Include="NDesk.Options">
       <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -78,14 +82,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HueLib\HueLib.csproj">
-      <Project>{cfbd593d-56f3-46f8-8eb4-2184669fceaa}</Project>
-      <Name>HueLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HueLib_base\HueLibBase.csproj">
-      <Project>{88e71b52-56b4-49cd-965c-e44c3ed5d275}</Project>
-      <Name>HueLibBase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WinHue3\WinHue3.csproj">
       <Project>{e08f8332-0232-47bc-a7d7-212f49296577}</Project>
       <Name>WinHue3</Name>

@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -30,26 +21,32 @@ namespace WinHue3
         {
             InitializeComponent();
             _bridge = br;
-            Dictionary<string,Scene> scenelist = new Dictionary<string, Scene>();
+            Dictionary<string, Scene> scenelist;
+            
+            CommandResult comres = _bridge.GetListObjects<Scene>();
 
-            foreach (KeyValuePair<string,Scene> kvp in _bridge.GetScenesList())
+            if (comres.Success)
             {
-                if (kvp.Value.name.StartsWith("HIDDEN"))
+
+                if (WinHueSettings.settings.ShowHiddenScenes)
                 {
-                    if (WinHueSettings.settings.ShowHiddenScenes)
-                        scenelist.Add(kvp.Key, kvp.Value);
+                    scenelist = (Dictionary<string, Scene>)comres.resultobject;
                 }
                 else
                 {
-                    scenelist.Add(kvp.Key, kvp.Value);
+                    Dictionary<string, Scene> temp = ((Dictionary<string, Scene>) comres.resultobject);
+                    scenelist = temp.Where(x => !x.Value.name.StartsWith("HIDDEN")).ToDictionary(p => p.Key, p => p.Value);
                 }
-            }          
+                
+                cbObject.ItemsSource = scenelist;
 
-            cbObject.ItemsSource = scenelist;
-
-            button = -1;
-            _sensorid = sensorid;
-            
+                button = -1;
+                _sensorid = sensorid;
+            }
+            else
+            {
+                _bridge.ShowErrorMessages();
+            }
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
@@ -143,13 +140,22 @@ namespace WinHue3
                             }
                         }
                     };
-                    if (_bridge.CreateRule(newRule) == "") return;
-                    btnOne.Background = new SolidColorBrush(deselectedColor);
-                    btnTwo.Background = new SolidColorBrush(deselectedColor);
-                    btnThree.Background = new SolidColorBrush(deselectedColor);
-                    btnFour.Background = new SolidColorBrush(deselectedColor);
-                    button = -1;
-                    cbObject.SelectedItem = null;
+
+                    CommandResult comres = _bridge.CreateObject<Rule>(newRule);
+                    if (comres.Success)
+                    {
+                        btnOne.Background = new SolidColorBrush(deselectedColor);
+                        btnTwo.Background = new SolidColorBrush(deselectedColor);
+                        btnThree.Background = new SolidColorBrush(deselectedColor);
+                        btnFour.Background = new SolidColorBrush(deselectedColor);
+                        button = -1;
+                        cbObject.SelectedItem = null;
+                    }
+                    else
+                    {
+                        _bridge.ShowErrorMessages();
+                    }
+
                 }
                 else
                 {

@@ -97,6 +97,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detect Bridges.
+        /// </summary>
+        public static string BridgeDetectionPairing_DetectBridge {
+            get {
+                return ResourceManager.GetString("BridgeDetectionPairing_DetectBridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detect your bridges using the philips hue portal and UPNP..
+        /// </summary>
+        public static string BridgeDetectionPairing_DetectBridge_Tooltip {
+            get {
+                return ResourceManager.GetString("BridgeDetectionPairing_DetectBridge_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string BridgeDetectionPairing_Done {
@@ -178,7 +196,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan you local network for a bridge. Will only be available if no bridge are found..
+        ///   Looks up a localized string similar to Scan all IP Addresses on your local network for a bridge..
         /// </summary>
         public static string BridgeDetectionPairing_Scan_Tooltip {
             get {
@@ -1492,11 +1510,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plugins.
+        ///   Looks up a localized string similar to Tools.
         /// </summary>
-        public static string MainForm_Tab_Plugins {
+        public static string MainForm_Tab_Tools {
             get {
-                return ResourceManager.GetString("MainForm_Tab_Plugins", resourceCulture);
+                return ResourceManager.GetString("MainForm_Tab_Tools", resourceCulture);
             }
         }
         
@@ -1533,6 +1551,33 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_View_SceneMapping {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View_SceneMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cpu Temp Monitor.
+        /// </summary>
+        public static string MainForm_ToolsTab_CpuTempMon {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_CpuTempMon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RSS Feed Monitor.
+        /// </summary>
+        public static string MainForm_ToolsTab_RssFeed {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_RssFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string MainForm_ToolsTab_Settings {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_Settings", resourceCulture);
             }
         }
         

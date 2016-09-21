@@ -1,23 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Media.Animation;
-using HueLib;
-using HueLib_base;
-using Xceed.Wpf.Toolkit.PropertyGrid;
-using System.Text.RegularExpressions;
-using System.Collections.ObjectModel;
+using HueLib2;
 using System.Windows;
 
 namespace WinHue3

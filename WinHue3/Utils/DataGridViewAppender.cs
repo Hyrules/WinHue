@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 using log4net.Appender;
 using log4net.Core;
 
@@ -26,7 +22,7 @@ namespace WinHue3
             newLogEntry.classname = loggingEvent.LocationInformation.ClassName;
             newLogEntry.thread = loggingEvent.ThreadName;
 
-            DgEventLog?.Add(newLogEntry);
+            Application.Current?.Dispatcher?.BeginInvoke(new Action(() => this.DgEventLog.Add(newLogEntry)));
 
 
         }

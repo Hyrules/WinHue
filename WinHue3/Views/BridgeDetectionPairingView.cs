@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Net;
-using System.Threading;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using HueLib;
 using WinHue3.Resources;
-using System.Net.NetworkInformation;
 using System.Windows;
-using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Windows.Markup.Localizer;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -33,10 +26,10 @@ namespace WinHue3
         private bool _canChangeSelection = true;
         private string _scanbuttontext = GUI.BridgeDetectionPairing_Scan;
         private bool _aborted = false;
-        private bool _canscan = false;
-        private ObservableCollection<Bridge> _listBridge;
-        private bool _canaddip = false;
+        private bool _canscan = true;
+        private bool _canaddip = true;
         private bool _defaultset = false;
+        private bool _candetectbridge = true;
 
         #region CTOR
 
@@ -46,24 +39,21 @@ namespace WinHue3
             _pairTimer.Tick += _pairTimer_Tick;
             _timeoutTimer.Interval = new TimeSpan(0, 0, 1, 0);
             _timeoutTimer.Tick += _timeoutTimer_Tick;
-            _listBridge = new ObservableCollection<Bridge>();
+            Hue.OnDetectionComplete += Hue_OnDetectionComplete;
+            Hue.OnBridgeDetectionFailed += Hue_OnBridgeDetectionFailed;
+            Hue.OnIpScanComplete += Hue_OnIpScanComplete;
+            Hue.OnIpScanProgressReport += Hue_OnIpScanProgressReport;
 
-            if (_listBridge.Count == 0)
+            if (BridgeStore.ListBridges.Count == 0)
             {
-                CanAddManualIp = false;
                 Cursor_Tools.ShowWaitCursor();
-                Hue.OnDetectionComplete += Hue_OnDetectionComplete;
-                Hue.OnBridgeDetectionFailed += Hue_OnBridgeDetectionFailed;
+                CanAddManualIp = false;
+                CanScan = false;
+                CanDetectBridge = false;
                 log.Info("Starting bridge detection.");
                 Hue.DetectBridge();
-                
-                _canscan = false;
-                
-            }               
-            else
-            {
-                AssociateApiKey(_listBridge);
             }
+
         }
 
         #endregion
@@ -103,16 +93,15 @@ namespace WinHue3
 
         public ObservableCollection<Bridge> ListViewSource
         {
-            get { return _listBridge; }
+            get { return BridgeStore.ListBridges; }
             set
             {
-                _listBridge = value;
+                BridgeStore.ListBridges = value;
                 foreach (Bridge br in ListViewSource)
                 {
                     log.Debug("ListViewSource : " + br);
                 }              
                 OnPropertyChanged();
-                OnPropertyChanged("CanScan");
             }
         }
 
@@ -219,7 +208,34 @@ namespace WinHue3
             }
         }
 
-        public bool CanScan => ListViewSource.Count == 0 & _canscan;
+        public bool CanScan
+        {
+            get
+            {
+                return _canscan;
+            }
+            set
+            {
+                _canscan = value;
+                OnPropertyChanged();
+            }
+        }  
+
+        public bool CanDetectBridge
+        {
+            get
+            {
+                return _candetectbridge;
+            }
+            set
+            {
+                _candetectbridge = value;
+                OnPropertyChanged();
+            }
+            
+            
+        }
+
 
         #endregion
         
@@ -229,36 +245,43 @@ namespace WinHue3
         public ICommand ScanForBridgeCommand => new RelayCommand(param => ScanForBridge());
         public ICommand SetDefaultBridgeCommand => new RelayCommand(param => SetDefaultBridge());
         public ICommand AddManualIPCommand => new RelayCommand(param => AddManualIP());
+        public ICommand DetectBridgeCommand => new RelayCommand(param => DetectBridge());
         #endregion
 
         #region METHODS
+
+        private void DetectBridge()
+        {
+            CanDetectBridge = false;
+            CanScan = false;
+            CanAddManualIp = false;
+            OnPropertyChanged("CanDetectBridge");
+            Cursor_Tools.ShowWaitCursor();
+            Hue.DetectBridge();
+
+        }
 
         private void AddManualIP()
         {
             Form_AddManualIp fip = new Form_AddManualIp();
             if(fip.ShowDialog() == true)
             {
-                BasicConfig bridgeconfig = Hue.GetBridgeBasicConfig(IPAddress.Parse(fip.GetIPAddress()));
-                if (bridgeconfig != null)
+                switch (BridgeStore.AddManualBridge(IPAddress.Parse(fip.GetIPAddress())))
                 {
-                    Bridge br = new Bridge()
-                    {
-                        IpAddress = IPAddress.Parse(fip.GetIPAddress()),
-                        Mac = bridgeconfig.mac,
-                        SwVersion = bridgeconfig.swversion,
-                    };
-                    if(!_listBridge.Any(x =>x.IpAddress.Equals(br.IpAddress)))
-                        _listBridge.Add(br);
-                    else
-                    {
+                    case BridgeStore.AddManualBridgeResult.Success:
+                        break;
+                    case BridgeStore.AddManualBridgeResult.Alreadyexists:
                         MessageBox.Show(GlobalStrings.Bridge_Already_Detected, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
-                    }
+                        break;
+                    case BridgeStore.AddManualBridgeResult.NotResponding:
+                        MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error,MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    default:
+                        MessageBox.Show(GlobalStrings.Error_ErrorHasOccured, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
                 }
-                else
-                {
-
-                    MessageBox.Show(GlobalStrings.Error_Getting_Bridge_Basic_Config, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                
+            
             }
         }
 
@@ -284,13 +307,13 @@ namespace WinHue3
                 ProgressBarValue = 2;
                 ProgressBarMax = 254;
                 ScanButtonText = GUI.BridgeDetectionPairing_Abort;
-                Hue.OnIpScanComplete += Hue_OnIpScanComplete;
-                Hue.OnIpScanProgressReport += Hue_OnIpScanProgressReport;
                 UserMessage = GlobalStrings.BridgeDetectionPairing_Scanning;
                 Hue.ScanIpForBridge();
                 _aborted = false;
                 log.Info("Start scan for bridge.");
                 CanAddManualIp = false;
+                CanScan = false;
+                CanDetectBridge = false;
             }
             else
             {
@@ -298,6 +321,9 @@ namespace WinHue3
                 ProgressBarValue = ProgressBarMax;
                 UserMessage = GlobalStrings.BridgeDetectionPairing_ScanAborted;
                 _aborted = true;
+                CanAddManualIp = true;
+                CanScan = true;
+                CanDetectBridge = true;
                 log.Info("Aborted scan for bridge.");
             }
         }
@@ -305,7 +331,7 @@ namespace WinHue3
         private bool SetDefaultBridge()
         {
             bool result = false;
-            foreach (Bridge br in _listBridge)
+            foreach (Bridge br in BridgeStore.ListBridges)
             {
                 br.IsDefault = false;
             }
@@ -322,37 +348,28 @@ namespace WinHue3
         private void Hue_OnBridgeDetectionFailed(object sender, DetectionErrorEventArgs e)
         {
             Cursor_Tools.ShowNormalCursor();
-            _canscan = true;
-            OnPropertyChanged("CanScan");
+            CanScan= true;
             CanAddManualIp = true;
+            CanDetectBridge = true;
             MessageBox.Show("Error detecting bridge. Try manual scan.", GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            log.Error("Error detecting bridge.", e.Error);
+            //log.Error("Error detecting bridge.", e.Error.ToString());
         }
 
-        private ObservableCollection<Bridge> AssociateApiKey(ObservableCollection<Bridge> bridge)
-        {
-            foreach (Bridge br in bridge)
-            {
-                
-                if (!WinHueSettings.settings.BridgeInfo.ContainsKey(br.Mac)) continue;
-                br.ApiKey = WinHueSettings.settings.BridgeInfo[br.Mac].apikey;
-                log.Debug($@"Associating ApiKey :{br.ApiKey} with bridge : {br.IpAddress}");
-                if (!HueObjectHelper.IsAuthorized(br)) br.ApiKey = string.Empty;
-                br.IsDefault = br.Mac == WinHueSettings.settings.DefaultBridge;
-                _defaultset |= br.IsDefault;
-                OnPropertyChanged("CanDone");
-            }
-            return bridge;
-        }
-
-
+ 
         private void Hue_OnDetectionComplete(object sender, RunWorkerCompletedEventArgs e)
         {
-            ListViewSource = AssociateApiKey((ObservableCollection<Bridge>)e.Result);
+            Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>) e.Result;
+
+            foreach (KeyValuePair<string,Bridge> kvp in brlist)
+            {
+                if (BridgeStore.ListBridges.Any(x => x.Mac == kvp.Value.Mac)) continue;
+                BridgeStore.ListBridges.Add(kvp.Value);
+            }
+
             Cursor_Tools.ShowNormalCursor();
-            _canscan = true;
-            OnPropertyChanged("CanScan");
+            CanScan = true;
             CanAddManualIp = true;
+            CanDetectBridge = true;
             log.Info("Bridge detection complete.");
             log.Debug(ListViewSource);
 
@@ -365,19 +382,26 @@ namespace WinHue3
             _timeoutTimer.Stop();
             CanPair = true;
             CanAddManualIp = true;
+            CanDetectBridge = true;
             CanChangeSelection = true;
             log.Debug("Timer timout.");
         }
 
         private void _pairTimer_Tick(object sender, EventArgs e)
         {
-            string result = _selectedBridge.CreateUser("WinHue");
+            CommandResult bresult = _selectedBridge.CreateUser("WinHue");
+            string result = string.Empty;
+            if (bresult.Success)
+            {
+                result = (string) bresult.resultobject;
+            }
+            
             ProgressBarValue += 2;
             if (result == string.Empty) return;
             ProgressBarValue = ProgressBarMax;
             ListViewSource[ListViewSource.IndexOf(_selectedBridge)].ApiKey = result;
             UserMessage = GlobalStrings.BridgeDetectionPairing_PairingDone;
-            if (_listBridge.Count == 1)
+            if (BridgeStore.ListBridges.Count == 1)
             {
                 SetDefaultBridge();
             }
@@ -393,16 +417,24 @@ namespace WinHue3
             log.Debug("Hue IP scan progress report : " + e.Progress);
         }
 
-        private void Hue_OnIpScanComplete(object sender, EventArgs e)
+        private void Hue_OnIpScanComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             if (!_aborted)
             {
                 UserMessage = GlobalStrings.BridgeDetectionPairing_ScanComplete;
-                ListViewSource = (ObservableCollection<Bridge>)((RunWorkerCompletedEventArgs)e).Result;
+                Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>)e.Result;
+
+                foreach (KeyValuePair<string, Bridge> kvp in brlist)
+                {
+                    if (BridgeStore.ListBridges.Any(x => x.Mac == kvp.Value.Mac)) continue;
+                    BridgeStore.ListBridges.Add(kvp.Value);
+                }
             }
             ScanButtonText = GUI.BridgeDetectionPairing_Scan;
             log.Info("Scan for bridge completed.");
             CanAddManualIp = true;
+            CanScan = true;
+            CanDetectBridge = true;
         }
 
         public bool SaveSettings()

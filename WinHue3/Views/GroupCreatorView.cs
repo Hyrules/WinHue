@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using HueLib_base;
-using Xceed.Wpf.Toolkit.PropertyGrid;
+using HueLib2;
 using System.Windows.Input;
-using System.Windows;
 
 namespace WinHue3
 {
@@ -29,8 +21,7 @@ namespace WinHue3
         {
             _lightlist = new ObservableCollection<HueObject>(lightlist);
             _grouplights = new ObservableCollection<HueObject>();
-            _group = new Group();
-            _group.lights = new List<string>();
+            _group = new Group {lights = new List<string>()};
             SetError(GlobalStrings.Group_Select_One_Light, "GroupLightList");
         }
 
@@ -47,8 +38,7 @@ namespace WinHue3
                 }
             }
             _group = group;
-            _group.action = null;
-            _group.type = null;
+
         }
 
         #endregion
@@ -58,21 +48,9 @@ namespace WinHue3
         public ObservableCollection<HueObject> AvailableLightList => _lightlist;
         public ObservableCollection<HueObject> GroupLightList => _grouplights;
 
-        public bool CanRemoveLight
-        {
-            get
-            {
-                return _selectedgrouplight != null;
-            }
-        }
+        public bool CanRemoveLight => _selectedgrouplight != null;
 
-        public bool CanAddLight
-        {
-            get
-            {
-                return _selectedavailableLight != null;
-            }
-        }
+        public bool CanAddLight => _selectedavailableLight != null;
 
         public HueObject SelectedAvailableLight
         {

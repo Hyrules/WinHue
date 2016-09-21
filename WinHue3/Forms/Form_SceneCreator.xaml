@@ -4,7 +4,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         x:Name="FormSceneCreator" x:Class="WinHue3.Form_SceneCreator"
-        Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/SceneLarge.png">
+        Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/SceneLarge.png" Loaded="FormSceneCreator_Loaded">
     <Window.Resources>
         <Style TargetType="{x:Type ListView}" >
             <Style.Triggers>

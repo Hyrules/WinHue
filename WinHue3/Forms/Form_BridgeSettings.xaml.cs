@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using HueLib;
+﻿using System.Windows;
 using Xceed.Wpf.Toolkit;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -18,10 +14,12 @@ namespace WinHue3
 
         BridgeSettingsView _bsv;
 
-        public Form_BridgeSettings(Bridge bridge)
+        public Form_BridgeSettings()
         {
             InitializeComponent();
-            _bsv = new BridgeSettingsView(bridge);
+            CommandResult bresult = BridgeStore.SelectedBridge.GetBridgeSettings();
+            if (!bresult.Success) return;
+            _bsv = new BridgeSettingsView((BridgeSettings)bresult.resultobject);
             DataContext = _bsv;
         }
 
@@ -43,5 +41,10 @@ namespace WinHue3
             }
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_bsv == null)
+                Close();
+        }
     }
 }

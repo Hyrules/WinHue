@@ -66,14 +66,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HueLib\HueLib.csproj">
-      <Project>{cfbd593d-56f3-46f8-8eb4-2184669fceaa}</Project>
-      <Name>HueLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HueLib_base\HueLibBase.csproj">
-      <Project>{88e71b52-56b4-49cd-965c-e44c3ed5d275}</Project>
-      <Name>HueLibBase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WinHue3\WinHue3.csproj">
       <Project>{e08f8332-0232-47bc-a7d7-212f49296577}</Project>
       <Name>WinHue3</Name>

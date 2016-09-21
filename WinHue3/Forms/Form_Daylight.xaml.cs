@@ -1,19 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HueLib;
-using HueLib_base;
+﻿using System.Windows;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -26,25 +12,26 @@ namespace WinHue3
         private DaylightView daylightView;
         private string id;
 
-        public Form_Daylight(Bridge bridge,HueObject obj)
+        public Form_Daylight(Bridge bridge,Sensor obj)
         {
             InitializeComponent();
             br = bridge;
             id = obj.Id;
-            daylightView = new DaylightView(br.GetSensor("1"));
+            daylightView = new DaylightView(obj);
             DataContext = daylightView;
         }
 
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
-
-            if(br.UpdateSensor(id, daylightView.GetSensor()))
+            CommandResult bresult = br.ChangeSensorConfig(id, daylightView.GetSensor().config);
+            if(bresult.Success)
             {
                 this.Close();
             }
             else
             {
-                MessageBox.Show("One or more error occured : \r\n\r\n" + br.lastMessages.ToString(), GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+               
+                MessageBoxError.ShowLastErrorMessages(br);
             }
  
 

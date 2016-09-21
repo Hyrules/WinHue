@@ -85,8 +85,8 @@
         <GroupBox Header="{x:Static resx:GUI.SensorCreatorForm_SensorConfig}" HorizontalAlignment="Left" Margin="10,219,0,0" VerticalAlignment="Top" Height="80" Width="506">
             <Grid>
                 <Label Content="{x:Static resx:GUI.SensorCreatorForm_Url}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="82"/>
-                <CheckBox x:Name="chbON" Content="{x:Static resx:GUI.SensorCreatorForm_On}" HorizontalAlignment="Left" Margin="442,11,0,0" VerticalAlignment="Top" TabIndex="6" IsChecked="{Binding On}" Width="42"/>
-                <xctk:WatermarkTextBox x:Name="tbSensorUrl" HorizontalAlignment="Left" Margin="96,6,0,0" TextWrapping="Wrap" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="320" Watermark="http://example.com/mysensor" IsEnabled="{Binding HasUrl}"/>
+                <CheckBox x:Name="chbON" Content="{x:Static resx:GUI.SensorCreatorForm_On}" HorizontalAlignment="Left" Margin="442,11,0,0" VerticalAlignment="Top" TabIndex="6" IsChecked="{Binding On}" Width="42" IsEnabled="{Binding isEditing}"/>
+                <xctk:WatermarkTextBox x:Name="tbSensorUrl" HorizontalAlignment="Left" Margin="96,6,0,0" TextWrapping="Wrap" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="320" Watermark="http://example.com/mysensor" IsEnabled="{Binding isEditing}"/>
 
             </Grid>
         </GroupBox>

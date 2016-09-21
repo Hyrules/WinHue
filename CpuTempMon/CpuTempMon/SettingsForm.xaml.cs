@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using HueLib_base;
+using HueLib2;
 using OpenHardwareMonitor.Hardware;
 using WinHuePluginModule;
 using Action = System.Action;
@@ -169,7 +169,7 @@ namespace CpuTempMon
                 else
                 {
                     Host.SetGroupState(((KeyValuePair<string, Group>)cbObject.SelectedItem).Key,
-                        new HueLib_base.Action() { hue = hueTemp, bri = 255, sat = 255, @on = true, transitiontime = 9 });
+                        new HueLib2.Action() { hue = hueTemp, bri = 255, sat = 255, @on = true, transitiontime = 9 });
                 }
 
             }

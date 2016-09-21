@@ -4,23 +4,20 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
-using HueLib;
-using HueLib_base;
+using HueLib2;
 
 namespace WinHue3
 {
     public class BulbsViewView : View
     {
-        private Bridge _bridge;
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
+        private Dictionary<string, Light> _listlights;
 
-        public BulbsViewView(Bridge br)
+        public BulbsViewView(Dictionary<string, Light> lights)
         {
-            _bridge = br;
+            _listlights = lights;
             BuildBulbsViewReverse();
         }
 
@@ -46,24 +43,25 @@ namespace WinHue3
 
         private void BuildBulbsView()
         {
-            Dictionary<string, Light> llights = _bridge.GetLightList();
-            if (llights == null) return;
+
+
+            Dictionary<string, Light> llights = _listlights;
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Properties");
-            foreach (KeyValuePair<string,Light> lvp in llights)
+            foreach (KeyValuePair<string, Light> lvp in llights)
             {
                 dt.Columns.Add(lvp.Value.name);
             }
-            
+
             PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             PropertyInfo[] liststate = typeof(State).GetProperties();
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
 
-            listproperties.CopyTo(listPropertyInfos,0);
-            liststate.CopyTo(listPropertyInfos,listproperties.Length);
+            listproperties.CopyTo(listPropertyInfos, 0);
+            liststate.CopyTo(listPropertyInfos, listproperties.Length);
 
-            object[] data = new object[llights.Count+1];
+            object[] data = new object[llights.Count + 1];
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
@@ -74,7 +72,7 @@ namespace WinHue3
                 int i = 1;
                 foreach (KeyValuePair<string, Light> lvp in llights)
                 {
-                    if (Array.Find(liststate,x => x.Name == pi.Name) != null)
+                    if (Array.Find(liststate, x => x.Name == pi.Name) != null)
                     {
                         data[i] = pi.GetValue(lvp.Value.state);
                     }
@@ -82,32 +80,35 @@ namespace WinHue3
                     {
                         data[i] = pi.GetValue(lvp.Value);
                     }
-                    
+
                     i++;
                 }
-              
- 
+
+
                 dt.Rows.Add(data);
             }
             _dt = dt;
             OnPropertyChanged("BulbsDetails");
+
         }
 
         private void BuildBulbsViewReverse()
         {
-            Dictionary<string, Light> llights = _bridge.GetLightList();
+
+            Dictionary<string, Light> llights = _listlights;
             if (llights == null) return;
             DataTable dt = new DataTable();
             dt.Columns.Add("Lights");
 
-            PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            PropertyInfo[] listproperties =
+                typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             PropertyInfo[] liststate = typeof(State).GetProperties();
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
 
             listproperties.CopyTo(listPropertyInfos, 0);
             liststate.CopyTo(listPropertyInfos, listproperties.Length);
 
-           
+
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
@@ -119,7 +120,7 @@ namespace WinHue3
 
             object[] data = new object[nbrcol];
 
-            foreach (KeyValuePair<string,Light> lvp in llights)
+            foreach (KeyValuePair<string, Light> lvp in llights)
             {
                 int i = 1;
                 data[0] = lvp.Value.name;
@@ -144,6 +145,7 @@ namespace WinHue3
             }
             _dt = dt;
             OnPropertyChanged("BulbsDetails");
+
         }
 
         public string Filter

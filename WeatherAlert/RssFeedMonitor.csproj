@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IWinHuePlugin">
-      <HintPath>..\IWinHuePlugin\IWinHuePlugin\bin\Debug\IWinHuePlugin.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -112,13 +108,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HueLib_base\HueLibBase.csproj">
-      <Project>{88e71b52-56b4-49cd-965c-e44c3ed5d275}</Project>
-      <Name>HueLibBase</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\rss.png" />

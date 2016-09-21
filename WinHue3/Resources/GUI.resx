@@ -426,8 +426,8 @@
   <data name="MainForm_Tab_Home_Group_SettingsUpdateButton" xml:space="preserve">
     <value>Update Firmware</value>
   </data>
-  <data name="MainForm_Tab_Plugins" xml:space="preserve">
-    <value>Plugins</value>
+  <data name="MainForm_Tab_Tools" xml:space="preserve">
+    <value>Tools</value>
   </data>
   <data name="MainForm_ListView_Context_Delete" xml:space="preserve">
     <value>Delete...</value>
@@ -811,7 +811,7 @@
     <value>The following bridges have been found :</value>
   </data>
   <data name="BridgeDetectionPairing_Scan_Tooltip" xml:space="preserve">
-    <value>Scan you local network for a bridge. Will only be available if no bridge are found.</value>
+    <value>Scan all IP Addresses on your local network for a bridge.</value>
   </data>
   <data name="BridgeDetectionPairing_Pair_Tooltip" xml:space="preserve">
     <value>Begin the pairing procedure. You will have 60 seconds to press the link button on the bridge.</value>
@@ -995,5 +995,20 @@
   </data>
   <data name="MainForm_Tab_View_GroupsView" xml:space="preserve">
     <value>Groups View</value>
+  </data>
+  <data name="BridgeDetectionPairing_DetectBridge" xml:space="preserve">
+    <value>Detect Bridges</value>
+  </data>
+  <data name="BridgeDetectionPairing_DetectBridge_Tooltip" xml:space="preserve">
+    <value>Detect your bridges using the philips hue portal and UPNP.</value>
+  </data>
+  <data name="MainForm_ToolsTab_CpuTempMon" xml:space="preserve">
+    <value>Cpu Temp Monitor</value>
+  </data>
+  <data name="MainForm_ToolsTab_RssFeed" xml:space="preserve">
+    <value>RSS Feed Monitor</value>
+  </data>
+  <data name="MainForm_ToolsTab_Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

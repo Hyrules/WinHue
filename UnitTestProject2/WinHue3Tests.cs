@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using HueLib;
 using System.ComponentModel;
 using System.Windows.Media;
-using HueLib_base;
 using WinHue3;
 
 namespace UnitTestProject2

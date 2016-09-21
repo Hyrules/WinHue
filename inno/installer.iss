@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinHue 3"
-#define MyAppVersion "BETA 16"
+#define MyAppVersion "BETA 18"
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://sourceforge.net/projects/winhue/"
 #define MyAppExeName "WinHue3.exe"
@@ -42,8 +42,7 @@ Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\*.
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\whc.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Xceed.Wpf.DataGrid.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\WinHue3.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\HueLib_base.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\HueLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\HueLib2.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\ManagedUPnP.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\OpenHardwareMonitorLib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\NDesk.Options.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -58,8 +57,7 @@ Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Xc
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\fr\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\moods\*"; DestDir: "{app}\moods"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\plugins\*"; DestDir: "{app}\plugins"; Flags: ignoreversion
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

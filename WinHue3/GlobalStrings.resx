@@ -678,4 +678,7 @@
   <data name="Hotkey_FillOneProperty" xml:space="preserve">
     <value>Please fill at least one property.</value>
   </data>
+  <data name="Error_Hotkey_Already_Assigned" xml:space="preserve">
+    <value>Hotkey already assigned by another process. Please select another key combo and try again.</value>
+  </data>
 </root>

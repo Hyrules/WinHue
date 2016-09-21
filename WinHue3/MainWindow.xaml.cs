@@ -6,15 +6,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
-using HueLib;
-using HueLib_base;
+using System.Runtime.InteropServices;
+using HueLib2;
 using System.Threading;
+using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Drawing;
-using System.Windows.Input;
-using Xceed.Wpf.Toolkit.Core.Converters;
-using Hardcodet.Wpf.TaskbarNotification;
 
 namespace WinHue3
 {
@@ -25,6 +21,8 @@ namespace WinHue3
     {
         private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+       
 
         public string Version { get; set; }
         public Form_EventLog _fel;
@@ -47,8 +45,7 @@ namespace WinHue3
             Title += " " + Version;
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              trayicon.Icon = Properties.Resources.icon;
-
-
+           
         }
 
         private void lvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
@@ -64,12 +61,12 @@ namespace WinHue3
 
         private void btnSupportForum_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://sourceforge.net/p/winhue/discussion/support/");
+            Process.Start("https://github.com/Hyrules/WinHue3/issues");
         }
 
         private void btnWebsite_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://sourceforge.net/projects/winhue/");
+            Process.Start("https://hyrules.github.io/WinHue3/");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -84,6 +81,7 @@ namespace WinHue3
             mfv = new MainFormView(_fel);
             DataContext = mfv;
             _fel.Owner = this;
+      
         }
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -163,7 +161,7 @@ namespace WinHue3
 
         private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            mfv?.HandleHotkey(e);
+          //  mfv?.HandleHotkey(e);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

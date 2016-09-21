@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-namespace HueLib_base
+namespace HueLib2
 {
     /// <summary>
     /// Sensor Class.

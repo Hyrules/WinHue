@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HueLib;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -21,13 +10,23 @@ namespace WinHue3
     public partial class Form_GroupView : Window
     {
         private GroupViewView _gvv;
-        private Bridge _br;
-        public Form_GroupView(Bridge br)
+        public Form_GroupView()
         {
             InitializeComponent();
-            _br = br;
-            _gvv = new GroupViewView(br);
+
+            CommandResult comlgt = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            if (!comlgt.Success) return;
+            CommandResult comgrp = BridgeStore.SelectedBridge.GetListObjects<Group>();
+            if (!comgrp.Success) return;
+
+            _gvv = new GroupViewView((Dictionary<string, Group>) comgrp.resultobject,(Dictionary<string, Light>) comlgt.resultobject);
             DataContext = _gvv;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(_gvv == null)
+                Close();
         }
     }
 }

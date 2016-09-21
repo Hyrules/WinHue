@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using HueLib;
+﻿using System.Windows.Input;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.AddIn;
 using ICSharpCode.SharpDevelop.Editor;
+using HueLib2;
 
 namespace WinHue3
 {
     public class AnimatorView : View
     {
-        private Bridge _bridge;
+
         private WinHueParser parser;
         private TextMarkerService tms;
         private TextEditor _textEditor;
 
         //****************** CTOR **********************************
 
-        public AnimatorView(Bridge br,TextEditor editor)
+        public AnimatorView(TextEditor editor)
         {
-            _bridge = br;
+     
             _textEditor = editor;
             parser = new WinHueParser();
             _textEditor.SyntaxHighlighting = ResourceLoader.LoadHighlightingDefinition("Interpreter.Syntax.xshd");

@@ -8,7 +8,7 @@ using System.Windows.Markup;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-namespace HueLib_base
+namespace HueLib2
 {
     /// <summary>
     /// Group Class.

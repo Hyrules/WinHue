@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Media;
 
-namespace HueLib_base
+namespace HueLib2
 {
     /// <summary>
     /// Abstract class for every hue object Light, Group, Sensor, Schedule, Scene.

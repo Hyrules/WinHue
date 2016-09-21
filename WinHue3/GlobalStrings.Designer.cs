@@ -502,6 +502,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hotkey already assigned by another process. Please select another key combo and try again..
+        /// </summary>
+        internal static string Error_Hotkey_Already_Assigned {
+            get {
+                return ResourceManager.GetString("Error_Hotkey_Already_Assigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid port value..
         /// </summary>
         internal static string Error_InvalidPort {
