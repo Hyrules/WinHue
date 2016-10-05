@@ -53,16 +53,17 @@ namespace WinHue3
 
         public MainFormView(Form_EventLog fel)
         {
+            _lhk = new List<HotKeyHandle>();
             _fel = fel;
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;
-            _findsensortimer.Interval = new TimeSpan(0,1,0);
+            _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
             _refreshStates.Interval = new TimeSpan(0, 0, 3);
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-            _lhk = new List<HotKeyHandle>();
+
             //_refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
 
@@ -77,7 +78,11 @@ namespace WinHue3
 
             LoadBridge();
             LoadHotkeys();
-            
+        }
+
+        public void Initialize(Form_EventLog fel)
+        {
+
         }
 
         private void LoadHotkeys()

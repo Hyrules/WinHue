@@ -104,7 +104,7 @@ namespace WinHue3
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            Form_AppSettings settings = new Form_AppSettings(mfv.SelectedBridge) {Owner = this};
+            Form_AppSettings settings = new Form_AppSettings() {Owner = this};
             if (settings.ShowDialog() != true) return;
         }
 

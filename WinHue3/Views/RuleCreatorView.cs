@@ -47,9 +47,9 @@ namespace WinHue3
             SetError(GlobalStrings.Rule_NameError, "RuleName");
         }
 
-        public RuleCreatorView(List<HueObject> listObjects, HueObject editedRule)
+        public RuleCreatorView(List<HueObject> listObjects, HueObject modifiedRule)
         {
-            _rule = (Rule) editedRule;
+            _rule = (Rule) modifiedRule;
             _listDataStore = listObjects;
             _listcbsensors = listObjects.OfType<Sensor>().ToList<HueObject>();
             _listboxConditions = new ObservableCollection<RuleCondition>(_rule.conditions);

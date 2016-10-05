@@ -11,13 +11,10 @@ namespace WinHue3
     /// </summary>
     public partial class Form_AppSettings : Window
     {
-        readonly Bridge _bridge;
 
-        public Form_AppSettings(Bridge br)
+        public Form_AppSettings()
         {
-            InitializeComponent();
-            _bridge = br;
-            
+            InitializeComponent();           
         }
 
         private void btnApply_Click(object sender, RoutedEventArgs e)
