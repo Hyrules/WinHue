@@ -118,7 +118,7 @@ namespace HueLib2
                 {
                     case WebExceptionStatus.Success:
                         bresult.Success = true;
-                        bresult.resultobject = Serializer.DeserializeToObject<SearchResult>(comres.data);
+                        bresult.resultobject = Serializer.DeserializeSearchResult(comres.data);
                         break;
                     case WebExceptionStatus.Timeout:
                         lastMessages = new MessageCollection { _bridgeNotResponding };

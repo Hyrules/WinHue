@@ -33,6 +33,9 @@
                 <DataTrigger Binding="{Binding ElementName=lbActions, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
+                <DataTrigger Binding="{Binding (Validation.HasError), ElementName=tbRuleName}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
@@ -128,7 +131,7 @@
         <CheckBox x:Name="cbEnabled" Content="{x:Static resources:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="279,19,0,0" VerticalAlignment="Top" IsChecked="{Binding RuleEnabled}"/>
         <Label Content="{x:Static resources:GUI.RuleCreatorForm_Message1}" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" Width="618" Height="24"/>
         <Label Content="{x:Static resources:GUI.RuleCreatorForm_Message2}" HorizontalAlignment="Left" Margin="10,377,0,0" VerticalAlignment="Top" Width="618"/>
-        <xctk:WatermarkTextBox x:Name="tbRuleName" Text="{Binding RuleName}"  HorizontalAlignment="Left" Margin="79,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Watermark="newRule"/>
+        <xctk:WatermarkTextBox x:Name="tbRuleName" Text="{Binding RuleName, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="79,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Watermark="newRule"/>
 
     </Grid>
 </Window>

@@ -740,7 +740,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetBridgeNewLights(BridgeStore.SelectedBridge);
             if (!hr.Success) return;
             List<HueObject> newlights = (List<HueObject>) hr.Hrobject;
-            log.Info($"Found {newlights.Count} new sensors.");
+            log.Info($"Found {newlights.Count} new lights.");
             _listBridgeObjects.AddRange(newlights);
             OnPropertyChanged("ListBridgeObjects");
             OnPropertyChanged("EnableSearchLights");

@@ -269,10 +269,19 @@ namespace WinHue3
             get { return _rule.name ?? string.Empty; }
             set
             {
-                if (value == string.Empty) _rule.name = null;
-                _rule.name = value;
+                if (value == string.Empty)
+                {
+                    _rule.name = null;
+                    SetError(GlobalStrings.Rule_NameError);
+                }
+                else
+                {
+                    _rule.name = value;
+                    RemoveError(GlobalStrings.Rule_NameError);
+                }
+                
                 OnPropertyChanged();
-                RemoveError(GlobalStrings.Rule_NameError);
+                
             }
         }
 
