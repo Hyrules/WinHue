@@ -23,7 +23,7 @@ using WinHue3.Resources;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using MessageBox = System.Windows.MessageBox;
-
+using System.Net;
 
 namespace WinHue3
 {
@@ -651,9 +651,13 @@ namespace WinHue3
         {
             //BridgeStore.SelectedBridge = null;
             MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
+            SelectedBridge = null;
+            Cursor_Tools.ShowNormalCursor();
             ctm.Stop();
             rfm.Stop();
+            DoBridgePairing();
         }
+
 
         void MessageAdded(object sender, EventArgs e)
         {
@@ -805,6 +809,8 @@ namespace WinHue3
             Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing() {Owner = Application.Current.MainWindow };
             if (dp.ShowDialog() != true) return;
             BridgeStore.ListBridges = dp.GetModifications();
+            OnPropertyChanged("ListBridges");
+            OnPropertyChanged("SelectedBridge");
             LoadBridge();
         }
 

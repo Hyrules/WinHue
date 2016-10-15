@@ -53,7 +53,10 @@ namespace WinHue3
                 log.Info("Starting bridge detection.");
                 Hue.DetectBridge();
             }
-
+            else
+            {
+                _defaultset = BridgeStore.ListBridges.Any(x =>x.IsDefault);
+            }
         }
 
         #endregion
@@ -311,8 +314,7 @@ namespace WinHue3
                 Hue.ScanIpForBridge();
                 _aborted = false;
                 log.Info("Start scan for bridge.");
-                CanAddManualIp = false;
-                CanScan = false;
+                CanAddManualIp = false;  
                 CanDetectBridge = false;
             }
             else
@@ -355,16 +357,31 @@ namespace WinHue3
             //log.Error("Error detecting bridge.", e.Error.ToString());
         }
 
+        private void UpdateBridgeList(Dictionary<string, Bridge> brlist)
+        {
+            foreach (KeyValuePair<string, Bridge> kvp in brlist)
+            {
+                if (BridgeStore.ListBridges.Any(x => (x.Mac == kvp.Value.Mac) && (Equals(x.IpAddress, kvp.Value.IpAddress)))) continue;
+                if (BridgeStore.ListBridges.Any(x => (x.Mac == kvp.Value.Mac) && !(Equals(x.IpAddress, kvp.Value.IpAddress))))
+                {
+                    Bridge firstOrDefault = BridgeStore.ListBridges.FirstOrDefault(x => x.Mac == kvp.Value.Mac);
+                    if (
+                        firstOrDefault != null && MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.Name), GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                        MessageBoxResult.Yes)
+                    {
+                        int index = BridgeStore.ListBridges.IndexOf(firstOrDefault);
+                        BridgeStore.ListBridges[index].IpAddress = kvp.Value.IpAddress;
+                    }
+                    continue;
+                }
+            }
+        }
  
         private void Hue_OnDetectionComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>) e.Result;
 
-            foreach (KeyValuePair<string,Bridge> kvp in brlist)
-            {
-                if (BridgeStore.ListBridges.Any(x => x.Mac == kvp.Value.Mac)) continue;
-                BridgeStore.ListBridges.Add(kvp.Value);
-            }
+            UpdateBridgeList(brlist);
 
             Cursor_Tools.ShowNormalCursor();
             CanScan = true;
@@ -423,18 +440,14 @@ namespace WinHue3
             {
                 UserMessage = GlobalStrings.BridgeDetectionPairing_ScanComplete;
                 Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>)e.Result;
-
-                foreach (KeyValuePair<string, Bridge> kvp in brlist)
-                {
-                    if (BridgeStore.ListBridges.Any(x => x.Mac == kvp.Value.Mac)) continue;
-                    BridgeStore.ListBridges.Add(kvp.Value);
-                }
+                UpdateBridgeList(brlist);
             }
             ScanButtonText = GUI.BridgeDetectionPairing_Scan;
             log.Info("Scan for bridge completed.");
             CanAddManualIp = true;
             CanScan = true;
             CanDetectBridge = true;
+            
         }
 
         public bool SaveSettings()

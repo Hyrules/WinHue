@@ -91,6 +91,7 @@ namespace WinHue3
             }
 
         }
+
     }
 
     public static class ArrayExtensionMethods
@@ -107,6 +108,8 @@ namespace WinHue3
             return dest;
         }
     }
+
+
     /*
     public static class CommonPropertiesExtensionMethods
     {
