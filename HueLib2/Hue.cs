@@ -179,7 +179,7 @@ namespace HueLib2
             Dictionary<string,Bridge> newlist = new Dictionary<string, Bridge>();
 
             BridgeSettings desc = new BridgeSettings();
-
+            
             for (byte x = 2; x <= 254; x++)
             {
                 if (_ipscanBgw.CancellationPending) break;

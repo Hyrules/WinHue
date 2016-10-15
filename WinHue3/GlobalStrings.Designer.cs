@@ -106,6 +106,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your bridge {0} seems to have changed ip. Do you want to replace the current IP Address ?.
+        /// </summary>
+        internal static string Bridge_IP_Different {
+            get {
+                return ResourceManager.GetString("Bridge_IP_Different", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searching for new light for 1 minute..
         /// </summary>
         internal static string Bridge_LightSearch {
@@ -376,7 +385,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The bridge is not responding. If you entered a manual IP address verify that the bridge is properly working or the IP address valid then try reconnecting..
+        ///   Looks up a localized string similar to The bridge is not responding. .
         /// </summary>
         internal static string Error_Bridge_Not_Responding {
             get {

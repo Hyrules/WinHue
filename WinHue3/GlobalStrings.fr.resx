@@ -172,7 +172,7 @@
     <value>Passerelle introuvable</value>
   </data>
   <data name="Error_Bridge_Not_Responding" xml:space="preserve">
-    <value>La passerelle ne répond pas. Si vous avez enter une adresse IP manuellement, vérifiez que la passerelle fonctionne correctement ou que l'adrsse IP saisie est valide et essayez de vous connecter à nouveau.</value>
+    <value>La passerelle ne répond pas.</value>
     <comment>The bridge is not responding. If you entered a manual IP address verify that the bridge is properly working or the IP address valid then try reconnecting.</comment>
   </data>
   <data name="Error_Bridge_Unknown" xml:space="preserve">
@@ -686,5 +686,11 @@
   </data>
   <data name="Hotkey_FillOneProperty" xml:space="preserve">
     <value>Veuillez remplir au moins une propriété.</value>
+  </data>
+  <data name="Error_Hotkey_Already_Assigned" xml:space="preserve">
+    <value>Ce raccourci semble déjà assigné à un autre processus. Veuillez svp sélectionner un autre raccourci clavier.</value>
+  </data>
+  <data name="Bridge_IP_Different" xml:space="preserve">
+    <value>Votre passerelle {0} semble avoir changé d'adresse IP. Voulez vous remplacer l'adresse IP ?</value>
   </data>
 </root>

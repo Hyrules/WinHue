@@ -23,7 +23,7 @@ using WinHue3.Resources;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using MessageBox = System.Windows.MessageBox;
-
+using System.Net;
 
 namespace WinHue3
 {
@@ -53,16 +53,17 @@ namespace WinHue3
 
         public MainFormView(Form_EventLog fel)
         {
+            _lhk = new List<HotKeyHandle>();
             _fel = fel;
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;
-            _findsensortimer.Interval = new TimeSpan(0,1,0);
+            _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
             _refreshStates.Interval = new TimeSpan(0, 0, 3);
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-            _lhk = new List<HotKeyHandle>();
+
             //_refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
 
@@ -77,7 +78,11 @@ namespace WinHue3
 
             LoadBridge();
             LoadHotkeys();
-            
+        }
+
+        public void Initialize(Form_EventLog fel)
+        {
+
         }
 
         private void LoadHotkeys()
@@ -646,9 +651,13 @@ namespace WinHue3
         {
             //BridgeStore.SelectedBridge = null;
             MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
+            SelectedBridge = null;
+            Cursor_Tools.ShowNormalCursor();
             ctm.Stop();
             rfm.Stop();
+            DoBridgePairing();
         }
+
 
         void MessageAdded(object sender, EventArgs e)
         {
@@ -735,7 +744,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetBridgeNewLights(BridgeStore.SelectedBridge);
             if (!hr.Success) return;
             List<HueObject> newlights = (List<HueObject>) hr.Hrobject;
-            log.Info($"Found {newlights.Count} new sensors.");
+            log.Info($"Found {newlights.Count} new lights.");
             _listBridgeObjects.AddRange(newlights);
             OnPropertyChanged("ListBridgeObjects");
             OnPropertyChanged("EnableSearchLights");
@@ -800,6 +809,8 @@ namespace WinHue3
             Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing() {Owner = Application.Current.MainWindow };
             if (dp.ShowDialog() != true) return;
             BridgeStore.ListBridges = dp.GetModifications();
+            OnPropertyChanged("ListBridges");
+            OnPropertyChanged("SelectedBridge");
             LoadBridge();
         }
 

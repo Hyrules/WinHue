@@ -172,7 +172,7 @@
     <value>Bridge Not Found</value>
   </data>
   <data name="Error_Bridge_Not_Responding" xml:space="preserve">
-    <value>The bridge is not responding. If you entered a manual IP address verify that the bridge is properly working or the IP address valid then try reconnecting.</value>
+    <value>The bridge is not responding. </value>
   </data>
   <data name="Error_Bridge_Unknown" xml:space="preserve">
     <value>An unknown error has occured</value>
@@ -680,5 +680,8 @@
   </data>
   <data name="Error_Hotkey_Already_Assigned" xml:space="preserve">
     <value>Hotkey already assigned by another process. Please select another key combo and try again.</value>
+  </data>
+  <data name="Bridge_IP_Different" xml:space="preserve">
+    <value>Your bridge {0} seems to have changed ip. Do you want to replace the current IP Address ?</value>
   </data>
 </root>

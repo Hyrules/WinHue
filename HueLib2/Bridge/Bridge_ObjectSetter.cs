@@ -194,11 +194,12 @@ namespace HueLib2
         public CommandResult CreateObject<T>(T newobject) where T : HueObject
         {
             CommandResult bresult = new CommandResult() {Success = false};
+            T nobject = newobject;
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}"), WebRequestType.POST, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(newobject)));
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}"), WebRequestType.POST, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(nobject)));
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
@@ -274,11 +275,12 @@ namespace HueLib2
         public CommandResult ModifyObject<T>(T modifiedobject,string id) where T : HueObject
         {
             CommandResult bresult = new CommandResult() {Success = false};
+            T mobject = modifiedobject;
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}/{id}"), WebRequestType.PUT,Serializer.SerializeToJson(ClearNotAllowedModifyProperties(modifiedobject)));
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}/{id}"), WebRequestType.PUT,Serializer.SerializeToJson(ClearNotAllowedModifyProperties(mobject)));
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
@@ -312,10 +314,11 @@ namespace HueLib2
         /// <param name="id">ID of the sensor</param>
         /// <param name="newconfig">New config of the sensor</param>
         /// <returns>BridgeCommResult</returns>
-        public CommandResult ChangeSensorConfig(string id,SensorConfig newconfig)
+        public CommandResult ChangeSensorConfig(string id, SensorConfig newconfig)
         {
             CommandResult bresult = new CommandResult();
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/config"),WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newconfig)));
+            SensorConfig sconfig = newconfig;
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/config"),WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(sconfig)));
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
@@ -375,16 +378,20 @@ namespace HueLib2
         /// <returns></returns>
         private object ClearNotAllowedModifyProperties(object obj)
         {
-            PropertyInfo[] listproperties = obj.GetType().GetProperties();
+            string json = Serializer.SerializeToJson(obj);
+            MethodInfo mi = typeof(Serializer).GetMethod("DeserializeToObject");
+            MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
+            object newobj = generic.Invoke(obj, new object[] { json });
+            PropertyInfo[] listproperties = newobj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
                 if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
                 HueLibAttribute hla = (HueLibAttribute) Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
                 if (!hla.Modify)
-                    p.SetValue(obj, null);
+                    p.SetValue(newobj, null);
             }
 
-            return obj;            
+            return newobj;            
         }
 
         /// <summary>
@@ -394,16 +401,20 @@ namespace HueLib2
         /// <returns></returns>
         private object ClearNotAllowedCreationProperties(object obj)
         {
-            PropertyInfo[] listproperties = obj.GetType().GetProperties();
+            string json = Serializer.SerializeToJson(obj);
+            MethodInfo mi = typeof(Serializer).GetMethod("DeserializeToObject");
+            MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
+            object newobj = generic.Invoke(obj, new object[] { json });
+            PropertyInfo[] listproperties = newobj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
                 if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
                 HueLibAttribute hla = (HueLibAttribute)Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
                 if (!hla.Create)
-                    p.SetValue(obj, null);
+                    p.SetValue(newobj, null);
             }
 
-            return obj;
+            return newobj;
         }
     }
 }

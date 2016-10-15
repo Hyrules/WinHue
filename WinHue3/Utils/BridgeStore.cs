@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using HueLib2;
+using ICSharpCode.SharpDevelop;
 
 namespace WinHue3
 {

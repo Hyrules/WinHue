@@ -201,6 +201,7 @@
     <Compile Include="Interpreter\AnimatorCommand.cs" />
     <Compile Include="Interpreter\Parser.cs" />
     <Compile Include="Interpreter\ResourceLoader.cs" />
+    <Compile Include="MainForm\ButtonsView.cs" />
     <Compile Include="Utils\BridgeStore.cs" />
     <Compile Include="Utils\DataGridViewAppender.cs" />
     <Compile Include="Utils\DgLogEntry.cs" />

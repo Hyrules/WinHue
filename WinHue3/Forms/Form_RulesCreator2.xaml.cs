@@ -15,9 +15,10 @@ namespace WinHue3
     {
         private readonly Bridge _br;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Dictionary<PropertyInfo,dynamic> listproperties = new Dictionary<PropertyInfo, dynamic>();
-        private readonly Rule editedRule;
-        private readonly RuleCreatorView rcv;
+//        private Dictionary<PropertyInfo,dynamic> listproperties = new Dictionary<PropertyInfo, dynamic>();
+        private Rule editedRule;
+        private RuleCreatorView rcv;
+        private string id;
 
         public Form_RulesCreator2(Bridge bridge)
         {
@@ -54,6 +55,7 @@ namespace WinHue3
             rcv = new RuleCreatorView(listobj,rule);
             DataContext = rcv;
             editedRule = (Rule)rule;
+            id = editedRule.Id;
             Title = $"Editing rule {((Rule)rule).name}...";
             btnCreateRule.Content = "Update";
         }
@@ -66,16 +68,30 @@ namespace WinHue3
         private void btnCreateRule_Click(object sender, RoutedEventArgs e)
         {
             Rule newRule = rcv.GetRule();
-            newRule.owner = null;
-            newRule.created = null;
-            newRule.timestriggered = null;
-            newRule.lasttriggered = null;
+            CommandResult comres;
 
-            CommandResult comres = editedRule == null ? _br.CreateObject<Rule>(newRule) : _br.ModifyObject<Rule>(newRule, editedRule.Id);
+            if (editedRule == null)
+            {
+                comres = _br.CreateObject<Rule>(newRule);
+            }
+            else
+            {
+                comres = _br.ModifyObject<Rule>(newRule, editedRule.Id);
+            }
+     
 
             if (comres.Success)
             {
                 log.Info(editedRule == null ? $"Created new rule : {newRule.name}" : $"Updated rule : {newRule.name}");
+                if (((MessageCollection) comres.resultobject)[0] is CreationSuccess)
+                {
+                    id = ((CreationSuccess)((MessageCollection)comres.resultobject)[0]).id;
+                }
+                else
+                {
+                    id = ((Success)((MessageCollection)comres.resultobject)[0]).id;
+                }
+               
                 DialogResult = true;
                 Close();
             }
@@ -88,7 +104,7 @@ namespace WinHue3
 
         public string GetCreatedOrModifiedId()
         {
-            return editedRule.Id;
+            return id ;
         }
 
         private void lbConditions_ContextMenuOpening(object sender, ContextMenuEventArgs e)
