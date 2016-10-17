@@ -20,7 +20,7 @@ WinHue is a windows desktop application to control the philips hue lighting syst
 
 <b>Install Procedure :</b>
 
-1. Download the [latest release](https://github.com/Hyrules/WinHue3/releases/download/beta_19/WinHue.3.BETA.19.Setup.exe)
+1. Download the [latest release](https://github.com/Hyrules/WinHue3/releases/download/beta_20/WinHue.3.BETA.20.Setup.exe)
 2. Install the release.
 3. Pair the bridge with WinHue.
 4. Have fun !
