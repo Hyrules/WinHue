@@ -28,7 +28,7 @@ namespace WinHue3
         {
             _bgw = new BackgroundWorker();
             _rsstimer = new DispatcherTimer();
-            _rsstimer.Interval = new TimeSpan(0, Properties.Settings.Default.UpdateInterval, 0);
+            _rsstimer.Interval = new TimeSpan(0, (int)Properties.Settings.Default.UpdateInterval, 0);
             _rsstimer.Tick += RssTimer_Tick;
             _bgw.DoWork += Bgw_DoWork;
             

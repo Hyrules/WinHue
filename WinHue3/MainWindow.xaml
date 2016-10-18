@@ -36,8 +36,8 @@
                     <RibbonButton x:Name="btnSearchSensors" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" IsEnabled="{Binding EnableSearchSensors, FallbackValue=false}" LargeImageSource="Resources/SensorSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" SmallImageSource="Resources/SensorSearch.png" Command="{Binding SearchNewSensorsCommand}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}">
-                    <RibbonButton x:Name="btnAllOn" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}"   VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOn-Large.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/HueGroupOn.png" Command="{Binding AllOnCommand}"/>
-                    <RibbonButton x:Name="btnAllOff" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}"  VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOff-Large.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/HueGroupOff.png" Command="{Binding AllOffCommand}"/>
+                    <RibbonButton x:Name="btnAllOn" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}"   VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOn.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/HueGroupOn.png" Command="{Binding AllOnCommand}"/>
+                    <RibbonButton x:Name="btnAllOff" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}"  VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOff.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/HueGroupOff.png" Command="{Binding AllOffCommand}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" >
                     <RibbonButton x:Name="btnRefresh" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}"  LargeImageSource="Resources/1409707765_reload.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/1409707765_reload.png" Command="{Binding RefreshViewCommand}"/>
@@ -69,7 +69,7 @@
                     <RibbonSplitButton x:Name="btnCpuTempMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeImageSource="Resources/cputemp.png" IsEnabled="{Binding EnableControls}" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}" IsEnabled="{Binding CanSetCpuTempSettings}"/>
                     </RibbonSplitButton>
-                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
+                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="True" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>
                 </RibbonGroup>

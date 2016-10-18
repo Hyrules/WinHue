@@ -693,4 +693,10 @@
   <data name="Bridge_IP_Different" xml:space="preserve">
     <value>Votre passerelle {0} semble avoir changé d'adresse IP. Voulez vous remplacer l'adresse IP ?</value>
   </data>
+  <data name="Warning_Bridge_Not_Updated" xml:space="preserve">
+    <value>Attention la version de l'API de votre passerelle n'est pas à la version la plus récente. WinHue ne fonctionnera pas correctement si celle-ci n'est pas mis à jour. Veuillez svp faire la mise à jour de l'API de votre passerelle.</value>
+  </data>
+  <data name="Update_Delay_String" xml:space="preserve">
+    <value>Vérifier toutes les # minute(s)</value>
+  </data>
 </root>

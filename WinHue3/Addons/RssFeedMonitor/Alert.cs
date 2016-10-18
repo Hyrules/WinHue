@@ -32,5 +32,13 @@ namespace WinHue3
 
         [DataMember]
         public bool Triggered { get; set; }
+
+        [DataMember]
+        public DateTime LastTimeTriggered { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

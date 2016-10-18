@@ -452,7 +452,7 @@ namespace WinHue3
             }
             RemoveError(GlobalStrings.Scene_SelectOneLight, "ListSceneLights");
             _scene.lights.AddRange(lightlist.Select(x => x.Id).ToList());
-            _newstate = new State();
+            //_newstate = new State() { on = true};
             OnPropertyChanged("LightSceneLights");
             CanPreviewScene = true;
             CanSaveScene = true;

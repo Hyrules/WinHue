@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinHue 3"
-#define MyAppVersion "BETA 19"
+#define MyAppVersion "BETA 20"
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://sourceforge.net/projects/winhue/"
 #define MyAppExeName "WinHue3.exe"

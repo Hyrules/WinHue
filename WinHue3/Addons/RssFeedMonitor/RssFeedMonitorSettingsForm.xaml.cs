@@ -22,76 +22,24 @@ namespace WinHue3
     /// </summary>
     public partial class RssFeedMonitorSettingsForm : Window
     {
+        private RssFeedMonitorSettingsView rfmsv;
 
         public RssFeedMonitorSettingsForm()
         {
             InitializeComponent();
+            rfmsv = new RssFeedMonitorSettingsView();
+            DataContext = rfmsv;
         }
 
-        private void btnNew_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            Form_AlertCreator fcc = new Form_AlertCreator() {Owner = this};
-            if (fcc.ShowDialog() == true)
-            {
-                PopulateAlertList();
-            }
-
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
+            rfmsv.SaveSettings();
             Close();
         }
 
-        private void PopulateAlertList()
+        private void BtnCancel_OnClick(object sender, RoutedEventArgs e)
         {
-            List<Alert> listConditions = RssFeedAlertHandler.LoadRssFeedAlerts();
-
-            foreach (Alert c in listConditions)
-            {
-                lbConditionList.Items.Add(c);
-            }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            PopulateAlertList();
-        }
-
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
-        {
-            if (lbConditionList.SelectedItem == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator((Alert)lbConditionList.SelectedItem) {Owner = this};
-            if(fac.ShowDialog() == true)
-                PopulateAlertList();
-            
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.UpdateInterval = (int)nudUpdateInterval.Value;
-            Properties.Settings.Default.Save();
             Close();
-        }
-
-        private void lbConditionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(lbConditionList.SelectedItem == null)
-            {
-                lblName.Content = "none";
-                lblDescription.Content = "none";
-                chbIsEnabled.IsChecked = null;
-                btnEdit.IsEnabled = false;
-            }
-            else
-            {
-                Alert current = (Alert)lbConditionList.SelectedItem;
-                lblName.Content = current.Name;
-                lblDescription.Content = current.Description;
-                chbIsEnabled.IsChecked = current.Enabled;
-                btnEdit.IsEnabled = true;
-            }
         }
     }
 }

@@ -740,6 +740,25 @@ namespace WinHue3
         }
 
         /// <summary>
+        /// Get the Bridge Settings
+        /// </summary>
+        /// <param name="bridge">Bridge to get the information from.</param>
+        /// <returns>The bridge settings</returns>
+        public static HelperResult GetBridgeSettings(Bridge bridge)
+        {
+            if (bridge == null) return new HelperResult() {Success = false, Hrobject = "The bridge cannot be NULL"};
+            CommandResult bresult = bridge.GetBridgeSettings();
+            HelperResult hr = new HelperResult
+            {
+                Success = bresult.Success,
+                Hrobject = bresult.resultobject
+            };
+            log.Debug("Getting bridge settings : " + hr.Hrobject);
+            return hr;
+        }
+
+
+        /// <summary>
         /// Toggle the state of an object on and off (Light or group)
         /// </summary>
         /// <param name="bridge">Bridge to get the information from.</param>

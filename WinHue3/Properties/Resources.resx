@@ -153,12 +153,6 @@
 </value>
   </data>
   <data name="HueGroupOff_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueGroupOff-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HueGroupOn_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueGroupOn-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lv_Group" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HueGroupOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lv_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -277,14 +271,8 @@
   <data name="effects" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\effects.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SceneLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SceneLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="stock_alarm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stock_alarm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="timer_clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\timer_clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SchedulesLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SchedulesLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -300,12 +288,6 @@
   </data>
   <data name="website" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1416184952_Gnome-Web-Browser-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rules" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rules.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sensor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sensor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HueLightSearch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HueLightSearch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -328,23 +310,11 @@
   <data name="_1416205084_Book_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1416205084_Book_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HueTapFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueTapFull.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="weatheralert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\weatheralert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cputemp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cputemp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DefaultLight_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueLightOn-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DefaultLight_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueLightOff-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DefaultLight_unr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueLightOff-Large-Unr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -384,5 +354,29 @@
   </data>
   <data name="rss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultLight_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LCT001_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultLight_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LCT001_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HueGroupOn_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HueGroupOn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultLight_unr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HueLight_unr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rules" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rules.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SceneLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scene.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sensor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sensor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="timer_clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1476661736_timer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
