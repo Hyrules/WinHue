@@ -36,6 +36,7 @@ namespace WinHue3
         private readonly DispatcherTimer _refreshStates = new DispatcherTimer();
         private ObservableCollection<HueObject> _listBridgeObjects;
         private readonly BackgroundWorker _bgwRefresher = new BackgroundWorker();
+        private readonly BackgroundWorker _updatebs = new BackgroundWorker();
         private readonly CpuTempMonitor ctm = new CpuTempMonitor();
         private readonly RssFeedMonitor rfm = new RssFeedMonitor();
 
@@ -63,6 +64,7 @@ namespace WinHue3
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
+            _updatebs.DoWork += _updatebs_DoWork;
 
             //_refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
@@ -75,9 +77,35 @@ namespace WinHue3
                 BridgeStore.ListBridges.Add(new Bridge(IPAddress.Parse(kvp.Value.ip), kvp.Key, kvp.Value.apiversion, kvp.Value.swversion, kvp.Value.name, kvp.Value.apikey));
                 OnPropertyChanged("MultiBridgeCB");
             }
-
+            
             LoadBridge();
             LoadHotkeys();
+            _updatebs.RunWorkerAsync();
+        }
+
+        private void _updatebs_DoWork(object sender, DoWorkEventArgs e)
+        {
+            foreach (Bridge br in ListBridges)
+            {
+                HelperResult hr = HueObjectHelper.GetBridgeSettings(br);
+                if (hr.Success)
+                {
+                    BridgeSettings brs = (BridgeSettings) hr.Hrobject;
+                    WinHueSettings.settings.BridgeInfo[br.Mac].apiversion = brs.apiversion;
+                    br.ApiVersion = brs.apiversion;                 
+                    WinHueSettings.settings.BridgeInfo[br.Mac].name = brs.name;
+                    br.Name = brs.name;
+                    WinHueSettings.settings.BridgeInfo[br.Mac].swversion = brs.swversion;
+                    br.SwVersion = brs.swversion;
+                    WinHueSettings.Save();
+                }
+                else
+                {
+                    log.Error($"Unable to update {br.Name} winhue settings.");
+                }
+            }
+            
+
         }
 
         public void Initialize(Form_EventLog fel)
@@ -639,8 +667,13 @@ namespace WinHue3
                             
                 temp.OnMessageAdded += MessageAdded;
                 temp.BridgeNotResponding += Temp_BridgeNotResponding;
+
                 SelectedBridge = temp;
 
+                if (SelectedBridge.ApiVersion != "1.15.0")
+                {
+                    MessageBox.Show(GlobalStrings.Warning_Bridge_Not_Updated, GlobalStrings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
                 //LoadPlugins();
                 Cursor_Tools.ShowNormalCursor();
             }
@@ -973,7 +1006,7 @@ namespace WinHue3
                         OnPropertyChanged("ListBridges");
                     }
                     RefreshView();
-
+                    _updatebs.RunWorkerAsync();
                 }
             }
 

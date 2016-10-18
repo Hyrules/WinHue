@@ -163,7 +163,7 @@
     <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Addons\RssFeedMonitor\Condition.cs" />
+    <Compile Include="Addons\RssFeedMonitor\Alert.cs" />
     <Compile Include="Addons\RssFeedMonitor\Criteria.cs" />
     <Compile Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml.cs">
       <DependentUpon>Form_ActionPicker.xaml</DependentUpon>
@@ -176,6 +176,7 @@
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml.cs">
       <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
     <Compile Include="Forms\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
     </Compile>
@@ -575,6 +576,18 @@
     <Content Include="lights\images\ZLL Light_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\rules.png" />
+    <Resource Include="Resources\HueTap.png" />
+    <None Include="Resources\LCT001_unr.png" />
+    <None Include="Resources\LCT001_on.png" />
+    <None Include="Resources\LCT001_off.png" />
+    <Resource Include="Resources\HueLight_unr.png" />
+    <Resource Include="Resources\1476661736_timer.png" />
+    <Resource Include="Resources\stock_alarm.png" />
+    <None Include="Resources\scene.png" />
+    <Resource Include="Resources\sensor.png" />
+    <Resource Include="Resources\HueGroupOn.png" />
+    <Resource Include="Resources\HueGroupOff.png" />
     <Resource Include="Resources\rss.png" />
     <Resource Include="Resources\cputemp.png" />
     <Resource Include="Resources\BulbView.png" />
@@ -609,15 +622,11 @@
     <Resource Include="Resources\weatheralert.png" />
     <Resource Include="Resources\powerfailure.png" />
     <Resource Include="Resources\HueTapFull.jpg" />
-    <Resource Include="Resources\HueGroupOn.png" />
     <Resource Include="Resources\UpdateSearch.png" />
     <Resource Include="Resources\1417332335_Warning.png" />
     <Resource Include="Resources\1417331999_Gear.png" />
     <Resource Include="Resources\SensorSearch.png" />
-    <Resource Include="Resources\huetap.png" />
     <Resource Include="Resources\HueLightSearch.png" />
-    <Resource Include="Resources\sensor.png" />
-    <Resource Include="Resources\rules.png" />
     <Resource Include="Resources\1416205084_Book_edit.png" />
     <Resource Include="Resources\1416184952_Gnome-Web-Browser-32.png" />
     <Resource Include="Resources\1416183787_Community Help.png" />
@@ -737,9 +746,6 @@
     <Resource Include="Resources\moods64.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\HueGroupOff.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\HueLightOff.png" />
   </ItemGroup>
   <ItemGroup>
@@ -765,9 +771,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\timer_clock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\stock_alarm.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\SchedulesLarge.png" />

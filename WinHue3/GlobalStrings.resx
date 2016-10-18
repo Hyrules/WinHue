@@ -684,4 +684,10 @@
   <data name="Bridge_IP_Different" xml:space="preserve">
     <value>Your bridge {0} seems to have changed ip. Do you want to replace the current IP Address ?</value>
   </data>
+  <data name="Warning_Bridge_Not_Updated" xml:space="preserve">
+    <value>Warning your bridge API version is not up to date. WinHue will not work properly unless you have the latest version of the bridge API. Please Update your bridge API to the latest version.</value>
+  </data>
+  <data name="Update_Delay_String" xml:space="preserve">
+    <value>Check every # minute(s)</value>
+  </data>
 </root>

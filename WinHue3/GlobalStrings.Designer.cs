@@ -1699,6 +1699,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check every # minute(s).
+        /// </summary>
+        internal static string Update_Delay_String {
+            get {
+                return ResourceManager.GetString("Update_Delay_String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error reading update status..
         /// </summary>
         internal static string Update_Error {
@@ -1731,6 +1740,15 @@ namespace WinHue3 {
         internal static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning your bridge API version is not up to date. WinHue will not work properly unless you have the latest version of the bridge API. Please Update your bridge API to the latest version..
+        /// </summary>
+        internal static string Warning_Bridge_Not_Updated {
+            get {
+                return ResourceManager.GetString("Warning_Bridge_Not_Updated", resourceCulture);
             }
         }
         

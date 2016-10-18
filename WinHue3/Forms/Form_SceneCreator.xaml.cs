@@ -73,14 +73,16 @@ namespace WinHue3
             if (comres.Success)
             {
                 MessageCollection mc = ((MessageCollection) comres.resultobject);
-                string id = ((Success) mc[0]).id;                    
+
+                string id = "";
+                id = _currentscene != null ? _currentscene.Id : ((CreationSuccess)mc[0]).id;
                 log.Info("Id of the scene" + id);
                 ObservableCollection<HueObject> listLightState = scv.GetSceneLights();
                 foreach (HueObject obj in listLightState)
                 {
                     _br.SetSceneLightState(id, obj.Id, ((Light)obj).state);
                 }
-
+                _currentscene = new Scene() {Id = id};
                 DialogResult = true;
                 Close();
             }

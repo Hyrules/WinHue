@@ -26,7 +26,7 @@
     <Setting Name="CPUTemp_Saturation" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="UpdateInterval" Type="System.Int32" Scope="User">
+    <Setting Name="UpdateInterval" Type="System.Double" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="CPUTemp_SensorName" Type="System.String" Scope="User">

@@ -122,9 +122,9 @@ namespace WinHue3.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public int UpdateInterval {
+        public double UpdateInterval {
             get {
-                return ((int)(this["UpdateInterval"]));
+                return ((double)(this["UpdateInterval"]));
             }
             set {
                 this["UpdateInterval"] = value;
