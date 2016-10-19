@@ -69,7 +69,7 @@
                     <RibbonSplitButton x:Name="btnCpuTempMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeImageSource="Resources/cputemp.png" IsEnabled="{Binding EnableControls}" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}" IsEnabled="{Binding CanSetCpuTempSettings}"/>
                     </RibbonSplitButton>
-                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="True" >
+                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>
                 </RibbonGroup>

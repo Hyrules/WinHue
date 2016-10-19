@@ -99,8 +99,15 @@ namespace WinHue3
        
         }
 
+        public void DoubleClickObject()
+        {
+            if (_selectedAlert == null) return;
+            Form_AlertCreator fac = new Form_AlertCreator(_selectedAlert) {Owner = Application.Current.MainWindow};
+            fac.Show();
+        }
+
         public ICommand CreateNewAlertCommand => new RelayCommand(param => CreateNewAlert());
         public ICommand EditAlertCommand => new RelayCommand(param => EditAlert());
-        
+        public ICommand DoubleClickObjectCommand  => new RelayCommand(param => DoubleClickObject());
     }
 }

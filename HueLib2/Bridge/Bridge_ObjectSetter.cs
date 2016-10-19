@@ -115,7 +115,7 @@ namespace HueLib2
         public CommandResult SetSceneLightState(string sceneid,string lightid, CommonProperties state) 
         {
             CommandResult bresult = new CommandResult() {Success = false};
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/scenes/{sceneid}/lightstates/{lightid}/state"),WebRequestType.PUT, Serializer.SerializeToJson(state));
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/scenes/{sceneid}/lightstates/{lightid}"),WebRequestType.PUT, Serializer.SerializeToJson(state));
 
             switch (comres.status)
             {

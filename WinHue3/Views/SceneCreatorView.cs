@@ -53,7 +53,8 @@ namespace WinHue3
             foreach (string s in _scene.lights)
             {
                 int index = _listAvailableLights.FindIndex(x => x.Id == s);
-                if (index == -1) return;
+                if (index == -1) continue;
+                if (!_scene.lightstates.ContainsKey(s)) continue;
                 ((Light) _listAvailableLights[index]).state = _scene.lightstates[s];
                 _listSceneLights.Add(_listAvailableLights[index]);
                 _listAvailableLights.RemoveAt(index);
@@ -416,8 +417,9 @@ namespace WinHue3
             ((Light)_selectedSceneLight).state = new State();
             _scene.lights.Remove(_selectedSceneLight.Id);
             _listAvailableLights.Add(_selectedSceneLight);
+            _scene.lightstates.Remove(_selectedSceneLight.Id);
             _listSceneLights.Remove(_selectedSceneLight);
-
+            
             _selectedSceneLight = null;
             if (_listSceneLights.Count == 0)
                 SetError(GlobalStrings.Scene_SelectOneLight, "ListSceneLights");
@@ -449,9 +451,11 @@ namespace WinHue3
                 _listAvailableLights.Remove(obj);
                 ((Light)obj).state = _newstate;
                 _listSceneLights.Add(obj);
+                _scene.lightstates.Add(obj.Id,((Light)obj).state);
             }
             RemoveError(GlobalStrings.Scene_SelectOneLight, "ListSceneLights");
             _scene.lights.AddRange(lightlist.Select(x => x.Id).ToList());
+            
             //_newstate = new State() { on = true};
             OnPropertyChanged("LightSceneLights");
             CanPreviewScene = true;
@@ -545,7 +549,6 @@ namespace WinHue3
         #endregion
 
         #region COMMANDS
-
         public ICommand RemoveSelectedSceneLightCommand => new RelayCommand(param => RemoveSelectedSceneLight());
         public ICommand SetRandomColorCommand => new RelayCommand(param => SetRandomColor());
         public ICommand GetColorFromImageCommand => new RelayCommand(param => GetColorFromImage());
