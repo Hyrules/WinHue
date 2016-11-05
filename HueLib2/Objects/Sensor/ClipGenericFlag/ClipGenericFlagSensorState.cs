@@ -11,7 +11,7 @@ namespace HueLib2
         /// <summary>
         /// url.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(false,false)]
         public bool flag { get; set; }
     }
 }

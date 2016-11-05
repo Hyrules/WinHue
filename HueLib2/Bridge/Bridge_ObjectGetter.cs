@@ -23,8 +23,17 @@ namespace HueLib2
             string ns = typeof(T).Namespace;
 
             if (ns != null)
-            {          
-                string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
+            {
+                string typename = string.Empty;
+                if (typeof(T).BaseType == typeof(HueObject))
+                {
+                    typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
+                }
+                else
+                {
+                    typename = typeof(T).BaseType.ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
+                }
+
                 CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}/{id}"),WebRequestType.GET);
 
                 switch (comres.status)

@@ -599,7 +599,8 @@ namespace WinHue3
             {
                 if (_selectedObject is Light) return false;
                 if(_selectedObject is Scene)
-                    if (((Scene) _selectedObject).version < 2) return false; 
+                    if (((Scene) _selectedObject).version < 2) return false;
+                if (_selectedObject.GetType().BaseType == typeof(Sensor)) return false;
                 return true;
             }
         }

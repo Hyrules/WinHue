@@ -772,7 +772,7 @@ namespace whc
                 },
                 {"temperature=","Temperature attribute of the sensor", delegate(string v)
                     {
-                        ClipTemperatureSensorState ts = new ClipTemperatureSensorState();
+                        TemperatureSensorState ts = new TemperatureSensorState();
                         int temperature;
                         if(int.TryParse(v,out temperature))
                         {

@@ -583,6 +583,10 @@ namespace WinHue3
                         log.Debug("Sensor is dimmer.");
                         kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.dimmer);
                         break;
+                    case "ZLLPresence":
+                        log.Debug("Sensor is Motion.");
+                        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.Motion);
+                        break;
                     default:
                         log.Debug("Sensor is generic sensor.");
                         kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.sensor);
@@ -1022,7 +1026,7 @@ namespace WinHue3
                     group.Image = GDIManager.CreateImageSourceFromImage((bool)group.action.on ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
                     hr.Hrobject = group;
                 }
-                else if (typeof(T) == typeof(Sensor))
+                else if (typeof(T) == typeof(Sensor) || typeof(T).BaseType == typeof(Sensor))
                 {
                     Sensor sensor = (Sensor)bresult.resultobject;
                     sensor.Id = id;

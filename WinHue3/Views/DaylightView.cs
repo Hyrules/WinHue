@@ -23,10 +23,10 @@ namespace WinHue3
 
         public string Longitude
         {
-            get { return (_sensor.config).@long; }
+            get { return ((DaylightSensorConfig)(_sensor.config)).@long; }
             set
             {
-                _sensor.config.@long = value;
+                ((DaylightSensorConfig)(_sensor.config)).@long = value;
                 OnPropertyChanged();
                 if (ValidateLongitude(value))
                 {
@@ -41,10 +41,10 @@ namespace WinHue3
 
         public string Latitude
         {
-            get { return _sensor.config.lat; }
+            get { return ((DaylightSensorConfig)(_sensor.config)).lat; }
             set
             {
-                _sensor.config.lat = value;
+                ((DaylightSensorConfig)(_sensor.config)).lat = value;
                 OnPropertyChanged();
 
                 if (ValidateLatitude(value))
@@ -61,22 +61,22 @@ namespace WinHue3
 
         public double SunriseOffset
         {
-            get { return Convert.ToDouble(_sensor.config.sunriseoffset); }
+            get { return Convert.ToDouble(((DaylightSensorConfig)(_sensor.config)).sunriseoffset); }
             set
             {
                 if(value >= -128 && value <= 127)
-                    _sensor.config.sunriseoffset = Convert.ToSByte(value); OnPropertyChanged();
+                    ((DaylightSensorConfig)(_sensor.config)).sunriseoffset = Convert.ToSByte(value); OnPropertyChanged();
             }
 
         }
 
         public double SunsetOffset
         {
-            get { return Convert.ToDouble(_sensor.config.sunsetoffset); }
+            get { return Convert.ToDouble(((DaylightSensorConfig)(_sensor.config)).sunsetoffset); }
             set
             {
                 if (value >= -128 && value <= 127)
-                   _sensor.config.sunsetoffset = Convert.ToSByte(value); OnPropertyChanged();
+                    ((DaylightSensorConfig)(_sensor.config)).sunsetoffset = Convert.ToSByte(value); OnPropertyChanged();
             }
         }
 
