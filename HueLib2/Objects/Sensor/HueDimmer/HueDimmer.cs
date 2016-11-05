@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace HueLib2
 {
-    /// <summary>
-    /// Hue Tap Sensor State.
-    /// </summary>
     [DataContract]
-    class HueDimmerSensorState : SensorState
+    public class HueDimmer : Sensor
     {
-        /// <summary>
-        /// Button event number.
-        /// </summary>
         [DataMember, HueLib(false, false)]
-        public int? buttonevent { get; set; }
+        public string productid { get; internal set; }
+
+        [DataMember, HueLib(false, false)]
+        public string swconfigid { get; internal set; }
     }
 }

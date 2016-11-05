@@ -13,11 +13,13 @@ namespace WinHue3
 
         public SensorCreatorView()
         {
-            _sensor = new Sensor();
-            _sensor.config = new SensorConfig();
-            _sensor.state = new ClipGenericFlagSensorState();
-            _sensor.type = "CLIPGenericFlag";
-            _sensor.config.on = true;
+            _sensor = new Sensor
+            {
+                config = new ClipGenericFlagSensorConfig(),
+                state = new ClipGenericFlagSensorState(),
+                type = "CLIPGenericFlag"
+            };
+            ((ClipGenericFlagSensorConfig)_sensor.config).on = true;
             SetError(GlobalStrings.Sensor_EmptyField_Error, "ManufacturerName");
             SetError(GlobalStrings.Sensor_EmptyField_Error, "UniqueID");
             SetError(GlobalStrings.Sensor_EmptyField_Error, "Name");
@@ -114,7 +116,7 @@ namespace WinHue3
                         break;
                     case 5:
                         _sensor.type = "CLIPTemperature";
-                        _sensor.state = new ClipTemperatureSensorState();
+                        _sensor.state = new TemperatureSensorState();
                         break;
                     default:
                         _sensor.type = "CLIPGenericFlag";
@@ -187,12 +189,13 @@ namespace WinHue3
         {
             get
             {
-                return _sensor.config.on ?? false;
+                return false;
+                // return _sensor.config.on ?? false;
             }
 
             set
             {
-                _sensor.config.on = value;
+                //_sensor.config.on = value;
             }
         }
 

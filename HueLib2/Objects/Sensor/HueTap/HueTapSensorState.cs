@@ -11,7 +11,7 @@ namespace HueLib2
         /// <summary>
         /// Button event number.
         /// </summary>
-        [DataMember]
+        [DataMember, HueLib(false, false)]
         public int? buttonevent { get; set; }
 
     }

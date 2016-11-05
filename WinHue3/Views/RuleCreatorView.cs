@@ -379,6 +379,7 @@ namespace WinHue3
             OnPropertyChanged("SelectedPropertyInfo");
             _conditionvalue = string.Empty;
             OnPropertyChanged("ConditionValue");
+            OnPropertyChanged("CanAddCondition");
         }
 
         private void ConditionDelete()

@@ -92,6 +92,23 @@
     <Compile Include="Objects\ItemSource\EffectItemsSource.cs" />
     <Compile Include="Objects\Light\Light.cs" />
     <Compile Include="Objects\Light\State.cs" />
+    <Compile Include="Objects\Sensor\ClipGenericFlag\ClipGenericFlagSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\ClipHumidty\ClipHumiditySensorConfig.cs" />
+    <Compile Include="Objects\Sensor\ClipOpenClose\ClipOpenCloseSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\ClipPresence\ClipPresenceSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\ClipZLLTemperature\TempreatureSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\ClipZLLLightLevel\ClipLightLevel.cs" />
+    <Compile Include="Objects\Sensor\ClipZLLLightLevel\LightLevelConfig.cs" />
+    <Compile Include="Objects\Sensor\ClipZLLLightLevel\LightLevelState.cs" />
+    <Compile Include="Objects\Sensor\ClipZLLTemperature\ZLLTempratureSensor.cs" />
+    <Compile Include="Objects\Sensor\Daylight\DaylightSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\HueDimmer\HueDimmer.cs" />
+    <Compile Include="Objects\Sensor\HueDimmer\HueDimmerSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\HueMotionSensor\HueMotionSensorConfig.cs" />
+    <Compile Include="Objects\Sensor\HueMotionSensor\HueMotionSensor.cs" />
+    <Compile Include="Objects\Sensor\HueMotionSensor\HueMotionSensorState.cs" />
+    <Compile Include="Objects\Sensor\HueTap\HueTapSensorConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Resourcelinks\Resourcelink.cs" />
     <Compile Include="Objects\Rules\Body\SceneBody.cs" />
@@ -110,7 +127,7 @@
     <Compile Include="Objects\Sensor\ClipHumidty\ClipHumiditySensorState.cs" />
     <Compile Include="Objects\Sensor\ClipOpenClose\ClipOpenCloseSensorState.cs" />
     <Compile Include="Objects\Sensor\ClipPresence\ClipPresenceSensorState.cs" />
-    <Compile Include="Objects\Sensor\ClipTemperature\ClipTemperatureSensorState.cs" />
+    <Compile Include="Objects\Sensor\ClipZLLTemperature\TemperatureSensorState.cs" />
     <Compile Include="Objects\Sensor\Daylight\DaylightSensorState.cs" />
     <Compile Include="Objects\Sensor\HueDimmer\HueDimmerSensorState.cs" />
     <Compile Include="Objects\Sensor\HueTap\HueTapSensorState.cs" />
@@ -122,6 +139,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Objects\xy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Objects\Sensor\ClipSwitch\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

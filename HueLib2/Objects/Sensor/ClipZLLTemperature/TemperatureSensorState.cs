@@ -6,12 +6,12 @@ namespace HueLib2
     /// Temperature sensor state.
     /// </summary>
     [DataContract]
-    public class ClipTemperatureSensorState : SensorState
+    public class TemperatureSensorState : SensorState
     {
         /// <summary>
         /// Current temperature.
         /// </summary>
-        [DataMember]
+        [DataMember,HueLib(false,false)]
         public int temperature { get; set; }
     }
 }
