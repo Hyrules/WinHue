@@ -281,7 +281,7 @@ namespace HueLib2
                     }
                     break;
                 case "CLIPLightlevel":
-                case "ZLLLightlevel":
+                case "ZLLLightLevel":
                     if (state != null)
                     {
                         sensor.state = JsonConvert.DeserializeObject<LightLevelState>(state.ToString());
