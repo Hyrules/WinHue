@@ -127,7 +127,11 @@ namespace WinHue3
 
             foreach (HotKey h in _listHotKeys)
             {
-                _lhk.Add(new HotKeyHandle(h, HandleHotkey));
+                HotKeyHandle hkh = new HotKeyHandle(h, HandleHotkey);
+                if(hkh.Register())
+                    _lhk.Add(hkh);
+                else
+                    log.Error($"Cannot register hotkey {h.Name} key seems to be already taken by another process.");
             }
 
 
