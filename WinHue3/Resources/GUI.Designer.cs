@@ -1555,6 +1555,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clapper.
+        /// </summary>
+        public static string MainForm_ToolsTab_Clapper {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_Clapper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cpu Temp Monitor.
         /// </summary>
         public static string MainForm_ToolsTab_CpuTempMon {
@@ -1812,6 +1821,15 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Scenes {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Scenes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedules.
+        /// </summary>
+        public static string RuleCreatorForm_Schedules {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Schedules", resourceCulture);
             }
         }
         
@@ -2712,6 +2730,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Warning_Message_Upnp {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Warning_Message_Upnp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Settings.
+        /// </summary>
+        public static string SettingsForm_Tab_OtherSettings {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_OtherSettings", resourceCulture);
             }
         }
         

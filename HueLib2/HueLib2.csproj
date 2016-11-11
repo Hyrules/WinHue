@@ -92,6 +92,7 @@
     <Compile Include="Objects\ItemSource\EffectItemsSource.cs" />
     <Compile Include="Objects\Light\Light.cs" />
     <Compile Include="Objects\Light\State.cs" />
+    <Compile Include="Objects\Rules\Body\ScheduleBody.cs" />
     <Compile Include="Objects\Sensor\ClipGenericFlag\ClipGenericFlagSensorConfig.cs" />
     <Compile Include="Objects\Sensor\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
     <Compile Include="Objects\Sensor\ClipHumidty\ClipHumiditySensorConfig.cs" />

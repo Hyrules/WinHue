@@ -84,6 +84,7 @@
                     <ComboBoxItem x:Name="cbiGroups" Content="{x:Static resources:GUI.RuleCreatorForm_Groups}" Tag="groups"/>
                     <ComboBoxItem x:Name="cbiScenes" Content="{x:Static resources:GUI.RuleCreatorForm_Scenes}" Tag="scenes"/>
                     <ComboBoxItem x:Name="cbiSensors" Content="{x:Static resources:GUI.RuleCreatorForm_Sensors}" Tag="sensors"/>
+                    <ComboBoxItem x:Name="cbiSchedules" Content="{x:Static resources:GUI.RuleCreatorForm_Schedules}" Tag="schedules"/>
                 </ComboBox>
                 <Label x:Name="label" Content="Property : " HorizontalAlignment="Left" Margin="-1,67,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="cbObjectProperties" ItemsSource="{Binding ListActionProperties}" SelectedItem="{Binding SelectedActionProperty}" HorizontalAlignment="Left" Margin="65,71,0,0" VerticalAlignment="Top" Width="200" DisplayMemberPath="Name"/>

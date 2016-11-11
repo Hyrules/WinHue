@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -35,6 +36,10 @@ namespace HueLib2
             if (obj.ToString().Contains("scene"))
             {
                 rulebody = JsonConvert.DeserializeObject<SceneBody>(obj.ToString());
+            }
+            else if (obj.ToString().Contains("status")|| obj.ToString().Contains("autodelete") || obj.ToString().Contains("recycle"))
+            {
+                rulebody = JsonConvert.DeserializeObject<ScheduleBody>(obj.ToString());
             }
             else
             {

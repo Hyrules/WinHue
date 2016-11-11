@@ -72,6 +72,9 @@
                     <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>
+                    <RibbonSplitButton x:Name="btnClapperMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_Clapper}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding ClapperCommand}"  LargeImageSource="Resources/rss.png" IsEnabled="true" >
+                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
+                    </RibbonSplitButton>
                 </RibbonGroup>
 
             </RibbonTab>

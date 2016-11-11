@@ -47,6 +47,20 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_OtherSettings}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="92" Margin="-1.667,-2,-36.333,0">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox x:Name="groupBox2" Header="All On/Off settings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="191" Width="251">
+                        <Grid Margin="0,0,-1.667,-2.333">
+                            <xctk:IntegerUpDown x:Name="nudAllOnTT" HorizontalAlignment="Left" Margin="87,21,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" />
+                            <xctk:IntegerUpDown x:Name="nudAllOffTT" HorizontalAlignment="Left" Margin="87,54,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" />
+                            <Label x:Name="label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON }" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Width="72"/>
+                            <Label x:Name="label1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="72"/>
+                            <Label x:Name="label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="220"/>
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

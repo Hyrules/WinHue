@@ -147,6 +147,8 @@ namespace WinHue3
                         return _listDataStore.OfType<Scene>().ToList<HueObject>();
                     case "sensors":
                         return _listDataStore.OfType<Sensor>().ToList<HueObject>();
+                    case "schedules":
+                        return _listDataStore.OfType<Schedule>().ToList<HueObject>();
                     default:
                         return null;
 
@@ -200,6 +202,8 @@ namespace WinHue3
                         if (index != -1)
                             listnewprop = listnewprop.RemoveAt(index);
                         return listnewprop;
+                    case "schedules":
+                        return new ScheduleBody().GetType().GetProperties();
                     default:
                         return null;
                 }
@@ -452,37 +456,37 @@ namespace WinHue3
         {
             try
             {
-                if (type == typeof (byte))
+                if (type == typeof(byte))
                 {
                     result = byte.Parse(text);
                     return;
                 }
 
-                if (type == typeof (int))
+                if (type == typeof(int))
                 {
                     result = int.Parse(text);
                     return;
                 }
 
-                if (type == typeof (ushort))
+                if (type == typeof(ushort))
                 {
                     result = ushort.Parse(text);
                     return;
                 }
 
-                if (type == typeof (bool))
+                if (type == typeof(bool))
                 {
                     result = bool.Parse(text);
                     return;
                 }
 
-                if (type == typeof (float))
+                if (type == typeof(float))
                 {
                     result = float.Parse(text);
                     return;
                 }
 
-                if (type == typeof (string))
+                if (type == typeof(string))
                 {
                     if (!string.IsNullOrEmpty(text) && !string.IsNullOrWhiteSpace(text))
                     {
@@ -543,6 +547,10 @@ namespace WinHue3
                 case "sensors":
                     action.address = $@"/sensors/{_selectedActionObject.Id}/state";
                     action.body = FillPropertiesFromList(((Sensor) _selectedActionObject).state.GetType());
+                    break;
+                case "schedules":
+                    action.address = $@"/schedules/{_selectedActionObject.Id}";
+                    action.body = FillPropertiesFromList<ScheduleBody>();
                     break;
                 default:
                     break;

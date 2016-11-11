@@ -1011,4 +1011,13 @@
   <data name="MainForm_ToolsTab_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SettingsForm_Tab_OtherSettings" xml:space="preserve">
+    <value>Other Settings</value>
+  </data>
+  <data name="MainForm_ToolsTab_Clapper" xml:space="preserve">
+    <value>Clapper</value>
+  </data>
+  <data name="RuleCreatorForm_Schedules" xml:space="preserve">
+    <value>Schedules</value>
+  </data>
 </root>

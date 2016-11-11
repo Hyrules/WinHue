@@ -1143,7 +1143,10 @@ namespace WinHue3
         {
             if (BridgeStore.SelectedBridge == null) return;
             log.Info("Sending all on command to bridge" + BridgeStore.SelectedBridge.IpAddress);
-            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(new Action() {@on = true}, "0");
+            Action act = new Action() {@on = true};
+            if (WinHueSettings.settings.AllOnTT != null)
+                act.transitiontime = WinHueSettings.settings.AllOnTT;
+            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(act, "0");
             if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
@@ -1155,7 +1158,10 @@ namespace WinHue3
         {
             if (BridgeStore.SelectedBridge == null) return;
             log.Info("Sending all off command to bridge" + BridgeStore.SelectedBridge.IpAddress);
-            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(new Action() {@on = false}, "0");
+            Action act = new Action() { @on = false };
+            if (WinHueSettings.settings.AllOnTT != null)
+                act.transitiontime = WinHueSettings.settings.AllOnTT;
+            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(act, "0");
             if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
@@ -1369,8 +1375,10 @@ namespace WinHue3
             rfm.ShowSettingsForm();
         }
 
+        
 
         #region PLUGINS
+
         /// <summary>
         /// Load all the plugins in the plugin folder.
         /// </summary>
@@ -1501,6 +1509,13 @@ namespace WinHue3
                 }
             }
         }*/
+
+        private void Clapper()
+        {
+            Clapper clapper = new Clapper();
+            clapper.Start();
+        }
+
         #endregion
 
         #endregion
@@ -1562,6 +1577,7 @@ namespace WinHue3
         public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon());
         public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings());
         public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings());
+        public ICommand ClapperCommand => new RelayCommand(param => Clapper());
 
         #endregion
     }

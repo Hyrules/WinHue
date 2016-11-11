@@ -126,6 +126,10 @@ namespace WinHue3
         public int StartMode { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public List<HotKey> listHotKeys { get;set; }
+        [DataMember(EmitDefaultValue = false)]
+        public uint? AllOnTT { get; set; }
+        [DataMember(EmitDefaultValue = false)]
+        public uint? AllOffTT { get; set; }
 
         public override string ToString()
         {
