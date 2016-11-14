@@ -127,10 +127,38 @@ namespace WinHue3
 
             foreach (HotKey h in _listHotKeys)
             {
-                _lhk.Add(new HotKeyHandle(h, HandleHotkey));
+                HotKeyHandle hkh = new HotKeyHandle(h, HandleHotkey);
+                if(hkh.Register())
+                    _lhk.Add(hkh);
+                else
+                    log.Error($"Cannot register hotkey {h.Name} key seems to be already taken by another process.");
             }
 
 
+        }
+
+        public Visibility CanSeeIdentify
+        {
+            get
+            {
+                if(_selectedObject == null) return Visibility.Collapsed;
+                if(_selectedObject is Light || _selectedObject is Group) return Visibility.Visible;
+                return Visibility.Collapsed;
+
+            }
+        }
+
+        public Visibility CanSeeSensitivity
+        {
+            get
+            {
+                if(_selectedObject == null) return Visibility.Collapsed;
+                if (_selectedObject.GetType() == typeof(Sensor))
+                {
+                    if(((Sensor) _selectedObject).type == "ZLLPresence") return Visibility.Visible;
+                }
+                return Visibility.Collapsed;
+            }
         }
 
         public bool CanSetCpuTempSettings => !ctm.IsRunning;
@@ -548,6 +576,8 @@ namespace WinHue3
                 OnPropertyChanged("CanDeleteObject");
                 OnPropertyChanged("IsValidScene");
                 OnPropertyChanged("CanEditObject");
+                OnPropertyChanged("CanSeeSensitivity");
+                OnPropertyChanged("CanSeeIdentify");
             }
         }
 
@@ -600,7 +630,7 @@ namespace WinHue3
                 if (_selectedObject is Light) return false;
                 if(_selectedObject is Scene)
                     if (((Scene) _selectedObject).version < 2) return false;
-                if (_selectedObject.GetType().BaseType == typeof(Sensor)) return false;
+                if (_selectedObject is Sensor) return false;
                 return true;
             }
         }
@@ -1139,7 +1169,10 @@ namespace WinHue3
         {
             if (BridgeStore.SelectedBridge == null) return;
             log.Info("Sending all on command to bridge" + BridgeStore.SelectedBridge.IpAddress);
-            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(new Action() {@on = true}, "0");
+            Action act = new Action() {@on = true};
+            if (WinHueSettings.settings.AllOnTT != null)
+                act.transitiontime = WinHueSettings.settings.AllOnTT;
+            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(act, "0");
             if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
@@ -1151,7 +1184,10 @@ namespace WinHue3
         {
             if (BridgeStore.SelectedBridge == null) return;
             log.Info("Sending all off command to bridge" + BridgeStore.SelectedBridge.IpAddress);
-            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(new Action() {@on = false}, "0");
+            Action act = new Action() { @on = false };
+            if (WinHueSettings.settings.AllOnTT != null)
+                act.transitiontime = WinHueSettings.settings.AllOnTT;
+            CommandResult bresult = BridgeStore.SelectedBridge.SetState<Group>(act, "0");
             if (bresult.Success)
             {
                 log.Debug("Refreshing the main view.");
@@ -1365,8 +1401,38 @@ namespace WinHue3
             rfm.ShowSettingsForm();
         }
 
+        private void SensitivityHigh()
+        {
+            Sensor sensor = (Sensor)_selectedObject;
+            ((HueMotionSensorConfig)sensor.config).sensitivity = 0;
+            // sensor.Id = _selectedObject.Id;
+            sensor.type = ((Sensor)_selectedObject).type;
+            SelectedBridge.ModifyObject<Sensor>(sensor, sensor.Id);
+        }
+
+        private void SensitivityMedium()
+        {
+            Sensor sensor = (Sensor)_selectedObject;
+            ((HueMotionSensorConfig)sensor.config).sensitivity = 0;
+            // sensor.Id = _selectedObject.Id;
+            sensor.type = ((Sensor)_selectedObject).type;
+            SelectedBridge.ModifyObject<Sensor>(sensor, sensor.Id);
+        }
+
+        private void SensitivityLow()
+        {
+
+
+            Sensor sensor = (Sensor) _selectedObject;
+            ((HueMotionSensorConfig)sensor.config).sensitivity = 0;
+           // sensor.Id = _selectedObject.Id;
+            sensor.type = ((Sensor) _selectedObject).type;
+            SelectedBridge.ModifyObject<Sensor>(sensor, sensor.Id);
+        }
+
 
         #region PLUGINS
+
         /// <summary>
         /// Load all the plugins in the plugin folder.
         /// </summary>
@@ -1497,6 +1563,13 @@ namespace WinHue3
                 }
             }
         }*/
+
+        private void Clapper()
+        {
+            Clapper clapper = new Clapper();
+            clapper.Start();
+        }
+
         #endregion
 
         #endregion
@@ -1542,6 +1615,9 @@ namespace WinHue3
         public ICommand IdentifyLongCommand => new RelayCommand(param => IdentifyLong());
         public ICommand IdentifyShortCommand => new RelayCommand(param => IdentifyShort());
         public ICommand ReplaceCurrentStateCommand => new RelayCommand(param => ReplaceCurrentState());
+        public ICommand SensitivityHighCommand => new RelayCommand(param => SensitivityHigh());
+        public ICommand SensitivityMediumCommand => new RelayCommand(param => SensitivityMedium());
+        public ICommand SensitivityLowCommand => new RelayCommand(param => SensitivityLow());
 
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new RelayCommand(param => DoubleClickObject());
@@ -1558,6 +1634,7 @@ namespace WinHue3
         public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon());
         public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings());
         public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings());
+        public ICommand ClapperCommand => new RelayCommand(param => Clapper());
 
         #endregion
     }

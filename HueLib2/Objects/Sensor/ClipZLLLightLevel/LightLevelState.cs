@@ -14,5 +14,6 @@ namespace HueLib2
 
         [DataMember, HueLib(false, false)]
         public bool? daylight { get; set; }
+
     }
 }

@@ -781,7 +781,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Will apply this preset to any selected light or group on trigger..
+        ///   Looks up a localized string similar to Will apply this preset to any selected light or group on trigger. Will not work with system wide hotkeys..
         /// </summary>
         public static string Form_HotKeyCreator_Generic_Tooltip {
             get {
@@ -876,6 +876,15 @@ namespace WinHue3.Resources {
         public static string Form_HotKeyCreator_Type {
             get {
                 return ResourceManager.GetString("Form_HotKeyCreator_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generic hotkey will only work when an object is selected in the bridge. They will not work when called from outside WinHue..
+        /// </summary>
+        public static string Form_HotKeyCreator_Warning_Generic {
+            get {
+                return ResourceManager.GetString("Form_HotKeyCreator_Warning_Generic", resourceCulture);
             }
         }
         
@@ -1119,6 +1128,42 @@ namespace WinHue3.Resources {
         public static string MainForm_ListView_Context_ReplaceLightsState {
             get {
                 return ResourceManager.GetString("MainForm_ListView_Context_ReplaceLightsState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensitivity.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensitivity {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensitivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensitivity_High {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensitivity_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensitivity_Low {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensitivity_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensitivity_Medium {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensitivity_Medium", resourceCulture);
             }
         }
         
@@ -1555,6 +1600,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clapper.
+        /// </summary>
+        public static string MainForm_ToolsTab_Clapper {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_Clapper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cpu Temp Monitor.
         /// </summary>
         public static string MainForm_ToolsTab_CpuTempMon {
@@ -1812,6 +1866,15 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Scenes {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Scenes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedules.
+        /// </summary>
+        public static string RuleCreatorForm_Schedules {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Schedules", resourceCulture);
             }
         }
         
@@ -2712,6 +2775,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Warning_Message_Upnp {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Warning_Message_Upnp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Settings.
+        /// </summary>
+        public static string SettingsForm_Tab_OtherSettings {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_OtherSettings", resourceCulture);
             }
         }
         

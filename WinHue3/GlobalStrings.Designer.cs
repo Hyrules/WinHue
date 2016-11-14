@@ -655,6 +655,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generic presets are hotkeys that do not have an object associated to them and can be applied to one or more object type on the bridge. Non generic are associated with at specific object of the bridge and will only apply to them..
+        /// </summary>
+        internal static string Form_Hotkey_Help_Generic {
+            get {
+                return ResourceManager.GetString("Form_Hotkey_Help_Generic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A group name {0} already exists. Please select another name and try again..
         /// </summary>
         internal static string Group_Already_Exists {
@@ -723,6 +732,15 @@ namespace WinHue3 {
         internal static string Group_Select_One_Light {
             get {
                 return ResourceManager.GetString("Group_Select_One_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        internal static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
             }
         }
         

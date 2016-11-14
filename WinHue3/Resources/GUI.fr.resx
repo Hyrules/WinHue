@@ -967,7 +967,7 @@
     <value>État générique</value>
   </data>
   <data name="Form_HotKeyCreator_Generic_Tooltip" xml:space="preserve">
-    <value>Appliquera cet état à n'importe quel ampoule ou groupe sélectionné.</value>
+    <value>Appliquera cet état à n'importe quel ampoule ou groupe sélectionné. Ne fonctionnera pas avec les raccourci clavier disponible au niveau du système.</value>
   </data>
   <data name="MainForm_Tab_View" xml:space="preserve">
     <value>Vues</value>
@@ -1010,5 +1010,29 @@
   </data>
   <data name="MainForm_ToolsTab_Settings" xml:space="preserve">
     <value>Paramètres</value>
+  </data>
+  <data name="SettingsForm_Tab_OtherSettings" xml:space="preserve">
+    <value>Autres paramètres</value>
+  </data>
+  <data name="MainForm_ToolsTab_Clapper" xml:space="preserve">
+    <value>Clapper</value>
+  </data>
+  <data name="RuleCreatorForm_Schedules" xml:space="preserve">
+    <value>Cédules</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity" xml:space="preserve">
+    <value>Sensibilité</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_High" xml:space="preserve">
+    <value>Haute</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_Medium" xml:space="preserve">
+    <value>Moyenne</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_Low" xml:space="preserve">
+    <value>Basse</value>
+  </data>
+  <data name="Form_HotKeyCreator_Warning_Generic" xml:space="preserve">
+    <value>Le raccourci clavier générique fonctionne seulement quand un objet est sélectionné dans la fenêtre principale. Il ne fonctionnera pas en dehors de WinHue.</value>
   </data>
 </root>

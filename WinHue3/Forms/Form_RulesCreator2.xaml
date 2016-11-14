@@ -64,6 +64,11 @@
                     <ComboBoxItem x:Name="cbiGreater" Content="gt"/>
                     <ComboBoxItem x:Name="cbiLess" Content="lt"/>
                     <ComboBoxItem x:Name="cbiChange" Content="dx"/>
+                    <ComboBoxItem x:Name="cbiChangeDelayed" Content="ddx"/>
+                    <ComboBoxItem x:Name="cbiStable" Content="stable"/>
+                    <ComboBoxItem x:Name="cbiNotStable" Content="not stable"/>
+                    <ComboBoxItem x:Name="cbiIn" Content="in"/>
+                    <ComboBoxItem x:Name="cbiNotIn" Content="not in"/>
                 </ComboBox>
                 <Button x:Name="btnAddCondition" IsEnabled="{Binding CanAddCondition}" Content="Add" HorizontalAlignment="Left" Margin="278,72,0,0" VerticalAlignment="Top" Width="74" Height="23" TabIndex="6" Command="{Binding AddConditionCommand}"/>
                 <Label Content="{x:Static resources:GUI.RuleCreatorForm_Operator}" HorizontalAlignment="Left" Margin="2,38,0,0" VerticalAlignment="Top"/>
@@ -84,6 +89,7 @@
                     <ComboBoxItem x:Name="cbiGroups" Content="{x:Static resources:GUI.RuleCreatorForm_Groups}" Tag="groups"/>
                     <ComboBoxItem x:Name="cbiScenes" Content="{x:Static resources:GUI.RuleCreatorForm_Scenes}" Tag="scenes"/>
                     <ComboBoxItem x:Name="cbiSensors" Content="{x:Static resources:GUI.RuleCreatorForm_Sensors}" Tag="sensors"/>
+                    <ComboBoxItem x:Name="cbiSchedules" Content="{x:Static resources:GUI.RuleCreatorForm_Schedules}" Tag="schedules"/>
                 </ComboBox>
                 <Label x:Name="label" Content="Property : " HorizontalAlignment="Left" Margin="-1,67,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="cbObjectProperties" ItemsSource="{Binding ListActionProperties}" SelectedItem="{Binding SelectedActionProperty}" HorizontalAlignment="Left" Margin="65,71,0,0" VerticalAlignment="Top" Width="200" DisplayMemberPath="Name"/>

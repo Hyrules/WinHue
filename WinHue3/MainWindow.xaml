@@ -72,6 +72,9 @@
                     <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>
+                    <RibbonSplitButton x:Name="btnClapperMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_Clapper}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding ClapperCommand}"  LargeImageSource="Resources/rss.png" IsEnabled="False" >
+                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
+                    </RibbonSplitButton>
                 </RibbonGroup>
 
             </RibbonTab>
@@ -121,9 +124,14 @@
                 </i:Interaction.Triggers>
                 <ListView.ContextMenu>
                     <ContextMenu x:Name="cmListView" IsTabStop="True">
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" IsEnabled="{Binding IsLightOrGroup}" x:Name="mnuIdentify">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" IsEnabled="{Binding IsLightOrGroup}" x:Name="mnuIdentifyLong" Command="{Binding IdentifyLongCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" IsEnabled="{Binding IsLightOrGroup}" x:Name="mnuIdentifyShort" Command="{Binding IdentifyShortCommand}"/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" Visibility="{Binding CanSeeIdentify}"  x:Name="mnuIdentify">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" x:Name="mnuIdentifyLong" Command="{Binding IdentifyLongCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" x:Name="mnuIdentifyShort" Command="{Binding IdentifyShortCommand}"/>
+                        </MenuItem>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}" Visibility="{Binding CanSeeSensitivity}">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" Command="{Binding SensitivityHighCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" Command="{Binding SensitivityMediumCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Low}" Command="{Binding SensitivityLowCommand}"/>
                         </MenuItem>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" IsEnabled="{Binding IsValidScene}" x:Name="mnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" x:Name="mnuEdit" Command="{Binding EditObjectCommand}" IsEnabled="{Binding CanEditObject}"/>

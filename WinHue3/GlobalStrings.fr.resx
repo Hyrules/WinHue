@@ -699,4 +699,10 @@
   <data name="Update_Delay_String" xml:space="preserve">
     <value>Vérifier toutes les # minute(s)</value>
   </data>
+  <data name="Help" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="Form_Hotkey_Help_Generic" xml:space="preserve">
+    <value>les états génériques sont des raccourcis clavier qui n'ont pas d'objet associé à leur action. Les états non génériques s'appliquent seulement à un objet spécifique.</value>
+  </data>
 </root>

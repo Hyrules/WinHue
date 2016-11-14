@@ -36,10 +36,10 @@ namespace WinHue3
             Key = h.Key;
             KeyModifiers = h.Modifier;
             Action = action;
-            if (register)
+         /*   if (register)
             {
                 Register();
-            }
+            }*/
         }
 
         // ******************************************************************

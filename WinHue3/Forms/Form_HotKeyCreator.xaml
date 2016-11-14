@@ -58,7 +58,9 @@
             </i:Interaction.Triggers>
         </DataGrid>
         <Button x:Name="btnClearFields" Content="{x:Static resources:GUI.Form_HotKeyCreator_Clear}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="99,207,0,0" VerticalAlignment="Top" Width="64"/>
-        <CheckBox x:Name="chbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,112,0,0" VerticalAlignment="Top" Width="180" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>
+        <CheckBox x:Name="chbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,112,0,0" VerticalAlignment="Top" Width="156" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,442,0,0" TextWrapping="Wrap" Text="{x:Static resources:GUI.Form_HotKeyCreator_Warning_Generic}" VerticalAlignment="Top" Width="662"/>
+        <Button x:Name="btnHelpGeneric" Content="?" HorizontalAlignment="Left" Margin="307,109,0,0" VerticalAlignment="Top" Width="32" Click="btnHelpGeneric_Click"></Button>
 
 
 

@@ -25,6 +25,8 @@ namespace WinHue3
             WinHueSettings.settings.DelayLiveSliders = (int)nudSlidersDelay.Value;
             WinHueSettings.settings.ShowHiddenScenes = (bool)chbHiddenScenes.IsChecked;
             WinHueSettings.settings.UpnpTimeout = (int)nudUpnpTimeout.Value;
+            WinHueSettings.settings.AllOffTT = (uint) nudAllOffTT.Value;
+            WinHueSettings.settings.AllOnTT = (uint) nudAllOnTT.Value;
 
             if (rbStartNormal.IsChecked == true)
             {
@@ -72,9 +74,10 @@ namespace WinHue3
             chbHiddenScenes.IsChecked = WinHueSettings.settings.ShowHiddenScenes;
             nudUpnpTimeout.Value = WinHueSettings.settings.UpnpTimeout;
             chbStartWindows.IsChecked = WinHueSettings.settings.StartWithWindows;
+            nudAllOffTT.Value = WinHueSettings.settings.AllOffTT == null ? -1 : (int)WinHueSettings.settings.AllOffTT;
+            nudAllOnTT.Value = WinHueSettings.settings.AllOnTT == null ? -1 : (int)WinHueSettings.settings.AllOnTT;
 
-
-            switch(WinHueSettings.settings.StartMode)
+            switch (WinHueSettings.settings.StartMode)
             {
                 case 0:
                     rbStartNormal.IsChecked = true;
