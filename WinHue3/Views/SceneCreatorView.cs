@@ -451,6 +451,7 @@ namespace WinHue3
                 _listAvailableLights.Remove(obj);
                 ((Light)obj).state = _newstate;
                 _listSceneLights.Add(obj);
+                if(_scene.lightstates == null) _scene.lightstates = new Dictionary<string, State>();
                 _scene.lightstates.Add(obj.Id,((Light)obj).state);
             }
             RemoveError(GlobalStrings.Scene_SelectOneLight, "ListSceneLights");

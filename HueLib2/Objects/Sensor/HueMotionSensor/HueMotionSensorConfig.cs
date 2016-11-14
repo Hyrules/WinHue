@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class HueDimmerSensorConfig : SensorConfig
+    public class HueMotionSensorConfig : SensorConfig
     {
+        [DataMember, HueLib(true, true)]
+        public int? sensitivity { get; set; }
 
+        [DataMember, HueLib(false, false)]
+        public int? sensitivitymax { get; internal set; }
         /// <summary>
         /// Alert.
         /// </summary>

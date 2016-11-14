@@ -19,7 +19,7 @@ namespace WinHue3
         DispatcherTimer dt = new DispatcherTimer();
         public Clapper()
         {
-            dt.Interval = new TimeSpan(0,0,0,0,2000);
+            dt.Interval = new TimeSpan(0,0,0,0,5000);
             dt.Tick += Dt_Tick;
            
         }
@@ -33,7 +33,7 @@ namespace WinHue3
         public void Start()
         {
 
-            MaxValue = (double)60 / 100;
+            MaxValue = (double)50 / 100;
             bigValue = 0;
             waveIn = new WaveIn();
             int waveInDevices = WaveIn.DeviceCount;
@@ -59,7 +59,7 @@ namespace WinHue3
         void waveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
             float sample32 = 0;
-            for (int index = 0; index < e.BytesRecorded; index += 2)
+            for (int index = 0; index < e.BytesRecorded; index += 5)
             {
                 short sample = (short)((e.Buffer[index + 1] << 8) | e.Buffer[index + 0]);
                 sample32 = sample / 32768f;
@@ -69,9 +69,18 @@ namespace WinHue3
                     bigValue = sample32;
                     if (bigValue > MaxValue)
                     {
-                        MessageBox.Show("Clap !");
-
+                        clapcount++;
+                        Console.WriteLine(clapcount);
+                        if (clapcount == 2)
+                        {
+                            MessageBox.Show("Clap twice !");
+                            clapcount = 0;
+                            dt.Stop();
+                            dt.Start();
+                        }
                     }
+
+
                 }
             }
 

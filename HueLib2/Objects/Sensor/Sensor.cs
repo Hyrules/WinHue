@@ -56,8 +56,6 @@ namespace HueLib2
         [DataMember, Category("Sensor Properties"), Description("Unique ID of the sensor"), HueLib(true, false)]
         public string uniqueid { get; set; }
 
-
-
         /// <summary>
         /// Sensor config.
         /// </summary>
@@ -70,6 +68,11 @@ namespace HueLib2
         [DataMember,ExpandableObject, Category("State"), Description("State of the sensor"),HueLib(true, false)]
         public SensorState state { set; get; }
 
+        [DataMember, HueLib(false, false)]
+        public string productid { get; internal set; }
+
+        [DataMember, HueLib(false, false)]
+        public string swconfigid { get; internal set; }
 
         /// <summary>
         /// To String.
@@ -105,28 +108,7 @@ namespace HueLib2
                 Dictionary<string, Sensor> sensorslist = new Dictionary<string, Sensor>();
                 foreach (KeyValuePair<string, JToken> o in obj)
                 {
-                    Sensor sensor;
-
-                    switch (o.Value["type"].Value<string>())
-                    {
-                        case "CLIPLightLevel":
-                        case "ZLLLightLevel":
-                            sensor = new LightLevel();
-                            break;
-                        case "ZLLSwitch":
-                            sensor = new HueDimmer();
-                            break;
-                        case "ZLLPresence":
-                            sensor = new HueMotionSensor();
-                            break;
-                        case "ZLLTemperature":
-                            sensor = new ZLLTempratureSensor();
-                            break;
-                        default:
-                            sensor = new Sensor();
-                            break;
-
-                    }
+                    Sensor sensor = new Sensor();
 
                     if (o.Value["manufacturername"] != null)
                         sensor.manufacturername = o.Value["manufacturername"].Value<string>();
@@ -149,30 +131,10 @@ namespace HueLib2
 
 
 
-            if (objectType == typeof(Sensor) || objectType.BaseType == typeof(Sensor))
+            if (objectType == typeof(Sensor))
             {
                 
-                Sensor sensor;
-
-                switch (obj["type"].Value<string>())
-                {
-                    case "CLIPLightLevel":
-                    case "ZLLLightLevel":
-                        sensor = new LightLevel();
-                        break;
-                    case "ZLLSwitch":
-                        sensor = new HueDimmer();
-                        break;
-                    case "ZLLPresence":
-                        sensor = new HueMotionSensor();
-                        break;
-                    case "ZLLTemperature":
-                        sensor = new ZLLTempratureSensor();
-                        break;
-                    default:
-                        sensor = new Sensor();
-                        break;
-                }
+                Sensor sensor = new Sensor();
 
                 if (obj["manufacturername"] != null)
                     sensor.manufacturername = obj["manufacturername"].Value<string>();

@@ -967,7 +967,7 @@
     <value>Generic preset</value>
   </data>
   <data name="Form_HotKeyCreator_Generic_Tooltip" xml:space="preserve">
-    <value>Will apply this preset to any selected light or group on trigger.</value>
+    <value>Will apply this preset to any selected light or group on trigger. Will not work with system wide hotkeys.</value>
   </data>
   <data name="MainForm_Tab_View" xml:space="preserve">
     <value>Views</value>
@@ -1019,5 +1019,20 @@
   </data>
   <data name="RuleCreatorForm_Schedules" xml:space="preserve">
     <value>Schedules</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity" xml:space="preserve">
+    <value>Sensitivity</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Form_HotKeyCreator_Warning_Generic" xml:space="preserve">
+    <value>Generic hotkey will only work when an object is selected in the bridge. They will not work when called from outside WinHue.</value>
   </data>
 </root>

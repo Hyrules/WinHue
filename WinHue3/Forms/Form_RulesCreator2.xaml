@@ -64,6 +64,11 @@
                     <ComboBoxItem x:Name="cbiGreater" Content="gt"/>
                     <ComboBoxItem x:Name="cbiLess" Content="lt"/>
                     <ComboBoxItem x:Name="cbiChange" Content="dx"/>
+                    <ComboBoxItem x:Name="cbiChangeDelayed" Content="ddx"/>
+                    <ComboBoxItem x:Name="cbiStable" Content="stable"/>
+                    <ComboBoxItem x:Name="cbiNotStable" Content="not stable"/>
+                    <ComboBoxItem x:Name="cbiIn" Content="in"/>
+                    <ComboBoxItem x:Name="cbiNotIn" Content="not in"/>
                 </ComboBox>
                 <Button x:Name="btnAddCondition" IsEnabled="{Binding CanAddCondition}" Content="Add" HorizontalAlignment="Left" Margin="278,72,0,0" VerticalAlignment="Top" Width="74" Height="23" TabIndex="6" Command="{Binding AddConditionCommand}"/>
                 <Label Content="{x:Static resources:GUI.RuleCreatorForm_Operator}" HorizontalAlignment="Left" Margin="2,38,0,0" VerticalAlignment="Top"/>

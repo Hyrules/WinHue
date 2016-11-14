@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using HueLib2;
+using WinHue3.Resources;
 
 namespace WinHue3
 {
@@ -36,6 +37,11 @@ namespace WinHue3
         public List<HotKey> GetHotKeys()
         {
             return hkv.ListHotkeys.ToList();
+        }
+
+        private void btnHelpGeneric_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(GlobalStrings.Form_Hotkey_Help_Generic, GlobalStrings.Help, MessageBoxButton.OK,MessageBoxImage.Information);
         }
     }
 }

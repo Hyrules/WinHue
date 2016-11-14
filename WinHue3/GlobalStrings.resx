@@ -690,4 +690,10 @@
   <data name="Update_Delay_String" xml:space="preserve">
     <value>Check every # minute(s)</value>
   </data>
+  <data name="Form_Hotkey_Help_Generic" xml:space="preserve">
+    <value>Generic presets are hotkeys that do not have an object associated to them and can be applied to one or more object type on the bridge. Non generic are associated with at specific object of the bridge and will only apply to them.</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
 </root>
