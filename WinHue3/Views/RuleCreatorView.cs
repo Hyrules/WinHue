@@ -495,6 +495,13 @@ namespace WinHue3
                     }
                 }
 
+                if (type == typeof(uint))
+                {
+                    result = uint.Parse(text);
+                    return;
+
+                }
+
                 if (type == typeof (XY))
                 {
                     result = XY.Parse(text);
