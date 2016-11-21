@@ -444,6 +444,7 @@ namespace WinHue3
             OnPropertyChanged("SelectedActionProperty");
             OnPropertyChanged("SelectedActionObject");
             OnPropertyChanged("ActionPropertyValue");
+            OnPropertyChanged("CanAddProperty");
             OnPropertyChanged("CanAddAction");
         }
 
