@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinHuebieLight", "WinHuebie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueLib2", "HueLib2\HueLib2.csproj", "{F92374A7-45C3-415D-9BEB-6A87380FAA5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestHueLib2", "UnitTestHueLib2\UnitTestHueLib2.csproj", "{A3B1C0A2-9982-401A-8C1B-7547CF91693C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueLib2Test", "HueLib2Test\HueLib2Test.csproj", "{5FC27AAC-E748-41BE-81F0-D2842D9925B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,16 +37,17 @@ Global
 		{F92374A7-45C3-415D-9BEB-6A87380FAA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F92374A7-45C3-415D-9BEB-6A87380FAA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F92374A7-45C3-415D-9BEB-6A87380FAA5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3B1C0A2-9982-401A-8C1B-7547CF91693C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3B1C0A2-9982-401A-8C1B-7547CF91693C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3B1C0A2-9982-401A-8C1B-7547CF91693C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FC27AAC-E748-41BE-81F0-D2842D9925B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC27AAC-E748-41BE-81F0-D2842D9925B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC27AAC-E748-41BE-81F0-D2842D9925B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC27AAC-E748-41BE-81F0-D2842D9925B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F92374A7-45C3-415D-9BEB-6A87380FAA5B} = {992CC356-127F-4033-94FC-5B83E04282EA}
-		{A3B1C0A2-9982-401A-8C1B-7547CF91693C} = {383AF157-5558-4EE8-8B8D-9A904C4F5FB0}
+		{5FC27AAC-E748-41BE-81F0-D2842D9925B4} = {383AF157-5558-4EE8-8B8D-9A904C4F5FB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

@@ -85,8 +85,11 @@ namespace WinHue3
 
         private void _updatebs_DoWork(object sender, DoWorkEventArgs e)
         {
+            if(ListBridges.All(x => x.ApiKey == string.Empty && x.IsDefault == false)) return;
+            
             foreach (Bridge br in ListBridges)
             {
+                
                 HelperResult hr = HueObjectHelper.GetBridgeSettings(br);
                 if (hr.Success)
                 {
@@ -1045,7 +1048,7 @@ namespace WinHue3
 
         private void RefreshView()
         {
-            _listBridgeObjects = null;
+            if(_listBridgeObjects != null) _listBridgeObjects.Clear();
             OnPropertyChanged("ListBridgeObjects");
             log.Info($"Getting list of objects from bridge at {BridgeStore.SelectedBridge.IpAddress}.");
             HelperResult hr = HueObjectHelper.GetBridgeDataStore(BridgeStore.SelectedBridge);
@@ -1077,9 +1080,12 @@ namespace WinHue3
             Form_GroupCreator fgc = new Form_GroupCreator(BridgeStore.SelectedBridge) { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the Group creator window for bridge {BridgeStore.SelectedBridge.IpAddress} ");
             if (fgc.ShowDialog() != true) return;
+            if (fgc.GetCreatedOrModifiedID() == null) return;
+
             HelperResult hr = HueObjectHelper.GetObject<Group>(BridgeStore.SelectedBridge, fgc.GetCreatedOrModifiedID());
             if (hr.Success)
             {
+                if(_listBridgeObjects == null) _listBridgeObjects = new ObservableCollection<HueObject>();
                 _listBridgeObjects.Add((HueObject)hr.Hrobject);
             }
             else
@@ -1097,6 +1103,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetObject<Scene>(BridgeStore.SelectedBridge, fsc.GetCreatedOrModifiedID());
             if (hr.Success)
             {
+                
                 _listBridgeObjects.Add((HueObject)hr.Hrobject);
             }
             else
@@ -1114,6 +1121,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetObject<Schedule>(BridgeStore.SelectedBridge, fscc.GetCreatedOrModifiedID());
             if (hr.Success)
             {
+                
                 _listBridgeObjects.Add((HueObject)hr.Hrobject);
             }
             else
@@ -1132,6 +1140,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetObject<Rule>(BridgeStore.SelectedBridge, frc.GetCreatedOrModifiedId());
             if (hr.Success)
             {
+                
                 _listBridgeObjects.Add((HueObject)hr.Hrobject);
             }
             else
@@ -1150,6 +1159,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetObject<Sensor>(BridgeStore.SelectedBridge, fsc.GetCreatedOrModifiedID());
             if (hr.Success)
             {
+                
                 _listBridgeObjects.Add((HueObject)hr.Hrobject);
             }
             else

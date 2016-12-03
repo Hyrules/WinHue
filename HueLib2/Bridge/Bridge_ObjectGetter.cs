@@ -56,7 +56,7 @@ namespace HueLib2
                         break;
                     default:
                         lastMessages = new MessageCollection { new UnkownError(comres) };
-                        bresult.resultobject = comres.data;
+                        bresult.resultobject = "Unknown Error : " + comres.data;
                         break;
                 }
             }

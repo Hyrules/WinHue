@@ -11,6 +11,7 @@ namespace WinHue3
     /// </summary>
     public partial class Form_GroupCreator : Window
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Current bridge.
         /// </summary>
@@ -76,6 +77,7 @@ namespace WinHue3
                 if (bresult.Success)
                 {
                     DialogResult = true;
+                    log.Info(bresult.resultobject);
                     _id = ((MessageCollection)bresult.resultobject)[0].ToString();
                     Close();
                 }

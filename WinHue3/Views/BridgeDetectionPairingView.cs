@@ -362,17 +362,25 @@ namespace WinHue3
             foreach (KeyValuePair<string, Bridge> kvp in brlist)
             {
                 if (BridgeStore.ListBridges.Any(x => (x.Mac == kvp.Value.Mac) && (Equals(x.IpAddress, kvp.Value.IpAddress)))) continue;
-                if (BridgeStore.ListBridges.Any(x => (x.Mac == kvp.Value.Mac) && !(Equals(x.IpAddress, kvp.Value.IpAddress))))
+                if (
+                    BridgeStore.ListBridges.Any(
+                        x => (x.Mac == kvp.Value.Mac) && !(Equals(x.IpAddress, kvp.Value.IpAddress))))
                 {
                     Bridge firstOrDefault = BridgeStore.ListBridges.FirstOrDefault(x => x.Mac == kvp.Value.Mac);
                     if (
-                        firstOrDefault != null && MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.Name), GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                        firstOrDefault != null &&
+                        MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.Name),
+                            GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                         MessageBoxResult.Yes)
                     {
                         int index = BridgeStore.ListBridges.IndexOf(firstOrDefault);
                         BridgeStore.ListBridges[index].IpAddress = kvp.Value.IpAddress;
                     }
                     continue;
+                }
+                else
+                {
+                    BridgeStore.ListBridges.Add(kvp.Value);
                 }
             }
         }
