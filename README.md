@@ -15,7 +15,7 @@ WinHue is a windows desktop application to control the philips hue lighting syst
 - Full control over lights / groups color, brightness, temperature, saturation, name.
 - Recurring Schedules and Timers !
 - Control your light from console.
-- Assign global keyboard shortcuts to your favorite actions and trigger them anywhere within widows.
+- Assign global keyboard shortcuts to your favorite actions and trigger them anywhere within windows.
 - Add rules or sensors.
 - IT'S FREE !
 
