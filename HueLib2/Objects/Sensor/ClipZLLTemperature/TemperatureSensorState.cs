@@ -12,6 +12,6 @@ namespace HueLib2
         /// Current temperature.
         /// </summary>
         [DataMember,HueLib(false,false)]
-        public int temperature { get; set; }
+        public int? temperature { get; set; }
     }
 }

@@ -1035,4 +1035,25 @@
   <data name="Form_HotKeyCreator_Warning_Generic" xml:space="preserve">
     <value>Generic hotkey will only work when an object is selected in the bridge. They will not work when called from outside WinHue.</value>
   </data>
+  <data name="ListView_Resourcelink" xml:space="preserve">
+    <value>Resource Links</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_ResourceLink" xml:space="preserve">
+    <value>Resource Link Creator</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Title" xml:space="preserve">
+    <value>Resource Link Creator / Editor ...</value>
+  </data>
+  <data name="&lt;" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

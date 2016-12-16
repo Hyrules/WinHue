@@ -12,7 +12,7 @@ namespace HueLib2
     public class ScheduleBody : RuleBody
     {
         [DataMember, HueLib(true,true)]
-        public DateTime? localtime { get; set; }
+        public string localtime { get; set; }
 
         [DataMember, HueLib(true,true)]
         public string status { get; set; }

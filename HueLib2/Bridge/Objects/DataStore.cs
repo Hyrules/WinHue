@@ -28,6 +28,9 @@ namespace HueLib2
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public Dictionary<string, Rule> rules { get; set; }
 
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        public Dictionary<string, Resourcelink> resourcelinks { get; set; }
+
         public override string ToString()
         {
             return Serializer.SerializeToJson(this);
