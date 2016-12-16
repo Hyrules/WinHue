@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.WaitForm_Title}" Height="104.548" Width="367.855" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStyle="None" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.WaitForm_Title}" Height="104.548" Width="367.855" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStyle="None" WindowStartupLocation="CenterOwner" BorderBrush="#FF4B4B4B">
     <Grid OverridesDefaultStyle="True">
         <ProgressBar x:Name="pbWait" HorizontalAlignment="Left" Height="20" Margin="10,71,0,0" VerticalAlignment="Top" Width="348" Maximum="{Binding WaitTime}" Value="{Binding pbValue}"/>
         <TextBlock x:Name="tblMessage" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Message}" VerticalAlignment="Top" Height="56" Width="348"/>

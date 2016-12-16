@@ -61,6 +61,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string _ {
+            get {
+                return ResourceManager.GetString("<", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abort.
         /// </summary>
         public static string BridgeDetectionPairing_Abort {
@@ -1042,6 +1051,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resource Links.
+        /// </summary>
+        public static string ListView_Resourcelink {
+            get {
+                return ResourceManager.GetString("ListView_Resourcelink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rules.
         /// </summary>
         public static string ListView_Rule {
@@ -1465,6 +1483,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resource Link Creator.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Creators_ResourceLink {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators_ResourceLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Events.
         /// </summary>
         public static string MainForm_Tab_Home_Group_Events {
@@ -1713,6 +1740,42 @@ namespace WinHue3.Resources {
         public static string RenameObjectForm_Title {
             get {
                 return ResourceManager.GetString("RenameObjectForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Cancel {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Create {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Name {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource Link Creator / Editor ....
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Title {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Title", resourceCulture);
             }
         }
         

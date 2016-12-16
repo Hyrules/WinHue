@@ -662,10 +662,25 @@ namespace WinHue3
             newlist.AddRange(ProcessScenes(datastore.scenes));
             newlist.AddRange(ProcessSensors(datastore.sensors));
             newlist.AddRange(ProcessRules(datastore.rules));
+            newlist.AddRange(ProcessRessourceLinks(datastore.resourcelinks));
             log.Debug("Processing complete.");
             return newlist;
         }
 
+        private static List<HueObject> ProcessRessourceLinks(Dictionary<string, Resourcelink> listrl)
+        {
+            if(listrl == null) return new List<HueObject>();
+            List<HueObject> newlist = new List<HueObject>();
+
+            foreach (KeyValuePair<string, Resourcelink> kvp in listrl)
+            {
+                kvp.Value.Id = kvp.Key;
+                log.Debug("Processing resource links : " + kvp.Value);
+                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
+                newlist.Add(kvp.Value);
+            }
+            return newlist;
+        }
 
         /// <summary>
         /// Return the object latest values from the selected bridge.
@@ -1080,7 +1095,10 @@ namespace WinHue3
                 }
                 else if (typeof(T) == typeof(Resourcelink))
                 {
-
+                    Resourcelink rl = (Resourcelink) bresult.resultobject;
+                    rl.Id = id;
+                    rl.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
+                    hr.Hrobject = rl;
                 }
             }
             else

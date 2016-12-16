@@ -9,7 +9,7 @@ namespace WinHue3
     public static class WinHueSettings
     {
         public static CustomSettings settings = new CustomSettings();
-        private static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         static WinHueSettings()

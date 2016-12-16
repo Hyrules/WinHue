@@ -22,7 +22,7 @@ namespace WinHue3 {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class GlobalStrings {
+    public class GlobalStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace WinHue3 {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WinHue3.GlobalStrings", typeof(GlobalStrings).Assembly);
@@ -51,7 +51,7 @@ namespace WinHue3 {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to ALREADY CONNECTED.
         /// </summary>
-        internal static string Already_Connected {
+        public static string Already_Connected {
             get {
                 return ResourceManager.GetString("Already_Connected", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Updating firmware... The program will not respond for 2 minutes during the update..
         /// </summary>
-        internal static string ApplyingUpdate {
+        public static string ApplyingUpdate {
             get {
                 return ResourceManager.GetString("ApplyingUpdate", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to This bridge is already present in the list of bridges. Please enter another ip address..
         /// </summary>
-        internal static string Bridge_Already_Detected {
+        public static string Bridge_Already_Detected {
             get {
                 return ResourceManager.GetString("Bridge_Already_Detected", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Applying bridge update... The bridge might become unresponsive for a minute or two..
         /// </summary>
-        internal static string Bridge_ApplyingUpdate {
+        public static string Bridge_ApplyingUpdate {
             get {
                 return ResourceManager.GetString("Bridge_ApplyingUpdate", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Disconnected from bridge..
         /// </summary>
-        internal static string Bridge_Disconnected {
+        public static string Bridge_Disconnected {
             get {
                 return ResourceManager.GetString("Bridge_Disconnected", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Your bridge {0} seems to have changed ip. Do you want to replace the current IP Address ?.
         /// </summary>
-        internal static string Bridge_IP_Different {
+        public static string Bridge_IP_Different {
             get {
                 return ResourceManager.GetString("Bridge_IP_Different", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Searching for new light for 1 minute..
         /// </summary>
-        internal static string Bridge_LightSearch {
+        public static string Bridge_LightSearch {
             get {
                 return ResourceManager.GetString("Bridge_LightSearch", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Connect....
         /// </summary>
-        internal static string Bridge_Menu_Connect {
+        public static string Bridge_Menu_Connect {
             get {
                 return ResourceManager.GetString("Bridge_Menu_Connect", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Disconnect.
         /// </summary>
-        internal static string Bridge_Menu_Disconnect {
+        public static string Bridge_Menu_Disconnect {
             get {
                 return ResourceManager.GetString("Bridge_Menu_Disconnect", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
-        internal static string Bridge_Menu_Settings {
+        public static string Bridge_Menu_Settings {
             get {
                 return ResourceManager.GetString("Bridge_Menu_Settings", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Update available.
         /// </summary>
-        internal static string Bridge_Menu_Update {
+        public static string Bridge_Menu_Update {
             get {
                 return ResourceManager.GetString("Bridge_Menu_Update", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Not signed in.
         /// </summary>
-        internal static string Bridge_Not_Signed_In {
+        public static string Bridge_Not_Signed_In {
             get {
                 return ResourceManager.GetString("Bridge_Not_Signed_In", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a bridge you would like to control with WinHue..
         /// </summary>
-        internal static string Bridge_SelectOne {
+        public static string Bridge_SelectOne {
             get {
                 return ResourceManager.GetString("Bridge_SelectOne", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Signed In.
         /// </summary>
-        internal static string Bridge_Signed_In {
+        public static string Bridge_Signed_In {
             get {
                 return ResourceManager.GetString("Bridge_Signed_In", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Bridge Access Denied.
         /// </summary>
-        internal static string BridgeAccessDenied {
+        public static string BridgeAccessDenied {
             get {
                 return ResourceManager.GetString("BridgeAccessDenied", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Bridge Connected.
         /// </summary>
-        internal static string BridgeConnected {
+        public static string BridgeConnected {
             get {
                 return ResourceManager.GetString("BridgeConnected", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Pairing started. Please press the link button on the bridge to finish pairing..
         /// </summary>
-        internal static string BridgeDetectionPairing_Pairing {
+        public static string BridgeDetectionPairing_Pairing {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_Pairing", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Pairing complete. Please select another bridge to begin another pairing or select a default bridge to complete the procedure..
         /// </summary>
-        internal static string BridgeDetectionPairing_PairingDone {
+        public static string BridgeDetectionPairing_PairingDone {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_PairingDone", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Scanning aborted..
         /// </summary>
-        internal static string BridgeDetectionPairing_ScanAborted {
+        public static string BridgeDetectionPairing_ScanAborted {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_ScanAborted", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Scanning complete..
         /// </summary>
-        internal static string BridgeDetectionPairing_ScanComplete {
+        public static string BridgeDetectionPairing_ScanComplete {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_ScanComplete", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Scanning for bridge... please wait..
         /// </summary>
-        internal static string BridgeDetectionPairing_Scanning {
+        public static string BridgeDetectionPairing_Scanning {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_Scanning", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a bridge and press Pair in order to begin pairing procedure..
         /// </summary>
-        internal static string BridgeDetectionPairing_SelectionMessage {
+        public static string BridgeDetectionPairing_SelectionMessage {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_SelectionMessage", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to SSDP and UPNP are not activated. Please activate them in order to get better detection of the bridge..
         /// </summary>
-        internal static string BridgeDetectionPairing_Upnp_Not_Working {
+        public static string BridgeDetectionPairing_Upnp_Not_Working {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_Upnp_Not_Working", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to disconnect from the bridge ?.
         /// </summary>
-        internal static string BridgeDisconnect {
+        public static string BridgeDisconnect {
             get {
                 return ResourceManager.GetString("BridgeDisconnect", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Bridge not paired or authorized. Do you want to proceed with the pairing procedure ?.
         /// </summary>
-        internal static string BridgeSetupNotCompleted {
+        public static string BridgeSetupNotCompleted {
             get {
                 return ResourceManager.GetString("BridgeSetupNotCompleted", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Unable to connect to bridge {0} . Please make sure that it is properly connected to the network..
         /// </summary>
-        internal static string BridgeUnableToConnect {
+        public static string BridgeUnableToConnect {
             get {
                 return ResourceManager.GetString("BridgeUnableToConnect", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Color temperature cannot be selected at the same time as Hue or Saturation. .
         /// </summary>
-        internal static string ColorTempWarning {
+        public static string ColorTempWarning {
             get {
                 return ResourceManager.GetString("ColorTempWarning", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete {0} ?.
         /// </summary>
-        internal static string Confirm_Delete_Object {
+        public static string Confirm_Delete_Object {
             get {
                 return ResourceManager.GetString("Confirm_Delete_Object", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to CONNECTED !.
         /// </summary>
-        internal static string Connected {
+        public static string Connected {
             get {
                 return ResourceManager.GetString("Connected", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please press the LINK button now and press OK to continue..
         /// </summary>
-        internal static string Create_User_Press_Link {
+        public static string Create_User_Press_Link {
             get {
                 return ResourceManager.GetString("Create_User_Press_Link", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Latitude must not be empty and must be of the DDD.DDDD{N|S} format..
         /// </summary>
-        internal static string Daylight_Latitude_Error {
+        public static string Daylight_Latitude_Error {
             get {
                 return ResourceManager.GetString("Daylight_Latitude_Error", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Longitude must not be empty and must be of the DDD.DDDD{E|W} format..
         /// </summary>
-        internal static string Daylight_Longitude_Error {
+        public static string Daylight_Longitude_Error {
             get {
                 return ResourceManager.GetString("Daylight_Longitude_Error", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Disabling DHCP enables manual IP address..
         /// </summary>
-        internal static string Disable_DHCP {
+        public static string Disable_DHCP {
             get {
                 return ResourceManager.GetString("Disable_DHCP", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Search Finished..
         /// </summary>
-        internal static string Done_Searching {
+        public static string Done_Searching {
             get {
                 return ResourceManager.GetString("Done_Searching", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string Error {
+        public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The bridge name cannot be empty or blank..
         /// </summary>
-        internal static string Error_Bridge_Name {
+        public static string Error_Bridge_Name {
             get {
                 return ResourceManager.GetString("Error_Bridge_Name", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The bridge is not responding. .
         /// </summary>
-        internal static string Error_Bridge_Not_Responding {
+        public static string Error_Bridge_Not_Responding {
             get {
                 return ResourceManager.GetString("Error_Bridge_Not_Responding", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while applying the brige new settings. See the log for more details..
         /// </summary>
-        internal static string Error_Bridge_Settings {
+        public static string Error_Bridge_Settings {
             get {
                 return ResourceManager.GetString("Error_Bridge_Settings", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An unknown error has occured.
         /// </summary>
-        internal static string Error_Bridge_Unknown {
+        public static string Error_Bridge_Unknown {
             get {
                 return ResourceManager.GetString("Error_Bridge_Unknown", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Bridge Not Found.
         /// </summary>
-        internal static string Error_BridgeNotFound {
+        public static string Error_BridgeNotFound {
             get {
                 return ResourceManager.GetString("Error_BridgeNotFound", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error creating the user..
         /// </summary>
-        internal static string Error_Create_User {
+        public static string Error_Create_User {
             get {
                 return ResourceManager.GetString("Error_Create_User", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while creating a new scene. Please chech the event log for more details..
         /// </summary>
-        internal static string Error_Creating_Scene {
+        public static string Error_Creating_Scene {
             get {
                 return ResourceManager.GetString("Error_Creating_Scene", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An error has occured.
         /// </summary>
-        internal static string Error_ErrorHasOccured {
+        public static string Error_ErrorHasOccured {
             get {
                 return ResourceManager.GetString("Error_ErrorHasOccured", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The selected gateway is invalid..
         /// </summary>
-        internal static string Error_Gateway_Invalid {
+        public static string Error_Gateway_Invalid {
             get {
                 return ResourceManager.GetString("Error_Gateway_Invalid", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while getting the basic bridge configuration..
         /// </summary>
-        internal static string Error_Getting_Bridge_Basic_Config {
+        public static string Error_Getting_Bridge_Basic_Config {
             get {
                 return ResourceManager.GetString("Error_Getting_Bridge_Basic_Config", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while getting the bridge settings.  Please try reopening the window..
         /// </summary>
-        internal static string Error_Getting_BridgeSettings {
+        public static string Error_Getting_BridgeSettings {
             get {
                 return ResourceManager.GetString("Error_Getting_BridgeSettings", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while fetching groups.  Please try reopening the window..
         /// </summary>
-        internal static string Error_Getting_Groups {
+        public static string Error_Getting_Groups {
             get {
                 return ResourceManager.GetString("Error_Getting_Groups", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while fetching lights. Please try reopening the window..
         /// </summary>
-        internal static string Error_Getting_Lights {
+        public static string Error_Getting_Lights {
             get {
                 return ResourceManager.GetString("Error_Getting_Lights", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while getting new lights..
         /// </summary>
-        internal static string Error_Getting_NewLights {
+        public static string Error_Getting_NewLights {
             get {
                 return ResourceManager.GetString("Error_Getting_NewLights", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while getting new sensors..
         /// </summary>
-        internal static string Error_Getting_NewSensors {
+        public static string Error_Getting_NewSensors {
             get {
                 return ResourceManager.GetString("Error_Getting_NewSensors", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Hotkey already assigned by another process. Please select another key combo and try again..
         /// </summary>
-        internal static string Error_Hotkey_Already_Assigned {
+        public static string Error_Hotkey_Already_Assigned {
             get {
                 return ResourceManager.GetString("Error_Hotkey_Already_Assigned", resourceCulture);
             }
@@ -522,7 +522,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Invalid port value..
         /// </summary>
-        internal static string Error_InvalidPort {
+        public static string Error_InvalidPort {
             get {
                 return ResourceManager.GetString("Error_InvalidPort", resourceCulture);
             }
@@ -531,7 +531,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Must be at least 4 characters long.
         /// </summary>
-        internal static string Error_Must_Be_4_Char {
+        public static string Error_Must_Be_4_Char {
             get {
                 return ResourceManager.GetString("Error_Must_Be_4_Char", resourceCulture);
             }
@@ -540,7 +540,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The selected netmask is invalid..
         /// </summary>
-        internal static string Error_NetMask_Invalid {
+        public static string Error_NetMask_Invalid {
             get {
                 return ResourceManager.GetString("Error_NetMask_Invalid", resourceCulture);
             }
@@ -549,7 +549,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No Valid API Key found.
         /// </summary>
-        internal static string Error_No_API_key_found {
+        public static string Error_No_API_key_found {
             get {
                 return ResourceManager.GetString("Error_No_API_key_found", resourceCulture);
             }
@@ -558,7 +558,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No Valid IP Found.
         /// </summary>
-        internal static string Error_No_Valid_IP {
+        public static string Error_No_Valid_IP {
             get {
                 return ResourceManager.GetString("Error_No_Valid_IP", resourceCulture);
             }
@@ -567,7 +567,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The proxy address is invalid..
         /// </summary>
-        internal static string Error_Prox_Address {
+        public static string Error_Prox_Address {
             get {
                 return ResourceManager.GetString("Error_Prox_Address", resourceCulture);
             }
@@ -576,7 +576,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The was an error removing the desired user..
         /// </summary>
-        internal static string Error_Remove_User {
+        public static string Error_Remove_User {
             get {
                 return ResourceManager.GetString("Error_Remove_User", resourceCulture);
             }
@@ -585,7 +585,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An error occured while renaming the object. Please check the event log for more details..
         /// </summary>
-        internal static string Error_Renaming {
+        public static string Error_Renaming {
             get {
                 return ResourceManager.GetString("Error_Renaming", resourceCulture);
             }
@@ -594,7 +594,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while sending the all lights OFF command..
         /// </summary>
-        internal static string Error_Sending_AllOFF {
+        public static string Error_Sending_AllOFF {
             get {
                 return ResourceManager.GetString("Error_Sending_AllOFF", resourceCulture);
             }
@@ -603,7 +603,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while sending the all lights ON command..
         /// </summary>
-        internal static string Error_Sending_AllON {
+        public static string Error_Sending_AllON {
             get {
                 return ResourceManager.GetString("Error_Sending_AllON", resourceCulture);
             }
@@ -612,7 +612,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to A timeout occured while trying to contact the philips hue portal. Please try again later..
         /// </summary>
-        internal static string Error_Timout_Portal {
+        public static string Error_Timout_Portal {
             get {
                 return ResourceManager.GetString("Error_Timout_Portal", resourceCulture);
             }
@@ -621,7 +621,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to You must enter at least an App Name in order to create a user..
         /// </summary>
-        internal static string Error_Usermanager_NoDevType {
+        public static string Error_Usermanager_NoDevType {
             get {
                 return ResourceManager.GetString("Error_Usermanager_NoDevType", resourceCulture);
             }
@@ -630,7 +630,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The username cannot begin with a white space and must be between 10 and 40 characters..
         /// </summary>
-        internal static string Error_Username {
+        public static string Error_Username {
             get {
                 return ResourceManager.GetString("Error_Username", resourceCulture);
             }
@@ -639,7 +639,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to One or more errors occured while creating the object :.
         /// </summary>
-        internal static string Error_WhileCreatingObject {
+        public static string Error_WhileCreatingObject {
             get {
                 return ResourceManager.GetString("Error_WhileCreatingObject", resourceCulture);
             }
@@ -648,7 +648,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Field cannot be empty..
         /// </summary>
-        internal static string Field_Empty {
+        public static string Field_Empty {
             get {
                 return ResourceManager.GetString("Field_Empty", resourceCulture);
             }
@@ -657,7 +657,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Generic presets are hotkeys that do not have an object associated to them and can be applied to one or more object type on the bridge. Non generic are associated with at specific object of the bridge and will only apply to them..
         /// </summary>
-        internal static string Form_Hotkey_Help_Generic {
+        public static string Form_Hotkey_Help_Generic {
             get {
                 return ResourceManager.GetString("Form_Hotkey_Help_Generic", resourceCulture);
             }
@@ -666,7 +666,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to A group name {0} already exists. Please select another name and try again..
         /// </summary>
-        internal static string Group_Already_Exists {
+        public static string Group_Already_Exists {
             get {
                 return ResourceManager.GetString("Group_Already_Exists", resourceCulture);
             }
@@ -675,7 +675,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Group {0} created sucessfully..
         /// </summary>
-        internal static string Group_Create_Success {
+        public static string Group_Create_Success {
             get {
                 return ResourceManager.GetString("Group_Create_Success", resourceCulture);
             }
@@ -684,7 +684,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to There was an error while creating group {0} ..
         /// </summary>
-        internal static string Group_Creation_Error {
+        public static string Group_Creation_Error {
             get {
                 return ResourceManager.GetString("Group_Creation_Error", resourceCulture);
             }
@@ -693,7 +693,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this group ?.
         /// </summary>
-        internal static string Group_Delete {
+        public static string Group_Delete {
             get {
                 return ResourceManager.GetString("Group_Delete", resourceCulture);
             }
@@ -702,7 +702,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Group.
         /// </summary>
-        internal static string Group_Group {
+        public static string Group_Group {
             get {
                 return ResourceManager.GetString("Group_Group", resourceCulture);
             }
@@ -711,7 +711,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The group has been succesfully modified..
         /// </summary>
-        internal static string Group_Modified_Success {
+        public static string Group_Modified_Success {
             get {
                 return ResourceManager.GetString("Group_Modified_Success", resourceCulture);
             }
@@ -720,7 +720,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The group name must be at least one character..
         /// </summary>
-        internal static string Group_Name_Error {
+        public static string Group_Name_Error {
             get {
                 return ResourceManager.GetString("Group_Name_Error", resourceCulture);
             }
@@ -729,7 +729,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select at least one bulb in order to create a group..
         /// </summary>
-        internal static string Group_Select_One_Light {
+        public static string Group_Select_One_Light {
             get {
                 return ResourceManager.GetString("Group_Select_One_Light", resourceCulture);
             }
@@ -738,7 +738,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
-        internal static string Help {
+        public static string Help {
             get {
                 return ResourceManager.GetString("Help", resourceCulture);
             }
@@ -747,7 +747,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Enabling tablet mode will make the toolbar icons, trackbar thumbs as well as the hue picker thumb bigger for better control on a tablet..
         /// </summary>
-        internal static string Help_String_Tablet_Mode {
+        public static string Help_String_Tablet_Mode {
             get {
                 return ResourceManager.GetString("Help_String_Tablet_Mode", resourceCulture);
             }
@@ -756,7 +756,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Hotkey already exists. Replace ?.
         /// </summary>
-        internal static string HotKey_Already_Exists {
+        public static string HotKey_Already_Exists {
             get {
                 return ResourceManager.GetString("HotKey_Already_Exists", resourceCulture);
             }
@@ -765,7 +765,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please fill at least one property..
         /// </summary>
-        internal static string Hotkey_FillOneProperty {
+        public static string Hotkey_FillOneProperty {
             get {
                 return ResourceManager.GetString("Hotkey_FillOneProperty", resourceCulture);
             }
@@ -774,7 +774,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please record an hotkey.
         /// </summary>
-        internal static string Hotkey_RecordHotkey {
+        public static string Hotkey_RecordHotkey {
             get {
                 return ResourceManager.GetString("Hotkey_RecordHotkey", resourceCulture);
             }
@@ -783,7 +783,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a bridge object..
         /// </summary>
-        internal static string Hotkey_SelectObject {
+        public static string Hotkey_SelectObject {
             get {
                 return ResourceManager.GetString("Hotkey_SelectObject", resourceCulture);
             }
@@ -792,7 +792,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a type of bridge object..
         /// </summary>
-        internal static string Hotkey_SelectObjectType {
+        public static string Hotkey_SelectObjectType {
             get {
                 return ResourceManager.GetString("Hotkey_SelectObjectType", resourceCulture);
             }
@@ -801,7 +801,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Button {0} selected..
         /// </summary>
-        internal static string HueTap_ButtonSelected {
+        public static string HueTap_ButtonSelected {
             get {
                 return ResourceManager.GetString("HueTap_ButtonSelected", resourceCulture);
             }
@@ -810,7 +810,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No button selected..
         /// </summary>
-        internal static string HueTap_NoButtonSelected {
+        public static string HueTap_NoButtonSelected {
             get {
                 return ResourceManager.GetString("HueTap_NoButtonSelected", resourceCulture);
             }
@@ -819,7 +819,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a button in order to chose it&apos;s action..
         /// </summary>
-        internal static string HueTap_SelectAButton {
+        public static string HueTap_SelectAButton {
             get {
                 return ResourceManager.GetString("HueTap_SelectAButton", resourceCulture);
             }
@@ -828,7 +828,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Aucune scène sélectionnée. Veuillez sélectionner une scène et appuyer sur assigner à nouveau..
         /// </summary>
-        internal static string HueTap_SelectAScene {
+        public static string HueTap_SelectAScene {
             get {
                 return ResourceManager.GetString("HueTap_SelectAScene", resourceCulture);
             }
@@ -837,7 +837,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An firmware update available but not ready..
         /// </summary>
-        internal static string IncomingUpdate {
+        public static string IncomingUpdate {
             get {
                 return ResourceManager.GetString("IncomingUpdate", resourceCulture);
             }
@@ -846,7 +846,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Error on line {0}, column {1}..
         /// </summary>
-        internal static string Interpreter_Error {
+        public static string Interpreter_Error {
             get {
                 return ResourceManager.GetString("Interpreter_Error", resourceCulture);
             }
@@ -855,7 +855,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No error found..
         /// </summary>
-        internal static string Interpreter_NoError {
+        public static string Interpreter_NoError {
             get {
                 return ResourceManager.GetString("Interpreter_NoError", resourceCulture);
             }
@@ -864,7 +864,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The selected IP address is in an invalid format..
         /// </summary>
-        internal static string Invalid_IP {
+        public static string Invalid_IP {
             get {
                 return ResourceManager.GetString("Invalid_IP", resourceCulture);
             }
@@ -873,7 +873,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Invalid mood file.
         /// </summary>
-        internal static string Invalid_Mood_file {
+        public static string Invalid_Mood_file {
             get {
                 return ResourceManager.GetString("Invalid_Mood_file", resourceCulture);
             }
@@ -882,7 +882,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Scene file invalid .
         /// </summary>
-        internal static string Invalid_Scene_File {
+        public static string Invalid_Scene_File {
             get {
                 return ResourceManager.GetString("Invalid_Scene_File", resourceCulture);
             }
@@ -891,7 +891,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please restart the application in order to apply language change..
         /// </summary>
-        internal static string Language_Change_Warning {
+        public static string Language_Change_Warning {
             get {
                 return ResourceManager.GetString("Language_Change_Warning", resourceCulture);
             }
@@ -900,7 +900,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this light ?.
         /// </summary>
-        internal static string Light_Delete {
+        public static string Light_Delete {
             get {
                 return ResourceManager.GetString("Light_Delete", resourceCulture);
             }
@@ -909,7 +909,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Light.
         /// </summary>
-        internal static string Light_Type_Lights {
+        public static string Light_Type_Lights {
             get {
                 return ResourceManager.GetString("Light_Type_Lights", resourceCulture);
             }
@@ -918,7 +918,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The lights directory has not been found. Creating it....
         /// </summary>
-        internal static string Lights_DirectoryDoesNotExists {
+        public static string Lights_DirectoryDoesNotExists {
             get {
                 return ResourceManager.GetString("Lights_DirectoryDoesNotExists", resourceCulture);
             }
@@ -927,7 +927,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Not been pressed.
         /// </summary>
-        internal static string Link_Not_Pressed {
+        public static string Link_Not_Pressed {
             get {
                 return ResourceManager.GetString("Link_Not_Pressed", resourceCulture);
             }
@@ -936,7 +936,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Has been pressed.
         /// </summary>
-        internal static string Link_Pressed {
+        public static string Link_Pressed {
             get {
                 return ResourceManager.GetString("Link_Pressed", resourceCulture);
             }
@@ -945,7 +945,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please press the link button located on the bridge..
         /// </summary>
-        internal static string LinkButton_Not_Pressed {
+        public static string LinkButton_Not_Pressed {
             get {
                 return ResourceManager.GetString("LinkButton_Not_Pressed", resourceCulture);
             }
@@ -954,7 +954,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Bridge Found! Please press the link button to finish pairing..
         /// </summary>
-        internal static string Manual_Bridge_Found {
+        public static string Manual_Bridge_Found {
             get {
                 return ResourceManager.GetString("Manual_Bridge_Found", resourceCulture);
             }
@@ -963,7 +963,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No bridge found at this IP address..
         /// </summary>
-        internal static string Manual_Bridge_Not_Found {
+        public static string Manual_Bridge_Not_Found {
             get {
                 return ResourceManager.GetString("Manual_Bridge_Not_Found", resourceCulture);
             }
@@ -972,7 +972,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Mood folder is missing.
         /// </summary>
-        internal static string Mood_Missing_Folder {
+        public static string Mood_Missing_Folder {
             get {
                 return ResourceManager.GetString("Mood_Missing_Folder", resourceCulture);
             }
@@ -981,7 +981,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to A Mood with this name already exists. Overwrite ?.
         /// </summary>
-        internal static string Moods_AlreadyExists {
+        public static string Moods_AlreadyExists {
             get {
                 return ResourceManager.GetString("Moods_AlreadyExists", resourceCulture);
             }
@@ -990,7 +990,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this mood ?.
         /// </summary>
-        internal static string Moods_Delete {
+        public static string Moods_Delete {
             get {
                 return ResourceManager.GetString("Moods_Delete", resourceCulture);
             }
@@ -999,7 +999,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No name entered for the mood. Please enter a name..
         /// </summary>
-        internal static string Moods_Missing_Name {
+        public static string Moods_Missing_Name {
             get {
                 return ResourceManager.GetString("Moods_Missing_Name", resourceCulture);
             }
@@ -1008,7 +1008,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Selected Values for mood are invalid. Please enter at least one value for the mood..
         /// </summary>
-        internal static string Moods_NotValidValues {
+        public static string Moods_NotValidValues {
             get {
                 return ResourceManager.GetString("Moods_NotValidValues", resourceCulture);
             }
@@ -1017,7 +1017,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No light selected. Please chose a light for this marker..
         /// </summary>
-        internal static string No_Light_Selected {
+        public static string No_Light_Selected {
             get {
                 return ResourceManager.GetString("No_Light_Selected", resourceCulture);
             }
@@ -1026,7 +1026,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No new messages..
         /// </summary>
-        internal static string No_New_Messages {
+        public static string No_New_Messages {
             get {
                 return ResourceManager.GetString("No_New_Messages", resourceCulture);
             }
@@ -1035,7 +1035,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Bridge firmware up to date..
         /// </summary>
-        internal static string NoFirmwareUpdate {
+        public static string NoFirmwareUpdate {
             get {
                 return ResourceManager.GetString("NoFirmwareUpdate", resourceCulture);
             }
@@ -1044,7 +1044,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
-        internal static string None {
+        public static string None {
             get {
                 return ResourceManager.GetString("None", resourceCulture);
             }
@@ -1053,7 +1053,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to NOT CONNECTED.
         /// </summary>
-        internal static string Not_Connected {
+        public static string Not_Connected {
             get {
                 return ResourceManager.GetString("Not_Connected", resourceCulture);
             }
@@ -1062,7 +1062,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Settings....
         /// </summary>
-        internal static string Plugin_Settings {
+        public static string Plugin_Settings {
             get {
                 return ResourceManager.GetString("Plugin_Settings", resourceCulture);
             }
@@ -1071,7 +1071,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Plugin {0} has caused an exception. The plugin will be disabled in order to prevent a crash. An plugin exception file will be generated in WinHue folder..
         /// </summary>
-        internal static string Plugins_Error {
+        public static string Plugins_Error {
             get {
                 return ResourceManager.GetString("Plugins_Error", resourceCulture);
             }
@@ -1080,7 +1080,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to No plugins directory found. Creating a new one..
         /// </summary>
-        internal static string Plugins_NoDirectory {
+        public static string Plugins_NoDirectory {
             get {
                 return ResourceManager.GetString("Plugins_NoDirectory", resourceCulture);
             }
@@ -1089,7 +1089,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Press Enter to change name..
         /// </summary>
-        internal static string Press_Enter_To_Change_Name {
+        public static string Press_Enter_To_Change_Name {
             get {
                 return ResourceManager.GetString("Press_Enter_To_Change_Name", resourceCulture);
             }
@@ -1098,7 +1098,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Enter &apos;none&apos; for no proxy..
         /// </summary>
-        internal static string Proxy_NONE {
+        public static string Proxy_NONE {
             get {
                 return ResourceManager.GetString("Proxy_NONE", resourceCulture);
             }
@@ -1107,7 +1107,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Current user is not administrator. This application requires administrative privileges in order to work properly. Please restart the application with administrative rights or right click properties on the executable and click &quot;Run as administrator&quot;..
         /// </summary>
-        internal static string Require_admin {
+        public static string Require_admin {
             get {
                 return ResourceManager.GetString("Require_admin", resourceCulture);
             }
@@ -1116,7 +1116,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Rule.
         /// </summary>
-        internal static string Rule {
+        public static string Rule {
             get {
                 return ResourceManager.GetString("Rule", resourceCulture);
             }
@@ -1125,7 +1125,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to A similar action already exists. Replace ?.
         /// </summary>
-        internal static string Rule_ActionAlreadyExists {
+        public static string Rule_ActionAlreadyExists {
             get {
                 return ResourceManager.GetString("Rule_ActionAlreadyExists", resourceCulture);
             }
@@ -1134,7 +1134,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to A similar condition already exists. Replace ?.
         /// </summary>
-        internal static string Rule_ConditionAlreadyExists {
+        public static string Rule_ConditionAlreadyExists {
             get {
                 return ResourceManager.GetString("Rule_ConditionAlreadyExists", resourceCulture);
             }
@@ -1143,7 +1143,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this rule ?.
         /// </summary>
-        internal static string Rule_Delete {
+        public static string Rule_Delete {
             get {
                 return ResourceManager.GetString("Rule_Delete", resourceCulture);
             }
@@ -1152,7 +1152,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The body field cannot be empty..
         /// </summary>
-        internal static string Rule_EmptyBody {
+        public static string Rule_EmptyBody {
             get {
                 return ResourceManager.GetString("Rule_EmptyBody", resourceCulture);
             }
@@ -1161,7 +1161,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An error occur while creating the rule :.
         /// </summary>
-        internal static string Rule_ErrorCreating {
+        public static string Rule_ErrorCreating {
             get {
                 return ResourceManager.GetString("Rule_ErrorCreating", resourceCulture);
             }
@@ -1170,7 +1170,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The json string entered in the body field is invalid..
         /// </summary>
-        internal static string Rule_InvalidJson {
+        public static string Rule_InvalidJson {
             get {
                 return ResourceManager.GetString("Rule_InvalidJson", resourceCulture);
             }
@@ -1179,7 +1179,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Maximum number of action reached. Please delete an action in order to add a new one..
         /// </summary>
-        internal static string Rule_MaxAction {
+        public static string Rule_MaxAction {
             get {
                 return ResourceManager.GetString("Rule_MaxAction", resourceCulture);
             }
@@ -1188,7 +1188,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The maximum amout of condition has been reached. Remove an existing condition in order to add a new one..
         /// </summary>
-        internal static string Rule_MaxConditions {
+        public static string Rule_MaxConditions {
             get {
                 return ResourceManager.GetString("Rule_MaxConditions", resourceCulture);
             }
@@ -1197,7 +1197,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please enter a valid rule name..
         /// </summary>
-        internal static string Rule_NameError {
+        public static string Rule_NameError {
             get {
                 return ResourceManager.GetString("Rule_NameError", resourceCulture);
             }
@@ -1206,7 +1206,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to You need at least one action and one condition to create a new rule..
         /// </summary>
-        internal static string Rule_NeedsActionAndCondition {
+        public static string Rule_NeedsActionAndCondition {
             get {
                 return ResourceManager.GetString("Rule_NeedsActionAndCondition", resourceCulture);
             }
@@ -1215,7 +1215,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please add at least one action..
         /// </summary>
-        internal static string Rule_NoAction {
+        public static string Rule_NoAction {
             get {
                 return ResourceManager.GetString("Rule_NoAction", resourceCulture);
             }
@@ -1224,7 +1224,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to You must select at least one Action object..
         /// </summary>
-        internal static string Rule_NoActionObject {
+        public static string Rule_NoActionObject {
             get {
                 return ResourceManager.GetString("Rule_NoActionObject", resourceCulture);
             }
@@ -1233,7 +1233,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please add at least one condition to the rule and try again..
         /// </summary>
-        internal static string Rule_NoCondition {
+        public static string Rule_NoCondition {
             get {
                 return ResourceManager.GetString("Rule_NoCondition", resourceCulture);
             }
@@ -1242,7 +1242,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a property and try again..
         /// </summary>
-        internal static string Rule_NoPropertySelected {
+        public static string Rule_NoPropertySelected {
             get {
                 return ResourceManager.GetString("Rule_NoPropertySelected", resourceCulture);
             }
@@ -1251,7 +1251,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Rule not found. Please make sure that the rule still exists..
         /// </summary>
-        internal static string Rule_NotFound {
+        public static string Rule_NotFound {
             get {
                 return ResourceManager.GetString("Rule_NotFound", resourceCulture);
             }
@@ -1260,7 +1260,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The value is not of the proper format for the type :.
         /// </summary>
-        internal static string Rule_NotProperFormat {
+        public static string Rule_NotProperFormat {
             get {
                 return ResourceManager.GetString("Rule_NotProperFormat", resourceCulture);
             }
@@ -1269,7 +1269,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The original object of this rule was not found. Please make sure the object still exists in the bridge and try again..
         /// </summary>
-        internal static string Rule_OriginalObjectNotFound {
+        public static string Rule_OriginalObjectNotFound {
             get {
                 return ResourceManager.GetString("Rule_OriginalObjectNotFound", resourceCulture);
             }
@@ -1278,7 +1278,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The property {0} has already been set. Replace it ?.
         /// </summary>
-        internal static string Rule_PropertyAlreadyExists {
+        public static string Rule_PropertyAlreadyExists {
             get {
                 return ResourceManager.GetString("Rule_PropertyAlreadyExists", resourceCulture);
             }
@@ -1287,7 +1287,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to replace the selected action ?.
         /// </summary>
-        internal static string Rule_ReplaceAction {
+        public static string Rule_ReplaceAction {
             get {
                 return ResourceManager.GetString("Rule_ReplaceAction", resourceCulture);
             }
@@ -1296,7 +1296,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to replace this condition ?.
         /// </summary>
-        internal static string Rule_ReplaceCondition {
+        public static string Rule_ReplaceCondition {
             get {
                 return ResourceManager.GetString("Rule_ReplaceCondition", resourceCulture);
             }
@@ -1305,7 +1305,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a sensor in order to create a condition..
         /// </summary>
-        internal static string Rule_SelectSensor {
+        public static string Rule_SelectSensor {
             get {
                 return ResourceManager.GetString("Rule_SelectSensor", resourceCulture);
             }
@@ -1314,7 +1314,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Sensor ressource cannot be empty. Please specify a sensor ressource..
         /// </summary>
-        internal static string Rule_SensorRes {
+        public static string Rule_SensorRes {
             get {
                 return ResourceManager.GetString("Rule_SensorRes", resourceCulture);
             }
@@ -1323,7 +1323,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The Value field cannot be empty..
         /// </summary>
-        internal static string Rule_ValueEmpty {
+        public static string Rule_ValueEmpty {
             get {
                 return ResourceManager.GetString("Rule_ValueEmpty", resourceCulture);
             }
@@ -1332,7 +1332,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The value is not within the max and min for the type :.
         /// </summary>
-        internal static string Rule_ValueNotInRange {
+        public static string Rule_ValueNotInRange {
             get {
                 return ResourceManager.GetString("Rule_ValueNotInRange", resourceCulture);
             }
@@ -1341,7 +1341,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please make sure that both X and Y are correctly filled..
         /// </summary>
-        internal static string Rule_XYError {
+        public static string Rule_XYError {
             get {
                 return ResourceManager.GetString("Rule_XYError", resourceCulture);
             }
@@ -1350,7 +1350,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while saving the settings..
         /// </summary>
-        internal static string SaveSettings_Error {
+        public static string SaveSettings_Error {
             get {
                 return ResourceManager.GetString("SaveSettings_Error", resourceCulture);
             }
@@ -1359,7 +1359,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to A Scene with this name already exists. Overwrite ?.
         /// </summary>
-        internal static string Scene_AlreadyExists {
+        public static string Scene_AlreadyExists {
             get {
                 return ResourceManager.GetString("Scene_AlreadyExists", resourceCulture);
             }
@@ -1368,7 +1368,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to clear the current scene ?.
         /// </summary>
-        internal static string Scene_Clear_Warning {
+        public static string Scene_Clear_Warning {
             get {
                 return ResourceManager.GetString("Scene_Clear_Warning", resourceCulture);
             }
@@ -1377,7 +1377,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete that scene ?.
         /// </summary>
-        internal static string Scene_Delete {
+        public static string Scene_Delete {
             get {
                 return ResourceManager.GetString("Scene_Delete", resourceCulture);
             }
@@ -1386,7 +1386,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to load the RGB Image ?.
         /// </summary>
-        internal static string Scene_Load_RGB {
+        public static string Scene_Load_RGB {
             get {
                 return ResourceManager.GetString("Scene_Load_RGB", resourceCulture);
             }
@@ -1395,7 +1395,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The scene folder is missing... recreating it..
         /// </summary>
-        internal static string Scene_MissingFolder {
+        public static string Scene_MissingFolder {
             get {
                 return ResourceManager.GetString("Scene_MissingFolder", resourceCulture);
             }
@@ -1404,7 +1404,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The scene name is invalid..
         /// </summary>
-        internal static string Scene_Name_Invalid {
+        public static string Scene_Name_Invalid {
             get {
                 return ResourceManager.GetString("Scene_Name_Invalid", resourceCulture);
             }
@@ -1413,7 +1413,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The scene in this rule does not exist anymore..
         /// </summary>
-        internal static string Scene_NotFound {
+        public static string Scene_NotFound {
             get {
                 return ResourceManager.GetString("Scene_NotFound", resourceCulture);
             }
@@ -1422,7 +1422,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Replace scene light state with current state ?.
         /// </summary>
-        internal static string Scene_Replace_Current_States {
+        public static string Scene_Replace_Current_States {
             get {
                 return ResourceManager.GetString("Scene_Replace_Current_States", resourceCulture);
             }
@@ -1431,7 +1431,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Scene.
         /// </summary>
-        internal static string Scene_Scene {
+        public static string Scene_Scene {
             get {
                 return ResourceManager.GetString("Scene_Scene", resourceCulture);
             }
@@ -1440,7 +1440,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please check at least one bulb..
         /// </summary>
-        internal static string Scene_Select_At_Least_One_Light {
+        public static string Scene_Select_At_Least_One_Light {
             get {
                 return ResourceManager.GetString("Scene_Select_At_Least_One_Light", resourceCulture);
             }
@@ -1449,7 +1449,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to You must at least select one light..
         /// </summary>
-        internal static string Scene_SelectOneLight {
+        public static string Scene_SelectOneLight {
             get {
                 return ResourceManager.GetString("Scene_SelectOneLight", resourceCulture);
             }
@@ -1458,7 +1458,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Alarm.
         /// </summary>
-        internal static string Schedule_Alarm {
+        public static string Schedule_Alarm {
             get {
                 return ResourceManager.GetString("Schedule_Alarm", resourceCulture);
             }
@@ -1467,7 +1467,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this Schedule ?.
         /// </summary>
-        internal static string Schedule_Delete {
+        public static string Schedule_Delete {
             get {
                 return ResourceManager.GetString("Schedule_Delete", resourceCulture);
             }
@@ -1476,7 +1476,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Schedule.
         /// </summary>
-        internal static string Schedule_Schedule {
+        public static string Schedule_Schedule {
             get {
                 return ResourceManager.GetString("Schedule_Schedule", resourceCulture);
             }
@@ -1485,7 +1485,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select at least one day of the week to repeat the alarm..
         /// </summary>
-        internal static string Schedule_SelectAtLeastOneDay {
+        public static string Schedule_SelectAtLeastOneDay {
             get {
                 return ResourceManager.GetString("Schedule_SelectAtLeastOneDay", resourceCulture);
             }
@@ -1494,7 +1494,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Timer.
         /// </summary>
-        internal static string Schedule_Timer {
+        public static string Schedule_Timer {
             get {
                 return ResourceManager.GetString("Schedule_Timer", resourceCulture);
             }
@@ -1503,7 +1503,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Group not found.
         /// </summary>
-        internal static string Schedule_Unknown_Group {
+        public static string Schedule_Unknown_Group {
             get {
                 return ResourceManager.GetString("Schedule_Unknown_Group", resourceCulture);
             }
@@ -1512,7 +1512,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Light not found.
         /// </summary>
-        internal static string Schedule_Unknown_Light {
+        public static string Schedule_Unknown_Light {
             get {
                 return ResourceManager.GetString("Schedule_Unknown_Light", resourceCulture);
             }
@@ -1521,7 +1521,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Scene not found.
         /// </summary>
-        internal static string Schedule_Unknown_Scene {
+        public static string Schedule_Unknown_Scene {
             get {
                 return ResourceManager.GetString("Schedule_Unknown_Scene", resourceCulture);
             }
@@ -1530,7 +1530,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Searching for new lights....
         /// </summary>
-        internal static string Searching_Lights {
+        public static string Searching_Lights {
             get {
                 return ResourceManager.GetString("Searching_Lights", resourceCulture);
             }
@@ -1539,7 +1539,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Searching for new sensors....
         /// </summary>
-        internal static string Searching_Sensors {
+        public static string Searching_Sensors {
             get {
                 return ResourceManager.GetString("Searching_Sensors", resourceCulture);
             }
@@ -1548,7 +1548,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select a light or group..
         /// </summary>
-        internal static string Select_Light_Group {
+        public static string Select_Light_Group {
             get {
                 return ResourceManager.GetString("Select_Light_Group", resourceCulture);
             }
@@ -1557,7 +1557,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please select at least one light to be previewed..
         /// </summary>
-        internal static string Select_One_Light {
+        public static string Select_One_Light {
             get {
                 return ResourceManager.GetString("Select_One_Light", resourceCulture);
             }
@@ -1566,7 +1566,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Sensor.
         /// </summary>
-        internal static string Sensor {
+        public static string Sensor {
             get {
                 return ResourceManager.GetString("Sensor", resourceCulture);
             }
@@ -1575,7 +1575,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this sensor ?.
         /// </summary>
-        internal static string Sensor_Delete {
+        public static string Sensor_Delete {
             get {
                 return ResourceManager.GetString("Sensor_Delete", resourceCulture);
             }
@@ -1584,7 +1584,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to This field cannot be empty..
         /// </summary>
-        internal static string Sensor_EmptyField_Error {
+        public static string Sensor_EmptyField_Error {
             get {
                 return ResourceManager.GetString("Sensor_EmptyField_Error", resourceCulture);
             }
@@ -1593,7 +1593,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to An error occured during communication..
         /// </summary>
-        internal static string Sensor_Error {
+        public static string Sensor_Error {
             get {
                 return ResourceManager.GetString("Sensor_Error", resourceCulture);
             }
@@ -1602,7 +1602,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Field must be at leat 6 characters long..
         /// </summary>
-        internal static string Sensor_FieldTooShort {
+        public static string Sensor_FieldTooShort {
             get {
                 return ResourceManager.GetString("Sensor_FieldTooShort", resourceCulture);
             }
@@ -1611,7 +1611,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Please make sure that all textbox are filled with required information and that the url is valid..
         /// </summary>
-        internal static string Sensor_InvalidFields {
+        public static string Sensor_InvalidFields {
             get {
                 return ResourceManager.GetString("Sensor_InvalidFields", resourceCulture);
             }
@@ -1620,7 +1620,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to The specified url is invalid. A valid url begins with http:// ..
         /// </summary>
-        internal static string Sensor_InvalidURL {
+        public static string Sensor_InvalidURL {
             get {
                 return ResourceManager.GetString("Sensor_InvalidURL", resourceCulture);
             }
@@ -1629,7 +1629,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Received Value.
         /// </summary>
-        internal static string Sensor_TestUrl {
+        public static string Sensor_TestUrl {
             get {
                 return ResourceManager.GetString("Sensor_TestUrl", resourceCulture);
             }
@@ -1638,7 +1638,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Unable to contact sensor. Please make sure that the sensor url is valid..
         /// </summary>
-        internal static string Sensor_UnableToComm {
+        public static string Sensor_UnableToComm {
             get {
                 return ResourceManager.GetString("Sensor_UnableToComm", resourceCulture);
             }
@@ -1647,7 +1647,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to IP Address set to : .
         /// </summary>
-        internal static string Settings_ChangeIp {
+        public static string Settings_ChangeIp {
             get {
                 return ResourceManager.GetString("Settings_ChangeIp", resourceCulture);
             }
@@ -1656,7 +1656,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Unable to test gradient. Please make sure that you have a value for the start and stop temperature as well as a light selected to test on..
         /// </summary>
-        internal static string Settings_CPU_Temp_NoValue {
+        public static string Settings_CPU_Temp_NoValue {
             get {
                 return ResourceManager.GetString("Settings_CPU_Temp_NoValue", resourceCulture);
             }
@@ -1665,7 +1665,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Warning : Entering the settings will disable all plugins. Are you sure you want to modify the settings ?.
         /// </summary>
-        internal static string Settings_DisableAllTools {
+        public static string Settings_DisableAllTools {
             get {
                 return ResourceManager.GetString("Settings_DisableAllTools", resourceCulture);
             }
@@ -1674,7 +1674,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string Success {
+        public static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
             }
@@ -1683,7 +1683,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to You must press the link button to enable the button..
         /// </summary>
-        internal static string Tooltip_UserManager_CreateUser {
+        public static string Tooltip_UserManager_CreateUser {
             get {
                 return ResourceManager.GetString("Tooltip_UserManager_CreateUser", resourceCulture);
             }
@@ -1692,7 +1692,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Enter a Device Type to identify your device in the bridge.
         /// </summary>
-        internal static string Tooltip_UserManager_DeviceType {
+        public static string Tooltip_UserManager_DeviceType {
             get {
                 return ResourceManager.GetString("Tooltip_UserManager_DeviceType", resourceCulture);
             }
@@ -1701,7 +1701,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Enter or Generate a username which is a unique string to identify your device..
         /// </summary>
-        internal static string Tooltip_UserManager_Username {
+        public static string Tooltip_UserManager_Username {
             get {
                 return ResourceManager.GetString("Tooltip_UserManager_Username", resourceCulture);
             }
@@ -1710,7 +1710,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to apply the update ?.
         /// </summary>
-        internal static string Update_Confirmation {
+        public static string Update_Confirmation {
             get {
                 return ResourceManager.GetString("Update_Confirmation", resourceCulture);
             }
@@ -1719,7 +1719,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Check every # minute(s).
         /// </summary>
-        internal static string Update_Delay_String {
+        public static string Update_Delay_String {
             get {
                 return ResourceManager.GetString("Update_Delay_String", resourceCulture);
             }
@@ -1728,7 +1728,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Error reading update status..
         /// </summary>
-        internal static string Update_Error {
+        public static string Update_Error {
             get {
                 return ResourceManager.GetString("Update_Error", resourceCulture);
             }
@@ -1737,7 +1737,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to A new bridge firmware is available..
         /// </summary>
-        internal static string UpdateAvailable {
+        public static string UpdateAvailable {
             get {
                 return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
@@ -1746,7 +1746,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this user ?.
         /// </summary>
-        internal static string UserManager_RemoveUser {
+        public static string UserManager_RemoveUser {
             get {
                 return ResourceManager.GetString("UserManager_RemoveUser", resourceCulture);
             }
@@ -1755,7 +1755,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
-        internal static string Warning {
+        public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
             }
@@ -1764,7 +1764,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Warning your bridge API version is not up to date. WinHue will not work properly unless you have the latest version of the bridge API. Please Update your bridge API to the latest version..
         /// </summary>
-        internal static string Warning_Bridge_Not_Updated {
+        public static string Warning_Bridge_Not_Updated {
             get {
                 return ResourceManager.GetString("Warning_Bridge_Not_Updated", resourceCulture);
             }
@@ -1773,7 +1773,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to You must restart the application to apply the new language..
         /// </summary>
-        internal static string Warning_ChangeLanguage {
+        public static string Warning_ChangeLanguage {
             get {
                 return ResourceManager.GetString("Warning_ChangeLanguage", resourceCulture);
             }
@@ -1782,7 +1782,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this mood ?.
         /// </summary>
-        internal static string Warning_Delete_Effect {
+        public static string Warning_Delete_Effect {
             get {
                 return ResourceManager.GetString("Warning_Delete_Effect", resourceCulture);
             }
@@ -1791,7 +1791,7 @@ namespace WinHue3 {
         /// <summary>
         ///   Looks up a localized string similar to Warning Transition Time is longer than 3 seconds ! You will not be able see your preview properly and the light will revert to their previous state after 3 seconds..
         /// </summary>
-        internal static string Warning_TransitionTime {
+        public static string Warning_TransitionTime {
             get {
                 return ResourceManager.GetString("Warning_TransitionTime", resourceCulture);
             }

@@ -122,6 +122,19 @@ namespace WinHue3
             }
         }
 
+        public void SetObjectBackground(List<HueObject> objectlist)
+        {
+            if (objectlist.Count <= 0) return;
+            foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<HueObject>()
+                                                       where objectlist.Contains(item)
+                                                       select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
+            {
+                ((ListViewItem)dependencyobject).Background = new SolidColorBrush();
+                ((SolidColorBrush)((ListViewItem)dependencyobject).Background).Color =
+                    System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
+            }
+        }
+
         public void ClearBackgroundColor()
         {
             // Clear any background color
@@ -141,6 +154,23 @@ namespace WinHue3
             log.Debug("Clearing light bg color.");
             ClearBackgroundColor();
             if (lvMainObjects.SelectedItem == null) return;
+            if (lvMainObjects.SelectedItem is Resourcelink)
+            {
+                Resourcelink rl = (Resourcelink) lvMainObjects.SelectedItem;
+                List<HueObject> listhue = new List<HueObject>();
+                List<HueObject> bo = new List<HueObject>(lvMainObjects.Items.OfType<HueObject>());
+                foreach (string s in rl.links)
+                {
+                    string[] objbreak = s.Split('/');
+                    string classname = objbreak[1].TrimEnd('s');
+                    classname = "HueLib2." + classname.First().ToString().ToUpper() + string.Join("", classname.Skip(1));
+                    Type objtype = Type.GetType(classname + ", HueLib2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+                    listhue.Add(bo.Find(x => x.Id == objbreak[2] && x.GetType() == objtype));
+                }
+                SetObjectBackground(listhue);
+                return;
+            }
+
             if (!lvMainObjects.SelectedItem.HasProperty("lights")) return;
             List<string> list =
                 (List<string>)

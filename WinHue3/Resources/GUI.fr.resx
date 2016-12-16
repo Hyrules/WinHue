@@ -1035,4 +1035,25 @@
   <data name="Form_HotKeyCreator_Warning_Generic" xml:space="preserve">
     <value>Le raccourci clavier générique fonctionne seulement quand un objet est sélectionné dans la fenêtre principale. Il ne fonctionnera pas en dehors de WinHue.</value>
   </data>
+  <data name="ListView_Resourcelink" xml:space="preserve">
+    <value>Liens de Ressources</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_ResourceLink" xml:space="preserve">
+    <value>Créateur de lien de ressources</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Title" xml:space="preserve">
+    <value>Création / Modification de lien de ressources</value>
+  </data>
+  <data name="&lt;" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Create" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
 </root>

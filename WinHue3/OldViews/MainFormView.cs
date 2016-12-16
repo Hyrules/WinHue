@@ -24,6 +24,7 @@ using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using MessageBox = System.Windows.MessageBox;
 using System.Net;
+using System.Windows.Forms;
 
 namespace WinHue3
 {
@@ -633,7 +634,8 @@ namespace WinHue3
                 if (_selectedObject is Light) return false;
                 if(_selectedObject is Scene)
                     if (((Scene) _selectedObject).version < 2) return false;
-                if (_selectedObject is Sensor) return false;
+                
+                if (_selectedObject is Resourcelink) return false;
                 return true;
             }
         }
@@ -704,7 +706,7 @@ namespace WinHue3
 
                 SelectedBridge = temp;
 
-                if (SelectedBridge.ApiVersion != "1.15.0")
+                if (SelectedBridge.ApiVersion != "1.16.0")
                 {
                     MessageBox.Show(GlobalStrings.Warning_Bridge_Not_Updated, GlobalStrings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -920,6 +922,7 @@ namespace WinHue3
             if (index == -1) return;
             _listBridgeObjects[index].SetName(fro.GetNewName());
             log.Info($"Renamed object ID : {index} renamed.");
+
         }
 
         private void RefreshObject(HueObject obj, bool logging = false)
@@ -950,7 +953,7 @@ namespace WinHue3
 
             if(_selectedObject is Group)
             {
-                Form_GroupCreator fgc = new Form_GroupCreator(BridgeStore.SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
+                Form_GroupCreator fgc = new Form_GroupCreator(_selectedObject) { Owner = Application.Current.MainWindow };
                 if(fgc.ShowDialog() == true)
                 {
                     RefreshObject(_selectedObject);
@@ -970,11 +973,19 @@ namespace WinHue3
                 switch (obj.modelid)
                 {
                     case "PHDL00":
-                        Form_Daylight dl = new Form_Daylight(BridgeStore.SelectedBridge, obj) {Owner = Application.Current.MainWindow};
-                        if(dl.ShowDialog() == true)
+                        CommandResult cr= BridgeStore.SelectedBridge.GetObject<Sensor>(obj.Id);
+                        if (cr.Success)
                         {
-                            RefreshObject(_selectedObject);
+                            Sensor daylight = (Sensor) cr.resultobject;
+                            daylight.Id = obj.Id;
+                            Form_Daylight dl = new Form_Daylight(daylight) { Owner = Application.Current.MainWindow };
+                            if (dl.ShowDialog() == true)
+                            {
+                                RefreshObject(_selectedObject);
+                            }
+
                         }
+
                         break;
                     case "ZGPSWITCH":
                         Form_HueTapConfig htc = new Form_HueTapConfig(BridgeStore.SelectedBridge, obj.Id)
@@ -1077,7 +1088,7 @@ namespace WinHue3
 
         private void CreateGroup()
         {
-            Form_GroupCreator fgc = new Form_GroupCreator(BridgeStore.SelectedBridge) { Owner = Application.Current.MainWindow };
+            Form_GroupCreator fgc = new Form_GroupCreator { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the Group creator window for bridge {BridgeStore.SelectedBridge.IpAddress} ");
             if (fgc.ShowDialog() != true) return;
             if (fgc.GetCreatedOrModifiedID() == null) return;
@@ -1431,8 +1442,6 @@ namespace WinHue3
 
         private void SensitivityLow()
         {
-
-
             Sensor sensor = (Sensor) _selectedObject;
             ((HueMotionSensorConfig)sensor.config).sensitivity = 0;
            // sensor.Id = _selectedObject.Id;
@@ -1580,6 +1589,16 @@ namespace WinHue3
             clapper.Start();
         }
 
+        private void CreateResourceLink()
+        {
+            Form_ResourceLinksCreator frc = new Form_ResourceLinksCreator() { Owner = Application.Current.MainWindow };
+            if (frc.ShowDialog() == true)
+            {
+                
+            }
+                
+        }
+
         #endregion
 
         #endregion
@@ -1602,6 +1621,7 @@ namespace WinHue3
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor());
         public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
         public ICommand CreateHotKeyCommand => new RelayCommand(param => CreateHotKey());
+        public ICommand CreateResourceLinkCommand => new RelayCommand(param => CreateResourceLink());
         public ICommand AllOnCommand => new RelayCommand(param => AllOn());
         public ICommand AllOffCommand => new RelayCommand(param => AllOff());
         public ICommand ShowEventLogCommand => new RelayCommand(param => ShowEventLog());

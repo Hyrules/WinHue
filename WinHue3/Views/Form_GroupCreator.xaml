@@ -5,7 +5,11 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:winHue3="clr-namespace:WinHue3"
         x:Class="WinHue3.Form_GroupCreator"
-        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="528" Width="592.369" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Loaded="Window_Loaded">
+        xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
+        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="528" Width="592.369" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png">
+    <Window.DataContext>
+        <viewModels:GroupCreatorViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type ListView}">
             <Style.Triggers>
@@ -47,10 +51,10 @@
         <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" />
         <Button x:Name="btnClear" Content="{x:Static resx:GUI.GroupCreatorForm_ClearButton}" Command="{Binding ClearFieldsCommand}" HorizontalAlignment="Left" Margin="312,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Height="23"/>
 
-        <xctk:WatermarkTextBox x:Name="tbGroupName" HorizontalAlignment="Left" Margin="106,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding GroupName}" VerticalAlignment="Top" Width="201" Height="23" Watermark="Group name (Optional)"/>
+        <xctk:WatermarkTextBox x:Name="tbGroupName" HorizontalAlignment="Left" Margin="106,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="201" Height="23" Watermark="Group name (Optional)"/>
         <GroupBox x:Name="groupbox" Header="Available Lights" HorizontalAlignment="Left" VerticalAlignment="Top" Height="440" Width="280">
             <Grid>
-                <ListView x:Name="lvAvailableLights" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding AvailableLightList}" SelectedItem="{Binding SelectedAvailableLight}" Margin="10,10,10,34" SelectionMode="Single">
+                <ListView x:Name="lvAvailableLights" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding GroupCreator.AvailableLightList}" SelectedItem="{Binding SelectedAvailableLight}" Margin="10,10,10,34" SelectionMode="Single">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
@@ -71,7 +75,7 @@
 
         <GroupBox x:Name="groupBox" Header="Group lights" HorizontalAlignment="Left" Margin="285,0,0,0" VerticalAlignment="Top" Height="440" Width="291">
             <Grid>
-                <ListView x:Name="lvGroupLights" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding GroupLightList}" SelectedItem="{Binding SelectedGroupLight}" Margin="10,10,10,35" SelectionMode="Single">
+                <ListView x:Name="lvGroupLights" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding GroupCreator.GroupLightList, ValidatesOnDataErrors=True ,ValidatesOnNotifyDataErrors=True}" SelectedItem="{Binding SelectedGroupLight}" Margin="10,10,10,35" SelectionMode="Single">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>

@@ -50,6 +50,7 @@
                     <RibbonButton x:Name="btnCreateSensor" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}" IsEnabled="{Binding EnableControls, FallbackValue=false}" LargeImageSource="Resources/sensor.png" SmallImageSource="Resources/sensor.png" Command="{Binding CreateSensorCommand}"/>
                     <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
                     <RibbonButton x:Name="btnCreateHotkey" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" IsEnabled="{Binding EnableControls, FallbackValue=false}"  Command="{Binding CreateHotKeyCommand}" LargeImageSource="Resources/1465102684_preferences-desktop-keyboard-shortcuts.png"/>
+                    <RibbonButton x:Name="btnCreateResourceLink" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}" IsEnabled="{Binding EnableControls, FallbackValue=false}"  Command="{Binding CreateResourceLinkCommand}" LargeImageSource="Resources/resource.png"/>
                     <!--<RibbonSplitButton x:Name="btnCreateMood" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateMood}" IsEnabled="true"
                                         LargeImageSource="Resources/moods64.png" SmallImageSource="Resources/moods64.png">
                         <RibbonSplitButton.Command>local:CommandLibrary.CreateMood</RibbonSplitButton.Command>
@@ -102,7 +103,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" PreviewKeyUp="lvMainObjects_PreviewKeyUp">
+            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" PreviewKeyUp="lvMainObjects_PreviewKeyUp" VerticalContentAlignment="Stretch">
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -148,7 +149,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True">
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                             <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
                         </WrapPanel>

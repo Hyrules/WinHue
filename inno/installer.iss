@@ -20,7 +20,7 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
-DisableDirPage=yes
+DisableDirPage=false
 DefaultGroupName={#MyAppName}
 OutputBaseFilename={#MyAppName} {#MyAppVersion} Setup
 Compression=lzma
@@ -58,6 +58,8 @@ Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Mi
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\fr\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\prism.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\prism.wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
