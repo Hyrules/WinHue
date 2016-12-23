@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:WinHue3" x:Class="WinHue3.Form_AppSettings"
         xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:converters="clr-namespace:WinHue3.Converters"
         Title="{x:Static resx:GUI.SettingsForm_Title}" Height="416" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" Icon="/WinHue3;component/Resources/gear_in.png">
     <Window.Resources>
-        <local:BoolToOppositeBoolConverter x:Key="ReverseToBoolConverter"/>
+        <converters:BoolToOppositeBoolConverter x:Key="ReverseToBoolConverter"/>
     </Window.Resources>
     <Grid>
         <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="btnApply" HorizontalAlignment="Left" Margin="274,349,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>

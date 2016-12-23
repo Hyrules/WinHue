@@ -61,15 +61,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string _ {
-            get {
-                return ResourceManager.GetString("<", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Abort.
         /// </summary>
         public static string BridgeDetectionPairing_Abort {
@@ -2194,7 +2185,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schedule Enabled.
+        ///   Looks up a localized string similar to Enabled.
         /// </summary>
         public static string ScheduleCreatorForm_Enable {
             get {
@@ -2262,6 +2253,15 @@ namespace WinHue3.Resources {
         public static string ScheduleCreatorForm_Randomize {
             get {
                 return ResourceManager.GetString("ScheduleCreatorForm_Randomize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat(s) :.
+        /// </summary>
+        public static string ScheduleCreatorForm_Repeat {
+            get {
+                return ResourceManager.GetString("ScheduleCreatorForm_Repeat", resourceCulture);
             }
         }
         

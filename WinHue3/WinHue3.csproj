@@ -126,6 +126,8 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -195,6 +197,14 @@
       <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
+    <Compile Include="Converters\DateTimeToScheduleTime.cs" />
+    <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
+    <Compile Include="Converters\ScheduleMaskConverter.cs" />
+    <Compile Include="Converters\ScheduleTypeConverter.cs" />
+    <Compile Include="Converters\SliderToByteConverter.cs" />
+    <Compile Include="Converters\SliderToUshortConverter.cs" />
+    <Compile Include="Converters\SliderToXYConverter.cs" />
+    <Compile Include="Converters\VisibleToBoolConverter.cs" />
     <Compile Include="GlobalStrings.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,10 +217,14 @@
     </Compile>
     <Compile Include="Models\DaylightModel.cs" />
     <Compile Include="Models\GroupCreatorModel.cs" />
+    <Compile Include="Models\ScheduleCreatorModel.cs" />
+    <Compile Include="Utils\ConditionnalValidation.cs" />
     <Compile Include="Utils\ValidateBindableBase.cs" />
     <Compile Include="Validation\MinimumCountValidation.cs" />
+    <Compile Include="Validation\RequireMaskValidation.cs" />
     <Compile Include="ViewModels\DaylightViewModel.cs" />
     <Compile Include="ViewModels\GroupCreatorViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleCreatorViewModel.cs" />
     <Compile Include="Views\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
     </Compile>
@@ -264,7 +278,6 @@
     <Compile Include="Interface\ScreenPixelHandler.cs" />
     <Compile Include="Interface\TypeGroupDescription.cs" />
     <Compile Include="Utils\HueObjectHelper.cs" />
-    <Compile Include="Utils\Utils.cs" />
     <Compile Include="OldViews\AddManualIPView.cs" />
     <Compile Include="OldViews\AnimatorView.cs" />
     <Compile Include="OldViews\BridgeSettingsView.cs" />
@@ -436,9 +449,8 @@
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Color\HueXYArray.cs" />
-    <Compile Include="Color\HueColorConverter.cs" />
+    <Compile Include="Converters\HueColorConverter.cs" />
     <Compile Include="OldViews\DaylightView.cs" />
-    <Compile Include="OldViews\ScheduleView.cs" />
     <Compile Include="Resources\GUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

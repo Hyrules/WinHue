@@ -5,12 +5,24 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         x:Class="WinHue3.Form_ScheduleCreator"
         xmlns:winHue3="clr-namespace:WinHue3"
+        xmlns:viewModel="clr-namespace:WinHue3.ViewModels"
+        xmlns:converter="clr-namespace:WinHue3.Converters"
         Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="628" Width="716" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SchedulesLarge.png">
 
+    <Window.DataContext>
+        <viewModel:ScheduleCreatorViewModel/>
+    </Window.DataContext>
 
     <Window.Resources>
-        <winHue3:HueColorConverter x:Key="HueColorConverter"/>
-
+        <converter:ScheduleTypeConverter x:Key="ScheduleTypeConverter"/>
+        <converter:ScheduleMaskConverter x:Key="ScheduleMaskConverter"/>
+        <converter:DateTimeToScheduleConverter x:Key="DateTimeToScheduleConverter"/>
+        <converter:SliderToByteConverter x:Key="SliderToByteConverter"/>
+        <converter:SliderToUshortConverter x:Key="SliderToUshortConverter"/>
+        <converter:SliderToXYConverter x:Key="SliderToXyConverter"/>
+        <converter:NudToTransitionTimeConverter x:Key="NudToTransitionTimeConverter"/>
+        <converter:HueColorConverter x:Key="HueColorConverter"/>
+        <converter:BoolToOppositeBoolConverter x:Key="BoolToOppositeBoolConverter"/>
         <Style TargetType="{x:Type xctk:CheckComboBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -43,7 +55,7 @@
         <GroupBox x:Name="grpSettings" Header="{x:Static resx:GUI.ScheduleCreatorForm_ScheduleSettings}" HorizontalAlignment="Left" Margin="6,257,0,0" VerticalAlignment="Top" Height="302" Width="685">
             <Grid>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Center" Margin="10,0,561,254" Width="102"/>
-                <Slider x:Name="slHue" Value="{Binding Hue}" Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,619,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding ElementName=slHue,Path=Value}" IsMoveToPointEnabled="True">
+                <Slider x:Name="slHue" Value="{Binding ScheduleModel.Hue, Converter={StaticResource SliderToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,619,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding ElementName=slHue,Path=Value}" IsMoveToPointEnabled="True" IsEnabled="{Binding CanSetSettings}">
                     <Slider.Background>
                         <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0" >
                             <GradientStop Color="#FFFF0000" />
@@ -60,7 +72,7 @@
                     </Slider.Style>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Brightness}" HorizontalAlignment="Center" Margin="117,0,460,254" Width="96"/>
-                <Slider x:Name="slBri" Value="{Binding Bri}"  Height="217" VerticalAlignment="Top" Maximum="254" Margin="140,31,511,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" Minimum="-1" IsMoveToPointEnabled="True">
+                <Slider x:Name="slBri" Value="{Binding ScheduleModel.Bri, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Margin="140,31,511,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" Minimum="-1" IsMoveToPointEnabled="True" IsEnabled="{Binding CanSetSettings}">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
                             <GradientStop Color="White" Offset="1"/>
@@ -69,7 +81,7 @@
                     </Slider.Background>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_ColorTemp}" HorizontalAlignment="Center"  Width="101" Margin="218,0,354,254"/>
-                <Slider x:Name="slCT" Value="{Binding Ct}"  Height="217" VerticalAlignment="Top" Maximum="500" Margin="249,31,403,0" Width="Auto" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
+                <Slider x:Name="slCT" Value="{Binding ScheduleModel.Ct, Converter={StaticResource SliderToUshortConverter}}"  Height="217" VerticalAlignment="Top" Maximum="500" Margin="249,31,403,0" Width="Auto" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True" IsEnabled="{Binding CanSetSettings}">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFFF8912" Offset="0"/>
@@ -78,7 +90,7 @@
                     </Slider.Background>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Saturation}" HorizontalAlignment="Center" Margin="339,0,241,254" Width="93"/>
-                <Slider x:Name="slSAT" Value="{Binding Sat}"  Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="361,31,290,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
+                <Slider x:Name="slSAT" Value="{Binding ScheduleModel.Sat, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="361,31,290,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True" IsEnabled="{Binding CanSetSettings}">
                     <Slider.Background>
                         <LinearGradientBrush  EndPoint="0.5,0" StartPoint="0.5,1">
                             <GradientStop Color="White" x:Name="slSATStartGradient"/>
@@ -87,28 +99,28 @@
                     </Slider.Background>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_XColorSpace}" HorizontalAlignment="Center" Margin="447,0,136,254" Width="90" RenderTransformOrigin="0.507,0"/>
-                <Slider x:Name="slX" Value="{Binding X}" Maximum="1" Margin="479,31,167,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True"/>
+                <Slider x:Name="slX" Value="{Binding ScheduleModel.X, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="479,31,167,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True" IsEnabled="{Binding CanSetSettings}"/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_YColorSpace}" HorizontalAlignment="Center" Margin="557,0,28,254" Width="88"/>
-                <Slider x:Name="slY" Value="{Binding Y}" Maximum="1" Margin="589,31,60,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True"/>
+                <Slider x:Name="slY" Value="{Binding ScheduleModel.Y, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="589,31,60,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True" IsEnabled="{Binding CanSetSettings}"/>
             </Grid>
         </GroupBox>
 
         <GroupBox Header="{x:Static resx:GUI.ScheduleCreatorForm_ScheduleInformation}" HorizontalAlignment="Left" Height="246" Margin="6,6,0,0" VerticalAlignment="Top" Width="685">
             <Grid Margin="0,0,0,3">
-                <xctk:DoubleUpDown x:Name="dudTT" Value="{Binding Transitiontime}" HorizontalAlignment="Left" Margin="134,189,0,0" VerticalAlignment="Top" Width="106" Text="0" Maximum="65535" Minimum="-1" TabIndex="6" Height="23" ToolTip="In milliseconds. Maximum is 65535 ms.(set to 0 for no delay and -1 to default."/>
-                <xctk:DateTimePicker x:Name="dtpScheduleDateTime" Value="{Binding Localtime}"  HorizontalAlignment="Left" Height="23" Margin="134,145,0,0" VerticalAlignment="Top" Width="239" TabIndex="4" TimeFormat="Custom" Format="Custom" FormatString="{Binding TimeFormatString}" ToolTip="Must be geater than 5 minutes from now." SnapsToDevicePixels="True" TimePickerAllowSpin="False"/>
+                <xctk:DoubleUpDown x:Name="dudTT" Value="{Binding ScheduleModel.Transitiontime,Converter={StaticResource NudToTransitionTimeConverter}}" HorizontalAlignment="Left" Margin="134,189,0,0" VerticalAlignment="Top" Width="83" Text="0" Maximum="65535" Minimum="-1" TabIndex="6" Height="23" ToolTip="In milliseconds. Maximum is 65535 ms.(set to 0 for no delay and -1 to default." DefaultValue="0" IsEnabled="{Binding CanSetSettings}"/>
+                <xctk:DateTimePicker x:Name="dtpScheduleDateTime" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" HorizontalAlignment="Left" Height="23" Margin="134,145,0,0" VerticalAlignment="Top" Width="239" TabIndex="4" TimeFormat="Custom" Format="Custom" FormatString="{Binding TimeFormatString}" ToolTip="Must be geater than 5 minutes from now." SnapsToDevicePixels="True" TimePickerAllowSpin="False"/>
                 <!-- {x:Static resx:GUI.ScheduleCreatorForm_StartTime} -->
                 <Label x:Name="lblStartTime" Content="{Binding StartTimeText}" HorizontalAlignment="Left" Margin="9,142,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.055,0.634"/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Description}" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="119"/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Name}" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="119"/>
-                <ComboBox x:Name="cbTypeSchedule" SelectedIndex="{Binding Type}" HorizontalAlignment="Left" Margin="134,15,0,0" VerticalAlignment="Top" Width="172" TabIndex="0" Height="23">
+                <ComboBox x:Name="cbTypeSchedule" SelectedIndex="{Binding SelectedType, Converter={StaticResource ScheduleTypeConverter}}" HorizontalAlignment="Left" Margin="134,15,0,0" VerticalAlignment="Top" Width="172" TabIndex="0" Height="23">
                     <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}"/>
                     <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}"/>
                     <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}"/>
                 </ComboBox>
                 <xctk:CheckComboBox x:Name="chcbDOW" Visibility="{Binding IsAlarm}" HorizontalAlignment="Left" Margin="435,15,0,0" VerticalAlignment="Top" Width="198" Height="23" SnapsToDevicePixels="True" TabIndex="1" DisplayMemberPath="Text" ValueMemberPath="Name">
                     <xctk:CheckComboBox.SelectedValue>
-                        <Binding Path="ScheduleMask" ValidatesOnNotifyDataErrors="True"/>
+                        <Binding Path="ScheduleMask" Converter="{StaticResource ScheduleMaskConverter}" ValidatesOnDataErrors="True" ValidatesOnNotifyDataErrors="True" UpdateSourceTrigger="PropertyChanged" />
                     </xctk:CheckComboBox.SelectedValue>
                     <TextBlock x:Name="Mon" Text="{x:Static resx:GUI.ScheduleCreatorForm_Monday}"/>
                     <TextBlock x:Name="Tue" Text="{x:Static resx:GUI.ScheduleCreatorForm_Tuesday}"/>
@@ -119,18 +131,20 @@
                     <TextBlock x:Name="Sun" Text="{x:Static resx:GUI.ScheduleCreatorForm_Sunday}"/>
                 </xctk:CheckComboBox>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Type}" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Width="119"/>
-                <Label x:Name="lblDOW" Content="{x:Static resx:GUI.ScheduleCreatorForm_DaysOfWeek}" HorizontalAlignment="Left" Height="34" Margin="315,11,0,0" VerticalAlignment="Top" Width="115" Visibility="Hidden"/>
-                <CheckBox x:Name="chbON" IsChecked="{Binding On}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="595,150,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below."/>
-                <CheckBox x:Name="chbRandomize" IsChecked="{Binding Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="378,150,0,0" VerticalAlignment="Top" Width="83" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
-                <CheckBox x:Name="chbAutodelete" IsChecked="{Binding Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="479,150,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True"/>
-                <CheckBox x:Name="chbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="519,196,0,0" VerticalAlignment="Top" IsChecked="{Binding Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not."/>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="245,187,0,0" VerticalAlignment="Top" Width="174"/>
+                <Label x:Name="lblDOW" Content="{x:Static resx:GUI.ScheduleCreatorForm_DaysOfWeek}" HorizontalAlignment="Left" Height="34" Margin="315,11,0,0" VerticalAlignment="Top" Width="115" Visibility="{Binding IsAlarm}"/>
+                <CheckBox x:Name="chbON" IsChecked="{Binding ScheduleModel.On}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="595,150,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below." IsEnabled="{Binding CanSetSettings}"/>
+                <CheckBox x:Name="chbRandomize" IsChecked="{Binding ScheduleModel.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="378,150,0,0" VerticalAlignment="Top" Width="83" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
+                <CheckBox x:Name="chbAutodelete" IsChecked="{Binding ScheduleModel.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="479,150,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True"/>
+                <CheckBox x:Name="chbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="571,195,0,0" VerticalAlignment="Top" IsChecked="{Binding ScheduleModel.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not."/>
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="222,188,0,0" VerticalAlignment="Top" Width="161"/>
                 <Label x:Name="label" Content="Transition time :" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top"/>
-                <xctk:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="134,60,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="499" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name_Tooltip}"/>
-                <xctk:WatermarkTextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="134,102,0,0" TextWrapping="Wrap" Text="{Binding Description}" VerticalAlignment="Top" Width="499" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}"/>
+                <xctk:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="134,60,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Name}" VerticalAlignment="Top" Width="499" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name_Tooltip}"/>
+                <xctk:WatermarkTextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="134,102,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Description}" VerticalAlignment="Top" Width="499" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}"/>
+                <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="479,189,0,0" VerticalAlignment="Top" Minimum="1" Maximum="99" Height="23" Width="59" Value="{Binding ScheduleModel.Repetition}" Visibility="{Binding CanRepeat}"/>
+                <Label x:Name="label1" Content="{x:Static resx:GUI.ScheduleCreatorForm_Repeat}" HorizontalAlignment="Left" Margin="383,188,0,0" VerticalAlignment="Top" Width="91" Visibility="{Binding CanRepeat}"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="btnClear" Content="{x:Static resx:GUI.ScheduleCreatorForm_ClearButton}" HorizontalAlignment="Left" Margin="456,564,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnClear" Content="{x:Static resx:GUI.ScheduleCreatorForm_ClearButton}" IsEnabled="{Binding IsEditing, Converter={StaticResource BoolToOppositeBoolConverter}}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="456,564,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="btnSave" Content="{x:Static resx:GUI.ScheduleCreatorForm_SaveButton}" Style="{StaticResource btnSave}"  HorizontalAlignment="Left" Margin="536,564,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
         <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ScheduleCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="616,564,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
     </Grid>

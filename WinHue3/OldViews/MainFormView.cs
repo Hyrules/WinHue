@@ -603,7 +603,7 @@ namespace WinHue3
             get
             {
                 if (_selectedObject == null) return false;
-                return _selectedObject is Light || _selectedObject is Group;
+                return _selectedObject is Light || _selectedObject is Group || _selectedObject is Scene;
             }
         }
 
@@ -961,7 +961,7 @@ namespace WinHue3
             }
             else if (_selectedObject is Schedule)
             {
-                Form_ScheduleCreator fsc = new Form_ScheduleCreator(BridgeStore.SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
+                Form_ScheduleCreator fsc = new Form_ScheduleCreator(_selectedObject) { Owner = Application.Current.MainWindow };
                 if (fsc.ShowDialog() == true)
                 {
                     RefreshObject(_selectedObject);
@@ -1125,7 +1125,7 @@ namespace WinHue3
 
         private void CreateSchedule()
         {
-            Form_ScheduleCreator fscc = new Form_ScheduleCreator(BridgeStore.SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
+            Form_ScheduleCreator fscc = new Form_ScheduleCreator(_selectedObject) { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the schedule creator window passing bridge {BridgeStore.SelectedBridge.IpAddress} ");
             if (fscc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created schedule ID {fscc.GetCreatedOrModifiedID()} from bridge {BridgeStore.SelectedBridge.IpAddress}");

@@ -35,6 +35,7 @@ namespace HueLib2
                     case WebRequestType.GET:
                         Method = "GET";
                         var bytes = wc.DownloadData(url);
+                        
                         UTF8Encoding utf8 = new UTF8Encoding();
                         received = utf8.GetString(bytes);
                         break;

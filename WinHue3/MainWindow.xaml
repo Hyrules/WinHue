@@ -8,7 +8,7 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         x:Class="WinHue3.MainWindow"
-        Title="WinHue 3" Height="842" Width="1207" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="803" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing" ContentRendered="Window_ContentRendered" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ResizeMode="CanResizeWithGrip" KeyUp="Window_KeyUp" Loaded="Window_Loaded" >
+        Title="WinHue 3" Height="768" Width="1024" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing" ContentRendered="Window_ContentRendered" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ResizeMode="CanResizeWithGrip" KeyUp="Window_KeyUp" Loaded="Window_Loaded" >
 
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">

@@ -577,7 +577,7 @@
     <value>Description :</value>
   </data>
   <data name="ScheduleCreatorForm_Enable" xml:space="preserve">
-    <value>Schedule Enabled</value>
+    <value>Enabled</value>
   </data>
   <data name="ScheduleCreatorForm_Friday" xml:space="preserve">
     <value>Friday</value>
@@ -1044,9 +1044,6 @@
   <data name="ResourceLinkCreatorForm_Title" xml:space="preserve">
     <value>Resource Link Creator / Editor ...</value>
   </data>
-  <data name="&lt;" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="ResourceLinkCreatorForm_Create" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -1055,5 +1052,8 @@
   </data>
   <data name="ResourceLinkCreatorForm_Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="ScheduleCreatorForm_Repeat" xml:space="preserve">
+    <value>Repeat(s) :</value>
   </data>
 </root>

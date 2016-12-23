@@ -20,7 +20,7 @@ namespace HueLib2
         /// Color
         /// </summary>
         [DataMember]
-        public int? hue { get; set; }
+        public ushort? hue { get; set; }
         /// <summary>
         /// Saturation
         /// </summary>
@@ -35,7 +35,7 @@ namespace HueLib2
         /// Transition time
         /// </summary>
         [DataMember]
-        public int? transitiontime { get; set; }
+        public uint? transitiontime { get; set; }
         /// <summary>
         /// State of the light (on or off)
         /// </summary>

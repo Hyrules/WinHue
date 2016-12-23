@@ -37,9 +37,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HueLib2">
-      <HintPath>..\WinHue3\bin\Debug\HueLib2.dll</HintPath>
+      <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism">
+      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="WinHue3">
+      <HintPath>..\WinHue3\bin\Debug\WinHue3.exe</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
