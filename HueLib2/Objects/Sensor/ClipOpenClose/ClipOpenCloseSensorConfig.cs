@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -23,12 +24,12 @@ namespace HueLib2
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [DataMember, HueLib(false, false), ReadOnly(true)]
         public bool? reachable { get; set; }
         /// <summary>
         /// Battery state.
         /// </summary>
         [DataMember, HueLib(false, false)]
-        public bool? battery { get; set; }
+        public byte? battery { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace WinHue3.ViewModels
         private string _timeformat;
         private string _randomizetime;
         private bool _isedit;
-        private bool _cansetsettings;
+        private bool _cansetsettings = true;
 
         public ScheduleCreatorViewModel()
         {

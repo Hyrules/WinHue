@@ -1735,6 +1735,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Add {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ResourceLinkCreatorForm_Cancel {
@@ -1758,6 +1767,15 @@ namespace WinHue3.Resources {
         public static string ResourceLinkCreatorForm_Name {
             get {
                 return ResourceManager.GetString("ResourceLinkCreatorForm_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Remove {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Remove", resourceCulture);
             }
         }
         
@@ -2509,6 +2527,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify.
+        /// </summary>
+        public static string SensorCreatorForm_EditButton {
+            get {
+                return ResourceManager.GetString("SensorCreatorForm_EditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mfg Name :.
         /// </summary>
         public static string SensorCreatorForm_MfgName {
@@ -2586,6 +2613,15 @@ namespace WinHue3.Resources {
         public static string SensorCreatorForm_TestURLButton {
             get {
                 return ResourceManager.GetString("SensorCreatorForm_TestURLButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create / Edit a sensor....
+        /// </summary>
+        public static string SensorCreatorForm_Title {
+            get {
+                return ResourceManager.GetString("SensorCreatorForm_Title", resourceCulture);
             }
         }
         

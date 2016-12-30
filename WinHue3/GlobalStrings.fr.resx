@@ -490,7 +490,7 @@
     <value>Veuillez sélectionner un bouton afin de choisir son action.</value>
   </data>
   <data name="HueTap_SelectAScene" xml:space="preserve">
-    <value>No scene selected. Please select a scene and press assign again.</value>
+    <value>Aucune scène sélectionnée. Veuillez sélectionner une scène et appuyer sur assigner à nouveau.</value>
   </data>
   <data name="Sensor_TestUrl" xml:space="preserve">
     <value>Valeur Reçu</value>

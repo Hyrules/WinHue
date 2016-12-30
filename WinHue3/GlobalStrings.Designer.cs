@@ -826,7 +826,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aucune scène sélectionnée. Veuillez sélectionner une scène et appuyer sur assigner à nouveau..
+        ///   Looks up a localized string similar to No scene selected. Please select a scene and press assign again..
         /// </summary>
         public static string HueTap_SelectAScene {
             get {

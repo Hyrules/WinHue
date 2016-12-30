@@ -1,24 +1,68 @@
-﻿<Window x:Class="WinHue3.Form_ResourceLinksCreator"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:viewmodel="clr-namespace:WinHue3.ViewModels"
+        xmlns:CustomControls="clr-namespace:WinHue3.CustomControls" x:Class="WinHue3.Form_ResourceLinksCreator"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="431.236" Width="799.896" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="420.194" Width="756.139" WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <viewmodel:ResourceLinkCreatorViewModel/>
+    </Window.DataContext>
     <Grid>
-        <ListView x:Name="listView" Margin="0,0,544.333,41" SelectionMode="Multiple">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="53,370,0,0" TextWrapping="Wrap" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="172"/>
-        <Label x:Name="label" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Name}" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Create}" HorizontalAlignment="Left" Margin="628,372,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button1" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" HorizontalAlignment="Left" Margin="708,372,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="54,10,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" Width="172"/>
+        <Label x:Name="label" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Name}" HorizontalAlignment="Left" Margin="11,7,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnCreateResourceLink" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Create}" HorizontalAlignment="Left" Margin="574,353,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateResourceLink_Click"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" HorizontalAlignment="Left" Margin="654,353,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click" />
+
+        <CustomControls:BindableListView x:Name="bindableListView" HorizontalAlignment="Left" Margin="231,10,0,0" VerticalAlignment="Top" Height="332" Width="498" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListHueObjects}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                        <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                        <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True" >
+                                            <Expander.Header>
+                                                <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" >
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush>
+                                                            <GradientStop Color="White" />
+                                                            <GradientStop Color="Gray" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+                                                    <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}" FontStyle="Italic"/>
+                                                </Grid>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </CustomControls:BindableListView>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="148" Margin="54,43,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Description}" VerticalAlignment="Top" Width="172"/>
+        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="16,43,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -1056,4 +1056,16 @@
   <data name="ScheduleCreatorForm_Repeat" xml:space="preserve">
     <value>Répétition(s) :</value>
   </data>
+  <data name="ResourceLinkCreatorForm_Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="SensorCreatorForm_EditButton" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="SensorCreatorForm_Title" xml:space="preserve">
+    <value>Créer / Modifier un capteur...</value>
+  </data>
 </root>

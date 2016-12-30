@@ -378,20 +378,16 @@ namespace HueLib2
         /// <returns></returns>
         private object ClearNotAllowedModifyProperties(object obj)
         {
-            string json = Serializer.SerializeToJson(obj);
-            MethodInfo mi = typeof(Serializer).GetMethod("DeserializeToObject");
-            MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
-            object newobj = generic.Invoke(obj, new object[] { json });
-            PropertyInfo[] listproperties = newobj.GetType().GetProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
                 if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
                 HueLibAttribute hla = (HueLibAttribute) Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
                 if (!hla.Modify)
-                    p.SetValue(newobj, null);
+                    p.SetValue(obj, null);
             }
 
-            return newobj;            
+            return obj;            
         }
 
         /// <summary>
@@ -401,20 +397,16 @@ namespace HueLib2
         /// <returns></returns>
         private object ClearNotAllowedCreationProperties(object obj)
         {
-            string json = Serializer.SerializeToJson(obj);
-            MethodInfo mi = typeof(Serializer).GetMethod("DeserializeToObject");
-            MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
-            object newobj = generic.Invoke(obj, new object[] { json });
-            PropertyInfo[] listproperties = newobj.GetType().GetProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
                 if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
                 HueLibAttribute hla = (HueLibAttribute)Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
                 if (!hla.Create)
-                    p.SetValue(newobj, null);
+                    p.SetValue(obj, null);
             }
 
-            return newobj;
+            return obj;
         }
     }
 }

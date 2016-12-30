@@ -35,7 +35,19 @@ namespace WinHue3
             log.Info($@"WinHue {ver} started");
             MainWindow wnd = new MainWindow(fel) { Version = ver};
             MainWindow.Title = "WinHue 3 " + ver;
-            
+
+            double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
+                ? SystemParameters.WorkArea.Height*0.75
+                : MainWindow.MinHeight;
+
+            double width = SystemParameters.WorkArea.Width * 0.75 >= MainWindow.MinWidth
+                ? SystemParameters.WorkArea.Width * 0.75
+                : MainWindow.MinWidth;
+
+
+            MainWindow.Height = height;
+            MainWindow.Width = width;
+
             if (IsUserAdministrator())
             {
 

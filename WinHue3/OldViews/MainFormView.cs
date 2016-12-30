@@ -23,7 +23,6 @@ using WinHue3.Resources;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using MessageBox = System.Windows.MessageBox;
-using System.Net;
 using System.Windows.Forms;
 
 namespace WinHue3
@@ -988,7 +987,7 @@ namespace WinHue3
 
                         break;
                     case "ZGPSWITCH":
-                        Form_HueTapConfig htc = new Form_HueTapConfig(BridgeStore.SelectedBridge, obj.Id)
+                        Form_HueTapConfig htc = new Form_HueTapConfig(obj.Id)
                         {
                             Owner = Application.Current.MainWindow
                         };
@@ -998,13 +997,18 @@ namespace WinHue3
                         }
                         break;
                     default:
-                        Form_SensorCreator fsc = new Form_SensorCreator(BridgeStore.SelectedBridge, obj)
+                        CommandResult crs = BridgeStore.SelectedBridge.GetObject<Sensor>(obj.Id);
+                        if (crs.Success)
                         {
-                            Owner = Application.Current.MainWindow
-                        };
-                        if (fsc.ShowDialog() == true)
-                        {
-                            RefreshObject(_selectedObject);
+                            Form_SensorCreator fsc = new Form_SensorCreator((Sensor)crs.resultobject)
+                            {
+                                Owner = Application.Current.MainWindow
+                            };
+                            if (fsc.ShowDialog() == true)
+                            {
+                                RefreshObject(_selectedObject);
+                            }
+
                         }
                         break;
                 }
@@ -1163,7 +1167,7 @@ namespace WinHue3
 
         private void CreateSensor()
         {
-            Form_SensorCreator fsc = new Form_SensorCreator(BridgeStore.SelectedBridge) { Owner = Application.Current.MainWindow };
+            Form_SensorCreator fsc = new Form_SensorCreator() { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the sensor creator window passing bridge {BridgeStore.SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created sensor ID {fsc.GetCreatedOrModifiedID()} from bridge {BridgeStore.SelectedBridge.IpAddress}");

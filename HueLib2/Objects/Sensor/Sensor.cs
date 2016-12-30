@@ -121,7 +121,11 @@ namespace HueLib2
                     if (o.Value["uniqueid"] != null)
                         sensor.uniqueid = o.Value["uniqueid"].Value<string>();
 
-                    sensor = SetConfigState(sensor, o.Value["config"].Value<JObject>(), o.Value["state"].Value<JObject>());
+                    if (obj["config"] != null)
+                        sensor = SetConfig(sensor, obj["config"].Value<JObject>());
+                    if (obj["state"] != null)
+                        sensor = SetState(sensor, obj["state"].Value<JObject>());
+
                     sensorslist.Add(o.Key, sensor);
                 }
                 return sensorslist;
@@ -147,9 +151,10 @@ namespace HueLib2
                 if (obj["uniqueid"] != null)
                     sensor.uniqueid = obj["uniqueid"].Value<string>();
 
-
-                sensor = SetConfigState(sensor, obj["config"].Value<JObject>(), obj["state"].Value<JObject>());
-               
+                if(obj["config"] != null)
+                    sensor = SetConfig(sensor, obj["config"].Value<JObject>());
+                if(obj["state"] != null)
+                    sensor = SetState(sensor, obj["state"].Value<JObject>());
                 return sensor;
             }
 
@@ -164,7 +169,110 @@ namespace HueLib2
         /// <param name="config">Config.</param>
         /// <param name="state">State.</param>
         /// <returns></returns>
-        private Sensor SetConfigState(Sensor sensor, JObject config, JObject state)
+        private Sensor SetConfig(Sensor sensor, JObject config)
+        {
+
+
+            JsonSerializerSettings jss = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                StringEscapeHandling = StringEscapeHandling.Default
+            };
+
+            switch (sensor.type)
+            {
+                case "ZGPSwitch":
+                    if (config != null)
+                    {
+          
+                        sensor.config = JsonConvert.DeserializeObject<HueTapSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "Daylight":
+                    if (config != null)
+                    {
+ 
+                        sensor.config = JsonConvert.DeserializeObject<DaylightSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "CLIPPresence":
+                    if (config != null)
+                    {
+     
+                        sensor.config = JsonConvert.DeserializeObject<ClipPresenceSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "CLIPGenericFlag":
+                    if (config != null)
+                    {
+  
+                        sensor.config = JsonConvert.DeserializeObject<ClipGenericFlagSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "CLIPGenericStatus":
+                    if (config != null)
+                    {
+                      
+                        sensor.config = JsonConvert.DeserializeObject<ClipGenericStatusSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "CLIPHumidity":
+                    if (config != null)
+                    {
+
+                        sensor.config = JsonConvert.DeserializeObject<ClipHumiditySensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "CLIPOpenClose":
+                    if (config != null)
+                    {
+             
+                        sensor.config = JsonConvert.DeserializeObject<ClipOpenCloseSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "ZLLTemperature":
+                case "CLIPTemperature":
+                    if (config != null)
+                    {
+                     
+                        sensor.config = JsonConvert.DeserializeObject<TemperatureSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "ZLLSwitch":
+                    if (config != null)
+                    {
+                
+                        sensor.config = JsonConvert.DeserializeObject<HueDimmerSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "ZLLPresence":
+                    if (config != null)
+                    {
+
+                        sensor.config = JsonConvert.DeserializeObject<HueMotionSensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+                case "CLIPLightlevel":
+                case "ZLLLightLevel":
+                    if (config != null)
+                    {
+
+                        sensor.config = JsonConvert.DeserializeObject<LightLevelConfig>(config.ToString(),jss);
+                    }
+                    break;
+                default:
+                    if (config != null)
+                    {
+        
+                        sensor.config = JsonConvert.DeserializeObject<SensorConfig>(config.ToString(),jss);
+                    }
+                    break;
+
+            }
+            return sensor;
+        }
+
+        private Sensor SetState(Sensor sensor, JObject state)
         {
 
 
@@ -179,94 +287,83 @@ namespace HueLib2
                 case "ZGPSwitch":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<HueTapSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<HueTapSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<HueTapSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "Daylight":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<DaylightSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<DaylightSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<DaylightSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPPresence":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<ClipPresenceSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<ClipPresenceSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<ClipPresenceSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPGenericFlag":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<ClipGenericFlagSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<ClipGenericFlagSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<ClipGenericFlagSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPGenericStatus":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<ClipGenericStatusState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<ClipGenericStatusSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<ClipGenericStatusState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPHumidity":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<ClipHumiditySensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<ClipHumiditySensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<ClipHumiditySensorState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPOpenClose":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<ClipOpenCloseSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<ClipOpenCloseSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<ClipOpenCloseSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "ZLLTemperature":
                 case "CLIPTemperature":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<TemperatureSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<TemperatureSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<TemperatureSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "ZLLSwitch":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<HueDimmerSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<HueDimmerSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<HueDimmerSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "ZLLPresence":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<HueMotionSensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<HueMotionSensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<HueMotionSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPLightlevel":
                 case "ZLLLightLevel":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<LightLevelState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<LightLevelConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<LightLevelState>(state.ToString(), jss);
                     }
                     break;
                 default:
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<SensorState>(state.ToString(),jss);
-                        sensor.config = JsonConvert.DeserializeObject<SensorConfig>(config.ToString(),jss);
+                        sensor.state = JsonConvert.DeserializeObject<SensorState>(state.ToString(), jss);
                     }
                     break;
 
             }
             return sensor;
         }
-        
+
+
         /// <summary>
         /// Check if can be converted to a sensor.
         /// </summary>
