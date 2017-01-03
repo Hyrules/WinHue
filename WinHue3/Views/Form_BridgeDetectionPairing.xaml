@@ -4,11 +4,48 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
+        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         mc:Ignorable="d"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        Title="Bridge Detection and Pairing..." Height="356.9" Width="537.251" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/bridge.png" ContentRendered="Window_ContentRendered">
-    <Grid Margin="0,0,0,2">
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="191" Margin="10,36,0,0" VerticalAlignment="Top" Width="501" ItemsSource="{Binding ListViewSource}" SelectedItem="{Binding SelectedBridge}" IsEnabled="{Binding CanChangeSelection}">
+        Title="Bridge Detection and Pairing..." Height="385.567" Width="639.918" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/bridge.png">
+    <Window.DataContext>
+        <viewmodels:BridgePairingViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+
+                    <ControlTemplate>
+                        <DockPanel DockPanel.Dock="Right">
+                            <!--<TextBlock Margin="3" Foreground="Red">!</TextBlock>-->
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="btnSave">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=btnDefault, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=btnPair, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,-5,2.333">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="191" Margin="10,36,0,0" VerticalAlignment="Top" Width="604" ItemsSource="{Binding ListBridges}" SelectedItem="{Binding SelectedBridge}" IsEnabled="{Binding CanChangeSelection}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50" Header="{x:Static resx:GUI.BridgeDetectionPairing_ListView_Image}">
@@ -27,7 +64,7 @@
                     </GridViewColumn>
                     <GridViewColumn Width="150" Header="{x:Static resx:GUI.BridgeDetectionPairing_ListView_IPAddress}" DisplayMemberBinding="{Binding IpAddress}"/>
 
-                    <GridViewColumn Width="250" Header="{x:Static resx:GUI.BridgeDetectionPairing_ListView_ApiKey}">
+                    <GridViewColumn Width="350" Header="{x:Static resx:GUI.BridgeDetectionPairing_ListView_ApiKey}">
                         <!--DisplayMemberBinding="{Binding ApiKey}"-->
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -37,27 +74,16 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-            <ListView.Style>
-                <Style TargetType="{x:Type Control}">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanPair}">
-                            <Setter Property="Background" Value="Lime"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.Style>
         </ListView>
-        <Button x:Name="btnDone" Content="{x:Static resx:GUI.BridgeDetectionPairing_Done}" HorizontalAlignment="Left" Margin="438,257,0,0" VerticalAlignment="Top" Width="73" Click="btnDone_Click" IsEnabled="{Binding CanDone}"/>
-        <Button x:Name="btnPair" Content="{x:Static resx:GUI.BridgeDetectionPairing_Pair}" HorizontalAlignment="Left" Margin="12,232,0,0" VerticalAlignment="Top" Width="75" IsEnabled="{Binding CanPair, FallbackValue=false}" Command="{Binding PairBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Pair_Tooltip}"/>
-        <Button x:Name="btnIpScan" Content="{Binding ScanButtonText}" HorizontalAlignment="Left" Margin="92,232,0,0" VerticalAlignment="Top" Width="75" IsEnabled="{Binding CanScan, FallbackValue=false}" Command="{Binding ScanForBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Scan_Tooltip}" Height="20"/>
-        <ProgressBar x:Name="pbWaitBar" HorizontalAlignment="Left" Height="10" Margin="12,257,0,0" VerticalAlignment="Top" Width="421" Maximum="{Binding ProgressBarMax}" Minimum="{Binding ProgressBarMin}" Value="{Binding ProgressBarValue, Mode=OneWay}"/>
-        <TextBlock x:Name="tblMessage" HorizontalAlignment="Left" Margin="12,272,0,0" TextWrapping="Wrap" Text="{Binding UserMessage}" VerticalAlignment="Top" Width="421" Height="45"/>
+        <Button x:Name="btnDone" Content="{x:Static resx:GUI.BridgeDetectionPairing_Done}" Style="{StaticResource btnSave}" HorizontalAlignment="Left" Margin="545,325,0,0" VerticalAlignment="Top" Width="69" Click="btnDone_Click"/>
+        <Button x:Name="btnPair" Content="{x:Static resx:GUI.BridgeDetectionPairing_Pair}" HorizontalAlignment="Left" Margin="12,232,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PairBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Pair_Tooltip}" Tag="{Binding AnyPaired, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}"/>
+        <Button x:Name="btnIpScan" Content="{Binding ScanButtonText}" HorizontalAlignment="Left" Margin="355,232,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ScanForBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Scan_Tooltip}"  Height="20"/>
+        <ProgressBar x:Name="pbWaitBar" HorizontalAlignment="Left" Height="10" Margin="12,257,0,0" VerticalAlignment="Top" Width="602" Maximum="{Binding BridgePairModel.ProgressBarMax}" Minimum="{Binding BridgePairModel.ProgressBarMin}" Value="{Binding BridgePairModel.ProgressBarValue}"/>
+        <TextBlock x:Name="tblMessage" HorizontalAlignment="Left" Margin="12,272,0,0" TextWrapping="Wrap" Text="{Binding BridgePairModel.UserMessage}" VerticalAlignment="Top" Width="602" Height="45"/>
         <Label Content="{x:Static resx:GUI.BridgeDetectionPairing_ListBridge}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDefault" Content="{x:Static resx:GUI.BridgeDetectionPairing_Default}" HorizontalAlignment="Left" Margin="172,232,0,0" VerticalAlignment="Top" Width="75" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Default_Tooltip}" Command="{Binding SetDefaultBridgeCommand}" IsEnabled="{Binding EnableDefault, FallbackValue=false}"/>
-        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.BridgeDetectionPairing_Cancel}" HorizontalAlignment="Left" Margin="438,282,0,0" VerticalAlignment="Top" Width="73" Click="btnCancel_Click"/>
-        <Button x:Name="btnManualIp" Content="{x:Static resx:GUI.BridgeDetectionPairing_ManualIP}" Command="{Binding AddManualIPCommand}" HorizontalAlignment="Left" Margin="252,232,0,0" VerticalAlignment="Top" Width="75" IsEnabled="{Binding CanAddManualIp}"/>
-        <Button x:Name="btnDetectBridges" Content="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge}" HorizontalAlignment="Left" Margin="332,232,0,0" VerticalAlignment="Top" Width="179" Command="{Binding DetectBridgeCommand}" IsEnabled="{Binding CanDetectBridge}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge_Tooltip}"/>
+        <Button x:Name="btnDefault" Content="{x:Static resx:GUI.BridgeDetectionPairing_Default}" HorizontalAlignment="Left" Margin="92,232,0,0" VerticalAlignment="Top" Width="75" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Default_Tooltip}" Command="{Binding SetDefaultBridgeCommand}" Tag="{Binding DefaultSet, NotifyOnValidationError=True,ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}"/>
+        <Button x:Name="btnManualIp" Content="{x:Static resx:GUI.BridgeDetectionPairing_ManualIP}" Command="{Binding AddManualIpCommand}" HorizontalAlignment="Left" Margin="275,232,0,0" VerticalAlignment="Top" Width="75" />
+        <Button x:Name="btnDetectBridges" Content="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge}" Margin="439,232,0,0" VerticalAlignment="Top" Command="{Binding DetectBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge_Tooltip}" HorizontalAlignment="Left" Width="175"/>
 
     </Grid>
 </Window>

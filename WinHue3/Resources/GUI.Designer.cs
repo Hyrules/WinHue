@@ -1753,6 +1753,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Class ID.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_ClassID {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_ClassID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string ResourceLinkCreatorForm_Create {
@@ -1762,11 +1771,47 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Description {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Editing {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Editing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *Hold control to select multiple objects..
+        /// </summary>
+        public static string ResourceLinkCreatorForm_HoldControl {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_HoldControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ResourceLinkCreatorForm_Name {
             get {
                 return ResourceManager.GetString("ResourceLinkCreatorForm_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recycle.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Recycle {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Recycle", resourceCulture);
             }
         }
         
@@ -1785,6 +1830,24 @@ namespace WinHue3.Resources {
         public static string ResourceLinkCreatorForm_Title {
             get {
                 return ResourceManager.GetString("ResourceLinkCreatorForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A description is optional.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Watermark_Description {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Watermark_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is required.
+        /// </summary>
+        public static string ResourceLinkCreatorForm_Watermark_Name {
+            get {
+                return ResourceManager.GetString("ResourceLinkCreatorForm_Watermark_Name", resourceCulture);
             }
         }
         

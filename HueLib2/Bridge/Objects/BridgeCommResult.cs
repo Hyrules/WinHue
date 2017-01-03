@@ -10,5 +10,6 @@ namespace HueLib2
     {
         public bool Success;
         public object resultobject;
+        public Exception ex;
     }
 }

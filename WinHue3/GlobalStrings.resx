@@ -696,4 +696,16 @@
   <data name="Help" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="ResourceLinks_SelectAtLeastOne" xml:space="preserve">
+    <value>Please select at least one resource for this resource link,</value>
+  </data>
+  <data name="ResourceLinks_NameNeeded" xml:space="preserve">
+    <value>Please enter a name for the resource link.</value>
+  </data>
+  <data name="BridgeDetectionPairing_SetDefault" xml:space="preserve">
+    <value>Default bridge not set.</value>
+  </data>
+  <data name="BridgeDetectionPairing_PairNeeded" xml:space="preserve">
+    <value>Please pair at least one bridge.</value>
+  </data>
 </root>

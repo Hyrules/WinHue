@@ -6,33 +6,64 @@
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewmodel="clr-namespace:WinHue3.ViewModels"
-        xmlns:CustomControls="clr-namespace:WinHue3.CustomControls" x:Class="WinHue3.Form_ResourceLinksCreator"
+        xmlns:CustomControls="clr-namespace:WinHue3.CustomControls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Form_ResourceLinksCreator"
+        xmlns:converter="clr-namespace:WinHue3.Converters"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="420.194" Width="756.139" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="352.861" Width="599.472" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/resource.png" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800">
     <Window.DataContext>
         <viewmodel:ResourceLinkCreatorViewModel/>
     </Window.DataContext>
-    <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="54,10,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Top" Width="172"/>
-        <Label x:Name="label" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Name}" HorizontalAlignment="Left" Margin="11,7,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnCreateResourceLink" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Create}" HorizontalAlignment="Left" Margin="574,353,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateResourceLink_Click"/>
-        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" HorizontalAlignment="Left" Margin="654,353,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click" />
+    <Window.Resources>
+        <converter:BoolToOppositeBoolConverter x:Key="BoolToOppositeBoolConverter"/>
+        <Style TargetType="{x:Type ListView}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
 
-        <CustomControls:BindableListView x:Name="bindableListView" HorizontalAlignment="Left" Margin="231,10,0,0" VerticalAlignment="Top" Height="332" Width="498" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListHueObjects}">
-            <ListView.ItemsPanel>
+                    <ControlTemplate>
+                        <DockPanel DockPanel.Dock="Right">
+                            <!--<TextBlock Margin="3" Foreground="Red">!</TextBlock>-->
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="btnSave">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=bindableListView, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Label x:Name="label" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Name}" HorizontalAlignment="Left" Margin="11,7,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnCreateResourceLink" Style="{StaticResource btnSave}" Content="{Binding BtnSaveText}" Margin="0,0,100.333,17.667" Click="btnCreateResourceLink_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="102"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" Margin="0,0,20.333,17.667" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
+
+        <CustomControls:BindableListView x:Name="bindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}">
+            <CustomControls:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
                 </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
+            </CustomControls:BindableListView.ItemsPanel>
+            <CustomControls:BindableListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
                         <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                         <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
                     </WrapPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.GroupStyle>
+            </CustomControls:BindableListView.ItemTemplate>
+            <CustomControls:BindableListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
@@ -59,10 +90,16 @@
                         </Style>
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
-            </ListView.GroupStyle>
+            </CustomControls:BindableListView.GroupStyle>
         </CustomControls:BindableListView>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="148" Margin="54,43,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Description}" VerticalAlignment="Top" Width="172"/>
-        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="16,43,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Description}" HorizontalAlignment="Left" Margin="11,67,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock" Margin="243,0,181.333,34.667" TextWrapping="Wrap" Text="{x:Static resx:GUI.ResourceLinkCreatorForm_HoldControl}" FontSize="10" Height="15" VerticalAlignment="Bottom"/>
+        <Label x:Name="label2" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_ClassID}" HorizontalAlignment="Left" Margin="16,200,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="167,327,0,0" VerticalAlignment="Top" IsThreeState="True" IsChecked="{Binding LinkCreatorModel.Recycle}" IsEnabled="{Binding IsEditing,Converter={StaticResource BoolToOppositeBoolConverter}}"/>
+
+        <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="16,231,0,0" VerticalAlignment="Top" Width="210" Minimum="1" Maximum="10000" Value="{Binding LinkCreatorModel.ClassId}" IsEnabled="{Binding IsEditing, Converter={StaticResource BoolToOppositeBoolConverter}}"/>
+        <xctk:WatermarkTextBox x:Name="watermarkTextBox" HorizontalAlignment="Left" Margin="16,28,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Name, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="210" Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Name}"/>
+        <xctk:WatermarkTextBox x:Name="watermarkTextBox1" HorizontalAlignment="Left" Margin="16,93,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Description}" VerticalAlignment="Top" Height="107" Width="210" Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Description}"/>
 
     </Grid>
 </Window>

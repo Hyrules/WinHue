@@ -37,7 +37,7 @@ namespace WinHue3
         {
             _pairTimer.Interval = new TimeSpan(0, 0, 0, 2);
             _pairTimer.Tick += _pairTimer_Tick;
-            _timeoutTimer.Interval = new TimeSpan(0, 0, 1, 0);
+            _timeoutTimer.Interval = new TimeSpan(0, 0, 0, 1);
             _timeoutTimer.Tick += _timeoutTimer_Tick;
             Hue.OnDetectionComplete += Hue_OnDetectionComplete;
             Hue.OnBridgeDetectionFailed += Hue_OnBridgeDetectionFailed;
@@ -444,6 +444,7 @@ namespace WinHue3
 
         private void Hue_OnIpScanComplete(object sender, RunWorkerCompletedEventArgs e)
         {
+            
             if (!_aborted)
             {
                 UserMessage = GlobalStrings.BridgeDetectionPairing_ScanComplete;

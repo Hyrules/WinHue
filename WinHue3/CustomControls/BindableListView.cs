@@ -19,7 +19,6 @@ namespace WinHue3.CustomControls
         public BindableListView()
         {
             SelectionChanged += BindableListView_SelectionChangedEvent;
-            
         }
 
         void BindableListView_SelectionChangedEvent(object sender, SelectionChangedEventArgs e)
@@ -38,12 +37,24 @@ namespace WinHue3.CustomControls
             set { SetValue(SelectedItemsListProperty, value); }
         }
 
-        public static DependencyProperty SelectedItemsListProperty =
-        DependencyProperty.Register("SelectedItemsList", typeof(ObservableCollection<HueObject>), typeof(BindableListView), new PropertyMetadata(null,OnPropertyChanged));
+        public static readonly DependencyProperty SelectedItemsListProperty =
+        DependencyProperty.Register("SelectedItemsList", typeof(ObservableCollection<HueObject>), typeof(BindableListView), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,OnPropertyChanged));
 
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             d.SetCurrentValue(SelectedItemsListProperty, e.NewValue);
+            BindableListView blv = d as BindableListView; 
+            blv?.OnPropertyModified(e);
+        }
+
+        private void OnPropertyModified(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue == null) return;
+            ObservableCollection<HueObject> listsel = (ObservableCollection<HueObject>) e.NewValue;
+            foreach (var i in listsel)
+            {
+                SelectedItems.Add(i);
+            }
         }
 
     }

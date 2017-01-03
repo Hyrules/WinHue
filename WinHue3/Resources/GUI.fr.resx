@@ -1068,4 +1068,25 @@
   <data name="SensorCreatorForm_Title" xml:space="preserve">
     <value>Créer / Modifier un capteur...</value>
   </data>
+  <data name="ResourceLinkCreatorForm_HoldControl" xml:space="preserve">
+    <value>*Gardez control enfoncé afin de sélectionner plusieurs objets.</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_ClassID" xml:space="preserve">
+    <value>ID de Classe</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Recycle" xml:space="preserve">
+    <value>Recycler</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Watermark_Name" xml:space="preserve">
+    <value>Le nom est requis</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Watermark_Description" xml:space="preserve">
+    <value>Une description est optionnelle</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Editing" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
 </root>

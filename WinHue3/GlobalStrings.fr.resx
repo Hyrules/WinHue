@@ -705,4 +705,16 @@
   <data name="Form_Hotkey_Help_Generic" xml:space="preserve">
     <value>les états génériques sont des raccourcis clavier qui n'ont pas d'objet associé à leur action. Les états non génériques s'appliquent seulement à un objet spécifique.</value>
   </data>
+  <data name="ResourceLinks_SelectAtLeastOne" xml:space="preserve">
+    <value>Veuillez sélectionner au moins une ressource pour ce lien.</value>
+  </data>
+  <data name="ResourceLinks_NameNeeded" xml:space="preserve">
+    <value>Veuillez saisir un nom pour le lien.</value>
+  </data>
+  <data name="BridgeDetectionPairing_SetDefault" xml:space="preserve">
+    <value>Passerelle par défaut non définie</value>
+  </data>
+  <data name="BridgeDetectionPairing_PairNeeded" xml:space="preserve">
+    <value>Veuillez jumeller au moins une passerelle.</value>
+  </data>
 </root>

@@ -22,9 +22,6 @@ namespace HueLib2
         private static BackgroundWorker _ipscanBgw = new BackgroundWorker();
         private static BackgroundWorker _detectionBgw = new BackgroundWorker();
 
-
-
-
         private static int _timeout = 5000;
 
         static Hue()
@@ -34,7 +31,6 @@ namespace HueLib2
             _ipscanBgw.RunWorkerCompleted += _ipscanBgw_RunWorkerCompleted;
             _ipscanBgw.WorkerSupportsCancellation = true;
             _ipscanBgw.WorkerReportsProgress = true;
-
             _detectionBgw.DoWork += _detectionBgw_DoWork;
             _detectionBgw.RunWorkerCompleted += _detectionBgw_RunWorkerCompleted;
         }
@@ -142,6 +138,8 @@ namespace HueLib2
         /// </summary>
         public static bool IsScanningForBridge => _ipscanBgw.IsBusy;
 
+        public static bool IsDetectingBridge => _detectionBgw.IsBusy;
+
         /// <summary>
         /// Will scan an ip range for bridges.
         /// </summary>
@@ -157,7 +155,9 @@ namespace HueLib2
         public static void AbortScanForBridge()
         {
             if(_ipscanBgw.IsBusy)
+            { 
                 _ipscanBgw.CancelAsync();
+            }
         }
 
         private static void _ipscanBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -182,7 +182,11 @@ namespace HueLib2
             
             for (byte x = 2; x <= 254; x++)
             {
-                if (_ipscanBgw.CancellationPending) break;
+                if (_ipscanBgw.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
                 _ipscanBgw.ReportProgress(0,x);
                 if (x == currentip) continue;
                 ipArray[3] = x;
@@ -263,10 +267,9 @@ namespace HueLib2
         {
             XmlSerializer ser = new XmlSerializer(typeof(Description));
             Description ro = null;
-            XmlReader xr ;
             try
             {
-                xr = XmlReader.Create("http://" + BridgeIP + "/description.xml");
+                XmlReader xr = XmlReader.Create("http://" + BridgeIP + "/description.xml");
                 ro = (Description)ser.Deserialize(xr);
             }
             catch(Exception)

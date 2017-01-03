@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HueLib2;
+using WinHue3.Validation;
 
 namespace WinHue3.Models
 {
@@ -13,19 +15,23 @@ namespace WinHue3.Models
         private string _name;
         private ObservableCollection<HueObject> _listlinkObject;
         private string _description;
+        private bool? _recycle;
+        private ushort _classId;
 
         public ResourceLinkCreatorModel()
         {
             _name = string.Empty;
-            _listlinkObject = new ObservableCollection<HueObject>();
+            ListlinkObject = new ObservableCollection<HueObject>();
+            ClassId = 0;
         }
 
+        [StringLength(32,MinimumLength = 1,ErrorMessageResourceName = "ResourceLinks_NameNeeded", ErrorMessageResourceType = typeof(GlobalStrings))]
         public string Name
         {
             get { return _name; }
             set { SetProperty(ref _name,value); }
         }
-
+       
         public ObservableCollection<HueObject> ListlinkObject
         {
             get { return _listlinkObject; }
@@ -36,6 +42,18 @@ namespace WinHue3.Models
         {
             get { return _description; }
             set { SetProperty(ref _description,value); }
+        }
+
+        public bool? Recycle
+        {
+            get { return _recycle; }
+            set { SetProperty(ref _recycle,value); }
+        }
+
+        public ushort ClassId
+        {
+            get { return _classId; }
+            set { SetProperty(ref _classId,value); }
         }
     }
 }

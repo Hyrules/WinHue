@@ -10,7 +10,7 @@ using ICSharpCode.SharpDevelop;
 
 namespace WinHue3
 {
-    public static class BridgeStore
+    public static class BridgeStore 
     {
         private static ObservableCollection<Bridge> _bridgelist;
         private static Bridge _selectedBridge;

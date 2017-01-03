@@ -195,6 +195,7 @@ namespace HueLib2
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
+
                     break;
             }
 
@@ -214,5 +215,10 @@ namespace HueLib2
             // return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
             return $@"ipaddress : {IpAddress}, IsDefault : {IsDefault}, SwVersion : {SwVersion}, Mac : {Mac}, ApiVersion : {ApiVersion}, ApiKey : {ApiKey}, BridgeUrl : {BridgeUrl} ";
         }
+    }
+
+    public class BridgeNotRespondingEventArgs : EventArgs
+    {
+        public CommResult ex;
     }
 }

@@ -57,7 +57,7 @@ namespace HueLib2
                     NewObject = default(T);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 NewObject = default(T);
             }

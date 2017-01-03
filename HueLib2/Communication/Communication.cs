@@ -61,9 +61,13 @@ namespace HueLib2
             {
                 result.status = ex.Status;
                 result.data = "{}";
+                result.ex = ex;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                result.status = WebExceptionStatus.UnknownError;
+                result.data = "{}";
+                result.ex = ex;
                 lastjson = null;
             }
             return result;
@@ -74,5 +78,6 @@ namespace HueLib2
     {
         public WebExceptionStatus status ;
         public string data;
+        public Exception ex;
     }
 }

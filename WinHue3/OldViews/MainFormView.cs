@@ -36,7 +36,7 @@ namespace WinHue3
         private readonly DispatcherTimer _refreshStates = new DispatcherTimer();
         private ObservableCollection<HueObject> _listBridgeObjects;
         private readonly BackgroundWorker _bgwRefresher = new BackgroundWorker();
-        private readonly BackgroundWorker _updatebs = new BackgroundWorker();
+    //    private readonly BackgroundWorker _updatebs = new BackgroundWorker();
         private readonly CpuTempMonitor ctm = new CpuTempMonitor();
         private readonly RssFeedMonitor rfm = new RssFeedMonitor();
 
@@ -64,7 +64,7 @@ namespace WinHue3
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-            _updatebs.DoWork += _updatebs_DoWork;
+         //   _updatebs.DoWork += _updatebs_DoWork;
 
             //_refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
@@ -80,22 +80,22 @@ namespace WinHue3
             
             LoadBridge();
             LoadHotkeys();
-            _updatebs.RunWorkerAsync();
+            CheckForUpdate();
         }
 
-        private void _updatebs_DoWork(object sender, DoWorkEventArgs e)
+        private void CheckForUpdate()
         {
-            if(ListBridges.All(x => x.ApiKey == string.Empty && x.IsDefault == false)) return;
-            
+            if (ListBridges.All(x => x.ApiKey == string.Empty && x.IsDefault == false)) return;
+
             foreach (Bridge br in ListBridges)
             {
-                
+
                 HelperResult hr = HueObjectHelper.GetBridgeSettings(br);
                 if (hr.Success)
                 {
-                    BridgeSettings brs = (BridgeSettings) hr.Hrobject;
+                    BridgeSettings brs = (BridgeSettings)hr.Hrobject;
                     WinHueSettings.settings.BridgeInfo[br.Mac].apiversion = brs.apiversion;
-                    br.ApiVersion = brs.apiversion;                 
+                    br.ApiVersion = brs.apiversion;
                     WinHueSettings.settings.BridgeInfo[br.Mac].name = brs.name;
                     br.Name = brs.name;
                     WinHueSettings.settings.BridgeInfo[br.Mac].swversion = brs.swversion;
@@ -107,8 +107,6 @@ namespace WinHue3
                     log.Error($"Unable to update {br.Name} winhue settings.");
                 }
             }
-            
-
         }
 
         public void Initialize(Form_EventLog fel)
@@ -556,7 +554,11 @@ namespace WinHue3
                     MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
                     MethodInfo generic = mi.MakeGenericMethod(value.GetType());
                     HelperResult hr = (HelperResult) generic.Invoke(BridgeStore.SelectedBridge, new object[] {BridgeStore.SelectedBridge, value.Id});
-                    if (!hr.Success) return;
+                    if (!hr.Success)
+                    {
+                        log.Error(hr.Hrobject);
+                        return;
+                    }
                     _selectedObject = (HueObject)hr.Hrobject;
                 }
                 
@@ -633,8 +635,7 @@ namespace WinHue3
                 if (_selectedObject is Light) return false;
                 if(_selectedObject is Scene)
                     if (((Scene) _selectedObject).version < 2) return false;
-                
-                if (_selectedObject is Resourcelink) return false;
+               
                 return true;
             }
         }
@@ -719,6 +720,9 @@ namespace WinHue3
         {
             //BridgeStore.SelectedBridge = null;
             MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
+            if(e is BridgeNotRespondingEventArgs)
+                log.Error(((BridgeNotRespondingEventArgs)e).ex);
+            log.Error($"{sender} : {e}");
             SelectedBridge = null;
             Cursor_Tools.ShowNormalCursor();
             ctm.Stop();
@@ -876,7 +880,6 @@ namespace WinHue3
         {
             Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing() {Owner = Application.Current.MainWindow };
             if (dp.ShowDialog() != true) return;
-            BridgeStore.ListBridges = dp.GetModifications();
             OnPropertyChanged("ListBridges");
             OnPropertyChanged("SelectedBridge");
             LoadBridge();
@@ -1029,6 +1032,16 @@ namespace WinHue3
                     RefreshObject(_selectedObject);
                 }
             }
+            else if (_selectedObject is Resourcelink)
+            {
+                Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator((Resourcelink)_selectedObject) { Owner = Application.Current.MainWindow};
+
+                if (frlc.ShowDialog() == true)
+                {
+                    RefreshObject(_selectedObject);
+                }
+
+            }
         }
 
 
@@ -1055,7 +1068,7 @@ namespace WinHue3
                         OnPropertyChanged("ListBridges");
                     }
                     RefreshView();
-                    _updatebs.RunWorkerAsync();
+                    CheckForUpdate();
                 }
             }
 

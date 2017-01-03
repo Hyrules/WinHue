@@ -230,6 +230,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalStrings.fr.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BridgePairingModel.cs" />
     <Compile Include="Models\DaylightModel.cs" />
     <Compile Include="Models\GroupCreatorModel.cs" />
     <Compile Include="Models\HueTapModel.cs" />
@@ -238,10 +239,12 @@
     <Compile Include="Models\SensorCreatorModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\ValidateBindableBase.cs" />
+    <Compile Include="Validation\BoolValueValidation.cs" />
     <Compile Include="Validation\HueTapButtonValidation.cs" />
     <Compile Include="Validation\NotNullValidation.cs" />
     <Compile Include="Validation\MinimumCountValidation.cs" />
     <Compile Include="Validation\RequireMaskValidation.cs" />
+    <Compile Include="ViewModels\BridgePairingViewModel.cs" />
     <Compile Include="ViewModels\DaylightViewModel.cs" />
     <Compile Include="ViewModels\GroupCreatorViewModel.cs" />
     <Compile Include="ViewModels\HueTapConfigViewModel.cs" />

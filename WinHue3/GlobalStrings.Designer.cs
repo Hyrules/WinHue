@@ -223,6 +223,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please pair at least one bridge..
+        /// </summary>
+        public static string BridgeDetectionPairing_PairNeeded {
+            get {
+                return ResourceManager.GetString("BridgeDetectionPairing_PairNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scanning aborted..
         /// </summary>
         public static string BridgeDetectionPairing_ScanAborted {
@@ -255,6 +264,15 @@ namespace WinHue3 {
         public static string BridgeDetectionPairing_SelectionMessage {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_SelectionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default bridge not set..
+        /// </summary>
+        public static string BridgeDetectionPairing_SetDefault {
+            get {
+                return ResourceManager.GetString("BridgeDetectionPairing_SetDefault", resourceCulture);
             }
         }
         
@@ -1110,6 +1128,24 @@ namespace WinHue3 {
         public static string Require_admin {
             get {
                 return ResourceManager.GetString("Require_admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a name for the resource link..
+        /// </summary>
+        public static string ResourceLinks_NameNeeded {
+            get {
+                return ResourceManager.GetString("ResourceLinks_NameNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one resource for this resource link,.
+        /// </summary>
+        public static string ResourceLinks_SelectAtLeastOne {
+            get {
+                return ResourceManager.GetString("ResourceLinks_SelectAtLeastOne", resourceCulture);
             }
         }
         

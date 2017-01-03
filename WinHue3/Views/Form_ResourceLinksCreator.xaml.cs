@@ -22,7 +22,7 @@ namespace WinHue3
     public partial class Form_ResourceLinksCreator : Window
     {
         private ResourceLinkCreatorViewModel rlcvm;
-        public Form_ResourceLinksCreator()
+        public Form_ResourceLinksCreator(Resourcelink rl = null)
         {
             InitializeComponent();
             rlcvm = this.DataContext as ResourceLinkCreatorViewModel;
@@ -44,6 +44,8 @@ namespace WinHue3
                 view2.GroupDescriptions?.Clear();
                 PropertyGroupDescription groupDesc2 = new TypeGroupDescription();
                 view2.GroupDescriptions?.Add(groupDesc2);
+                if(rl != null)
+                    rlcvm.Resourcelink = rl;
             }
             
         }
@@ -51,9 +53,20 @@ namespace WinHue3
         private void btnCreateResourceLink_Click(object sender, RoutedEventArgs e)
         {
             Resourcelink rl = rlcvm.Resourcelink;
+            CommandResult cr = rlcvm.IsEditing ? BridgeStore.SelectedBridge.ModifyObject<Resourcelink>(rl,rl.Id) : BridgeStore.SelectedBridge.CreateObject<Resourcelink>(rl);
+            if (cr.Success)
+            {
+                DialogResult = true;
+                Close();
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
+            }
+
         }
 
-  
+
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {

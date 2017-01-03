@@ -43,8 +43,8 @@ namespace HueLib2
         /// <summary>
         /// Class of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Class of the resource link"), HueLib(true, true)]
-        public int classid { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Class of the resource link"), HueLib(true, false)]
+        public ushort classid { get; set; }
 
         /// <summary>
         /// Owner of the resource link
@@ -55,13 +55,13 @@ namespace HueLib2
         /// <summary>
         /// Owner of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Allow Recycle of the resource link"), HueLib(true, true)]
-        public string recycle { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Allow Recycle of the resource link"), HueLib(true, false)]
+        public bool? recycle { get; set; }
 
         /// <summary>
         /// List of resource links
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("List of resource links"), Browsable(false), HueLib(true, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("List of resource links"), Browsable(false), HueLib(true, true)]
         public List<string> links { get; set; }
     }
 }
