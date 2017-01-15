@@ -25,9 +25,11 @@ namespace WinHue3
 
         private List<string> _listselectedLights;
         private Body _action;
+        private readonly Bridge _bridge;
 
-        public Form_ActionPicker()
+        public Form_ActionPicker(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
             _action = null;
             _listselectedLights = null;
@@ -100,7 +102,7 @@ namespace WinHue3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CommandResult bresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            CommandResult bresult = _bridge.GetListObjects<Light>();
             if (bresult.Success)
             {
                 Dictionary<string, Light> listlights = (Dictionary<string, Light>) bresult.resultobject;

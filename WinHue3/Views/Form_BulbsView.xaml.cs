@@ -10,11 +10,11 @@ namespace WinHue3
     public partial class Form_BulbsView : Window
     {
         private BulbsViewView _bvv;
-        private Bridge _br;
-        public Form_BulbsView()
+        private readonly Bridge _bridge;
+        public Form_BulbsView(Bridge bridge)
         {
             InitializeComponent();
-            CommandResult lresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            CommandResult lresult = _bridge.GetListObjects<Light>();
             if (!lresult.Success) return;
             _bvv = new BulbsViewView((Dictionary<string, Light>) lresult.resultobject);
             DataContext = _bvv;

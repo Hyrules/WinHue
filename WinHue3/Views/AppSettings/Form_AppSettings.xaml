@@ -36,6 +36,8 @@
                             <CheckBox x:Name="chbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}"/>
                             <xctk:IntegerUpDown x:Name="nudUpnpTimeout" HorizontalAlignment="Left" Margin="128,34,0,0" VerticalAlignment="Top" Width="62" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}"/>
                             <Label x:Name="lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="113"/>
+                            <xctk:IntegerUpDown x:Name="nudTimeout" HorizontalAlignment="Left" Margin="128,60,0,0" VerticalAlignment="Top" Width="62" Maximum="60000" Minimum="1000"/>
+                            <Label x:Name="lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Width="113"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox x:Name="groupBox1" Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Startup}" HorizontalAlignment="Left" Margin="175,185,0,0" VerticalAlignment="Top" Height="121" Width="243">
@@ -63,5 +65,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        
     </Grid>
 </Window>

@@ -75,15 +75,16 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnDone" Content="{x:Static resx:GUI.BridgeDetectionPairing_Done}" Style="{StaticResource btnSave}" HorizontalAlignment="Left" Margin="545,325,0,0" VerticalAlignment="Top" Width="69" Click="btnDone_Click"/>
+        <Button x:Name="btnDone" Content="{x:Static resx:GUI.BridgeDetectionPairing_Done}" Style="{StaticResource btnSave}" HorizontalAlignment="Left" Margin="545,270,0,0" VerticalAlignment="Top" Width="69" Click="btnDone_Click"/>
         <Button x:Name="btnPair" Content="{x:Static resx:GUI.BridgeDetectionPairing_Pair}" HorizontalAlignment="Left" Margin="12,232,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PairBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Pair_Tooltip}" Tag="{Binding AnyPaired, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}"/>
         <Button x:Name="btnIpScan" Content="{Binding ScanButtonText}" HorizontalAlignment="Left" Margin="355,232,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ScanForBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Scan_Tooltip}"  Height="20"/>
         <ProgressBar x:Name="pbWaitBar" HorizontalAlignment="Left" Height="10" Margin="12,257,0,0" VerticalAlignment="Top" Width="602" Maximum="{Binding BridgePairModel.ProgressBarMax}" Minimum="{Binding BridgePairModel.ProgressBarMin}" Value="{Binding BridgePairModel.ProgressBarValue}"/>
-        <TextBlock x:Name="tblMessage" HorizontalAlignment="Left" Margin="12,272,0,0" TextWrapping="Wrap" Text="{Binding BridgePairModel.UserMessage}" VerticalAlignment="Top" Width="602" Height="45"/>
+        <TextBlock x:Name="tblMessage" HorizontalAlignment="Left" Margin="12,272,0,0" TextWrapping="Wrap" Text="{Binding BridgePairModel.UserMessage}" VerticalAlignment="Top" Width="530" Height="45"/>
         <Label Content="{x:Static resx:GUI.BridgeDetectionPairing_ListBridge}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnDefault" Content="{x:Static resx:GUI.BridgeDetectionPairing_Default}" HorizontalAlignment="Left" Margin="92,232,0,0" VerticalAlignment="Top" Width="75" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Default_Tooltip}" Command="{Binding SetDefaultBridgeCommand}" Tag="{Binding DefaultSet, NotifyOnValidationError=True,ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}"/>
         <Button x:Name="btnManualIp" Content="{x:Static resx:GUI.BridgeDetectionPairing_ManualIP}" Command="{Binding AddManualIpCommand}" HorizontalAlignment="Left" Margin="275,232,0,0" VerticalAlignment="Top" Width="75" />
         <Button x:Name="btnDetectBridges" Content="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge}" Margin="439,232,0,0" VerticalAlignment="Top" Command="{Binding DetectBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge_Tooltip}" HorizontalAlignment="Left" Width="175"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.BridgeDetectionPairing_Cancel}" HorizontalAlignment="Left" Margin="545,295,0,0" VerticalAlignment="Top" Width="69" Click="btnCancel_Click"/>
 
     </Grid>
 </Window>

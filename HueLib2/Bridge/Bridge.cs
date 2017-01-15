@@ -202,6 +202,22 @@ namespace HueLib2
             return new CommandResult() {Success = false,resultobject = "Error deserializing the result object."};
         }
 
+        public bool CheckAuthorization()
+        {
+            bool authorization = false;
+            if (ApiKey == string.Empty) return false;
+            CommandResult cr = GetBridgeSettings();
+            if (!cr.Success) return false;
+            BridgeSettings settings = (BridgeSettings) cr.resultobject;
+            if (settings.portalservices != null)
+            {
+                authorization = true;                     
+            }
+
+            return authorization;
+            
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

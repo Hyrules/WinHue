@@ -15,9 +15,11 @@ namespace WinHue3
         private object _row;
         private readonly Dictionary<string, Scene> _listscenes;
         private readonly Dictionary<string, Light> _listlights;
+        private readonly Bridge _bridge;
 
-        public SceneMappingView(Dictionary<string, Scene> scenes, Dictionary<string, Light> lights)
+        public SceneMappingView(Dictionary<string, Scene> scenes, Dictionary<string, Light> lights, Bridge bridge)
         {
+            _bridge = bridge;
             _listscenes = scenes;
             _listlights = lights;
             BuildSceneMapping();
@@ -138,7 +140,7 @@ namespace WinHue3
         public void ProcessDoubleClick()
         {
             if (_row == null) return;
-            BridgeStore.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
+            _bridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
         public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping());

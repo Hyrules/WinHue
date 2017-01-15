@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Xceed.Wpf.Toolkit;
 using HueLib2;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -12,15 +13,18 @@ namespace WinHue3
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        BridgeSettingsView _bsv;
+        BridgeSettingsViewModel _bsvm;
+        private readonly Bridge _bridge;
 
-        public Form_BridgeSettings()
+        public Form_BridgeSettings(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
-            CommandResult bresult = BridgeStore.SelectedBridge.GetBridgeSettings();
+            _bsvm = DataContext as BridgeSettingsViewModel;
+            CommandResult bresult = _bridge.GetBridgeSettings();
             if (!bresult.Success) return;
-            _bsv = new BridgeSettingsView((BridgeSettings)bresult.resultobject);
-            DataContext = _bsv;
+            //_bsvm. = new BridgeSettingsView((BridgeSettings)bresult.resultobject);
+
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
@@ -43,8 +47,8 @@ namespace WinHue3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_bsv == null)
-                Close();
+           /* if (_bsv == null)
+                Close();*/
         }
     }
 }

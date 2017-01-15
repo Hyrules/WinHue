@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Security.Principal;
+using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Forms;
+using HueLib2;
 using log4net.Repository.Hierarchy;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -35,7 +38,6 @@ namespace WinHue3
             log.Info($@"WinHue {ver} started");
             MainWindow wnd = new MainWindow(fel) { Version = ver};
             MainWindow.Title = "WinHue 3 " + ver;
-
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
                 ? SystemParameters.WorkArea.Height*0.75
                 : MainWindow.MinHeight;
@@ -48,28 +50,29 @@ namespace WinHue3
             MainWindow.Height = height;
             MainWindow.Width = width;
 
+
             if (IsUserAdministrator())
             {
 
-                switch (WinHueSettings.settings.StartMode)
-                {
-                    case 0:
-                        wnd.WindowState = WindowState.Normal;
-                        wnd.Show();
-                        break;
-                    case 1:
-                        wnd.Hide();
-                        break;
-                    case 2:
-                        wnd.WindowState = WindowState.Minimized;
-                        wnd.Show();
-                        break;
-                    default:
-                        wnd.Show();
-                        wnd.WindowState = WindowState.Normal;
-                        break;
-                }
-                                   
+                    switch (WinHueSettings.settings.StartMode)
+                    {
+                        case 0:
+                            wnd.WindowState = WindowState.Normal;
+                            wnd.Show();
+                            break;
+                        case 1:
+                            wnd.Hide();
+                            break;
+                        case 2:
+                            wnd.WindowState = WindowState.Minimized;
+                            wnd.Show();
+                            break;
+                        default:
+                            wnd.Show();
+                            wnd.WindowState = WindowState.Normal;
+                            break;
+                    }
+
             }
             else
             {
@@ -83,7 +86,9 @@ namespace WinHue3
         {
             
             MessageBox.Show("Sorry but an unexpected exception occured. Please report the exception on the support website so the developper can fix the issues. Please include the most recent log located in the logs folder.");
+            string ex = Serializer.SerializeToJson(e.ExceptionObject);
             log.Fatal("Unexpected Exception : ",(Exception)e.ExceptionObject);
+            log.Fatal(ex);
         }
 
         public bool IsUserAdministrator()

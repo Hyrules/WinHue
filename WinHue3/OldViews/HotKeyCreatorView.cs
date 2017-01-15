@@ -30,12 +30,13 @@ namespace WinHue3
         private string _description;
         private int _objectypeindex;
         private bool _isgeneric;
+        private readonly Bridge _bridge;
 
         //*********************************** CTOR **********************************************
 
-        public HotKeyCreatorView()
+        public HotKeyCreatorView(Bridge bridge)
         {
-
+            _bridge = bridge;
             _listHotKeys = new ObservableCollection<HotKey>();
             _hotkeyrecordTimer.Interval = new TimeSpan(0,0,0,10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
@@ -111,13 +112,13 @@ namespace WinHue3
             switch (_objectypeindex)
             {
                 case 0:
-                    hr = HueObjectHelper.GetBridgeLights(BridgeStore.SelectedBridge);
+                    hr = HueObjectHelper.GetBridgeLights(_bridge);
                     break;
                 case 1:
-                    hr = HueObjectHelper.GetBridgeGroups(BridgeStore.SelectedBridge);
+                    hr = HueObjectHelper.GetBridgeGroups(_bridge);
                     break;
                 case 2:
-                    hr = HueObjectHelper.GetBridgeScenes(BridgeStore.SelectedBridge);
+                    hr = HueObjectHelper.GetBridgeScenes(_bridge);
                     break;
                 default:
                     hr = new HelperResult() {Success = false};

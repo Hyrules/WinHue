@@ -14,27 +14,26 @@ namespace WinHue3
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private BridgePairingViewModel _bpvm;
 
-        public Form_BridgeDetectionPairing()
+        public Form_BridgeDetectionPairing(ObservableCollection<Bridge> listBridges = null)
         {
             InitializeComponent();
             _bpvm = this.DataContext as BridgePairingViewModel;
-            
+            if (listBridges != null)
+                _bpvm.ListBridges = listBridges;
         }
+
+        public BridgePairingViewModel ViewModel => _bpvm;
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (_bpvm.SaveSettings())
-            {
-                DialogResult = true;
-                Close();
-            }
-            else
-            {
-                MessageBox.Show(GlobalStrings.SaveSettings_Error, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                log.Error("Error while saving settings.");
-            }
+            DialogResult = true;
+            Close();
         }
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
     }
 }

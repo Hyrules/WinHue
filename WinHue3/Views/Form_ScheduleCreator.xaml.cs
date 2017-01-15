@@ -11,11 +11,12 @@ namespace WinHue3
     public partial class Form_ScheduleCreator : Window
     {
         private ScheduleCreatorViewModel scvm;
-
+        private readonly Bridge _bridge;
         private HueObject actualobj;
 
-        public Form_ScheduleCreator(HueObject obj)
+        public Form_ScheduleCreator(HueObject obj, Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
             scvm = this.DataContext as ScheduleCreatorViewModel;
             string id = string.Empty;
@@ -34,7 +35,7 @@ namespace WinHue3
                     scvm.IsEditing = true;
                     scvm.ScheduleModel.Scene = ((Scene) obj).Id;
                 }
-                scvm.TargetObject = $@"/api/{BridgeStore.SelectedBridge.ApiKey}/{(obj is Light ? "lights" : "groups")}/{(obj is Scene ? "0": obj.Id)}/{(obj is Light ? "state" : "action")}";
+                scvm.TargetObject = $@"/api/{_bridge.ApiKey}/{(obj is Light ? "lights" : "groups")}/{(obj is Scene ? "0": obj.Id)}/{(obj is Light ? "state" : "action")}";
             }
 
             Title = obj is Schedule ? GUI.ScheduleCreatorForm_Title_Modify + obj.GetName() : GUI.ScheduleCreatorForm_Title_Create + obj.GetName();
@@ -53,12 +54,12 @@ namespace WinHue3
             CommandResult comres;
             if (actualobj is Schedule)
             {
-                comres = BridgeStore.SelectedBridge.ModifyObject<Schedule>(sc, actualobj.Id);
+                comres = _bridge.ModifyObject<Schedule>(sc, actualobj.Id);
                 
             }
             else
             {
-                comres = BridgeStore.SelectedBridge.CreateObject<Schedule>(sc);
+                comres = _bridge.CreateObject<Schedule>(sc);
             }
 
             if (comres.Success)
@@ -70,7 +71,7 @@ namespace WinHue3
             }
             else
             {
-                MessageBox.Show($"{GlobalStrings.Error_ErrorHasOccured} : {BridgeStore.SelectedBridge.lastMessages.ToString()}", GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{GlobalStrings.Error_ErrorHasOccured} : {_bridge.lastMessages.ToString()}", GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }    
 
         }

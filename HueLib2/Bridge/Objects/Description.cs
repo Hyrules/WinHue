@@ -109,11 +109,11 @@ namespace HueLib2
 
         private string modelNameField;
 
-        private ulong modelNumberField;
+        private string modelNumberField;
 
         private string modelURLField;
 
-        private uint serialNumberField;
+        private string serialNumberField;
 
         private string uDNField;
 
@@ -200,7 +200,7 @@ namespace HueLib2
         }
 
         /// <remarks/>
-        public ulong modelNumber
+        public string modelNumber
         {
             get
             {
@@ -226,7 +226,7 @@ namespace HueLib2
         }
 
         /// <remarks/>
-        public uint serialNumber
+        public string serialNumber
         {
             get
             {

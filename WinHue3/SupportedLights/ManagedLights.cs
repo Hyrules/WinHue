@@ -48,8 +48,7 @@ namespace WinHue3
 
                     try
                     {
-                        Supportedlight sl = JsonConvert.DeserializeObject<Supportedlight>(json,
-                            new SupportedLightConverter(typeof (Supportedlight)));
+                        Supportedlight sl = JsonConvert.DeserializeObject<Supportedlight>(json,new SupportedLightConverter(typeof (Supportedlight)));
                         log.Info($"Loaded supported light : {sl.name}, modelid : {sl.modelid}, type : {sl.type}");
                         listAvailableLights.Add(sl.modelid, sl);
                     }

@@ -280,7 +280,7 @@
     <value>Annuler</value>
   </data>
   <data name="GroupCreatorForm_GroupName" xml:space="preserve">
-    <value>Nom du groupe : </value>
+    <value>Nom du groupe</value>
   </data>
   <data name="GroupCreatorForm_ModifyGroupButton" xml:space="preserve">
     <value>Sauvegarder</value>
@@ -970,7 +970,7 @@
     <value>Appliquera cet état à n'importe quel ampoule ou groupe sélectionné. Ne fonctionnera pas avec les raccourci clavier disponible au niveau du système.</value>
   </data>
   <data name="MainForm_Tab_View" xml:space="preserve">
-    <value>Vues</value>
+    <value>Vue</value>
   </data>
   <data name="MainForm_Tab_View_SceneMapping" xml:space="preserve">
     <value>Assignation des Scenes</value>
@@ -1088,5 +1088,80 @@
   </data>
   <data name="ResourceLinkCreatorForm_Editing" xml:space="preserve">
     <value>Sauvegarder</value>
+  </data>
+  <data name="GroupCreatorForm_Class" xml:space="preserve">
+    <value>Classe</value>
+  </data>
+  <data name="GroupCreatorForm_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="GroupCreatorForm_Type_LightGroup" xml:space="preserve">
+    <value>Groupe d'ampoule</value>
+  </data>
+  <data name="GroupCreatorForm_Type_Room" xml:space="preserve">
+    <value>Pièce</value>
+  </data>
+  <data name="GroupCreatorForm_HoldCtrl" xml:space="preserve">
+    <value>* Appuyez sur contrôle pour sélectionner plus d'une ampoule</value>
+  </data>
+  <data name="GroupCreatorForm_Class_LivingRoom" xml:space="preserve">
+    <value>Salon</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Kitchen" xml:space="preserve">
+    <value>Cuisine</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Dining" xml:space="preserve">
+    <value>Salle à diner</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Bedroom" xml:space="preserve">
+    <value>Chambre</value>
+  </data>
+  <data name="GroupCreatorForm_Class_KidsBedroom" xml:space="preserve">
+    <value>Chambre des enfants</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Bathroom" xml:space="preserve">
+    <value>Salle de bain</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Nursery" xml:space="preserve">
+    <value>Chambre du bébé</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Recreation" xml:space="preserve">
+    <value>Salle récréative</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Office" xml:space="preserve">
+    <value>Bureau</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Gym" xml:space="preserve">
+    <value>Gym</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Hallway" xml:space="preserve">
+    <value>Corridor</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Toilet" xml:space="preserve">
+    <value>Toilette</value>
+  </data>
+  <data name="GroupCreatorForm_Class_FrontDoor" xml:space="preserve">
+    <value>Porte avant</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Garage" xml:space="preserve">
+    <value>Garage</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Terrace" xml:space="preserve">
+    <value>Terrace</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Garden" xml:space="preserve">
+    <value>Jardin</value>
+  </data>
+  <data name="GroupCreatorForm_Class_DriveWay" xml:space="preserve">
+    <value>Allée</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Carport" xml:space="preserve">
+    <value>Abri voiture</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Other" xml:space="preserve">
+    <value>Autre</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Network_Timeout" xml:space="preserve">
+    <value>Timeout</value>
   </data>
 </root>

@@ -64,6 +64,8 @@ namespace WinHue3
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
+            Communication.Timeout = WinHueSettings.settings.Timeout;
+
          //   _updatebs.DoWork += _updatebs_DoWork;
 
             //_refreshStates.Start();
@@ -80,7 +82,7 @@ namespace WinHue3
             
             LoadBridge();
             LoadHotkeys();
-            CheckForUpdate();
+            
         }
 
         private void CheckForUpdate()
@@ -203,7 +205,7 @@ namespace WinHue3
 
         public Visibility MultiBridgeCB => BridgeStore.ListBridges.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
 
-        public ObservableCollection<Bridge> ListBridges => BridgeStore.ListBridges;
+        public ObservableCollection<Bridge> ListBridges => new ObservableCollection<Bridge>(BridgeStore.ListBridges.Where(x => x.ApiKey != string.Empty));
 
         public bool EnableSearchLights
         {
@@ -671,7 +673,7 @@ namespace WinHue3
         {
             log.Info("Loading bridge...");
             BridgeStore.ListBridges = AssociateBridgeWithApiKey(BridgeStore.ListBridges);
-
+            bool result = false;
             // if None of the bridge are paired or if there is no default bridge
             if (BridgeStore.ListBridges.All(x => x.ApiKey == string.Empty) || (WinHueSettings.settings.DefaultBridge == string.Empty))
             {
@@ -712,22 +714,29 @@ namespace WinHue3
                 }
                 //LoadPlugins();
                 Cursor_Tools.ShowNormalCursor();
+                CheckForUpdate();
             }
-
+            
         }
 
         private void Temp_BridgeNotResponding(object sender, EventArgs e)
         {
             //BridgeStore.SelectedBridge = null;
             MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
-            if(e is BridgeNotRespondingEventArgs)
-                log.Error(((BridgeNotRespondingEventArgs)e).ex);
-            log.Error($"{sender} : {e}");
-            SelectedBridge = null;
+            if (e is BridgeNotRespondingEventArgs)
+            {
+                log.Error($"{sender}");
+                log.Error(Serializer.SerializeToJson(((BridgeNotRespondingEventArgs) e).ex?.ex?.ToString()));             
+                /*log.Error(((BridgeNotRespondingEventArgs) e).ex.ToString());
+                log.Error(((BridgeNotRespondingEventArgs)e).ex.ex.ToString());
+                log.Error(((BridgeNotRespondingEventArgs) e).ex.ex.InnerException?.ToString());*/
+            }
+            log.Error($"{sender} : {e.ToString()}");
+            //SelectedBridge = null;
             Cursor_Tools.ShowNormalCursor();
             ctm.Stop();
             rfm.Stop();
-            DoBridgePairing();
+            //DoBridgePairing();
         }
 
 

@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-
-using System.Xml;
-using System.Xml.Serialization;
+using WinHue3;
 
 namespace whc
 {
     public static class WinHueSettings
     {
         public static CustomSettings settings = new CustomSettings();
-        private static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-     
+        private static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        
 
         static WinHueSettings()
         {
@@ -33,13 +30,13 @@ namespace whc
             try
             {
                 string result = JsonConvert.SerializeObject(settings, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-  
+
                 string filepath = Path.Combine(path, "WinHue\\WinHueSettings.set");
                 if (!Directory.Exists(Path.Combine(path, "WinHue")))
                 {
 
                     Directory.CreateDirectory(Path.Combine(path, "WinHue"));
- 
+
                 }
 
                 File.WriteAllText(filepath, result);
@@ -49,7 +46,7 @@ namespace whc
             {
                 settings = new CustomSettings();
                 ret = false;
-            
+  
 
             }
             return ret;
@@ -69,11 +66,11 @@ namespace whc
                 if (!File.Exists(filepath)) return result;
 
                 StreamReader sr = File.OpenText(filepath);
- 
+
                 string settingsString = sr.ReadToEnd();
-    
+
                 sr.Close();
-    
+
                 settings = JsonConvert.DeserializeObject<CustomSettings>(settingsString, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
                 result = true;
             }
@@ -81,7 +78,7 @@ namespace whc
             {
                 settings = new CustomSettings();
                 result = false;
-           
+
             }
             return result;
         }
@@ -103,7 +100,8 @@ namespace whc
             DelayLiveSliders = 25;
             StartWithWindows = false;
             StartMode = 0;
-            showupnpwarning = true;
+            listHotKeys = new List<HotKey>();
+            Timeout = 3000;
         }
 
         [DataMember]
@@ -129,7 +127,13 @@ namespace whc
         [DataMember(EmitDefaultValue = true)]
         public int StartMode { get; set; }
         [DataMember(EmitDefaultValue = true)]
-        public bool showupnpwarning { get; set; }
+        public List<HotKey> listHotKeys { get; set; }
+        [DataMember(EmitDefaultValue = false)]
+        public uint? AllOnTT { get; set; }
+        [DataMember(EmitDefaultValue = false)]
+        public uint? AllOffTT { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public int Timeout { get; set; }
 
         public override string ToString()
         {

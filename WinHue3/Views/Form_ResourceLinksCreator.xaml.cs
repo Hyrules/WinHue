@@ -22,11 +22,14 @@ namespace WinHue3
     public partial class Form_ResourceLinksCreator : Window
     {
         private ResourceLinkCreatorViewModel rlcvm;
-        public Form_ResourceLinksCreator(Resourcelink rl = null)
+        private readonly Bridge _bridge;
+
+        public Form_ResourceLinksCreator(Bridge bridge,Resourcelink rl = null)
         {
+            _bridge = bridge;
             InitializeComponent();
             rlcvm = this.DataContext as ResourceLinkCreatorViewModel;
-            HelperResult hr = HueObjectHelper.GetBridgeDataStore(BridgeStore.SelectedBridge);
+            HelperResult hr = HueObjectHelper.GetBridgeDataStore(_bridge);
             if (hr.Success)
             {
                 List<HueObject> _listbrobj = (List<HueObject>) hr.Hrobject;
@@ -53,7 +56,7 @@ namespace WinHue3
         private void btnCreateResourceLink_Click(object sender, RoutedEventArgs e)
         {
             Resourcelink rl = rlcvm.Resourcelink;
-            CommandResult cr = rlcvm.IsEditing ? BridgeStore.SelectedBridge.ModifyObject<Resourcelink>(rl,rl.Id) : BridgeStore.SelectedBridge.CreateObject<Resourcelink>(rl);
+            CommandResult cr = rlcvm.IsEditing ? _bridge.ModifyObject<Resourcelink>(rl,rl.Id) : _bridge.CreateObject<Resourcelink>(rl);
             if (cr.Success)
             {
                 DialogResult = true;
@@ -61,7 +64,7 @@ namespace WinHue3
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
 
         }

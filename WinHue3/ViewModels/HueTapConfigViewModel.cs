@@ -17,6 +17,7 @@ namespace WinHue3.ViewModels
         private readonly Color _selectedColor = Color.FromArgb(128, 255, 0, 0);
         private readonly Color _deselectedColor = Color.FromArgb(0, 0, 0, 0);
         private Scene _selectedScene;
+        private Bridge _bridge;
 
         private HueTapModel _huetapmodel;
 
@@ -96,7 +97,7 @@ namespace WinHue3.ViewModels
                 }
             };
 
-            CommandResult comres = BridgeStore.SelectedBridge.CreateObject<Rule>(newRule);
+            CommandResult comres = _bridge.CreateObject<Rule>(newRule);
             if (comres.Success)
             {
                 HueTapModel.BtnOneBG = new SolidColorBrush(_deselectedColor);
@@ -109,7 +110,7 @@ namespace WinHue3.ViewModels
             }
             else
             {
-                BridgeStore.SelectedBridge.ShowErrorMessages();
+                _bridge.ShowErrorMessages();
             }
     
         }
@@ -132,6 +133,12 @@ namespace WinHue3.ViewModels
         {
             get { return _selectedScene; }
             set { SetProperty(ref _selectedScene,value); OnPropertyChanged("CanSave"); }
+        }
+
+        public Bridge Bridge
+        {
+            get { return _bridge; }
+            set { SetProperty(ref _bridge,value); }
         }
     }
 }

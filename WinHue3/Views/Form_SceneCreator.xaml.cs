@@ -17,7 +17,7 @@ namespace WinHue3
         /// <summary>
         /// Current bridge.
         /// </summary>
-        readonly Bridge _br;
+        readonly Bridge _bridge;
 
         /// <summary>
         /// Id of the new or modified scene.
@@ -32,11 +32,12 @@ namespace WinHue3
         /// <param name="bridge">active bridge.</param>
         public Form_SceneCreator(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
-            scv = hr.Success ? new SceneCreatorView((List<HueObject>)hr.Hrobject) : new SceneCreatorView(new List<HueObject>());
+            scv = hr.Success ? new SceneCreatorView((List<HueObject>)hr.Hrobject,_bridge) : new SceneCreatorView(new List<HueObject>(),_bridge);
             DataContext = scv;
-            _br = bridge;
+            _bridge = bridge;
         }
 
         public Form_SceneCreator(Bridge bridge, HueObject obj)
@@ -48,7 +49,7 @@ namespace WinHue3
             {
                 scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, obj);
                 DataContext = scv;
-                _br = bridge;
+                _bridge = bridge;
             }
 
         }
@@ -68,7 +69,7 @@ namespace WinHue3
             Scene newScene = (Scene) scv.GetScene();
 
             log.Info("Scene to be created : " + newScene);
-            CommandResult comres = _currentscene == null? _br.CreateObject<Scene>(newScene) : _br.ModifyObject<Scene>(newScene,_currentscene.Id);
+            CommandResult comres = _currentscene == null? _bridge.CreateObject<Scene>(newScene) : _bridge.ModifyObject<Scene>(newScene,_currentscene.Id);
 
             if (comres.Success)
             {
@@ -80,7 +81,7 @@ namespace WinHue3
                 ObservableCollection<HueObject> listLightState = scv.GetSceneLights();
                 foreach (HueObject obj in listLightState)
                 {
-                    _br.SetSceneLightState(id, obj.Id, ((Light)obj).state);
+                    _bridge.SetSceneLightState(id, obj.Id, ((Light)obj).state);
                 }
                 _currentscene = new Scene() {Id = id};
                 DialogResult = true;
@@ -88,8 +89,8 @@ namespace WinHue3
             }
             else
             {
-                _br.ShowErrorMessages();
-                log.Error(_br.lastMessages);
+                _bridge.ShowErrorMessages();
+                log.Error(_bridge.lastMessages);
             }
 
         }

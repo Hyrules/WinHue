@@ -280,7 +280,7 @@
     <value>Cancel</value>
   </data>
   <data name="GroupCreatorForm_GroupName" xml:space="preserve">
-    <value>Group name :</value>
+    <value>Group name</value>
   </data>
   <data name="GroupCreatorForm_ModifyGroupButton" xml:space="preserve">
     <value>Save changes</value>
@@ -970,7 +970,7 @@
     <value>Will apply this preset to any selected light or group on trigger. Will not work with system wide hotkeys.</value>
   </data>
   <data name="MainForm_Tab_View" xml:space="preserve">
-    <value>Views</value>
+    <value>View</value>
   </data>
   <data name="MainForm_Tab_View_SceneMapping" xml:space="preserve">
     <value>Scenes Mapping</value>
@@ -1088,5 +1088,80 @@
   </data>
   <data name="ResourceLinkCreatorForm_Editing" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="GroupCreatorForm_Class" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="GroupCreatorForm_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="GroupCreatorForm_Type_LightGroup" xml:space="preserve">
+    <value>Light Group</value>
+  </data>
+  <data name="GroupCreatorForm_Type_Room" xml:space="preserve">
+    <value>Room</value>
+  </data>
+  <data name="GroupCreatorForm_HoldCtrl" xml:space="preserve">
+    <value>* Hold control to select more than one light</value>
+  </data>
+  <data name="GroupCreatorForm_Class_LivingRoom" xml:space="preserve">
+    <value>Living Room</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Kitchen" xml:space="preserve">
+    <value>Kitchen</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Dining" xml:space="preserve">
+    <value>Dining</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Bedroom" xml:space="preserve">
+    <value>Bedroom</value>
+  </data>
+  <data name="GroupCreatorForm_Class_KidsBedroom" xml:space="preserve">
+    <value>Kids bedroom</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Bathroom" xml:space="preserve">
+    <value>Bathroom</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Nursery" xml:space="preserve">
+    <value>Nursery</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Recreation" xml:space="preserve">
+    <value>Recreation</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Office" xml:space="preserve">
+    <value>Office</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Gym" xml:space="preserve">
+    <value>Gym</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Hallway" xml:space="preserve">
+    <value>Hallway</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Toilet" xml:space="preserve">
+    <value>Toilet</value>
+  </data>
+  <data name="GroupCreatorForm_Class_FrontDoor" xml:space="preserve">
+    <value>Front door</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Garage" xml:space="preserve">
+    <value>Garage</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Terrace" xml:space="preserve">
+    <value>Terrace</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Garden" xml:space="preserve">
+    <value>Garden</value>
+  </data>
+  <data name="GroupCreatorForm_Class_DriveWay" xml:space="preserve">
+    <value>Driveway</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Carport" xml:space="preserve">
+    <value>Carport</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Network_Timeout" xml:space="preserve">
+    <value>Timeout</value>
   </data>
 </root>

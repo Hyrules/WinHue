@@ -14,10 +14,10 @@ namespace WinHue3.Models
         private string _description;
         private bool? _randomize;
         private bool? _autodelete;
-        private bool _on;
-        private bool _enabled;
+        private bool _on = true;
+        private bool _enabled = true;
         private uint? _transitiontime;
-        private string _localtime;
+        private string _localtime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         private ushort? _hue;
         private byte? _bri;
         private byte? _sat;
@@ -29,9 +29,9 @@ namespace WinHue3.Models
 
         public ScheduleCreatorModel()
         {
-            On = true;
+            /*On = true;
             Enabled = true;
-            LocalTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            LocalTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");*/
         }
 
         public string Name

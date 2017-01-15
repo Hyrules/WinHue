@@ -10,13 +10,15 @@ namespace WinHue3
     public partial class Form_GroupView : Window
     {
         private GroupViewView _gvv;
-        public Form_GroupView()
+        private readonly Bridge _bridge;
+        public Form_GroupView(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
 
-            CommandResult comlgt = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            CommandResult comlgt = _bridge.GetListObjects<Light>();
             if (!comlgt.Success) return;
-            CommandResult comgrp = BridgeStore.SelectedBridge.GetListObjects<Group>();
+            CommandResult comgrp = _bridge.GetListObjects<Group>();
             if (!comgrp.Success) return;
 
             _gvv = new GroupViewView((Dictionary<string, Group>) comgrp.resultobject,(Dictionary<string, Light>) comlgt.resultobject);

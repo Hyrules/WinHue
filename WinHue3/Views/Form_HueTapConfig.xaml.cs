@@ -13,15 +13,18 @@ namespace WinHue3
     /// </summary>
     public partial class Form_HueTapConfig : Window
     {
+        private readonly Bridge _bridge;
 
-        public Form_HueTapConfig(string sensorid)
+        public Form_HueTapConfig(string sensorid,Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
             HueTapConfigViewModel tcvm = this.DataContext as HueTapConfigViewModel;
+            tcvm.Bridge = bridge;
             tcvm.HueTapModel.Id = sensorid;
 
 
-            HelperResult hr = HueObjectHelper.GetBridgeScenes(BridgeStore.SelectedBridge);            
+            HelperResult hr = HueObjectHelper.GetBridgeScenes(_bridge);            
 
             if (hr.Success)
             {
@@ -40,7 +43,7 @@ namespace WinHue3
             }
             else
             {
-                BridgeStore.SelectedBridge.ShowErrorMessages();
+                _bridge.ShowErrorMessages();
             }
         }
 

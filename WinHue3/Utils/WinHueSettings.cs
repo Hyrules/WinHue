@@ -100,6 +100,7 @@ namespace WinHue3
             StartWithWindows = false;
             StartMode = 0;
             listHotKeys = new List<HotKey>();
+            Timeout = 3000;
         }
 
         [DataMember]
@@ -130,6 +131,8 @@ namespace WinHue3
         public uint? AllOnTT { get; set; }
         [DataMember(EmitDefaultValue = false)]
         public uint? AllOffTT { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public int Timeout { get; set; }
 
         public override string ToString()
         {

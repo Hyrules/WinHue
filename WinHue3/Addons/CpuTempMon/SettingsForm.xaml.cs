@@ -32,9 +32,11 @@ namespace WinHue3
         double gradientStopColor;
         double gradientStartTemp;
         double gradientStopTemp;
+        private readonly Bridge _bridge;
 
-        public Form_CpuTempMonitorSettings(CpuTemp temp)
+        public Form_CpuTempMonitorSettings(CpuTemp temp,Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
             Temp = temp;
             temp.OnTempUpdated += temp_OnTempUpdated;
@@ -83,8 +85,8 @@ namespace WinHue3
             budBri.Value = Properties.Settings.Default.CpuTemp_Brightness;
             budSat.Value = Properties.Settings.Default.CPUTemp_Saturation;
 
-            CommandResult bresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
-            CommandResult bresult2 = BridgeStore.SelectedBridge.GetListObjects<Group>();
+            CommandResult bresult = _bridge.GetListObjects<Light>();
+            CommandResult bresult2 = _bridge.GetListObjects<Group>();
             if (bresult.Success && bresult2.Success)
             {
                 Dictionary<string, Light> lightlist = (Dictionary<string, Light>)bresult.resultobject;
@@ -170,11 +172,11 @@ namespace WinHue3
 
                 if (cbObject.SelectedItem is KeyValuePair<string, Light>)
                 {
-                    BridgeStore.SelectedBridge.SetState<Light>(new State() { hue = hueTemp, bri = 255, sat = 255, @on = true, transitiontime = 9 }, ((KeyValuePair<string, Light>)cbObject.SelectedItem).Key);
+                    _bridge.SetState<Light>(new State() { hue = hueTemp, bri = 255, sat = 255, @on = true, transitiontime = 9 }, ((KeyValuePair<string, Light>)cbObject.SelectedItem).Key);
                 }
                 else
                 {
-                    BridgeStore.SelectedBridge.SetState<Group>(new HueLib2.Action() { hue = hueTemp, bri = 255, sat = 255, @on = true, transitiontime = 9 }, ((KeyValuePair<string, Group>)cbObject.SelectedItem).Key);
+                    _bridge.SetState<Group>(new HueLib2.Action() { hue = hueTemp, bri = 255, sat = 255, @on = true, transitiontime = 9 }, ((KeyValuePair<string, Group>)cbObject.SelectedItem).Key);
                 }
 
             }

@@ -39,9 +39,11 @@ namespace WinHue3
         byte _userBri;
         byte _userSat;
         private bool _isrunning;
+        private readonly Bridge _bridge;
 
-        public CpuTempMonitor()
+        public CpuTempMonitor(Bridge bridge)
         {
+            _bridge = bridge;
             _temp = new CpuTemp(1);
             _temp.OnTempUpdated += temp_OnTempUpdated;
             LoadSettings();
@@ -112,7 +114,7 @@ namespace WinHue3
         public bool? ShowSettingsForm()
         {
             _temp.Stop();
-            Form_CpuTempMonitorSettings settings = new Form_CpuTempMonitorSettings(_temp) {Owner = Application.Current.MainWindow};
+            Form_CpuTempMonitorSettings settings = new Form_CpuTempMonitorSettings(_temp,_bridge) {Owner = Application.Current.MainWindow};
             _temp.OnTempUpdated -= temp_OnTempUpdated;
             var result = settings.ShowDialog();
             _temp.OnTempUpdated += temp_OnTempUpdated;
@@ -151,11 +153,11 @@ namespace WinHue3
 
             if (_objectType == true)
             {
-                BridgeStore.SelectedBridge.SetState<Light>(new State() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
+                _bridge.SetState<Light>(new State() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
             }
             else
             {
-                BridgeStore.SelectedBridge.SetState<Group>(new HueLib2.Action() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
+                _bridge.SetState<Group>(new HueLib2.Action() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
             }
 
           }

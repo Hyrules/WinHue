@@ -74,11 +74,11 @@ namespace WinHue3
 
         private void CreateNewAlert()
         {
-            Form_AlertCreator fcc = new Form_AlertCreator() { Owner = Application.Current.MainWindow };
+        /*    Form_AlertCreator fcc = new Form_AlertCreator() { Owner = Application.Current.MainWindow };
             if (fcc.ShowDialog() == true)
             {
                 //PopulateAlertList();
-            }
+            }*/
         }
 
         private void EditAlert()

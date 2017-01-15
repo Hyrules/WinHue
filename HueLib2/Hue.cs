@@ -22,8 +22,6 @@ namespace HueLib2
         private static BackgroundWorker _ipscanBgw = new BackgroundWorker();
         private static BackgroundWorker _detectionBgw = new BackgroundWorker();
 
-        private static int _timeout = 5000;
-
         static Hue()
         {
             _ipscanBgw.DoWork += _ipscanBgw_DoWork;
@@ -33,9 +31,8 @@ namespace HueLib2
             _ipscanBgw.WorkerReportsProgress = true;
             _detectionBgw.DoWork += _detectionBgw_DoWork;
             _detectionBgw.RunWorkerCompleted += _detectionBgw_RunWorkerCompleted;
+
         }
-
-
 
         private static void _detectionBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -145,7 +142,7 @@ namespace HueLib2
         /// </summary>
         public static void ScanIpForBridge()
         {
-            _timeout = Communication.Timeout;
+            
             _ipscanBgw.RunWorkerAsync();
         }
 
@@ -162,7 +159,7 @@ namespace HueLib2
 
         private static void _ipscanBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Communication.Timeout = _timeout;
+
             OnIpScanComplete?.Invoke(null, e);
         }
 

@@ -11,17 +11,19 @@ namespace WinHue3
     /// </summary>
     public partial class Form_SceneMapping : Window
     {
-        private Bridge _bridge;
+
         private readonly SceneMappingView _smv;
-        public Form_SceneMapping()
+        private readonly Bridge _bridge;
+        public Form_SceneMapping(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
-            CommandResult lresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
+            CommandResult lresult = _bridge.GetListObjects<Light>();
             if (!lresult.Success) return;
-            CommandResult sresult = BridgeStore.SelectedBridge.GetListObjects<Scene>();
+            CommandResult sresult = _bridge.GetListObjects<Scene>();
             if (!sresult.Success) return;
             _smv = new SceneMappingView((Dictionary<string, Scene>)sresult.resultobject,
-                (Dictionary<string, Light>)lresult.resultobject);
+                (Dictionary<string, Light>)lresult.resultobject,_bridge);
             DataContext = _smv;
         }
 

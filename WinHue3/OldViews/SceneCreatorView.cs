@@ -24,10 +24,12 @@ namespace WinHue3
         private bool _canpreviewscene = false;
         private bool _cansavescene = false;
         private bool _cancancel = true;
+        private readonly Bridge _bridge;
 
         #region CTOR
-        public SceneCreatorView(List<HueObject> listlights)
+        public SceneCreatorView(List<HueObject> listlights, Bridge bridge)
         {
+            _bridge = bridge;
             _scene = new Scene();
             _scene.lights = new List<string>();
             _scene.recycle = false;
@@ -512,7 +514,7 @@ namespace WinHue3
             ObservableCollection<HueObject> liOriginalState = new ObservableCollection<HueObject>();
             foreach (HueObject obj in li)
             {
-                HelperResult hr = HueObjectHelper.GetObject<Light>(BridgeStore.SelectedBridge, obj.Id);
+                HelperResult hr = HueObjectHelper.GetObject<Light>(_bridge, obj.Id);
                 if (hr.Success)
                 {
                     HueObject newlight = (HueObject) hr.Hrobject;
@@ -523,14 +525,14 @@ namespace WinHue3
 
             foreach (HueObject obj in li)
             {
-                BridgeStore.SelectedBridge.SetState<Light>(((Light) obj).state,obj.Id);
+                _bridge.SetState<Light>(((Light) obj).state,obj.Id);
             }
 
             Thread.Sleep(5000);
 
             foreach (HueObject obj in liOriginalState)
             {
-                BridgeStore.SelectedBridge.SetState<Light>(((Light)obj).state,obj.Id);
+                _bridge.SetState<Light>(((Light)obj).state,obj.Id);
             }
 
             Thread.Sleep(2000);

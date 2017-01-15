@@ -210,7 +210,10 @@
       <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
+    <Compile Include="Converters\GroupClassConverter.cs" />
+    <Compile Include="Converters\GroupTypeConverter.cs" />
     <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
     <Compile Include="Converters\ScheduleMaskConverter.cs" />
     <Compile Include="Converters\ScheduleTypeConverter.cs" />
@@ -220,6 +223,7 @@
     <Compile Include="Converters\SliderToXYConverter.cs" />
     <Compile Include="Converters\VisibleToBoolConverter.cs" />
     <Compile Include="CustomControls\BindableListView.cs" />
+    <Compile Include="CustomControls\BindableSlider.cs" />
     <Compile Include="GlobalStrings.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,9 +235,14 @@
       <DependentUpon>GlobalStrings.fr.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\BridgePairingModel.cs" />
+    <Compile Include="Models\BridgeSettings\BridgeSettingsSoftwareModel.cs" />
+    <Compile Include="Models\BridgeSettings\BridgeSettingsGeneralModel.cs" />
+    <Compile Include="Models\BridgeSettings\BridgeSettingsNetworkModel.cs" />
+    <Compile Include="Models\BridgeSettings\BridgeSettingsPortalModel.cs" />
     <Compile Include="Models\DaylightModel.cs" />
     <Compile Include="Models\GroupCreatorModel.cs" />
     <Compile Include="Models\HueTapModel.cs" />
+    <Compile Include="Models\MainFormModel.cs" />
     <Compile Include="Models\ResourceLinkCreatorModel.cs" />
     <Compile Include="Models\ScheduleCreatorModel.cs" />
     <Compile Include="Models\SensorCreatorModel.cs" />
@@ -245,9 +254,15 @@
     <Compile Include="Validation\MinimumCountValidation.cs" />
     <Compile Include="Validation\RequireMaskValidation.cs" />
     <Compile Include="ViewModels\BridgePairingViewModel.cs" />
+    <Compile Include="ViewModels\BridgeSettingsViewModel.cs" />
     <Compile Include="ViewModels\DaylightViewModel.cs" />
     <Compile Include="ViewModels\GroupCreatorViewModel.cs" />
     <Compile Include="ViewModels\HueTapConfigViewModel.cs" />
+    <Compile Include="ViewModels\MainFormViewModel.cs" />
+    <Compile Include="ViewModels\MainFormViewModel_Commands.cs" />
+    <Compile Include="ViewModels\MainFormViewModel_Events.cs" />
+    <Compile Include="ViewModels\MainFormViewModel_Methods.cs" />
+    <Compile Include="ViewModels\MainFormViewModel_Properties.cs" />
     <Compile Include="ViewModels\ResourceLinkCreatorViewModel.cs" />
     <Compile Include="ViewModels\ScheduleCreatorViewModel.cs" />
     <Compile Include="ViewModels\SensorCreatorViewModel.cs" />
@@ -280,7 +295,6 @@
     <Compile Include="Interpreter\Parser.cs" />
     <Compile Include="Interpreter\ResourceLoader.cs" />
     <Compile Include="MainForm\ButtonsView.cs" />
-    <Compile Include="Utils\BridgeStore.cs" />
     <Compile Include="Utils\DataGridViewAppender.cs" />
     <Compile Include="Utils\DgLogEntry.cs" />
     <Compile Include="Hotkeys\HotKeyHandle.cs" />
@@ -307,7 +321,6 @@
     <Compile Include="OldViews\AddManualIPView.cs" />
     <Compile Include="OldViews\AnimatorView.cs" />
     <Compile Include="OldViews\BridgeSettingsView.cs" />
-    <Compile Include="OldViews\BridgeDetectionPairingView.cs" />
     <Compile Include="OldViews\GroupViewView.cs" />
     <Compile Include="OldViews\BulbsViewView.cs" />
     <Compile Include="OldViews\HotKeyCreatorView.cs" />
@@ -315,7 +328,6 @@
     <Compile Include="OldViews\WaitView.cs" />
     <Compile Include="OldViews\ColorFromImageView.cs" />
     <Compile Include="OldViews\EventViewerView.cs" />
-    <Compile Include="OldViews\MainFormView.cs" />
     <Compile Include="OldViews\RuleCreatorView.cs" />
     <Compile Include="OldViews\SceneCreatorView.cs" />
     <Compile Include="OldViews\View.cs" />

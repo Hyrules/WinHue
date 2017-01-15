@@ -27,6 +27,7 @@ namespace WinHue3
             WinHueSettings.settings.UpnpTimeout = (int)nudUpnpTimeout.Value;
             WinHueSettings.settings.AllOffTT = (uint) nudAllOffTT.Value;
             WinHueSettings.settings.AllOnTT = (uint) nudAllOnTT.Value;
+            WinHueSettings.settings.Timeout = (int)nudTimeout.Value;
 
             if (rbStartNormal.IsChecked == true)
             {
@@ -76,6 +77,7 @@ namespace WinHue3
             chbStartWindows.IsChecked = WinHueSettings.settings.StartWithWindows;
             nudAllOffTT.Value = WinHueSettings.settings.AllOffTT == null ? -1 : (int)WinHueSettings.settings.AllOffTT;
             nudAllOnTT.Value = WinHueSettings.settings.AllOnTT == null ? -1 : (int)WinHueSettings.settings.AllOnTT;
+            nudTimeout.Value = WinHueSettings.settings.Timeout;
 
             switch (WinHueSettings.settings.StartMode)
             {

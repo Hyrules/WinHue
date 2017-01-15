@@ -12,9 +12,11 @@ namespace WinHue3
     {
         private Sensor modifiedsensor;
         private SensorCreatorViewModel _scvm;
+        private readonly Bridge _bridge;
 
-        public Form_SensorCreator(Sensor obj = null)
+        public Form_SensorCreator(Bridge bridge, Sensor obj = null)
         {
+            _bridge = bridge;
             InitializeComponent();
             _scvm = this.DataContext as SensorCreatorViewModel;
             if (obj != null)
@@ -29,13 +31,13 @@ namespace WinHue3
             CommandResult comres;
             if (modifiedsensor == null)
             {
-                comres = BridgeStore.SelectedBridge.CreateObject<Sensor>(sensor);
+                comres = _bridge.CreateObject<Sensor>(sensor);
                 MessageCollection mc = (MessageCollection) comres.resultobject;
                 modifiedsensor = new Sensor() {Id = ((CreationSuccess)mc[0]).id};
             }
             else
             {
-                comres = BridgeStore.SelectedBridge.ModifyObject(modifiedsensor, modifiedsensor.Id);
+                comres = _bridge.ModifyObject(modifiedsensor, modifiedsensor.Id);
             }
 
             if (comres.Success)
@@ -45,7 +47,7 @@ namespace WinHue3
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
                                                        
  
