@@ -58,6 +58,62 @@ namespace WinHue3.ViewModels
             return false;
         }
 
+        private bool CanBri()
+        {
+            if (!IsObjectSelected()) return false;
+            if (SelectedObject is Light)
+            {
+                return ((Light)SelectedObject).state.bri != null;
+            }
+            else if (SelectedObject is Group)
+            {
+                return ((Group)SelectedObject).action.bri != null;
+            }
+            return false;
+        }
+
+        private bool CanCt()
+        {
+            if (!IsObjectSelected()) return false;
+            if (SelectedObject is Light)
+            {
+                return ((Light)SelectedObject).state.ct != null;
+            }
+            else if (SelectedObject is Group)
+            {
+                return ((Group)SelectedObject).action.ct != null;
+            }
+            return false;
+        }
+
+        private bool CanSat()
+        {
+            if (!IsObjectSelected()) return false;
+            if (SelectedObject is Light)
+            {
+                return ((Light)SelectedObject).state.sat != null;
+            }
+            else if (SelectedObject is Group)
+            {
+                return ((Group)SelectedObject).action.sat != null;
+            }
+            return false;
+        }
+
+        private bool CanXy()
+        {
+            if (!IsObjectSelected()) return false;
+            if (SelectedObject is Light)
+            {
+                return ((Light)SelectedObject).state.xy != null;
+            }
+            else if (SelectedObject is Group)
+            {
+                return ((Group)SelectedObject).action.xy != null;
+            }
+            return false;
+        }
+
         private bool IsDoubleClickable()
         {
             return SelectedObject is Light || SelectedObject is Group || SelectedObject is Scene;
@@ -96,11 +152,11 @@ namespace WinHue3.ViewModels
         public ICommand SearchNewSensorsCommand => new RelayCommand(param => SearchNewSensors(), (param) => EnableButtons() && CanSearchNewSensor());
 
         //*************** Sliders Commands ********************
-        public ICommand SliderHueChangedCommand => new RelayCommand(param => SliderChangeHue(), (param) => EnableButtons() && CanHue());
-        public ICommand SliderBriChangedCommand => new RelayCommand(param => SliderChangeBri(), (param) => EnableButtons() && SliderEnabled());
-        public ICommand SliderCtChangedCommand => new RelayCommand(param => SliderChangeCt(), (param) => EnableButtons() && SliderEnabled());
-        public ICommand SliderSatChangedCommand => new RelayCommand(param => SliderChangeSat(), (param) => EnableButtons() && SliderEnabled());
-        public ICommand SliderXyChangedCommand => new RelayCommand(SliderChangeXy, (param) => EnableButtons() && SliderEnabled());
+        public ICommand SliderHueChangedCommand => new RelayCommand(param => SliderChangeHue(), (param) => CanHue());
+        public ICommand SliderBriChangedCommand => new RelayCommand(param => SliderChangeBri(), (param) => CanBri());
+        public ICommand SliderCtChangedCommand => new RelayCommand(param => SliderChangeCt(), (param) => CanCt());
+        public ICommand SliderSatChangedCommand => new RelayCommand(param => SliderChangeSat(), (param) => CanSat());
+        public ICommand SliderXyChangedCommand => new RelayCommand(param => SliderChangeXy(), (param) => CanXy());
 
         //*************** App Menu Commands ******************
         public ICommand DoBridgePairingCommand => new RelayCommand(param => DoBridgePairing(ListBridges));

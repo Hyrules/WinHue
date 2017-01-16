@@ -568,7 +568,7 @@ namespace WinHue3.ViewModels
             ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = _transitiontime }, _selectedObject.Id });
         }
 
-        private void SliderChangeXy(object param)
+        private void SliderChangeXy()
         {
             if (_selectedObject == null || SelectedBridge == null) return;
             ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = _transitiontime }, _selectedObject.Id });
