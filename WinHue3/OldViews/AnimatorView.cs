@@ -1,12 +1,10 @@
 ﻿using System.Windows.Input;
 using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.AddIn;
-using ICSharpCode.SharpDevelop.Editor;
 using HueLib2;
 
 namespace WinHue3
 {
-    public class AnimatorView : View
+   /* public class AnimatorView : View
     {
 
         private WinHueParser parser;
@@ -49,5 +47,5 @@ namespace WinHue3
         public ICommand CheckSyntaxCommand => new RelayCommand(param => CheckSyntax());
 
 
-    }
+    }*/
 }

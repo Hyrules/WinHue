@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using HueLib2;
-using ICSharpCode.NRefactory.Semantics;
+
 using WinHue3.Resources;
 using WinHue3.ViewModels;
 using Group = HueLib2.Group;

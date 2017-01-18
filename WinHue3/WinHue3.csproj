@@ -76,18 +76,9 @@
     <Reference Include="HueLib2">
       <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.AvalonEdit.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.AvalonEdit.AddIn">
-      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\AddIns\DisplayBindings\AvalonEdit\ICSharpCode.AvalonEdit.AddIn.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.NRefactory">
-      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.NRefactory.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpDevelop">
-      <HintPath>C:\Program Files (x86)\SharpDevelop\5.1\bin\ICSharpCode.SharpDevelop.dll</HintPath>
+      <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.6.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.6\lib\net45-full\log4net.dll</HintPath>
