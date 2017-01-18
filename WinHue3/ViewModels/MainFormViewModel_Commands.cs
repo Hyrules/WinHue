@@ -21,11 +21,13 @@ namespace WinHue3.ViewModels
 
         private bool IsEditable()
         {
-            return IsObjectSelected() && !(SelectedObject is Light);
+            if (!IsObjectSelected()) return false;
+            return !(SelectedObject is Light);
         }
 
         private bool CanSchedule()
         {
+            if (!IsObjectSelected()) return false;
             return SelectedObject is Light || SelectedObject is Group || SelectedObject is Scene ;
         }
 
@@ -130,12 +132,19 @@ namespace WinHue3.ViewModels
             return ((Sensor) SelectedObject).type == "ZLLPresence";
         }
 
+        public bool CanDuplicate()
+        {
+            if (!IsObjectSelected()) return false;
+            return SelectedObject is Rule || SelectedObject is Scene || (SelectedObject is Sensor || ((Sensor)SelectedObject).type.Contains("CLIP"));
+
+        }
+
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());
 
         //*************** Toolbar Commands ********************        
         public ICommand CheckForNewBulbCommand => new RelayCommand(param => CheckForNewBulb(), (param) => EnableButtons());
         public ICommand UpdateBridgeCommand => new RelayCommand(param => DoBridgeUpdate());
-    //    public ICommand ChangeBridgeSettingsCommand => new RelayCommand(param => ChangeBridgeSettings(), (param) => EnableButtons());
+        public ICommand ChangeBridgeSettingsCommand => new RelayCommand(param => ChangeBridgeSettings(), (param) => EnableButtons());
         public ICommand RefreshViewCommand => new RelayCommand(param => RefreshView(), (param) => EnableButtons());
         public ICommand CreateGroupCommand => new RelayCommand(param => CreateGroup(), (param) => EnableButtons());
         public ICommand CreateSceneCommand => new RelayCommand(param => CreateScene(), (param) => EnableButtons());
@@ -164,14 +173,14 @@ namespace WinHue3.ViewModels
         //*************** Context Menu Commands *************
         public ICommand DeleteObjectCommand => new RelayCommand(param => DeleteObject(), (param) => IsObjectSelected());
         public ICommand RenameObjectCommand => new RelayCommand(param => RenameObject(), (param) => IsObjectSelected());
-        public ICommand EditObjectCommand => new RelayCommand(param => EditObject(), (param) => IsObjectSelected() && IsEditable());
+        public ICommand EditObjectCommand => new RelayCommand(param => EditObject(), (param) => IsEditable());
         public ICommand IdentifyLongCommand => new RelayCommand(param => IdentifyLong(), (param) => CanIdentify());
         public ICommand IdentifyShortCommand => new RelayCommand(param => IdentifyShort(), (param) => CanIdentify());
-  //      public ICommand ReplaceCurrentStateCommand => new RelayCommand(param => ReplaceCurrentState());
+        //public ICommand ReplaceCurrentStateCommand => new RelayCommand(param => ReplaceCurrentState());
         public ICommand SensitivityHighCommand => new RelayCommand(param => Sensitivity(2), (param) => CanSetSensivity());
         public ICommand SensitivityMediumCommand => new RelayCommand(param => Sensitivity(1), (param) => CanSetSensivity());
         public ICommand SensitivityLowCommand => new RelayCommand(param => Sensitivity(0), (param) => CanSetSensivity());
-        public ICommand DuplicateObjectCommand => new RelayCommand(param => DuplicateObject());
+        public ICommand DuplicateObjectCommand => new RelayCommand(param => DuplicateObject(), (param) => CanDuplicate());
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new RelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());
 

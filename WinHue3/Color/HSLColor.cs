@@ -73,6 +73,26 @@ namespace WinHue3
             return Color.FromArgb((int)(255 * r), (int)(255 * g), (int)(255 * b));
         }
 
+        public static implicit operator System.Windows.Media.Color(HSLColor hslColor)
+        {
+            double r = 0, g = 0, b = 0;
+            if (hslColor.luminosity != 0)
+            {
+                if (hslColor.saturation == 0)
+                    r = g = b = hslColor.luminosity;
+                else
+                {
+                    double temp2 = GetTemp2(hslColor);
+                    double temp1 = 2.0 * hslColor.luminosity - temp2;
+
+                    r = GetColorComponent(temp1, temp2, hslColor.hue + 1.0 / 3.0);
+                    g = GetColorComponent(temp1, temp2, hslColor.hue);
+                    b = GetColorComponent(temp1, temp2, hslColor.hue - 1.0 / 3.0);
+                }
+            }
+            return System.Windows.Media.Color.FromRgb((byte)(255 * r), (byte)(255 * g), (byte)(255 * b));
+        }
+
         private static double GetColorComponent(double temp1, double temp2, double temp3)
         {
             temp3 = MoveIntoRange(temp3);

@@ -6,9 +6,9 @@
         x:Class="WinHue3.Form_ScheduleCreator"
         xmlns:winHue3="clr-namespace:WinHue3"
         xmlns:viewModel="clr-namespace:WinHue3.ViewModels"
-        xmlns:converter="clr-namespace:WinHue3.Converters"
-        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="628" Width="716" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SchedulesLarge.png">
-
+        xmlns:converter="clr-namespace:WinHue3.Converters"       
+    Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="628" Width="716" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SchedulesLarge.png">
+        
     <Window.DataContext>
         <viewModel:ScheduleCreatorViewModel/>
     </Window.DataContext>
@@ -108,7 +108,7 @@
         <GroupBox Header="{x:Static resx:GUI.ScheduleCreatorForm_ScheduleInformation}" HorizontalAlignment="Left" Height="246" Margin="6,6,0,0" VerticalAlignment="Top" Width="685">
             <Grid Margin="0,0,0,3">
                 <xctk:DoubleUpDown x:Name="dudTT" Value="{Binding ScheduleModel.Transitiontime,Converter={StaticResource NudToTransitionTimeConverter}}" HorizontalAlignment="Left" Margin="134,189,0,0" VerticalAlignment="Top" Width="83" Text="0" Maximum="65535" Minimum="-1" TabIndex="6" Height="23" ToolTip="In milliseconds. Maximum is 65535 ms.(set to 0 for no delay and -1 to default." DefaultValue="0" IsEnabled="{Binding CanSetSettings}"/>
-                <xctk:DateTimePicker x:Name="dtpScheduleDateTime" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" HorizontalAlignment="Left" Height="23" Margin="134,145,0,0" VerticalAlignment="Top" Width="239" TabIndex="4" TimeFormat="Custom" Format="Custom" FormatString="{Binding TimeFormatString}" ToolTip="Must be geater than 5 minutes from now." SnapsToDevicePixels="True" TimePickerAllowSpin="False"/>
+                <xctk:DateTimePicker x:Name="dtpScheduleDateTime" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" HorizontalAlignment="Left" Height="23" Margin="134,145,0,0" VerticalAlignment="Top" Width="239" TabIndex="4" Format="Custom" FormatString="{Binding TimeFormatString}" ToolTip="Must be geater than 5 minutes from now." SnapsToDevicePixels="True" TimePickerAllowSpin="False" />
                 <!-- {x:Static resx:GUI.ScheduleCreatorForm_StartTime} -->
                 <Label x:Name="lblStartTime" Content="{Binding StartTimeText}" HorizontalAlignment="Left" Margin="9,142,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.055,0.634"/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Description}" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="119"/>

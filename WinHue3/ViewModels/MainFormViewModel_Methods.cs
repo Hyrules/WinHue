@@ -16,6 +16,12 @@ namespace WinHue3.ViewModels
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
+
+        private void ChangeBridgeSettings()
+        {
+            throw new NotImplementedException();
+        }
+
         private bool DoBridgePairing(ObservableCollection<Bridge> listBridges = null)
         {
             Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(listBridges) { Owner = Application.Current.MainWindow };

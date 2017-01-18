@@ -32,7 +32,7 @@ namespace WinHue3.ViewModels
             _scheduleCreatorModel = new ScheduleCreatorModel();
             _selectedType = "T";
             _smask = 0;
-            _timeformat = "yyyy-MM-dd HH:mm:ss";
+            TimeFormatString = "yyyy-MM-dd HH:mm:ss";
             _randomizetime = string.Empty;
             
         }

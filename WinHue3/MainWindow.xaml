@@ -13,10 +13,6 @@
         x:Class="WinHue3.MainWindow"
         Title="WinHue 3" Height="768" Width="1024" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" >
     <Window.Resources>
-        <!--<Style TargetType="{x:Type TabItem}">
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-        </Style>-->
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Window.Resources>
 
@@ -178,7 +174,6 @@
                             <TextBlock x:Name="tblShowId" Text="{Binding Id}"  Visibility="{Binding ElementName=cbShowID, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}" />
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                             <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
-                            
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -218,8 +213,8 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="AliceBlue" Height="403" VerticalAlignment="Top">
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableSlider x:Name="slHue" Height="21" VerticalAlignment="Top" Maximum="65535" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}">
-                        <Slider.Background>
+                    <controls:BindableHueSlider x:Name="slHue" Height="21" VerticalAlignment="Top" Maximum="65535" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}">
+                        <controls:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                                 <GradientStop Color="#FFFF0000" />
                                 <GradientStop Color="#FEFFFF00" Offset="0.167" />
@@ -229,8 +224,8 @@
                                 <GradientStop Color="#FEFF00FF" Offset="0.833" />
                                 <GradientStop Color="#FFFF0000" Offset="1.0" />
                             </LinearGradientBrush>
-                        </Slider.Background>
-                    </controls:BindableSlider>
+                        </controls:BindableHueSlider.Background>
+                    </controls:BindableHueSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
                     <controls:BindableSlider x:Name="slBri" Height="21" VerticalAlignment="Top" Maximum="254" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}">
                         <Slider.Background>
@@ -245,7 +240,7 @@
                         <Slider.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="White" x:Name="slSATStartGradient"/>
-                                <GradientStop Color="{Binding SliderSatGradientEndColor}" Offset="1" x:Name="slSATEndGradient"/>
+                                <GradientStop Color="{Binding ElementName=slHue, Path=Hue}" Offset="1" x:Name="slSATEndGradient"/>
                             </LinearGradientBrush>
                         </Slider.Background>
                     </controls:BindableSlider>

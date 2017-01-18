@@ -134,7 +134,6 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -172,8 +171,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.Toolkit, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +212,7 @@
     <Compile Include="Converters\SliderToUshortConverter.cs" />
     <Compile Include="Converters\SliderToXYConverter.cs" />
     <Compile Include="Converters\VisibleToBoolConverter.cs" />
+    <Compile Include="CustomControls\BindableHueSlider.cs" />
     <Compile Include="CustomControls\BindableListView.cs" />
     <Compile Include="CustomControls\BindableSlider.cs" />
     <Compile Include="GlobalStrings.de.Designer.cs">
