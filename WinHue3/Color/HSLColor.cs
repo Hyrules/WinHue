@@ -105,6 +105,7 @@ namespace WinHue3
             else
                 return temp1;
         }
+
         private static double MoveIntoRange(double temp3)
         {
             if (temp3 < 0.0)
