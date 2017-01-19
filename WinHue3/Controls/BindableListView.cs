@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using HueLib2;
 using WinHue3.Annotations;
 
-namespace WinHue3.CustomControls
+namespace WinHue3.Controls
 {
     public class BindableListView : ListView
     {

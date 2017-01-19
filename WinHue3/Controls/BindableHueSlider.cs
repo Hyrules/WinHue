@@ -12,9 +12,9 @@ using System.Windows.Input;
 using WinHue3.Annotations;
 
 
-namespace WinHue3.CustomControls
+namespace WinHue3.Controls
 {
-    public class BindableHueSlider : BindableSlider, INotifyPropertyChanged
+    public class BindableHueSlider : BindableSlider
     {
 
 
@@ -24,7 +24,6 @@ namespace WinHue3.CustomControls
             set
             {
                 SetValue(HueProperty, value);
-                OnPropertyChanged();
             }
         }
 
@@ -34,24 +33,8 @@ namespace WinHue3.CustomControls
         protected override void OnValueChanged(double oldValue, double newValue)
         {
             base.OnValueChanged(oldValue, newValue);
-            int r = 0, g = 0, b = 0;
-            ColorConversion.HSLToRgb(newValue / 182.042,1,1,out r,out g,out b);
-            Color col = new Color
-            {
-                A = 255,
-                R = (byte) r,
-                G = (byte) g,
-                B = (byte) b
-            };
-            Hue = col;
+            Hue = new HSLColor(newValue / 273.06, 240, 120);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

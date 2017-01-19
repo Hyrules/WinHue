@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HueLib2;
-using WinHue3;
-using WinHue3.ViewModels;
+
 
 namespace HueLib2Test
 {
@@ -18,7 +16,7 @@ namespace HueLib2Test
          //   DataStore test = Serializer.DeserializeToObject<DataStore>(data);
             string ex = (new WebException()).ToString();
             //ScheduleCreatorViewModel sv = new ScheduleCreatorViewModel();
-           string test = Serializer.SerializeToJson(new WebException());
+          // string test = Serializer.SerializeToJson(new WebException());
         }
     }
 }

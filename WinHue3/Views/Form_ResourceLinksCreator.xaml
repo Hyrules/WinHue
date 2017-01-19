@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewmodel="clr-namespace:WinHue3.ViewModels"
-        xmlns:CustomControls="clr-namespace:WinHue3.CustomControls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Form_ResourceLinksCreator"
+        xmlns:CustomControls="clr-namespace:WinHue3.Controls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Form_ResourceLinksCreator"
         xmlns:converter="clr-namespace:WinHue3.Converters"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="352.861" Width="599.472" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/resource.png" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800">

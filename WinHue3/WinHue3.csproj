@@ -200,6 +200,9 @@
       <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
+    <Compile Include="Controls\XYSliders.xaml.cs">
+      <DependentUpon>XYSliders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
     <Compile Include="Converters\GroupClassConverter.cs" />
@@ -212,9 +215,9 @@
     <Compile Include="Converters\SliderToUshortConverter.cs" />
     <Compile Include="Converters\SliderToXYConverter.cs" />
     <Compile Include="Converters\VisibleToBoolConverter.cs" />
-    <Compile Include="CustomControls\BindableHueSlider.cs" />
-    <Compile Include="CustomControls\BindableListView.cs" />
-    <Compile Include="CustomControls\BindableSlider.cs" />
+    <Compile Include="Controls\BindableHueSlider.cs" />
+    <Compile Include="Controls\BindableListView.cs" />
+    <Compile Include="Controls\BindableSlider.cs" />
     <Compile Include="GlobalStrings.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -336,6 +339,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\XYSliders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

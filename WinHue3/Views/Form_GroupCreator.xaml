@@ -5,7 +5,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:winHue3="clr-namespace:WinHue3"
         xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
-        xmlns:CustomControls="clr-namespace:WinHue3.CustomControls"
+        xmlns:CustomControls="clr-namespace:WinHue3.Controls"
         xmlns:converter="clr-namespace:WinHue3.Converters"
         x:Class="WinHue3.Form_GroupCreator"
         Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="600" MinWidth="800">

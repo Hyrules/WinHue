@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace WinHue3.CustomControls
+namespace WinHue3.Controls
 {
     public class BindableSlider : Slider, ICommandSource
     {
