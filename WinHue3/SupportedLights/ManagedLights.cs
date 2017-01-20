@@ -10,15 +10,18 @@ namespace WinHue3
     {
         public static Dictionary<string, Supportedlight> listAvailableLights;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        private static readonly Supportedlight defaultLightImages = new Supportedlight()
+        private static readonly Supportedlight UnsupportedLight = new Supportedlight()
         {
-            img = new Dictionary<string, ImageSource>()
+            Img = new Dictionary<string, ImageSource>()
             {
                 {"on", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_on)},
                 {"off", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_off)},
                 {"unr", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_unr)},
-            }
+            },
+            Bri = new MaxMin<byte>(0, 0),
+            Sat = new MaxMin<byte>(0, 0),
+            Ct = new MaxMin<ushort>(153, 153),
+            Hue = new MaxMin<ushort>(0, 0),             
         };
 
         public static void LoadSupportedLights()
@@ -27,7 +30,7 @@ namespace WinHue3
             {
                 listAvailableLights = new Dictionary<string, Supportedlight>()
                 {
-                    {"default", defaultLightImages},
+                    {"Unsupported", UnsupportedLight},
                 };
 
                 string[] listlightsfiles = Directory.GetFiles("lights","*.lt");
@@ -49,8 +52,8 @@ namespace WinHue3
                     try
                     {
                         Supportedlight sl = JsonConvert.DeserializeObject<Supportedlight>(json,new SupportedLightConverter(typeof (Supportedlight)));
-                        log.Info($"Loaded supported light : {sl.name}, modelid : {sl.modelid}, type : {sl.type}");
-                        listAvailableLights.Add(sl.modelid, sl);
+                        log.Info($"Loaded supported light : {sl.Name}, modelid : {sl.Modelid}, type : {sl.Type}");
+                        listAvailableLights.Add(sl.Modelid, sl);
                     }
                     catch (OverflowException ex)
                     {

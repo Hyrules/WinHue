@@ -765,7 +765,7 @@ namespace WinHue3
             if (modelID == string.Empty)
             {
                 log.Debug("STATE : " + state + " empty MODELID using default images");
-                return ManagedLights.listAvailableLights["default"].img[state];
+                return ManagedLights.listAvailableLights["default"].Img[state];
             }
 
             ImageSource newImage;
@@ -773,12 +773,12 @@ namespace WinHue3
             if (ManagedLights.listAvailableLights.ContainsKey(modelID))
             {
                 log.Debug("STATE : " + state + " MODELID : " + modelID);
-                newImage = ManagedLights.listAvailableLights[modelID].img[state];
+                newImage = ManagedLights.listAvailableLights[modelID].Img[state];
             }
             else
             {
                 log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " using default images.");
-                newImage = ManagedLights.listAvailableLights["default"].img[state];
+                newImage = ManagedLights.listAvailableLights["default"].Img[state];
             }
             return newImage;
         }

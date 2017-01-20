@@ -6,26 +6,153 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
+using Microsoft.Practices.Prism.Mvvm;
 
 namespace WinHue3
 {
 
-    public class Supportedlight
+    public class Supportedlight : BindableBase
     {
-        public string modelid { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
-        public Dictionary<string,ImageSource> img { get; set; }
-        public MaxMin<ushort> hue { get; set; }
-        public MaxMin<byte> bri { get; set; }
-        public MaxMin<byte> sat { get; set; }
-        public MaxMin<ushort> ct { get; set; }
+        private string _modelid;
+        private string _name;
+        private string _type;
+        private Dictionary<string, ImageSource> _img;
+        private MaxMin<ushort> _hue;
+        private MaxMin<byte> _bri;
+        private MaxMin<byte> _sat;
+        private MaxMin<ushort> _ct;
+
+        public string Modelid
+        {
+            get
+            {
+                return _modelid;
+            }
+
+            set
+            {
+                SetProperty(ref _modelid,value);
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                SetProperty(ref _name, value);
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return _type;
+            }
+
+            set
+            {
+                SetProperty(ref _type,value);
+            }
+        }
+
+        public Dictionary<string, ImageSource> Img
+        {
+            get
+            {
+                return _img;
+            }
+
+            set
+            {
+                SetProperty(ref _img,value);
+            }
+        }
+
+        public MaxMin<ushort> Hue
+        {
+            get
+            {
+                return _hue;
+            }
+
+            set
+            {
+                SetProperty(ref _hue,value);
+            }
+        }
+
+        public MaxMin<byte> Bri
+        {
+            get
+            {
+                return _bri;
+            }
+
+            set
+            {
+                SetProperty(ref _bri,value);
+            }
+        }
+
+        public MaxMin<byte> Sat
+        {
+            get
+            {
+                return _sat;
+            }
+
+            set
+            {
+                SetProperty(ref _sat,value);
+            }
+        }
+
+        public MaxMin<ushort> Ct
+        {
+            get
+            {
+                return _ct;
+            }
+
+            set
+            {
+                SetProperty(ref _ct,value);
+            }
+        }
     }
 
-    public class MaxMin<T>
+    public class MaxMin<T> : BindableBase
     {
-        public T min { get; set; }
-        public T max { get; set; }
+        private T _min;
+        private T _max;
+
+        public MaxMin(T maxval,T minval)
+        {
+           _min = minval;
+           _max = maxval;
+        }
+
+        public MaxMin()
+        {
+        }
+
+        public T Min
+        {
+            get { return _min; }
+            set { SetProperty(ref _min, value); }
+        }
+        public T Max
+        {
+            get { return _max; }
+            set { SetProperty(ref _max, value); }
+        }
+
     }
 
     public class SupportedLightConverter : JsonConverter
@@ -51,50 +178,35 @@ namespace WinHue3
 
   
             if (obj["modelid"] != null)
-                supportedlight.modelid = obj["modelid"].Value<string>();
+                supportedlight.Modelid = obj["modelid"].Value<string>();
             if (obj["name"] != null)
-                supportedlight.name = obj["name"].Value<string>();
+                supportedlight.Name = obj["name"].Value<string>();
             if (obj["type"] != null)
-                supportedlight.type = obj["type"].Value<string>();
+                supportedlight.Type = obj["type"].Value<string>();
 
             if (obj["hue"] != null)
             {
                 if (obj["hue"]["max"] != null && obj["hue"]["min"] != null)
-                    supportedlight.hue = new MaxMin<ushort>()
-                    {
-                        max = obj["hue"]["max"].Value<ushort>(),
-                        min = obj["hue"]["min"].Value<ushort>()
-                    };
+                    supportedlight.Hue = new MaxMin<ushort>(obj["hue"]["max"].Value<ushort>(), obj["hue"]["min"].Value<ushort>());
             }
 
             if (obj["sat"] != null)
             {
                 if (obj["sat"]["max"] != null && obj["sat"]["min"] != null)
-                    supportedlight.sat = new MaxMin<byte>()
-                    {
-                        max = obj["sat"]["max"].Value<byte>(),
-                        min = obj["sat"]["min"].Value<byte>()
-                    };
+                    supportedlight.Sat = new MaxMin<byte>(obj["sat"]["max"].Value<byte>(), obj["sat"]["min"].Value<byte>());
             }
 
             if (obj["bri"] != null)
             {
                 if (obj["bri"]["max"] != null && obj["bri"]["min"] != null)
-                    supportedlight.bri = new MaxMin<byte>()
-                    {
-                        max = obj["bri"]["max"].Value<byte>(),
-                        min = obj["bri"]["min"].Value<byte>()
-                    };
+                    supportedlight.Bri = new MaxMin<byte>(obj["bri"]["max"].Value<byte>(), obj["bri"]["min"].Value<byte>());
+
             }
 
             if (obj["ct"] != null)
             {
                 if (obj["ct"]["max"] != null && obj["ct"]["min"] != null)
-                    supportedlight.ct = new MaxMin<ushort>()
-                    {
-                        max = obj["hue"]["max"].Value<ushort>(),
-                        min = obj["hue"]["min"].Value<ushort>()
-                    };
+                    supportedlight.Ct = new MaxMin<ushort>(obj["hue"]["max"].Value<ushort>(), obj["hue"]["min"].Value<ushort>());
             }
 
             if (obj["img"] != null)
@@ -102,24 +214,24 @@ namespace WinHue3
                 if (obj["img"]["on"] != null && obj["img"]["off"] != null && obj["img"]["unr"] != null)
                 {
                     string path = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-                    supportedlight.img = new Dictionary<string, ImageSource>();
+                    supportedlight.Img = new Dictionary<string, ImageSource>();
 
                     if (File.Exists(path + @"\lights\images\" + obj["img"]["on"].Value<string>()) &&
                         File.Exists(path + @"\lights\images\" + obj["img"]["off"].Value<string>()) &&
                         File.Exists(path + @"\lights\images\" + obj["img"]["unr"].Value<string>()))
                     {
-                        supportedlight.img.Add("on",
+                        supportedlight.Img.Add("on",
                             new BitmapImage(new Uri(path + @"\lights\images\" + obj["img"]["on"].Value<string>())));
-                        supportedlight.img.Add("off",
+                        supportedlight.Img.Add("off",
                             new BitmapImage(new Uri(path + @"\lights\images\" + obj["img"]["off"].Value<string>())));
-                        supportedlight.img.Add("unr",
+                        supportedlight.Img.Add("unr",
                             new BitmapImage(new Uri(path + @"\lights\images\" + obj["img"]["unr"].Value<string>())));
                     }
                     else
                     {
-                        supportedlight.img.Add("on",GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_on));
-                        supportedlight.img.Add("off",GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_off));
-                        supportedlight.img.Add("unr",GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_unr));
+                        supportedlight.Img.Add("on",GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_on));
+                        supportedlight.Img.Add("off",GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_off));
+                        supportedlight.Img.Add("unr",GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_unr));
                     }
                 }
 

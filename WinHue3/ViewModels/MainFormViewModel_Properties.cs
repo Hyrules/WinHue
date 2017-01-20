@@ -15,6 +15,7 @@ namespace WinHue3.ViewModels
         private ObservableCollection<Bridge> _listBridges;
         private HueObject _selectedObject;
         private Bridge _selectedBridge;
+        private Supportedlight _selectedModel;
 
         public Bridge SelectedBridge
         {
@@ -22,8 +23,7 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _selectedBridge,value);
-                RefreshView();
-                
+                RefreshView();              
             }
         }
 
@@ -59,6 +59,12 @@ namespace WinHue3.ViewModels
         {
             get { return _eventlogform; }
             set { SetProperty(ref _eventlogform,value); }
+        }
+
+        public Supportedlight SelectedModel
+        {
+            get{return _selectedModel;}
+            set{SetProperty(ref _selectedModel,value);}
         }
     }
 }

@@ -639,6 +639,10 @@ namespace WinHue3.ViewModels
                 MainFormModel.SliderX = Convert.ToDecimal(light.state.xy.x);
                 MainFormModel.SliderY = Convert.ToDecimal(light.state.xy.y);
                 MainFormModel.ModelId = light.modelid;
+                if (ManagedLights.listAvailableLights.ContainsKey(light.modelid))
+                    SelectedModel = ManagedLights.listAvailableLights[light.modelid];
+                else
+                    SelectedModel = ManagedLights.listAvailableLights["UnsupportedLight"];
             }
             else if (_selectedObject is Group)
             {
@@ -650,6 +654,7 @@ namespace WinHue3.ViewModels
                 MainFormModel.SliderX = Convert.ToDecimal(light.action.xy.x);
                 MainFormModel.SliderY = Convert.ToDecimal(light.action.xy.y);
                 MainFormModel.ModelId = light.modelid;
+                SelectedModel = null;
             }
             else
             {
@@ -660,7 +665,34 @@ namespace WinHue3.ViewModels
                 MainFormModel.SliderX = 0;
                 MainFormModel.SliderY = 0;
                 MainFormModel.ModelId = string.Empty;
+                SelectedModel = null;
             }
+        }
+
+        private void ViewSceneMapping()
+        {
+            Form_SceneMapping _fsm = new Form_SceneMapping(SelectedBridge) { Owner = Application.Current.MainWindow };
+            _fsm.Show();
+        }
+
+        private void ViewBulbs()
+        {
+            Form_BulbsView _fbv = new Form_BulbsView(SelectedBridge) { Owner = Application.Current.MainWindow };
+            _fbv.Show();
+        }
+
+        private void ViewGroups()
+        {
+            Form_GroupView _fgv = new Form_GroupView(SelectedBridge) { Owner = Application.Current.MainWindow };
+            _fgv.Show();
+        }
+
+        public void ReplaceCurrentState()
+        {
+            if (MessageBox.Show(GlobalStrings.Scene_Replace_Current_States, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
+            log.Info($@"Replacing scene {((Scene)_selectedObject).name} lights state with current one.");
+            SelectedBridge.StoreCurrentLightState(_selectedObject.Id);
+
         }
     }
 }

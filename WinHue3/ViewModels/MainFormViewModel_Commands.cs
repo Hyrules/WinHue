@@ -132,11 +132,16 @@ namespace WinHue3.ViewModels
             return ((Sensor) SelectedObject).type == "ZLLPresence";
         }
 
-        public bool CanDuplicate()
+        private bool CanDuplicate()
         {
             if (!IsObjectSelected()) return false;
             return SelectedObject is Rule || SelectedObject is Scene || (SelectedObject is Sensor || ((Sensor)SelectedObject).type.Contains("CLIP"));
+        }
 
+        private bool CanReplaceState()
+        {
+            if (!IsObjectSelected()) return false;
+            return SelectedObject is Scene;
         }
 
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());
@@ -148,7 +153,7 @@ namespace WinHue3.ViewModels
         public ICommand RefreshViewCommand => new RelayCommand(param => RefreshView(), (param) => EnableButtons());
         public ICommand CreateGroupCommand => new RelayCommand(param => CreateGroup(), (param) => EnableButtons());
         public ICommand CreateSceneCommand => new RelayCommand(param => CreateScene(), (param) => EnableButtons());
-        public ICommand CreateScheduleCommand => new RelayCommand(param => CreateSchedule(), (param) => EnableButtons() && CanSchedule() && IsObjectSelected());
+        public ICommand CreateScheduleCommand => new RelayCommand(param => CreateSchedule(), (param) => EnableButtons() && CanSchedule());
         public ICommand CreateRuleCommand => new RelayCommand(param => CreateRule(), (param) => EnableButtons());
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor(), (param) => EnableButtons());
         //  public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
@@ -176,23 +181,23 @@ namespace WinHue3.ViewModels
         public ICommand EditObjectCommand => new RelayCommand(param => EditObject(), (param) => IsEditable());
         public ICommand IdentifyLongCommand => new RelayCommand(param => IdentifyLong(), (param) => CanIdentify());
         public ICommand IdentifyShortCommand => new RelayCommand(param => IdentifyShort(), (param) => CanIdentify());
-        //public ICommand ReplaceCurrentStateCommand => new RelayCommand(param => ReplaceCurrentState());
+        public ICommand ReplaceCurrentStateCommand => new RelayCommand(param => ReplaceCurrentState(), (param) => CanReplaceState());
         public ICommand SensitivityHighCommand => new RelayCommand(param => Sensitivity(2), (param) => CanSetSensivity());
         public ICommand SensitivityMediumCommand => new RelayCommand(param => Sensitivity(1), (param) => CanSetSensivity());
         public ICommand SensitivityLowCommand => new RelayCommand(param => Sensitivity(0), (param) => CanSetSensivity());
         public ICommand DuplicateObjectCommand => new RelayCommand(param => DuplicateObject(), (param) => CanDuplicate());
+
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new RelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());
 
         //*************** View Commands ************************
-
-   //     public ICommand ViewSceneMappingCommand => new RelayCommand(param => ViewSceneMapping(), (param) => EnableButtons());
-  //      public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs(), (param) => EnableButtons());
-   //     public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups(), (param) => EnableButtons());
+        public ICommand ViewSceneMappingCommand => new RelayCommand(param => ViewSceneMapping(), (param) => EnableButtons());
+        public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs(), (param) => EnableButtons());
+        public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups(), (param) => EnableButtons());
 
         //*************** Toolbar ******************************
 
-  //      public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons());
+        public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons());
   //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
   //      public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons());
    //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());

@@ -216,21 +216,21 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="AliceBlue" Height="403" VerticalAlignment="Top">
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Maximum="65535" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}">
+                    <controls:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="{Binding SelectedModel.Bri.Min,FallbackValue=0}" Maximum="{Binding SelectedModel.Bri.Max, FallbackValue=65535}">
                         <controls:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                                 <GradientStop Color="#FFFF0000" />
                                 <GradientStop Color="#FEFFFF00" Offset="0.167" />
                                 <GradientStop Color="#FE00FF00" Offset="0.333" />
-                                <GradientStop Color="#FE00FFFF" Offset="0.5" />
+                                <GradientStop Color="#FE00FFFF" Offset="0.5"   />
                                 <GradientStop Color="#FE0000FF" Offset="0.667" />
                                 <GradientStop Color="#FEFF00FF" Offset="0.833" />
-                                <GradientStop Color="#FFFF0000" Offset="1.0" />
+                                <GradientStop Color="#FFFF0000" Offset="1.0"   />
                             </LinearGradientBrush>
                         </controls:BindableHueSlider.Background>
                     </controls:BindableHueSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="254" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}">
+                    <controls:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Bri.Max, FallbackValue=255}" Minimum="{Binding SelectedModel.Bri.Min,FallbackValue=0}" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                                 <GradientStop Color="White" Offset="1"/>
@@ -239,7 +239,7 @@
                         </controls:BindableSlider.Background>
                     </controls:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="254" Minimum="0" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}">
+                    <controls:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Sat.Max,FallbackValue=255}" Minimum="{Binding SelectedModel.Sat.Min,FallbackValue=0}" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="White" x:Name="slSATStartGradient"/>
@@ -248,7 +248,7 @@
                         </controls:BindableSlider.Background>
                     </controls:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}">
+                    <controls:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Ct.Max, FallbackValue=500}" Margin="10,0,10,10" Width="Auto" Minimum="{Binding SelectedModel.Ct.Min, FallbackValue=153}" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
                                 <GradientStop Color="#FFFF8912" Offset="0"/>
