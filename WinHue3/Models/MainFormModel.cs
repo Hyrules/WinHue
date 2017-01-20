@@ -15,6 +15,7 @@ namespace WinHue3.Models
         private decimal _sliderX;
         private decimal _sliderY;
         private uint _sliderTT;
+        private string _modelid;
 
         public MainFormModel()
         {
@@ -61,6 +62,12 @@ namespace WinHue3.Models
         {
             get { return _sliderTT; }
             set { SetProperty(ref _sliderTT,value); }
+        }
+
+        public string ModelId
+        {
+            get { return _modelid; }
+            set { SetProperty(ref _modelid,value); }
         }
     }
 }

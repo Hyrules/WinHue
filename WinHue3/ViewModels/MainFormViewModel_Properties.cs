@@ -48,7 +48,11 @@ namespace WinHue3.ViewModels
         public HueObject SelectedObject
         {
             get { return _selectedObject; }
-            set { SetProperty(ref _selectedObject,value); }
+            set
+            {
+                SetProperty(ref _selectedObject,value);
+                SetMainFormModel();
+            }
         }
 
         public Form_EventLog Eventlogform

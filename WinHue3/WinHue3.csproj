@@ -200,11 +200,14 @@
       <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
+    <Compile Include="Color\Q42ColorConversion.cs" />
+    <Compile Include="Color\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
+    <Compile Include="Converters\DoubleToDecimalConverter.cs" />
     <Compile Include="Converters\GroupClassConverter.cs" />
     <Compile Include="Converters\GroupTypeConverter.cs" />
     <Compile Include="Converters\NudToTransitionTimeConverter.cs" />

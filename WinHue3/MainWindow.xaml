@@ -10,10 +10,12 @@
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converters="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
+
         x:Class="WinHue3.MainWindow"
         Title="WinHue 3" Height="768" Width="1024" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" >
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
     </Window.Resources>
 
     <Window.DataContext>
@@ -26,6 +28,7 @@
     </i:Interaction.Triggers>
 
     <DockPanel LastChildFill="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+       
         <Ribbon x:Name="rbnMainRibbon" VerticalAlignment="Top" DockPanel.Dock="Top" >
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu SmallImageSource="icon.ico">
@@ -258,7 +261,7 @@
                         <Separator Margin="0,104,0,-12"/>
                         <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,120,0,-38" Width="350" HorizontalContentAlignment="Center"/>
                         <controls:BindableSlider x:Name="slTT" Maximum="65535" Minimum="-1" Margin="10,138,10,-60" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding MainFormModel.SliderTt}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=slHue}" />
-                        <controls:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX}" YValue="{Binding MainFormModel.SliderY}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}"/>
+                        <controls:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" CommandParameter="{Binding MainFormModel.ModelId}" YValue="{Binding MainFormModel.SliderY,Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}"/>
                     </Grid>
                 </StackPanel>
                 <xcad:DockingManager Grid.Row="1" Background="AliceBlue">

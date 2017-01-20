@@ -288,7 +288,6 @@ namespace WinHue3.ViewModels
 
         private void CheckForNewBulb()
         {
-            if (SelectedBridge == null) return;
             CommandResult bresult = SelectedBridge.FindNewObjects<Light>();
             if (bresult.Success)
             {
@@ -395,7 +394,6 @@ namespace WinHue3.ViewModels
 
         private void SearchNewSensors()
         {
-            if (SelectedBridge == null) return;
             CommandResult bresult = SelectedBridge.FindNewObjects<Sensor>();
             if (bresult.Success)
             {
@@ -429,7 +427,6 @@ namespace WinHue3.ViewModels
 
         private void DoBridgeUpdate()
         {
-            if (SelectedBridge == null) return;
             if (MessageBox.Show(GlobalStrings.Update_Confirmation, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
             log.Info("Updating bridge to the latest firmware.");
             CommandResult bresult = SelectedBridge.DoSwUpdate();
@@ -544,7 +541,6 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeHue()
         {
-            if (_selectedObject == null || SelectedBridge == null) return;
             ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { hue = MainFormModel.SliderHue, transitiontime = _transitiontime }, _selectedObject.Id });
         }
 
@@ -558,25 +554,21 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeBri()
         {
-            if (_selectedObject == null || SelectedBridge == null) return;
             ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { bri = MainFormModel.SliderBri, transitiontime = _transitiontime }, _selectedObject.Id });
         }
 
         private void SliderChangeCt()
         {
-            if (_selectedObject == null || SelectedBridge == null) return;
             ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { ct = MainFormModel.SliderCt, transitiontime = _transitiontime }, _selectedObject.Id });
         }
 
         private void SliderChangeSat()
         {
-            if (_selectedObject == null || SelectedBridge == null) return;
             ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = _transitiontime }, _selectedObject.Id });
         }
 
         private void SliderChangeXy()
         {
-            if (_selectedObject == null || SelectedBridge == null) return;
             ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = _transitiontime }, _selectedObject.Id });
 
         }
@@ -633,6 +625,42 @@ namespace WinHue3.ViewModels
         private void DuplicateObject()
         {
             
+        }
+
+        private void SetMainFormModel()
+        {
+            if (_selectedObject is Light)
+            {
+                Light light = (Light) _selectedObject;
+                MainFormModel.SliderBri = Convert.ToByte(light.state.bri);
+                MainFormModel.SliderHue = Convert.ToUInt16(light.state.hue);
+                MainFormModel.SliderSat = Convert.ToByte(light.state.sat);
+                MainFormModel.SliderCt = Convert.ToUInt16(light.state.ct);
+                MainFormModel.SliderX = Convert.ToDecimal(light.state.xy.x);
+                MainFormModel.SliderY = Convert.ToDecimal(light.state.xy.y);
+                MainFormModel.ModelId = light.modelid;
+            }
+            else if (_selectedObject is Group)
+            {
+                Group light = (Group)_selectedObject;
+                MainFormModel.SliderBri = Convert.ToByte(light.action.bri);
+                MainFormModel.SliderHue = Convert.ToUInt16(light.action.hue);
+                MainFormModel.SliderSat = Convert.ToByte(light.action.sat);
+                MainFormModel.SliderCt = Convert.ToUInt16(light.action.ct);
+                MainFormModel.SliderX = Convert.ToDecimal(light.action.xy.x);
+                MainFormModel.SliderY = Convert.ToDecimal(light.action.xy.y);
+                MainFormModel.ModelId = light.modelid;
+            }
+            else
+            {
+                MainFormModel.SliderBri = 0;
+                MainFormModel.SliderHue = 0;
+                MainFormModel.SliderSat = 0;
+                MainFormModel.SliderCt = 153;
+                MainFormModel.SliderX = 0;
+                MainFormModel.SliderY = 0;
+                MainFormModel.ModelId = string.Empty;
+            }
         }
     }
 }

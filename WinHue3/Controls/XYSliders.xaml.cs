@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -14,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using System.Runtime.CompilerServices;
+using WinHue3.Annotations;
 
 namespace WinHue3.Controls
 {
@@ -23,6 +26,7 @@ namespace WinHue3.Controls
 
     public partial class XYSliders : UserControl, ICommandSource
     {
+        private string modelid;
 
         public XYSliders()
         {
@@ -48,13 +52,14 @@ namespace WinHue3.Controls
         private void YSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             YValue = e.NewValue;
-            recColorXY.Fill = new SolidColorBrush(ColorConversion.ConvertXYToColor(new PointF((float) XValue,(float) YValue),1f));
+            HueColorConverter.ColorFromXY(new CGPoint(XValue, YValue), modelid);
+            recColorXY.Fill = new SolidColorBrush(ColorConversion.ConvertXYToColor(new PointF((float) XValue,(float) YValue),1));
         }
 
         private void XSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             XValue = e.NewValue;
-            recColorXY.Fill = new SolidColorBrush(ColorConversion.ConvertXYToColor(new PointF((float)XValue, (float)YValue), 1f));
+            recColorXY.Fill = new SolidColorBrush(ColorConversion.ConvertXYToColor(new PointF((float)XValue, (float)YValue), 1));
         }
 
         public string XSliderLabel
@@ -64,7 +69,7 @@ namespace WinHue3.Controls
         }
 
         // Using a DependencyProperty as the backing store for XSliderLabel.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty XSliderLabelProperty = DependencyProperty.Register("XSliderLabel", typeof(string), typeof(XYSliders), new PropertyMetadata(string.Empty,XSliderLabelPropertyChanged));
+        public static readonly DependencyProperty XSliderLabelProperty = DependencyProperty.Register("XSliderLabel", typeof(string), typeof(XYSliders), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, XSliderLabelPropertyChanged));
 
         private static void XSliderLabelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -79,7 +84,7 @@ namespace WinHue3.Controls
         }
 
         // Using a DependencyProperty as the backing store for YSliderLabel.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty YSliderLabelProperty = DependencyProperty.Register("YSliderLabel", typeof(string), typeof(XYSliders), new PropertyMetadata(string.Empty,YSliderLabelPropertyChanged));
+        public static readonly DependencyProperty YSliderLabelProperty = DependencyProperty.Register("YSliderLabel", typeof(string), typeof(XYSliders), new FrameworkPropertyMetadata(string.Empty,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ,YSliderLabelPropertyChanged) { BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 
         private static void YSliderLabelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -90,11 +95,17 @@ namespace WinHue3.Controls
         public double XValue
         {
             get { return (double)GetValue(XSliderValueProperty); }
-            set { SetValue(XSliderValueProperty, value); }
+            set { SetValue(XSliderValueProperty, value);}
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty XSliderValueProperty = DependencyProperty.Register("XValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double)));
+        public static readonly DependencyProperty XSliderValueProperty = DependencyProperty.Register("XValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double), XSliderValuePropertyChanged));
+
+        private static void XSliderValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            XYSliders slider = (XYSliders) d;
+            slider.XSlider.Value = Convert.ToDouble(e.NewValue);
+        }
 
 
         public double YValue
@@ -103,9 +114,22 @@ namespace WinHue3.Controls
             set { SetValue(YValueProperty, value); }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        void SetValueDp(DependencyProperty property, object value, [CallerMemberName] string p = null)
+        {
+            SetValue(property,value);
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(p));
+        }
+       
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty YValueProperty = DependencyProperty.Register("YValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double)));
+        public static readonly DependencyProperty YValueProperty = DependencyProperty.Register("YValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double), YValuePropertyChanged));
+
+        private static void YValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            XYSliders slider = (XYSliders) d;
+            slider.YSlider.Value = Convert.ToDouble(e.NewValue);
+        }
 
         #region COMMAND
         public ICommand Command
@@ -125,8 +149,14 @@ namespace WinHue3.Controls
         "CommandParameter",
         typeof(object),
         typeof(XYSliders),
-        new UIPropertyMetadata(null)
+        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, CommandParameterPropertyChanged) { DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged}
         );
+
+        private static void CommandParameterPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            XYSliders slider = (XYSliders) d;
+            slider.modelid = e.NewValue?.ToString() ?? string.Empty;
+        }
 
         public IInputElement CommandTarget
         {
@@ -240,5 +270,6 @@ namespace WinHue3.Controls
         }
 
         #endregion
+
     }
 }
