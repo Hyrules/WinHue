@@ -34,7 +34,6 @@ namespace WinHue3
         {
             _fel = formEventLog;
 
-
             if (!string.IsNullOrEmpty(WinHueSettings.settings.Language) &&
                 !string.IsNullOrWhiteSpace(WinHueSettings.settings.Language))
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(WinHueSettings.settings.Language);
@@ -99,7 +98,7 @@ namespace WinHue3
             {
                 ((ListViewItem) dependencyobject).Background = new SolidColorBrush();
                 ((SolidColorBrush) ((ListViewItem) dependencyobject).Background).Color =
-                    System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
+                    Color.FromArgb(20, 0, 200, 0);
             }
         }
 
@@ -112,7 +111,7 @@ namespace WinHue3
             {
                 ((ListViewItem)dependencyobject).Background = new SolidColorBrush();
                 ((SolidColorBrush)((ListViewItem)dependencyobject).Background).Color =
-                    System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
+                    Color.FromArgb(20, 0, 200, 0);
             }
         }
 
@@ -126,7 +125,7 @@ namespace WinHue3
                         select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>()
                 )
             {
-                ((ListViewItem) dependencyobject).Background = null;
+                dependencyobject.Background = null;
             }
         }
 

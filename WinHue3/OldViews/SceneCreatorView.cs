@@ -43,30 +43,42 @@ namespace WinHue3
             SetError(GlobalStrings.Scene_SelectOneLight, "ListSceneLights");
         }
 
-        public SceneCreatorView(List<HueObject> listlights ,HueObject obj)
+        public SceneCreatorView(List<HueObject> listlights ,string sceneid,Bridge bridge)
         {
-            _scene = (Scene) obj;
-            _listAvailableLights = new ObservableCollection<HueObject>(listlights);
-            _listSceneLights = new ObservableCollection<HueObject>();
-            _cansavescene = true;
-            _canpreviewscene = true;
-            OnPropertyChanged("CanSaveSecene");
-            OnPropertyChanged("CanPreviewScene");
-            foreach (string s in _scene.lights)
+            _bridge = bridge;
+             
+            CommandResult cr= _bridge.GetObject<Scene>(sceneid);
+            if (cr.Success)
             {
-                int index = _listAvailableLights.FindIndex(x => x.Id == s);
-                if (index == -1) continue;
-                if (!_scene.lightstates.ContainsKey(s)) continue;
-                ((Light) _listAvailableLights[index]).state = _scene.lightstates[s];
-                _listSceneLights.Add(_listAvailableLights[index]);
-                _listAvailableLights.RemoveAt(index);
+                _scene = (Scene) cr.resultobject;
+                _listAvailableLights = new ObservableCollection<HueObject>(listlights);
+                _listSceneLights = new ObservableCollection<HueObject>();
+                _cansavescene = true;
+                _canpreviewscene = true;
+                OnPropertyChanged("CanSaveSecene");
+                OnPropertyChanged("CanPreviewScene");
+                foreach (string s in _scene.lights)
+                {
+
+                    int index = _listAvailableLights.FindIndex(x => x.Id == s);
+                    if (index == -1) continue;
+                    if (!_scene.lightstates.ContainsKey(s)) continue;
+                    ((Light)_listAvailableLights[index]).state = _scene.lightstates[s];
+                    _listSceneLights.Add(_listAvailableLights[index]);
+                    _listAvailableLights.RemoveAt(index);
+                }
+
+                foreach (HueObject light in _listAvailableLights)
+                {
+                    ((Light)light).state = new State();
+                }
+                _newstate = new State { @on = true };
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
 
-            foreach (HueObject light in _listAvailableLights)
-            {
-                ((Light)light).state = new State();
-            }
-            _newstate = new State {@on = true};
         }
 
         
@@ -470,14 +482,14 @@ namespace WinHue3
             Form_SelectColorFromImage fsci = new Form_SelectColorFromImage() { Owner = Application.Current.MainWindow };
             if (fsci.ShowDialog() != true) return;
             Color c = fsci.GetSelectedColor();
-            XY color = ColorConversion.ConvertRGBToXY(System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B));
+            CGPoint color = HueColorConverter.CalculateXY(c,((Light)_selectedAvailableLight).modelid);
             if (CurrentState.xy == null)
             {
                 CurrentState.xy = new XY();
             }
             CurrentState.sat = 255;
-            CurrentState.xy.x = color.x;
-            CurrentState.xy.y = color.y;
+            CurrentState.xy.x = Convert.ToDecimal(color.x);
+            CurrentState.xy.y = Convert.ToDecimal(color.y);
             OnPropertyChanged("X");
             OnPropertyChanged("Y");
             OnPropertyChanged("Sat");

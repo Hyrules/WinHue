@@ -22,7 +22,7 @@ namespace WinHue3
         /// <summary>
         /// Id of the new or modified scene.
         /// </summary>
-        private Scene _currentscene;
+        private string _currentsceneid;
 
         private SceneCreatorView scv;
 
@@ -38,25 +38,28 @@ namespace WinHue3
             scv = hr.Success ? new SceneCreatorView((List<HueObject>)hr.Hrobject,_bridge) : new SceneCreatorView(new List<HueObject>(),_bridge);
             DataContext = scv;
             _bridge = bridge;
+            _currentsceneid = string.Empty;
+
         }
 
-        public Form_SceneCreator(Bridge bridge, HueObject obj)
+        public Form_SceneCreator(Bridge bridge, string sceneid)
         {
             InitializeComponent();
-            _currentscene = ((Scene)obj);
+            _currentsceneid = sceneid;
+            _bridge = bridge;
+
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
             if (hr.Success)
             {
-                scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, obj);
-                DataContext = scv;
-                _bridge = bridge;
+                scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, sceneid, _bridge);
+                DataContext = scv;               
             }
 
         }
 
         public string GetCreatedOrModifiedID()
         {
-            return _currentscene.Id;
+            return _currentsceneid;
         }
 
         private void lbSelectedLights_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -69,21 +72,21 @@ namespace WinHue3
             Scene newScene = (Scene) scv.GetScene();
 
             log.Info("Scene to be created : " + newScene);
-            CommandResult comres = _currentscene == null? _bridge.CreateObject<Scene>(newScene) : _bridge.ModifyObject<Scene>(newScene,_currentscene.Id);
+            CommandResult comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>(newScene) : _bridge.ModifyObject<Scene>(newScene,_currentsceneid);
 
             if (comres.Success)
             {
                 MessageCollection mc = ((MessageCollection) comres.resultobject);
 
                 string id = "";
-                id = _currentscene != null ? _currentscene.Id : ((CreationSuccess)mc[0]).id;
+                id = _currentsceneid != string.Empty ? _currentsceneid : ((CreationSuccess)mc[0]).id;
                 log.Info("Id of the scene" + id);
                 ObservableCollection<HueObject> listLightState = scv.GetSceneLights();
                 foreach (HueObject obj in listLightState)
                 {
                     _bridge.SetSceneLightState(id, obj.Id, ((Light)obj).state);
                 }
-                _currentscene = new Scene() {Id = id};
+                _currentsceneid = id;
                 DialogResult = true;
                 Close();
             }

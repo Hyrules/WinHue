@@ -16,6 +16,8 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
+        <converters:IndexToSortConverter x:Key="IndexToSortConverter"/>
+        <converters:SliderToUshortConverter x:Key="SliderToUshortConverter"/>
     </Window.Resources>
 
     <Window.DataContext>
@@ -70,6 +72,7 @@
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}">
                     <RibbonButton x:Name="btnBridgeSettings" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeImageSource="Resources/1417331999_Gear.png" SmallImageSource="Resources/1417331999_Gear.png" Command="{Binding ChangeBridgeSettingsCommand}"/>
                     <RibbonButton x:Name="btnUpdate" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Visibility="{Binding UpdateAvailable, FallbackValue=Collapsed}" LargeImageSource="Resources/1417332335_Warning.png" Command="{Binding UpdateBridgeCommand}"/>
+                    <RibbonButton x:Name="btnUser" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" LargeImageSource="Resources/user.png" Command="{Binding ManageUsersCommand}" />
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}">
                     <RibbonButton x:Name="btnEventLog" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" LargeImageSource="Resources/1416205084_Book_edit.png" SmallImageSource="Resources/1416205084_Book_edit.png" Command="{Binding ShowEventLogCommand}" KeyTip="E"/>
@@ -89,21 +92,23 @@
                     </RibbonSplitButton>
                 </RibbonGroup>
                 <RibbonGroup x:Name="rgViews" Header="Views" Width="auto">
-                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png" IsEnabled="{Binding EnableControls}"/>
-                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeImageSource="Resources/BulbView.png" IsEnabled="{Binding EnableControls}" />
-                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeImageSource="Resources/GroupView.png" IsEnabled="{Binding EnableControls}"/>
+                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png"/>
+                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeImageSource="Resources/BulbView.png" />
+                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeImageSource="Resources/GroupView.png"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_View}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <RibbonGroup x:Name="rgView" Header="" Width="auto">
-                    <WrapPanel>
+                <RibbonGroup x:Name="rgViewSort" Width="auto" Header="{x:Static resx:GUI.MainForm_Tab_View_Sorting}">
+                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Label Content="Sorting"/>
-                        <ComboBox x:Name="rbcSorting" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedIndex="0">
+                        <controls:CommandComboBox x:Name="rbcSorting" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedIndex="{Binding MainFormModel.Sort, Converter={StaticResource IndexToSortConverter}}" Command="{Binding SortListViewCommand}">
                             <ComboBoxItem Content="Defaut"/>
                             <ComboBoxItem Content="Ascending"/>
                             <ComboBoxItem Content="Descending"/>
-                        </ComboBox>
+                        </controls:CommandComboBox>
                     </WrapPanel>
+                </RibbonGroup>
+                <RibbonGroup x:Name="rgViewShowAdditional" Header="{x:Static resx:GUI.MainForm_Tab_View_AdditionalField}">
                     <CheckBox x:Name="cbShowID" Content="Show object ID" IsChecked="False"/>
                 </RibbonGroup>
             </RibbonTab>
@@ -124,7 +129,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" VerticalContentAlignment="Stretch">
+            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" VerticalContentAlignment="Stretch">
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -150,6 +155,7 @@
                 <ListView.ContextMenu>
                     <ContextMenu x:Name="cmListView" IsTabStop="True">
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" x:Name="mnuIdentify">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" x:Name="mnuIdentifyStop" Command="{Binding IdentifyStopCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" x:Name="mnuIdentifyLong" Command="{Binding IdentifyLongCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" x:Name="mnuIdentifyShort" Command="{Binding IdentifyShortCommand}"/>
                         </MenuItem>
@@ -158,6 +164,16 @@
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" x:Name="mnuSensivityMed" Command="{Binding SensitivityMediumCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Low}" x:Name="mnuSensivityLow" Command="{Binding SensitivityLowCommand}"/>
                         </MenuItem>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" x:Name="mnuCloning">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_QuickClone}" x:Name="mnuQuickClone" Command="{Binding QuickCloneCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" x:Name="mnuClone" Command="{Binding CloneCommand}"/>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" x:Name="mnuCopyToJsonRaw" Command="{Binding CopyToJsonRawCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" x:Name="mnuCopyToJson" Command="{Binding CopyToJsonCommand}"/>
+                        </MenuItem>
+                        <Separator/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" x:Name="mnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" x:Name="mnuEdit" Command="{Binding EditObjectCommand}"/>
                         <Separator/>
@@ -174,9 +190,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <TextBlock x:Name="tblShowId" Text="{Binding Id}"  Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" />
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                             <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="tblShowId" Text="{Binding Id}"  Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Path=Width}" TextAlignment="Center" />
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -216,7 +232,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="AliceBlue" Height="403" VerticalAlignment="Top">
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="{Binding SelectedModel.Bri.Min,FallbackValue=0}" Maximum="{Binding SelectedModel.Bri.Max, FallbackValue=65535}">
+                    <controls:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="{Binding SelectedModel.Bri.Min,FallbackValue=0}" Maximum="{Binding SelectedModel.Bri.Max, FallbackValue=65535}" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
                         <controls:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                                 <GradientStop Color="#FFFF0000" />
@@ -230,7 +246,7 @@
                         </controls:BindableHueSlider.Background>
                     </controls:BindableHueSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Bri.Max, FallbackValue=255}" Minimum="{Binding SelectedModel.Bri.Min,FallbackValue=0}" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}">
+                    <controls:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Bri.Max, FallbackValue=255}" Minimum="{Binding SelectedModel.Bri.Min,FallbackValue=0}" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri,Mode=OneWayToSource}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                                 <GradientStop Color="White" Offset="1"/>
@@ -239,7 +255,7 @@
                         </controls:BindableSlider.Background>
                     </controls:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Sat.Max,FallbackValue=255}" Minimum="{Binding SelectedModel.Sat.Min,FallbackValue=0}" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}">
+                    <controls:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Sat.Max,FallbackValue=255}" Minimum="{Binding SelectedModel.Sat.Min,FallbackValue=0}" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="White" x:Name="slSATStartGradient"/>
@@ -248,7 +264,7 @@
                         </controls:BindableSlider.Background>
                     </controls:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center"/>
-                    <controls:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Ct.Max, FallbackValue=500}" Margin="10,0,10,10" Width="Auto" Minimum="{Binding SelectedModel.Ct.Min, FallbackValue=153}" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}">
+                    <controls:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="{Binding SelectedModel.Ct.Max, FallbackValue=500}" Margin="10,0,10,10" Width="Auto" Minimum="{Binding SelectedModel.Ct.Min, FallbackValue=153}" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
                                 <GradientStop Color="#FFFF8912" Offset="0"/>
@@ -259,9 +275,9 @@
                     <Grid Height="100">
                         <Separator Margin="0,-1,0,93"/>
                         <Separator Margin="0,104,0,-12"/>
-                        <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,120,0,-38" Width="350" HorizontalContentAlignment="Center"/>
-                        <controls:BindableSlider x:Name="slTT" Maximum="65535" Minimum="-1" Margin="10,138,10,-60" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding MainFormModel.SliderTt}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=slHue}" />
-                        <controls:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" CommandParameter="{Binding MainFormModel.ModelId}" YValue="{Binding MainFormModel.SliderY,Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}"/>
+                        <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,112,0,-38" Width="350" HorizontalContentAlignment="Center"/>
+                        <controls:BindableSlider x:Name="slTT" Maximum="65535" Minimum="-1" Margin="9,143,11,-65" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter},Mode=OneWayToSource, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=slHue}" />
+                        <controls:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" CommandParameter="{Binding MainFormModel.ModelId}" YValue="{Binding MainFormModel.SliderY,Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}"/>
                     </Grid>
                 </StackPanel>
                 <xcad:DockingManager Grid.Row="1" Background="AliceBlue">

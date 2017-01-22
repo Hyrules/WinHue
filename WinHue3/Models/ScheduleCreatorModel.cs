@@ -31,7 +31,7 @@ namespace WinHue3.Models
         {
             On = true;
             Enabled = true;
-            LocalTime = DateTime.Now.ToString();
+            LocalTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         public string Name

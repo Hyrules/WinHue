@@ -8,18 +8,34 @@ namespace WinHue3.Models
 {
     public class MainFormModel : ValidatableBindableBase
     {
+        public enum WinHueSortOrder
+        {
+            Default,
+            Ascending,
+            Descending
+        }
+
         private byte _sliderBri;
         private ushort _sliderHue;
         private ushort _sliderCT;
         private byte _sliderSat;
         private decimal _sliderX;
         private decimal _sliderY;
-        private uint _sliderTT;
         private string _modelid;
+
+        private byte _oldsliderBri;
+        private ushort _oldsliderHue;
+        private ushort _oldsliderCT;
+        private byte _oldsliderSat;
+        private decimal _oldsliderX;
+        private decimal _oldsliderY;
+
+
+        private WinHueSortOrder _sort;
 
         public MainFormModel()
         {
-                      
+            _sort = WinHueSortOrder.Default;
         }
 
         public byte SliderBri
@@ -58,16 +74,53 @@ namespace WinHue3.Models
             set { SetProperty(ref _sliderY,value); }
         }
 
-        public uint SliderTt
-        {
-            get { return _sliderTT; }
-            set { SetProperty(ref _sliderTT,value); }
-        }
-
         public string ModelId
         {
             get { return _modelid; }
             set { SetProperty(ref _modelid,value); }
         }
+
+        public WinHueSortOrder Sort
+        {
+            get { return _sort; }
+            set { SetProperty(ref _sort,value); }
+        }
+
+        public byte OldSliderBri
+        {
+            get { return _oldsliderBri; }
+            set { SetProperty(ref _oldsliderBri,value); }
+        }
+
+        public ushort OldSliderHue
+        {
+            get { return _oldsliderHue; }
+            set { SetProperty(ref _oldsliderHue,value); }
+        }
+
+        public ushort OldSliderCt
+        {
+            get { return _oldsliderCT; }
+            set { SetProperty(ref _oldsliderCT,value); }
+        }
+
+        public byte OldSliderSat
+        {
+            get { return _oldsliderSat; }
+            set { SetProperty(ref _oldsliderSat,value); }
+        }
+
+        public decimal OldSliderX
+        {
+            get { return _oldsliderX; }
+            set { SetProperty(ref _oldsliderX,value); }
+        }
+
+        public decimal OldSliderY
+        {
+            get { return _oldsliderY; }
+            set { SetProperty(ref _oldsliderY,value); }
+        }
+
     }
 }

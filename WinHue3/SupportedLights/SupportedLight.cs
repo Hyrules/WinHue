@@ -206,7 +206,7 @@ namespace WinHue3
             if (obj["ct"] != null)
             {
                 if (obj["ct"]["max"] != null && obj["ct"]["min"] != null)
-                    supportedlight.Ct = new MaxMin<ushort>(obj["hue"]["max"].Value<ushort>(), obj["hue"]["min"].Value<ushort>());
+                    supportedlight.Ct = new MaxMin<ushort>(obj["ct"]["max"].Value<ushort>(), obj["ct"]["min"].Value<ushort>());
             }
 
             if (obj["img"] != null)

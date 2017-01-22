@@ -1303,6 +1303,42 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clone.
+        /// </summary>
+        public static string MainForm_ListView_Context_Clone {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Clone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string MainForm_ListView_Context_Copy {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy as JSON Formatted.
+        /// </summary>
+        public static string MainForm_ListView_Context_CopyToJson {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_CopyToJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy as JSON .
+        /// </summary>
+        public static string MainForm_ListView_Context_CopyToJsonRaw {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_CopyToJsonRaw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete....
         /// </summary>
         public static string MainForm_ListView_Context_Delete {
@@ -1335,6 +1371,24 @@ namespace WinHue3.Resources {
         public static string MainForm_ListView_Context_Long {
             get {
                 return ResourceManager.GetString("MainForm_ListView_Context_Long", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string MainForm_ListView_Context_None {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick clone.
+        /// </summary>
+        public static string MainForm_ListView_Context_QuickClone {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_QuickClone", resourceCulture);
             }
         }
         
@@ -1789,6 +1843,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_SettingsUsers {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_SettingsUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tools.
         /// </summary>
         public static string MainForm_Tab_Tools {
@@ -1803,6 +1866,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_View {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show More.
+        /// </summary>
+        public static string MainForm_Tab_View_AdditionalField {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_AdditionalField", resourceCulture);
             }
         }
         
@@ -1830,6 +1902,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_View_SceneMapping {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View_SceneMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort.
+        /// </summary>
+        public static string MainForm_Tab_View_Sorting {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_Sorting", resourceCulture);
             }
         }
         
@@ -1866,6 +1947,96 @@ namespace WinHue3.Resources {
         public static string MainForm_ToolsTab_Settings {
             get {
                 return ResourceManager.GetString("MainForm_ToolsTab_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add User.
+        /// </summary>
+        public static string ManageUsers_AddUser {
+            get {
+                return ResourceManager.GetString("ManageUsers_AddUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string ManageUsers_Clear {
+            get {
+                return ResourceManager.GetString("ManageUsers_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creation.
+        /// </summary>
+        public static string ManageUsers_CreateDate {
+            get {
+                return ResourceManager.GetString("ManageUsers_CreateDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ManageUsers_Delete {
+            get {
+                return ResourceManager.GetString("ManageUsers_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Type.
+        /// </summary>
+        public static string ManageUsers_DeviceType {
+            get {
+                return ResourceManager.GetString("ManageUsers_DeviceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string ManageUsers_Done {
+            get {
+                return ResourceManager.GetString("ManageUsers_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string ManageUsers_Key {
+            get {
+                return ResourceManager.GetString("ManageUsers_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Use.
+        /// </summary>
+        public static string ManageUsers_LastUsed {
+            get {
+                return ResourceManager.GetString("ManageUsers_LastUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string ManageUsers_Title {
+            get {
+                return ResourceManager.GetString("ManageUsers_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application Name.
+        /// </summary>
+        public static string ManageUsers_Username {
+            get {
+                return ResourceManager.GetString("ManageUsers_Username", resourceCulture);
             }
         }
         

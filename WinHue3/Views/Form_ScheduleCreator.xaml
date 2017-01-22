@@ -8,7 +8,7 @@
         xmlns:viewModel="clr-namespace:WinHue3.ViewModels"
         xmlns:converter="clr-namespace:WinHue3.Converters"       
     Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="628" Width="716" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SchedulesLarge.png">
-        
+
     <Window.DataContext>
         <viewModel:ScheduleCreatorViewModel/>
     </Window.DataContext>
@@ -108,7 +108,8 @@
         <GroupBox Header="{x:Static resx:GUI.ScheduleCreatorForm_ScheduleInformation}" HorizontalAlignment="Left" Height="246" Margin="6,6,0,0" VerticalAlignment="Top" Width="685">
             <Grid Margin="0,0,0,3">
                 <xctk:DoubleUpDown x:Name="dudTT" Value="{Binding ScheduleModel.Transitiontime,Converter={StaticResource NudToTransitionTimeConverter}}" HorizontalAlignment="Left" Margin="134,189,0,0" VerticalAlignment="Top" Width="83" Text="0" Maximum="65535" Minimum="-1" TabIndex="6" Height="23" ToolTip="In milliseconds. Maximum is 65535 ms.(set to 0 for no delay and -1 to default." DefaultValue="0" IsEnabled="{Binding CanSetSettings}"/>
-                <xctk:DateTimePicker x:Name="dtpScheduleDateTime" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" HorizontalAlignment="Left" Height="23" Margin="134,145,0,0" VerticalAlignment="Top" Width="239" TabIndex="4" Format="Custom" FormatString="{Binding TimeFormatString}" ToolTip="Must be geater than 5 minutes from now." SnapsToDevicePixels="True" TimePickerAllowSpin="False" />
+
+                <!--<xctk:DateTimePicker x:Name="dtpScheduleDateTime" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" HorizontalAlignment="Left" Height="23" Margin="134,145,0,0" VerticalAlignment="Top" Width="239" TabIndex="4" TimeFormatString="{Binding TimeFormatString}" ToolTip="Must be geater than 5 minutes from now." SnapsToDevicePixels="True" TimePickerAllowSpin="True" Format="Custom" FormatString="{Binding TimeFormatString}" TimeFormat="Custom" />-->
                 <!-- {x:Static resx:GUI.ScheduleCreatorForm_StartTime} -->
                 <Label x:Name="lblStartTime" Content="{Binding StartTimeText}" HorizontalAlignment="Left" Margin="9,142,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.055,0.634"/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Description}" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="119"/>
@@ -142,6 +143,7 @@
                 <xctk:WatermarkTextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="134,102,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Description}" VerticalAlignment="Top" Width="499" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}"/>
                 <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="479,189,0,0" VerticalAlignment="Top" Minimum="1" Maximum="99" Height="23" Width="59" Value="{Binding ScheduleModel.Repetition}" Visibility="{Binding CanRepeat}"/>
                 <Label x:Name="label1" Content="{x:Static resx:GUI.ScheduleCreatorForm_Repeat}" HorizontalAlignment="Left" Margin="383,188,0,0" VerticalAlignment="Top" Width="91" Visibility="{Binding CanRepeat}"/>
+                <xctk:DateTimeUpDown HorizontalAlignment="Left" Margin="134,147,0,0" VerticalAlignment="Top" Width="228" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" Format="Custom" FormatString="yyyy-MM-dd HH:mm:ss" />
             </Grid>
         </GroupBox>
         <Button x:Name="btnClear" Content="{x:Static resx:GUI.ScheduleCreatorForm_ClearButton}" IsEnabled="{Binding IsEditing, Converter={StaticResource BoolToOppositeBoolConverter}}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="456,564,0,0" VerticalAlignment="Top" Width="75"/>

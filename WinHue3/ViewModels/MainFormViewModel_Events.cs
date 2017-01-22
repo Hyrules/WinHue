@@ -34,7 +34,7 @@ namespace WinHue3.ViewModels
             }
             log.Error($"{sender} : {e.ToString()}");
             Cursor_Tools.ShowNormalCursor();
-            //ctm.Stop();
+            _ctm.Stop();
             //rfm.Stop();
 
         }

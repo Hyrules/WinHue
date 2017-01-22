@@ -9,7 +9,7 @@ namespace WinHue3.ViewModels
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
-        private bool EnableButtons()
+        public bool EnableButtons()
         {
             return SelectedBridge != null;
         }
@@ -41,21 +41,16 @@ namespace WinHue3.ViewModels
             return !_findsensortimer.IsEnabled;
         }
 
-        private bool SliderEnabled()
-        {
-            return SelectedObject is Light || SelectedObject is Group;
-        }
-
         private bool CanHue()
         {
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light) SelectedObject).state.hue != null;
+                return ((Light) SelectedObject).state?.hue != null;
             }
             else if (SelectedObject is Group)
             {
-                return ((Group)SelectedObject).action.hue != null;
+                return ((Group)SelectedObject).action?.hue != null;
             }
             return false;
         }
@@ -65,11 +60,11 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state.bri != null;
+                return ((Light)SelectedObject).state?.bri != null;
             }
             else if (SelectedObject is Group)
             {
-                return ((Group)SelectedObject).action.bri != null;
+                return ((Group)SelectedObject).action?.bri != null;
             }
             return false;
         }
@@ -79,11 +74,11 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state.ct != null;
+                return ((Light)SelectedObject).state?.ct != null;
             }
             else if (SelectedObject is Group)
             {
-                return ((Group)SelectedObject).action.ct != null;
+                return ((Group)SelectedObject).action?.ct != null;
             }
             return false;
         }
@@ -93,11 +88,11 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state.sat != null;
+                return ((Light)SelectedObject).state?.sat != null;
             }
             else if (SelectedObject is Group)
             {
-                return ((Group)SelectedObject).action.sat != null;
+                return ((Group)SelectedObject).action?.sat != null;
             }
             return false;
         }
@@ -107,11 +102,11 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state.xy != null;
+                return ((Light)SelectedObject).state?.xy != null;
             }
             else if (SelectedObject is Group)
             {
-                return ((Group)SelectedObject).action.xy != null;
+                return ((Group)SelectedObject).action?.xy != null;
             }
             return false;
         }
@@ -132,16 +127,16 @@ namespace WinHue3.ViewModels
             return ((Sensor) SelectedObject).type == "ZLLPresence";
         }
 
-        private bool CanDuplicate()
-        {
-            if (!IsObjectSelected()) return false;
-            return SelectedObject is Rule || SelectedObject is Scene || (SelectedObject is Sensor || ((Sensor)SelectedObject).type.Contains("CLIP"));
-        }
-
         private bool CanReplaceState()
         {
             if (!IsObjectSelected()) return false;
             return SelectedObject is Scene;
+        }
+
+        private bool CanClone()
+        {
+            if (!IsObjectSelected()) return false;
+            return SelectedObject is Scene | SelectedObject is Group | SelectedObject is Rule | SelectedObject is Sensor | SelectedObject is Resourcelink;
         }
 
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());
@@ -149,6 +144,7 @@ namespace WinHue3.ViewModels
         //*************** Toolbar Commands ********************        
         public ICommand CheckForNewBulbCommand => new RelayCommand(param => CheckForNewBulb(), (param) => EnableButtons());
         public ICommand UpdateBridgeCommand => new RelayCommand(param => DoBridgeUpdate());
+        public ICommand ManageUsersCommand => new RelayCommand(param => ManageUsers(), (param) => EnableButtons());
         public ICommand ChangeBridgeSettingsCommand => new RelayCommand(param => ChangeBridgeSettings(), (param) => EnableButtons());
         public ICommand RefreshViewCommand => new RelayCommand(param => RefreshView(), (param) => EnableButtons());
         public ICommand CreateGroupCommand => new RelayCommand(param => CreateGroup(), (param) => EnableButtons());
@@ -179,25 +175,31 @@ namespace WinHue3.ViewModels
         public ICommand DeleteObjectCommand => new RelayCommand(param => DeleteObject(), (param) => IsObjectSelected());
         public ICommand RenameObjectCommand => new RelayCommand(param => RenameObject(), (param) => IsObjectSelected());
         public ICommand EditObjectCommand => new RelayCommand(param => EditObject(), (param) => IsEditable());
-        public ICommand IdentifyLongCommand => new RelayCommand(param => IdentifyLong(), (param) => CanIdentify());
-        public ICommand IdentifyShortCommand => new RelayCommand(param => IdentifyShort(), (param) => CanIdentify());
+        public ICommand IdentifyLongCommand => new RelayCommand(param => Identify("lselect"), (param) => CanIdentify());
+        public ICommand IdentifyShortCommand => new RelayCommand(param => Identify("select"), (param) => CanIdentify());
         public ICommand ReplaceCurrentStateCommand => new RelayCommand(param => ReplaceCurrentState(), (param) => CanReplaceState());
         public ICommand SensitivityHighCommand => new RelayCommand(param => Sensitivity(2), (param) => CanSetSensivity());
         public ICommand SensitivityMediumCommand => new RelayCommand(param => Sensitivity(1), (param) => CanSetSensivity());
         public ICommand SensitivityLowCommand => new RelayCommand(param => Sensitivity(0), (param) => CanSetSensivity());
-        public ICommand DuplicateObjectCommand => new RelayCommand(param => DuplicateObject(), (param) => CanDuplicate());
+        public ICommand CloneCommand => new RelayCommand(param => Clone(false),(param) => CanClone());
+        public ICommand QuickCloneCommand => new RelayCommand(param => Clone(true), (param) => CanClone());
+        public ICommand IdentifyStopCommand => new RelayCommand(param => Identify("none"), (param) => CanIdentify());
+        public ICommand CopyToJsonCommand => new RelayCommand(param => CopyToJson(false), (param) => IsObjectSelected());
+        public ICommand CopyToJsonRawCommand => new RelayCommand(param => CopyToJson(true), (param) => IsObjectSelected());
 
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new RelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());
 
-        //*************** View Commands ************************
+        //*************** Views Commands ************************
         public ICommand ViewSceneMappingCommand => new RelayCommand(param => ViewSceneMapping(), (param) => EnableButtons());
         public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs(), (param) => EnableButtons());
         public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups(), (param) => EnableButtons());
+        public ICommand SortListViewCommand => new RelayCommand(param => SortListView(), (param) => EnableButtons());
 
         //*************** Toolbar ******************************
 
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons());
+
   //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
   //      public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons());
    //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());

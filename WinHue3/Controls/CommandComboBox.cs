@@ -5,40 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace WinHue3.Controls
 {
-    public class BindableSlider : Slider, ICommandSource
+    public class CommandComboBox : ComboBox, ICommandSource
     {
 
-        public BindableSlider() : base()
+        public CommandComboBox() : base()
         {
-            
-        }
 
-        public double OldValue
-        {
-            get { return (double)GetValue(OldValueProperty); }
-            set { SetValue(OldValueProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for OldValue.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty OldValueProperty =
-            DependencyProperty.Register("OldValue", typeof(double), typeof(BindableSlider), new PropertyMetadata(default(double)));
 
         public IInputElement CommandTarget
         {
             get { return (IInputElement)GetValue(CommandTargetProperty); }
             set { SetValue(CommandTargetProperty, value); }
         }
-
         public static readonly DependencyProperty CommandTargetProperty =
         DependencyProperty.Register(
             "CommandTarget",
             typeof(IInputElement),
-            typeof(BindableSlider),
+            typeof(CommandComboBox),
             new UIPropertyMetadata(null)
             );
 
@@ -48,12 +36,11 @@ namespace WinHue3.Controls
             set { SetValue(CommandParameterProperty, value); }
         }
 
-
         public static readonly DependencyProperty CommandParameterProperty =
             DependencyProperty.Register(
                 "CommandParameter",
                 typeof(object),
-                typeof(BindableSlider),
+                typeof(CommandComboBox),
                 new UIPropertyMetadata(null)
                 );
 
@@ -68,7 +55,7 @@ namespace WinHue3.Controls
             DependencyProperty.Register(
                 "Command",
                 typeof(ICommand),
-                typeof(BindableSlider),
+                typeof(CommandComboBox),
                 new PropertyMetadata((ICommand)null,
                 new PropertyChangedCallback(CommandChanged)
                 ));
@@ -76,7 +63,7 @@ namespace WinHue3.Controls
         // Command dependency property change callback.
         private static void CommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            BindableSlider cs = (BindableSlider)d;
+            CommandComboBox cs = (CommandComboBox)d;
             cs.HookUpCommand((ICommand)e.OldValue, (ICommand)e.NewValue);
         }
 
@@ -100,7 +87,7 @@ namespace WinHue3.Controls
         // Add the command.
         private void AddCommand(ICommand oldCommand, ICommand newCommand)
         {
-            EventHandler handler = new EventHandler(CanExecuteChanged);
+            EventHandler handler = CanExecuteChanged;
             if (newCommand != null)
             {
                 newCommand.CanExecuteChanged += handler;
@@ -109,42 +96,40 @@ namespace WinHue3.Controls
 
         private void CanExecuteChanged(object sender, EventArgs e)
         {
-            if (this.Command == null) return;
-            RoutedCommand command = this.Command as RoutedCommand;
-
-            // If a RoutedCommand.
-            this.IsEnabled = command?.CanExecute(CommandParameter, CommandTarget) ?? Command.CanExecute(CommandParameter);
-        }
-
-        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
-        {
-            base.OnPreviewMouseUp(e);
 
             if (this.Command != null)
             {
-                RoutedCommand command = Command as RoutedCommand;
+                RoutedCommand command = this.Command as RoutedCommand;
 
+                // If a RoutedCommand.
                 if (command != null)
                 {
-                    command.Execute(CommandParameter, CommandTarget);
+                    this.IsEnabled = command.CanExecute(CommandParameter, CommandTarget);
                 }
+                // If a not RoutedCommand.
                 else
                 {
-                    Command.Execute(CommandParameter);
+                    this.IsEnabled = Command.CanExecute(CommandParameter);
                 }
             }
         }
 
-        protected override void OnThumbDragStarted(DragStartedEventArgs e)
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            OldValue = Value;
-            OnOldValueChanged?.Invoke(this,e);
-            base.OnThumbDragStarted(e);
+            base.OnSelectionChanged(e);
+
+            if (this.Command == null) return;
+            RoutedCommand command = Command as RoutedCommand;
+
+            if (command != null)
+            {
+                command.Execute(CommandParameter, CommandTarget);
+            }
+            else
+            {
+                Command.Execute(CommandParameter);
+            }
         }
-
-        public delegate void OldValueChanged(object sender,DragStartedEventArgs e);
-
-        public event OldValueChanged OnOldValueChanged;
-
     }
+
 }

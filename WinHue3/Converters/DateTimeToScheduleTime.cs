@@ -16,15 +16,13 @@ namespace WinHue3.Converters
     {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            
-            return value==null ? DateTime.Now : DateTime.Parse((string)value);
-            
+        {            
+            return value == null ? DateTime.Now : DateTime.Parse((string)value, CultureInfo.InvariantCulture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss");
+            return ((DateTime)value);
         }
 
     }

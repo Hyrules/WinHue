@@ -25,7 +25,6 @@ namespace WinHue3.ViewModels
         private readonly List<HotKeyHandle> _lhk;
         private List<HotKey> _listHotKeys;
         private string _lastmessage = string.Empty;
-        private ushort? _transitiontime = null;
         private MainFormModel _mainFormModel;
         private CpuTempMonitor _ctm;
 
@@ -41,7 +40,7 @@ namespace WinHue3.ViewModels
             _listHotKeys = WinHueSettings.settings.listHotKeys;
             Communication.Timeout = WinHueSettings.settings.Timeout;
             _mainFormModel = new MainFormModel();
-
+            _sliderTT = null;
         }
 
         public MainFormModel MainFormModel

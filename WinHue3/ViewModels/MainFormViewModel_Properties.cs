@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 using HueLib2;
+using WinHue3.Resources;
 
 namespace WinHue3.ViewModels
 {
@@ -16,6 +18,7 @@ namespace WinHue3.ViewModels
         private HueObject _selectedObject;
         private Bridge _selectedBridge;
         private Supportedlight _selectedModel;
+        private uint? _sliderTT;
 
         public Bridge SelectedBridge
         {
@@ -23,14 +26,15 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _selectedBridge,value);
-                RefreshView();              
+                RefreshView();     
+                OnPropertyChanged("UpdateAvailable");         
             }
         }
 
         public ObservableCollection<HueObject> ListBridgeObjects
         {
             get { return _listBridgeObjects; }
-            set { SetProperty(ref _listBridgeObjects, value); }
+            set { SetProperty(ref _listBridgeObjects, value); OnPropertyChanged("MultiBridgeCB");}
         }
 
         public string Lastmessage
@@ -42,7 +46,7 @@ namespace WinHue3.ViewModels
         public ObservableCollection<Bridge> ListBridges
         {
             get { return _listBridges; }
-            set { SetProperty(ref _listBridges,value); }
+            set { SetProperty(ref _listBridges,value); OnPropertyChanged("MultiBridgeCB");}
         }
 
         public HueObject SelectedObject
@@ -65,6 +69,65 @@ namespace WinHue3.ViewModels
         {
             get{return _selectedModel;}
             set{SetProperty(ref _selectedModel,value);}
+        }
+
+        public string TransitionTimeTooltip
+        {
+            get
+            {
+                if (SliderTt >= 0)
+                {
+                    int time = (int)(SliderTt * 100);
+                    if (time == 0)
+                    {
+                        return $"{GUI.MainForm_Sliders_TransitionTime} : {GUI.MainForm_Sliders_TransitionTime_Instant}";
+                    }
+                    else if (time > 0 && time < 1000)
+                    {
+                        return $"{GUI.MainForm_Sliders_TransitionTime} : {(double)time:0.##} {GUI.MainForm_Sliders_TransitionTime_Unit_Millisec}";
+                    }
+                    else if (time >= 1000 && time < 60000)
+                    {
+                        return $"{GUI.MainForm_Sliders_TransitionTime} : {((double)time / 1000):0.##} {GUI.MainForm_Sliders_TransitionTime_Unit_Seconds}";
+                    }
+                    else
+                    {
+                        return $"{GUI.MainForm_Sliders_TransitionTime} : {((double)time / 60000):0.##} {GUI.MainForm_Sliders_TransitionTime_Unit_Minutes}";
+                    }
+                }
+                else
+                {
+                    return $"{GUI.MainForm_Sliders_TransitionTime} : {GUI.MainForm_Sliders_TransitionTime_Unit_None}";
+                }
+            }
+        }
+
+        public uint? SliderTt
+        {
+            get { return _sliderTT; }
+            set
+            {
+                SetProperty(ref _sliderTT, value); 
+                OnPropertyChanged("TransitionTimeTooltip");
+            }
+        }
+
+        public Visibility MultiBridgeCB
+        {
+            get { return ListBridges?.Count > 1 ? Visibility.Visible : Visibility.Collapsed; }
+        }
+
+        public Visibility UpdateAvailable
+        {
+            get
+            {
+                if(SelectedBridge == null) return Visibility.Collapsed;
+               
+                CommandResult cr = SelectedBridge.GetBridgeSettings();
+                if (!cr.Success) return Visibility.Collapsed;
+                BridgeSettings brs = (BridgeSettings) cr.resultobject;
+                return brs.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
     }
 }

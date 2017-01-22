@@ -14,6 +14,7 @@ namespace WinHue3
         public Form_BulbsView(Bridge bridge)
         {
             InitializeComponent();
+            _bridge = bridge;
             CommandResult lresult = _bridge.GetListObjects<Light>();
             if (!lresult.Success) return;
             _bvv = new BulbsViewView((Dictionary<string, Light>) lresult.resultobject);

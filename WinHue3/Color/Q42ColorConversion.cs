@@ -623,7 +623,7 @@ namespace WinHue3
                 }
             }
 
-            return new System.Windows.Media.Color() {A = 255, B = (byte)g, R= (byte)r, G = (byte)g};
+            return new System.Windows.Media.Color() {A = 255, B = (byte)(g*255), R= (byte)(r*255), G = (byte)(g*255)};
         }
     }
 

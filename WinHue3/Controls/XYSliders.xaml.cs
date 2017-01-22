@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using WinHue3.Annotations;
+using WinHue3;
 
 namespace WinHue3.Controls
 {
@@ -26,20 +27,32 @@ namespace WinHue3.Controls
 
     public partial class XYSliders : UserControl, ICommandSource
     {
-        private string modelid;
+        private string _modelid;
 
         public XYSliders()
         {
             InitializeComponent();
             XSlider.ValueChanged += XSlider_ValueChanged;
             XSlider.PreviewMouseUp += XSlider_PreviewMouseUp;
+            XSlider.OnOldValueChanged += XSlider_OnOldValueChanged;
             YSlider.ValueChanged += YSlider_ValueChanged;
             YSlider.PreviewMouseUp += YSlider_PreviewMouseUp;
+            YSlider.OnOldValueChanged += YSlider_OnOldValueChanged;
+        }
+
+        private void XSlider_OnOldValueChanged(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            OldXValue = XSlider.OldValue;
+        }
+
+        private void YSlider_OnOldValueChanged(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            OldYValue = YSlider.OldValue;
         }
 
         private void YSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            
             RunCommand();
         }
 
@@ -52,15 +65,39 @@ namespace WinHue3.Controls
         private void YSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             YValue = e.NewValue;
-            HueColorConverter.ColorFromXY(new CGPoint(XValue, YValue), modelid);
-            recColorXY.Fill = new SolidColorBrush(ColorConversion.ConvertXYToColor(new PointF((float) XValue,(float) YValue),1));
+            HueColorConverter.ColorFromXY(new CGPoint(XValue, YValue), _modelid);
+            recColorXY.Fill = new SolidColorBrush(HueColorConverter.ColorFromXY(new CGPoint((float) XValue,(float) YValue), _modelid));
         }
 
         private void XSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             XValue = e.NewValue;
-            recColorXY.Fill = new SolidColorBrush(ColorConversion.ConvertXYToColor(new PointF((float)XValue, (float)YValue), 1));
+            recColorXY.Fill = new SolidColorBrush(HueColorConverter.ColorFromXY(new CGPoint((float)XValue, (float)YValue), _modelid));
         }
+
+
+
+        public double OldXValue
+        {
+            get { return (int)GetValue(OldXValueProperty); }
+            set { SetValue(OldXValueProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OldXValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OldXValueProperty =
+            DependencyProperty.Register("OldXValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double)));
+
+        public double OldYValue
+        {
+            get { return (double)GetValue(OldYValueProperty); }
+            set { SetValue(OldYValueProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OldYValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OldYValueProperty =
+            DependencyProperty.Register("OldYValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double)));
+
+
 
         public string XSliderLabel
         {
@@ -107,21 +144,12 @@ namespace WinHue3.Controls
             slider.XSlider.Value = Convert.ToDouble(e.NewValue);
         }
 
-
         public double YValue
         {
             get { return (double)GetValue(YValueProperty); }
             set { SetValue(YValueProperty, value); }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        void SetValueDp(DependencyProperty property, object value, [CallerMemberName] string p = null)
-        {
-            SetValue(property,value);
-            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(p));
-        }
-       
+      
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YValueProperty = DependencyProperty.Register("YValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double), YValuePropertyChanged));
 
@@ -155,7 +183,7 @@ namespace WinHue3.Controls
         private static void CommandParameterPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             XYSliders slider = (XYSliders) d;
-            slider.modelid = e.NewValue?.ToString() ?? string.Empty;
+            slider._modelid = e.NewValue?.ToString() ?? string.Empty;
         }
 
         public IInputElement CommandTarget
@@ -178,8 +206,8 @@ namespace WinHue3.Controls
                 "Command",
                 typeof(ICommand),
                 typeof(XYSliders),
-                new PropertyMetadata((ICommand)null,
-                new PropertyChangedCallback(CommandChanged)
+                new PropertyMetadata(null,
+                CommandChanged
                 ));
 
         // Command dependency property change callback.
@@ -210,7 +238,7 @@ namespace WinHue3.Controls
         // Add the command.
         private void AddCommand(ICommand oldCommand, ICommand newCommand)
         {
-            EventHandler handler = new EventHandler(CanExecuteChanged);
+            EventHandler handler = CanExecuteChanged;
             if (newCommand != null)
             {
                 newCommand.CanExecuteChanged += handler;
@@ -219,53 +247,25 @@ namespace WinHue3.Controls
 
         private void CanExecuteChanged(object sender, EventArgs e)
         {
+            if (this.Command == null) return;
+            RoutedCommand command = this.Command as RoutedCommand;
 
-            if (this.Command != null)
-            {
-                RoutedCommand command = this.Command as RoutedCommand;
-
-                // If a RoutedCommand.
-                if (command != null)
-                {
-                    if (command.CanExecute(CommandParameter, CommandTarget))
-                    {
-                        this.IsEnabled = true;
-                    }
-                    else
-                    {
-                        this.IsEnabled = false;
-                    }
-                }
-                // If a not RoutedCommand.
-                else
-                {
-                    if (Command.CanExecute(CommandParameter))
-                    {
-                        this.IsEnabled = true;
-                    }
-                    else
-                    {
-                        this.IsEnabled = false;
-                    }
-                }
-            }
+            // If a RoutedCommand.
+            this.IsEnabled = command?.CanExecute(CommandParameter, CommandTarget) ?? Command.CanExecute(CommandParameter);
         }
 
         private void RunCommand()
         {
+            if (this.Command == null) return;
+            RoutedCommand command = Command as RoutedCommand;
 
-            if (this.Command != null)
+            if (command != null)
             {
-                RoutedCommand command = Command as RoutedCommand;
-
-                if (command != null)
-                {
-                    command.Execute(CommandParameter, CommandTarget);
-                }
-                else
-                {
-                    ((ICommand)Command).Execute(CommandParameter);
-                }
+                command.Execute(CommandParameter, CommandTarget);
+            }
+            else
+            {
+                Command.Execute(CommandParameter);
             }
         }
 

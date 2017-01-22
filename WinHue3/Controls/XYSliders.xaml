@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:WinHue3.Controls"
              mc:Ignorable="d" d:DesignWidth="300" Height="120">
     <Grid>
-        <Slider x:Name="XSlider" Margin="10,31,78,0" VerticalAlignment="Top" Maximum="1" LargeChange="0.1" SmallChange="0.001"/>
-        <Slider x:Name="YSlider" Height="22" Margin="10,83,78,0" VerticalAlignment="Top" Maximum="1" LargeChange="0.1" SmallChange="0.001"/>
+        <local:BindableSlider x:Name="XSlider" Margin="10,31,78,0" VerticalAlignment="Top" Maximum="1" LargeChange="0.1" SmallChange="0.001"/>
+        <local:BindableHueSlider x:Name="YSlider" Height="22" Margin="10,83,78,0" VerticalAlignment="Top" Maximum="1" LargeChange="0.1" SmallChange="0.001"/>
         <Label x:Name="lblYColorSpace" Content="Y Color Space" HorizontalAlignment="Left" Height="25" Margin="131,58,0,0" VerticalAlignment="Top" Width="91"/>
         <Rectangle x:Name="recColorXY" Fill="#00000000" Margin="0,10,10,10" Stroke="Black" HorizontalAlignment="Right" Width="58"/>
         <Label x:Name="lblXColorSpace" Content="X Color Space" HorizontalAlignment="Left" Height="25" Margin="131,10,0,0" VerticalAlignment="Top" Width="91"/>

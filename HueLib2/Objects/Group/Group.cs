@@ -74,6 +74,7 @@ namespace HueLib2
         {
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
         }
+
     }
 
 

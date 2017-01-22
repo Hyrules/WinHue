@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Windows;
@@ -68,5 +69,10 @@ namespace HueLib2
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

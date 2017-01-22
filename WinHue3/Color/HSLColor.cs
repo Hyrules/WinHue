@@ -43,13 +43,13 @@ namespace WinHue3
 
         public override string ToString()
         {
-            return String.Format("H: {0:#0.##} S: {1:#0.##} L: {2:#0.##}", Hue, Saturation, Luminosity);
+            return $"H: {Hue:#0.##} S: {Saturation:#0.##} L: {Luminosity:#0.##}";
         }
 
         public string ToRGBString()
         {
             Color color = (Color)this;
-            return String.Format("R: {0:#0.##} G: {1:#0.##} B: {2:#0.##}", color.R, color.G, color.B);
+            return $"R: {color.R:#0.##} G: {color.G:#0.##} B: {color.B:#0.##}";
         }
 
         #region Casts to/from System.Drawing.Color

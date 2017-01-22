@@ -39,12 +39,12 @@ namespace WinHue3
             InitializeComponent();
             _bridge = bridge;
             gcvm = this.DataContext as GroupCreatorViewModel;
-            gcvm.Group = (Group) selectedGroup;
-
+            
             HelperResult hr = HueObjectHelper.GetBridgeLights(bridge);
             if (hr.Success)
             {
                 gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<HueObject>((List<HueObject>)hr.Hrobject);
+                gcvm.Group = (Group)selectedGroup;
             }
             else
             {
