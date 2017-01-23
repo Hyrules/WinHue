@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinHue3.Validation;
 
 namespace WinHue3.Models.BridgeSettings
 {
@@ -19,7 +20,7 @@ namespace WinHue3.Models.BridgeSettings
 
         public BridgeSettingsNetworkModel()
         {
-            
+            Dhcp = false;
         }
 
         public string Mac
@@ -34,18 +35,21 @@ namespace WinHue3.Models.BridgeSettings
             set { SetProperty(ref _dhcp,value); }
         }
 
+        [RequireIPValidation]
         public string Ip
         {
             get { return _ip; }
             set { SetProperty(ref _ip,value); }
         }
 
+        [RequireIPValidation]
         public string Netmask
         {
             get { return _netmask; }
             set { SetProperty(ref _netmask,value); }
         }
 
+        [RequireIPValidation]
         public string Gateway
         {
             get { return _gateway; }

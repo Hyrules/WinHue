@@ -11,7 +11,7 @@ namespace WinHue3.ViewModels
        
         private void RunCpuTempMon()
         {
-            _ctm = new CpuTempMonitor(SelectedBridge);
+            
             if (!_ctm.IsRunning)
                 _ctm.Start();
             else

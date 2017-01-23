@@ -230,6 +230,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GUI.resx</DependentUpon>
     </Compile>
+    <Compile Include="Validation\RequireIPValidation.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>

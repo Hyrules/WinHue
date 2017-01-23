@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Prism.Mvvm;
 
 namespace WinHue3
 {
-    public class ValidatableBindableBase : BindableBase, IDataErrorInfo
+    public class ValidatableBindableBase : BindableBase, IDataErrorInfo, IChangeTracking
     {
         private ValidationContext validationContext { get; set; }
+        private bool _isChanged;
 
         protected ValidatableBindableBase()
         {
@@ -45,5 +47,27 @@ namespace WinHue3
         
         public string Error { get; internal set; }
 
+        public bool IsChanged
+        {
+            get
+            {
+                return _isChanged;
+            }
+            internal set
+            {
+                _isChanged = value;
+            }
+        }
+
+        public void AcceptChanges()
+        {
+            this.IsChanged = false;
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.IsChanged = true;
+            base.OnPropertyChanged(propertyName);
+        }
     }
 }

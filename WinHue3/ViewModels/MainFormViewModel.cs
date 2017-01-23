@@ -27,9 +27,9 @@ namespace WinHue3.ViewModels
         private string _lastmessage = string.Empty;
         private MainFormModel _mainFormModel;
         private CpuTempMonitor _ctm;
-
         public MainFormViewModel()
         {
+
             _lhk = new List<HotKeyHandle>();
             _listBridgeObjects = new ObservableCollection<HueObject>();
             _listBridges = new ObservableCollection<Bridge>();
@@ -41,6 +41,7 @@ namespace WinHue3.ViewModels
             Communication.Timeout = WinHueSettings.settings.Timeout;
             _mainFormModel = new MainFormModel();
             _sliderTT = null;
+            
         }
 
         public MainFormModel MainFormModel
@@ -160,6 +161,12 @@ namespace WinHue3.ViewModels
                             SelectedBridge = br;
                     }
                 }
+
+                if (SelectedBridge != null)
+                {
+                    _ctm = new CpuTempMonitor(SelectedBridge);
+                }
+
 
                 break;
             }
