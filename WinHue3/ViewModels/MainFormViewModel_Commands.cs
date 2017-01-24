@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HueLib2;
+using WinHue3.SupportedLights;
+
 namespace WinHue3.ViewModels
 {
     public partial class MainFormViewModel : ValidatableBindableBase
@@ -46,7 +48,8 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light) SelectedObject).state?.hue != null;
+                Light light = ((Light)SelectedObject);
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canhue : false;
             }
             else if (SelectedObject is Group)
             {
@@ -60,7 +63,8 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state?.bri != null;
+                Light light = ((Light)SelectedObject);
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canbri : false;
             }
             else if (SelectedObject is Group)
             {
@@ -74,7 +78,8 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state?.ct != null;
+                Light light = ((Light)SelectedObject);
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canct : false;
             }
             else if (SelectedObject is Group)
             {
@@ -88,7 +93,8 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state?.sat != null;
+                Light light = ((Light)SelectedObject);
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Cansat : false;
             }
             else if (SelectedObject is Group)
             {
@@ -102,7 +108,8 @@ namespace WinHue3.ViewModels
             if (!IsObjectSelected()) return false;
             if (SelectedObject is Light)
             {
-                return ((Light)SelectedObject).state?.xy != null;
+                Light light = ((Light)SelectedObject);
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canxy : false;
             }
             else if (SelectedObject is Group)
             {
@@ -118,12 +125,19 @@ namespace WinHue3.ViewModels
 
         private bool CanIdentify()
         {
-            return SelectedObject is Light || SelectedObject is Group;
+            if (SelectedObject is Group) return true;
+            if (SelectedObject is Light)
+            {
+                Light light = ((Light)SelectedObject);
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canalert : false;
+            }
+            return false;
         }
 
         public bool CanSetSensivity()
         {
             if (!(SelectedObject is Sensor)) return false;
+
             return ((Sensor) SelectedObject).type == "ZLLPresence";
         }
 

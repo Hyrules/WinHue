@@ -14,7 +14,7 @@ namespace WinHue3.Validation
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             BridgeSettingsViewModel _bsvm = validationContext.ObjectInstance as BridgeSettingsViewModel;
-            if(!_bsvm.NetworkModel.Dhcp)
+            if(_bsvm.NetworkModel.Dhcp)
             {
                 return ValidationResult.Success;
             }

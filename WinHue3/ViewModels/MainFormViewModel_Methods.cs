@@ -667,7 +667,7 @@ namespace WinHue3.ViewModels
             if (_selectedObject is Light)
             {
                 Light light = (Light) _selectedObject;
-                SelectedModel = ManagedLights.listAvailableLights.ContainsKey(light.modelid) ? ManagedLights.listAvailableLights[light.modelid] : ManagedLights.listAvailableLights["UnsupportedLight"];
+                
                 MainFormModel.SliderBri = light.state.bri ?? 0;
                 MainFormModel.SliderHue = light.state.hue ?? 0;
                 MainFormModel.SliderSat = light.state.sat ?? 0;
@@ -680,7 +680,7 @@ namespace WinHue3.ViewModels
             else if (_selectedObject is Group)
             {
                 Group light = (Group)_selectedObject;
-                SelectedModel = null;
+                
                 MainFormModel.SliderBri = light.action.bri ?? 0;
                 MainFormModel.SliderHue = light.action.hue ?? 0;
                 MainFormModel.SliderSat = light.action.sat ?? 0;
@@ -692,7 +692,7 @@ namespace WinHue3.ViewModels
             }
             else
             {
-                SelectedModel = null;
+                
                 MainFormModel.SliderBri = 0;
                 MainFormModel.SliderHue = 0;
                 MainFormModel.SliderSat = 0;

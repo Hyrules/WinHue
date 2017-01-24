@@ -17,7 +17,6 @@ namespace WinHue3.ViewModels
         private ObservableCollection<Bridge> _listBridges;
         private HueObject _selectedObject;
         private Bridge _selectedBridge;
-        private Supportedlight _selectedModel;
         private uint? _sliderTT;
 
         public Bridge SelectedBridge
@@ -63,12 +62,6 @@ namespace WinHue3.ViewModels
         {
             get { return _eventlogform; }
             set { SetProperty(ref _eventlogform,value); }
-        }
-
-        public Supportedlight SelectedModel
-        {
-            get{return _selectedModel;}
-            set{SetProperty(ref _selectedModel,value);}
         }
 
         public string TransitionTimeTooltip

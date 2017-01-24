@@ -221,6 +221,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GUI.resx</DependentUpon>
     </Compile>
+    <Compile Include="SupportedLights\LightImageLibrary.cs" />
+    <Compile Include="SupportedLights\SupportedDeviceType.cs" />
+    <Compile Include="SupportedLights\LightDevice.cs" />
     <Compile Include="Validation\RequireIPValidation.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
@@ -297,7 +300,6 @@
     <Compile Include="Interpreter\AnimatorCommand.cs" />
     <Compile Include="Interpreter\Parser.cs" />
     <Compile Include="Interpreter\ResourceLoader.cs" />
-    <Compile Include="MainForm\ButtonsView.cs" />
     <Compile Include="Utils\DataGridViewAppender.cs" />
     <Compile Include="Utils\DgLogEntry.cs" />
     <Compile Include="Hotkeys\HotKeyHandle.cs" />
@@ -313,7 +315,6 @@
     <Compile Include="Views\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="SupportedLights\ManagedLights.cs" />
     <Compile Include="Interface\Marker.cs" />
     <Compile Include="Mood\Mood.cs" />
     <Compile Include="Mood\MoodHandler.cs" />
@@ -452,7 +453,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Color\ColorPicker.cs" />
-    <Compile Include="SupportedLights\SupportedLight.cs" />
     <Compile Include="Interface\Cursor_Tools.cs" />
     <Compile Include="Views\Form_BridgeSettings.xaml.cs">
       <DependentUpon>Form_BridgeSettings.xaml</DependentUpon>
@@ -525,148 +525,148 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="lights\images\Classic A60 TW_off.png">
+    <Content Include="lights\Classic A60 TW_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\Classic A60 TW_on.png">
+    <Content Include="lights\Classic A60 TW_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\Classic A60 TW_unr.png">
+    <Content Include="lights\Classic A60 TW_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\HML006_off.png">
+    <Content Include="lights\HML006_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\HML006_on.png">
+    <Content Include="lights\HML006_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\HML006_unr.png">
+    <Content Include="lights\HML006_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT001_unr.png">
+    <Content Include="lights\LCT001_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT001_off.png">
+    <Content Include="lights\LCT001_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT001_on.png">
+    <Content Include="lights\LCT001_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT002_off.png">
+    <Content Include="lights\LCT002_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT002_on.png">
+    <Content Include="lights\LCT002_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT002_unr.png">
+    <Content Include="lights\LCT002_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT003_off.png">
+    <Content Include="lights\LCT003_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT003_on.png">
+    <Content Include="lights\LCT003_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LCT003_unr.png">
+    <Content Include="lights\LCT003_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC001_off.png">
+    <Content Include="lights\LLC001_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC001_on.png">
+    <Content Include="lights\LLC001_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC001_unr.png">
+    <Content Include="lights\LLC001_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC007_off.png">
+    <Content Include="lights\LLC007_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC007_on.png">
+    <Content Include="lights\LLC007_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC007_unr.png">
+    <Content Include="lights\LLC007_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC012_off.png">
+    <Content Include="lights\LLC012_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC012_on.png">
+    <Content Include="lights\LLC012_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC012_unr.png">
+    <Content Include="lights\LLC012_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC013_off.png">
+    <Content Include="lights\LLC013_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC013_on.png">
+    <Content Include="lights\LLC013_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC013_unr.png">
+    <Content Include="lights\LLC013_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC020_off.png">
+    <Content Include="lights\LLC020_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC020_on.png">
+    <Content Include="lights\LLC020_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC020_unr.png">
+    <Content Include="lights\LLC020_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LST001_off.png">
+    <Content Include="lights\LST001_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LST001_on.png">
+    <Content Include="lights\LST001_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LST001_unr.png">
+    <Content Include="lights\LST001_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC010_off.png">
+    <Content Include="lights\LLC010_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC010_on.png">
+    <Content Include="lights\LLC010_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LLC010_unr.png">
+    <Content Include="lights\LLC010_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWB001_off.png">
+    <Content Include="lights\LWB001_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWB001_on.png">
+    <Content Include="lights\LWB001_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWB001_unr.png">
+    <Content Include="lights\LWB001_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWL001_off.png">
+    <Content Include="lights\LWL001_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWL001_on.png">
+    <Content Include="lights\LWL001_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWL001_unr.png">
+    <Content Include="lights\LWL001_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWB004_off.png">
+    <Content Include="lights\LWB004_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWB004_on.png">
+    <Content Include="lights\LWB004_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\LWB004_unr.png">
+    <Content Include="lights\LWB004_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\ZLL Light_off.png">
+    <Content Include="lights\ZLL Light_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\ZLL Light_on.png">
+    <Content Include="lights\ZLL Light_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lights\images\ZLL Light_unr.png">
+    <Content Include="lights\ZLL Light_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\user.png" />
@@ -674,9 +674,6 @@
     <Resource Include="Resources\Motion.png" />
     <Resource Include="Resources\rules.png" />
     <Resource Include="Resources\HueTap.png" />
-    <None Include="lights\Classic B40 TW - LIGHTIFY.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\LCT001_unr.png" />
     <None Include="Resources\LCT001_on.png" />
     <None Include="Resources\LCT001_off.png" />
@@ -708,8 +705,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Interpreter\WH3A.grm" />
     <EmbeddedResource Include="Interpreter\WH3A.egt" />
-    <None Include="lights\LCT007.lt" />
-    <None Include="lights\LST002.lt" />
     <None Include="Resources\icon.ico" />
     <Resource Include="Resources\dimmer.png" />
     <None Include="log4net.config">
@@ -761,63 +756,6 @@
     <Resource Include="icon.ico" />
     <None Include="app.manifest">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="lights\Classic A60 TW.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\HML006.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LCT001.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LCT002.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LCT003.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC001.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC006.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC007.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC010.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC011.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC012.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC013.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LLC020.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LST001.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LWB001.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LWB004.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LWB006.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\LWL001.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lights\ZLL Light.lt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

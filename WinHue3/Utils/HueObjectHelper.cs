@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HueLib2;
 using System.Windows.Media;
+using WinHue3.SupportedLights;
 
 namespace WinHue3
 {
@@ -18,7 +19,7 @@ namespace WinHue3
         /// </summary>
         static HueObjectHelper()
         {
-            ManagedLights.LoadSupportedLights();
+            LightImageLibrary.LoadLightsImages();
         }
 
         /// <summary>
@@ -765,20 +766,21 @@ namespace WinHue3
             if (modelID == string.Empty)
             {
                 log.Debug("STATE : " + state + " empty MODELID using default images");
-                return ManagedLights.listAvailableLights["default"].Img[state];
+                return LightImageLibrary.Images["Default"][state];
             }
 
             ImageSource newImage;
 
-            if (ManagedLights.listAvailableLights.ContainsKey(modelID))
+            if (LightImageLibrary.Images.ContainsKey(modelID))
             {
                 log.Debug("STATE : " + state + " MODELID : " + modelID);
-                newImage = ManagedLights.listAvailableLights[modelID].Img[state];
+                newImage = LightImageLibrary.Images[modelID][state];
+
             }
             else
             {
                 log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " using default images.");
-                newImage = ManagedLights.listAvailableLights["default"].Img[state];
+                newImage = LightImageLibrary.Images["default"][state];
             }
             return newImage;
         }
