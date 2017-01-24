@@ -7,21 +7,17 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Form_ManageUsers"
-        xmlns:converters="clr-namespace:WinHue3.Converters"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ManageUsers_Title}" Height="359.614" Width="641.738" Icon="/WinHue3;component/Resources/user.png" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
 
-    <Window.Resources>
-        <converters:SelectedUserConverter x:Key="SelectedUserConverter"/>
-    </Window.Resources>
     <Window.DataContext>
         <viewModels:ManageUsersViewModel/>
     </Window.DataContext>
     <Grid>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="300" Margin="10,10,0,0" VerticalAlignment="Top" Width="260" ItemsSource="{Binding ListUsers}" DisplayMemberPath="Value.Name"  SelectedItem="{Binding SelectedUser, Converter={StaticResource SelectedUserConverter}}" SelectedValuePath="Value"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="300" Margin="10,10,0,0" VerticalAlignment="Top" Width="260" ItemsSource="{Binding ListUsers}" DisplayMemberPath="Name"  SelectedItem="{Binding SelectedUser}"/>
 
-        <xctk:WatermarkTextBox x:Name="watermarkTextBox" HorizontalAlignment="Left" Margin="281,43,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Devtype}" VerticalAlignment="Top" Width="326" Watermark="{x:Static resx:GUI.ManageUsers_DeviceType}"/>
-        <xctk:WatermarkTextBox x:Name="watermarkTextBox1" HorizontalAlignment="Left" Margin="280,10,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.ApplicationName}" VerticalAlignment="Top" Width="327" Watermark="{x:Static resx:GUI.ManageUsers_Username}" />
+        <xctk:WatermarkTextBox x:Name="watermarkTextBox" HorizontalAlignment="Left" Margin="281,43,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Devtype}" VerticalAlignment="Top" Width="326" Watermark="{x:Static resx:GUI.ManageUsers_DeviceType}" MaxLength="19"/>
+        <xctk:WatermarkTextBox x:Name="watermarkTextBox1" HorizontalAlignment="Left" Margin="280,10,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.ApplicationName}" VerticalAlignment="Top" Width="327" Watermark="{x:Static resx:GUI.ManageUsers_Username}" MaxLength="20" />
         <Button x:Name="btnDone" Content="{x:Static resx:GUI.ManageUsers_Done}" HorizontalAlignment="Left" Margin="548,290,0,0" VerticalAlignment="Top" Width="61" Click="btnDone_Click"/>
         <Button x:Name="btnDelete" Content="{x:Static resx:GUI.ManageUsers_Delete}" HorizontalAlignment="Left" Margin="281,290,0,0" VerticalAlignment="Top" Width="75" Background="Red" Command="{Binding DeleteCommand}"/>
         <Button x:Name="btnAddUser" Content="{x:Static resx:GUI.ManageUsers_AddUser}" HorizontalAlignment="Left" Margin="442,290,0,0" VerticalAlignment="Top" Width="101" Command="{Binding AddUserCommand}"/>

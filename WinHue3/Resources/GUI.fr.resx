@@ -1207,7 +1207,7 @@
     <value>Supprimer</value>
   </data>
   <data name="ManageUsers_DeviceType" xml:space="preserve">
-    <value>Type d'appareil</value>
+    <value>Nom de l'appareil</value>
   </data>
   <data name="ManageUsers_Done" xml:space="preserve">
     <value>Terminer</value>

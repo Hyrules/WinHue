@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,6 @@ namespace WinHue3.Models
             _created = string.Empty;
             _key = string.Empty;
         }
-
 
         public string ApplicationName
         {

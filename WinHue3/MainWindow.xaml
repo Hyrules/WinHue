@@ -192,7 +192,7 @@
                         <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                             <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
-                            <TextBlock x:Name="tblShowId" Text="{Binding Id}"  Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Path=Width}" TextAlignment="Center" />
+                            <TextBlock x:Name="tblShowId" Text="{Binding Id}"  Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Path=Width}" TextAlignment="Center" FontStyle="Italic" />
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

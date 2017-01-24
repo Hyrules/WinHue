@@ -1207,7 +1207,7 @@
     <value>Delete</value>
   </data>
   <data name="ManageUsers_DeviceType" xml:space="preserve">
-    <value>Device Type</value>
+    <value>Device Name</value>
   </data>
   <data name="ManageUsers_Done" xml:space="preserve">
     <value>Done</value>

@@ -21,9 +21,7 @@ namespace WinHue3
             _bridge = bridge;
             InitializeComponent();
             _bsvm = DataContext as BridgeSettingsViewModel;
-            CommandResult bresult = _bridge.GetBridgeSettings();
-            if (!bresult.Success) return;
-            //_bsvm. = new BridgeSettingsView((BridgeSettings)bresult.resultobject);
+            _bsvm.Bridge = _bridge;
 
         }
 

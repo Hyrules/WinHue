@@ -42,7 +42,7 @@ namespace HueLib2
         /// <summary>
         /// App specific data.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("App specific data linked to the scene."),ExpandableObject, HueLib(true, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("App specific data linked to the scene."),ExpandableObject, HueLib(false, false)]
         public AppData appdata { get; set; }
 
         /// <summary>

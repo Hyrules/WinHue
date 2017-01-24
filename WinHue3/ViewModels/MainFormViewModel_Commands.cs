@@ -133,10 +133,19 @@ namespace WinHue3.ViewModels
             return SelectedObject is Scene;
         }
 
+        private bool CanCloneSensor()
+        {
+            if (SelectedObject is Sensor)
+            {
+                return ((Sensor) SelectedObject).type.Contains("CLIP");
+            }
+            return false;
+        }
+
         private bool CanClone()
         {
             if (!IsObjectSelected()) return false;
-            return SelectedObject is Scene | SelectedObject is Group | SelectedObject is Rule | SelectedObject is Sensor | SelectedObject is Resourcelink;
+            return SelectedObject is Scene | SelectedObject is Group | SelectedObject is Rule | CanCloneSensor() | SelectedObject is Resourcelink;
         }
 
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());

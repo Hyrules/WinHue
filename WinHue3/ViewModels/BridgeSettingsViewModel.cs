@@ -75,7 +75,8 @@ namespace WinHue3.ViewModels
                     SoftwareModel.Url = brs.swupdate.url;
                     SoftwareModel.Notify = brs.swupdate.notify;
                     SoftwareModel.Updatestate = brs.swupdate.updatestate.ToString();
-
+                    GeneralModel.AcceptChanges();
+                    NetworkModel.AcceptChanges();
                 }
                 
             }

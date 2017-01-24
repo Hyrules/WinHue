@@ -740,7 +740,17 @@ namespace WinHue3.ViewModels
                 if (cr.Success)
                 {
                     log.Info("Object cloned succesfully !");
-                    // ListBridgeObjects.Add((HueObject)cr.Hrobject);
+                    MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
+                    MethodInfo gm = mi.MakeGenericMethod(SelectedObject.GetType());
+                    HelperResult hr = (HelperResult)gm.Invoke(null, new object[] { SelectedBridge, cr.resultobject.ToString() });
+                    if (hr.Success)
+                    {
+                        ListBridgeObjects.Add((HueObject)hr.Hrobject);
+                    }
+                    else
+                    {
+                        MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+                    }
                 }
                 else
                 {

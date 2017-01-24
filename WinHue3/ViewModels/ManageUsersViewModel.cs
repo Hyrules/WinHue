@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace WinHue3.ViewModels
     public class ManageUsersViewModel : ValidatableBindableBase
     {
         private ManageUsersModel _manageUsersModel;
-        private Dictionary<string, Whitelist> _listUsers;
+        private ObservableCollection<Whitelist> _listUsers;
         private Whitelist _selectedUser;
 
         private Bridge _bridge;
@@ -21,6 +22,7 @@ namespace WinHue3.ViewModels
         public ManageUsersViewModel()
         {
             _manageUsersModel = new ManageUsersModel();
+            _listUsers = new ObservableCollection<Whitelist>();
         }
 
         public ManageUsersModel UsersModel
@@ -29,7 +31,7 @@ namespace WinHue3.ViewModels
             set { SetProperty(ref _manageUsersModel,value); }
         }
 
-        public Dictionary<string, Whitelist> ListUsers
+        public ObservableCollection<Whitelist> ListUsers
         {
             get { return _listUsers; }
             set { SetProperty(ref _listUsers, value); }
@@ -57,7 +59,28 @@ namespace WinHue3.ViewModels
         public Bridge Bridge
         {
             get { return _bridge; }
-            set { SetProperty(ref _bridge, value); }
+            set
+            {
+                SetProperty(ref _bridge, value);
+                CommandResult cr = _bridge.GetUserList();
+                if (cr.Success)
+                {
+                    Dictionary<string, Whitelist> list = (Dictionary<string, Whitelist>) cr.resultobject;
+
+                    foreach (var item in list)
+                    {
+                        Whitelist i = item.Value;
+                        i.id = item.Key;
+                        if (i.id != _bridge.ApiKey)
+                            ListUsers.Add(i);
+                    }
+
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                }
+            }
         }
 
         private bool CanDeleteUser()
@@ -70,8 +93,7 @@ namespace WinHue3.ViewModels
             CommandResult cr = _bridge.RemoveUser(UsersModel.Key);
             if (cr.Success)
             {
-                ListUsers.Remove(UsersModel.Key);
-                OnPropertyChanged("ListUsers");
+                ListUsers.Remove(SelectedUser);
                 Clear();
             }
             else
@@ -85,7 +107,23 @@ namespace WinHue3.ViewModels
 
         private void AddUser()
         {
-
+            string uname = UsersModel.Devtype != string.Empty ? UsersModel.ApplicationName + "#" + UsersModel.Devtype : UsersModel.ApplicationName;
+            CommandResult cr = _bridge.CreateUser(uname);
+            if (cr.Success)
+            {
+                Whitelist newitem = new Whitelist
+                {
+                    Name = uname,
+                    id = cr.resultobject.ToString(),
+                    CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
+                };
+                ListUsers.Add(newitem);
+                Clear();
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
+            }
         }
 
         private void Clear()

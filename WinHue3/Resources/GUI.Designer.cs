@@ -1987,7 +1987,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device Type.
+        ///   Looks up a localized string similar to Device Name.
         /// </summary>
         public static string ManageUsers_DeviceType {
             get {
