@@ -49,7 +49,8 @@ namespace WinHue3.ViewModels
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canhue : false;
+                if (light.state.on == false) return false;
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
             else if (SelectedObject is Group)
             {
@@ -64,7 +65,8 @@ namespace WinHue3.ViewModels
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canbri : false;
+                if (light.state.on == false) return false;
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
             else if (SelectedObject is Group)
             {
@@ -79,7 +81,8 @@ namespace WinHue3.ViewModels
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canct : false;
+                if (light.state.on == false) return false;
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
             else if (SelectedObject is Group)
             {
@@ -94,7 +97,8 @@ namespace WinHue3.ViewModels
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Cansat : false;
+                if (light.state.on == false) return false;
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
             else if (SelectedObject is Group)
             {
@@ -109,7 +113,8 @@ namespace WinHue3.ViewModels
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canxy : false;
+                if (light.state.on == false) return false;
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
             else if (SelectedObject is Group)
             {
@@ -129,7 +134,7 @@ namespace WinHue3.ViewModels
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) ? SupportedDeviceType.DeviceType[light.type].Canalert : false;
+                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canalert;
             }
             return false;
         }

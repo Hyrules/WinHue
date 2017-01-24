@@ -45,28 +45,28 @@ namespace WinHue3.SupportedLights
 
             foreach (string file in listlightsfiles)
             {
-                if (!file.Contains("_unr.png") || !file.Contains("_off.png") || !file.Contains("_on.png")) continue; // CHECK IF FILE PATTERN FOR NAMING IS VALID. OTHERWISE IGNORE.
+                if (!(file.Contains("_unr.png") || file.Contains("_off.png") || file.Contains("_on.png"))) continue; // CHECK IF FILE PATTERN FOR NAMING IS VALID. OTHERWISE IGNORE.
                 try
                 {
                     string filename = Path.GetFileNameWithoutExtension(file);                      
-                    string filenamenostate = filename.Substring(0, filename.LastIndexOf("_") - 1);
+                    string filenamenostate = filename.Substring(0, filename.LastIndexOf("_"));
                     if (!Images.ContainsKey(filenamenostate))
                     {
                         //*** CHECK IF THE 3 FILES EXISTS OTHERWISE IGNORE***
-                        if (File.Exists($@"{path}\lights\{filename}_on.png") && File.Exists($@"{path}\lights\{filename}_off.png") && File.Exists($@"{path}\lightss\{filename}_unr.png"))
+                        if (File.Exists($"{path}\\lights\\{filenamenostate}_on.png") && File.Exists($"{path}\\lights\\{filenamenostate}_off.png") && File.Exists($"{path}\\lights\\{filenamenostate}_unr.png"))
                         {
-                            log.Info($"Loading images for {file}...");
+                            log.Info($"Loading images for {filenamenostate}...");
                             Images.Add(filenamenostate, new Dictionary<string, ImageSource>()
                             {
-                                {"on" , new BitmapImage(new Uri($@"{path}\lights\{filename}_on.png" )) },
-                                {"off", new BitmapImage(new Uri($@"{path}\lights\{filename}_off.png")) },
-                                {"unr", new BitmapImage(new Uri($@"{path}\lights\{filename}_unr.png")) }
+                                {"on" , new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_on.png" )) },
+                                {"off", new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_off.png")) },
+                                {"unr", new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_unr.png")) }
                             });
 
                         }
                         else
                         {
-                            log.Error($"{file} does not have all 3 light image. Make sure you have _on _off and _unr file in your light folder.");
+                            log.Error($"Model ID {filenamenostate} does not have all 3 light image. Make sure you have _on _off and _unr file in your light folder.");
                         }
 
                     }

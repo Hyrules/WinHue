@@ -15,7 +15,7 @@ namespace WinHue3.SupportedLights
         {
             DeviceType = new Dictionary<string, LightDevice>();
 
-            DeviceType.Add("Extended Color Light", new LightDevice()
+            DeviceType.Add("Extended color light", new LightDevice()
             {
                 Canbri = true,
                 Canct = true,
@@ -26,7 +26,7 @@ namespace WinHue3.SupportedLights
                 Canalert = true
             });
 
-            DeviceType.Add("Color Light", new LightDevice()
+            DeviceType.Add("Color light", new LightDevice()
             {
                 Canbri = true,
                 Canct = false,
@@ -37,7 +37,7 @@ namespace WinHue3.SupportedLights
                 Canalert = true
             });
 
-            DeviceType.Add("Dimmable Light", new LightDevice()
+            DeviceType.Add("Dimmable light", new LightDevice()
             {
                 Canbri = true,
                 Canct = false,
@@ -49,7 +49,7 @@ namespace WinHue3.SupportedLights
             });
 
 
-            DeviceType.Add("Color Temperature Light", new LightDevice()
+            DeviceType.Add("Color temperature light", new LightDevice()
             {
                 Canbri = false,
                 Canct = true,

@@ -733,35 +733,49 @@ namespace WinHue3.ViewModels
         private void Clone(bool quick)
         {
             log.Info($"Cloning {SelectedObject}...");
+
             if (quick)
             {
                 log.Info($"Quick cloning beginning...");
-                CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "CreateObject",new[] {SelectedObject.Clone()});
-                if (cr.Success)
+                Duplicate();              
+            }
+            else
+            {
+                log.Info($"Cloning beginning...");
+                bool result = Duplicate();
+                if (result)
                 {
-                    log.Info("Object cloned succesfully !");
-                    MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
-                    MethodInfo gm = mi.MakeGenericMethod(SelectedObject.GetType());
-                    HelperResult hr = (HelperResult)gm.Invoke(null, new object[] { SelectedBridge, cr.resultobject.ToString() });
-                    if (hr.Success)
-                    {
-                        ListBridgeObjects.Add((HueObject)hr.Hrobject);
-                    }
-                    else
-                    {
-                        MessageBoxError.ShowLastErrorMessages(SelectedBridge);
-                    }
+                    
+                }
+            }
+        }
+
+        private bool Duplicate()
+        {
+            bool result = false;
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "CreateObject", new[] { SelectedObject.Clone() });
+            if (cr.Success)
+            {
+                log.Info("Object cloned succesfully !");
+                MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
+                MethodInfo gm = mi.MakeGenericMethod(SelectedObject.GetType());
+                HelperResult hr = (HelperResult)gm.Invoke(null, new object[] { SelectedBridge, cr.resultobject.ToString() });
+                if (hr.Success)
+                {
+                    ListBridgeObjects.Add((HueObject)hr.Hrobject);
+                    result = true;
                 }
                 else
                 {
-                    log.Error("Error while cloning object.");
                     MessageBoxError.ShowLastErrorMessages(SelectedBridge);
                 }
             }
             else
             {
-                
+                log.Error("Error while cloning object.");
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
             }
+            return result;
         }
 
         private void CopyToJson(bool raw)

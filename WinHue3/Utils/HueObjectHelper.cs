@@ -780,7 +780,7 @@ namespace WinHue3
             else
             {
                 log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " using default images.");
-                newImage = LightImageLibrary.Images["default"][state];
+                newImage = LightImageLibrary.Images["Default"][state];
             }
             return newImage;
         }
