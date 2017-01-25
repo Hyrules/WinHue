@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HueLib2;
 using WinHue3.SupportedLights;
+using System.Diagnostics;
 
 namespace WinHue3.ViewModels
 {
@@ -167,6 +168,14 @@ namespace WinHue3.ViewModels
             return SelectedObject is Scene | SelectedObject is Group | SelectedObject is Rule | CanCloneSensor() | SelectedObject is Resourcelink;
         }
 
+        //*************** MainMenu Commands ********************        
+
+        public ICommand OpenSettingsWindowCommand => new RelayCommand(param => OpenSettingsWindow());
+
+        public ICommand QuitApplicationCommand => new RelayCommand(param => QuitApplication());
+
+        //*************** Initialization Command *************
+
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());
 
         //*************** Toolbar Commands ********************        
@@ -205,13 +214,13 @@ namespace WinHue3.ViewModels
         public ICommand EditObjectCommand => new RelayCommand(param => EditObject(), (param) => IsEditable());
         public ICommand IdentifyLongCommand => new RelayCommand(param => Identify("lselect"), (param) => CanIdentify());
         public ICommand IdentifyShortCommand => new RelayCommand(param => Identify("select"), (param) => CanIdentify());
+        public ICommand IdentifyStopCommand => new RelayCommand(param => Identify("none"), (param) => CanIdentify());
         public ICommand ReplaceCurrentStateCommand => new RelayCommand(param => ReplaceCurrentState(), (param) => CanReplaceState());
         public ICommand SensitivityHighCommand => new RelayCommand(param => Sensitivity(2), (param) => CanSetSensivity());
         public ICommand SensitivityMediumCommand => new RelayCommand(param => Sensitivity(1), (param) => CanSetSensivity());
         public ICommand SensitivityLowCommand => new RelayCommand(param => Sensitivity(0), (param) => CanSetSensivity());
         public ICommand CloneCommand => new RelayCommand(param => Clone(false),(param) => CanClone());
         public ICommand QuickCloneCommand => new RelayCommand(param => Clone(true), (param) => CanClone());
-        public ICommand IdentifyStopCommand => new RelayCommand(param => Identify("none"), (param) => CanIdentify());
         public ICommand CopyToJsonCommand => new RelayCommand(param => CopyToJson(false), (param) => IsObjectSelected());
         public ICommand CopyToJsonRawCommand => new RelayCommand(param => CopyToJson(true), (param) => IsObjectSelected());
 
@@ -225,12 +234,19 @@ namespace WinHue3.ViewModels
         public ICommand SortListViewCommand => new RelayCommand(param => SortListView(), (param) => EnableButtons());
 
         //*************** Toolbar ******************************
-
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons());
 
-  //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
-  //      public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons());
-   //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());
-     //   public ICommand ClapperCommand => new RelayCommand(param => Clapper(), (param) => EnableButtons());
+        //*************** Help ******************************
+        public ICommand OpenWinHueWebsiteCommand => new RelayCommand(param => OpenWinHueWebsite());
+
+        public ICommand OpenWinHueSupportCommand => new RelayCommand(param => OpenWinHueSupport());
+
+        public ICommand OpenAboutWindowCommand => new RelayCommand(param => OpenAboutWindow());
+
+
+        //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
+        //      public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons());
+        //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());
+        //   public ICommand ClapperCommand => new RelayCommand(param => Clapper(), (param) => EnableButtons());
     }
 }

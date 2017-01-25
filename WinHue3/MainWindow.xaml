@@ -34,10 +34,10 @@
         <Ribbon x:Name="rbnMainRibbon" VerticalAlignment="Top" DockPanel.Dock="Top" >
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu SmallImageSource="icon.ico">
-                    <RibbonApplicationMenuItem x:Name="mnuAppSettings" Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Click="Settings_Click" ImageSource="Resources/gear_in.png" />
+                    <RibbonApplicationMenuItem x:Name="mnuAppSettings" Header="{x:Static resx:GUI.MainForm_Menu_Settings}" ImageSource="Resources/gear_in.png" Command="{Binding OpenSettingsWindowCommand}" />
                     <RibbonApplicationMenuItem x:Name="mnuAppBridgePairing" Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" ImageSource="Resources/bridgeAdd.png" Command="{Binding DoBridgePairingCommand}" />
                     <RibbonSeparator/>
-                    <RibbonApplicationMenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Click="Quit_Click" ImageSource="Resources/door_open.png"/>
+                    <RibbonApplicationMenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" ImageSource="Resources/door_open.png" Command="{Binding QuitApplicationCommand}"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
             <Ribbon.QuickAccessToolBar>
@@ -114,15 +114,15 @@
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <RibbonGroup>
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Website}" x:Name="btnWebsite" Click="btnWebsite_Click" LargeImageSource="Resources/1416184952_Gnome-Web-Browser-32.png" />
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" x:Name="btnSupportForum" Click="btnSupportForum_Click" LargeImageSource="Resources/1416183787_Community Help.png"/>
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_About}" x:Name="btnAbout" LargeImageSource="Resources/unknown.png" Click="btnAbout_Click"  />
+                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Website}" x:Name="btnWebsite" LargeImageSource="Resources/1416184952_Gnome-Web-Browser-32.png" Command="{Binding OpenWinHueWebsiteCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" x:Name="btnSupportForum" LargeImageSource="Resources/1416183787_Community Help.png" Command="{Binding OpenWinHueSupportCommand}"/>
+                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_About}" x:Name="btnAbout" LargeImageSource="Resources/unknown.png" Command="{Binding OpenAboutWindowCommand}" />
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <StatusBar x:Name="sbStatusBar" Height="28"  DockPanel.Dock="Bottom" HorizontalAlignment="Stretch">
             <ComboBox x:Name="cbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" Visibility="{Binding MultiBridgeCB}" Width="200"/>
-            <TextBlock x:Name="lblSBMessage" Text="{Binding Lastmessage}" Width="806" HorizontalAlignment="Stretch"  />
+            <TextBlock x:Name="lblSBMessage" Text="{Binding Lastmessage}" Width="806" HorizontalAlignment="Stretch"/>
         </StatusBar>
         <Grid Width="{Binding Parent.ActualWidth, RelativeSource={RelativeSource Mode=Self}}">
             <Grid.ColumnDefinitions>
@@ -231,7 +231,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="AliceBlue" Height="403" VerticalAlignment="Top">
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slHue, Path=IsEnabled}"/>
                     <controls:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="0" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
                         <controls:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
@@ -245,7 +245,7 @@
                             </LinearGradientBrush>
                         </controls:BindableHueSlider.Background>
                     </controls:BindableHueSlider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slBri, Path=IsEnabled}"/>
                     <controls:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri,Mode=OneWayToSource}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
@@ -254,7 +254,7 @@
                             </LinearGradientBrush>
                         </controls:BindableSlider.Background>
                     </controls:BindableSlider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slSAT, Path=IsEnabled}"/>
                     <controls:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush>
@@ -263,7 +263,7 @@
                             </LinearGradientBrush>
                         </controls:BindableSlider.Background>
                     </controls:BindableSlider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center"/>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slCT, Path=IsEnabled}"/>
                     <controls:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}">
                         <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
@@ -275,7 +275,7 @@
                     <Grid Height="100">
                         <Separator Margin="0,-1,0,93"/>
                         <Separator Margin="0,104,0,-12"/>
-                        <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,112,0,-38" Width="350" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,112,0,-38" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slTT, Path=IsEnabled}"/>
                         <controls:BindableSlider x:Name="slTT" Maximum="65535" Minimum="-1" Margin="9,143,11,-65" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter},Mode=OneWayToSource, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=slHue}" />
                         <controls:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" CommandParameter="{Binding MainFormModel.ModelId}" YValue="{Binding MainFormModel.SliderY,Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}"/>
                     </Grid>
@@ -285,7 +285,7 @@
                         <xcad:LayoutPanel>
                             <xcad:LayoutAnchorablePane>
                                 <xcad:LayoutAnchorable Title="Properties" CanClose="False" CanHide="False" CanAutoHide="False">
-                                    <xctk:PropertyGrid x:Name="pgObject" IsReadOnly="True" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,-6" VerticalContentAlignment="Stretch"  />
+                                    <xctk:PropertyGrid x:Name="pgObject" IsReadOnly="True" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,2" VerticalContentAlignment="Stretch"  />
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutPanel>

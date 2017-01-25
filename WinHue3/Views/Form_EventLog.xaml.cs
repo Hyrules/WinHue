@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using log4net;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -10,15 +11,12 @@ namespace WinHue3
     public partial class Form_EventLog : Window
     {
         private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public EventViewerView evv;    
-
+        public readonly EventViewerViewModel ViewModel;
         public Form_EventLog()
         {
-            evv = new EventViewerView();
-            DataContext = evv;
             InitializeComponent();
+            ViewModel = DataContext as EventViewerViewModel;
         }
-
         
         /// <summary>
         /// Return the RichTextBox of the form.

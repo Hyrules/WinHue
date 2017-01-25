@@ -52,40 +52,10 @@ namespace WinHue3
             if (_mfvm.SelectedObject == null) e.Handled = true;
         }
 
-        private void btnAbout_Click(object sender, RoutedEventArgs e)
-        {
-            AboutBox ab = new AboutBox();
-            ab.ShowDialog();
-        }
-
-        private void btnSupportForum_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://github.com/Hyrules/WinHue3/issues");
-        }
-
-        private void btnWebsite_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://hyrules.github.io/WinHue3/");
-        }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             log.Info("WinHue Closing.");
             Application.Current.Shutdown();
-        }
-
-        private void Quit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-
-        }
-
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            Form_AppSettings settings = new Form_AppSettings() {Owner = this};
-            if (settings.ShowDialog() != true) return;
-            Communication.Timeout = WinHueSettings.settings.Timeout;
-
         }
 
         public void SetLightBackground(List<string> lightlist)

@@ -21,7 +21,6 @@ namespace WinHue3.Models
         private byte _sliderSat;
         private decimal _sliderX;
         private decimal _sliderY;
-        private string _modelid;
 
         private byte _oldsliderBri;
         private ushort _oldsliderHue;
@@ -72,12 +71,6 @@ namespace WinHue3.Models
         {
             get { return _sliderY; }
             set { SetProperty(ref _sliderY,value); }
-        }
-
-        public string ModelId
-        {
-            get { return _modelid; }
-            set { SetProperty(ref _modelid,value); }
         }
 
         public WinHueSortOrder Sort

@@ -679,7 +679,7 @@
     <value>Create a sensor...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Creators_ResourceLink" xml:space="preserve">
-    <value>Resource Link Creator</value>
+    <value>Create a Resource link...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Events" xml:space="preserve">
     <value>Events</value>

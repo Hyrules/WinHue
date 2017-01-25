@@ -708,4 +708,7 @@
   <data name="Warning_TransitionTime" xml:space="preserve">
     <value>Warning Transition Time is longer than 3 seconds ! You will not be able see your preview properly and the light will revert to their previous state after 3 seconds.</value>
   </data>
+  <data name="Error_While_Cloning" xml:space="preserve">
+    <value>Cloned Object not found in the list. Please edit the object manually.</value>
+  </data>
 </root>

@@ -17,12 +17,21 @@ using Action = HueLib2.Action;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
+using System.Diagnostics;
 
 namespace WinHue3.ViewModels
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
+        private T ExecuteGenericMethod<T>(object objectmethod, string methodname, object[] paramsarray) where T : new()
+        {
+            MethodInfo mi = objectmethod.GetType().GetMethod(methodname);
+            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
+            object result = generic.Invoke(SelectedBridge, paramsarray);
+            return (T)result;
+        }
 
+        #region BRIDGE_SETTINGS
         private void ChangeBridgeSettings()
         {
             Form_BridgeSettings frs = new Form_BridgeSettings(SelectedBridge) { Owner = Application.Current.MainWindow };
@@ -46,19 +55,37 @@ namespace WinHue3.ViewModels
             }
         }
 
-        private bool DoBridgePairing(ObservableCollection<Bridge> listBridges = null)
+        private void ManageUsers()
         {
-            Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(listBridges) { Owner = Application.Current.MainWindow };
-
-            bool result = (bool)dp.ShowDialog();
-            if (result)
-            {
-                ListBridges = dp.ViewModel.ListBridges;
-                SaveSettings();
-            }
-            return result;
+            Form_ManageUsers fmu = new Form_ManageUsers(SelectedBridge) { Owner = Application.Current.MainWindow };
+            fmu.ShowDialog();
         }
 
+        public bool SaveSettings()
+        {
+            foreach (Bridge br in ListBridges)
+            {
+                if (WinHueSettings.settings.BridgeInfo.ContainsKey(br.Mac))
+                    WinHueSettings.settings.BridgeInfo[br.Mac] = new BridgeSaveSettings()
+                    {
+                        ip = br.IpAddress.ToString(),
+                        apikey = br.ApiKey,
+                        apiversion = br.ApiVersion,
+                        swversion = br.SwVersion,
+                        name = br.Name
+                    };
+                else
+                    WinHueSettings.settings.BridgeInfo.Add(br.Mac,
+                        new BridgeSaveSettings() { ip = br.IpAddress.ToString(), apikey = br.ApiKey, apiversion = br.ApiVersion, swversion = br.SwVersion, name = br.Name });
+
+                if (br.IsDefault) WinHueSettings.settings.DefaultBridge = br.Mac;
+            }
+
+            return WinHueSettings.Save();
+        }
+        #endregion
+
+        #region HOME_TAB_METHODS
         private void RefreshView()
         {
             if (SelectedBridge == null) return;
@@ -171,133 +198,6 @@ namespace WinHue3.ViewModels
                     p.SetValue(ListBridgeObjects[index], ListBridgeObjects[index].GetType().GetProperty(p.Name).GetValue(newobj));
             }
         }
-
-        private void EditObject()
-        {
-            log.Debug("Editing object : " + _selectedObject);
-
-            if (_selectedObject is Group)
-            {
-                Form_GroupCreator fgc = new Form_GroupCreator(SelectedObject,SelectedBridge) { Owner = Application.Current.MainWindow };
-                if (fgc.ShowDialog() == true)
-                {
-                    RefreshObject(_selectedObject);
-                }
-            }
-            else if (_selectedObject is Schedule)
-            {
-                Form_ScheduleCreator fsc = new Form_ScheduleCreator(SelectedObject,SelectedBridge) { Owner = Application.Current.MainWindow };
-                if (fsc.ShowDialog() == true)
-                {
-                    RefreshObject(_selectedObject);
-                }
-            }
-            else if (_selectedObject is Sensor)
-            {
-                Sensor obj = (Sensor)_selectedObject;
-                switch (obj.modelid)
-                {
-                    case "PHDL00":
-                        CommandResult cr = SelectedBridge.GetObject<Sensor>(obj.Id);
-                        if (cr.Success)
-                        {
-                            Sensor daylight = (Sensor)cr.resultobject;
-                            daylight.Id = obj.Id;
-                            Form_Daylight dl = new Form_Daylight(daylight,SelectedBridge) { Owner = Application.Current.MainWindow };
-                            if (dl.ShowDialog() == true)
-                            {
-                                RefreshObject(_selectedObject);
-                            }
-
-                        }
-
-                        break;
-                    case "ZGPSWITCH":
-                        Form_HueTapConfig htc = new Form_HueTapConfig(obj.Id,SelectedBridge)
-                        {
-                            Owner = Application.Current.MainWindow
-                        };
-                        if (htc.ShowDialog() == true)
-                        {
-                            RefreshObject(_selectedObject);
-                        }
-                        break;
-                    default:
-                        CommandResult crs = SelectedBridge.GetObject<Sensor>(obj.Id);
-                        if (crs.Success)
-                        {
-                            Form_SensorCreator fsc = new Form_SensorCreator(SelectedBridge,(Sensor)crs.resultobject)
-                            {
-                                Owner = Application.Current.MainWindow
-                            };
-                            if (fsc.ShowDialog() == true)
-                            {
-                                RefreshObject(_selectedObject);
-                            }
-
-                        }
-                        break;
-                }
-            }
-            else if (_selectedObject is Rule)
-            {
-                Form_RulesCreator2 frc = new Form_RulesCreator2(SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
-                if (frc.ShowDialog() == true)
-                {
-                    RefreshObject(_selectedObject);
-                }
-            }
-            else if (_selectedObject is Scene)
-            {
-                Form_SceneCreator fscc = new Form_SceneCreator(SelectedBridge, _selectedObject.Id) { Owner = Application.Current.MainWindow };
-                if (fscc.ShowDialog() == true)
-                {
-                    RefreshObject(_selectedObject);
-                }
-            }
-            else if (_selectedObject is Resourcelink)
-            {
-                Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator(SelectedBridge,(Resourcelink)_selectedObject) { Owner = Application.Current.MainWindow };
-
-                if (frlc.ShowDialog() == true)
-                {
-                    RefreshObject(_selectedObject);
-                }
-
-            }
-        }
-
-        private void Identify(string type)
-        {
-            MethodInfo mi = typeof(Bridge).GetMethod("SetState");
-            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
-            log.Info($@"Sending the {type} Identify command to object ID : {_selectedObject.Id}");
-            CommandResult hr = (CommandResult)generic.Invoke(SelectedBridge, new object[] { new CommonProperties() { alert = type }, _selectedObject.Id });
-        }
-
-        public bool SaveSettings()
-        {
-            foreach (Bridge br in ListBridges)
-            {
-                if (WinHueSettings.settings.BridgeInfo.ContainsKey(br.Mac))
-                    WinHueSettings.settings.BridgeInfo[br.Mac] = new BridgeSaveSettings()
-                    {
-                        ip = br.IpAddress.ToString(),
-                        apikey = br.ApiKey,
-                        apiversion = br.ApiVersion,
-                        swversion = br.SwVersion,
-                        name = br.Name
-                    };
-                else
-                    WinHueSettings.settings.BridgeInfo.Add(br.Mac,
-                        new BridgeSaveSettings() { ip = br.IpAddress.ToString(), apikey = br.ApiKey, apiversion = br.ApiVersion, swversion = br.SwVersion, name = br.Name });
-
-                if (br.IsDefault) WinHueSettings.settings.DefaultBridge = br.Mac;
-            }
-
-            return WinHueSettings.Save();
-        }
-
         private void ShowEventLog()
         {
             if (_eventlogform.IsVisible) return;
@@ -580,44 +480,339 @@ namespace WinHue3.ViewModels
 
         }
 
-        private T ExecuteGenericMethod<T>(object objectmethod, string methodname, object[] paramsarray) where T : new()
-        {
-            MethodInfo mi = objectmethod.GetType().GetMethod(methodname);
-            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
-            object result = generic.Invoke(SelectedBridge, paramsarray);
-            return (T)result;
-        }
+        #endregion
 
+        #region SLIDERS_METHODS
         private void SliderChangeHue()
         {
-            ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { hue = MainFormModel.SliderHue, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { hue = MainFormModel.SliderHue, transitiontime = SliderTt }, _selectedObject.Id });
+            if(!cr.Success)
+            {
+                MainFormModel.SliderHue = MainFormModel.OldSliderHue;
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+            }
+            else
+            {
+                if(SelectedObject is Light)
+                    ((Light)SelectedObject).state.hue = MainFormModel.SliderHue;
+
+                if(SelectedObject is Group)
+                    ((Group)SelectedObject).action.hue = MainFormModel.SliderHue;
+            }
         }
 
         private void SliderChangeBri()
         {
-            ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { bri = MainFormModel.SliderBri, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { bri = MainFormModel.SliderBri, transitiontime = SliderTt }, _selectedObject.Id });
+            if(!cr.Success)
+            {
+                MainFormModel.SliderBri = MainFormModel.OldSliderBri;
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+            }
+            else
+            {
+                if (SelectedObject is Light)
+                    ((Light)SelectedObject).state.bri = MainFormModel.SliderBri;
+
+                if (SelectedObject is Group)
+                    ((Group)SelectedObject).action.bri = MainFormModel.SliderBri;
+            }
         }
 
         private void SliderChangeCt()
         {
-            ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { ct = MainFormModel.SliderCt, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { ct = MainFormModel.SliderCt, transitiontime = SliderTt }, _selectedObject.Id });
+            if(!cr.Success)
+            {
+                MainFormModel.SliderCt = MainFormModel.OldSliderCt;
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+            }
+            else
+            {
+                if (SelectedObject is Light)
+                    ((Light)SelectedObject).state.ct = MainFormModel.SliderCt;
+
+                if (SelectedObject is Group)
+                    ((Group)SelectedObject).action.ct = MainFormModel.SliderCt;
+            }
         }
 
         private void SliderChangeSat()
         {
-            ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = SliderTt }, _selectedObject.Id });
+            if(!cr.Success)
+            {
+                MainFormModel.SliderSat = MainFormModel.OldSliderSat;
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+            }
+            else
+            {
+                if (SelectedObject is Light)
+                    ((Light)SelectedObject).state.sat = MainFormModel.SliderSat;
+
+                if (SelectedObject is Group)
+                    ((Group)SelectedObject).action.sat = MainFormModel.SliderSat;
+            }
         }
 
         private void SliderChangeXy()
         {
-            ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = SliderTt }, _selectedObject.Id });
+            if (!cr.Success)
+            {
+                MainFormModel.SliderX = MainFormModel.OldSliderX;
+                MainFormModel.SliderY = MainFormModel.OldSliderY;
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+            }
+            else
+            {
+                if (SelectedObject is Light)
+                {
+                    ((Light)SelectedObject).state.xy.x = MainFormModel.SliderX;
+                    ((Light)SelectedObject).state.xy.y = MainFormModel.SliderY;
+                }
+
+                if (SelectedObject is Group)
+                {
+                    ((Group)SelectedObject).action.xy.x = MainFormModel.SliderX;
+                    ((Group)SelectedObject).action.xy.y = MainFormModel.SliderY;
+                }
+            }
+        }
+
+        private void SetMainFormModel()
+        {
+            if (_selectedObject is Light)
+            {
+                Light light = (Light) _selectedObject;
+                
+                MainFormModel.SliderBri = light.state.bri ?? 0;
+                MainFormModel.SliderHue = light.state.hue ?? 0;
+                MainFormModel.SliderSat = light.state.sat ?? 0;
+                MainFormModel.SliderCt = light.state.ct ?? 153;
+                MainFormModel.SliderX = light.state.xy?.x ?? 0;
+                MainFormModel.SliderY = light.state.xy?.y ?? 0;
+             
+            }
+            else if (_selectedObject is Group)
+            {
+                Group light = (Group)_selectedObject;
+                
+                MainFormModel.SliderBri = light.action.bri ?? 0;
+                MainFormModel.SliderHue = light.action.hue ?? 0;
+                MainFormModel.SliderSat = light.action.sat ?? 0;
+                MainFormModel.SliderCt = light.action.ct ?? 153;
+                MainFormModel.SliderX = light.action.xy?.x ?? 0;
+                MainFormModel.SliderY = light.action.xy?.y ?? 0;
+               
+            }
+            else
+            {            
+                MainFormModel.SliderBri = 0;
+                MainFormModel.SliderHue = 0;
+                MainFormModel.SliderSat = 0;
+                MainFormModel.SliderCt = 153;
+                MainFormModel.SliderX = 0;
+                MainFormModel.SliderY = 0;           
+            }
+        }
+
+        #endregion
+
+        #region TOOLS_VIEW_METHODS
+        private void ViewSceneMapping()
+        {
+            Form_SceneMapping _fsm = new Form_SceneMapping(SelectedBridge) { Owner = Application.Current.MainWindow };
+            _fsm.Show();
+        }
+
+        private void ViewBulbs()
+        {
+            Form_BulbsView _fbv = new Form_BulbsView(SelectedBridge) { Owner = Application.Current.MainWindow };
+            _fbv.Show();
+        }
+
+        private void ViewGroups()
+        {
+            Form_GroupView _fgv = new Form_GroupView(SelectedBridge) { Owner = Application.Current.MainWindow };
+            _fgv.Show();
+        }
+        #endregion
+
+        #region CONTEXT_MENU_METHODS
+        private void ReplaceCurrentState()
+        {
+            if (MessageBox.Show(GlobalStrings.Scene_Replace_Current_States, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
+            log.Info($@"Replacing scene {((Scene)_selectedObject).name} lights state with current one.");
+            SelectedBridge.StoreCurrentLightState(_selectedObject.Id);
 
         }
 
-        private void Sensitivity(int sensivity)
+        private void EditObject()
+        {
+            log.Debug("Editing object : " + _selectedObject);
+
+            if (_selectedObject is Group)
+            {
+                Form_GroupCreator fgc = new Form_GroupCreator(SelectedObject, SelectedBridge) { Owner = Application.Current.MainWindow };
+                if (fgc.ShowDialog() == true)
+                {
+                    RefreshObject(_selectedObject);
+                }
+            }
+            else if (_selectedObject is Schedule)
+            {
+                Form_ScheduleCreator fsc = new Form_ScheduleCreator(SelectedObject, SelectedBridge) { Owner = Application.Current.MainWindow };
+                if (fsc.ShowDialog() == true)
+                {
+                    RefreshObject(_selectedObject);
+                }
+            }
+            else if (_selectedObject is Sensor)
+            {
+                Sensor obj = (Sensor)_selectedObject;
+                switch (obj.modelid)
+                {
+                    case "PHDL00":
+                        CommandResult cr = SelectedBridge.GetObject<Sensor>(obj.Id);
+                        if (cr.Success)
+                        {
+                            Sensor daylight = (Sensor)cr.resultobject;
+                            daylight.Id = obj.Id;
+                            Form_Daylight dl = new Form_Daylight(daylight, SelectedBridge) { Owner = Application.Current.MainWindow };
+                            if (dl.ShowDialog() == true)
+                            {
+                                RefreshObject(_selectedObject);
+                            }
+
+                        }
+
+                        break;
+                    case "ZGPSWITCH":
+                        Form_HueTapConfig htc = new Form_HueTapConfig(obj.Id, SelectedBridge)
+                        {
+                            Owner = Application.Current.MainWindow
+                        };
+                        if (htc.ShowDialog() == true)
+                        {
+                            RefreshObject(_selectedObject);
+                        }
+                        break;
+                    default:
+                        CommandResult crs = SelectedBridge.GetObject<Sensor>(obj.Id);
+                        if (crs.Success)
+                        {
+                            Form_SensorCreator fsc = new Form_SensorCreator(SelectedBridge, (Sensor)crs.resultobject)
+                            {
+                                Owner = Application.Current.MainWindow
+                            };
+                            if (fsc.ShowDialog() == true)
+                            {
+                                RefreshObject(_selectedObject);
+                            }
+
+                        }
+                        break;
+                }
+            }
+            else if (_selectedObject is Rule)
+            {
+                Form_RulesCreator2 frc = new Form_RulesCreator2(SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
+                if (frc.ShowDialog() == true)
+                {
+                    RefreshObject(_selectedObject);
+                }
+            }
+            else if (_selectedObject is Scene)
+            {
+                Form_SceneCreator fscc = new Form_SceneCreator(SelectedBridge, _selectedObject.Id) { Owner = Application.Current.MainWindow };
+                if (fscc.ShowDialog() == true)
+                {
+                    RefreshObject(_selectedObject);
+                }
+            }
+            else if (_selectedObject is Resourcelink)
+            {
+                Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator(SelectedBridge, (Resourcelink)_selectedObject) { Owner = Application.Current.MainWindow };
+
+                if (frlc.ShowDialog() == true)
+                {
+                    RefreshObject(_selectedObject);
+                }
+
+            }
+        }
+
+        private void Identify(string type)
+        {
+            MethodInfo mi = typeof(Bridge).GetMethod("SetState");
+            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
+            log.Info($@"Sending the {type} Identify command to object ID : {_selectedObject.Id}");
+            CommandResult hr = (CommandResult)generic.Invoke(SelectedBridge, new object[] { new CommonProperties() { alert = type }, _selectedObject.Id });
+        }
+
+        private void Clone(bool quick)
+        {
+            log.Info($"Cloning {SelectedObject}...");
+
+            if (quick)
+            {
+                log.Info($"Quick cloning beginning...");
+                Duplicate();              
+            }
+            else
+            {
+                log.Info($"Cloning beginning...");
+                bool result = Duplicate();
+                if (result)
+                {                 
+                    try
+                    {
+                        HueObject oldobj = (HueObject)SelectedObject.Clone();
+                        SelectedObject = ListBridgeObjects.Single(x => x.GetType() == oldobj.GetType() && x.Id == oldobj.Id);
+                        EditObject();
+                    }
+                    catch(Exception)
+                    {
+                        MessageBox.Show(GlobalStrings.Error_While_Cloning, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
+                }
+            }
+        }
+
+        private bool Duplicate()
+        {
+            bool result = false;
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "CreateObject", new[] { SelectedObject.Clone() });
+            if (cr.Success)
+            {
+                log.Info("Object cloned succesfully !");
+                MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
+                MethodInfo gm = mi.MakeGenericMethod(SelectedObject.GetType());
+                HelperResult hr = (HelperResult)gm.Invoke(null, new object[] { SelectedBridge, cr.resultobject.ToString() });
+                if (hr.Success)
+                {
+                    ListBridgeObjects.Add((HueObject)hr.Hrobject);
+                    result = true;
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+                }
+            }
+            else
+            {
+                log.Error("Error while cloning object.");
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+            }
+            return result;
+        }
+
+        private void Sensitivity(int sensitivity)
         {
             Sensor sensor = (Sensor)SelectedObject;
-            ((HueMotionSensorConfig)sensor.config).sensitivity = sensivity;
+            ((HueMotionSensorConfig)sensor.config).sensitivity = sensitivity;
             // sensor.Id = _selectedObject.Id;
             sensor.type = ((Sensor)SelectedObject).type;
             SelectedBridge.ModifyObject<Sensor>(sensor, sensor.Id);
@@ -662,137 +857,67 @@ namespace WinHue3.ViewModels
 
         }
 
-        private void SetMainFormModel()
-        {
-            if (_selectedObject is Light)
-            {
-                Light light = (Light) _selectedObject;
-                
-                MainFormModel.SliderBri = light.state.bri ?? 0;
-                MainFormModel.SliderHue = light.state.hue ?? 0;
-                MainFormModel.SliderSat = light.state.sat ?? 0;
-                MainFormModel.SliderCt = light.state.ct ?? 153;
-                MainFormModel.SliderX = light.state.xy?.x ?? 0;
-                MainFormModel.SliderY = light.state.xy?.y ?? 0;
-                MainFormModel.ModelId = light.modelid;
-                
-            }
-            else if (_selectedObject is Group)
-            {
-                Group light = (Group)_selectedObject;
-                
-                MainFormModel.SliderBri = light.action.bri ?? 0;
-                MainFormModel.SliderHue = light.action.hue ?? 0;
-                MainFormModel.SliderSat = light.action.sat ?? 0;
-                MainFormModel.SliderCt = light.action.ct ?? 153;
-                MainFormModel.SliderX = light.action.xy?.x ?? 0;
-                MainFormModel.SliderY = light.action.xy?.y ?? 0;
-                MainFormModel.ModelId = light.modelid;
-                
-            }
-            else
-            {
-                
-                MainFormModel.SliderBri = 0;
-                MainFormModel.SliderHue = 0;
-                MainFormModel.SliderSat = 0;
-                MainFormModel.SliderCt = 153;
-                MainFormModel.SliderX = 0;
-                MainFormModel.SliderY = 0;
-                MainFormModel.ModelId = string.Empty;
-                
-            }
-        }
-
-        private void ViewSceneMapping()
-        {
-            Form_SceneMapping _fsm = new Form_SceneMapping(SelectedBridge) { Owner = Application.Current.MainWindow };
-            _fsm.Show();
-        }
-
-        private void ViewBulbs()
-        {
-            Form_BulbsView _fbv = new Form_BulbsView(SelectedBridge) { Owner = Application.Current.MainWindow };
-            _fbv.Show();
-        }
-
-        private void ViewGroups()
-        {
-            Form_GroupView _fgv = new Form_GroupView(SelectedBridge) { Owner = Application.Current.MainWindow };
-            _fgv.Show();
-        }
-
-        private void ReplaceCurrentState()
-        {
-            if (MessageBox.Show(GlobalStrings.Scene_Replace_Current_States, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
-            log.Info($@"Replacing scene {((Scene)_selectedObject).name} lights state with current one.");
-            SelectedBridge.StoreCurrentLightState(_selectedObject.Id);
-
-        }
-
-        private void Clone(bool quick)
-        {
-            log.Info($"Cloning {SelectedObject}...");
-
-            if (quick)
-            {
-                log.Info($"Quick cloning beginning...");
-                Duplicate();              
-            }
-            else
-            {
-                log.Info($"Cloning beginning...");
-                bool result = Duplicate();
-                if (result)
-                {
-                    
-                }
-            }
-        }
-
-        private bool Duplicate()
-        {
-            bool result = false;
-            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "CreateObject", new[] { SelectedObject.Clone() });
-            if (cr.Success)
-            {
-                log.Info("Object cloned succesfully !");
-                MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
-                MethodInfo gm = mi.MakeGenericMethod(SelectedObject.GetType());
-                HelperResult hr = (HelperResult)gm.Invoke(null, new object[] { SelectedBridge, cr.resultobject.ToString() });
-                if (hr.Success)
-                {
-                    ListBridgeObjects.Add((HueObject)hr.Hrobject);
-                    result = true;
-                }
-                else
-                {
-                    MessageBoxError.ShowLastErrorMessages(SelectedBridge);
-                }
-            }
-            else
-            {
-                log.Error("Error while cloning object.");
-                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
-            }
-            return result;
-        }
-
         private void CopyToJson(bool raw)
         {
             Lastmessage = "Object copied to clipboard.";
             Clipboard.SetText(JsonConvert.SerializeObject(SelectedObject, raw ? Formatting.None : Formatting.Indented, new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore}));
         }
 
+        #endregion
+
+        #region VIEW_TAB_METHODS
         private void SortListView()
         {
             RefreshView();
         }
 
-        private void ManageUsers()
+        #endregion
+
+        #region HELP_TAB_METHODS
+        private void OpenWinHueWebsite()
         {
-            Form_ManageUsers fmu = new Form_ManageUsers(SelectedBridge){ Owner = Application.Current.MainWindow };
-            fmu.ShowDialog();
+            Process.Start("https://hyrules.github.io/WinHue3/");
         }
+
+        private void OpenWinHueSupport()
+        {
+            Process.Start("https://github.com/Hyrules/WinHue3/issues");
+        }
+
+        private void OpenAboutWindow()
+        {
+            AboutBox ab = new AboutBox();
+            ab.ShowDialog();
+        }
+
+        #endregion
+
+        #region APPLICATION_MENU_METHODS
+        private void OpenSettingsWindow()
+        {
+            Form_AppSettings settings = new Form_AppSettings() { Owner = Application.Current.MainWindow };
+            if (settings.ShowDialog() != true) return;
+            Communication.Timeout = WinHueSettings.settings.Timeout;
+        }
+
+        private void QuitApplication()
+        {
+            Application.Current.Shutdown();
+        }
+
+
+        private bool DoBridgePairing(ObservableCollection<Bridge> listBridges = null)
+        {
+            Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(listBridges) { Owner = Application.Current.MainWindow };
+
+            bool result = (bool)dp.ShowDialog();
+            if (result)
+            {
+                ListBridges = dp.ViewModel.ListBridges;
+                SaveSettings();
+            }
+            return result;
+        }
+        #endregion
     }
 }

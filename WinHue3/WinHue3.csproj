@@ -215,6 +215,7 @@
     <Compile Include="Controls\BindableHueSlider.cs" />
     <Compile Include="Controls\BindableListView.cs" />
     <Compile Include="Controls\BindableSlider.cs" />
+    <Compile Include="Models\EventViewerModel.cs" />
     <Compile Include="Models\ManageUsersModel.cs" />
     <Compile Include="Resources\GUI.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -225,6 +226,7 @@
     <Compile Include="SupportedLights\SupportedDeviceType.cs" />
     <Compile Include="SupportedLights\LightDevice.cs" />
     <Compile Include="Validation\RequireIPValidation.cs" />
+    <Compile Include="ViewModels\EventViewerViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
@@ -324,14 +326,12 @@
     <Compile Include="Utils\HueObjectHelper.cs" />
     <Compile Include="OldViews\AddManualIPView.cs" />
     <Compile Include="OldViews\AnimatorView.cs" />
-    <Compile Include="OldViews\BridgeSettingsView.cs" />
     <Compile Include="OldViews\GroupViewView.cs" />
     <Compile Include="OldViews\BulbsViewView.cs" />
     <Compile Include="OldViews\HotKeyCreatorView.cs" />
     <Compile Include="OldViews\SceneMappingView.cs" />
     <Compile Include="OldViews\WaitView.cs" />
     <Compile Include="OldViews\ColorFromImageView.cs" />
-    <Compile Include="OldViews\EventViewerView.cs" />
     <Compile Include="OldViews\RuleCreatorView.cs" />
     <Compile Include="OldViews\SceneCreatorView.cs" />
     <Compile Include="OldViews\View.cs" />

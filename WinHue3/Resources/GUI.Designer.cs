@@ -1744,7 +1744,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resource Link Creator.
+        ///   Looks up a localized string similar to Create a Resource link....
         /// </summary>
         public static string MainForm_Tab_Home_Group_Creators_ResourceLink {
             get {

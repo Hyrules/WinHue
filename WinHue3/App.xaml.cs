@@ -23,13 +23,14 @@ namespace WinHue3
 
         public App() : base()
         {
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Hierarchy hier = log4net.LogManager.GetRepository() as Hierarchy;
 
             if (hier != null)
             {
                 DataGridViewAppender dgva = (DataGridViewAppender)hier.GetAppenders().FirstOrDefault(appender => appender.Name.Equals("DataGridViewAppender"));
-                dgva.DgEventLog = fel.evv.ListLogEntries;
+                dgva.DgEventLog = fel.ViewModel.EventViewerModel.ListLogEntries;
             }
         }
 
@@ -46,41 +47,29 @@ namespace WinHue3
                 ? SystemParameters.WorkArea.Width * 0.75
                 : MainWindow.MinWidth;
 
-
             MainWindow.Height = height;
             MainWindow.Width = width;
 
-
-            if (IsUserAdministrator())
+            switch (WinHueSettings.settings.StartMode)
             {
-
-                    switch (WinHueSettings.settings.StartMode)
-                    {
-                        case 0:
-                            wnd.WindowState = WindowState.Normal;
-                            wnd.Show();
-                            break;
-                        case 1:
-                            wnd.Hide();
-                            break;
-                        case 2:
-                            wnd.WindowState = WindowState.Minimized;
-                            wnd.Show();
-                            break;
-                        default:
-                            wnd.Show();
-                            wnd.WindowState = WindowState.Normal;
-                            break;
-                    }
-
+                case 0:
+                    wnd.WindowState = WindowState.Normal;
+                    wnd.Show();
+                    break;
+                case 1:
+                    wnd.Hide();
+                    break;
+                case 2:
+                    wnd.WindowState = WindowState.Minimized;
+                    wnd.Show();
+                    break;
+                default:
+                    wnd.Show();
+                    wnd.WindowState = WindowState.Normal;
+                    break;
             }
-            else
-            {
-                MessageBox.Show(GlobalStrings.Require_admin, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                log.Error("User does not have the administrator rights.");
-            }
+
         }
-
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -91,24 +80,5 @@ namespace WinHue3
             log.Fatal(ex);
         }
 
-        public bool IsUserAdministrator()
-        {
-            bool isAdmin;
-            try
-            {
-                WindowsIdentity user = WindowsIdentity.GetCurrent();
-                WindowsPrincipal principal = new WindowsPrincipal(user);
-                isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                isAdmin = false;
-            }
-            catch (Exception)
-            {
-                isAdmin = false;
-            }
-            return isAdmin;
-        }
     }
 }

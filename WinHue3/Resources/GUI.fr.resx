@@ -679,7 +679,7 @@
     <value>Creer un capteur...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Creators_ResourceLink" xml:space="preserve">
-    <value>Créateur de lien de ressources</value>
+    <value>Créer un lien de ressources...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Events" xml:space="preserve">
     <value>Events</value>

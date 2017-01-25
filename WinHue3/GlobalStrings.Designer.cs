@@ -655,6 +655,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cloned Object not found in the list. Please edit the object manually..
+        /// </summary>
+        public static string Error_While_Cloning {
+            get {
+                return ResourceManager.GetString("Error_While_Cloning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One or more errors occured while creating the object :.
         /// </summary>
         public static string Error_WhileCreatingObject {

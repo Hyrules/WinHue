@@ -717,4 +717,7 @@
   <data name="Warning_TransitionTime" xml:space="preserve">
     <value>Avertissement : le temps de transition est plus long que 3 secondes ! Vous ne serez pas capable de prévisualiser correctement. L'ampoule retournera à son état précédent après 3 secondes.</value>
   </data>
+  <data name="Error_While_Cloning" xml:space="preserve">
+    <value>Le clone de l'objet cloné n'a pas été trouvé. Veuillez modifier l'objet manuellement.</value>
+  </data>
 </root>
