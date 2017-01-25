@@ -498,6 +498,7 @@ namespace WinHue3.ViewModels
 
                 if(SelectedObject is Group)
                     ((Group)SelectedObject).action.hue = MainFormModel.SliderHue;
+
             }
         }
 

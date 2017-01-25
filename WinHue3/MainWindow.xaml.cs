@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using HueLib2;
 using System.Threading;
@@ -133,7 +135,6 @@ namespace WinHue3
         {
             this.Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
         }
-
 
     }
 }
