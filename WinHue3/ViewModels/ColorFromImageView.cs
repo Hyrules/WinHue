@@ -5,9 +5,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace WinHue3
+namespace WinHue3.ViewModels
 {
-    public class ColorFromImageView : View
+    public class ColorFromImageView : ValidatableBindableBase
     {
         private ImageSource _imagesource;
         private bool _canloadrgb;
@@ -32,8 +32,7 @@ namespace WinHue3
             }
             set
             {
-                _imagesource = value;
-                OnPropertyChanged();
+                SetProperty(ref _imagesource,value);
             }
         }
 
@@ -45,8 +44,7 @@ namespace WinHue3
             }
             set
             {
-                _canloadrgb = value;
-                OnPropertyChanged();
+                SetProperty(ref _canloadrgb,value);
             }
         }
 
@@ -58,8 +56,7 @@ namespace WinHue3
             }
             set
             {
-                _canselectcolor = value;
-                OnPropertyChanged();
+                SetProperty(ref _canselectcolor,value);
             }
         }
 
@@ -81,8 +78,7 @@ namespace WinHue3
             }
             set
             {
-                _selectedColor = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedColor,value);
                 CanSelectColor = true;
                 OnPropertyChanged("SelectedColorBackground");
             }

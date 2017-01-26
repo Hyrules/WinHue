@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Windows.Threading;
 
-namespace WinHue3
+namespace WinHue3.ViewModels
 {
-    public class WaitView : View
+    public class WaitViewModel : ValidatableBindableBase
     {
         private readonly DispatcherTimer _timer;
         private DispatcherTimer _pbtimer;
-        private readonly string _message;
-        private readonly TimeSpan _waittime;
+        private string _message;
+        private TimeSpan _waittime;
         private int _pbvalue;
          
-        public WaitView(string message, TimeSpan waittime)
+        public WaitViewModel()
         {
-            _message = message;
-            _waittime = waittime;
             _timer = new DispatcherTimer() {Interval = _waittime};
             _pbtimer = new DispatcherTimer() {Interval = new TimeSpan(0,0,0,1)};
             _timer.Tick += _timer_Tick;
@@ -34,13 +32,35 @@ namespace WinHue3
             OnWaitComplete?.Invoke(sender,e);
         }
 
-        public string Message => _message;
-        public double WaitTime => _waittime.TotalSeconds;
+        public string Message
+        {
+            get
+            {
+                return _message;
+            }
+            set
+            {
+                SetProperty(ref _message, value);
+            }         
+        }
+
+
+        public TimeSpan WaitTime
+        {
+            get
+            {
+                return _waittime;
+            }
+            set
+            {
+                SetProperty(ref _waittime, value);
+            }
+        }
 
         public int pbValue
         {
             get { return _pbvalue; }
-            set { _pbvalue = value; OnPropertyChanged(); }
+            set { SetProperty(ref _pbvalue,value); }
         }
         public event WaitComplete OnWaitComplete;
         public delegate void WaitComplete(object sender, EventArgs e);

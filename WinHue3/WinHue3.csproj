@@ -324,14 +324,14 @@
     <Compile Include="Interface\ScreenPixelHandler.cs" />
     <Compile Include="Interface\TypeGroupDescription.cs" />
     <Compile Include="Utils\HueObjectHelper.cs" />
-    <Compile Include="OldViews\AddManualIPView.cs" />
+    <Compile Include="ViewModels\AddManualIPViewModel.cs" />
     <Compile Include="OldViews\AnimatorView.cs" />
     <Compile Include="OldViews\GroupViewView.cs" />
     <Compile Include="OldViews\BulbsViewView.cs" />
     <Compile Include="OldViews\HotKeyCreatorView.cs" />
     <Compile Include="OldViews\SceneMappingView.cs" />
-    <Compile Include="OldViews\WaitView.cs" />
-    <Compile Include="OldViews\ColorFromImageView.cs" />
+    <Compile Include="ViewModels\WaitViewModel.cs" />
+    <Compile Include="ViewModels\ColorFromImageView.cs" />
     <Compile Include="OldViews\RuleCreatorView.cs" />
     <Compile Include="OldViews\SceneCreatorView.cs" />
     <Compile Include="OldViews\View.cs" />

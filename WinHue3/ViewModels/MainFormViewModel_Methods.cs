@@ -306,7 +306,7 @@ namespace WinHue3.ViewModels
             if (hr.Success)
             {
 
-                _listBridgeObjects.Add((HueObject)hr.Hrobject);
+                ListBridgeObjects.Add((HueObject)hr.Hrobject);
             }
             else
             {
@@ -325,7 +325,7 @@ namespace WinHue3.ViewModels
             if (hr.Success)
             {
 
-                _listBridgeObjects.Add((HueObject)hr.Hrobject);
+                ListBridgeObjects.Add((HueObject)hr.Hrobject);
             }
             else
             {
@@ -359,11 +359,18 @@ namespace WinHue3.ViewModels
         private void CreateResourceLink()
         {
             Form_ResourceLinksCreator frc = new Form_ResourceLinksCreator(SelectedBridge) { Owner = Application.Current.MainWindow };
-            if (frc.ShowDialog() == true)
+            log.Debug($@"Opening the sensor ResourceLink window passing bridge {SelectedBridge.IpAddress} ");
+            if (!(bool)frc.ShowDialog()) return;
+            log.Debug($@"Getting the newly created ResourceLink ID {frc.GetCreatedModifiedId()} from bridge {SelectedBridge.IpAddress}");
+            HelperResult hr = HueObjectHelper.GetObject<Resourcelink>(SelectedBridge, frc.GetCreatedModifiedId());
+            if(hr.Success)
             {
-
+                ListBridgeObjects.Add((HueObject)hr.Hrobject);
             }
-
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
+            }
         }
 
         private void DoBridgeUpdate()

@@ -35,21 +35,21 @@ namespace WinHue3.Models.BridgeSettings
             set { SetProperty(ref _dhcp,value); }
         }
 
-        [RequireIPValidation]
+        [RequireIPValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Invalid_IP")]
         public string Ip
         {
             get { return _ip; }
             set { SetProperty(ref _ip,value); }
         }
 
-        [RequireIPValidation]
+        [RequireIPValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Invalid_IP")]
         public string Netmask
         {
             get { return _netmask; }
             set { SetProperty(ref _netmask,value); }
         }
 
-        [RequireIPValidation]
+        [RequireIPValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Invalid_IP")]
         public string Gateway
         {
             get { return _gateway; }

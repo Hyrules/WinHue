@@ -23,6 +23,7 @@ namespace WinHue3
     {
         private ResourceLinkCreatorViewModel rlcvm;
         private readonly Bridge _bridge;
+        private string id;
 
         public Form_ResourceLinksCreator(Bridge bridge,Resourcelink rl = null)
         {
@@ -57,8 +58,10 @@ namespace WinHue3
         {
             Resourcelink rl = rlcvm.Resourcelink;
             CommandResult cr = rlcvm.IsEditing ? _bridge.ModifyObject<Resourcelink>(rl,rl.Id) : _bridge.CreateObject<Resourcelink>(rl);
+            
             if (cr.Success)
             {
+                id = cr.resultobject.ToString();
                 DialogResult = true;
                 Close();
             }
@@ -69,7 +72,11 @@ namespace WinHue3
 
         }
 
-
+        public string GetCreatedModifiedId()
+        {
+            return id;
+        }
+        
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
