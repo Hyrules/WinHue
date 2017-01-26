@@ -6,18 +6,23 @@ using System.Reflection;
 using System.Text;
 using HueLib2;
 
-namespace WinHue3
+namespace WinHue3.ViewModels
 {
-    public class BulbsViewView : View
+    public class BulbsViewViewModel : ValidatableBindableBase
     {
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
         private Dictionary<string, Light> _listlights;
 
-        public BulbsViewView(Dictionary<string, Light> lights)
+        public BulbsViewViewModel()
         {
-            _listlights = lights;
+
+        }
+
+        public void Initialize(Dictionary<string, Light> lights)
+        {
+            Listlights = lights;
             BuildBulbsViewReverse();
         }
 
@@ -28,7 +33,7 @@ namespace WinHue3
             get { return _reverse; }
             set
             {
-                _reverse = value;
+                SetProperty(ref _reverse,value);
                 if (value == true)
                 {
                     BuildBulbsView();
@@ -37,7 +42,6 @@ namespace WinHue3
                 {
                     BuildBulbsViewReverse();
                 }
-                OnPropertyChanged();
             }
         }
 
@@ -45,7 +49,7 @@ namespace WinHue3
         {
 
 
-            Dictionary<string, Light> llights = _listlights;
+            Dictionary<string, Light> llights = Listlights;
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Properties");
@@ -95,7 +99,7 @@ namespace WinHue3
         private void BuildBulbsViewReverse()
         {
 
-            Dictionary<string, Light> llights = _listlights;
+            Dictionary<string, Light> llights = Listlights;
             if (llights == null) return;
             DataTable dt = new DataTable();
             dt.Columns.Add("Lights");
@@ -153,10 +157,23 @@ namespace WinHue3
             get { return _filter; }
             set
             {
-                _filter = value;
-                OnPropertyChanged();
+                SetProperty(ref _filter,value);
+                
                 FilterData();
 
+            }
+        }
+
+        public Dictionary<string, Light> Listlights
+        {
+            get
+            {
+                return _listlights;
+            }
+
+            set
+            {
+                SetProperty(ref _listlights,value);
             }
         }
 

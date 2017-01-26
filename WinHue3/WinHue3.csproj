@@ -325,9 +325,9 @@
     <Compile Include="Interface\TypeGroupDescription.cs" />
     <Compile Include="Utils\HueObjectHelper.cs" />
     <Compile Include="ViewModels\AddManualIPViewModel.cs" />
-    <Compile Include="OldViews\AnimatorView.cs" />
+    <Compile Include="ViewModels\AnimatorView.cs" />
     <Compile Include="OldViews\GroupViewView.cs" />
-    <Compile Include="OldViews\BulbsViewView.cs" />
+    <Compile Include="ViewModels\BulbsViewViewModel.cs" />
     <Compile Include="OldViews\HotKeyCreatorView.cs" />
     <Compile Include="OldViews\SceneMappingView.cs" />
     <Compile Include="ViewModels\WaitViewModel.cs" />
