@@ -26,7 +26,7 @@ namespace WinHue3.ViewModels
             BuildBulbsViewReverse();
         }
 
-        public DataView BulbsDetails => _dt.DefaultView;
+        public DataView BulbsDetails => _dt?.DefaultView;
 
         public bool Reverse
         {
@@ -112,8 +112,6 @@ namespace WinHue3.ViewModels
             listproperties.CopyTo(listPropertyInfos, 0);
             liststate.CopyTo(listPropertyInfos, listproperties.Length);
 
-
-
             foreach (PropertyInfo pi in listPropertyInfos)
             {
                 if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
@@ -145,8 +143,8 @@ namespace WinHue3.ViewModels
 
                 }
                 dt.Rows.Add(data);
-
             }
+
             _dt = dt;
             OnPropertyChanged("BulbsDetails");
 

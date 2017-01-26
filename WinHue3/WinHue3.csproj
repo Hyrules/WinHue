@@ -225,6 +225,7 @@
     <Compile Include="SupportedLights\LightImageLibrary.cs" />
     <Compile Include="SupportedLights\SupportedDeviceType.cs" />
     <Compile Include="SupportedLights\LightDevice.cs" />
+    <Compile Include="Validation\IPValidation.cs" />
     <Compile Include="Validation\RequireIPValidation.cs" />
     <Compile Include="ViewModels\EventViewerViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />

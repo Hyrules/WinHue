@@ -14,7 +14,7 @@ namespace WinHue3.ViewModels
         }
 
 
-        [RequireIPValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName ="Invalid_IP")]
+        [IpValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName ="Invalid_IP")]
         public string BridgeIPAddress
         {
             get
@@ -24,7 +24,6 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref ip,value);
-                // validate IP;
             }
         }
 
