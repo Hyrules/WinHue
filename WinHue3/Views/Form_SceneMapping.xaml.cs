@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using HueLib2;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {   
@@ -12,19 +13,32 @@ namespace WinHue3
     public partial class Form_SceneMapping : Window
     {
 
-        private readonly SceneMappingView _smv;
+        private readonly SceneMappingViewModel _smv;
         private readonly Bridge _bridge;
         public Form_SceneMapping(Bridge bridge)
         {
             _bridge = bridge;
             InitializeComponent();
             CommandResult lresult = _bridge.GetListObjects<Light>();
-            if (!lresult.Success) return;
-            CommandResult sresult = _bridge.GetListObjects<Scene>();
-            if (!sresult.Success) return;
-            _smv = new SceneMappingView((Dictionary<string, Scene>)sresult.resultobject,
-                (Dictionary<string, Light>)lresult.resultobject,_bridge);
-            DataContext = _smv;
+            if (lresult.Success)
+            {
+                CommandResult sresult = _bridge.GetListObjects<Scene>();
+                if (sresult.Success)
+                {
+                    _smv = DataContext as SceneMappingViewModel;
+                    _smv.Initialize((Dictionary<string, Scene>)sresult.resultobject, (Dictionary<string, Light>)lresult.resultobject, _bridge);
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(bridge);
+                }
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(bridge);
+            }
+            
+
         }
 
         private void dgListScenes_ItemsSourceChangeCompleted(object sender, EventArgs e)
@@ -33,10 +47,5 @@ namespace WinHue3
             dgListScenes.Columns[0].Visible = false;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if(_smv == null)
-                Close();
-        }
     }
 }

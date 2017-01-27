@@ -8,9 +8,9 @@ using HueLib2;
 using Action = HueLib2.Action;
 using Group = HueLib2.Group;
 
-namespace WinHue3
+namespace WinHue3.ViewModels
 {
-    public class GroupViewView : View
+    public class GroupViewViewModel : ValidatableBindableBase
     {
         private Dictionary<string, Group> _groups;
         private Dictionary<string, Light> _lights;
@@ -18,7 +18,12 @@ namespace WinHue3
         private string _filter;
         private bool _reverse;
 
-        public GroupViewView(Dictionary<string, Group> groups, Dictionary<string,Light> lights  )
+        public GroupViewViewModel()
+        {
+
+        }
+
+        public void Initialize(Dictionary<string, Group> groups, Dictionary<string, Light> lights)
         {
             _groups = groups;
             _lights = lights;
@@ -32,7 +37,7 @@ namespace WinHue3
             get { return _reverse; }
             set
             {
-                _reverse = value;
+                SetProperty(ref _reverse,value);
                 if (value == true)
                 {
                     BuildGroupView();
@@ -41,7 +46,6 @@ namespace WinHue3
                 {
                     BuildGroupViewReverse();
                 }
-                OnPropertyChanged();
             }
         }
 
@@ -189,8 +193,7 @@ namespace WinHue3
             get { return _filter; }
             set
             {
-                _filter = value;
-                OnPropertyChanged();
+                SetProperty(ref _filter,value);
                 FilterData();
 
             }

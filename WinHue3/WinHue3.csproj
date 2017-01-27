@@ -216,7 +216,9 @@
     <Compile Include="Controls\BindableListView.cs" />
     <Compile Include="Controls\BindableSlider.cs" />
     <Compile Include="Models\EventViewerModel.cs" />
+    <Compile Include="Models\HotKeyCreatorModel.cs" />
     <Compile Include="Models\ManageUsersModel.cs" />
+    <Compile Include="Models\RuleCreatorModel.cs" />
     <Compile Include="Resources\GUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -228,6 +230,7 @@
     <Compile Include="Validation\IPValidation.cs" />
     <Compile Include="Validation\RequireIPValidation.cs" />
     <Compile Include="ViewModels\EventViewerViewModel.cs" />
+    <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
@@ -327,13 +330,13 @@
     <Compile Include="Utils\HueObjectHelper.cs" />
     <Compile Include="ViewModels\AddManualIPViewModel.cs" />
     <Compile Include="ViewModels\AnimatorView.cs" />
-    <Compile Include="OldViews\GroupViewView.cs" />
+    <Compile Include="ViewModels\GroupViewViewModel.cs" />
     <Compile Include="ViewModels\BulbsViewViewModel.cs" />
     <Compile Include="OldViews\HotKeyCreatorView.cs" />
-    <Compile Include="OldViews\SceneMappingView.cs" />
+    <Compile Include="ViewModels\SceneMappingViewModel.cs" />
     <Compile Include="ViewModels\WaitViewModel.cs" />
     <Compile Include="ViewModels\ColorFromImageView.cs" />
-    <Compile Include="OldViews\RuleCreatorView.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="OldViews\SceneCreatorView.cs" />
     <Compile Include="OldViews\View.cs" />
     <Compile Include="Utils\WinHueSettings.cs" />

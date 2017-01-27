@@ -5,19 +5,24 @@ using System.Text;
 using System.Windows.Input;
 using HueLib2;
 
-namespace WinHue3
+namespace WinHue3.ViewModels
 {
-    public class SceneMappingView : View
+    public class SceneMappingViewModel : ValidatableBindableBase
     {
         private DataTable _dt;
         private string _filter;
         private object _selectedcell;
         private object _row;
-        private readonly Dictionary<string, Scene> _listscenes;
-        private readonly Dictionary<string, Light> _listlights;
-        private readonly Bridge _bridge;
+        private Dictionary<string, Scene> _listscenes;
+        private Dictionary<string, Light> _listlights;
+        private Bridge _bridge;
 
-        public SceneMappingView(Dictionary<string, Scene> scenes, Dictionary<string, Light> lights, Bridge bridge)
+        public SceneMappingViewModel()
+        {
+
+        }
+
+        public void Initialize(Dictionary<string, Scene> scenes, Dictionary<string, Light> lights, Bridge bridge)
         {
             _bridge = bridge;
             _listscenes = scenes;
@@ -32,8 +37,7 @@ namespace WinHue3
             get { return _filter; }
             set
             {
-                _filter = value;
-                OnPropertyChanged();
+                SetProperty(ref _filter,value);
                 FilterData();
                 
             }
@@ -47,8 +51,8 @@ namespace WinHue3
             }
             set
             {
-                _row = value;
-                OnPropertyChanged();
+                SetProperty(ref _row,value);
+
             }
         }
 
@@ -143,7 +147,13 @@ namespace WinHue3
             _bridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
-        public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping());
-        public ICommand DoubleClickObjectCommand => new RelayCommand(param => ProcessDoubleClick());
+        private bool ObjectSelected()
+        {
+            return Row != null;
+        }
+
+       
+        public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping(), (param) => ObjectSelected());
+        public ICommand DoubleClickObjectCommand => new RelayCommand(param => ProcessDoubleClick(), (param) => ObjectSelected());
     }
 }

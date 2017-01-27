@@ -2419,6 +2419,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date / Time.
+        /// </summary>
+        public static string RuleCreatorForm_Time {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type : .
         /// </summary>
         public static string RuleCreatorForm_Type {

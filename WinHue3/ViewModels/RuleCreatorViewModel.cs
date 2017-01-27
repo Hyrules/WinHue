@@ -8,11 +8,11 @@ using System.Windows.Input;
 using HueLib2;
 using Action = HueLib2.Action;
 using MessageBox = System.Windows.MessageBox;
+using System.ComponentModel;
 
-
-namespace WinHue3
+namespace WinHue3.ViewModels
 {
-    public class RuleCreatorView : View
+    public class RuleCreatorViewModel : ValidatableBindableBase
     {
         private Rule _rule;
         private List<HueObject> _listDataStore;
@@ -34,7 +34,12 @@ namespace WinHue3
 
         #region CTOR
 
-        public RuleCreatorView(List<HueObject> listObjects)
+        public RuleCreatorViewModel()
+        {
+
+        }
+
+        public void Initialize(List<HueObject> listObjects)
         {
             _rule = new Rule();
             _listDataStore = listObjects;
@@ -42,14 +47,14 @@ namespace WinHue3
             _listboxConditions = new ObservableCollection<RuleCondition>();
             _listboxActions = new ObservableCollection<RuleAction>();
             _listboxActionPropertyInfos = new ObservableCollection<KeyValuePair<PropertyInfo, dynamic>>();
-            SetError(GlobalStrings.Rule_NoCondition, "ListConditions");
-            SetError(GlobalStrings.Rule_NoAction, "ListActions");
-            SetError(GlobalStrings.Rule_NameError, "RuleName");
+           // SetError(GlobalStrings.Rule_NoCondition, "ListConditions");
+           // SetError(GlobalStrings.Rule_NoAction, "ListActions");
+          //  SetError(GlobalStrings.Rule_NameError, "RuleName");
         }
 
-        public RuleCreatorView(List<HueObject> listObjects, HueObject modifiedRule)
+        public void Initialize(List<HueObject> listObjects, HueObject modifiedRule)
         {
-            _rule = (Rule) modifiedRule;
+            _rule = (Rule)modifiedRule;
             _listDataStore = listObjects;
             _listcbsensors = listObjects.OfType<Sensor>().ToList<HueObject>();
             _listboxConditions = new ObservableCollection<RuleCondition>(_rule.conditions);
@@ -64,11 +69,7 @@ namespace WinHue3
         public KeyValuePair<PropertyInfo, dynamic> SelectedProperty
         {
             get { return _selectedProperty; }
-            set
-            {
-                _selectedProperty = value;
-                OnPropertyChanged();
-            }
+            set { SetProperty(ref _selectedProperty,value);}
         }
 
         public RuleAction SelectedAction
@@ -76,8 +77,7 @@ namespace WinHue3
             get { return _selectedAction; }
             set
             {
-                _selectedAction = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedAction,value);
                 if (_selectedAction != null)
                     FillActionPropertyFromAction();
             }
@@ -88,10 +88,8 @@ namespace WinHue3
         public string ActionPropertyValue
         {
             get { return _actionPropertyValue; }
-            set
-            {
-                _actionPropertyValue = value;
-                OnPropertyChanged();
+            set {
+                SetProperty(ref _actionPropertyValue,value);
                 OnPropertyChanged("CanAddProperty");
             }
         }
@@ -111,26 +109,13 @@ namespace WinHue3
             get { return _selectedActionProperty; }
             set
             {
-                _selectedActionProperty = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedActionProperty,value);
                 OnPropertyChanged("CanAddProperty");
                 OnPropertyChanged("ValueVisible");
             }
         }
 
-        public bool CanAddProperty
-        {
-            get
-            {
-                if (_selectedActionProperty == null) return false;
-                if (_selectedActionObject == null) return false;
-                if (_selectedActionType == null) return false;
-                if (_selectedActionType == string.Empty) return false;
-                if (_selectedActionType == "scenes" && _selectedActionObject is Scene && _selectedActionProperty.Name == "scene") return true;
-                if (_actionPropertyValue == string.Empty) return false;
-                return true;
-            }
-        }
+
 
         public List<HueObject> ListActionObjects
         {
@@ -161,8 +146,7 @@ namespace WinHue3
             get { return _selectedActionType; }
             set
             {
-                _selectedActionType = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedActionType,value);
                 OnPropertyChanged("ListActionObjects");
                 OnPropertyChanged("CanAddProperty");
             }
@@ -175,8 +159,7 @@ namespace WinHue3
             get { return _selectedActionObject; }
             set
             {
-                _selectedActionObject = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedActionObject,value);
                 OnPropertyChanged("ListActionProperties");
                 OnPropertyChanged("CanAddProperty");
             }
@@ -210,8 +193,8 @@ namespace WinHue3
             }
         }
 
-        public bool CanDeleteCondition => _selectedCondition != null;
-        public bool CanAddAction => _listboxActionPropertyInfos.Count > 0;
+
+
 
         public RuleCondition SelectedCondition
         {
@@ -245,18 +228,6 @@ namespace WinHue3
             }
         }
 
-        public bool CanAddCondition
-        {
-            get
-            {
-                if (_listboxConditions.Count == 8) return false;
-                if (_selectedSensor == null) return false;
-                if (_selectedOperator == null) return false;
-                if (_selectedPropertyInfo == null) return false;
-                if (_selectedOperator.Equals("dx")) return true;
-                return _conditionvalue != string.Empty;
-            }
-        }
 
         public bool RuleEnabled
         {
@@ -276,12 +247,12 @@ namespace WinHue3
                 if (value == string.Empty)
                 {
                     _rule.name = null;
-                    SetError(GlobalStrings.Rule_NameError);
+                  //  SetError(GlobalStrings.Rule_NameError);
                 }
                 else
                 {
                     _rule.name = value;
-                    RemoveError(GlobalStrings.Rule_NameError);
+                    //RemoveError(GlobalStrings.Rule_NameError);
                 }
                 
                 OnPropertyChanged();
@@ -294,8 +265,7 @@ namespace WinHue3
             get { return _conditionvalue; }
             set
             {
-                _conditionvalue = value;
-                OnPropertyChanged();
+                SetProperty(ref _conditionvalue,value);
                 OnPropertyChanged("CanAddCondition");
             }
         }
@@ -305,8 +275,7 @@ namespace WinHue3
             get { return _selectedOperator; }
             set
             {
-                _selectedOperator = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedOperator,value);
                 OnPropertyChanged("CanAddCondition");
                 OnPropertyChanged("IsOperatorChanged");
             }
@@ -320,8 +289,7 @@ namespace WinHue3
             get { return _selectedPropertyInfo; }
             set
             {
-                _selectedPropertyInfo = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedPropertyInfo,value);
                 OnPropertyChanged("CanAddCondition");
                 OnPropertyChanged("CanAddProperty");
             }
@@ -332,7 +300,7 @@ namespace WinHue3
             get { return _selectedSensor; }
             set
             {
-                _selectedSensor = value;
+                SetProperty(ref _selectedSensor,value);
                 OnPropertyChanged();
                 OnPropertyChanged("ListSensorProperties");
                 OnPropertyChanged("CanAddCondition");
@@ -348,8 +316,6 @@ namespace WinHue3
         #endregion
 
         #region METHODS
-
-
 
         private void AddCondition()
         {
@@ -369,7 +335,7 @@ namespace WinHue3
             }
 
             _listboxConditions.Add(rc);
-            RemoveError(GlobalStrings.Rule_NoCondition, "ListConditions");
+            //RemoveError(GlobalStrings.Rule_NoCondition, "ListConditions");
             ResetConditionFields();
         }
 
@@ -393,7 +359,7 @@ namespace WinHue3
             OnPropertyChanged("CanDeleteCondition");
             ResetConditionFields();
             if (_listboxConditions.Count != 0) return;
-            SetError(GlobalStrings.Rule_NoCondition, "ListConditions");
+            //SetError(GlobalStrings.Rule_NoCondition, "ListConditions");
         }
 
         public Rule GetRule()
@@ -574,7 +540,7 @@ namespace WinHue3
             }
                 
             _listboxActions.Add(action);
-            RemoveError(GlobalStrings.Rule_NoAction, "ListActions");
+            //RemoveError(GlobalStrings.Rule_NoAction, "ListActions");
             _selectedActionObject = null;
             _selectedActionType = null;
             _listboxActionPropertyInfos.Clear();
@@ -614,7 +580,7 @@ namespace WinHue3
             _listboxActions.Remove(_selectedAction);
             if (_listboxActions.Count == 0)
             {
-                SetError(GlobalStrings.Rule_NoAction, "ListAction");
+                //SetError(GlobalStrings.Rule_NoAction, "ListAction");
                 OnPropertyChanged("CanChangeAction");
 
             }
@@ -654,15 +620,47 @@ namespace WinHue3
             OnPropertyChanged("CanAddAction");
         }
 
-    #endregion
+        #endregion
 
+
+
+        private bool CanAddCondition()
+        {
+            if (_listboxConditions?.Count == 8) return false;
+            if (_selectedSensor == null) return false;
+            if (_selectedOperator == null) return false;
+            if (_selectedPropertyInfo == null) return false;
+            if (_selectedOperator.Equals("dx")) return true;
+            return _conditionvalue != string.Empty;            
+        }
+
+        private bool CanDeleteCondition()
+        {
+            return _selectedCondition != null;
+        }
+
+        private bool CanAddProperty()
+        {
+            if (_selectedActionProperty == null) return false;
+            if (_selectedActionObject == null) return false;
+            if (_selectedActionType == null) return false;
+            if (_selectedActionType == string.Empty) return false;
+            if (_selectedActionType == "scenes" && _selectedActionObject is Scene && _selectedActionProperty.Name == "scene") return true;
+            if (_actionPropertyValue == string.Empty) return false;
+            return true;
+        }
+
+        private bool CanAddAction()
+        {
+            return _listboxActionPropertyInfos?.Count > 0;
+        }
 
         #region COMMANDS
 
-        public ICommand AddConditionCommand => new RelayCommand(param => AddCondition());
-        public ICommand DeleteConditionCommand => new RelayCommand(param => ConditionDelete());
-        public ICommand AddPropertyCommand => new RelayCommand(param => AddProperty());
-        public ICommand AddActionCommand => new RelayCommand(param => AddAction());
+        public ICommand AddConditionCommand => new RelayCommand(param => AddCondition(), (param) => CanAddCondition());
+        public ICommand DeleteConditionCommand => new RelayCommand(param => ConditionDelete(), (param) => CanDeleteCondition());
+        public ICommand AddPropertyCommand => new RelayCommand(param => AddProperty(), (param)=> CanAddProperty());
+        public ICommand AddActionCommand => new RelayCommand(param => AddAction(), (param)=> CanAddAction());
         public ICommand DeleteActionCommand => new RelayCommand(param => DeleteAction());
         public ICommand DeletePropertyCommand => new RelayCommand(param => DeleteProperty());
         #endregion

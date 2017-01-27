@@ -1221,4 +1221,7 @@
   <data name="ManageUsers_Username" xml:space="preserve">
     <value>Nom de l'application</value>
   </data>
+  <data name="RuleCreatorForm_Time" xml:space="preserve">
+    <value>Date / Heure</value>
+  </data>
 </root>
