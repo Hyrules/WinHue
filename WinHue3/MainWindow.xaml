@@ -10,7 +10,6 @@
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converters="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-
         x:Class="WinHue3.MainWindow"
         Title="WinHue 3" Height="768" Width="1024" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" >
     <Window.Resources>
@@ -82,7 +81,7 @@
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Tools}">
                 <RibbonGroup Header="Tools" Width="auto">
                     <RibbonSplitButton x:Name="btnCpuTempMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeImageSource="Resources/cputemp.png" >
-                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}" IsEnabled="{Binding CanSetCpuTempSettings}"/>
+                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                     </RibbonSplitButton>
                     <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>

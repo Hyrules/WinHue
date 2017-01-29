@@ -16,21 +16,22 @@ namespace WinHue3
         {
             _bridge = bridge;
             InitializeComponent();
-
             CommandResult comlgt = _bridge.GetListObjects<Light>();
+            _gvv = DataContext as GroupViewViewModel;
+
             if (comlgt.Success)
             {
                 CommandResult comgrp = _bridge.GetListObjects<Group>();
                 if (comgrp.Success)
                 {
-                    _gvv = DataContext as GroupViewViewModel;
+                    
                     _gvv.Initialize((Dictionary<string, Group>)comgrp.resultobject, (Dictionary<string, Light>)comlgt.resultobject);
                 }
                 else
                 {
                     MessageBoxError.ShowLastErrorMessages(bridge);
                 }
-                
+
                 DataContext = _gvv;
 
             }
@@ -38,6 +39,9 @@ namespace WinHue3
             {
                 MessageBoxError.ShowLastErrorMessages(bridge);
             }
+
+
+
         }
 
     }

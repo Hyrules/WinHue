@@ -25,7 +25,6 @@ namespace WinHue3
         private DispatcherTimer _hotkeyrecordTimer = new DispatcherTimer();
         private bool _canrecordkeyup;
         private Brush _recordbuttoncolor = new SolidColorBrush() {Color =  Color.FromRgb(240, 240, 240) };
-        private KeyEventArgs _recordedKeys;
         private string _name;
         private string _description;
         private int _objectypeindex;

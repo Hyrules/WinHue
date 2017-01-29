@@ -205,8 +205,11 @@
     <Compile Include="Converters\GroupTypeConverter.cs" />
     <Compile Include="Converters\IndexToSortConverter.cs" />
     <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
+    <Compile Include="Converters\RuleEnabledConverter.cs" />
+    <Compile Include="Converters\RuleOperatorConverter.cs" />
     <Compile Include="Converters\ScheduleMaskConverter.cs" />
     <Compile Include="Converters\ScheduleTypeConverter.cs" />
+    <Compile Include="Converters\SelectedActionTypeConverter.cs" />
     <Compile Include="Converters\SensorToTypeConverter.cs" />
     <Compile Include="Converters\SliderToByteConverter.cs" />
     <Compile Include="Converters\SliderToUshortConverter.cs" />
@@ -218,6 +221,9 @@
     <Compile Include="Models\EventViewerModel.cs" />
     <Compile Include="Models\HotKeyCreatorModel.cs" />
     <Compile Include="Models\ManageUsersModel.cs" />
+    <Compile Include="Utils\TimeSensorState.cs" />
+    <Compile Include="ViewModels\RuleActionViewModel.cs" />
+    <Compile Include="ViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
     <Compile Include="Resources\GUI.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -227,6 +233,8 @@
     <Compile Include="SupportedLights\LightImageLibrary.cs" />
     <Compile Include="SupportedLights\SupportedDeviceType.cs" />
     <Compile Include="SupportedLights\LightDevice.cs" />
+    <Compile Include="Validation\HotKeySelectedValidation.cs" />
+    <Compile Include="Validation\HotKeyValidation.cs" />
     <Compile Include="Validation\IPValidation.cs" />
     <Compile Include="Validation\RequireIPValidation.cs" />
     <Compile Include="ViewModels\EventViewerViewModel.cs" />

@@ -2302,6 +2302,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editing rule.
+        /// </summary>
+        public static string RuleCreatorForm_Editing {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Editing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
         public static string RuleCreatorForm_Enabled {
@@ -2433,6 +2442,15 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Type {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string RuleCreatorForm_Update {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Update", resourceCulture);
             }
         }
         

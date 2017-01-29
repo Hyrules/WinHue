@@ -3,12 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resources="clr-namespace:WinHue3.Resources" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
+        xmlns:converter="clr-namespace:WinHue3.Converters"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
         x:Class="WinHue3.Form_RulesCreator2"
         Title="Create a rule..." Height="437.85" Width="914.326" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Window.DataContext>
         <viewmodels:RuleCreatorViewModel/>
     </Window.DataContext>
     <Window.Resources>
+        <converter:RuleEnabledConverter x:Key="RuleEnabledConverter"/>
+        <converter:RuleOperatorConverter x:Key="RuleOperatorConverter"/>
+        <converter:SelectedActionTypeConverter x:Key="SelectedActionTypeConverter"/>
+        <Style TargetType="{x:Type TextBox}" x:Key="HideActionValue">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=cbActionObjectType, Path=SelectedItem.Name}" Value="cbiScenes">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="HideConditionValue">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=cbOperator, Path=SelectedItem.Name}" Value="cbiChanged">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
         <Style TargetType="{x:Type ListView}" >
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -47,7 +68,7 @@
         <Label Content="{x:Static resources:GUI.RuleCreatorForm_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <GroupBox x:Name="gbConditions" Header="{x:Static resources:GUI.RuleCreatorForm_Conditions}" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" Height="323" Width="366">
             <Grid HorizontalAlignment="Left" Height="308" VerticalAlignment="Top" Width="355" Margin="0,0,0,-7">
-                <ListBox x:Name="lbConditions" ItemsSource="{Binding ListConditions}" SelectedItem="{Binding SelectedCondition}" HorizontalAlignment="Left" Height="198" Margin="3,100,0,0" VerticalAlignment="Top" Width="349" TabIndex="14" ContextMenuOpening="lbConditions_ContextMenuOpening">
+                <ListBox x:Name="lbConditions" ItemsSource="{Binding RuleConditionViewModel.ListConditions, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" SelectedItem="{Binding RuleConditionViewModel.SelectedCondition}" HorizontalAlignment="Left" Height="198" Margin="3,100,0,0" VerticalAlignment="Top" Width="349" TabIndex="14" ContextMenuOpening="lbConditions_ContextMenuOpening">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
@@ -59,46 +80,45 @@
                     </ListBox.ItemTemplate>
                     <ListBox.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="{x:Static resources:GUI.RuleCreatorForm_Delete}" Command="{Binding DeleteConditionCommand}"/>
+                            <MenuItem Header="{x:Static resources:GUI.RuleCreatorForm_Delete}" Command="{Binding RuleConditionViewModel.DeleteConditionCommand}"/>
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
-                <ComboBox x:Name="cbOperator" SelectedValue="{Binding SelectedOperator}" SelectedValuePath="Content" HorizontalAlignment="Left" Margin="72,42,0,0" VerticalAlignment="Top" Width="140" ToolTip="{x:Static resources:GUI.RuleCreatorForm_Operator_ToolTip}" TabIndex="3">
+                <ComboBox x:Name="cbOperator" SelectedIndex="{Binding RuleConditionViewModel.Operator, Converter={StaticResource RuleOperatorConverter}}" HorizontalAlignment="Left" Margin="72,42,0,0" VerticalAlignment="Top" Width="140" ToolTip="{x:Static resources:GUI.RuleCreatorForm_Operator_ToolTip}" TabIndex="3">
                     <ComboBoxItem x:Name="cbiEqual" Content="Equals"/>
                     <ComboBoxItem x:Name="cbiGreater" Content="Greater than" />
                     <ComboBoxItem x:Name="cbiLess" Content="Lower than"/>
-                    <ComboBoxItem x:Name="cbiChange" Content="Changed"/>
+                    <ComboBoxItem x:Name="cbiChanged" Content="Changed"/>
                     <ComboBoxItem x:Name="cbiChangeDelayed" Content="Delayed changed"/>
                     <ComboBoxItem x:Name="cbiStable" Content="stable"/>
                     <ComboBoxItem x:Name="cbiNotStable" Content="Not stable"/>
                     <ComboBoxItem x:Name="cbiIn" Content="In"/>
                     <ComboBoxItem x:Name="cbiNotIn" Content="Not in"/>
                 </ComboBox>
-                <Button x:Name="btnAddCondition" IsEnabled="{Binding CanAddCondition}" Content="Add" HorizontalAlignment="Left" Margin="278,72,0,0" VerticalAlignment="Top" Width="74" Height="23" TabIndex="6" Command="{Binding AddConditionCommand}"/>
+                <Button x:Name="btnAddCondition" Content="Add" HorizontalAlignment="Left" Margin="278,72,0,0" VerticalAlignment="Top" Width="74" Height="23" TabIndex="6" Command="{Binding RuleConditionViewModel.AddConditionCommand}"/>
                 <Label Content="{x:Static resources:GUI.RuleCreatorForm_Operator}" HorizontalAlignment="Left" Margin="2,38,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="tbConditionValue" HorizontalAlignment="Left" Height="23" Margin="72,72,0,0" Visibility="{Binding IsOperatorChanged}" TextWrapping="Wrap" Text="{Binding ConditionValue,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="201" TabIndex="4"/>
-                <Label x:Name="lblValue" Content="{x:Static resources:GUI.RuleCreatorForm_Value}" Visibility="{Binding IsOperatorChanged}" HorizontalAlignment="Left" Margin="3,69,0,0" VerticalAlignment="Top" Width="66"/>
-                <ComboBox x:Name="cbSensors" ItemsSource="{Binding ListSensors}" SelectedItem="{Binding SelectedSensor}" HorizontalAlignment="Left" Margin="72,15,0,0" VerticalAlignment="Top" Width="140" DisplayMemberPath="name" TabIndex="1"/>
+                <TextBox x:Name="tbConditionValue" Style="{StaticResource HideConditionValue}"  HorizontalAlignment="Left" Height="23" Margin="72,72,0,0" TextWrapping="Wrap" Text="{Binding RuleConditionViewModel.Value,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="201" TabIndex="4"/>
+                <Label x:Name="lblValue" Visibility="{Binding ElementName=tbConditionValue, Path=Visibility}" Content="{x:Static resources:GUI.RuleCreatorForm_Value}" HorizontalAlignment="Left" Margin="3,69,0,0" VerticalAlignment="Top" Width="66"/>
+                <controls:CommandComboBox x:Name="cbSensors" ItemsSource="{Binding RuleConditionViewModel.ListSensors}" SelectedItem="{Binding RuleConditionViewModel.SelectedSensor}" HorizontalAlignment="Left" Margin="72,15,0,0" VerticalAlignment="Top" Width="140" DisplayMemberPath="name" TabIndex="1" Command="{Binding RuleConditionViewModel.SelectSensorCommand}"/>
                 <Label Content="{x:Static resources:GUI.RuleCreatorForm_Sensor}" HorizontalAlignment="Left" Margin="3,11,0,0" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cbProperties" ItemsSource="{Binding ListSensorProperties}" SelectedItem="{Binding SelectedPropertyInfo}" HorizontalAlignment="Left" Margin="217,15,0,0" VerticalAlignment="Top" Width="135" DisplayMemberPath="Name"/>
+                <ComboBox x:Name="cbProperties" ItemsSource="{Binding RuleConditionViewModel.ListSensorProperties}" SelectedItem="{Binding RuleConditionViewModel.Property}" HorizontalAlignment="Left" Margin="217,15,0,0" VerticalAlignment="Top" Width="135" DisplayMemberPath="Name"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="groupBox" Header="{x:Static resources:GUI.RuleCreatorForm_Actions}" HorizontalAlignment="Left" Margin="371,10,0,0" VerticalAlignment="Top" Height="355" Width="515">
             <Grid Height="345" VerticalAlignment="Top" Margin="10,0,-12,-12">
                 <Label Content="{x:Static resources:GUI.RuleCreatorForm_Object}" HorizontalAlignment="Left" Margin="-1,39,0,0" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cbActionObjects" HorizontalAlignment="Left" ItemsSource="{Binding ListActionObjects}" SelectedItem="{Binding SelectedActionObject}" Margin="65,44,0,0" VerticalAlignment="Top" Width="200" DisplayMemberPath="name" TabIndex="9" IsEnabled="{Binding CanChangeAction}"/>
+                <controls:CommandComboBox x:Name="cbActionObjects" HorizontalAlignment="Left" ItemsSource="{Binding RuleActionViewModel.ListActionObjects}" SelectedItem="{Binding RuleActionViewModel.SelectedActionObject}" Margin="65,44,0,0" VerticalAlignment="Top" Width="200" DisplayMemberPath="name" TabIndex="9" Command="{Binding RuleActionViewModel.SelectActionObjectCommand}"/>
                 <Label Content="{x:Static resources:GUI.RuleCreatorForm_Type}" HorizontalAlignment="Left" Margin="-1,13,0,0" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cbActionObjectType" SelectedValuePath="Tag" SelectedValue="{Binding SelectedActionType}"  HorizontalAlignment="Left" Margin="65,17,0,0" VerticalAlignment="Top" Width="200" TabIndex="8" IsEnabled="{Binding CanChangeAction}">
-                    <ComboBoxItem x:Name="cbiLights" Content="{x:Static resources:GUI.RuleCreatorForm_Lights}" Tag="lights"/>
-                    <ComboBoxItem x:Name="cbiGroups" Content="{x:Static resources:GUI.RuleCreatorForm_Groups}" Tag="groups"/>
-                    <ComboBoxItem x:Name="cbiScenes" Content="{x:Static resources:GUI.RuleCreatorForm_Scenes}" Tag="scenes"/>
-                    <ComboBoxItem x:Name="cbiSensors" Content="{x:Static resources:GUI.RuleCreatorForm_Sensors}" Tag="sensors"/>
-                    <ComboBoxItem x:Name="cbiSchedules" Content="{x:Static resources:GUI.RuleCreatorForm_Schedules}" Tag="schedules"/>
-                    <ComboBoxItem x:Name="cbiTime" Content="{x:Static resources:GUI.RuleCreatorForm_Time}" Tag="Time"/>
-                </ComboBox>
+                <controls:CommandComboBox x:Name="cbActionObjectType" SelectedIndex="{Binding RuleActionViewModel.SelectedActionType, Converter={StaticResource SelectedActionTypeConverter}}"  HorizontalAlignment="Left" Margin="65,17,0,0" VerticalAlignment="Top" Width="200" TabIndex="8" Command="{Binding RuleActionViewModel.SelectActionCommand}">
+                    <ComboBoxItem x:Name="cbiLights" Content="{x:Static resources:GUI.RuleCreatorForm_Lights}" />
+                    <ComboBoxItem x:Name="cbiGroups" Content="{x:Static resources:GUI.RuleCreatorForm_Groups}" />
+                    <ComboBoxItem x:Name="cbiScenes" Content="{x:Static resources:GUI.RuleCreatorForm_Scenes}" />
+                    <ComboBoxItem x:Name="cbiSensors" Content="{x:Static resources:GUI.RuleCreatorForm_Sensors}" />
+                    <ComboBoxItem x:Name="cbiSchedules" Content="{x:Static resources:GUI.RuleCreatorForm_Schedules}" />
+                </controls:CommandComboBox>
                 <Label x:Name="label" Content="Property : " HorizontalAlignment="Left" Margin="-1,67,0,0" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cbObjectProperties" ItemsSource="{Binding ListActionProperties}" SelectedItem="{Binding SelectedActionProperty}" HorizontalAlignment="Left" Margin="65,71,0,0" VerticalAlignment="Top" Width="200" DisplayMemberPath="Name"/>
-                <ListBox x:Name="lbProperties" ItemsSource="{Binding ListProperties}" SelectedItem="{Binding SelectedProperty}" HorizontalAlignment="Left" Height="76" Margin="270,17,0,0" VerticalAlignment="Top" Width="218" ContextMenuOpening="lbProperties_ContextMenuOpening" >
+                <ComboBox x:Name="cbObjectProperties" ItemsSource="{Binding RuleActionViewModel.ListActionProperties}" SelectedItem="{Binding RuleActionViewModel.SelectedActionProperty}" HorizontalAlignment="Left" Margin="65,71,0,0" VerticalAlignment="Top" Width="200" DisplayMemberPath="Name"/>
+                <ListBox x:Name="lbProperties" ItemsSource="{Binding RuleActionViewModel.ListActionPropertyInfos}" SelectedItem="{Binding RuleActionViewModel.SelectedProperty}" HorizontalAlignment="Left" Height="76" Margin="270,17,0,0" VerticalAlignment="Top" Width="218" ContextMenuOpening="lbProperties_ContextMenuOpening" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
@@ -110,14 +130,14 @@
                     </ListBox.ItemTemplate>
                     <ListBox.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="{x:Static resources:GUI.RuleCreatorForm_Delete}" Command="{Binding DeletePropertyCommand}" IsEnabled="{Binding CanDeleteProperty}"/>
+                            <MenuItem Header="{x:Static resources:GUI.RuleCreatorForm_Delete}" Command="{Binding RuleActionViewModel.DeletePropertyCommand}"/>
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
-                <Button x:Name="btnAddProperty" Content="{x:Static resources:GUI.RuleCreatorForm_AddProperty}" HorizontalAlignment="Left" Margin="212,98,0,0" VerticalAlignment="Top" Width="53" Height="23" Command="{Binding AddPropertyCommand}"/>
-                <Label x:Name="lblValueProp" Visibility="{Binding ValueVisible}" Content="{x:Static resources:GUI.RuleCreatorForm_Value}" HorizontalAlignment="Left" Margin="0,95,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="tbValue" Visibility="{Binding ValueVisible}"  HorizontalAlignment="Left" Height="23" Margin="65,98,0,0" TextWrapping="Wrap" Text="{Binding ActionPropertyValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="142"/>
-                <ListBox x:Name="lbActions" ItemsSource="{Binding ListActions}" SelectedItem="{Binding SelectedAction}" HorizontalAlignment="Left" Margin="0,132,0,0" Width="488" Height="197" VerticalAlignment="Top" ContextMenuOpening="lbActions_ContextMenuOpening">
+                <Button x:Name="btnAddProperty" Content="{x:Static resources:GUI.RuleCreatorForm_AddProperty}" HorizontalAlignment="Left" Margin="212,98,0,0" VerticalAlignment="Top" Width="53" Height="23" Command="{Binding RuleActionViewModel.AddPropertyCommand}"/>
+                <Label x:Name="lblValueProp" Visibility="{Binding ElementName=tbValue,Path=Visibility}" Content="{x:Static resources:GUI.RuleCreatorForm_Value}" HorizontalAlignment="Left" Margin="0,95,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="tbValue" Style="{StaticResource HideActionValue}"  HorizontalAlignment="Left" Height="23" Margin="65,98,0,0" TextWrapping="Wrap" Text="{Binding RuleActionViewModel.ActionPropertyValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="142"/>
+                <ListBox x:Name="lbActions" ItemsSource="{Binding RuleActionViewModel.ListActions, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" SelectedItem="{Binding RuleActionViewModel.SelectedAction}" HorizontalAlignment="Left" Margin="0,132,0,0" Width="488" Height="197" VerticalAlignment="Top" ContextMenuOpening="lbActions_ContextMenuOpening">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
@@ -133,16 +153,16 @@
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
-                <Button x:Name="btnAddAction" Content="{x:Static resources:GUI.RuleCreatorForm_AddAction}" HorizontalAlignment="Left" Margin="270,98,0,0" VerticalAlignment="Top" Width="218" Height="23" Command="{Binding AddActionCommand}"/>
+                <Button x:Name="btnAddAction" Content="{x:Static resources:GUI.RuleCreatorForm_AddAction}" HorizontalAlignment="Left" Margin="270,98,0,0" VerticalAlignment="Top" Width="218" Height="23" Command="{Binding RuleActionViewModel.AddActionCommand}"/>
 
             </Grid>
         </GroupBox>
         <Button x:Name="btnCreateRule" Style="{StaticResource btnSave}" Content="{x:Static resources:GUI.RuleCreatorForm_CreateButton}" HorizontalAlignment="Left" Margin="731,370,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateRule_Click"/>
         <Button x:Name="btnCancel" Content="{x:Static resources:GUI.RuleCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="811,370,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
-        <CheckBox x:Name="cbEnabled" Content="{x:Static resources:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="279,19,0,0" VerticalAlignment="Top" IsChecked="{Binding RuleEnabled}"/>
+        <CheckBox x:Name="cbEnabled" Content="{x:Static resources:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="279,19,0,0" VerticalAlignment="Top" IsChecked="{Binding RuleCreatorModel.RuleEnabled, Converter={StaticResource RuleEnabledConverter}}"/>
         <Label Content="{x:Static resources:GUI.RuleCreatorForm_Message1}" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" Width="618" Height="24"/>
         <Label Content="{x:Static resources:GUI.RuleCreatorForm_Message2}" HorizontalAlignment="Left" Margin="10,377,0,0" VerticalAlignment="Top" Width="618"/>
-        <xctk:WatermarkTextBox x:Name="tbRuleName" Text="{Binding RuleName, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="79,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Watermark="newRule"/>
+        <xctk:WatermarkTextBox x:Name="tbRuleName" Text="{Binding RuleCreatorModel.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Margin="79,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Watermark="newRule"/>
 
     </Grid>
 </Window>

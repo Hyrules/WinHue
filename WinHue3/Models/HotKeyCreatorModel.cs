@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,7 @@ namespace WinHue3.Models
         private Brush _recordbuttoncolor;
         private string _name;
         private string _description;
-        private KeyEventArgs _recordedKeys;
-        private bool _isGeneric;
+
 
         public Brush RecordButtonColor
         {
@@ -44,20 +44,21 @@ namespace WinHue3.Models
             set { SetProperty(ref _description,value); }
         }
 
+        [Required]
+        [StringLength(30, MinimumLength = 1)]
         public string Name
         {
             get { return _name; }
             set { SetProperty(ref _name,value); }
         }
 
-        public bool IsGeneric
-        {
-            get { return _isGeneric; }
-            set { SetProperty(ref _isGeneric,value); }
-        }
 
         public HotKeyCreatorModel()
         {
+            Name = string.Empty;
+            Description = string.Empty;
+            Key = default(Key);
+            ModifierKeys = default(ModifierKeys);
             RecordButtonColor = new SolidColorBrush() { Color = Color.FromRgb(240, 240, 240) };
         }
 

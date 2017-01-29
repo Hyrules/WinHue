@@ -16,9 +16,7 @@ namespace WinHue3.Models
         private string _swversion;
         private string _mfgname;
         private string _uniqueid;
-        private string _url;
         private string _type;
-        private bool _on;
         private SensorConfig _config;
 
         public SensorCreatorModel()

@@ -30,7 +30,7 @@ namespace WinHue3.ViewModels
             BuildSceneMapping();
         }
 
-        public DataView SceneMapping => _dt.DefaultView;
+        public DataView SceneMapping => _dt?.DefaultView;
 
         public string Filter
         {

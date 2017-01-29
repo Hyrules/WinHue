@@ -30,7 +30,7 @@ namespace WinHue3.ViewModels
             BuildGroupViewReverse();
         }
 
-        public DataView GroupsDetails => _dt.DefaultView;
+        public DataView GroupsDetails => _dt?.DefaultView;
 
         public bool Reverse
         {

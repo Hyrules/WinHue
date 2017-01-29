@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using HueLib2;
+using WinHue3.Resources;
 using WinHue3.ViewModels;
 
 namespace WinHue3
@@ -60,8 +61,8 @@ namespace WinHue3
 
             _editedRule = (Rule)rule;
             id = _editedRule.Id;
-            Title = $"Editing rule {((Rule)rule).name}...";
-            btnCreateRule.Content = "Update";
+            Title = $"{GUI.RuleCreatorForm_Editing} {((Rule)rule).name}...";
+            btnCreateRule.Content = GUI.RuleCreatorForm_Update;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -113,17 +114,17 @@ namespace WinHue3
 
         private void lbConditions_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if (_rcv.SelectedCondition == null) e.Handled = true;
+            if (_rcv.RuleConditionViewModel.SelectedCondition == null) e.Handled = true;
         }
 
         private void lbProperties_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if (_rcv.SelectedProperty.Equals(default(KeyValuePair<PropertyInfo,dynamic>))) e.Handled = true;
+            if (_rcv.RuleActionViewModel.SelectedProperty.Equals(default(KeyValuePair<PropertyInfo,dynamic>))) e.Handled = true;
         }
 
         private void lbActions_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if (_rcv.SelectedAction == null) e.Handled = true;
+            if (_rcv.RuleActionViewModel.SelectedAction == null) e.Handled = true;
         }
     }
 }

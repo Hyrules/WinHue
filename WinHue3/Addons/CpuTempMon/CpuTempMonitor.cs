@@ -44,8 +44,8 @@ namespace WinHue3
         public CpuTempMonitor(Bridge bridge)
         {
             _bridge = bridge;
-            _temp = new CpuTemp(1);
-            _temp.OnTempUpdated += temp_OnTempUpdated;
+            Temp = new CpuTemp(1);
+            Temp.OnTempUpdated += temp_OnTempUpdated;
             LoadSettings();
         }
 
@@ -89,12 +89,25 @@ namespace WinHue3
         /// </summary>
         public Bitmap pluginIcon => Properties.Resources.cputemp;
 
+        public CpuTemp Temp
+        {
+            get
+            {
+                return _temp;
+            }
+
+            set
+            {
+                _temp = value;
+            }
+        }
+
         /// <summary>
         /// Do the plugin work.
         /// </summary>
         public void Start()
         {
-            _temp.Start();
+            Temp.Start();
             IsRunning = true;
         }
 
@@ -103,7 +116,7 @@ namespace WinHue3
         /// </summary>
         public void Stop()
         {
-            _temp.Stop();
+            Temp.Stop();
             IsRunning = false;
         }
 
@@ -113,11 +126,11 @@ namespace WinHue3
         /// <returns>True or false or null depending on what you want to return.</returns>
         public bool? ShowSettingsForm()
         {
-            _temp.Stop();
-            Form_CpuTempMonitorSettings settings = new Form_CpuTempMonitorSettings(_temp,_bridge) {Owner = Application.Current.MainWindow};
-            _temp.OnTempUpdated -= temp_OnTempUpdated;
+            Temp.Stop();
+            Form_CpuTempMonitorSettings settings = new Form_CpuTempMonitorSettings(Temp,_bridge) {Owner = Application.Current.MainWindow};
+            Temp.OnTempUpdated -= temp_OnTempUpdated;
             var result = settings.ShowDialog();
-            _temp.OnTempUpdated += temp_OnTempUpdated;
+            Temp.OnTempUpdated += temp_OnTempUpdated;
             if (result == true)
                 LoadSettings();
             return result;

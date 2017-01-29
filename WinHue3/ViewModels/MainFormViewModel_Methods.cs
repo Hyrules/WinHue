@@ -927,5 +927,11 @@ namespace WinHue3.ViewModels
             return result;
         }
         #endregion
+
+        private void CpuTempMonSettings()
+        {
+            _ctm.ShowSettingsForm();
+        }
+
     }
 }

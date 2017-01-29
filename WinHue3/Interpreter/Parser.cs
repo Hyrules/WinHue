@@ -95,7 +95,7 @@ namespace WinHue3
             done = false;
 
             List<AnimatorCommand> listcommands = new List<AnimatorCommand>();
-            AnimatorCommand currentCommand;
+           // AnimatorCommand currentCommand;
 
             while (!done)
             {

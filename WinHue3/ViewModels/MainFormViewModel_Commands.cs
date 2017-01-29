@@ -235,7 +235,7 @@ namespace WinHue3.ViewModels
 
         //*************** Toolbar ******************************
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons());
-
+        public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons());
         //*************** Help ******************************
         public ICommand OpenWinHueWebsiteCommand => new RelayCommand(param => OpenWinHueWebsite());
 
@@ -245,7 +245,7 @@ namespace WinHue3.ViewModels
 
 
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
-        //      public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons());
+        //      
         //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());
         //   public ICommand ClapperCommand => new RelayCommand(param => Clapper(), (param) => EnableButtons());
     }
