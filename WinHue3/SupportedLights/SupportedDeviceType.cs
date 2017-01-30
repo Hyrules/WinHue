@@ -51,7 +51,7 @@ namespace WinHue3.SupportedLights
 
             DeviceType.Add("Color temperature light", new LightDevice()
             {
-                Canbri = false,
+                Canbri = true,
                 Canct = true,
                 Canhue = false,
                 Cansat = false,

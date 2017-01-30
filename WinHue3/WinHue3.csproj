@@ -240,6 +240,7 @@
     <Compile Include="ViewModels\EventViewerViewModel.cs" />
     <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
+    <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
     </Compile>
@@ -340,10 +341,9 @@
     <Compile Include="ViewModels\AnimatorView.cs" />
     <Compile Include="ViewModels\GroupViewViewModel.cs" />
     <Compile Include="ViewModels\BulbsViewViewModel.cs" />
-    <Compile Include="OldViews\HotKeyCreatorView.cs" />
     <Compile Include="ViewModels\SceneMappingViewModel.cs" />
     <Compile Include="ViewModels\WaitViewModel.cs" />
-    <Compile Include="ViewModels\ColorFromImageView.cs" />
+    <Compile Include="ViewModels\ColorFromImageViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="OldViews\SceneCreatorView.cs" />
     <Compile Include="OldViews\View.cs" />

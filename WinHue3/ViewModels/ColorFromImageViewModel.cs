@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace WinHue3.ViewModels
 {
-    public class ColorFromImageView : ValidatableBindableBase
+    public class ColorFromImageViewModel : ValidatableBindableBase
     {
         private ImageSource _imagesource;
         private bool _canloadrgb;
@@ -15,7 +15,7 @@ namespace WinHue3.ViewModels
         private System.Windows.Media.Color _selectedColor;
 
         #region CTOR
-        public ColorFromImageView()
+        public ColorFromImageViewModel()
         {
             _imagesource = GDIManager.CreateImageSourceFromImage(Properties.Resources.rgbcolor);
             _selectedColor = new System.Windows.Media.Color() { R = 255, G = 255, B = 255 };
