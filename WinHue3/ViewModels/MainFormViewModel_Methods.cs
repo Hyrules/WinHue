@@ -590,6 +590,7 @@ namespace WinHue3.ViewModels
 
         private void SetMainFormModel()
         {
+            
             if (_selectedObject is Light)
             {
                 Light light = (Light) _selectedObject;
