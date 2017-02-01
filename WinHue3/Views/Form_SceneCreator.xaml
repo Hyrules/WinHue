@@ -4,12 +4,15 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
+        xmlns:converter="clr-namespace:WinHue3.Converters"
         x:Name="FormSceneCreator" x:Class="WinHue3.Form_SceneCreator"
         Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/SceneLarge.png" Loaded="FormSceneCreator_Loaded">
     <Window.DataContext>
         <viewmodels:SceneCreatorViewModel/>
     </Window.DataContext>
     <Window.Resources>
+        <converter:DoubleToUshortConverter x:Key="DoubleToUshortConverter"/>
+        <converter:DoubleToByteConverter x:Key="DoubleToByteConverter"/>
         <Style TargetType="{x:Type ListView}" >
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -79,7 +82,7 @@
                 <CheckBox x:Name="chbOn" Content="{x:Static resx:GUI.SceneCreatorForm_On}" HorizontalAlignment="Left" Margin="315,382,0,0" VerticalAlignment="Top" IsChecked="{Binding SceneOn}"/>
                 <Grid Margin="0,0,0,131">
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_Hue}" HorizontalAlignment="Center" Margin="10,0,302,254" Width="90"/>
-                    <Slider x:Name="slHue" Value="{Binding Hue}"  Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,348,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
+                    <Slider x:Name="slHue" Value="{Binding SceneSlidersViewModel.Hue, Converter={StaticResource DoubleToUshortConverter }}"  Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,348,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
                         <Slider.Background>
                             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0" >
                                 <GradientStop Color="#FFFF0000" />
@@ -96,7 +99,7 @@
                         </Slider.Style>
                     </Slider>
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_Brightness}" HorizontalAlignment="Center" Margin="80,0,256,254" Width="66"/>
-                    <Slider x:Name="slBri" Height="217" Value="{Binding Bri}" VerticalAlignment="Top" Maximum="254" Margin="103,31,277,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
+                    <Slider x:Name="slBri" Height="217" Value="{Binding SceneSlidersViewModel.Bri,Converter={StaticResource DoubleToByteConverter}}" VerticalAlignment="Top" Maximum="254" Margin="103,31,277,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
                         <Slider.Background>
                             <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
                                 <GradientStop Color="White" Offset="1"/>
@@ -114,7 +117,7 @@
                         </Slider.Background>
                     </Slider>
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_Saturation}" HorizontalAlignment="Center" Margin="228,0,108,254" Width="66"/>
-                    <Slider x:Name="slSAT" Value="{Binding Sat}" Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="250,31,130,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True">
+                    <Slider x:Name="slSAT" Value="{Binding SceneSlidersViewModel.Sat, Converter={StaticResource DoubleToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="250,31,130,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True">
                         <Slider.Background>
                             <LinearGradientBrush  EndPoint="0.5,0" StartPoint="0.5,1">
                                 <GradientStop Color="White" x:Name="slSATStartGradient"/>

@@ -211,8 +211,8 @@
     <Compile Include="Converters\ScheduleTypeConverter.cs" />
     <Compile Include="Converters\SelectedActionTypeConverter.cs" />
     <Compile Include="Converters\SensorToTypeConverter.cs" />
-    <Compile Include="Converters\SliderToByteConverter.cs" />
-    <Compile Include="Converters\SliderToUshortConverter.cs" />
+    <Compile Include="Converters\DoubleToByteConverter.cs" />
+    <Compile Include="Converters\DoubleToUshortConverter.cs" />
     <Compile Include="Converters\SliderToXYConverter.cs" />
     <Compile Include="Converters\VisibleToBoolConverter.cs" />
     <Compile Include="Controls\BindableHueSlider.cs" />
@@ -221,9 +221,11 @@
     <Compile Include="Models\EventViewerModel.cs" />
     <Compile Include="Models\HotKeyCreatorModel.cs" />
     <Compile Include="Models\ManageUsersModel.cs" />
+    <Compile Include="Models\SceneCreatorModel.cs" />
     <Compile Include="Utils\TimeSensorState.cs" />
-    <Compile Include="ViewModels\RuleActionViewModel.cs" />
-    <Compile Include="ViewModels\RuleConditionViewModel.cs" />
+    <Compile Include="ViewModels\SceneCreatorViewModels\SceneAvailableLightViewModel.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
     <Compile Include="Resources\GUI.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -240,7 +242,9 @@
     <Compile Include="ViewModels\EventViewerViewModel.cs" />
     <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
+    <Compile Include="ViewModels\SceneCreatorViewModels\SceneCreatorViewModel.cs" />
+    <Compile Include="ViewModels\SceneCreatorViewModels\SceneListLightViewModel.cs" />
+    <Compile Include="ViewModels\SceneCreatorViewModels\SceneSlidersViewModels.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
     </Compile>
@@ -278,12 +282,12 @@
     <Compile Include="ViewModels\DaylightViewModel.cs" />
     <Compile Include="ViewModels\GroupCreatorViewModel.cs" />
     <Compile Include="ViewModels\HueTapConfigViewModel.cs" />
-    <Compile Include="ViewModels\MainFormViewModel.cs" />
-    <Compile Include="ViewModels\MainFormViewModel_Commands.cs" />
-    <Compile Include="ViewModels\MainFormViewModel_Events.cs" />
-    <Compile Include="ViewModels\MainFormViewModel_Methods.cs" />
-    <Compile Include="ViewModels\MainFormViewModel_Plugins.cs" />
-    <Compile Include="ViewModels\MainFormViewModel_Properties.cs" />
+    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel.cs" />
+    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Commands.cs" />
+    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Events.cs" />
+    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Methods.cs" />
+    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Plugins.cs" />
+    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Properties.cs" />
     <Compile Include="ViewModels\ResourceLinkCreatorViewModel.cs" />
     <Compile Include="ViewModels\ScheduleCreatorViewModel.cs" />
     <Compile Include="ViewModels\SensorCreatorViewModel.cs" />
@@ -344,7 +348,7 @@
     <Compile Include="ViewModels\SceneMappingViewModel.cs" />
     <Compile Include="ViewModels\WaitViewModel.cs" />
     <Compile Include="ViewModels\ColorFromImageViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModel.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="OldViews\SceneCreatorView.cs" />
     <Compile Include="OldViews\View.cs" />
     <Compile Include="Utils\WinHueSettings.cs" />

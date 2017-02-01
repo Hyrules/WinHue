@@ -16,7 +16,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:IndexToSortConverter x:Key="IndexToSortConverter"/>
-        <converters:SliderToUshortConverter x:Key="SliderToUshortConverter"/>
+        <converters:DoubleToUshortConverter x:Key="SliderToUshortConverter"/>
     </Window.Resources>
 
     <Window.DataContext>
