@@ -12,7 +12,7 @@ namespace WinHue3.ViewModels
 {
     public class SceneCreatorViewModel : ValidatableBindableBase
     {
-
+/*
         private Bridge _bridge;
         private SceneCreatorModel _sceneCreatorModel;
         private SceneListLightsViewModel _sceneListLightsModel;
@@ -86,6 +86,6 @@ namespace WinHue3.ViewModels
             {
                 MessageBoxError.ShowLastErrorMessages(_bridge);
             }
-        }
+        }*/
     }
 }

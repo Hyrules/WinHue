@@ -12,6 +12,7 @@ namespace HueLib2
         /// <summary>
         /// LastUpdated
         /// </summary>
+        [JsonIgnore]
         [DataMember]
         public string lastupdated { get; set; }
 

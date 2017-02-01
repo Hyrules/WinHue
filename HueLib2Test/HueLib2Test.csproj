@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HueLib2">
+      <HintPath>..\WinHue3\bin\Debug\HueLib2.dll</HintPath>
+    </Reference>
     <Reference Include="Prism">
       <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
     </Reference>

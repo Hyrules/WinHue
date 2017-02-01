@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -56,6 +57,14 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _selectedObject,value);
+                if (value != null)
+                {
+                    MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
+                    MethodInfo generic = mi.MakeGenericMethod(value.GetType());
+                    HelperResult hr = (HelperResult)generic.Invoke(SelectedBridge, new object[] {SelectedBridge, value.Id });
+                    if (!hr.Success) return;
+                    _selectedObject = (HueObject)hr.Hrobject;
+                }
                 SetMainFormModel();
             }
         }
