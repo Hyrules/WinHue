@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,22 +15,25 @@ namespace HueLib2
         /// <summary>
         /// url.
         /// </summary>
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public string url { get; set; }
         /// <summary>
         /// On off state.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember]
         public bool? on { get; set; }
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [DataMember, HueLib(false, false), ReadOnly(true)]
+        [JsonIgnore]
+        [DataMember, ReadOnly(true)]
         public bool? reachable { get; set; }
         /// <summary>
         /// Battery state.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember]
         public byte? battery { get; set; }
     }
 }

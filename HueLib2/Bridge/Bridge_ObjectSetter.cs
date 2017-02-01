@@ -209,7 +209,7 @@ namespace HueLib2
             if (ns != null)
             {
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}"), WebRequestType.POST, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(nobject)));
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}"), WebRequestType.POST, Serializer.SerializeToJson(nobject));
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
@@ -401,32 +401,12 @@ namespace HueLib2
             PropertyInfo[] listproperties = obj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
-                if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
-                HueLibAttribute hla = (HueLibAttribute) Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
-                if (!hla.Modify)
-                    p.SetValue(obj, null);
+                if (!Attribute.IsDefined(p, typeof(CreateOnlyAttribute))) continue;
+                     p.SetValue(obj, null);
             }
 
             return obj;            
         }
 
-        /// <summary>
-        ///  Set to null all properties that are not allow to be set at creation.
-        /// </summary>
-        /// <param name="hueobject">Object to be parsed</param>
-        /// <returns></returns>
-        private object ClearNotAllowedCreationProperties(object obj)
-        {
-            PropertyInfo[] listproperties = obj.GetType().GetProperties();
-            foreach (PropertyInfo p in listproperties)
-            {
-                if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
-                HueLibAttribute hla = (HueLibAttribute)Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
-                if (!hla.Create)
-                    p.SetValue(obj, null);
-            }
-
-            return obj;
-        }
     }
 }

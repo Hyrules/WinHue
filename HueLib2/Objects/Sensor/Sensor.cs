@@ -19,7 +19,7 @@ namespace HueLib2
         /// <summary>
         /// Name of the sensor.
         /// </summary>
-        [DataMember, Category("Sensor Properties"), Description("Name of the sensor"), HueLib(true,true)]
+        [DataMember, Category("Sensor Properties"), Description("Name of the sensor")]
         public string name
         {
             get { return _name; }
@@ -32,46 +32,48 @@ namespace HueLib2
         /// <summary>
         /// Model id of the sensor.
         /// </summary>
-        [DataMember, Category("Sensor Properties"), Description("ModelID of the sensor"), HueLib(true, false)]
+        [DataMember, Category("Sensor Properties"), Description("ModelID of the sensor"), CreateOnly]
         public string modelid { get; set; }
         /// <summary>
         /// Software version of the sensor.
         /// </summary>
-        [DataMember, Category("Sensor Properties"), Description("Software version of the sensor"), HueLib(true, false)]
+        [DataMember, Category("Sensor Properties"), Description("Software version of the sensor"), CreateOnly]
         public string swversion { get; set; }
         /// <summary>
         /// Type of sensor.
         /// </summary>
-        [DataMember, Category("Sensor Properties"), Description("Type of the sensor"), HueLib(true, false)]
+        [DataMember, Category("Sensor Properties"), Description("Type of the sensor"), CreateOnly]
         public string type { get; set; }
         /// <summary>
         /// Manufacturer name of the sensor.
         /// </summary>
-        [DataMember, Category("Sensor Properties"), Description("Manufacturer name of the sensor"), HueLib(true, false)]
+        [DataMember, Category("Sensor Properties"), Description("Manufacturer name of the sensor"), CreateOnly]
         public string manufacturername { get; set; }
 
         /// <summary>
         /// Unique ID of the sensor.
         /// </summary>
-        [DataMember, Category("Sensor Properties"), Description("Unique ID of the sensor"), HueLib(true, false)]
+        [DataMember, Category("Sensor Properties"), Description("Unique ID of the sensor"), CreateOnly]
         public string uniqueid { get; set; }
 
         /// <summary>
         /// Sensor config.
         /// </summary>
-        [DataMember,ExpandableObject, Category("Configuration"), Description("Configuration of the sensor"), HueLib(true,false)]
+        [DataMember,ExpandableObject, Category("Configuration"), Description("Configuration of the sensor"), CreateOnly]
         public SensorConfig config { set; get; }
 
         /// <summary>
         /// Sensor state.
         /// </summary>
-        [DataMember,ExpandableObject, Category("State"), Description("State of the sensor"),HueLib(true, false)]
+        [DataMember,ExpandableObject, Category("State"), Description("State of the sensor"),CreateOnly]
         public SensorState state { set; get; }
 
-        [DataMember, HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember]
         public string productid { get; internal set; }
 
-        [DataMember, HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember]
         public string swconfigid { get; internal set; }
 
         /// <summary>

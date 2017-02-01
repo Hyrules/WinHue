@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace HueLib2
 {
@@ -11,7 +12,8 @@ namespace HueLib2
         /// <summary>
         /// Presense detected.
         /// </summary>
-        [DataMember,HueLib(false,false)]
+        [JsonIgnore]
+        [DataMember]
         public bool presence { get; set; }
     }
 }

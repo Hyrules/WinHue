@@ -115,12 +115,8 @@ namespace WinHue3
 
         public bool CanSaveScene
         {
-            get
-            {
-                return _cansavescene;
-            }
-            set
-            {
+            get { return _cansavescene; }
+            set {
                 _cansavescene = value;
                 OnPropertyChanged();
             }

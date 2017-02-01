@@ -13,6 +13,7 @@ using HueLib2;
 using WinHue3.Models;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
+using WinHue3.Settings;
 
 namespace WinHue3.ViewModels
 {
@@ -38,10 +39,13 @@ namespace WinHue3.ViewModels
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-            Communication.Timeout = WinHueSettings.settings.Timeout;
             _mainFormModel = new MainFormModel();
             _sliderTT = null;
-            
+
+            Communication.Timeout = WinHueSettings.settings.Timeout;
+            MainFormModel.Sort = WinHueSettings.settings.Sort;
+            MainFormModel.ShowId = WinHueSettings.settings.ShowID;
+            MainFormModel.WrapText = WinHueSettings.settings.WrapText;
         }
 
         public MainFormModel MainFormModel

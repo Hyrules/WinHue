@@ -28,6 +28,7 @@ namespace HueLib2
             {
                 request.ServicePoint.ConnectionLimit = 20;
                 request.Timeout = this.Timeout;
+                request.ServicePoint.Expect100Continue = false;
             }
             return (WebRequest)request;
         }

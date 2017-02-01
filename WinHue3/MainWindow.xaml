@@ -17,6 +17,7 @@
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:IndexToSortConverter x:Key="IndexToSortConverter"/>
         <converters:DoubleToUshortConverter x:Key="SliderToUshortConverter"/>
+        <converters:BoolToWrappingConverter x:Key="BoolToWrappingConverter"/>
     </Window.Resources>
 
     <Window.DataContext>
@@ -108,7 +109,10 @@
                     </WrapPanel>
                 </RibbonGroup>
                 <RibbonGroup x:Name="rgViewShowAdditional" Header="{x:Static resx:GUI.MainForm_Tab_View_AdditionalField}">
-                    <CheckBox x:Name="cbShowID" Content="Show object ID" IsChecked="False"/>
+                    <CheckBox x:Name="cbShowID" Content="Show object ID" IsChecked="{Binding MainFormModel.ShowId}" Command="{Binding ShowIDCommand}"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="rgTextBehavior" Header="{x:Static resx:GUI.MainForm_Tab_View_TextBehavior}">
+                    <CheckBox x:Name="cbWrapButton" Content="{x:Static resx:GUI.MainForm_Tab_View_WrapText}" IsChecked="{Binding MainFormModel.WrapText,Converter={StaticResource BoolToWrappingConverter}}" Command="{Binding WrapTextCommand}"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -190,7 +194,7 @@
                     <DataTemplate>
                         <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                            <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="{Binding MainFormModel.WrapText}"/>
                             <TextBlock x:Name="tblShowId" Text="{Binding Id}"  Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Path=Width}" TextAlignment="Center" FontStyle="Italic" />
                         </WrapPanel>
                     </DataTemplate>

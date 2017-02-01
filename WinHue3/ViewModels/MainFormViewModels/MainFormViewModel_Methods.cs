@@ -18,6 +18,7 @@ using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
 using System.Diagnostics;
+using WinHue3.Settings;
 
 namespace WinHue3.ViewModels
 {
@@ -878,6 +879,8 @@ namespace WinHue3.ViewModels
         private void SortListView()
         {
             RefreshView();
+            WinHueSettings.settings.Sort = MainFormModel.Sort;
+            WinHueSettings.Save();
         }
 
         #endregion
@@ -934,5 +937,16 @@ namespace WinHue3.ViewModels
             _ctm.ShowSettingsForm();
         }
 
+        private void ShowID()
+        {
+            WinHueSettings.settings.ShowID = MainFormModel.ShowId;
+            WinHueSettings.Save(); 
+        }
+
+        private void WrapText()
+        {
+            WinHueSettings.settings.WrapText = MainFormModel.WrapText;
+            WinHueSettings.Save();
+        }
     }
 }

@@ -892,7 +892,7 @@
     <value>From Image</value>
   </data>
   <data name="SceneCreatorForm_Message" xml:space="preserve">
-    <value>NOTE : Scenes cannot be deleted from the bridge. When the maximum number of scenes has been reached the scene which has been used the least is recycled. Limitations are : 50 scenes per lamp / 200 scenes in the bridge.</value>
+    <value>NOTE : V1 Scenes cannot be deleted from the bridge. When the maximum number of scenes has been reached the scene which has been used the least is recycled. Limitations are : 50 scenes per lamp / 200 scenes in the bridge.</value>
   </data>
   <data name="SceneCreatorForm_On" xml:space="preserve">
     <value>ON</value>
@@ -1229,5 +1229,14 @@
   </data>
   <data name="RuleCreatorForm_Editing" xml:space="preserve">
     <value>Editing rule</value>
+  </data>
+  <data name="MainForm_Tab_View_ShowID" xml:space="preserve">
+    <value>Show Object ID</value>
+  </data>
+  <data name="MainForm_Tab_View_WrapText" xml:space="preserve">
+    <value>Wrap Object Text</value>
+  </data>
+  <data name="MainForm_Tab_View_TextBehavior" xml:space="preserve">
+    <value>Text Behavior</value>
   </data>
 </root>

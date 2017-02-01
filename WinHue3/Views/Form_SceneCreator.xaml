@@ -13,6 +13,7 @@
     <Window.Resources>
         <converter:DoubleToUshortConverter x:Key="DoubleToUshortConverter"/>
         <converter:DoubleToByteConverter x:Key="DoubleToByteConverter"/>
+        <converter:SliderToXYConverter x:Key="SliderToXYConverter"/>
         <Style TargetType="{x:Type ListView}" >
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -51,11 +52,11 @@
 
         <Button Content="{x:Static resx:GUI.SceneCreatorForm_SaveButton}" Style="{StaticResource btnSave}" HorizontalAlignment="Left" Margin="706,507,0,0" VerticalAlignment="Top" Width="88" x:Name="btnSaveScene" Click="btnSaveScene_Click" Height="30" IsEnabled="{Binding CanSaveScene}"/>
         <Button Content="{x:Static resx:GUI.SceneCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="799,507,0,0" VerticalAlignment="Top" Width="88" x:Name="btnCancel" Click="btnCancel_Click" Height="30" IsCancel="True" IsEnabled="{Binding CanCancel}" SnapsToDevicePixels="True"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,502,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.SceneCreatorForm_Message}" VerticalAlignment="Top" Height="35" Width="600"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,502,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.SceneCreatorForm_Message}" VerticalAlignment="Top" Height="42" Width="611"/>
         <Button x:Name="btnPreview" Content="{x:Static resx:GUI.SceneCreatorForm_PreviewButton}" HorizontalAlignment="Left" Margin="626,507,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding DoPreviewSceneCommand}" IsEnabled="{Binding CanPreviewScene}"/>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step3}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="433" Width="232" Margin="417,64,0,0" ToolTip="CTRL-Click to select multiple light.">
             <Grid>
-                <ListView x:Name="lvAvailableLights" ItemsSource="{Binding ListAvailableLights}" SelectedItem="{Binding SelectedAvailableLight}" HorizontalAlignment="Left" Height="358" VerticalAlignment="Top" Width="219" Margin="0,10,0,0" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListView x:Name="lvAvailableLights" ItemsSource="{Binding SceneAvailableLightViewModel.ListAvailableLights}" SelectedItem="{Binding SceneCreatorViewModel.SelectedAvailableLight}" HorizontalAlignment="Left" Height="358" VerticalAlignment="Top" Width="219" Margin="0,10,0,0" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Visible">
                     <ListView.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFE5E5E5" Offset="1"/>
@@ -76,13 +77,13 @@
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step2}" HorizontalAlignment="Left" Margin="3,64,0,0" VerticalAlignment="Top" Height="433" Width="414">
             <Grid>
-                <Button x:Name="btnSelectLight" Content="{x:Static resx:GUI.SceneCreatorForm_AddButton}" Margin="559,377,-228,0" VerticalAlignment="Top" Height="24" Click="btnSelectLight_Click" IsEnabled="{Binding CanAddLight}"/>
-                <Button x:Name="btnColorPicker" Content="{x:Static resx:GUI.SceneCreatorForm_FromImageButton}" HorizontalAlignment="Left" Margin="10,377,0,0" VerticalAlignment="Top" Width="97" Height="24" Command="{Binding GetColorFromImageCommand}"/>
-                <Button x:Name="btnRandomColor" Content="{x:Static resx:GUI.SceneCreatorForm_RandomColorButton}" HorizontalAlignment="Left" Margin="112,377,0,0" VerticalAlignment="Top" Width="98" Height="24" Command="{Binding SetRandomColorCommand}"/>
-                <CheckBox x:Name="chbOn" Content="{x:Static resx:GUI.SceneCreatorForm_On}" HorizontalAlignment="Left" Margin="315,382,0,0" VerticalAlignment="Top" IsChecked="{Binding SceneOn}"/>
+                <Button x:Name="btnSelectLight" Content="{x:Static resx:GUI.SceneCreatorForm_AddButton}" Margin="559,377,-228,0" VerticalAlignment="Top" Height="24" Click="btnSelectLight_Click"/>
+                <Button x:Name="btnColorPicker" Content="{x:Static resx:GUI.SceneCreatorForm_FromImageButton}" HorizontalAlignment="Left" Margin="10,377,0,0" VerticalAlignment="Top" Width="97" Height="24" Command="{Binding SceneSlidersViewModel.GetColorFromImageCommand}"/>
+                <Button x:Name="btnRandomColor" Content="{x:Static resx:GUI.SceneCreatorForm_RandomColorButton}" HorizontalAlignment="Left" Margin="112,377,0,0" VerticalAlignment="Top" Width="98" Height="24" Command="{Binding SceneSlidersViewModel.SetRandomColorCommand}"/>
+                <CheckBox x:Name="chbOn" Content="{x:Static resx:GUI.SceneCreatorForm_On}" HorizontalAlignment="Left" Margin="315,382,0,0" VerticalAlignment="Top" IsChecked="{Binding SceneCreatorModel.On}"/>
                 <Grid Margin="0,0,0,131">
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_Hue}" HorizontalAlignment="Center" Margin="10,0,302,254" Width="90"/>
-                    <Slider x:Name="slHue" Value="{Binding SceneSlidersViewModel.Hue, Converter={StaticResource DoubleToUshortConverter }}"  Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,348,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
+                    <Slider x:Name="slHue" Value="{Binding SceneCreatorModel.Hue, Converter={StaticResource DoubleToUshortConverter }}"  Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,348,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
                         <Slider.Background>
                             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0" >
                                 <GradientStop Color="#FFFF0000" />
@@ -99,7 +100,7 @@
                         </Slider.Style>
                     </Slider>
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_Brightness}" HorizontalAlignment="Center" Margin="80,0,256,254" Width="66"/>
-                    <Slider x:Name="slBri" Height="217" Value="{Binding SceneSlidersViewModel.Bri,Converter={StaticResource DoubleToByteConverter}}" VerticalAlignment="Top" Maximum="254" Margin="103,31,277,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
+                    <Slider x:Name="slBri" Height="217" Value="{Binding SceneCreatorModel.Bri,Converter={StaticResource DoubleToByteConverter}}" VerticalAlignment="Top" Maximum="254" Margin="103,31,277,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True">
                         <Slider.Background>
                             <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
                                 <GradientStop Color="White" Offset="1"/>
@@ -108,7 +109,7 @@
                         </Slider.Background>
                     </Slider>
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_ColorTemp}" HorizontalAlignment="Center"  Width="83" Margin="147,0,172,254"/>
-                    <Slider x:Name="slCT" Value="{Binding CT}" Height="217" VerticalAlignment="Top" Maximum="500" Margin="178,31,203,0" Width="Auto" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True">
+                    <Slider x:Name="slCT" Value="{Binding SceneCreatorModel.Ct, Converter={StaticResource DoubleToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="500" Margin="178,31,203,0" Width="Auto" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True">
                         <Slider.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFFF8912" Offset="0"/>
@@ -117,7 +118,7 @@
                         </Slider.Background>
                     </Slider>
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_Saturation}" HorizontalAlignment="Center" Margin="228,0,108,254" Width="66"/>
-                    <Slider x:Name="slSAT" Value="{Binding SceneSlidersViewModel.Sat, Converter={StaticResource DoubleToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="250,31,130,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True">
+                    <Slider x:Name="slSAT" Value="{Binding SceneCreatorModel.Sat, Converter={StaticResource DoubleToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="250,31,130,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True">
                         <Slider.Background>
                             <LinearGradientBrush  EndPoint="0.5,0" StartPoint="0.5,1">
                                 <GradientStop Color="White" x:Name="slSATStartGradient"/>
@@ -126,17 +127,17 @@
                         </Slider.Background>
                     </Slider>
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="300,0,0,254" Width="102" RenderTransformOrigin="0.507,0"/>
-                    <Slider x:Name="slX" Maximum="1" Value="{Binding X}" Minimum="-0.001" Margin="310,31,65,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slX}" AutoToolTipPrecision="3" IsMoveToPointEnabled="True"/>
-                    <Slider x:Name="slY" Maximum="1" Value="{Binding Y}" Minimum="-0.001" Margin="360,31,18,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slY}" AutoToolTipPrecision="3" IsMoveToPointEnabled="True"/>
+                    <Slider x:Name="slX" Maximum="1" Value="{Binding SceneCreatorModel.X, Converter={StaticResource SliderToXYConverter}}" Minimum="-0.001" Margin="310,31,65,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slX}" AutoToolTipPrecision="3" IsMoveToPointEnabled="True"/>
+                    <Slider x:Name="slY" Maximum="1" Value="{Binding SceneCreatorModel.Y, Converter={StaticResource SliderToXYConverter}}" Minimum="-0.001" Margin="360,31,18,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slY}" AutoToolTipPrecision="3" IsMoveToPointEnabled="True"/>
                 </Grid>
-                <Label x:Name="lblTT" Content="{Binding TransitionTimeMessage, Mode=OneWay}" HorizontalAlignment="Center" Margin="22,283,30,100" Width="350" HorizontalContentAlignment="Center"/>
-                <Slider x:Name="slTT" Value="{Binding TT}"  Height="21" Maximum="65535" Minimum="-1" Margin="33,302,20,88" IsSnapToTickEnabled="True" SmallChange="1" ToolTip="Use the left and right key on the keyboard for more precise movement." SnapsToDevicePixels="True" IsMoveToPointEnabled="True"/>
+                <Label x:Name="lblTT" Content="{Binding SceneCreatorModel.TransitionTimeMessage, Mode=OneWay}" HorizontalAlignment="Center" Margin="22,283,30,100" Width="350" HorizontalContentAlignment="Center"/>
+                <Slider x:Name="slTT" Value="{Binding SceneCreatorModel.TT}"  Height="21" Maximum="65535" Minimum="-1" Margin="33,302,20,88" IsSnapToTickEnabled="True" SmallChange="1" ToolTip="Use the left and right key on the keyboard for more precise movement." SnapsToDevicePixels="True" IsMoveToPointEnabled="True"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step1}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="59" Width="646" Margin="3,0,0,0">
             <Grid>
                 <Label Content="Scene Name :" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="92"/>
-                <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="102,6,0,0" TextWrapping="Wrap" Text="{Binding SceneName}" VerticalAlignment="Top" MaxLines="1" MaxLength="32" Watermark="Optional." Width="527"/>
+                <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="102,6,0,0" TextWrapping="Wrap" Text="{Binding SceneCreatorModel.Name}" VerticalAlignment="Top" MaxLines="1" MaxLength="32" Watermark="Optional." Width="527"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_SelectedLights}" HorizontalAlignment="Left" Margin="654,0,0,0" VerticalAlignment="Top" Height="497" Width="247">
@@ -159,8 +160,8 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button x:Name="btnRemoveLight" Content="{x:Static resx:GUI.SceneCreatorForm_RemoveButton}" HorizontalAlignment="Left" Margin="157,437,0,0" VerticalAlignment="Top" Width="75" Height="30" IsEnabled="{Binding CanRemoveSceneLight}" Command="{Binding RemoveSelectedSceneLightCommand}"/>
-                <Button x:Name="btnClearSelection" Content="{x:Static resx:GUI.SceneCreatorForm_ClearButton}" HorizontalAlignment="Left" Margin="77,437,0,0" VerticalAlignment="Top" Width="75" Height="30" IsEnabled="{Binding CanRemoveSceneLight}" Command="{Binding ClearSelectionSceneLightCommand}"/>
+                <Button x:Name="btnRemoveLight" Content="{x:Static resx:GUI.SceneCreatorForm_RemoveButton}" HorizontalAlignment="Left" Margin="157,437,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding RemoveSelectedSceneLightCommand}"/>
+                <Button x:Name="btnClearSelection" Content="{x:Static resx:GUI.SceneCreatorForm_ClearButton}" HorizontalAlignment="Left" Margin="77,437,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding ClearSelectionSceneLightCommand}"/>
 
             </Grid>
         </GroupBox>

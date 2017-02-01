@@ -199,6 +199,7 @@
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolToWrappingConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
     <Compile Include="Converters\DoubleToDecimalConverter.cs" />
     <Compile Include="Converters\GroupClassConverter.cs" />
@@ -222,8 +223,9 @@
     <Compile Include="Models\HotKeyCreatorModel.cs" />
     <Compile Include="Models\ManageUsersModel.cs" />
     <Compile Include="Models\SceneCreatorModel.cs" />
+    <Compile Include="Settings\BridgeSaveSettings.cs" />
+    <Compile Include="Settings\CustomSettings.cs" />
     <Compile Include="Utils\TimeSensorState.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModels\SceneAvailableLightViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
@@ -271,7 +273,7 @@
     <Compile Include="Models\ScheduleCreatorModel.cs" />
     <Compile Include="Models\SensorCreatorModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Utils\ValidateBindableBase.cs" />
+    <Compile Include="ViewModels\ValidateBindableBase.cs" />
     <Compile Include="Validation\BoolValueValidation.cs" />
     <Compile Include="Validation\HueTapButtonValidation.cs" />
     <Compile Include="Validation\NotNullValidation.cs" />
@@ -319,8 +321,8 @@
     <Compile Include="Interpreter\AnimatorCommand.cs" />
     <Compile Include="Interpreter\Parser.cs" />
     <Compile Include="Interpreter\ResourceLoader.cs" />
-    <Compile Include="Utils\DataGridViewAppender.cs" />
-    <Compile Include="Utils\DgLogEntry.cs" />
+    <Compile Include="Logs\DataGridViewAppender.cs" />
+    <Compile Include="Logs\DgLogEntry.cs" />
     <Compile Include="Hotkeys\HotKeyHandle.cs" />
     <Compile Include="Utils\MessageBoxError.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
@@ -351,7 +353,7 @@
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="OldViews\SceneCreatorView.cs" />
     <Compile Include="OldViews\View.cs" />
-    <Compile Include="Utils\WinHueSettings.cs" />
+    <Compile Include="Settings\WinHueSettings.cs" />
     <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -384,7 +386,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppSettings\Form_AppSettings.xaml">
+    <Page Include="Views\Form_AppSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -473,7 +475,7 @@
     <Compile Include="Views\Form_BridgeSettings.xaml.cs">
       <DependentUpon>Form_BridgeSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppSettings\Form_AppSettings.xaml.cs">
+    <Compile Include="Views\Form_AppSettings.xaml.cs">
       <DependentUpon>Form_AppSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Form_GroupCreator.xaml.cs">

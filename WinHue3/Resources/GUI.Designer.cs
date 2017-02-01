@@ -1906,11 +1906,38 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Object ID.
+        /// </summary>
+        public static string MainForm_Tab_View_ShowID {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_ShowID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sort.
         /// </summary>
         public static string MainForm_Tab_View_Sorting {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View_Sorting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Behavior.
+        /// </summary>
+        public static string MainForm_Tab_View_TextBehavior {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_TextBehavior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrap Object Text.
+        /// </summary>
+        public static string MainForm_Tab_View_WrapText {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_WrapText", resourceCulture);
             }
         }
         
@@ -2500,7 +2527,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NOTE : Scenes cannot be deleted from the bridge. When the maximum number of scenes has been reached the scene which has been used the least is recycled. Limitations are : 50 scenes per lamp / 200 scenes in the bridge..
+        ///   Looks up a localized string similar to NOTE : V1 Scenes cannot be deleted from the bridge. When the maximum number of scenes has been reached the scene which has been used the least is recycled. Limitations are : 50 scenes per lamp / 200 scenes in the bridge..
         /// </summary>
         public static string SceneCreatorForm_Message {
             get {

@@ -232,6 +232,9 @@ namespace WinHue3.ViewModels
         public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs(), (param) => EnableButtons());
         public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups(), (param) => EnableButtons());
         public ICommand SortListViewCommand => new RelayCommand(param => SortListView(), (param) => EnableButtons());
+        public ICommand ShowIDCommand => new RelayCommand(param => ShowID(), (param) => EnableButtons());
+        public ICommand WrapTextCommand => new RelayCommand(param => WrapText(), (param) => EnableButtons());
+
 
         //*************** Toolbar ******************************
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons());

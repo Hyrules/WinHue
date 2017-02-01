@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace WinHue3.Models
 {
@@ -28,7 +30,8 @@ namespace WinHue3.Models
         private byte _oldsliderSat;
         private decimal _oldsliderX;
         private decimal _oldsliderY;
-
+        private bool _showId;
+        private TextWrapping _wrapText;
 
         private WinHueSortOrder _sort;
 
@@ -115,5 +118,16 @@ namespace WinHue3.Models
             set { SetProperty(ref _oldsliderY,value); }
         }
 
+        public bool ShowId
+        {
+            get { return _showId; }
+            set { SetProperty(ref _showId,value); }
+        }
+        
+        public TextWrapping WrapText
+        {
+            get { return _wrapText;}
+            set {SetProperty(ref _wrapText,value); }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,30 +12,34 @@ namespace HueLib2
     [DataContract]
     public class HueMotionSensorConfig : SensorConfig
     {
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public int? sensitivity { get; set; }
 
-        [DataMember, HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember]
         public int? sensitivitymax { get; internal set; }
         /// <summary>
         /// Alert.
         /// </summary>
-        [DataMember, HueLib(true,true)]
+        [DataMember]
         public string alert { get; set; }
         /// <summary>
         /// On off state.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember]
         public bool? on { get; set; }
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [DataMember, HueLib(false, false),ReadOnly(true)]
+        [JsonIgnore]
+        [DataMember,ReadOnly(true)]
         public bool? reachable { get; set; }
         /// <summary>
         /// Battery state.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember]
         public byte? battery { get; set; }
     }
 }
