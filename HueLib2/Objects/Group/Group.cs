@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Windows.Markup;
+using HueLib2.Objects.Group;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -23,6 +24,9 @@ namespace HueLib2
         /// </summary>
         [DataMember, Category("Action"), Description("Action"),ExpandableObject, ReadOnly(true)]
         public Action action { get; set; }
+
+        [DataMember, Category("State"), Description("State"),ExpandableObject, ReadOnly(true)]
+        public GroupState state { get; set; }
         /// <summary>
         /// List of lights in the group.
         /// </summary>

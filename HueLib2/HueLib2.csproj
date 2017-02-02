@@ -109,6 +109,7 @@
     <Compile Include="Communication\Communication.cs" />
     <Compile Include="Objects\Group\Action.cs" />
     <Compile Include="Objects\Group\Group.cs" />
+    <Compile Include="Objects\Group\GroupState.cs" />
     <Compile Include="Objects\HueObject\HueObject.cs" />
     <Compile Include="Objects\ItemSource\AlertItemsSource.cs" />
     <Compile Include="Objects\ItemSource\EffectItemsSource.cs" />

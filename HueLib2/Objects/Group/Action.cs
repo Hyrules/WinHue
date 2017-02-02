@@ -35,12 +35,6 @@ namespace HueLib2
             
         }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Description("Identify if all lights are on."), Category("Action Properties"), Browsable(false), ReadOnly(true)]
-        public bool? all_on { get; set; }
-
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Description("Identify if any lights are on."), Category("Action Properties"), Browsable(false), ReadOnly(true)]
-        public bool? any_on { get; set; }
-
         /// <summary>
         /// Scene to recall
         /// </summary>
