@@ -12,7 +12,6 @@ namespace HueLib2
         /// <summary>
         /// Sensor Status.
         /// </summary>
-        [JsonIgnore]
         [DataMember]
         public int status { get; set; }
     }

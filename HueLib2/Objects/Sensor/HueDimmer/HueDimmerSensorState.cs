@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -17,8 +18,7 @@ namespace HueLib2
         /// <summary>
         /// Button event number.
         /// </summary>
-        [JsonIgnore]
-        [DataMember]
+        [DataMember, ReadOnly(true)]
         public int? buttonevent { get; set; }
     }
 }

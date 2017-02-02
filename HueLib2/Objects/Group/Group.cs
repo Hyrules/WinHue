@@ -21,8 +21,7 @@ namespace HueLib2
         /// <summary>
         /// Action (State) of the group
         /// </summary>
-        [JsonIgnore]
-        [DataMember, Category("Action"), Description("Action"),ExpandableObject]
+        [DataMember, Category("Action"), Description("Action"),ExpandableObject, ReadOnly(true)]
         public Action action { get; set; }
         /// <summary>
         /// List of lights in the group.

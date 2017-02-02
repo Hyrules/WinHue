@@ -17,7 +17,7 @@ namespace HueLib2
         /// <summary>
         /// Name of the scene.
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("Name of the scene"), ReadOnly(false)]
+        [DataMember, Category("Scene Properties"), Description("Name of the scene")]
         public string name
         {
             get { return _name; }
@@ -36,15 +36,13 @@ namespace HueLib2
         /// <summary>
         /// Owner of the scene.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Whitelist user that created or modified the content of the scene")]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Whitelist user that created or modified the content of the scene"), ReadOnly(true)]
         public string owner { get; set; }
 
         /// <summary>
         /// App specific data.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("App specific data linked to the scene."),ExpandableObject]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("App specific data linked to the scene."),ExpandableObject, ReadOnly(true)]
         public AppData appdata { get; set; }
 
         /// <summary>
@@ -56,8 +54,7 @@ namespace HueLib2
         /// <summary>
         /// Scene is Locked.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted.")]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted."), ReadOnly(true)]
         public bool? locked { get; set; }
 
         /// <summary>
@@ -69,22 +66,19 @@ namespace HueLib2
         /// <summary>
         /// Version of the scene.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Version of scene document.")]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Version of scene document."), ReadOnly(true)]
         public int? version { get; set; }
 
         /// <summary>
         /// Last time the scene was updated in UTC.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("UTC time the scene has been created or has been updated.")]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("UTC time the scene has been created or has been updated."), ReadOnly(true)]
         public string lastupdated { get; set; }
 
         /// <summary>
         /// State of the lights in the scene.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("States of every lights in the scene."),Browsable(false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("States of every lights in the scene."),Browsable(false), ReadOnly(true)]
         public Dictionary<string, State> lightstates { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace HueLib2
@@ -7,16 +8,13 @@ namespace HueLib2
     [DataContract]
     public class LightLevelState : SensorState
     {
-        [JsonIgnore]
-        [DataMember]
+        [DataMember,ReadOnly(true)]
         public UInt16? lightlevel { get; set; }
 
-        [JsonIgnore]
-        [DataMember]
+        [DataMember, ReadOnly(true)]
         public bool? dark { get; set; }
 
-        [JsonIgnore]
-        [DataMember]
+        [DataMember, ReadOnly(true)]
         public bool? daylight { get; set; }
 
     }

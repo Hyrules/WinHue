@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -38,8 +39,7 @@ namespace HueLib2
         /// <summary>
         /// Is The Sensor Configured.
         /// </summary>
-        [JsonIgnore]
-        [DataMember]
+        [DataMember, ReadOnly(true)]
         public bool? configured { get; set; }
     }
 }

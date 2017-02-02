@@ -41,29 +41,25 @@ namespace HueLib2
         /// <summary>
         /// Owner of the rule.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Owner of the rule")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Owner of the rule"), ReadOnly(true)]
         public string owner { get; set; }
 
         /// <summary>
         /// Number of time triggered.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Number of times the rule has been triggered")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Number of times the rule has been triggered"), ReadOnly(true)]
         public int? timestriggered { get; set; }
 
         /// <summary>
         /// Last time the rule was triggered
         /// </summary>
-        [JsonIgnore]
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Last time the rule was triggered")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Last time the rule was triggered"), ReadOnly(true)]
         public string lasttriggered { get; set; }
 
         /// <summary>
         /// Date of creation.
         /// </summary>
-        [JsonIgnore]
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Date of creation")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Date of creation"), ReadOnly(true)]
         public string created { get; set; }
 
         /// <summary>

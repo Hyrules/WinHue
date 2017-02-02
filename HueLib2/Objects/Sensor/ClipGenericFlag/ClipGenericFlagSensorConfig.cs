@@ -20,20 +20,17 @@ namespace HueLib2
         /// <summary>
         /// On off state.
         /// </summary>
-        [JsonIgnore]
         [DataMember]
         public bool? on { get; set; }
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [JsonIgnore]
-        [DataMember,  ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? reachable { get; set; }
         /// <summary>
         /// Battery state.
         /// </summary>
-        [JsonIgnore]
-        [DataMember]
+        [DataMember, CreateOnly]
         public byte? battery { get; set; }
     }
 }

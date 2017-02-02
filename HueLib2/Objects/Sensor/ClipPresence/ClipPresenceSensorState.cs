@@ -12,7 +12,6 @@ namespace HueLib2
         /// <summary>
         /// Presense detected.
         /// </summary>
-        [JsonIgnore]
         [DataMember]
         public bool presence { get; set; }
     }

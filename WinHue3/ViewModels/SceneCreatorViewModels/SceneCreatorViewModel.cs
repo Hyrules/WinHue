@@ -142,9 +142,9 @@ namespace WinHue3.ViewModels
         private void RemoveSelectedSceneLight()
         {
             ((Light)SelectedSceneLight).state = new State();
-            _scene.lights.Remove(SelectedSceneLight.Id);
+            //_scene.lights.Remove(SelectedSceneLight.Id);
             ListAvailableLights.Add(SelectedSceneLight);
-            _scene.lightstates.Remove(SelectedSceneLight.Id);
+           // _scene.lightstates.Remove(SelectedSceneLight.Id);
             ListSceneLights.Remove(SelectedSceneLight);
 
             SelectedSceneLight = null;
@@ -158,13 +158,13 @@ namespace WinHue3.ViewModels
             foreach (HueObject obj in lightlist)
             {
                 _listAvailableLights.Remove(obj);
-                ((Light)obj).state = _newstate;
+              //  ((Light)obj).state = _newstate;
                 ListSceneLights.Add(obj);
-                if (_scene.lightstates == null) _scene.lightstates = new Dictionary<string, State>();
-                _scene.lightstates.Add(obj.Id, ((Light)obj).state);
+             //   if (_scene.lightstates == null) _scene.lightstates = new Dictionary<string, State>();
+             //   _scene.lightstates.Add(obj.Id, ((Light)obj).state);
             }
 
-            _scene.lights.AddRange(lightlist.Select(x => x.Id).ToList());
+          //  _scene.lights.AddRange(lightlist.Select(x => x.Id).ToList());
 
             //_newstate = new State() { on = true};
             OnPropertyChanged("LightSceneLights");
@@ -234,5 +234,4 @@ namespace WinHue3.ViewModels
 
 
     }
-}
 }

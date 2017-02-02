@@ -38,8 +38,7 @@ namespace HueLib2
         /// <summary>
         /// Type of Resource Link
         /// </summary>
-        [JsonIgnore]
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Type of the resource link")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Type of the resource link"), ReadOnly(true)]
         public string type { get; set; }
         
         /// <summary>
@@ -51,8 +50,7 @@ namespace HueLib2
         /// <summary>
         /// Owner of the resource link
         /// </summary>
-        [JsonIgnore]
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Owner of the resource link")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Owner of the resource link"), ReadOnly(true)]
         public string owner { get; set; }
 
         /// <summary>

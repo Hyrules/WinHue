@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace HueLib2
@@ -12,8 +13,7 @@ namespace HueLib2
         /// <summary>
         /// daylight saving time or not.
         /// </summary>
-        [JsonIgnore]
-        [DataMember]
+        [DataMember, ReadOnly(true)]
         public bool? daylight { get; set; }
 
     }

@@ -13,7 +13,6 @@ namespace HueLib2
         /// <summary>
         /// Open or close.
         /// </summary>
-        [JsonIgnore]
         [DataMember]
         public bool open { get; set; }
     }

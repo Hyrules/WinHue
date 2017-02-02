@@ -12,7 +12,6 @@ namespace HueLib2
         /// <summary>
         /// url.
         /// </summary>
-        [JsonIgnore]
         [DataMember]
         public bool flag { get; set; }
     }

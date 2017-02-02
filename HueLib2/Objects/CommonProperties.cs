@@ -81,7 +81,7 @@ namespace HueLib2
         /// <summary>
         /// Transition time of the group.
         /// </summary>
-        [DataMember(IsRequired = false), Description("Transition time ( Given in multiple of 100ms , Default to 4 )"), Category("Properties")]
+        [DataMember(IsRequired = false), Description("Transition time ( Given in multiple of 100ms , Default to 4 )"), Category("Properties"), Browsable(false)]
         public uint? transitiontime { get; set; }
         /// <summary>
         /// Alert of the group.

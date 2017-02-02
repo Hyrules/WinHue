@@ -16,7 +16,6 @@ namespace HueLib2
         /// <summary>
         /// On off state.
         /// </summary>
-        [JsonIgnore]
         [DataMember]
         public bool? on { get; set; }
 
