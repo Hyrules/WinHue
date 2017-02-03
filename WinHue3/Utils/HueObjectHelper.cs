@@ -151,15 +151,37 @@ namespace WinHue3
         {
             if (bridge == null) return new HelperResult() { Success = false, Hrobject = "Bridge cannot be NULL" };
             log.Debug($@"Getting all groups from bridge {bridge.IpAddress}");
+            Dictionary<string, Group> listgroups = new Dictionary<string, Group>();
+
+            CommandResult gzresult = bridge.GetObject<Group>("0"); // GET GROUP ZERO
+            if(gzresult.Success)
+            {
+                listgroups.Add("0",(Group)gzresult.resultobject);
+            }
+            else
+            {
+                log.Error("Enable to get group zero.");
+            }
+
             CommandResult bresult = bridge.GetListObjects<Group>();
             HelperResult hr = new HelperResult
             {
                 Success = bresult.Success,
-                Hrobject =
-                    bresult.Success
-                        ? ProcessGroups((Dictionary<string, Group>)bresult.resultobject)
-                        : bresult.resultobject
             };
+
+            if (bresult.Success)
+            {
+                foreach(KeyValuePair<string,Group> item in ((Dictionary<string, Group>)bresult.resultobject))
+                {
+                    listgroups.Add(item.Key, item.Value);
+                }
+
+                hr.Hrobject = ProcessGroups(listgroups);
+            }
+            else
+            {
+                hr.Hrobject = bresult.resultobject;
+            }
 
             log.Debug("List groups : " + Serializer.SerializeToJson(hr.Hrobject));
             return hr;
