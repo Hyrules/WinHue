@@ -18,8 +18,7 @@ namespace HueLib2
         /// <summary>
         /// Name of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),
-         Description("Name of the resource link")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Name of the resource link")]
         public string name
         {
             get

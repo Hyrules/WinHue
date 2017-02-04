@@ -25,6 +25,7 @@ namespace WinHue3.ViewModels
         private bool IsEditable()
         {
             if (!IsObjectSelected()) return false;
+            if (IsGroupZero()) return false;
             return !(SelectedObject is Light);
         }
 
@@ -168,6 +169,23 @@ namespace WinHue3.ViewModels
             return SelectedObject is Scene | SelectedObject is Group | SelectedObject is Rule | CanCloneSensor() | SelectedObject is Resourcelink;
         }
 
+        private bool CanRename()
+        {
+            if (!IsObjectSelected()) return false;
+            return !IsGroupZero();
+        }
+
+        private bool CanDelete()
+        {
+            if (!IsObjectSelected()) return false;
+            return !IsGroupZero();
+        }
+
+        private bool IsGroupZero()
+        {
+            return SelectedObject is Group && SelectedObject.Id == "0";
+        }
+
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new RelayCommand(param => OpenSettingsWindow());
@@ -209,8 +227,8 @@ namespace WinHue3.ViewModels
         public ICommand DoBridgePairingCommand => new RelayCommand(param => DoBridgePairing(ListBridges));
 
         //*************** Context Menu Commands *************
-        public ICommand DeleteObjectCommand => new RelayCommand(param => DeleteObject(), (param) => IsObjectSelected());
-        public ICommand RenameObjectCommand => new RelayCommand(param => RenameObject(), (param) => IsObjectSelected());
+        public ICommand DeleteObjectCommand => new RelayCommand(param => DeleteObject(), (param) => CanDelete());
+        public ICommand RenameObjectCommand => new RelayCommand(param => RenameObject(), (param) => CanRename());
         public ICommand EditObjectCommand => new RelayCommand(param => EditObject(), (param) => IsEditable());
         public ICommand IdentifyLongCommand => new RelayCommand(param => Identify("lselect"), (param) => CanIdentify());
         public ICommand IdentifyShortCommand => new RelayCommand(param => Identify("select"), (param) => CanIdentify());
@@ -246,7 +264,7 @@ namespace WinHue3.ViewModels
 
         public ICommand OpenAboutWindowCommand => new RelayCommand(param => OpenAboutWindow());
 
-
+        public ICommand StartProcDumpCommand => new RelayCommand(param => StartProcDump());
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
         //      
         //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());

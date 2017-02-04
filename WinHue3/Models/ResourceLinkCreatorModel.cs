@@ -17,12 +17,13 @@ namespace WinHue3.Models
         private string _description;
         private bool? _recycle;
         private ushort _classId;
+        private bool _showId;
 
         public ResourceLinkCreatorModel()
         {
             _name = string.Empty;
             ListlinkObject = new ObservableCollection<HueObject>();
-            ClassId = 0;
+            ClassId = 1;
         }
 
         [StringLength(32,MinimumLength = 1,ErrorMessageResourceName = "ResourceLinks_NameNeeded", ErrorMessageResourceType = typeof(GlobalStrings))]
@@ -54,6 +55,12 @@ namespace WinHue3.Models
         {
             get { return _classId; }
             set { SetProperty(ref _classId,value); }
+        }
+
+        public bool ShowID
+        {
+            get { return _showId; }
+            set { SetProperty(ref _showId, value); }
         }
     }
 }

@@ -156,7 +156,7 @@ namespace WinHue3.ViewModels
                     SelectedObject.Image = newimg;
                     int index = _listBridgeObjects.FindIndex(x => x.Id == SelectedObject.Id && x.GetType() == SelectedObject.GetType());
                     if (index == -1) return;
-                    if (SelectedObject.HasProperty("state"))
+                    if (SelectedObject is Light)
                     {
                         ((Light)SelectedObject).state.on = !((Light)SelectedObject).state.on;
                         ((Light)ListBridgeObjects[index]).state.on = !((Light)ListBridgeObjects[index]).state.on;
@@ -947,6 +947,16 @@ namespace WinHue3.ViewModels
         {
             WinHueSettings.settings.WrapText = MainFormModel.WrapText;
             WinHueSettings.Save();
+        }
+
+        private void StartProcDump()
+        {
+            ProcessStartInfo psi = new ProcessStartInfo($"{AppDomain.CurrentDomain.BaseDirectory}procdump.exe")
+            {
+                Arguments = $@"-e -w -ma WinHue3.exe {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\WinHue3",
+                UseShellExecute = false
+            };
+            Process.Start(psi);
         }
     }
 }

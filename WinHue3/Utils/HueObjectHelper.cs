@@ -155,11 +155,24 @@ namespace WinHue3
             HelperResult hr = new HelperResult
             {
                 Success = bresult.Success,
-                Hrobject =
-                    bresult.Success
-                        ? ProcessGroups((Dictionary<string, Group>)bresult.resultobject)
-                        : bresult.resultobject
             };
+
+            if (hr.Success)
+            {
+                Dictionary<string, Group> gs = (Dictionary<string, Group>) bresult.resultobject;
+                Group zero = GetGroupZero(bridge);
+                if (zero != null)
+                {
+                    gs.Add("0",zero);
+                }
+
+                hr.Hrobject = ProcessGroups(gs);
+            }
+            else
+            {
+                hr.Hrobject = bresult.resultobject;
+            }
+
 
             log.Debug("List groups : " + Serializer.SerializeToJson(hr.Hrobject));
             return hr;
@@ -476,12 +489,43 @@ namespace WinHue3
             HelperResult hr = new HelperResult
             {
                 Success = bresult.Success,
-                Hrobject = bresult.Success ? ProcessDataStore((DataStore)bresult.resultobject) : bresult.resultobject
+                
             };
+            if (hr.Success)
+            {
+                DataStore ds = (DataStore) bresult.resultobject;
+                Group zero = GetGroupZero(bridge);
+                if (zero != null)
+                {
+                    ds.groups.Add("0",zero);
+                }
+
+                hr.Hrobject = ProcessDataStore(ds);
+            }
+            else
+            {
+                hr.Hrobject = bresult.resultobject;
+            }
+            
 
             log.Debug("Bridge data store : " + Serializer.SerializeToJson(hr.Hrobject));
             return hr;
         }
+
+        private static Group GetGroupZero(Bridge bridge)
+        {
+            
+            CommandResult cr = bridge.GetObject<Group>("0");
+            if (cr.Success)
+            {
+                return (Group) cr.resultobject;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// Process the data from the bridge datastore.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using HueLib2;
+using WinHue3.Models;
 using WinHue3.ViewModels;
 
 namespace WinHue3
@@ -30,15 +32,41 @@ namespace WinHue3
             _bridge = bridge;
             InitializeComponent();
             rlcvm = this.DataContext as ResourceLinkCreatorViewModel;
+            rlcvm.LinkCreatorModel.ShowID = WinHueSettings.settings.ShowID;
+
             HelperResult hr = HueObjectHelper.GetBridgeDataStore(_bridge);
             if (hr.Success)
             {
-                List<HueObject> _listbrobj = (List<HueObject>) hr.Hrobject;
-                foreach (var l in _listbrobj)
+                ObservableCollection<HueObject> _listbrobj = new ObservableCollection<HueObject>();
+                List<HueObject> listobj = (List<HueObject>) hr.Hrobject;
+
+                switch (WinHueSettings.settings.Sort)
                 {
-                    if(!(l is Resourcelink))
-                        rlcvm.ListHueObjects.Add(l);
+                    case MainFormModel.WinHueSortOrder.Default:
+                        _listbrobj = new ObservableCollection<HueObject>((List<HueObject>)hr.Hrobject);                     
+                        break;
+                    case MainFormModel.WinHueSortOrder.Ascending:
+                        _listbrobj.AddRange(from item in listobj where item is Light orderby item.GetName() ascending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Group orderby item.GetName() ascending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Schedule orderby item.GetName() ascending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Scene orderby item.GetName() ascending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Sensor orderby item.GetName() ascending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Rule orderby item.GetName() ascending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Resourcelink orderby item.GetName() ascending select item);
+                        break;
+                    case MainFormModel.WinHueSortOrder.Descending:
+                        _listbrobj.AddRange(from item in listobj where item is Light orderby item.GetName() descending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Group orderby item.GetName() descending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Schedule orderby item.GetName() descending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Scene orderby item.GetName() descending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Sensor orderby item.GetName() descending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Rule orderby item.GetName() descending select item);
+                        _listbrobj.AddRange(from item in listobj where item is Resourcelink orderby item.GetName() descending select item);
+                        break;
+                    default:
+                        goto case MainFormModel.WinHueSortOrder.Default;
                 }
+                rlcvm.ListHueObjects = _listbrobj;
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(rlcvm.ListHueObjects);
                 view.GroupDescriptions?.Clear();
                 PropertyGroupDescription groupDesc = new TypeGroupDescription();
