@@ -14,20 +14,21 @@ namespace WinHue3.Models
     {
 
         private State _state;
-        private ushort _hue;
-        private byte _bri;
-        private byte _sat;
-        private decimal _x;
-        private decimal _y;
-        private int _tt;
+        private ushort? _hue;
+        private byte? _bri;
+        private byte? _sat;
+        private decimal? _x;
+        private decimal? _y;
+        private uint? _tt;
         private bool _on;
         private string _name;
+        private ushort? _ct;
 
         public SceneCreatorModel()
         {
             State = new State() { @on = true };
             On = true;
-            TT = -1;
+            TT = null;
         }
 
         public State State
@@ -36,37 +37,56 @@ namespace WinHue3.Models
             set { SetProperty(ref _state, value); }
         }
 
-        public ushort Hue
+        public ushort? Hue
         {
             get { return _hue; }
-            set { SetProperty(ref _hue, value); }
+            set
+            {
+                SetProperty(ref _hue, value);
+                if (value == null) return;
+                Ct = null;
+                X = null;
+                Y = null;
+            }
         }
 
-        public byte Bri
+        public byte? Bri
         {
             get { return _bri; }
             set { SetProperty(ref _bri, value); }
         }
 
-        public byte Sat
+        public byte? Sat
         {
             get { return _sat; }
             set { SetProperty(ref _sat, value); }
         }
 
-        public decimal X
+        public decimal? X
         {
             get { return _x; }
-            set { SetProperty(ref _x, value); }
+            set
+            {
+                SetProperty(ref _x, value);
+                if (value == null) return;
+                Ct = null;
+                Hue = null;
+            }
         }
 
-        public decimal Y
+        public decimal? Y
         {
             get { return _y; }
-            set { SetProperty(ref _y, value); }
+            set
+            {
+                SetProperty(ref _y, value);
+                if (value == null) return;
+                Ct = null;
+                Hue = null;
+            }
         }
 
-        public int TT
+        public uint? TT
         {
             get { return _tt; }
             set { SetProperty(ref _tt, value); OnPropertyChanged("TransitionTimeMessage"); }
@@ -110,6 +130,23 @@ namespace WinHue3.Models
 
         }
 
+        public string Name
+        {
+            get { return _name; }
+            set { SetProperty(ref _name,value); }
+        }
 
+        public ushort? Ct
+        {
+            get { return _ct; }
+            set
+            {
+                SetProperty(ref _ct,value);
+                if (value == null) return;
+                X = null;
+                Y = null;
+                Hue = null;
+            }
+        }
     }
 }

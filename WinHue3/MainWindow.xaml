@@ -204,7 +204,7 @@
                     <DataTemplate>
                         <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center"/>
+                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
                             <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tbWrap}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                         </WrapPanel>
                     </DataTemplate>

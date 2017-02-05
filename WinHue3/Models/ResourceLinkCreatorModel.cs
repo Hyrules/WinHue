@@ -18,6 +18,7 @@ namespace WinHue3.Models
         private bool? _recycle;
         private ushort _classId;
         private bool _showId;
+        private bool _wrap;
 
         public ResourceLinkCreatorModel()
         {
@@ -61,6 +62,12 @@ namespace WinHue3.Models
         {
             get { return _showId; }
             set { SetProperty(ref _showId, value); }
+        }
+
+        public bool Wrap
+        {
+            get { return _wrap; }
+            set { SetProperty(ref _wrap,value); }
         }
     }
 }

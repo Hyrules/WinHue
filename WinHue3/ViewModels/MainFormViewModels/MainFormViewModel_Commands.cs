@@ -26,6 +26,7 @@ namespace WinHue3.ViewModels
         {
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
+            if (SelectedObject is Scene && ((Scene) SelectedObject).version == 1) return false;
             return !(SelectedObject is Light);
         }
 

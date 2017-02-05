@@ -18,7 +18,7 @@ namespace WinHue3.ViewModels
     public class SceneCreatorViewModel : ValidatableBindableBase
     {
         private ObservableCollection<HueObject> _listAvailableLights;
-        private HueObject _selectedLight;
+        private ObservableCollection<HueObject> _selectedLight;
         
         private Bridge _bridge;
         private SceneCreatorModel _sceneCreatorModel;
@@ -33,6 +33,8 @@ namespace WinHue3.ViewModels
             SceneListLightsViewModel = new SceneListLightsViewModel();
             SceneSlidersViewModel = new SceneSlidersViewModels();
             ListAvailableLights = new ObservableCollection<HueObject>();
+            SelectedAvailableLights = new ObservableCollection<HueObject>();
+            ListSceneLights = new ObservableCollection<HueObject>();
         }
 
         public SceneCreatorModel SceneCreatorModel
@@ -40,6 +42,8 @@ namespace WinHue3.ViewModels
             get { return _sceneCreatorModel; }
             set { SetProperty(ref _sceneCreatorModel,value); }
         }
+
+
 
         public SceneListLightsViewModel SceneListLightsViewModel
         {
@@ -50,7 +54,7 @@ namespace WinHue3.ViewModels
         public SceneSlidersViewModels SceneSlidersViewModel
         {
             get { return _sceneSlidersViewModel; }
-            set { _sceneSlidersViewModel = value; }
+            set { SetProperty(ref _sceneSlidersViewModel,value); }
         }
 
         public void Initialize(List<HueObject> listlights, Bridge bridge)
@@ -110,10 +114,40 @@ namespace WinHue3.ViewModels
             }
         }
 
-        public HueObject SelectedAvailableLight
+        public ObservableCollection<HueObject> SelectedAvailableLights
         {
             get { return _selectedLight; }
             set { SetProperty(ref _selectedLight, value); }
+        }
+
+        public Scene Scene
+        {
+            get
+            {
+                Scene scene = new Scene
+                {
+                    name = SceneCreatorModel.Name,
+                    lights = ListSceneLights.Select(x => x.Id).ToList(),
+                    lightstates = new Dictionary<string, State>()
+                };
+                
+                foreach (HueObject l in ListSceneLights)
+                {
+                    Light light = (Light) l;
+                    scene.lightstates.Add(light.Id,light.state);
+                }
+
+                return scene;
+            }
+            set
+            {
+                SceneCreatorModel.Name = value.name;
+                ListSceneLights = new ObservableCollection<HueObject>(ListAvailableLights.Where(x => value.lights.Contains(x.Id)));
+                foreach (HueObject h in ListSceneLights)
+                {
+                    ((Light) h).state = value.lightstates[h.Id];
+                }
+            }
         }
 
         public void GetColorFromImage()
@@ -121,7 +155,7 @@ namespace WinHue3.ViewModels
             Form_SelectColorFromImage fsci = new Form_SelectColorFromImage() { Owner = Application.Current.MainWindow };
             if (fsci.ShowDialog() != true) return;
             Color c = fsci.GetSelectedColor();
-            CGPoint color = HueColorConverter.CalculateXY(c, ((Light)SelectedAvailableLight).modelid);
+            CGPoint color = HueColorConverter.CalculateXY(c, "");
             SceneCreatorModel.Sat = 255;
             SceneCreatorModel.X = Convert.ToDecimal(color.x);
             SceneCreatorModel.Y = Convert.ToDecimal(color.y);
@@ -136,39 +170,29 @@ namespace WinHue3.ViewModels
         public HueObject SelectedSceneLight
         {
             get { return _selectedSceneLight; }
-            set { SetProperty(ref _selectedSceneLight, value); }
+            set
+            {
+                SetProperty(ref _selectedSceneLight, value);
+                if (value == null) return;
+                SceneCreatorModel.Hue = ((Light) value).state.hue;
+                SceneCreatorModel.Bri = ((Light)value).state.bri;
+                SceneCreatorModel.Sat = ((Light)value).state.sat;
+                SceneCreatorModel.Ct = ((Light)value).state.ct;
+                if (((Light) value).state.xy != null)
+                {
+                    SceneCreatorModel.X = ((Light)value).state.xy.x;
+                    SceneCreatorModel.Y = ((Light) value).state.xy.y;
+                }
+                SceneCreatorModel.TT = ((Light) value).state.transitiontime;
+            }
         }
 
         private void RemoveSelectedSceneLight()
         {
-            ((Light)SelectedSceneLight).state = new State();
-            //_scene.lights.Remove(SelectedSceneLight.Id);
+            ((Light)SelectedSceneLight).state = null;
             ListAvailableLights.Add(SelectedSceneLight);
-           // _scene.lightstates.Remove(SelectedSceneLight.Id);
             ListSceneLights.Remove(SelectedSceneLight);
-
             SelectedSceneLight = null;
-
-            
-        }
-
-        public void AddLightsToScene(List<HueObject> lightlist)
-        {
-
-            foreach (HueObject obj in lightlist)
-            {
-                _listAvailableLights.Remove(obj);
-              //  ((Light)obj).state = _newstate;
-                ListSceneLights.Add(obj);
-             //   if (_scene.lightstates == null) _scene.lightstates = new Dictionary<string, State>();
-             //   _scene.lightstates.Add(obj.Id, ((Light)obj).state);
-            }
-
-          //  _scene.lights.AddRange(lightlist.Select(x => x.Id).ToList());
-
-            //_newstate = new State() { on = true};
-            OnPropertyChanged("LightSceneLights");
-
         }
 
         private void DoPreviewScene()
@@ -226,11 +250,49 @@ namespace WinHue3.ViewModels
             OnPropertyChanged("TT");
         }
 
-        public ICommand RemoveSelectedSceneLightCommand => new RelayCommand(param => RemoveSelectedSceneLight());
+        private void AddSelectedLightsToScene()
+        {
+            foreach (HueObject obj in SelectedAvailableLights)
+            {
+                ListAvailableLights.Remove(obj);
+                ((Light)obj).state = new State() { hue = SceneCreatorModel.Hue, bri = SceneCreatorModel.Bri, sat = SceneCreatorModel.Sat, ct = SceneCreatorModel.Ct };
+                if (SceneCreatorModel.X != null && SceneCreatorModel.Y != null)
+                {
+                    ((Light)obj).state.xy = new XY(Convert.ToDecimal(SceneCreatorModel.X), Convert.ToDecimal(SceneCreatorModel.Y));
+                }
+
+                if (SceneCreatorModel.TT != null)
+                {
+                    ((Light)obj).state.transitiontime = Convert.ToUInt32(SceneCreatorModel.TT);
+                }
+                ListSceneLights.Add(obj);
+            }
+
+            SceneCreatorModel.X = null;
+            SceneCreatorModel.Y = null;
+            SceneCreatorModel.Hue = null;
+            SceneCreatorModel.Bri = null;
+            SceneCreatorModel.Ct = null;
+            SceneCreatorModel.TT = null;
+            SceneCreatorModel.Sat = null;
+        }
+
+        private bool CanRemoveSelectedSceneLight()
+        {
+            return SelectedSceneLight != null;
+        }
+
+        private bool CanAddLightsToScene()
+        {
+            return SelectedAvailableLights.Count > 0;
+        }
+
+        public ICommand RemoveSelectedSceneLightCommand => new RelayCommand(param => RemoveSelectedSceneLight(), (param)=> CanRemoveSelectedSceneLight());
         public ICommand SetRandomColorCommand => new RelayCommand(param => SetRandomColor());
         public ICommand GetColorFromImageCommand => new RelayCommand(param => GetColorFromImage());
         public ICommand ClearSelectionSceneLightCommand => new RelayCommand(param => ClearSelectionSceneLight());
         public ICommand DoPreviewSceneCommand => new RelayCommand(param => DoPreviewScene());
+        public ICommand AddSelectedLightsToSceneCommand => new RelayCommand(param => AddSelectedLightsToScene(), (param) => CanAddLightsToScene());
 
 
     }

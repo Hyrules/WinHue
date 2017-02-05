@@ -16,6 +16,14 @@
     <Window.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converter:BoolToOppositeBoolConverter x:Key="BoolToOppositeBoolConverter"/>
+        <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.Wrap, ElementName=Form_ResourceLink}" Value="True">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="Width" Value="75"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="{x:Type ListView}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -52,6 +60,10 @@
                 <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.ShowID, ElementName=Form_ResourceLink}" Value="False">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
+                <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.Wrap, ElementName=Form_ResourceLink}" Value="True">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="Width" Value="75"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
@@ -60,7 +72,7 @@
         <Button x:Name="btnCreateResourceLink" Style="{StaticResource btnSave}" Content="{Binding BtnSaveText}" Margin="0,0,100.333,17.667" Click="btnCreateResourceLink_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="102"/>
         <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" Margin="0,0,20.333,17.667" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
 
-        <CustomControls:BindableListView x:Name="bindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}">
+        <CustomControls:BindableListView x:Name="bindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <CustomControls:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
@@ -68,10 +80,10 @@
             </CustomControls:BindableListView.ItemsPanel>
             <CustomControls:BindableListView.ItemTemplate>
                 <DataTemplate>
-                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                         <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                        <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
-                        <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tblID}"  Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Path=Width}" TextAlignment="Center" FontStyle="Italic" />
+                        <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tblID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                     </WrapPanel>
                 </DataTemplate>
             </CustomControls:BindableListView.ItemTemplate>
