@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using WinHue3.Resources;
@@ -12,21 +13,13 @@ namespace WinHue3.Models
 {
     public class SceneCreatorModel : ValidatableBindableBase
     {
+        private string _name;
 
         private State _state;
-        private ushort? _hue;
-        private byte? _bri;
-        private byte? _sat;
-        private decimal? _x;
-        private decimal? _y;
-        private uint? _tt;
-        private bool _on;
-        private string _name;
-        private ushort? _ct;
 
         public SceneCreatorModel()
         {
-            State = new State() { @on = true };
+            State = new State() { on = true };
             On = true;
             TT = null;
         }
@@ -39,10 +32,11 @@ namespace WinHue3.Models
 
         public ushort? Hue
         {
-            get { return _hue; }
+            get { return _state.hue; }
             set
             {
-                SetProperty(ref _hue, value);
+                _state.hue = value;
+                OnPropertyChanged();
                 if (value == null) return;
                 Ct = null;
                 X = null;
@@ -52,22 +46,28 @@ namespace WinHue3.Models
 
         public byte? Bri
         {
-            get { return _bri; }
-            set { SetProperty(ref _bri, value); }
+            get { return _state.bri; }
+            set { _state.bri = value; OnPropertyChanged(); }
         }
 
         public byte? Sat
         {
-            get { return _sat; }
-            set { SetProperty(ref _sat, value); }
+            get { return _state.sat; }
+            set { _state.sat = value; OnPropertyChanged(); }
         }
 
         public decimal? X
         {
-            get { return _x; }
+            get { return _state.xy?.x; }
             set
             {
-                SetProperty(ref _x, value);
+                if (value != null)
+                {
+                    if (_state.xy == null) _state.xy = new XY();
+                    _state.xy.x = Convert.ToDecimal(value);
+                }
+                OnPropertyChanged();
+                OnPropertyChanged("Y");
                 if (value == null) return;
                 Ct = null;
                 Hue = null;
@@ -76,26 +76,54 @@ namespace WinHue3.Models
 
         public decimal? Y
         {
-            get { return _y; }
+            get { return _state.xy?.y; }
             set
             {
-                SetProperty(ref _y, value);
+                if (value != null)
+                {
+                    if (_state.xy == null) _state.xy = new XY();
+                    _state.xy.y = Convert.ToDecimal(value);
+                }
+
+                OnPropertyChanged();
+                OnPropertyChanged("X");
                 if (value == null) return;
                 Ct = null;
                 Hue = null;
             }
         }
 
+        public string Name
+        {
+            get { return _name; }
+            set { SetProperty(ref _name, value); }
+        }
+
+        public ushort? Ct
+        {
+            get { return _state.ct; }
+            set
+            {
+                _state.ct = value;
+                if (value == null) return;
+                X = null;
+                Y = null;
+                Hue = null;
+            }
+        }
+
         public uint? TT
         {
-            get { return _tt; }
-            set { SetProperty(ref _tt, value); OnPropertyChanged("TransitionTimeMessage"); }
+            get { return _state.transitiontime; }
+            set
+            {
+                _state.transitiontime = value; OnPropertyChanged("TransitionTimeMessage"); }
         }
 
         public bool On
         {
-            get { return _on; }
-            set { SetProperty(ref _on, value); }
+            get { return _state.on ?? true; }
+            set { _state.on = value; OnPropertyChanged(); }
         }
 
         public string TransitionTimeMessage
@@ -130,23 +158,8 @@ namespace WinHue3.Models
 
         }
 
-        public string Name
-        {
-            get { return _name; }
-            set { SetProperty(ref _name,value); }
-        }
 
-        public ushort? Ct
-        {
-            get { return _ct; }
-            set
-            {
-                SetProperty(ref _ct,value);
-                if (value == null) return;
-                X = null;
-                Y = null;
-                Hue = null;
-            }
-        }
+
+
     }
 }

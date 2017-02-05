@@ -219,6 +219,7 @@
     <Compile Include="Settings\CustomSettings.cs" />
     <Compile Include="Utils\TimeSensorState.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
+    <Compile Include="View.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
@@ -237,9 +238,7 @@
     <Compile Include="ViewModels\EventViewerViewModel.cs" />
     <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModels\SceneCreatorViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModels\SceneListLightViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModels\SceneSlidersViewModels.cs" />
+    <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
     </Compile>
@@ -338,8 +337,6 @@
     <Compile Include="ViewModels\WaitViewModel.cs" />
     <Compile Include="ViewModels\ColorFromImageViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
-    <Compile Include="OldViews\SceneCreatorView.cs" />
-    <Compile Include="OldViews\View.cs" />
     <Compile Include="Settings\WinHueSettings.cs" />
     <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
       <Generator>MSBuild:Compile</Generator>

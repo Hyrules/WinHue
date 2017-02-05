@@ -2536,6 +2536,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify.
+        /// </summary>
+        public static string SceneCreatorForm_Modify {
+            get {
+                return ResourceManager.GetString("SceneCreatorForm_Modify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ON.
         /// </summary>
         public static string SceneCreatorForm_On {

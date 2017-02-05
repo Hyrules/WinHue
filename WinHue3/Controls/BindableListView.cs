@@ -23,22 +23,22 @@ namespace WinHue3.Controls
 
         void BindableListView_SelectionChangedEvent(object sender, SelectionChangedEventArgs e)
         {
-            ObservableCollection<HueObject> listselected = new ObservableCollection<HueObject>();
+            IList listselected = (IList) Activator.CreateInstance(SelectedItemsList.GetType());
             foreach (var i in SelectedItems)
             {
-                listselected.Add((HueObject)i);
+                listselected.Add(i);
             }
             SelectedItemsList = listselected;
         }
 
-        public ObservableCollection<HueObject> SelectedItemsList
+        public IList SelectedItemsList
         {
-            get { return (ObservableCollection<HueObject>)GetValue(SelectedItemsListProperty); }
+            get { return (IList)GetValue(SelectedItemsListProperty); }
             set { SetValue(SelectedItemsListProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedItemsListProperty =
-        DependencyProperty.Register("SelectedItemsList", typeof(ObservableCollection<HueObject>), typeof(BindableListView), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,OnPropertyChanged));
+        DependencyProperty.Register("SelectedItemsList", typeof(IList), typeof(BindableListView), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,OnPropertyChanged));
 
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -50,7 +50,7 @@ namespace WinHue3.Controls
         private void OnPropertyModified(DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue == null) return;
-            ObservableCollection<HueObject> listsel = (ObservableCollection<HueObject>) e.NewValue;
+            IList listsel = (IList)e.NewValue;
             foreach (var i in listsel)
             {
                 SelectedItems.Add(i);

@@ -52,10 +52,10 @@
     </Window.Background>
     <Grid IsManipulationEnabled="True">
 
-        <Button Content="{x:Static resx:GUI.SceneCreatorForm_SaveButton}" Style="{StaticResource btnSave}" HorizontalAlignment="Left" Margin="706,507,0,0" VerticalAlignment="Top" Width="88" x:Name="btnSaveScene" Click="btnSaveScene_Click" Height="30" IsEnabled="{Binding CanSaveScene}"/>
-        <Button Content="{x:Static resx:GUI.SceneCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="799,507,0,0" VerticalAlignment="Top" Width="88" x:Name="btnCancel" Click="btnCancel_Click" Height="30" IsCancel="True" IsEnabled="{Binding CanCancel}" SnapsToDevicePixels="True"/>
+        <Button Content="{x:Static resx:GUI.SceneCreatorForm_SaveButton}" Style="{StaticResource btnSave}" HorizontalAlignment="Left" Margin="706,507,0,0" VerticalAlignment="Top" Width="88" x:Name="btnSaveScene" Click="btnSaveScene_Click" Height="30" />
+        <Button Content="{x:Static resx:GUI.SceneCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="799,507,0,0" VerticalAlignment="Top" Width="88" x:Name="btnCancel" Click="btnCancel_Click" Height="30" IsCancel="True" SnapsToDevicePixels="True"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,502,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.SceneCreatorForm_Message}" VerticalAlignment="Top" Height="42" Width="611"/>
-        <Button x:Name="btnPreview" Content="{x:Static resx:GUI.SceneCreatorForm_PreviewButton}" HorizontalAlignment="Left" Margin="626,507,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding DoPreviewSceneCommand}" IsEnabled="{Binding CanPreviewScene}"/>
+        <Button x:Name="btnPreview" Content="{x:Static resx:GUI.SceneCreatorForm_PreviewButton}" HorizontalAlignment="Left" Margin="626,507,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding DoPreviewSceneCommand}" />
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step3}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="433" Width="232" Margin="417,64,0,0" ToolTip="CTRL-Click to select multiple light.">
             <Grid>
                 <controls:BindableListView x:Name="lvAvailableLights" ItemsSource="{Binding ListAvailableLights}" SelectedItemsList="{Binding SelectedAvailableLights}" HorizontalAlignment="Left" Height="358" VerticalAlignment="Top" Width="219" Margin="0,10,0,0" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Visible">
@@ -144,7 +144,7 @@
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_SelectedLights}" HorizontalAlignment="Left" Margin="654,0,0,0" VerticalAlignment="Top" Height="497" Width="247">
             <Grid>
-                <ListView x:Name="lbSelectedLights" ItemsSource="{Binding ListSceneLights}" SelectedItem="{Binding SelectedSceneLight}"  HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="233" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ClipToBounds="True" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,10,0,0">
+                <ListView x:Name="lbSelectedLights" ItemsSource="{Binding ListSceneLights}" SelectedItem="{Binding SelectedSceneLight}"  HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="233" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ClipToBounds="True" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,10,0,0" SelectionMode="Single">
                     <ListView.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFE5E5E5" Offset="1"/>
@@ -164,6 +164,7 @@
                 </ListView>
                 <Button x:Name="btnRemoveLight" Content="{x:Static resx:GUI.SceneCreatorForm_RemoveButton}" HorizontalAlignment="Left" Margin="157,437,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding RemoveSelectedSceneLightCommand}"/>
                 <Button x:Name="btnClearSelection" Content="{x:Static resx:GUI.SceneCreatorForm_ClearButton}" HorizontalAlignment="Left" Margin="77,437,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding ClearSelectionSceneLightCommand}"/>
+                <Button x:Name="btnSaveState" Content="{x:Static resx:GUI.SceneCreatorForm_Modify}" HorizontalAlignment="Left" Margin="10,437,0,0" VerticalAlignment="Top" Width="62" Height="30" Command="{Binding ModifyStateCommand}"/>
 
             </Grid>
         </GroupBox>

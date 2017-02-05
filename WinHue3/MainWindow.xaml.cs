@@ -68,8 +68,8 @@ namespace WinHue3
                 where lightlist.Contains((item as Light).Id.ToString())
                 select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
-                ((ListViewItem) dependencyobject).Background = new SolidColorBrush();
-                ((SolidColorBrush) ((ListViewItem) dependencyobject).Background).Color =
+                dependencyobject.Background = new SolidColorBrush();
+                ((SolidColorBrush) dependencyobject.Background).Color =
                     Color.FromArgb(20, 0, 200, 0);
             }
         }
@@ -81,8 +81,8 @@ namespace WinHue3
                                                        where objectlist.Contains(item)
                                                        select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
-                ((ListViewItem)dependencyobject).Background = new SolidColorBrush();
-                ((SolidColorBrush)((ListViewItem)dependencyobject).Background).Color =
+                dependencyobject.Background = new SolidColorBrush();
+                ((SolidColorBrush)dependencyobject.Background).Color =
                     Color.FromArgb(20, 0, 200, 0);
             }
         }

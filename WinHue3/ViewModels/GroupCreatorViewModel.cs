@@ -28,7 +28,7 @@ namespace WinHue3.ViewModels
             {
                 Group gr = value;
                 GroupCreator.Name = gr.name;
-                ObservableCollection<HueObject> list = new ObservableCollection<HueObject>();
+                ObservableCollection<Light> list = new ObservableCollection<Light>();
                 foreach (string s in gr.lights)
                 {
                     if (GroupCreator.ListAvailableLights.Any(x => x.Id == s))
@@ -42,13 +42,9 @@ namespace WinHue3.ViewModels
             }
             get
             {
-                Group gr = new Group {name = GroupCreator.Name, type = GroupCreator.Type, lights = new List<string>()};
+                Group gr = new Group {name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
                 if (GroupCreator.Type == "Room")
                     gr.@class = GroupCreator.Class;
-                foreach (var l in GroupCreator.Listlights)
-                {
-                    gr.lights.Add(l.Id);
-                }
                 return gr;
             }
         }

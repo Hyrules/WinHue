@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using ManagedUPnP;
 using HueLib2;
+using System.ServiceProcess;
 
 namespace HueLib2
 {
@@ -18,7 +19,7 @@ namespace HueLib2
     /// </summary>
     public static class Hue
     {
-       
+
         private static BackgroundWorker _ipscanBgw = new BackgroundWorker();
         private static BackgroundWorker _detectionBgw = new BackgroundWorker();
 
@@ -36,32 +37,43 @@ namespace HueLib2
 
         private static void _detectionBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(e.Result != null)
+            if (e.Result != null)
                 OnDetectionComplete?.Invoke(null, e);
         }
 
         private static void _detectionBgw_DoWork(object sender, DoWorkEventArgs e)
         {
-            Dictionary<string,BasicConfig> newdetectedBridge = new Dictionary<string, BasicConfig>();
-  
+            Dictionary<string, BasicConfig> newdetectedBridge = new Dictionary<string, BasicConfig>();
+
             // Detect using UPNP
             bool finished;
 
-            List<ManagedUPnP.Device> upnpDevices =
-                Discovery.FindDevices(null, 3000, int.MaxValue, out finished).ToList();
+            ServiceController sc = new ServiceController("SSDPSRV");
 
-            foreach (ManagedUPnP.Device dev in upnpDevices)
+            if (sc.Status == ServiceControllerStatus.Running)
             {
-                if (!dev.ModelName.Contains("Philips hue bridge")) continue;
-
-                CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
-                if (bresult.Success)
+                try
                 {
-                    newdetectedBridge.Add(dev.RootHostName, (BasicConfig)bresult.resultobject);
-                }
+                    List<ManagedUPnP.Device> upnpDevices =
+                        Discovery.FindDevices(null, 3000, int.MaxValue, out finished).ToList();
 
+                    foreach (ManagedUPnP.Device dev in upnpDevices)
+                    {
+                        if (!dev.ModelName.Contains("Philips hue bridge")) continue;
+
+                        CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
+                        if (bresult.Success)
+                        {
+                            newdetectedBridge.Add(dev.RootHostName, (BasicConfig)bresult.resultobject);
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
-  
 
             // If not bridge are found via upnp try the portal.
             if (newdetectedBridge.Count == 0)

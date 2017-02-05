@@ -1239,4 +1239,7 @@
   <data name="MainForm_Tab_View_TextBehavior" xml:space="preserve">
     <value>Text Behavior</value>
   </data>
+  <data name="SceneCreatorForm_Modify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
 </root>

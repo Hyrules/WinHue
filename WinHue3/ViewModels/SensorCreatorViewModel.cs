@@ -38,14 +38,13 @@ namespace WinHue3.ViewModels
             set
             {
                 IsEditing = true;
-                Sensor sensor = (Sensor) value;
-                SensorModel.Type = sensor.type;
-                SensorModel.Name = sensor.name;
-                SensorModel.Mfgname = sensor.manufacturername;
-                SensorModel.ModelId = sensor.modelid;
-                SensorModel.Swversion = sensor.swversion;
-                SensorModel.Uniqueid = sensor.uniqueid;
-                SensorModel.Config = sensor.config;
+                SensorModel.Type = value.type;
+                SensorModel.Name = value.name;
+                SensorModel.Mfgname = value.manufacturername;
+                SensorModel.ModelId = value.modelid;
+                SensorModel.Swversion = value.swversion;
+                SensorModel.Uniqueid = value.uniqueid;
+                SensorModel.Config = value.config;
             }
         }
 

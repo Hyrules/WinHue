@@ -39,7 +39,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
             if (hr.Success)
             {
-                _scvm.ListAvailableLights = new ObservableCollection<HueObject>((List<HueObject>) hr.Hrobject);
+                _scvm.ListAvailableLights = new ObservableCollection<Light>((List<Light>) hr.Hrobject);
             }
             else
             {
@@ -72,7 +72,7 @@ namespace WinHue3
             Scene newScene = _scvm.Scene;
 
             log.Info("Scene to be created : " + newScene);
-            CommandResult comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>(newScene) : _bridge.ModifyObject<Scene>(newScene,_currentsceneid);
+            CommandResult comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>((Scene)newScene.Clone()) : _bridge.ModifyObject<Scene>((Scene)newScene.Clone(),_currentsceneid);
 
             if (comres.Success)
             {

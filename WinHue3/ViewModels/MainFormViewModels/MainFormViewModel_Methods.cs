@@ -210,7 +210,7 @@ namespace WinHue3.ViewModels
         private void AllOn()
         {
             log.Info("Sending all on command to bridge" + SelectedBridge.IpAddress);
-            HueLib2.Action act = new HueLib2.Action() { @on = true };
+            HueLib2.Action act = new HueLib2.Action() { on = true };
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
             CommandResult bresult = SelectedBridge.SetState<Group>(act, "0");
             if (!bresult.Success) return;
@@ -221,7 +221,7 @@ namespace WinHue3.ViewModels
         private void AllOff()
         {
             log.Info("Sending all off command to bridge" + SelectedBridge.IpAddress);
-            HueLib2.Action act = new Action() { @on = false };
+            HueLib2.Action act = new Action() { on = false };
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
             CommandResult bresult = SelectedBridge.SetState<Group>(act, "0");
             if (!bresult.Success) return;
