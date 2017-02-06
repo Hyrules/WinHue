@@ -161,7 +161,10 @@ namespace WinHue3.ViewModels
         private void DeleteAction()
         {
             ListActions.Remove(SelectedAction);
-
+            SelectedActionObject = null;
+            SelectedActionType = null;
+            ListActionPropertyInfos.Clear();
+            ResetActionPropertyFields();
         }
 
         private void DeleteProperty()

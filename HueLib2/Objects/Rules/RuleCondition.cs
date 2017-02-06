@@ -23,5 +23,10 @@ namespace HueLib2
         /// </summary>
         [DataMember]
         public string value { get; set; }
+
+        public override string ToString()
+        {
+            return $"{address} {op} {value}";
+        }
     }
 }

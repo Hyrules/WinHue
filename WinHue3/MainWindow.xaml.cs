@@ -65,7 +65,7 @@ namespace WinHue3
             // Set the new background color.
             if (lightlist.Count <= 0) return;
             foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<Light>()
-                where lightlist.Contains((item as Light).Id.ToString())
+                where lightlist.Contains(item.Id)
                 select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
                 dependencyobject.Background = new SolidColorBrush();

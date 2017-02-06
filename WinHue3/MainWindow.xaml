@@ -10,7 +10,6 @@
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converters="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-        xmlns:tt="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.MainWindow"
         Title="WinHue 3" Height="768" Width="1024" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" >
     <Window.Resources>

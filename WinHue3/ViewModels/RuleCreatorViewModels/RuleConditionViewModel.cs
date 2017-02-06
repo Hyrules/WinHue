@@ -15,23 +15,23 @@ namespace WinHue3.Models
 {
     public class RuleConditionViewModel : ValidatableBindableBase
     {
-        private Sensor _selectedSensor;
+        private HueObject _selectedSensor;
         private PropertyInfo _property;
         private string _operator;
         private string _value;
-        private List<Sensor> _listsensors;
+        private List<HueObject> _listsensors;
         private RuleCondition _selectedCondition;
         private ObservableCollection<RuleCondition> _listConditions;
         private PropertyInfo[] _listSensorProperties;
 
         public RuleConditionViewModel()
         {
-            ListSensors = new List<Sensor>();     
+            ListSensors = new List<HueObject>();     
             ListConditions = new ObservableCollection<RuleCondition>();
             Value = string.Empty;
         }
 
-        public Sensor SelectedSensor
+        public HueObject SelectedSensor
         {
             get { return _selectedSensor; }
             set { SetProperty(ref _selectedSensor,value); }
@@ -44,7 +44,7 @@ namespace WinHue3.Models
             set { SetProperty(ref _listConditions, value); }
         }
 
-        public List<Sensor> ListSensors
+        public List<HueObject> ListSensors
         {
             get { return _listsensors; }
             set { SetProperty(ref _listsensors, value); }
@@ -84,8 +84,12 @@ namespace WinHue3.Models
                 RuleCondition rc = SelectedCondition;
                 Value = rc.value ?? string.Empty;
                 string[] sensorinfo = rc.address.Split('/');
-                SelectedSensor = ListSensors.Find(x => x.Id == sensorinfo[2]);
-                Property = ListSensorProperties.First(x => x.Name == sensorinfo[4]);
+                string classname = sensorinfo[1].TrimEnd('s');
+                classname = "HueLib2." + classname.First().ToString().ToUpper() + string.Join("", classname.Skip(1));
+                Type type = Type.GetType($"{classname}, HueLib2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+                SelectedSensor = ListSensors?.Find(x => x.Id == sensorinfo[2] && x.GetType() == type);
+                SelectSensor();
+                Property = ListSensorProperties?.First(x => x.Name == sensorinfo[4]);
                 Operator = rc.op;
             }
         }
@@ -97,10 +101,21 @@ namespace WinHue3.Models
                 MessageBox.Show(GlobalStrings.Rule_MaxConditions, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            string ns = SelectedSensor.GetType().Namespace;
+
+            string typename = string.Empty;
+            if (SelectedSensor.GetType().BaseType == typeof(HueObject))
+            {
+                typename = SelectedSensor.GetType().ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
+            }
+            else
+            {
+                typename = SelectedSensor.GetType().BaseType.ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
+            }
 
             RuleCondition rc = new RuleCondition()
             {
-                address = SelectedSensor.name != "config" ? $"/sensors/{SelectedSensor.Id}/state/{Property.Name}" : $"/{SelectedSensor.Id}/{Property.Name}",
+                address = SelectedSensor.GetName() != "config" ? $"/{typename}/{SelectedSensor.Id}/state/{Property.Name}" : $"/{SelectedSensor.Id}/{Property.Name}",
                 op = Operator,
                 value = Operator != "dx" ? Value : null
             };
@@ -137,8 +152,16 @@ namespace WinHue3.Models
         {
             if (IsSensorSelected())
             {
-                ListSensorProperties = SelectedSensor.GetType().GetProperty("state").GetValue(SelectedSensor).GetType().GetProperties();
-                if (SelectedSensor.name == "config")
+                if (SelectedSensor is Light)
+                {
+                    ListSensorProperties = new []{SelectedSensor.GetType().GetProperty("state").GetValue(SelectedSensor).GetType().GetProperty("on")};
+                }
+                else
+                {
+                    ListSensorProperties = SelectedSensor.GetType().GetProperty("state").GetValue(SelectedSensor).GetType().GetProperties();
+                }
+                
+                if (SelectedSensor.GetName() == "config")
                 {
                     ListSensorProperties = ListSensorProperties.RemoveAt(2);
                 }

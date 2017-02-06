@@ -727,7 +727,7 @@ namespace WinHue3.ViewModels
             }
             else if (_selectedObject is Rule)
             {
-                Form_RulesCreator2 frc = new Form_RulesCreator2(SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
+                Form_RulesCreator2 frc = new Form_RulesCreator2(SelectedBridge, (Rule)_selectedObject) { Owner = Application.Current.MainWindow };
                 if (frc.ShowDialog() == true)
                 {
                     RefreshObject(_selectedObject);

@@ -2419,6 +2419,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rule.
+        /// </summary>
+        public static string RuleCreatorForm_RuleGroupBox {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_RuleGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scenes.
         /// </summary>
         public static string RuleCreatorForm_Scenes {
@@ -2437,7 +2446,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sensor : .
+        ///   Looks up a localized string similar to Object : .
         /// </summary>
         public static string RuleCreatorForm_Sensor {
             get {
