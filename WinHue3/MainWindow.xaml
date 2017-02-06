@@ -18,6 +18,14 @@
         <converters:IndexToSortConverter x:Key="IndexToSortConverter"/>
         <converters:DoubleToUshortConverter x:Key="SliderToUshortConverter"/>
         <converters:BoolToWrappingConverter x:Key="BoolToWrappingConverter"/>
+        <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=cbWrapButton, Path=IsChecked}" Value="True">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="Width" Value="75"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -120,6 +128,7 @@
                     <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Website}" x:Name="btnWebsite" LargeImageSource="Resources/1416184952_Gnome-Web-Browser-32.png" Command="{Binding OpenWinHueWebsiteCommand}" />
                     <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" x:Name="btnSupportForum" LargeImageSource="Resources/1416183787_Community Help.png" Command="{Binding OpenWinHueSupportCommand}"/>
                     <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_About}" x:Name="btnAbout" LargeImageSource="Resources/unknown.png" Command="{Binding OpenAboutWindowCommand}" />
+                    <RibbonButton Label="ProcDump" LargeImageSource="Resources/unknown.png" Command="{Binding StartProcDumpCommand}"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
@@ -192,10 +201,10 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                            <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="{Binding MainFormModel.WrapText}"/>
-                            <TextBlock x:Name="tblShowId" Text="{Binding Id}"  Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Path=Width}" TextAlignment="Center" FontStyle="Italic" />
+                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tbWrap}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

@@ -72,9 +72,9 @@ namespace WinHue3
         /// </summary>
         /// <param name="listlights">List of lights to process.</param>
         /// <returns>A list of processed lights.</returns>
-        private static List<HueObject> ProcessLights(Dictionary<string, Light> listlights)
+        private static List<Light> ProcessLights(Dictionary<string, Light> listlights)
         {
-            List<HueObject> newlist = new List<HueObject>();
+            List<Light> newlist = new List<Light>();
 
             foreach (KeyValuePair<string, Light> kvp in listlights)
             {
@@ -106,7 +106,7 @@ namespace WinHue3
                     if (!bresult.Success) continue;
                     Light newlight = (Light)bresult.resultobject;
                     newlight.Id = kvp.Key;
-                    newlight.Image = GetImageForLight((bool)newlight.state.reachable ? (bool)newlight.state.@on ? LightImageState.On : LightImageState.Off : LightImageState.Unr, newlight.modelid);
+                    newlight.Image = GetImageForLight((bool)newlight.state.reachable ? (bool)newlight.state.on ? LightImageState.On : LightImageState.Off : LightImageState.Unr, newlight.modelid);
                     newlist.Add(newlight);
                 }
             }
@@ -151,37 +151,28 @@ namespace WinHue3
         {
             if (bridge == null) return new HelperResult() { Success = false, Hrobject = "Bridge cannot be NULL" };
             log.Debug($@"Getting all groups from bridge {bridge.IpAddress}");
-            Dictionary<string, Group> listgroups = new Dictionary<string, Group>();
-
-            CommandResult gzresult = bridge.GetObject<Group>("0"); // GET GROUP ZERO
-            if(gzresult.Success)
-            {
-                listgroups.Add("0",(Group)gzresult.resultobject);
-            }
-            else
-            {
-                log.Error("Enable to get group zero.");
-            }
-
             CommandResult bresult = bridge.GetListObjects<Group>();
             HelperResult hr = new HelperResult
             {
                 Success = bresult.Success,
             };
 
-            if (bresult.Success)
+            if (hr.Success)
             {
-                foreach(KeyValuePair<string,Group> item in ((Dictionary<string, Group>)bresult.resultobject))
+                Dictionary<string, Group> gs = (Dictionary<string, Group>) bresult.resultobject;
+                Group zero = GetGroupZero(bridge);
+                if (zero != null)
                 {
-                    listgroups.Add(item.Key, item.Value);
+                    gs.Add("0",zero);
                 }
 
-                hr.Hrobject = ProcessGroups(listgroups);
+                hr.Hrobject = ProcessGroups(gs);
             }
             else
             {
                 hr.Hrobject = bresult.resultobject;
             }
+
 
             log.Debug("List groups : " + Serializer.SerializeToJson(hr.Hrobject));
             return hr;
@@ -192,9 +183,9 @@ namespace WinHue3
         /// </summary>
         /// <param name="listgroups">List of group t</param>
         /// <returns>A list of processed group with image and id.</returns>
-        private static List<HueObject> ProcessGroups(Dictionary<string, Group> listgroups)
+        private static List<Group> ProcessGroups(Dictionary<string, Group> listgroups)
         {
-            List<HueObject> newlist = new List<HueObject>();
+            List<Group> newlist = new List<Group>();
             foreach (KeyValuePair<string, Group> kvp in listgroups)
             {
                 log.Debug("Processing group : " + kvp.Value);
@@ -262,9 +253,9 @@ namespace WinHue3
         /// </summary>
         /// <param name="listscenes">List of scenes to process.</param>
         /// <returns>A list of processed scenes.</returns>
-        private static List<HueObject> ProcessScenes(Dictionary<string, Scene> listscenes)
+        private static List<Scene> ProcessScenes(Dictionary<string, Scene> listscenes)
         {
-            List<HueObject> newlist = new List<HueObject>();
+            List<Scene> newlist = new List<Scene>();
 
             foreach (KeyValuePair<string, Scene> kvp in listscenes)
             {
@@ -306,9 +297,9 @@ namespace WinHue3
         /// </summary>
         /// <param name="listschedules">List of schedules to process.</param>
         /// <returns>A list of processed schedules.</returns>
-        public static List<HueObject> ProcessSchedules(Dictionary<string, Schedule> listschedules)
+        public static List<Schedule> ProcessSchedules(Dictionary<string, Schedule> listschedules)
         {
-            List<HueObject> newlist = new List<HueObject>();
+            List<Schedule> newlist = new List<Schedule>();
 
             foreach (KeyValuePair<string, Schedule> kvp in listschedules)
             {
@@ -386,9 +377,9 @@ namespace WinHue3
         /// </summary>
         /// <param name="listrules">List of rules to process.</param>
         /// <returns>A processed list of rules.</returns>
-        private static List<HueObject> ProcessRules(Dictionary<string, Rule> listrules)
+        private static List<Rule> ProcessRules(Dictionary<string, Rule> listrules)
         {
-            List<HueObject> newlist = new List<HueObject>();
+            List<Rule> newlist = new List<Rule>();
 
             foreach (KeyValuePair<string, Rule> kvp in listrules)
             {
@@ -451,9 +442,9 @@ namespace WinHue3
         /// </summary>
         /// <param name="listsensors">List of sensors to process.</param>
         /// <returns>A list of processed sensors.</returns>
-        private static List<HueObject> ProcessSensors(Dictionary<string, Sensor> listsensors)
+        private static List<Sensor> ProcessSensors(Dictionary<string, Sensor> listsensors)
         {
-            List<HueObject> newlist = new List<HueObject>();
+            List<Sensor> newlist = new List<Sensor>();
 
             foreach (KeyValuePair<string, Sensor> kvp in listsensors)
             {
@@ -498,12 +489,43 @@ namespace WinHue3
             HelperResult hr = new HelperResult
             {
                 Success = bresult.Success,
-                Hrobject = bresult.Success ? ProcessDataStore((DataStore)bresult.resultobject) : bresult.resultobject
+                
             };
+            if (hr.Success)
+            {
+                DataStore ds = (DataStore) bresult.resultobject;
+                Group zero = GetGroupZero(bridge);
+                if (zero != null)
+                {
+                    ds.groups.Add("0",zero);
+                }
+
+                hr.Hrobject = ProcessDataStore(ds);
+            }
+            else
+            {
+                hr.Hrobject = bresult.resultobject;
+            }
+            
 
             log.Debug("Bridge data store : " + Serializer.SerializeToJson(hr.Hrobject));
             return hr;
         }
+
+        private static Group GetGroupZero(Bridge bridge)
+        {
+            
+            CommandResult cr = bridge.GetObject<Group>("0");
+            if (cr.Success)
+            {
+                return (Group) cr.resultobject;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// Process the data from the bridge datastore.
@@ -525,10 +547,10 @@ namespace WinHue3
             return newlist;
         }
 
-        private static List<HueObject> ProcessRessourceLinks(Dictionary<string, Resourcelink> listrl)
+        private static List<Resourcelink> ProcessRessourceLinks(Dictionary<string, Resourcelink> listrl)
         {
-            if(listrl == null) return new List<HueObject>();
-            List<HueObject> newlist = new List<HueObject>();
+            if(listrl == null) return new List<Resourcelink>();
+            List<Resourcelink> newlist = new List<Resourcelink>();
 
             foreach (KeyValuePair<string, Resourcelink> kvp in listrl)
             {

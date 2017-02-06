@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -129,6 +130,7 @@
     <Compile Include="Objects\Sensor\HueMotionSensor\HueMotionSensorConfig.cs" />
     <Compile Include="Objects\Sensor\HueMotionSensor\HueMotionSensorState.cs" />
     <Compile Include="Objects\Sensor\HueTap\HueTapSensorConfig.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Resourcelinks\Resourcelink.cs" />
     <Compile Include="Objects\Rules\Body\SceneBody.cs" />

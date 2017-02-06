@@ -42,11 +42,12 @@ namespace WinHue3.ViewModels
                 name = "config",
                 state = new TimeSensorState()
             });
-            RuleConditionViewModel.ListSensors = listObjects.OfType<Sensor>().ToList();
-            
+            RuleConditionViewModel.ListSensors.AddRange(listObjects.OfType<Light>().ToList());
+            RuleConditionViewModel.ListSensors.AddRange(listObjects.OfType<Group>().ToList());
+            RuleConditionViewModel.ListSensors.AddRange(listObjects.OfType<Sensor>().ToList());
         }
 
-        public void Initialize(List<HueObject> listObjects, HueObject modifiedRule)
+        public void Initialize(List<HueObject> listObjects, Rule modifiedRule)
         {
             _rule = (Rule)modifiedRule;
             RuleActionViewModel.ListDataStore = listObjects;
@@ -59,7 +60,7 @@ namespace WinHue3.ViewModels
 
             RuleCreatorModel.Name = _rule.name;
             RuleCreatorModel.RuleEnabled = _rule.status;
-            RuleConditionViewModel.ListSensors = listObjects.OfType<Sensor>().ToList();
+            RuleConditionViewModel.ListSensors = listObjects.ToList();
             RuleConditionViewModel.ListConditions = new ObservableCollection<RuleCondition>(_rule.conditions);
             RuleActionViewModel.ListActions = new ObservableCollection<RuleAction>(_rule.actions);
             

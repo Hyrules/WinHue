@@ -65,20 +65,12 @@
     <AssemblyOriginatorKeyFile>WinHue.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GOLD Engine, Version=5.0.4337.25397, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GoldParser\GOLD Engine.dll</HintPath>
-    </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="HueLib2">
       <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
@@ -226,6 +218,8 @@
     <Compile Include="Settings\BridgeSaveSettings.cs" />
     <Compile Include="Settings\CustomSettings.cs" />
     <Compile Include="Utils\TimeSensorState.cs" />
+    <Compile Include="Utils\TriggerHelper.cs" />
+    <Compile Include="View.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
@@ -244,9 +238,7 @@
     <Compile Include="ViewModels\EventViewerViewModel.cs" />
     <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModels\SceneCreatorViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModels\SceneListLightViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModels\SceneSlidersViewModels.cs" />
+    <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
     </Compile>
@@ -296,9 +288,6 @@
     <Compile Include="Views\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_AnimationCreator.xaml.cs">
-      <DependentUpon>Form_AnimationCreator.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Form_GroupView.xaml.cs">
       <DependentUpon>Form_GroupView.xaml</DependentUpon>
     </Compile>
@@ -318,9 +307,6 @@
       <DependentUpon>Form_ResourceLinksCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Hotkeys\HotKey.cs" />
-    <Compile Include="Interpreter\AnimatorCommand.cs" />
-    <Compile Include="Interpreter\Parser.cs" />
-    <Compile Include="Interpreter\ResourceLoader.cs" />
     <Compile Include="Logs\DataGridViewAppender.cs" />
     <Compile Include="Logs\DgLogEntry.cs" />
     <Compile Include="Hotkeys\HotKeyHandle.cs" />
@@ -351,8 +337,6 @@
     <Compile Include="ViewModels\WaitViewModel.cs" />
     <Compile Include="ViewModels\ColorFromImageViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
-    <Compile Include="OldViews\SceneCreatorView.cs" />
-    <Compile Include="OldViews\View.cs" />
     <Compile Include="Settings\WinHueSettings.cs" />
     <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -375,10 +359,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Form_ManageUsers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Form_AnimationCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -687,6 +667,7 @@
     <Content Include="lights\ZLL Light_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\1486263478_movie-01.png" />
     <Resource Include="Resources\user.png" />
     <Resource Include="Resources\resource.png" />
     <Resource Include="Resources\Motion.png" />
@@ -718,11 +699,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalStrings.de.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interpreter\Syntax.xshd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Interpreter\WH3A.grm" />
-    <EmbeddedResource Include="Interpreter\WH3A.egt" />
     <None Include="Resources\icon.ico" />
     <Resource Include="Resources\dimmer.png" />
     <None Include="log4net.config">

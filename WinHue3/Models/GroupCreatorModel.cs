@@ -17,15 +17,15 @@ namespace WinHue3.Models
 
         
         private string _name;
-        private ObservableCollection<HueObject> _listlights;
-        private ObservableCollection<HueObject> _listAvailableLights;
+        private ObservableCollection<Light> _listlights;
+        private ObservableCollection<Light> _listAvailableLights;
         private string _type;
         private string _class;
 
         public GroupCreatorModel()
         {
-            _listlights = new ObservableCollection<HueObject>();
-            _listAvailableLights = new ObservableCollection<HueObject>();
+            _listlights = new ObservableCollection<Light>();
+            _listAvailableLights = new ObservableCollection<Light>();
             _type = "LightGroup";
             _class = "Other";
         }
@@ -41,13 +41,13 @@ namespace WinHue3.Models
         }
 
         [MinimumCount(1, ErrorMessageResourceName = "Group_Select_One_Light", ErrorMessageResourceType = typeof(GlobalStrings))]
-        public ObservableCollection<HueObject> Listlights
+        public ObservableCollection<Light> Listlights
         {
             get { return _listlights; }
             set { SetProperty(ref _listlights,value); }
         }
 
-        public ObservableCollection<HueObject> ListAvailableLights
+        public ObservableCollection<Light> ListAvailableLights
         {
             get { return _listAvailableLights; }
             set { SetProperty(ref _listAvailableLights,value); }

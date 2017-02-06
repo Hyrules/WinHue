@@ -52,19 +52,18 @@ Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\lo
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\log4net.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\GOLD Engine.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\fr\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\prism.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\prism.wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
-
+Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\procdump.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\progdump"; Filename: "{app}\procdump.exe"; Parameters : "-e -w -ma WinHue3.exe {localappdata}\WinHue3"
 Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon

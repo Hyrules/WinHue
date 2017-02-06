@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using ICSharpCode.AvalonEdit;
 using HueLib2;
 
 namespace WinHue3

@@ -868,7 +868,7 @@
     <value>Schedules</value>
   </data>
   <data name="RuleCreatorForm_Sensor" xml:space="preserve">
-    <value>Sensor : </value>
+    <value>Object : </value>
   </data>
   <data name="RuleCreatorForm_Sensors" xml:space="preserve">
     <value>Sensors</value>
@@ -1238,5 +1238,11 @@
   </data>
   <data name="MainForm_Tab_View_TextBehavior" xml:space="preserve">
     <value>Text Behavior</value>
+  </data>
+  <data name="SceneCreatorForm_Modify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="RuleCreatorForm_RuleGroupBox" xml:space="preserve">
+    <value>Rule</value>
   </data>
 </root>

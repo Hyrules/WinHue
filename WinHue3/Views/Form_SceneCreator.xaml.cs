@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using HueLib2;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -24,37 +25,41 @@ namespace WinHue3
         /// </summary>
         private string _currentsceneid;
 
-        private SceneCreatorView scv;
+        private SceneCreatorViewModel _scvm;
 
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="bridge">active bridge.</param>
-        public Form_SceneCreator(Bridge bridge)
-        {
-            _bridge = bridge;
-            InitializeComponent();
-            HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
-            scv = hr.Success ? new SceneCreatorView((List<HueObject>)hr.Hrobject,_bridge) : new SceneCreatorView(new List<HueObject>(),_bridge);
-            DataContext = scv;
-            _bridge = bridge;
-            _currentsceneid = string.Empty;
-
-        }
-
-        public Form_SceneCreator(Bridge bridge, string sceneid)
+        public Form_SceneCreator(Bridge bridge, string sceneid = null)
         {
             InitializeComponent();
-            _currentsceneid = sceneid;
             _bridge = bridge;
-
+            _scvm = DataContext as SceneCreatorViewModel;
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
             if (hr.Success)
             {
-                scv = new SceneCreatorView((List<HueObject>) hr.Hrobject, sceneid, _bridge);
-                DataContext = scv;               
+                _scvm.ListAvailableLights = new ObservableCollection<Light>((List<Light>) hr.Hrobject);
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
 
+            if (sceneid != null)
+            {
+                _currentsceneid = sceneid;
+                CommandResult cr = _bridge.GetObject<Scene>(sceneid);
+                if (cr.Success)
+                {
+                    _scvm.Scene = (Scene) cr.resultobject;
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                }
+            }
+ 
         }
 
         public string GetCreatedOrModifiedID()
@@ -62,17 +67,12 @@ namespace WinHue3
             return _currentsceneid;
         }
 
-        private void lbSelectedLights_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnRemoveLight.IsEnabled = lbSelectedLights.SelectedItem != null;
-        }
-
         private void btnSaveScene_Click(object sender, RoutedEventArgs e)
         {
-            Scene newScene = (Scene) scv.GetScene();
+            Scene newScene = _scvm.Scene;
 
             log.Info("Scene to be created : " + newScene);
-            CommandResult comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>(newScene) : _bridge.ModifyObject<Scene>(newScene,_currentsceneid);
+            CommandResult comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>((Scene)newScene.Clone()) : _bridge.ModifyObject<Scene>((Scene)newScene.Clone(),_currentsceneid);
 
             if (comres.Success)
             {
@@ -81,10 +81,10 @@ namespace WinHue3
                 string id = "";
                 id = _currentsceneid != string.Empty ? _currentsceneid : ((CreationSuccess)mc[0]).id;
                 log.Info("Id of the scene" + id);
-                ObservableCollection<HueObject> listLightState = scv.GetSceneLights();
-                foreach (HueObject obj in listLightState)
+                
+                foreach (KeyValuePair<string,State> obj in newScene.lightstates)
                 {
-                    _bridge.SetSceneLightState(id, obj.Id, ((Light)obj).state);
+                    _bridge.SetSceneLightState(id, obj.Key, obj.Value);
                 }
                 _currentsceneid = id;
                 DialogResult = true;
@@ -95,7 +95,7 @@ namespace WinHue3
                 _bridge.ShowErrorMessages();
                 log.Error(_bridge.lastMessages);
             }
-
+            
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -104,18 +104,8 @@ namespace WinHue3
             Close();
         }
 
-        private void btnSelectLight_Click(object sender, RoutedEventArgs e)
-        {
-            scv.AddLightsToScene(lvAvailableLights.SelectedItems.Cast<HueObject>().ToList());
-        }
 
-        private void FormSceneCreator_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (scv == null)
-            {
-                DialogResult = false;
-                Close();
-            }
-        }
+
+
     }
 }

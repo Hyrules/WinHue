@@ -41,7 +41,7 @@ namespace WinHue3
 
         }
 
-        public Form_RulesCreator2(Bridge bridge, HueObject rule)
+        public Form_RulesCreator2(Bridge bridge, Rule rule)
         {
             InitializeComponent();
             _br = bridge;
