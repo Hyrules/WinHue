@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="WinHue3.Form_BulbsView"
+        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.Form_BulbsView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
+        Title="{x:Static resx:GUI.Form_BulbsView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner" >
+    <Window.DataContext>
+        <viewmodels:BulbsViewViewModel/>
+    </Window.DataContext>
     <Grid>
         <ToolBarTray Margin="0,0,0,430.667">
             <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Margin="0,0,-212,-16.333" VerticalAlignment="Top" Height="29" Width="auto">

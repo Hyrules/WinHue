@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using HueLib2;
-using ICSharpCode.NRefactory.Semantics;
+
 using WinHue3.Resources;
 using WinHue3.ViewModels;
 using Group = HueLib2.Group;
@@ -20,22 +21,39 @@ namespace WinHue3
         /// </summary>
         private string _id;
 
+        private readonly Bridge _bridge;
         private GroupCreatorViewModel gcvm;
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="bridge">Actual Bridge.</param>
-        public Form_GroupCreator()
+        public Form_GroupCreator(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
             gcvm = this.DataContext as GroupCreatorViewModel;
+            HelperResult hr = HueObjectHelper.GetBridgeLights(bridge);
+            if(hr.Success)
+                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>((List<Light>)hr.Hrobject);
         }
 
-        public Form_GroupCreator(HueObject selectedGroup)
+        public Form_GroupCreator(HueObject selectedGroup,Bridge bridge)
         {
             InitializeComponent();
+            _bridge = bridge;
             gcvm = this.DataContext as GroupCreatorViewModel;
-            gcvm.Group = (Group) selectedGroup;
+            
+            HelperResult hr = HueObjectHelper.GetBridgeLights(bridge);
+            if (hr.Success)
+            {
+                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>((List<Light>)hr.Hrobject);
+                gcvm.Group = (Group)selectedGroup;
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
+            }
+
             btnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
         }
 
@@ -50,7 +68,7 @@ namespace WinHue3
         {
             if (gcvm.Group.Id == null)
             {
-                CommandResult bresult = BridgeStore.SelectedBridge.CreateObject<Group>(gcvm.Group);
+                CommandResult bresult = _bridge.CreateObject<Group>(gcvm.Group);
                 if (bresult.Success)
                 {
                     DialogResult = true;
@@ -60,14 +78,14 @@ namespace WinHue3
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);                   
+                    MessageBoxError.ShowLastErrorMessages(_bridge);                   
                 }
                 
             }
             else
             {
 
-                CommandResult bresult = BridgeStore.SelectedBridge.ModifyObject<Group>(gcvm.Group, gcvm.Group.Id);
+                CommandResult bresult = _bridge.ModifyObject<Group>(gcvm.Group, gcvm.Group.Id);
                 if (bresult.Success)
                 {
                     DialogResult = true;
@@ -77,7 +95,7 @@ namespace WinHue3
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
                 }
             }
 

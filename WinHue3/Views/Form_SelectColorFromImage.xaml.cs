@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -10,12 +11,12 @@ namespace WinHue3
     /// </summary>
     public partial class Form_SelectColorFromImage : Window
     {
-        private ColorFromImageView cfiv;
+        private ColorFromImageViewModel cfiv;
 
         public Form_SelectColorFromImage()
         {
             InitializeComponent();
-            cfiv = new ColorFromImageView();
+            cfiv = new ColorFromImageViewModel();
             DataContext = cfiv;
         }
 

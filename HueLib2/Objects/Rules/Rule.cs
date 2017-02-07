@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
@@ -16,7 +17,7 @@ namespace HueLib2
         /// <summary>
         /// name.
         /// </summary>
-        [DataMember, Category("Rule Properties"), Description("Name of the rule"), HueLib(true, true)]
+        [DataMember, Category("Rule Properties"), Description("Name of the rule")]
         public string name
         {
             get { return _name; }
@@ -29,42 +30,42 @@ namespace HueLib2
         /// <summary>
         /// Conditions.
         /// </summary>
-        [DataMember, Category("Conditions"), Description("Conditions of the rule"),Browsable(false), HueLib(true, true)]
+        [DataMember, Category("Conditions"), Description("Conditions of the rule"),Browsable(false)]
         public List<RuleCondition> conditions { get; set; }
         /// <summary>
         /// actions.
         /// </summary>
-        [DataMember, Category("Actions"), Description("Actions of the rule"), Browsable(false), HueLib(true, true)]
+        [DataMember, Category("Actions"), Description("Actions of the rule"), Browsable(false)]
         public List<RuleAction> actions { get; set; }
 
         /// <summary>
         /// Owner of the rule.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Owner of the rule"), HueLib(false, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Owner of the rule"), ReadOnly(true)]
         public string owner { get; set; }
 
         /// <summary>
         /// Number of time triggered.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Number of times the rule has been triggered"), HueLib(false, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Number of times the rule has been triggered"), ReadOnly(true)]
         public int? timestriggered { get; set; }
 
         /// <summary>
         /// Last time the rule was triggered
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Last time the rule was triggered"), HueLib(false, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Last time the rule was triggered"), ReadOnly(true)]
         public string lasttriggered { get; set; }
 
         /// <summary>
         /// Date of creation.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Date of creation"), HueLib(false, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Date of creation"), ReadOnly(true)]
         public string created { get; set; }
 
         /// <summary>
         /// Enabled.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Current status of the rule"), HueLib(true, true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"), Description("Current status of the rule")]
         public string status { get; set; }
 
         /// <summary>
@@ -75,5 +76,6 @@ namespace HueLib2
         {
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
         }
+
     }
 }

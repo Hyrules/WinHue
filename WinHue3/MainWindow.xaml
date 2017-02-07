@@ -7,24 +7,45 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
+        xmlns:converters="clr-namespace:WinHue3.Converters"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
         x:Class="WinHue3.MainWindow"
-        Title="WinHue 3" Height="842" Width="1207" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="803" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing" ContentRendered="Window_ContentRendered" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ResizeMode="CanResizeWithGrip" KeyUp="Window_KeyUp" Loaded="Window_Loaded" >
-
+        Title="WinHue 3" Height="768" Width="1024" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" >
     <Window.Resources>
-        <Style TargetType="{x:Type TabItem}">
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
+        <converters:IndexToSortConverter x:Key="IndexToSortConverter"/>
+        <converters:DoubleToUshortConverter x:Key="SliderToUshortConverter"/>
+        <converters:BoolToWrappingConverter x:Key="BoolToWrappingConverter"/>
+        <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=cbWrapButton, Path=IsChecked}" Value="True">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="Width" Value="75"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
-        
     </Window.Resources>
+
+    <Window.DataContext>
+        <viewmodels:MainFormViewModel/>
+    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <DockPanel LastChildFill="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+       
         <Ribbon x:Name="rbnMainRibbon" VerticalAlignment="Top" DockPanel.Dock="Top" >
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu SmallImageSource="icon.ico">
-                    <RibbonApplicationMenuItem x:Name="mnuAppSettings" Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Click="Settings_Click" ImageSource="Resources/gear_in.png" />
+                    <RibbonApplicationMenuItem x:Name="mnuAppSettings" Header="{x:Static resx:GUI.MainForm_Menu_Settings}" ImageSource="Resources/gear_in.png" Command="{Binding OpenSettingsWindowCommand}" />
                     <RibbonApplicationMenuItem x:Name="mnuAppBridgePairing" Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" ImageSource="Resources/bridgeAdd.png" Command="{Binding DoBridgePairingCommand}" />
                     <RibbonSeparator/>
-                    <RibbonApplicationMenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Click="Quit_Click" ImageSource="Resources/door_open.png"/>
+                    <RibbonApplicationMenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" ImageSource="Resources/door_open.png" Command="{Binding QuitApplicationCommand}"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
             <Ribbon.QuickAccessToolBar>
@@ -32,33 +53,34 @@
             </Ribbon.QuickAccessToolBar>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Home}" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" LargeImageSource="Resources/UpdateSearch.png">
-                    <RibbonButton x:Name="btnSearchLights" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" LargeImageSource="Resources/HueLightSearch.png" IsEnabled="{Binding EnableSearchLights, FallbackValue=false}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" SmallImageSource="Resources/HueLightSearch.png" Command="{Binding SearchNewLightsCommand}"/>
-                    <RibbonButton x:Name="btnSearchSensors" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" IsEnabled="{Binding EnableSearchSensors, FallbackValue=false}" LargeImageSource="Resources/SensorSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" SmallImageSource="Resources/SensorSearch.png" Command="{Binding SearchNewSensorsCommand}"/>
+                    <RibbonButton x:Name="btnSearchLights" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" LargeImageSource="Resources/HueLightSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" SmallImageSource="Resources/HueLightSearch.png" Command="{Binding SearchNewLightsCommand}"/>
+                    <RibbonButton x:Name="btnSearchSensors" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" LargeImageSource="Resources/SensorSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" SmallImageSource="Resources/SensorSearch.png" Command="{Binding SearchNewSensorsCommand}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}">
-                    <RibbonButton x:Name="btnAllOn" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}"   VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOn.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/HueGroupOn.png" Command="{Binding AllOnCommand}"/>
-                    <RibbonButton x:Name="btnAllOff" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}"  VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOff.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/HueGroupOff.png" Command="{Binding AllOffCommand}"/>
+                    <RibbonButton x:Name="btnAllOn" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}"   VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOn.png"  SmallImageSource="Resources/HueGroupOn.png" Command="{Binding AllOnCommand}"/>
+                    <RibbonButton x:Name="btnAllOff" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}"  VerticalAlignment="Center" LargeImageSource="Resources/HueGroupOff.png" SmallImageSource="Resources/HueGroupOff.png" Command="{Binding AllOffCommand}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" >
-                    <RibbonButton x:Name="btnRefresh" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}"  LargeImageSource="Resources/1409707765_reload.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/1409707765_reload.png" Command="{Binding RefreshViewCommand}"/>
+                    <RibbonButton x:Name="btnRefresh" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}"  LargeImageSource="Resources/1409707765_reload.png" SmallImageSource="Resources/1409707765_reload.png" Command="{Binding RefreshViewCommand}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}">
-                    <RibbonButton x:Name="btnCreateGroup" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" IsEnabled="{Binding EnableControls, FallbackValue=false}" LargeImageSource="Resources/HueGroupOn-Large.png" SmallImageSource="Resources/HueGroupOn.png" Command="{Binding CreateGroupCommand}"/>
-                    <RibbonButton x:Name="btnScene" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}"  IsEnabled="{Binding EnableControls, FallbackValue=false}" LargeImageSource="Resources/SceneLarge.png" SmallImageSource="Resources/SceneLarge.png" Command="{Binding CreateSceneCommand}"/>
-                    <RibbonButton x:Name="btnCreateSchedule" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" IsEnabled="{Binding CanSchedule, FallbackValue=false}" LargeImageSource="Resources/SchedulesLarge.png" SmallImageSource="Resources/SchedulesSmall.png" Command="{Binding CreateScheduleCommand}"/>
-                    <RibbonButton x:Name="btnCreateRule" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" IsEnabled="{Binding EnableControls, FallbackValue=false}" LargeImageSource="Resources/rules.png" SmallImageSource="Resources/rules.png" Command="{Binding CreateRuleCommand}"/>
-                    <RibbonButton x:Name="btnCreateSensor" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}" IsEnabled="{Binding EnableControls, FallbackValue=false}" LargeImageSource="Resources/sensor.png" SmallImageSource="Resources/sensor.png" Command="{Binding CreateSensorCommand}"/>
-                    <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
-                    <RibbonButton x:Name="btnCreateHotkey" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" IsEnabled="{Binding EnableControls, FallbackValue=false}"  Command="{Binding CreateHotKeyCommand}" LargeImageSource="Resources/1465102684_preferences-desktop-keyboard-shortcuts.png"/>
-                    <RibbonButton x:Name="btnCreateResourceLink" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}" IsEnabled="{Binding EnableControls, FallbackValue=false}"  Command="{Binding CreateResourceLinkCommand}" LargeImageSource="Resources/resource.png"/>
+                    <RibbonButton x:Name="btnCreateGroup" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" LargeImageSource="Resources/HueGroupOn-Large.png" SmallImageSource="Resources/HueGroupOn.png" Command="{Binding CreateGroupCommand}"/>
+                    <RibbonButton x:Name="btnScene" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}"  LargeImageSource="Resources/SceneLarge.png" SmallImageSource="Resources/SceneLarge.png" Command="{Binding CreateSceneCommand}"/>
+                    <RibbonButton x:Name="btnCreateSchedule" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" LargeImageSource="Resources/SchedulesLarge.png" SmallImageSource="Resources/SchedulesSmall.png" Command="{Binding CreateScheduleCommand}"/>
+                    <RibbonButton x:Name="btnCreateRule" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" LargeImageSource="Resources/rules.png" SmallImageSource="Resources/rules.png" Command="{Binding CreateRuleCommand}"/>
+                    <RibbonButton x:Name="btnCreateSensor" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}" LargeImageSource="Resources/sensor.png" SmallImageSource="Resources/sensor.png" Command="{Binding CreateSensorCommand}"/>
                     <!--<RibbonSplitButton x:Name="btnCreateMood" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateMood}" IsEnabled="true"
                                         LargeImageSource="Resources/moods64.png" SmallImageSource="Resources/moods64.png">
                         <RibbonSplitButton.Command>local:CommandLibrary.CreateMood</RibbonSplitButton.Command>
                     </RibbonSplitButton>-->
+                    <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
+                    <RibbonButton x:Name="btnCreateHotkey" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}" LargeImageSource="Resources/1465102684_preferences-desktop-keyboard-shortcuts.png"/>
+                    <RibbonButton x:Name="btnCreateResourceLink" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}" LargeImageSource="Resources/resource.png"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}">
-                    <RibbonButton x:Name="btnBridgeSettings" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeImageSource="Resources/1417331999_Gear.png"  IsEnabled="{Binding EnableControls, FallbackValue=false}" SmallImageSource="Resources/1417331999_Gear.png" Command="{Binding ChangeBridgeSettingsCommand}"/>
-                    <RibbonButton x:Name="btnUpdate" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Visibility="{Binding UpdateAvailable, FallbackValue=Collapsed}" LargeImageSource="Resources/1417332335_Warning.png" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding UpdateBridgeCommand}"/>
+                    <RibbonButton x:Name="btnBridgeSettings" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeImageSource="Resources/1417331999_Gear.png" SmallImageSource="Resources/1417331999_Gear.png" Command="{Binding ChangeBridgeSettingsCommand}"/>
+                    <RibbonButton x:Name="btnUpdate" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Visibility="{Binding UpdateAvailable, FallbackValue=Collapsed}" LargeImageSource="Resources/1417332335_Warning.png" Command="{Binding UpdateBridgeCommand}"/>
+                    <RibbonButton x:Name="btnUser" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" LargeImageSource="Resources/user.png" Command="{Binding ManageUsersCommand}" />
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}">
                     <RibbonButton x:Name="btnEventLog" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" LargeImageSource="Resources/1416205084_Book_edit.png" SmallImageSource="Resources/1416205084_Book_edit.png" Command="{Binding ShowEventLogCommand}" KeyTip="E"/>
@@ -66,48 +88,64 @@
 
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Tools}">
-                <RibbonGroup Header="" Width="auto">
-                    <RibbonSplitButton x:Name="btnCpuTempMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeImageSource="Resources/cputemp.png" IsEnabled="{Binding EnableControls}" >
-                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}" IsEnabled="{Binding CanSetCpuTempSettings}"/>
+                <RibbonGroup Header="Tools" Width="auto">
+                    <RibbonSplitButton x:Name="btnCpuTempMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeImageSource="Resources/cputemp.png" >
+                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                     </RibbonSplitButton>
-                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
+                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" LargeImageSource="Resources/rss.png" IsEnabled="False" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>
-                    <RibbonSplitButton x:Name="btnClapperMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_Clapper}" CommandParameter="{Binding Path=IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding ClapperCommand}"  LargeImageSource="Resources/rss.png" IsEnabled="False" >
+                    <RibbonSplitButton x:Name="btnClapperMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_Clapper}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding ClapperCommand}"  LargeImageSource="Resources/rss.png" IsEnabled="False" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>
                 </RibbonGroup>
-
+                <RibbonGroup x:Name="rgViews" Header="Views" Width="auto">
+                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png"/>
+                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeImageSource="Resources/BulbView.png" />
+                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeImageSource="Resources/GroupView.png"/>
+                </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_View}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <RibbonGroup x:Name="rgViews" Header="" Width="auto">
-                    <RibbonButton x:Name="btnScenesMapping" Label="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeImageSource="Resources/SceneMapping.png" IsEnabled="{Binding EnableControls}"/>
-                    <RibbonButton x:Name="btnBulbView" Label="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeImageSource="Resources/BulbView.png" IsEnabled="{Binding EnableControls}" />
-                    <RibbonButton x:Name="btnGroupView" Label="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeImageSource="Resources/GroupView.png" IsEnabled="{Binding EnableControls}"/>
+                <RibbonGroup x:Name="rgViewSort" Width="auto" Header="{x:Static resx:GUI.MainForm_Tab_View_Sorting}">
+                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="Sorting"/>
+                        <controls:CommandComboBox x:Name="rbcSorting" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedIndex="{Binding MainFormModel.Sort, Converter={StaticResource IndexToSortConverter}}" Command="{Binding SortListViewCommand}">
+                            <ComboBoxItem Content="Defaut"/>
+                            <ComboBoxItem Content="Ascending"/>
+                            <ComboBoxItem Content="Descending"/>
+                        </controls:CommandComboBox>
+                    </WrapPanel>
+                </RibbonGroup>
+                <RibbonGroup x:Name="rgViewShowAdditional" Header="{x:Static resx:GUI.MainForm_Tab_View_AdditionalField}">
+                    <CheckBox x:Name="cbShowID" Content="Show object ID" IsChecked="{Binding MainFormModel.ShowId}" Command="{Binding ShowIDCommand}"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="rgTextBehavior" Header="{x:Static resx:GUI.MainForm_Tab_View_TextBehavior}">
+                    <CheckBox x:Name="cbWrapButton" Content="{x:Static resx:GUI.MainForm_Tab_View_WrapText}" IsChecked="{Binding MainFormModel.WrapText,Converter={StaticResource BoolToWrappingConverter}}" Command="{Binding WrapTextCommand}"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <RibbonGroup>
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Website}" x:Name="btnWebsite" Click="btnWebsite_Click" LargeImageSource="Resources/1416184952_Gnome-Web-Browser-32.png" />
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" x:Name="btnSupportForum" Click="btnSupportForum_Click" LargeImageSource="Resources/1416183787_Community Help.png"/>
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_About}" x:Name="btnAbout" LargeImageSource="Resources/unknown.png" Click="btnAbout_Click"  />
+                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Website}" x:Name="btnWebsite" LargeImageSource="Resources/1416184952_Gnome-Web-Browser-32.png" Command="{Binding OpenWinHueWebsiteCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" x:Name="btnSupportForum" LargeImageSource="Resources/1416183787_Community Help.png" Command="{Binding OpenWinHueSupportCommand}"/>
+                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Help_About}" x:Name="btnAbout" LargeImageSource="Resources/unknown.png" Command="{Binding OpenAboutWindowCommand}" />
+                    <RibbonButton Label="ProcDump" LargeImageSource="Resources/unknown.png" Command="{Binding StartProcDumpCommand}"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <StatusBar x:Name="sbStatusBar" Height="28"  DockPanel.Dock="Bottom" HorizontalAlignment="Stretch">
             <ComboBox x:Name="cbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" Visibility="{Binding MultiBridgeCB}" Width="200"/>
-            <TextBlock x:Name="lblSBMessage" Text="{Binding StatusBarMessage}" Width="985" HorizontalAlignment="Stretch"  />
+            <TextBlock x:Name="lblSBMessage" Text="{Binding Lastmessage}" Width="806" HorizontalAlignment="Stretch"/>
         </StatusBar>
         <Grid Width="{Binding Parent.ActualWidth, RelativeSource={RelativeSource Mode=Self}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" PreviewKeyUp="lvMainObjects_PreviewKeyUp" VerticalContentAlignment="Stretch">
+            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" VerticalContentAlignment="Stretch">
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
-                            <EventTrigger RoutedEvent="MouseDoubleClick">
+                            <EventTrigger RoutedEvent="Control.MouseDoubleClick">
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
@@ -118,6 +156,9 @@
                         </Style.Triggers>
                     </Style>
                 </ListView.Resources>
+                <ListView.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteObjectCommand}"/>
+                </ListView.InputBindings>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding DoubleClickObjectCommand}"/>
@@ -125,21 +166,32 @@
                 </i:Interaction.Triggers>
                 <ListView.ContextMenu>
                     <ContextMenu x:Name="cmListView" IsTabStop="True">
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" Visibility="{Binding CanSeeIdentify}"  x:Name="mnuIdentify">
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" x:Name="mnuIdentify">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" x:Name="mnuIdentifyStop" Command="{Binding IdentifyStopCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" x:Name="mnuIdentifyLong" Command="{Binding IdentifyLongCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" x:Name="mnuIdentifyShort" Command="{Binding IdentifyShortCommand}"/>
                         </MenuItem>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}" Visibility="{Binding CanSeeSensitivity}">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" Command="{Binding SensitivityHighCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" Command="{Binding SensitivityMediumCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Low}" Command="{Binding SensitivityLowCommand}"/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}" x:Name="mnuSensitivity">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" x:Name="mnuSensivityHigh" Command="{Binding SensitivityHighCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" x:Name="mnuSensivityMed" Command="{Binding SensitivityMediumCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Low}" x:Name="mnuSensivityLow" Command="{Binding SensitivityLowCommand}"/>
                         </MenuItem>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" IsEnabled="{Binding IsValidScene}" x:Name="mnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" x:Name="mnuEdit" Command="{Binding EditObjectCommand}" IsEnabled="{Binding CanEditObject}"/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" x:Name="mnuCloning">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_QuickClone}" x:Name="mnuQuickClone" Command="{Binding QuickCloneCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" x:Name="mnuClone" Command="{Binding CloneCommand}"/>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" x:Name="mnuCopyToJsonRaw" Command="{Binding CopyToJsonRawCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" x:Name="mnuCopyToJson" Command="{Binding CopyToJsonCommand}"/>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" x:Name="mnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" x:Name="mnuEdit" Command="{Binding EditObjectCommand}"/>
                         <Separator/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" x:Name="mnuRenameObject" Command="{Binding RenameObjectCommand}"/>
                         <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" x:Name="mnuDeleteObject" IsEnabled="{Binding CanDeleteObject}" Command="{Binding DeleteObjectCommand}"/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" x:Name="mnuDeleteObject" Command="{Binding DeleteObjectCommand}"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.ItemsPanel>
@@ -149,9 +201,10 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                            <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tbWrap}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=cbShowID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -190,94 +243,53 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="AliceBlue" Height="403" VerticalAlignment="Top">
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <Slider x:Name="slHue" Height="21" VerticalAlignment="Top" Maximum="65535" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding SliderHue}"  IsEnabled="{Binding EnableHueSlider, FallbackValue=false}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseUp">
-                                <i:InvokeCommandAction Command="{Binding SliderHueChangedCommand}" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="PreviewKeyUp">
-                                <i:InvokeCommandAction Command="{Binding KeyPressHueColorCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Slider.Background>
-
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slHue, Path=IsEnabled}"/>
+                    <controls:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="0" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
+                        <controls:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                                 <GradientStop Color="#FFFF0000" />
                                 <GradientStop Color="#FEFFFF00" Offset="0.167" />
                                 <GradientStop Color="#FE00FF00" Offset="0.333" />
-                                <GradientStop Color="#FE00FFFF" Offset="0.5" />
+                                <GradientStop Color="#FE00FFFF" Offset="0.5"   />
                                 <GradientStop Color="#FE0000FF" Offset="0.667" />
                                 <GradientStop Color="#FEFF00FF" Offset="0.833" />
-                                <GradientStop Color="#FFFF0000" Offset="1.0" />
+                                <GradientStop Color="#FFFF0000" Offset="1.0"   />
                             </LinearGradientBrush>
-                        </Slider.Background>
-                    </Slider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <Slider x:Name="slBri" Height="21" VerticalAlignment="Top" Maximum="254" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" IsEnabled="{Binding EnableBriSlider, FallbackValue=false}" Value="{Binding SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseUp">
-                                <i:InvokeCommandAction Command="{Binding SliderBriChangedCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Slider.Background>
+                        </controls:BindableHueSlider.Background>
+                    </controls:BindableHueSlider>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slBri, Path=IsEnabled}"/>
+                    <controls:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri,Mode=OneWayToSource}">
+                        <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                                 <GradientStop Color="White" Offset="1"/>
                                 <GradientStop Color="Black" Offset="0"/>
                             </LinearGradientBrush>
-                        </Slider.Background>
-                    </Slider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center"/>
-                    <Slider x:Name="slSAT" Height="21" VerticalAlignment="Top" Maximum="254" Minimum="0" Margin="10,0,10,10" IsSnapToTickEnabled="True" IsEnabled="{Binding EnableSatSlider, FallbackValue=false}" SmallChange="1" Value="{Binding SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseUp">
-                                <i:InvokeCommandAction Command="{Binding SliderSatChangedCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Slider.Background>
+                        </controls:BindableSlider.Background>
+                    </controls:BindableSlider>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slSAT, Path=IsEnabled}"/>
+                    <controls:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}">
+                        <controls:BindableSlider.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="White" x:Name="slSATStartGradient"/>
-                                <GradientStop Color="{Binding SliderSatGradientEndColor}" Offset="1" x:Name="slSATEndGradient"/>
+                                <GradientStop Color="{Binding Hue, ElementName=slHue}" Offset="1" x:Name="slSATEndGradient"/>
                             </LinearGradientBrush>
-                        </Slider.Background>
-                    </Slider>
-                    <Separator Height="8" Margin="0"/>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center"/>
-                    <Slider x:Name="slCT" Height="21" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" IsEnabled="{Binding EnableCTSlider, FallbackValue=false}" Value="{Binding SliderCT}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseUp">
-                                <i:InvokeCommandAction Command="{Binding SliderCtChangedCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Slider.Background>
+                        </controls:BindableSlider.Background>
+                    </controls:BindableSlider>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slCT, Path=IsEnabled}"/>
+                    <controls:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}">
+                        <controls:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
                                 <GradientStop Color="#FFFF8912" Offset="0"/>
                                 <GradientStop Color="#FFFFF9FD" Offset="1"/>
                             </LinearGradientBrush>
-                        </Slider.Background>
-                    </Slider>
+                        </controls:BindableSlider.Background>
+                    </controls:BindableSlider>
                     <Grid Height="100">
-                        <Label Content="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" HorizontalAlignment="Center" Margin="0,7,0,68" Width="350" HorizontalContentAlignment="Center"/>
-                        <Slider x:Name="slX" Height="21" Maximum="1" Minimum="0" Margin="10,33,50,46" IsSnapToTickEnabled="True" IsEnabled="{Binding EnableXYSliders, FallbackValue=false}" Value="{Binding SliderX}"  TickFrequency="0.001" SmallChange="0.001" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slX}" AutoToolTipPrecision="3" IsMoveToPointEnabled="True">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewMouseUp">
-                                    <i:InvokeCommandAction Command="{Binding SliderXYChangedCommand}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Slider>
-                        <Label Content="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" HorizontalAlignment="Center" Margin="0,50,0,22" Width="350" HorizontalContentAlignment="Center"/>
-                        <Rectangle x:Name="xyColorRec" Fill="{Binding XYRectangleColor}" Margin="0,44,10,13" Stroke="Black" ToolTip="Color Preview" HorizontalAlignment="Right" Width="35"/>
-                        <Slider x:Name="slY" Height="21" Maximum="1" Minimum="0" Margin="10,72,50,7" IsSnapToTickEnabled="True" IsEnabled="{Binding EnableXYSliders, FallbackValue=false}" Value="{Binding SliderY}"  TickFrequency="0.001" SmallChange="0.001" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slY}" AutoToolTipPrecision="3" IsMoveToPointEnabled="True">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewMouseUp">
-                                    <i:InvokeCommandAction Command="{Binding SliderXYChangedCommand}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Slider>
                         <Separator Margin="0,-1,0,93"/>
                         <Separator Margin="0,104,0,-12"/>
-                        <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,110,0,-38" Width="350" HorizontalContentAlignment="Center"/>
-                        <Slider x:Name="slTT" Height="21" Maximum="65535" Minimum="-1" Margin="10,134,10,-55" IsSnapToTickEnabled="True" IsEnabled="{Binding EnableTTSlider, FallbackValue=false}" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTT}" IsMoveToPointEnabled="True" />
+                        <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,112,0,-38" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slTT, Path=IsEnabled}"/>
+                        <controls:BindableSlider x:Name="slTT" Maximum="65535" Minimum="-1" Margin="9,143,11,-65" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter},Mode=OneWayToSource, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=slHue}" />
+                        <controls:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" CommandParameter="{Binding MainFormModel.ModelId}" YValue="{Binding MainFormModel.SliderY,Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}"/>
                     </Grid>
                 </StackPanel>
                 <xcad:DockingManager Grid.Row="1" Background="AliceBlue">
@@ -285,7 +297,7 @@
                         <xcad:LayoutPanel>
                             <xcad:LayoutAnchorablePane>
                                 <xcad:LayoutAnchorable Title="Properties" CanClose="False" CanHide="False" CanAutoHide="False">
-                                    <xctk:PropertyGrid x:Name="pgObject" IsReadOnly="True" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,-2" VerticalContentAlignment="Stretch"  />
+                                    <xctk:PropertyGrid x:Name="pgObject" IsReadOnly="True" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,2" VerticalContentAlignment="Stretch"  />
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutPanel>

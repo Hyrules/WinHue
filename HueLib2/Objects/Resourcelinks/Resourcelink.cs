@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,8 +18,7 @@ namespace HueLib2
         /// <summary>
         /// Name of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),
-         Description("Name of the resource link"), HueLib(true, true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Name of the resource link")]
         public string name
         {
             get
@@ -31,37 +31,37 @@ namespace HueLib2
         /// <summary>
         /// Description of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Description of the resource link"), HueLib(true, true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Description of the resource link")]
         public string description { get; set; }
 
         /// <summary>
         /// Type of Resource Link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Type of the resource link"), HueLib(false, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Type of the resource link"), ReadOnly(true)]
         public string type { get; set; }
         
         /// <summary>
         /// Class of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Class of the resource link"), HueLib(true, true)]
-        public int classid { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Class of the resource link"),CreateOnly]
+        public ushort classid { get; set; }
 
         /// <summary>
         /// Owner of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Owner of the resource link"),HueLib(false, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Owner of the resource link"), ReadOnly(true)]
         public string owner { get; set; }
 
         /// <summary>
         /// Owner of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Allow Recycle of the resource link"), HueLib(true, true)]
-        public string recycle { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Allow Recycle of the resource link"), CreateOnly]
+        public bool? recycle { get; set; }
 
         /// <summary>
         /// List of resource links
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("List of resource links"), Browsable(false), HueLib(true, false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("List of resource links"), Browsable(false)]
         public List<string> links { get; set; }
     }
 }

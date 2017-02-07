@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using HueLib2;
 using WinHue3.Resources;
+using WinHue3.ViewModels;
+
 namespace WinHue3
 {
     /// <summary>
@@ -8,30 +10,33 @@ namespace WinHue3
     /// </summary>
     public partial class Form_ScheduleCreator : Window
     {
-        /// <summary>
-        /// Current bridge.
-        /// </summary>
-        readonly Bridge _bridge;
-
-        private ScheduleView _scheduleMv;
-
+        private ScheduleCreatorViewModel scvm;
+        private readonly Bridge _bridge;
         private HueObject actualobj;
 
-        /// <summary>
-        /// ctor
-        /// </summary>
-        /// <param name="br">Current bridge.</param>
-        /// <param name="obj">object being scheduled.</param>
-        public Form_ScheduleCreator(Bridge br, HueObject obj)
+        public Form_ScheduleCreator(HueObject obj, Bridge bridge)
         {
-            
-            _scheduleMv = new ScheduleView(obj,br.ApiKey);
-
-            DataContext = _scheduleMv;
+            _bridge = bridge;
             InitializeComponent();
-            
-            _bridge = br;
+            scvm = this.DataContext as ScheduleCreatorViewModel;
+            string id = string.Empty;
+           
             actualobj = obj;
+
+            if (obj is Schedule)
+            {
+                scvm.Schedule = (Schedule)obj;
+            }
+            else
+            {
+                if (obj is Scene)
+                {
+                    scvm.CanSetSettings = false;
+                    scvm.IsEditing = true;
+                    scvm.ScheduleModel.Scene = ((Scene) obj).Id;
+                }
+                scvm.TargetObject = $@"/api/{_bridge.ApiKey}/{(obj is Light ? "lights" : "groups")}/{(obj is Scene ? "0": obj.Id)}/{(obj is Light ? "state" : "action")}";
+            }
 
             Title = obj is Schedule ? GUI.ScheduleCreatorForm_Title_Modify + obj.GetName() : GUI.ScheduleCreatorForm_Title_Create + obj.GetName();
             
@@ -45,7 +50,7 @@ namespace WinHue3
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            Schedule sc = _scheduleMv.GetSchedule();
+            Schedule sc = scvm.Schedule;
             CommandResult comres;
             if (actualobj is Schedule)
             {

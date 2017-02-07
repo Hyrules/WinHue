@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace HueLib2
 {
@@ -11,7 +13,7 @@ namespace HueLib2
         /// <summary>
         /// daylight saving time or not.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [DataMember, ReadOnly(true)]
         public bool? daylight { get; set; }
 
     }

@@ -7,7 +7,11 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Form_AddManualIp"
         mc:Ignorable="d"
         xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:modelview="clr-namespace:WinHue3.ViewModels"
         Title="{x:Static resx:GUI.Form_AddManualIP_Title}" Height="99.229" Width="303.624" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <modelview:AddManualIPViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type xctk:WatermarkTextBox}" >
             <Style.Triggers>
@@ -39,7 +43,7 @@
     </Window.Resources>
 
     <Grid>
-        <xctk:WatermarkTextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="64,10,0,0" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="218" Watermark="eg. 192.168.1.1"/>
+        <xctk:WatermarkTextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="64,10,0,0" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="218" Watermark="eg. 192.168.1.1"/>
         <Label x:Name="label" Content="{x:Static resx:GUI.Form_AddManualIP_IP}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="49"/>
         <Button x:Name="btnSaveIp" Content="{x:Static resx:GUI.Form_AddManualIP_Apply}" Style="{StaticResource btnApply}" HorizontalAlignment="Left" Margin="127,36,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveIp_Click"/>
         <Button x:Name="btnCancel" Content="{x:Static resx:GUI.Form_AddManualIP_Cancel}" HorizontalAlignment="Left" Margin="207,36,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>

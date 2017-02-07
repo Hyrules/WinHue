@@ -15,46 +15,19 @@ namespace WinHue3.Models
     public class GroupCreatorModel : ValidatableBindableBase
     {
 
-        private BindingList<HueObject> _availableLightList;
-        private BindingList<HueObject> _groupLightList;
+        
         private string _name;
-        private Group _group;
+        private ObservableCollection<Light> _listlights;
+        private ObservableCollection<Light> _listAvailableLights;
+        private string _type;
+        private string _class;
 
         public GroupCreatorModel()
         {
-            _availableLightList = new BindingList<HueObject> {RaiseListChangedEvents = true};
-            _group = new Group();
-            _groupLightList = new BindingList<HueObject> {RaiseListChangedEvents = true};
-            _groupLightList.ListChanged += _groupLightList_ListChanged;
-        }
-
-        private void _groupLightList_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            OnPropertyChanged("GroupLightList");
-        }
-
-        public Group Group
-        {
-            get
-            {
-
-                _group.lights = _groupLightList.Select(o => o.Id).ToList<string>();
-                _group.name = Name;             
-                return _group;
-            }
-            set
-            {
-                _group = value;
-                foreach (string s in _group.lights)
-                {
-                    HueObject obj = _availableLightList.First(x => x.Id == s);
-                    if (obj == null) continue;
-                    GroupLightList.Add(obj);
-                    AvailableLightList.Remove(obj);
-                }
-                Name = _group.name;                
-                OnPropertyChanged("GroupLightList");
-            }
+            _listlights = new ObservableCollection<Light>();
+            _listAvailableLights = new ObservableCollection<Light>();
+            _type = "LightGroup";
+            _class = "Other";
         }
 
         public string Name
@@ -67,34 +40,38 @@ namespace WinHue3.Models
             }
         }
 
-        public BindingList<HueObject> AvailableLightList
+        [MinimumCount(1, ErrorMessageResourceName = "Group_Select_One_Light", ErrorMessageResourceType = typeof(GlobalStrings))]
+        public ObservableCollection<Light> Listlights
         {
-            get
-            {
-                return _availableLightList;
-            }
+            get { return _listlights; }
+            set { SetProperty(ref _listlights,value); }
+        }
+
+        public ObservableCollection<Light> ListAvailableLights
+        {
+            get { return _listAvailableLights; }
+            set { SetProperty(ref _listAvailableLights,value); }
+        }
+
+        public bool CanClass => Type == "Room";
+
+        public string Type
+        {
+            get { return _type; }
             set
             {
-                SetProperty(ref _availableLightList, value);
+                SetProperty(ref _type,value);
+                if (value == "LightGroup")
+                    Class = "Other";
+                OnPropertyChanged("CanClass");
+
             }
         }
 
-
-        [MinimumCount(1,ErrorMessageResourceName = "Group_Select_One_Light", ErrorMessageResourceType = typeof(GlobalStrings))]
-        public BindingList<HueObject> GroupLightList
+        public string Class
         {
-            get
-            {
-                return _groupLightList;
-            }
-            set
-            {
-                SetProperty(ref _groupLightList, value); 
-               
-            }
+            get { return _class; }
+            set { SetProperty(ref _class,value); }
         }
-
-
-
     }
 }

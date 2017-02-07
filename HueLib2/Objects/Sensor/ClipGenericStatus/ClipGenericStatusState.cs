@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace HueLib2
 {
@@ -11,7 +12,7 @@ namespace HueLib2
         /// <summary>
         /// Sensor Status.
         /// </summary>
-        [DataMember,HueLib(false,false)]
+        [DataMember]
         public int status { get; set; }
     }
 }

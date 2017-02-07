@@ -13,13 +13,13 @@ namespace HueLib2
         /// <summary>
         /// Threshold for insufficient light level.
         /// </summary>
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public uint? tholddark { get; set; }
 
         /// <summary>
         /// Threshold for sufficient light leve.
         /// </summary>
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public uint? tholdoffset { get; set; }
     }
 }

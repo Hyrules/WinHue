@@ -23,12 +23,14 @@ namespace HueLib2
 
         protected override WebRequest GetWebRequest(Uri address)
         {
-            var request = base.GetWebRequest(address);
+            HttpWebRequest request = (HttpWebRequest) base.GetWebRequest(address);
             if (request != null)
             {
+                request.ServicePoint.ConnectionLimit = 20;
                 request.Timeout = this.Timeout;
+                request.ServicePoint.Expect100Continue = false;
             }
-            return request;
+            return (WebRequest)request;
         }
 
     }

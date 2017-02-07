@@ -11,13 +11,13 @@ namespace WinHue3
  
 
         private Bridge _bridge;
-        private AnimatorView av;
+     //   private AnimatorView av;
 
         public Form_AnimationCreator(Bridge br)
         {
             InitializeComponent();
          //   av = new AnimatorView(br,ateEditor);
-            DataContext = av;
+        //    DataContext = av;
             _bridge = br;
 
         }

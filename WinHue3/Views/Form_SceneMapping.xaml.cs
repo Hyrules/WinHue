@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using HueLib2;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {   
@@ -11,18 +12,33 @@ namespace WinHue3
     /// </summary>
     public partial class Form_SceneMapping : Window
     {
-        private Bridge _bridge;
-        private readonly SceneMappingView _smv;
-        public Form_SceneMapping()
+
+        private readonly SceneMappingViewModel _smv;
+        private readonly Bridge _bridge;
+        public Form_SceneMapping(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
-            CommandResult lresult = BridgeStore.SelectedBridge.GetListObjects<Light>();
-            if (!lresult.Success) return;
-            CommandResult sresult = BridgeStore.SelectedBridge.GetListObjects<Scene>();
-            if (!sresult.Success) return;
-            _smv = new SceneMappingView((Dictionary<string, Scene>)sresult.resultobject,
-                (Dictionary<string, Light>)lresult.resultobject);
-            DataContext = _smv;
+            CommandResult lresult = _bridge.GetListObjects<Light>();
+            if (lresult.Success)
+            {
+                CommandResult sresult = _bridge.GetListObjects<Scene>();
+                if (sresult.Success)
+                {
+                    _smv = DataContext as SceneMappingViewModel;
+                    _smv.Initialize((Dictionary<string, Scene>)sresult.resultobject, (Dictionary<string, Light>)lresult.resultobject, _bridge);
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(bridge);
+                }
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(bridge);
+            }
+            
+
         }
 
         private void dgListScenes_ItemsSourceChangeCompleted(object sender, EventArgs e)
@@ -31,10 +47,5 @@ namespace WinHue3
             dgListScenes.Columns[0].Visible = false;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if(_smv == null)
-                Close();
-        }
     }
 }

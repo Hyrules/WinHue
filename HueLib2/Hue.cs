@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using ManagedUPnP;
 using HueLib2;
+using System.ServiceProcess;
 
 namespace HueLib2
 {
@@ -18,14 +19,9 @@ namespace HueLib2
     /// </summary>
     public static class Hue
     {
-       
+
         private static BackgroundWorker _ipscanBgw = new BackgroundWorker();
         private static BackgroundWorker _detectionBgw = new BackgroundWorker();
-
-
-
-
-        private static int _timeout = 5000;
 
         static Hue()
         {
@@ -34,41 +30,50 @@ namespace HueLib2
             _ipscanBgw.RunWorkerCompleted += _ipscanBgw_RunWorkerCompleted;
             _ipscanBgw.WorkerSupportsCancellation = true;
             _ipscanBgw.WorkerReportsProgress = true;
-
             _detectionBgw.DoWork += _detectionBgw_DoWork;
             _detectionBgw.RunWorkerCompleted += _detectionBgw_RunWorkerCompleted;
+
         }
-
-
 
         private static void _detectionBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(e.Result != null)
+            if (e.Result != null)
                 OnDetectionComplete?.Invoke(null, e);
         }
 
         private static void _detectionBgw_DoWork(object sender, DoWorkEventArgs e)
         {
-            Dictionary<string,BasicConfig> newdetectedBridge = new Dictionary<string, BasicConfig>();
-  
+            Dictionary<string, BasicConfig> newdetectedBridge = new Dictionary<string, BasicConfig>();
+
             // Detect using UPNP
             bool finished;
 
-            List<ManagedUPnP.Device> upnpDevices =
-                Discovery.FindDevices(null, 3000, int.MaxValue, out finished).ToList();
+            ServiceController sc = new ServiceController("SSDPSRV");
 
-            foreach (ManagedUPnP.Device dev in upnpDevices)
+            if (sc.Status == ServiceControllerStatus.Running)
             {
-                if (!dev.ModelName.Contains("Philips hue bridge")) continue;
-
-                CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
-                if (bresult.Success)
+                try
                 {
-                    newdetectedBridge.Add(dev.RootHostName, (BasicConfig)bresult.resultobject);
-                }
+                    List<ManagedUPnP.Device> upnpDevices =
+                        Discovery.FindDevices(null, 3000, int.MaxValue, out finished).ToList();
 
+                    foreach (ManagedUPnP.Device dev in upnpDevices)
+                    {
+                        if (!dev.ModelName.Contains("Philips hue bridge")) continue;
+
+                        CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
+                        if (bresult.Success)
+                        {
+                            newdetectedBridge.Add(dev.RootHostName, (BasicConfig)bresult.resultobject);
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
-  
 
             // If not bridge are found via upnp try the portal.
             if (newdetectedBridge.Count == 0)
@@ -142,12 +147,14 @@ namespace HueLib2
         /// </summary>
         public static bool IsScanningForBridge => _ipscanBgw.IsBusy;
 
+        public static bool IsDetectingBridge => _detectionBgw.IsBusy;
+
         /// <summary>
         /// Will scan an ip range for bridges.
         /// </summary>
         public static void ScanIpForBridge()
         {
-            _timeout = Communication.Timeout;
+            
             _ipscanBgw.RunWorkerAsync();
         }
 
@@ -157,12 +164,14 @@ namespace HueLib2
         public static void AbortScanForBridge()
         {
             if(_ipscanBgw.IsBusy)
+            { 
                 _ipscanBgw.CancelAsync();
+            }
         }
 
         private static void _ipscanBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Communication.Timeout = _timeout;
+
             OnIpScanComplete?.Invoke(null, e);
         }
 
@@ -182,7 +191,11 @@ namespace HueLib2
             
             for (byte x = 2; x <= 254; x++)
             {
-                if (_ipscanBgw.CancellationPending) break;
+                if (_ipscanBgw.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
                 _ipscanBgw.ReportProgress(0,x);
                 if (x == currentip) continue;
                 ipArray[3] = x;
@@ -263,10 +276,9 @@ namespace HueLib2
         {
             XmlSerializer ser = new XmlSerializer(typeof(Description));
             Description ro = null;
-            XmlReader xr ;
             try
             {
-                xr = XmlReader.Create("http://" + BridgeIP + "/description.xml");
+                XmlReader xr = XmlReader.Create("http://" + BridgeIP + "/description.xml");
                 ro = (Description)ser.Deserialize(xr);
             }
             catch(Exception)

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -7,13 +8,12 @@ namespace WinHue3
     /// </summary>
     public partial class Form_AddManualIp : Window
     {
-        AddManualIPView amiv;
+        private AddManualIPViewModel amiv;
 
         public Form_AddManualIp()
         {
             InitializeComponent();
-            amiv = new AddManualIPView();
-            DataContext = amiv;
+            amiv = DataContext as AddManualIPViewModel;           
         }
 
         public string GetIPAddress()

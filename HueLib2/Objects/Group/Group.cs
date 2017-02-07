@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Windows.Markup;
+using HueLib2.Objects.Group;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -21,17 +22,20 @@ namespace HueLib2
         /// <summary>
         /// Action (State) of the group
         /// </summary>
-        [DataMember, Category("Action"), Description("Action"),ExpandableObject, HueLib(false, false)]
+        [DataMember, Category("Action"), Description("Action"),ExpandableObject, ReadOnly(true)]
         public Action action { get; set; }
+
+        [DataMember, Category("State"), Description("State"),ExpandableObject, ReadOnly(true)]
+        public GroupState state { get; set; }
         /// <summary>
         /// List of lights in the group.
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Lights in the group"),Browsable(false), HueLib(true, true)]
+        [DataMember, Category("Group Properties"), Description("Lights in the group"),Browsable(false)]
         public List<string> lights { get; set;}
         /// <summary>
         /// Group name.
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Name of the group"), HueLib(true, true)]
+        [DataMember, Category("Group Properties"), Description("Name of the group")]
         public string name
         {
             get { return _name; }
@@ -45,25 +49,27 @@ namespace HueLib2
         /// <summary>
         /// Type of the group
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("The type of group"), HueLib(true, false)]
+        [DataMember, Category("Group Properties"), Description("The type of group"), CreateOnly]
         public string type { get; set; }
 
         /// <summary>
         /// Model ID
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Model id of the group"), HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember, Category("Group Properties"), Description("Model id of the group")]
         public string modelid { get; set; }
 
         /// <summary>
         /// Unique ID
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Unique id of group"), HueLib(false, false)]
+        [JsonIgnore]
+        [DataMember, Category("Group Properties"), Description("Unique id of group")]
         public string uniqueid { get; set; }
 
         /// <summary>
         /// Class
         /// </summary>
-        [DataMember, Category("Group Properties"), Description("Class of the group"), HueLib(true,true)]
+        [DataMember, Category("Group Properties"), Description("Class of the group")]
         public string @class { get; set; }
 
         /// <summary>
@@ -74,6 +80,7 @@ namespace HueLib2
         {
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
         }
+
     }
 
 

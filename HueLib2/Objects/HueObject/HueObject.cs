@@ -1,8 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Media;
+using Newtonsoft.Json;
 
 namespace HueLib2
 {
@@ -17,11 +19,13 @@ namespace HueLib2
         /// <summary>
         /// Image of the object.
         /// </summary>
+        [JsonIgnore]
         ImageSource _image;
 
         /// <summary>
         /// ID of the item.
         /// </summary>
+        [JsonIgnore]
         string _id;
 
         #region PROPERTIES
@@ -29,7 +33,8 @@ namespace HueLib2
         /// <summary>
         /// Image accessor.
         /// </summary>
-        [Browsable(false), HueLib(false, false)]
+        [JsonIgnore]
+        [Browsable(false)]
         public ImageSource Image
         {
             get { return _image; }
@@ -43,7 +48,8 @@ namespace HueLib2
         /// <summary>
         /// Id accessor.
         /// </summary>
-        [Browsable(false), HueLib(false, false)]
+        [JsonIgnore]
+        [Browsable(false)]
         public string Id
         {
             get { return _id; }
@@ -68,5 +74,10 @@ namespace HueLib2
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

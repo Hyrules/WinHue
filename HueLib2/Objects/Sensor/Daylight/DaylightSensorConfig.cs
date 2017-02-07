@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -13,31 +15,31 @@ namespace HueLib2
         /// <summary>
         /// Longitude of the sensor.
         /// </summary>
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public string @long { get; set; }
 
         /// <summary>
         /// Latitude of the sensor.
         /// </summary>
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public string lat { get; set; }
 
         /// <summary>
         /// Sunrise offset.
         /// </summary>
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public sbyte? sunriseoffset { get; set; }
 
         /// <summary>
         /// Sunset offsett.
         /// </summary>
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public sbyte? sunsetoffset { get; set; }
 
         /// <summary>
         /// Is The Sensor Configured.
         /// </summary>
-        [DataMember, HueLib(false,false)]
+        [DataMember, ReadOnly(true)]
         public bool? configured { get; set; }
     }
 }

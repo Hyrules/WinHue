@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -15,7 +16,7 @@ namespace HueLib2
         /// <summary>
         /// On off state.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [DataMember]
         public bool? on { get; set; }
 
     }

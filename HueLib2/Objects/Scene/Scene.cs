@@ -17,7 +17,7 @@ namespace HueLib2
         /// <summary>
         /// Name of the scene.
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("Name of the scene"), ReadOnly(false), HueLib(true, true)]
+        [DataMember, Category("Scene Properties"), Description("Name of the scene")]
         public string name
         {
             get { return _name; }
@@ -30,67 +30,67 @@ namespace HueLib2
         /// <summary>
         /// List of the light in the scene. 
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("Lights of the scene"),Browsable(false), HueLib(true, true)]
+        [DataMember, Category("Scene Properties"), Description("Lights of the scene"),Browsable(false)]
         public List<string> lights {get;set;}
 
         /// <summary>
         /// Owner of the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Whitelist user that created or modified the content of the scene"), HueLib(false, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Whitelist user that created or modified the content of the scene"), ReadOnly(true)]
         public string owner { get; set; }
 
         /// <summary>
         /// App specific data.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("App specific data linked to the scene."),ExpandableObject, HueLib(true, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("App specific data linked to the scene."),ExpandableObject, ReadOnly(true)]
         public AppData appdata { get; set; }
 
         /// <summary>
         /// Scene can be deleted by the bridge automatically.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Indicates whether the scene can be automatically deleted by the bridge."), HueLib(true, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Indicates whether the scene can be automatically deleted by the bridge."), CreateOnly]
         public bool? recycle { get; set; }
 
         /// <summary>
         /// Scene is Locked.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted."), HueLib(false, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted."), ReadOnly(true)]
         public bool? locked { get; set; }
 
         /// <summary>
         /// Picture path
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Path to the picture."), HueLib(true, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Path to the picture."), CreateOnly]
         public string picture { get; set; }
 
         /// <summary>
         /// Version of the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Version of scene document."), HueLib(false, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Version of scene document."), ReadOnly(true)]
         public int? version { get; set; }
 
         /// <summary>
         /// Last time the scene was updated in UTC.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("UTC time the scene has been created or has been updated."), HueLib(false,false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("UTC time the scene has been created or has been updated."), ReadOnly(true)]
         public string lastupdated { get; set; }
 
         /// <summary>
         /// State of the lights in the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("States of every lights in the scene."),Browsable(false), HueLib(false, false)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("States of every lights in the scene."),Browsable(false), ReadOnly(true)]
         public Dictionary<string, State> lightstates { get; set; }
 
         /// <summary>
         /// Store current light state in scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Store the current light state in the scene."),Browsable(false), HueLib(true, true)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Store the current light state in the scene."),Browsable(false)]
         public bool? storelightstate { get; set; }
 
         /// <summary>
         /// Transition time of the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Transition time of the scene."), Browsable(true), HueLib(true,true)]
+        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Transition time of the scene."), Browsable(true)]
         public ushort? transitiontime { get; set; }
 
         /// <summary>
@@ -101,5 +101,6 @@ namespace HueLib2
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
 
         }
+
     }
 }

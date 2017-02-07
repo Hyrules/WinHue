@@ -195,10 +195,27 @@ namespace HueLib2
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
+
                     break;
             }
 
             return new CommandResult() {Success = false,resultobject = "Error deserializing the result object."};
+        }
+
+        public bool CheckAuthorization()
+        {
+            bool authorization = false;
+            if (ApiKey == string.Empty) return false;
+            CommandResult cr = GetBridgeSettings();
+            if (!cr.Success) return false;
+            BridgeSettings settings = (BridgeSettings) cr.resultobject;
+            if (settings.portalservices != null)
+            {
+                authorization = true;                     
+            }
+
+            return authorization;
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -214,5 +231,10 @@ namespace HueLib2
             // return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
             return $@"ipaddress : {IpAddress}, IsDefault : {IsDefault}, SwVersion : {SwVersion}, Mac : {Mac}, ApiVersion : {ApiVersion}, ApiKey : {ApiKey}, BridgeUrl : {BridgeUrl} ";
         }
+    }
+
+    public class BridgeNotRespondingEventArgs : EventArgs
+    {
+        public CommResult ex;
     }
 }

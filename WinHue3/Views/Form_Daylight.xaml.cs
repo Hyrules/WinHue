@@ -11,15 +11,17 @@ namespace WinHue3
     public partial class Form_Daylight : Window
     {
         
-        private string id;
+        private string _id;
 
-        public DaylightViewModel dvm => this.DataContext as DaylightViewModel;
+        public DaylightViewModel _dvm => this.DataContext as DaylightViewModel;
+        private readonly Bridge _bridge;
 
-        public Form_Daylight(Sensor obj)
+        public Form_Daylight(Sensor obj,Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
-            dvm.SetDaylight(obj); 
-            id = obj.Id;
+            _dvm.SetDaylight(obj); 
+            _id = obj.Id;
 
         }
 
@@ -28,13 +30,13 @@ namespace WinHue3
 
             DaylightSensorConfig config = new DaylightSensorConfig
             {
-                @long = dvm.Daylight.Longitude,
-                lat = dvm.Daylight.Latitude,
-                sunriseoffset = Convert.ToSByte(dvm.Daylight.SunriseOffset),
-                sunsetoffset = Convert.ToSByte(dvm.Daylight.SunsetOffset)
+                @long = _dvm.Daylight.Longitude,
+                lat = _dvm.Daylight.Latitude,
+                sunriseoffset = Convert.ToSByte(_dvm.Daylight.SunriseOffset),
+                sunsetoffset = Convert.ToSByte(_dvm.Daylight.SunsetOffset)
             };
 
-            CommandResult bresult = BridgeStore.SelectedBridge.ChangeSensorConfig(id, config);
+            CommandResult bresult = _bridge.ChangeSensorConfig(_id, config);
             if(bresult.Success)
             {
                 this.Close();
@@ -42,7 +44,7 @@ namespace WinHue3
             else
             {
                
-                MessageBoxError.ShowLastErrorMessages(BridgeStore.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
  
 

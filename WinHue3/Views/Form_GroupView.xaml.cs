@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using HueLib2;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -9,24 +10,39 @@ namespace WinHue3
     /// </summary>
     public partial class Form_GroupView : Window
     {
-        private GroupViewView _gvv;
-        public Form_GroupView()
+        private GroupViewViewModel _gvv;
+        private readonly Bridge _bridge;
+        public Form_GroupView(Bridge bridge)
         {
+            _bridge = bridge;
             InitializeComponent();
+            CommandResult comlgt = _bridge.GetListObjects<Light>();
+            _gvv = DataContext as GroupViewViewModel;
 
-            CommandResult comlgt = BridgeStore.SelectedBridge.GetListObjects<Light>();
-            if (!comlgt.Success) return;
-            CommandResult comgrp = BridgeStore.SelectedBridge.GetListObjects<Group>();
-            if (!comgrp.Success) return;
+            if (comlgt.Success)
+            {
+                CommandResult comgrp = _bridge.GetListObjects<Group>();
+                if (comgrp.Success)
+                {
+                    
+                    _gvv.Initialize((Dictionary<string, Group>)comgrp.resultobject, (Dictionary<string, Light>)comlgt.resultobject);
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(bridge);
+                }
 
-            _gvv = new GroupViewView((Dictionary<string, Group>) comgrp.resultobject,(Dictionary<string, Light>) comlgt.resultobject);
-            DataContext = _gvv;
+                DataContext = _gvv;
+
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(bridge);
+            }
+
+
+
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if(_gvv == null)
-                Close();
-        }
     }
 }

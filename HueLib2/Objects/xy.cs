@@ -22,6 +22,13 @@ namespace HueLib2
             x = 0;
             y = 0;
         }
+
+        public XY(decimal newx, decimal newy)
+        {
+            x = newx;
+            y = newy;
+        }
+
         /// <summary>
         /// X floating poing value.
         /// </summary>

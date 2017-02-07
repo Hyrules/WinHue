@@ -4,9 +4,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
+        xmlns:converters="clr-namespace:WinHue3.Converters"
         x:Class="WinHue3.Form_BridgeSettings"
         Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="502" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/1417331999_Gear.png" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <viewmodels:BridgeSettingsViewModel/>
+    </Window.DataContext>
     <Window.Resources>
+        <converters:BoolToOppositeBoolConverter x:Key="BoolToOppositBoolConverter"/>
         <Style TargetType="{x:Type xctk:WatermarkTextBox}" >
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -50,85 +56,66 @@
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings}">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106"/>
-
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_UTC}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblTime" Content="{Binding BridgeUTC}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="lblTime" Content="{Binding GeneralModel.Utc}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_SwVersion}" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblSwVersion" Content="{Binding BridgeSwVersion}" HorizontalAlignment="Left" Margin="121,134,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="lblSwVersion" Content="{Binding GeneralModel.Swversion}" HorizontalAlignment="Left" Margin="121,134,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ZigBeeChannel}" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblZigbee" Content="{Binding BridgeZigBeeChannel}" HorizontalAlignment="Left" Height="26" Margin="121,196,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="lblZigbee" Content="{Binding GeneralModel.Zigbeechannel}" HorizontalAlignment="Left" Height="26" Margin="121,196,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LocalTime}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblLocalTime" Content="{Binding BridgeLocalTime}" HorizontalAlignment="Left" Margin="121,72,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="lblLocalTime" Content="{Binding GeneralModel.Localtime}" HorizontalAlignment="Left" Margin="121,72,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ApiVersion}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblApiVersion" Content="{Binding BridgeApiVersion}" HorizontalAlignment="Left" Margin="121,165,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="lblApiVersion" Content="{Binding GeneralModel.Apiversion}" HorizontalAlignment="Left" Margin="121,165,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LinkButtonState}" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="lblLinkButton" Content="{Binding BridgeLinkState}" HorizontalAlignment="Left" Margin="121,227,0,0" VerticalAlignment="Top" Width="210"/>
+                    <Label x:Name="lblLinkButton" Content="{Binding GeneralModel.Linkstate}" HorizontalAlignment="Left" Margin="121,227,0,0" VerticalAlignment="Top" Width="210"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Timezone}" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="106"/>
-                    <ComboBox x:Name="cbTimezones" HorizontalAlignment="Left" Margin="121,107,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding BridgeTimeZoneList}" SelectedItem="{Binding BridgeSelectedTimeZone}"/>
-                    <xctk:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding BridgeName}" VerticalAlignment="Top" Width="210" Watermark="Optional"/>
+                    <ComboBox x:Name="cbTimezones" HorizontalAlignment="Left" Margin="121,107,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}"/>
+                    <xctk:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" Watermark="Optional"/>
                     <Button x:Name="btnApplyGeneralSettings" Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" HorizontalAlignment="Left" Margin="392,233,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings}">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_MAC}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="lblMac"  Content="{Binding BridgeMac}" HorizontalAlignment="Left" Margin="107,20,0,0" VerticalAlignment="Top" Width="155"/>
+                    <Label x:Name="lblMac"  Content="{Binding NetworkModel.Mac}" HorizontalAlignment="Left" Margin="107,20,0,0" VerticalAlignment="Top" Width="155"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_IPAddress}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="92" />
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Netmask}" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Gateway}" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress}" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top"/>
-                    <xctk:IntegerUpDown x:Name="nudProxyPort" HorizontalAlignment="Left" Margin="107,192,0,0" VerticalAlignment="Top" Width="71" Maximum="65535" Minimum="0" Value="{Binding BridgeProxyPort}" IsEnabled="{Binding BridgeEnableDHCP}"/>
+                    <xctk:IntegerUpDown x:Name="nudProxyPort" HorizontalAlignment="Left" Margin="107,192,0,0" VerticalAlignment="Top" Width="71" Maximum="65535" Minimum="0" Value="{Binding NetworkModel.Proxyport}" IsEnabled="{Binding ElementName=chbDHCP,Path=IsChecked, Converter={StaticResource BoolToOppositBoolConverter}}"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyPort}" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="92"/>
-                    <CheckBox x:Name="chbDHCP" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Left" Margin="336,26,0,0" VerticalAlignment="Top" Width="125" IsChecked="{Binding BridgeDHCPEnable}" Click="chbDHCP_Click"/>
-                    <xctk:WatermarkTextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding BridgeIpAddress, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.123" VerticalAlignment="Top" Width="145" IsEnabled="{Binding BridgeEnableDHCP}" />
-                    <xctk:WatermarkTextBox x:Name="tbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding BridgeNetmaskAddress, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 255.255.255.0" VerticalAlignment="Top" Width="145" IsEnabled="{Binding BridgeEnableDHCP}"/>
-                    <xctk:WatermarkTextBox x:Name="tbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding BridgeGatewayAddress, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.1" VerticalAlignment="Top" Width="145" IsEnabled="{Binding BridgeEnableDHCP}"/>
-                    <xctk:WatermarkTextBox x:Name="tbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding BridgeProxyAddress, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.2" VerticalAlignment="Top" Width="145" IsEnabled="{Binding BridgeEnableDHCP}"/>
+                    <CheckBox x:Name="chbDHCP" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Left" Margin="336,26,0,0" VerticalAlignment="Top" Width="125" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click"/>
+                    <xctk:WatermarkTextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.123" VerticalAlignment="Top" Width="145" IsEnabled="{Binding ElementName=chbDHCP,Path=IsChecked, Converter={StaticResource BoolToOppositBoolConverter}}" />
+                    <xctk:WatermarkTextBox x:Name="tbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 255.255.255.0" VerticalAlignment="Top" Width="145" IsEnabled="{Binding ElementName=chbDHCP,Path=IsChecked, Converter={StaticResource BoolToOppositBoolConverter}}"/>
+                    <xctk:WatermarkTextBox x:Name="tbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.1" VerticalAlignment="Top" Width="145" IsEnabled="{Binding ElementName=chbDHCP,Path=IsChecked, Converter={StaticResource BoolToOppositBoolConverter}}"/>
+                    <xctk:WatermarkTextBox x:Name="tbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.2" VerticalAlignment="Top" Width="145" IsEnabled="{Binding ElementName=chbDHCP,Path=IsChecked, Converter={StaticResource BoolToOppositBoolConverter}}"/>
                     <Button x:Name="btnApplyNetworkSettings" Style="{StaticResource btnApplyNetwork}"  Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" Margin="392,233,0,0" VerticalAlignment="Top" Width="75"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus}">
                 <Grid Background="#FFE5E5E5">
-                    <CheckBox x:Name="chbPortalService" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_PortalService}" IsChecked="{Binding BridgePortalService,Mode=OneWay}" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" IsHitTestVisible="False" ToolTip="This option cannot be modified." Width="211"/>
+                    <CheckBox x:Name="chbPortalService" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_PortalService}" IsChecked="{Binding PortalModel.Portalservice,Mode=OneWay}" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" IsHitTestVisible="False" ToolTip="This option cannot be modified." Width="211"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Connection}" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label x:Name="lblPortalConnection" Content="{Binding BridgeConnectionStatus}" HorizontalAlignment="Left" Margin="134,52,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="lblPortalConnection" Content="{Binding PortalModel.Connection}" HorizontalAlignment="Left" Margin="134,52,0,0" VerticalAlignment="Top" Width="333"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_SignedOn}" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Width="119"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Incoming}" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="119"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Outgoing}" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="119"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Communication}" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label x:Name="lblSignedon" Content="{Binding BridgeSignedOn}" HorizontalAlignment="Left" Margin="134,83,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="lblIncoming" Content="{Binding BridgeIncoming}" HorizontalAlignment="Left" Margin="134,114,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="lblOutgoing" Content="{Binding BridgeOutgoing}" HorizontalAlignment="Left" Margin="134,145,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="lblComm" Content="{Binding BridgeCommunication}" HorizontalAlignment="Left" Margin="134,176,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="lblSignedon" Content="{Binding PortalModel.Signedon}" HorizontalAlignment="Left" Margin="134,83,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="lblIncoming" Content="{Binding PortalModel.Incoming}" HorizontalAlignment="Left" Margin="134,114,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="lblOutgoing" Content="{Binding PortalModel.Outgoing}" HorizontalAlignment="Left" Margin="134,145,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="lblComm" Content="{Binding PortalModel.Communication}" HorizontalAlignment="Left" Margin="134,176,0,0" VerticalAlignment="Top" Width="333"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate}">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_URL}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="lblURL" Content="{Binding BridgeUpdateUrl}" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="289"/>
+                    <Label x:Name="lblURL" Content="{Binding SoftwareModel.Url}" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="289"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Text}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="lblText" Content="{Binding BridgeUpdateText}" HorizontalAlignment="Left" Margin="100,41,0,0" VerticalAlignment="Top" Width="289"/>
+                    <Label x:Name="lblText" Content="{Binding SoftwareModel.Text}" HorizontalAlignment="Left" Margin="100,41,0,0" VerticalAlignment="Top" Width="289"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="lblUpdateState" Content="{Binding BridgeUpdateState}" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="289"/>
-                    <CheckBox x:Name="chbNotify" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Notify}" IsChecked="{Binding BridgeUpdateNotify,Mode=OneWay}" HorizontalAlignment="Left" Margin="106,108,0,0" VerticalAlignment="Top" Width="89" IsHitTestVisible="False"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList}">
-                <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="lbUsers" DisplayMemberPath="Name" HorizontalAlignment="Left" Height="247" Margin="7,6,0,0" VerticalAlignment="Top" Width="203" ItemsSource="{Binding BridgeListUsers}" SelectedItem="{Binding BridgeListUsersSelectedUser}" />
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_AppName}" HorizontalAlignment="Left" Margin="215,6,0,0" VerticalAlignment="Top" Width="85"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_DeviceName}" HorizontalAlignment="Left" Margin="215,34,0,0" VerticalAlignment="Top" Width="85"/>
-                    <Button x:Name="btnClear" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_ClearButton}" HorizontalAlignment="Left" Margin="220,233,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClearWhiteListFieldsCommand}" ToolTip="Clear all fields and deselect the currently selected user."/>
-                    <Button x:Name="btnDeleteUser" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_DeleteButton}" HorizontalAlignment="Left" Margin="300,233,0,0" VerticalAlignment="Top" Width="75" Background="Red" Command="{Binding RemoveBridgeUserCommand}" IsEnabled="{Binding CanDeleteUser}" ToolTip="Delete the selected user. [You cannot delete yourself from this list]" />
-                    <Button x:Name="btnCreateUser" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_CreateButton}" HorizontalAlignment="Left" Margin="380,233,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CreateUserCommand}" ToolTip="Create a new user." IsEnabled="{Binding BridgeWhiteListCanCreate}" />
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_LastUseDate}" HorizontalAlignment="Left" Margin="215,152,0,0" VerticalAlignment="Top"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_CreateDate}" HorizontalAlignment="Left" Margin="215,183,0,0" VerticalAlignment="Top" Width="87"/>
-                    <Label x:Name="lblLastUseDate" Content="{Binding BridgeWhiteListLastUseDate}" HorizontalAlignment="Left" Margin="302,152,0,0" VerticalAlignment="Top" Width="165"/>
-                    <Label x:Name="lblCreateDate" Content="{Binding BridgeWhiteListCreateDate}" HorizontalAlignment="Left" Margin="302,183,0,0" VerticalAlignment="Top" Width="165" IsHitTestVisible="False"/>
-                    <Label x:Name="lblApiKey" Content="{Binding BridgeWhiteListUserId}" HorizontalAlignment="Left" Margin="215,105,0,0" VerticalAlignment="Top" Width="252"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_WhiteList_Apikey}" HorizontalAlignment="Left" Margin="215,79,0,0" VerticalAlignment="Top"/>
-                    <xctk:WatermarkTextBox x:Name="tbAppName" HorizontalAlignment="Left" Margin="300,8,0,0" TextWrapping="Wrap" Text="{Binding BridgeWhiteListAppName}" VerticalAlignment="Top" Width="163" MaxLines="1" MaxLength="20" ToolTip="{x:Static resx:GUI.Tooltip_Optional}"/>
-                    <xctk:WatermarkTextBox x:Name="tbDeviceName" HorizontalAlignment="Left" Margin="300,36,0,0" TextWrapping="Wrap" Text="{Binding BridgeWhiteListDevName}" VerticalAlignment="Top" Width="163" ToolTip="{x:Static resx:GUI.Tooltip_Optional}"/>
+                    <Label x:Name="lblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="289"/>
+                    <CheckBox x:Name="chbNotify" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Notify}" IsChecked="{Binding SoftwareModel.Notify,Mode=OneWay}" HorizontalAlignment="Left" Margin="11,114,0,0" VerticalAlignment="Top" Width="89" IsHitTestVisible="False"/>
                 </Grid>
             </TabItem>
         </TabControl>

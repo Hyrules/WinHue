@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using HueLib2;
 using WinHue3.Resources;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -12,31 +13,31 @@ namespace WinHue3
     /// </summary>
     public partial class Form_HotKeyCreator : Window
     {
-        private HotKeyCreatorView hkv;
+        private HotKeyCreatorViewModel _hkv;
 
-        public Form_HotKeyCreator()
+        public Form_HotKeyCreator(Bridge bridge)
         {
             InitializeComponent();
-            hkv = new HotKeyCreatorView();
-            DataContext = hkv;
+            _hkv = DataContext as HotKeyCreatorViewModel;
+            _hkv.Initialize(bridge);   
+               
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
-            hkv.SaveHotKeys();
+            _hkv.SaveHotKeys();
             Close();
         }
 
         private void Window_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if(hkv.canRecordKeyUp)
-                hkv.CaptureHotkey(e);
-
+            if(_hkv.CanRecordKeyUp)
+                _hkv.CaptureHotkey(e);
         }
 
         public List<HotKey> GetHotKeys()
         {
-            return hkv.ListHotkeys.ToList();
+            return _hkv.ListHotKeys.ToList();
         }
 
         private void btnHelpGeneric_Click(object sender, RoutedEventArgs e)

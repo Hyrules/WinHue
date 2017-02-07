@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace WinHue3
+namespace WinHue3.Converters
 {
     /// <summary>
     /// Invert a bool from it's current value. Used in the binding.

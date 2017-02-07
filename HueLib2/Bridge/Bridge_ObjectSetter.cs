@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -17,10 +18,10 @@ namespace HueLib2
         /// <param name="state">New state of the object.</param>
         /// <param name="id">ID of the specified object.</param>
         /// <returns>BridgeCommResult</returns>
-        public CommandResult SetState<T>(CommonProperties state,string id) where T : HueObject
+        public CommandResult SetState<T>(CommonProperties state, string id) where T : HueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
- 
+            CommandResult bresult = new CommandResult() { Success = false };
+
             CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/" + (typeof(T) == typeof(Light) ? "lights" : "groups") + $@"/{id}/" + (typeof(T) == typeof(Light) ? "state" : "action")), WebRequestType.PUT, Serializer.SerializeToJson(state));
 
             switch (comres.status)
@@ -32,12 +33,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
             }
 
@@ -52,7 +55,7 @@ namespace HueLib2
         public CommandResult ActivateScene(string id)
         {
             CommandResult bresult = new CommandResult() { Success = false };
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/0/action"), WebRequestType.PUT,"{\"scene\":\"" + id + "\"}");
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + "/groups/0/action"), WebRequestType.PUT, "{\"scene\":\"" + id + "\"}");
 
             switch (comres.status)
             {
@@ -63,12 +66,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
             }
 
@@ -82,8 +87,8 @@ namespace HueLib2
         /// <returns>BrideCommResult</returns>
         public CommandResult StoreCurrentLightState(string id)
         {
-            CommandResult bresult = new CommandResult() {Success = false};
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/scenes/{id}"), WebRequestType.PUT, Serializer.SerializeToJson(new Scene() {storelightstate = true}));
+            CommandResult bresult = new CommandResult() { Success = false };
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/scenes/{id}"), WebRequestType.PUT, Serializer.SerializeToJson(new Scene() { storelightstate = true }));
 
             switch (comres.status)
             {
@@ -94,12 +99,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
             }
             return bresult;
@@ -112,10 +119,10 @@ namespace HueLib2
         /// <param name="lightid">Id of the light.</param>
         /// <param name="state">State of the light.</param>
         /// <returns>BrideCommResult</returns>
-        public CommandResult SetSceneLightState(string sceneid,string lightid, CommonProperties state) 
+        public CommandResult SetSceneLightState(string sceneid, string lightid, CommonProperties state)
         {
-            CommandResult bresult = new CommandResult() {Success = false};
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/scenes/{sceneid}/lightstates/{lightid}"),WebRequestType.PUT, Serializer.SerializeToJson(state));
+            CommandResult bresult = new CommandResult() { Success = false };
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/scenes/{sceneid}/lightstates/{lightid}"), WebRequestType.PUT, Serializer.SerializeToJson(state));
 
             switch (comres.status)
             {
@@ -126,17 +133,19 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
             }
 
             return bresult;
-            
+
         }
 
         /// <summary>
@@ -148,7 +157,7 @@ namespace HueLib2
         /// <returns>BridgeCommResult</returns>
         public CommandResult RenameObject<T>(string id, string newname) where T : HueObject, new()
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult bresult = new CommandResult() { Success = false };
             T hueobj = new T();
             string ns = typeof(T).Namespace;
             if (ns != null)
@@ -167,12 +176,14 @@ namespace HueLib2
                         break;
                     case WebExceptionStatus.Timeout:
                         lastMessages = new MessageCollection { _bridgeNotResponding };
-                        BridgeNotResponding?.Invoke(this, _e);
+                        BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                     default:
                         lastMessages = new MessageCollection { new UnkownError(comres) };
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                 }
             }
@@ -193,7 +204,7 @@ namespace HueLib2
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public CommandResult CreateObject<T>(T newobject) where T : HueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult bresult = new CommandResult() { Success = false };
             T nobject = newobject;
             string ns = typeof(T).Namespace;
             if (ns != null)
@@ -209,12 +220,14 @@ namespace HueLib2
                         break;
                     case WebExceptionStatus.Timeout:
                         lastMessages = new MessageCollection { _bridgeNotResponding };
-                        BridgeNotResponding?.Invoke(this, _e);
+                        BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                     default:
                         lastMessages = new MessageCollection { new UnkownError(comres) };
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                 }
             }
@@ -233,7 +246,7 @@ namespace HueLib2
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public CommandResult RemoveObject<T>(string id) where T : HueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult bresult = new CommandResult() { Success = false };
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
@@ -248,12 +261,14 @@ namespace HueLib2
                         break;
                     case WebExceptionStatus.Timeout:
                         lastMessages = new MessageCollection { _bridgeNotResponding };
-                        BridgeNotResponding?.Invoke(this, _e);
+                        BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                     default:
                         lastMessages = new MessageCollection { new UnkownError(comres) };
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                 }
 
@@ -272,15 +287,15 @@ namespace HueLib2
         /// <param name="modifiedobject">The new modified object.</param>
         /// <param name="id">Id of the object.</param>
         /// <returns>BridgeCommResult</returns>
-        public CommandResult ModifyObject<T>(T modifiedobject,string id) where T : HueObject
+        public CommandResult ModifyObject<T>(T modifiedobject, string id) where T : HueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult bresult = new CommandResult() { Success = false };
             T mobject = modifiedobject;
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
                 string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}/{id}"), WebRequestType.PUT,Serializer.SerializeToJson(ClearNotAllowedModifyProperties(mobject)));
+                CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/{typename}/{id}"), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(mobject)));
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
@@ -290,12 +305,14 @@ namespace HueLib2
                         break;
                     case WebExceptionStatus.Timeout:
                         lastMessages = new MessageCollection { _bridgeNotResponding };
-                        BridgeNotResponding?.Invoke(this, _e);
+                        BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                     default:
                         lastMessages = new MessageCollection { new UnkownError(comres) };
                         bresult.resultobject = comres.data;
+                        bresult.ex = comres.ex;
                         break;
                 }
 
@@ -318,7 +335,7 @@ namespace HueLib2
         {
             CommandResult bresult = new CommandResult();
             SensorConfig sconfig = newconfig;
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/config"),WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(sconfig)));
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/config"), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(sconfig)));
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
@@ -328,12 +345,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
             }
 
@@ -349,7 +368,7 @@ namespace HueLib2
         public CommandResult ChangeSensorState(string id, SensorState newstate)
         {
             CommandResult bresult = new CommandResult();
-            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/state"),WebRequestType.PUT, Serializer.SerializeToJson(newstate));
+            CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $@"/sensors/{id}/state"), WebRequestType.PUT, Serializer.SerializeToJson(newstate));
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
@@ -359,12 +378,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
             }
 
@@ -378,20 +399,14 @@ namespace HueLib2
         /// <returns></returns>
         private object ClearNotAllowedModifyProperties(object obj)
         {
-            string json = Serializer.SerializeToJson(obj);
-            MethodInfo mi = typeof(Serializer).GetMethod("DeserializeToObject");
-            MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
-            object newobj = generic.Invoke(obj, new object[] { json });
-            PropertyInfo[] listproperties = newobj.GetType().GetProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
-                if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
-                HueLibAttribute hla = (HueLibAttribute) Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
-                if (!hla.Modify)
-                    p.SetValue(newobj, null);
+                if (Attribute.IsDefined(p, typeof(CreateOnlyAttribute)) || Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))
+                    p.SetValue(obj, null);
             }
 
-            return newobj;            
+            return obj;
         }
 
         /// <summary>
@@ -401,20 +416,14 @@ namespace HueLib2
         /// <returns></returns>
         private object ClearNotAllowedCreationProperties(object obj)
         {
-            string json = Serializer.SerializeToJson(obj);
-            MethodInfo mi = typeof(Serializer).GetMethod("DeserializeToObject");
-            MethodInfo generic = mi.MakeGenericMethod(obj.GetType());
-            object newobj = generic.Invoke(obj, new object[] { json });
-            PropertyInfo[] listproperties = newobj.GetType().GetProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties();
             foreach (PropertyInfo p in listproperties)
             {
-                if (!Attribute.IsDefined(p, typeof(HueLibAttribute))) continue;
-                HueLibAttribute hla = (HueLibAttribute)Attribute.GetCustomAttribute(p, typeof(HueLibAttribute));
-                if (!hla.Create)
-                    p.SetValue(newobj, null);
+                if (Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))
+                    p.SetValue(obj, null);
             }
 
-            return newobj;
+            return obj;
         }
     }
 }

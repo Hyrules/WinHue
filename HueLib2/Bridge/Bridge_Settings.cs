@@ -29,10 +29,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
+                    bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
+                    bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
             bresult.resultobject = lastMessages;
@@ -67,11 +71,14 @@ namespace HueLib2
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
                     bresult.resultobject = lastMessages;
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
+                    bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
             
@@ -100,10 +107,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
+                    bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
+                    bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
             bresult.resultobject = lastMessages;
@@ -136,12 +147,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
 
@@ -172,12 +185,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
 
@@ -207,10 +222,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
+                    bresult.resultobject = comres.data;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
+                    bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
             bresult.resultobject = lastMessages;
@@ -247,12 +266,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
 
@@ -288,12 +309,14 @@ namespace HueLib2
                     break;
                 case WebExceptionStatus.Timeout:
                     lastMessages = new MessageCollection { _bridgeNotResponding };
-                    BridgeNotResponding?.Invoke(this, _e);
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
                 default:
                     lastMessages = new MessageCollection { new UnkownError(comres) };
                     bresult.resultobject = lastMessages;
+                    bresult.ex = comres.ex;
                     break;
             }
 

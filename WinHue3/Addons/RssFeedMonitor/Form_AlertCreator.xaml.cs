@@ -28,10 +28,10 @@ namespace WinHue3
         private Form_ActionPicker fap;
         private string _oldName;
 
-        public Form_AlertCreator()
+        public Form_AlertCreator(Bridge bridge)
         {
             InitializeComponent();
-            fap = new Form_ActionPicker();
+            fap = new Form_ActionPicker(bridge);
             _oldName = null;
         }
 

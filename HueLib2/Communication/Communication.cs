@@ -35,6 +35,7 @@ namespace HueLib2
                     case WebRequestType.GET:
                         Method = "GET";
                         var bytes = wc.DownloadData(url);
+                        
                         UTF8Encoding utf8 = new UTF8Encoding();
                         received = utf8.GetString(bytes);
                         break;
@@ -60,9 +61,13 @@ namespace HueLib2
             {
                 result.status = ex.Status;
                 result.data = "{}";
+                result.ex = ex;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                result.status = WebExceptionStatus.UnknownError;
+                result.data = "{}";
+                result.ex = ex;
                 lastjson = null;
             }
             return result;
@@ -73,5 +78,6 @@ namespace HueLib2
     {
         public WebExceptionStatus status ;
         public string data;
+        public Exception ex;
     }
 }

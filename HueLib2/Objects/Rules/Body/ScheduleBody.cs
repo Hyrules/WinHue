@@ -11,16 +11,16 @@ namespace HueLib2
     [DataContract]
     public class ScheduleBody : RuleBody
     {
-        [DataMember, HueLib(true,true)]
+        [DataMember]
         public string localtime { get; set; }
 
-        [DataMember, HueLib(true,true)]
+        [DataMember]
         public string status { get; set; }
 
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public bool? autodelete { get; set; }
 
-        [DataMember, HueLib(true, true)]
+        [DataMember]
         public bool? recycle { get; set; }
 
         public override string ToString()

@@ -16,7 +16,7 @@ namespace HueLib2
         /// <summary>
         /// Name of the Schedule.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Name of the schedule"), HueLib(true, true)]
+        [DataMember, Category("Schedule Properties"), Description("Name of the schedule")]
         public string name
         {
             get { return _name; }
@@ -32,48 +32,48 @@ namespace HueLib2
         /// <summary>
         /// Time when the scheduled event will occur in ISO 8601:2004 format.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Local Time of the schedule"), HueLib(true, true)]
+        [DataMember, Category("Schedule Properties"), Description("Local Time of the schedule")]
         public string localtime { get; set; }
         /// <summary>
         /// Description of the schedule
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Description of the schedule"), HueLib(true, true)]
+        [DataMember, Category("Schedule Properties"), Description("Description of the schedule")]
         public string description { get; set; }
 
         /// <summary>
         /// Description of the schedule
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Time of the schedule"),Obsolete("Please use local time instead of time."), HueLib(true, true)]
+        [DataMember, Category("Schedule Properties"), Description("Time of the schedule"),Obsolete("Please use local time instead of time.")]
         public string time { get; set; }
 
         /// <summary>
         /// Command to be executed when the schedule is triggered
         /// </summary>
-        [DataMember, ExpandableObject, Category("Command"), Description("Command of the schedule"), HueLib(true, true)]
+        [DataMember, ExpandableObject, Category("Command"), Description("Command of the schedule")]
         public Command command { get; set; }
 
         /// <summary>
         /// Status of the schedule.
         /// </summary>
-        [DataMember, ExpandableObject, Category("Schedule Properties"), Description("Command of the schedule"), HueLib(true, true)]
+        [DataMember, ExpandableObject, Category("Schedule Properties"), Description("Command of the schedule")]
         public string status { get; set; }
 
         /// <summary>
         /// Recycle the schedule.
         /// </summary>
-        [DataMember, ExpandableObject, Category("Schedule Properties"), Description("Command of the schedule"), HueLib(true, false)]
+        [DataMember, ExpandableObject, Category("Schedule Properties"), Description("Command of the schedule"), CreateOnly]
         public bool? recycle { get; set; }
 
         /// <summary>
         /// Date created.
         /// </summary>
-        [DataMember, ExpandableObject, Category("Schedule Properties"), Description("Command of the schedule"), HueLib(false, false)]
+        [DataMember, ExpandableObject, Category("Schedule Properties"), Description("Command of the schedule")]
         public string created { get; set; }
 
         /// <summary>
         /// Autodelete.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Autodelete the schedule"), HueLib(true, true)]
+        [DataMember, Category("Schedule Properties"), Description("Autodelete the schedule")]
         public bool? autodelete { get; set; }
 
         /// <summary>

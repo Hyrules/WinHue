@@ -23,7 +23,6 @@ using WinHue3.Resources;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using MessageBox = System.Windows.MessageBox;
-using System.Net;
 using System.Windows.Forms;
 
 namespace WinHue3
@@ -37,7 +36,7 @@ namespace WinHue3
         private readonly DispatcherTimer _refreshStates = new DispatcherTimer();
         private ObservableCollection<HueObject> _listBridgeObjects;
         private readonly BackgroundWorker _bgwRefresher = new BackgroundWorker();
-        private readonly BackgroundWorker _updatebs = new BackgroundWorker();
+    //    private readonly BackgroundWorker _updatebs = new BackgroundWorker();
         private readonly CpuTempMonitor ctm = new CpuTempMonitor();
         private readonly RssFeedMonitor rfm = new RssFeedMonitor();
 
@@ -65,7 +64,9 @@ namespace WinHue3
             _refreshStates.Tick += _refreshStates_Tick;
             _bgwRefresher.DoWork += _bgwRefresher_DoWork;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
-            _updatebs.DoWork += _updatebs_DoWork;
+            Communication.Timeout = WinHueSettings.settings.Timeout;
+
+         //   _updatebs.DoWork += _updatebs_DoWork;
 
             //_refreshStates.Start();
             Cursor_Tools.ShowWaitCursor();
@@ -81,22 +82,22 @@ namespace WinHue3
             
             LoadBridge();
             LoadHotkeys();
-            _updatebs.RunWorkerAsync();
+            
         }
 
-        private void _updatebs_DoWork(object sender, DoWorkEventArgs e)
+        private void CheckForUpdate()
         {
-            if(ListBridges.All(x => x.ApiKey == string.Empty && x.IsDefault == false)) return;
-            
+            if (ListBridges.All(x => x.ApiKey == string.Empty && x.IsDefault == false)) return;
+
             foreach (Bridge br in ListBridges)
             {
-                
+
                 HelperResult hr = HueObjectHelper.GetBridgeSettings(br);
                 if (hr.Success)
                 {
-                    BridgeSettings brs = (BridgeSettings) hr.Hrobject;
+                    BridgeSettings brs = (BridgeSettings)hr.Hrobject;
                     WinHueSettings.settings.BridgeInfo[br.Mac].apiversion = brs.apiversion;
-                    br.ApiVersion = brs.apiversion;                 
+                    br.ApiVersion = brs.apiversion;
                     WinHueSettings.settings.BridgeInfo[br.Mac].name = brs.name;
                     br.Name = brs.name;
                     WinHueSettings.settings.BridgeInfo[br.Mac].swversion = brs.swversion;
@@ -108,8 +109,6 @@ namespace WinHue3
                     log.Error($"Unable to update {br.Name} winhue settings.");
                 }
             }
-            
-
         }
 
         public void Initialize(Form_EventLog fel)
@@ -206,7 +205,7 @@ namespace WinHue3
 
         public Visibility MultiBridgeCB => BridgeStore.ListBridges.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
 
-        public ObservableCollection<Bridge> ListBridges => BridgeStore.ListBridges;
+        public ObservableCollection<Bridge> ListBridges => new ObservableCollection<Bridge>(BridgeStore.ListBridges.Where(x => x.ApiKey != string.Empty));
 
         public bool EnableSearchLights
         {
@@ -557,7 +556,11 @@ namespace WinHue3
                     MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
                     MethodInfo generic = mi.MakeGenericMethod(value.GetType());
                     HelperResult hr = (HelperResult) generic.Invoke(BridgeStore.SelectedBridge, new object[] {BridgeStore.SelectedBridge, value.Id});
-                    if (!hr.Success) return;
+                    if (!hr.Success)
+                    {
+                        log.Error(hr.Hrobject);
+                        return;
+                    }
                     _selectedObject = (HueObject)hr.Hrobject;
                 }
                 
@@ -603,7 +606,7 @@ namespace WinHue3
             get
             {
                 if (_selectedObject == null) return false;
-                return _selectedObject is Light || _selectedObject is Group;
+                return _selectedObject is Light || _selectedObject is Group || _selectedObject is Scene;
             }
         }
 
@@ -634,8 +637,7 @@ namespace WinHue3
                 if (_selectedObject is Light) return false;
                 if(_selectedObject is Scene)
                     if (((Scene) _selectedObject).version < 2) return false;
-                
-                if (_selectedObject is Resourcelink) return false;
+               
                 return true;
             }
         }
@@ -671,7 +673,7 @@ namespace WinHue3
         {
             log.Info("Loading bridge...");
             BridgeStore.ListBridges = AssociateBridgeWithApiKey(BridgeStore.ListBridges);
-
+            bool result = false;
             // if None of the bridge are paired or if there is no default bridge
             if (BridgeStore.ListBridges.All(x => x.ApiKey == string.Empty) || (WinHueSettings.settings.DefaultBridge == string.Empty))
             {
@@ -712,19 +714,29 @@ namespace WinHue3
                 }
                 //LoadPlugins();
                 Cursor_Tools.ShowNormalCursor();
+                CheckForUpdate();
             }
-
+            
         }
 
         private void Temp_BridgeNotResponding(object sender, EventArgs e)
         {
             //BridgeStore.SelectedBridge = null;
             MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK,MessageBoxImage.Error);
-            SelectedBridge = null;
+            if (e is BridgeNotRespondingEventArgs)
+            {
+                log.Error($"{sender}");
+                log.Error(Serializer.SerializeToJson(((BridgeNotRespondingEventArgs) e).ex?.ex?.ToString()));             
+                /*log.Error(((BridgeNotRespondingEventArgs) e).ex.ToString());
+                log.Error(((BridgeNotRespondingEventArgs)e).ex.ex.ToString());
+                log.Error(((BridgeNotRespondingEventArgs) e).ex.ex.InnerException?.ToString());*/
+            }
+            log.Error($"{sender} : {e.ToString()}");
+            //SelectedBridge = null;
             Cursor_Tools.ShowNormalCursor();
             ctm.Stop();
             rfm.Stop();
-            DoBridgePairing();
+            //DoBridgePairing();
         }
 
 
@@ -877,7 +889,6 @@ namespace WinHue3
         {
             Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing() {Owner = Application.Current.MainWindow };
             if (dp.ShowDialog() != true) return;
-            BridgeStore.ListBridges = dp.GetModifications();
             OnPropertyChanged("ListBridges");
             OnPropertyChanged("SelectedBridge");
             LoadBridge();
@@ -961,7 +972,7 @@ namespace WinHue3
             }
             else if (_selectedObject is Schedule)
             {
-                Form_ScheduleCreator fsc = new Form_ScheduleCreator(BridgeStore.SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
+                Form_ScheduleCreator fsc = new Form_ScheduleCreator(_selectedObject) { Owner = Application.Current.MainWindow };
                 if (fsc.ShowDialog() == true)
                 {
                     RefreshObject(_selectedObject);
@@ -988,7 +999,7 @@ namespace WinHue3
 
                         break;
                     case "ZGPSWITCH":
-                        Form_HueTapConfig htc = new Form_HueTapConfig(BridgeStore.SelectedBridge, obj.Id)
+                        Form_HueTapConfig htc = new Form_HueTapConfig(obj.Id)
                         {
                             Owner = Application.Current.MainWindow
                         };
@@ -998,13 +1009,18 @@ namespace WinHue3
                         }
                         break;
                     default:
-                        Form_SensorCreator fsc = new Form_SensorCreator(BridgeStore.SelectedBridge, obj)
+                        CommandResult crs = BridgeStore.SelectedBridge.GetObject<Sensor>(obj.Id);
+                        if (crs.Success)
                         {
-                            Owner = Application.Current.MainWindow
-                        };
-                        if (fsc.ShowDialog() == true)
-                        {
-                            RefreshObject(_selectedObject);
+                            Form_SensorCreator fsc = new Form_SensorCreator((Sensor)crs.resultobject)
+                            {
+                                Owner = Application.Current.MainWindow
+                            };
+                            if (fsc.ShowDialog() == true)
+                            {
+                                RefreshObject(_selectedObject);
+                            }
+
                         }
                         break;
                 }
@@ -1024,6 +1040,16 @@ namespace WinHue3
                 {
                     RefreshObject(_selectedObject);
                 }
+            }
+            else if (_selectedObject is Resourcelink)
+            {
+                Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator((Resourcelink)_selectedObject) { Owner = Application.Current.MainWindow};
+
+                if (frlc.ShowDialog() == true)
+                {
+                    RefreshObject(_selectedObject);
+                }
+
             }
         }
 
@@ -1051,7 +1077,7 @@ namespace WinHue3
                         OnPropertyChanged("ListBridges");
                     }
                     RefreshView();
-                    _updatebs.RunWorkerAsync();
+                    CheckForUpdate();
                 }
             }
 
@@ -1125,7 +1151,7 @@ namespace WinHue3
 
         private void CreateSchedule()
         {
-            Form_ScheduleCreator fscc = new Form_ScheduleCreator(BridgeStore.SelectedBridge, _selectedObject) { Owner = Application.Current.MainWindow };
+            Form_ScheduleCreator fscc = new Form_ScheduleCreator(_selectedObject) { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the schedule creator window passing bridge {BridgeStore.SelectedBridge.IpAddress} ");
             if (fscc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created schedule ID {fscc.GetCreatedOrModifiedID()} from bridge {BridgeStore.SelectedBridge.IpAddress}");
@@ -1163,7 +1189,7 @@ namespace WinHue3
 
         private void CreateSensor()
         {
-            Form_SensorCreator fsc = new Form_SensorCreator(BridgeStore.SelectedBridge) { Owner = Application.Current.MainWindow };
+            Form_SensorCreator fsc = new Form_SensorCreator() { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the sensor creator window passing bridge {BridgeStore.SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created sensor ID {fsc.GetCreatedOrModifiedID()} from bridge {BridgeStore.SelectedBridge.IpAddress}");

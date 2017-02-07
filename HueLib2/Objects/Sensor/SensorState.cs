@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace HueLib2
@@ -12,7 +13,7 @@ namespace HueLib2
         /// <summary>
         /// LastUpdated
         /// </summary>
-        [DataMember]
+        [DataMember, ReadOnly(true)]
         public string lastupdated { get; set; }
 
         /// <summary>

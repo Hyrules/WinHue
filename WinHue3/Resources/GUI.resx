@@ -117,6 +117,54 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BridgeDetectionPairing_Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="BridgeDetectionPairing_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BridgeDetectionPairing_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="BridgeDetectionPairing_Default_Tooltip" xml:space="preserve">
+    <value>This will set the selected bridge as the default bridge.</value>
+  </data>
+  <data name="BridgeDetectionPairing_DetectBridge" xml:space="preserve">
+    <value>Detect Bridges</value>
+  </data>
+  <data name="BridgeDetectionPairing_DetectBridge_Tooltip" xml:space="preserve">
+    <value>Detect your bridges using the philips hue portal and UPNP.</value>
+  </data>
+  <data name="BridgeDetectionPairing_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListBridge" xml:space="preserve">
+    <value>The following bridges have been found :</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListView_ApiKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListView_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="BridgeDetectionPairing_ListView_IPAddress" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="BridgeDetectionPairing_ManualIP" xml:space="preserve">
+    <value>Manual IP</value>
+  </data>
+  <data name="BridgeDetectionPairing_Pair" xml:space="preserve">
+    <value>Pair</value>
+  </data>
+  <data name="BridgeDetectionPairing_Pair_Tooltip" xml:space="preserve">
+    <value>Begin the pairing procedure. You will have 60 seconds to press the link button on the bridge.</value>
+  </data>
+  <data name="BridgeDetectionPairing_Scan" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="BridgeDetectionPairing_Scan_Tooltip" xml:space="preserve">
+    <value>Scan all IP Addresses on your local network for a bridge.</value>
+  </data>
   <data name="BridgeSettingsForm_ApplyButton" xml:space="preserve">
     <value>Apply</value>
   </data>
@@ -270,17 +318,161 @@
   <data name="EventLogForm_Title" xml:space="preserve">
     <value>Event Log...</value>
   </data>
+  <data name="Form_AddManualIP_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Form_AddManualIP_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Form_AddManualIP_IP" xml:space="preserve">
+    <value>IP : </value>
+  </data>
+  <data name="Form_AddManualIP_Title" xml:space="preserve">
+    <value>Manual IP</value>
+  </data>
+  <data name="Form_BulbsViewView_Reverse" xml:space="preserve">
+    <value>Reverse</value>
+  </data>
+  <data name="Form_BulbsView_Title" xml:space="preserve">
+    <value>Bulbs View</value>
+  </data>
+  <data name="Form_GroupView_Title" xml:space="preserve">
+    <value>Groups View</value>
+  </data>
+  <data name="Form_HotKeyCreator_AddHotkey" xml:space="preserve">
+    <value>Add Hotkey</value>
+  </data>
+  <data name="Form_HotKeyCreator_BridgeObject" xml:space="preserve">
+    <value>Bridge Object</value>
+  </data>
+  <data name="Form_HotKeyCreator_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Form_HotKeyCreator_Description" xml:space="preserve">
+    <value>Desc</value>
+  </data>
+  <data name="Form_HotKeyCreator_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Form_HotKeyCreator_Generic" xml:space="preserve">
+    <value>Generic preset</value>
+  </data>
+  <data name="Form_HotKeyCreator_Generic_Tooltip" xml:space="preserve">
+    <value>Will apply this preset to any selected light or group on trigger. Will not work with system wide hotkeys.</value>
+  </data>
+  <data name="Form_HotKeyCreator_Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Form_HotKeyCreator_HotKey" xml:space="preserve">
+    <value>Hotkey</value>
+  </data>
+  <data name="Form_HotKeyCreator_ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Form_HotKeyCreator_Lights" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="Form_HotKeyCreator_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Form_HotKeyCreator_Preset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="Form_HotKeyCreator_Record" xml:space="preserve">
+    <value>Record Hotkey</value>
+  </data>
+  <data name="Form_HotKeyCreator_Scenes" xml:space="preserve">
+    <value>Scenes</value>
+  </data>
+  <data name="Form_HotKeyCreator_Title" xml:space="preserve">
+    <value>HotKey Creator...</value>
+  </data>
+  <data name="Form_HotKeyCreator_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Form_HotKeyCreator_Warning_Generic" xml:space="preserve">
+    <value>Generic hotkey will only work when an object is selected in the bridge. They will not work when called from outside WinHue.</value>
+  </data>
+  <data name="Form_SceneMapping_RefreshTooltip" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Form_SceneMapping_Title" xml:space="preserve">
+    <value>Scenes Mapping and Informations</value>
+  </data>
+  <data name="GroupCreatorForm_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="GroupCreatorForm_Class" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Bathroom" xml:space="preserve">
+    <value>Bathroom</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Bedroom" xml:space="preserve">
+    <value>Bedroom</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Carport" xml:space="preserve">
+    <value>Carport</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Dining" xml:space="preserve">
+    <value>Dining</value>
+  </data>
+  <data name="GroupCreatorForm_Class_DriveWay" xml:space="preserve">
+    <value>Driveway</value>
+  </data>
+  <data name="GroupCreatorForm_Class_FrontDoor" xml:space="preserve">
+    <value>Front door</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Garage" xml:space="preserve">
+    <value>Garage</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Garden" xml:space="preserve">
+    <value>Garden</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Gym" xml:space="preserve">
+    <value>Gym</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Hallway" xml:space="preserve">
+    <value>Hallway</value>
+  </data>
+  <data name="GroupCreatorForm_Class_KidsBedroom" xml:space="preserve">
+    <value>Kids bedroom</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Kitchen" xml:space="preserve">
+    <value>Kitchen</value>
+  </data>
+  <data name="GroupCreatorForm_Class_LivingRoom" xml:space="preserve">
+    <value>Living Room</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Nursery" xml:space="preserve">
+    <value>Nursery</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Office" xml:space="preserve">
+    <value>Office</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Recreation" xml:space="preserve">
+    <value>Recreation</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Terrace" xml:space="preserve">
+    <value>Terrace</value>
+  </data>
+  <data name="GroupCreatorForm_Class_Toilet" xml:space="preserve">
+    <value>Toilet</value>
+  </data>
   <data name="GroupCreatorForm_ClearButton" xml:space="preserve">
     <value>Clear</value>
   </data>
   <data name="GroupCreatorForm_CreateGroupButton" xml:space="preserve">
     <value>Create Group</value>
   </data>
-  <data name="GroupCreatorForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="GroupCreatorForm_GroupName" xml:space="preserve">
-    <value>Group name :</value>
+    <value>Group name</value>
+  </data>
+  <data name="GroupCreatorForm_HoldCtrl" xml:space="preserve">
+    <value>* Hold control to select more than one light</value>
   </data>
   <data name="GroupCreatorForm_ModifyGroupButton" xml:space="preserve">
     <value>Save changes</value>
@@ -290,6 +482,15 @@
   </data>
   <data name="GroupCreatorForm_Title" xml:space="preserve">
     <value>Create a group...</value>
+  </data>
+  <data name="GroupCreatorForm_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="GroupCreatorForm_Type_LightGroup" xml:space="preserve">
+    <value>Light Group</value>
+  </data>
+  <data name="GroupCreatorForm_Type_Room" xml:space="preserve">
+    <value>Room</value>
   </data>
   <data name="HueTapSetupForm_AssignButton" xml:space="preserve">
     <value>Assign</value>
@@ -306,8 +507,83 @@
   <data name="HueTapSetupForm_TopMessage" xml:space="preserve">
     <value>Select a button to assign an action...</value>
   </data>
+  <data name="ListView_Group" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="ListView_Light" xml:space="preserve">
+    <value>Lights</value>
+  </data>
   <data name="ListView_Other" xml:space="preserve">
     <value>Others</value>
+  </data>
+  <data name="ListView_Resourcelink" xml:space="preserve">
+    <value>Resource Links</value>
+  </data>
+  <data name="ListView_Rule" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="ListView_Scene" xml:space="preserve">
+    <value>Scenes</value>
+  </data>
+  <data name="ListView_Schedule" xml:space="preserve">
+    <value>Schedules</value>
+  </data>
+  <data name="ListView_Sensor" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="MainForm_ListView_Context_Clone" xml:space="preserve">
+    <value>Clone</value>
+  </data>
+  <data name="MainForm_ListView_Context_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="MainForm_ListView_Context_CopyToJson" xml:space="preserve">
+    <value>Copy as JSON Formatted</value>
+  </data>
+  <data name="MainForm_ListView_Context_CopyToJsonRaw" xml:space="preserve">
+    <value>Copy as JSON </value>
+  </data>
+  <data name="MainForm_ListView_Context_Delete" xml:space="preserve">
+    <value>Delete...</value>
+  </data>
+  <data name="MainForm_ListView_Context_Edit" xml:space="preserve">
+    <value>Edit...</value>
+  </data>
+  <data name="MainForm_ListView_Context_Identify" xml:space="preserve">
+    <value>Identify</value>
+  </data>
+  <data name="MainForm_ListView_Context_Long" xml:space="preserve">
+    <value>Long</value>
+  </data>
+  <data name="MainForm_ListView_Context_None" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="MainForm_ListView_Context_QuickClone" xml:space="preserve">
+    <value>Quick clone</value>
+  </data>
+  <data name="MainForm_ListView_Context_Rename" xml:space="preserve">
+    <value>Rename...</value>
+  </data>
+  <data name="MainForm_ListView_Context_ReplaceLightsState" xml:space="preserve">
+    <value>Replace...</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity" xml:space="preserve">
+    <value>Sensitivity</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensitivity_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="MainForm_ListView_Context_Short" xml:space="preserve">
+    <value>Short</value>
+  </data>
+  <data name="MainForm_Menu_BridgePairing" xml:space="preserve">
+    <value>Detect and Pair bridges...</value>
   </data>
   <data name="MainForm_Menu_Quit" xml:space="preserve">
     <value>Quit</value>
@@ -378,8 +654,14 @@
   <data name="MainForm_Tab_Home_Group_Creators" xml:space="preserve">
     <value>Creators</value>
   </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateAnimation" xml:space="preserve">
+    <value>Create an Animation</value>
+  </data>
   <data name="MainForm_Tab_Home_Group_Creators_CreateGroup" xml:space="preserve">
     <value>Create a group...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_CreateHotkey" xml:space="preserve">
+    <value>Hotkey Creator...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Creators_CreateMood" xml:space="preserve">
     <value>Create a mood...</value>
@@ -395,6 +677,9 @@
   </data>
   <data name="MainForm_Tab_Home_Group_Creators_CreateSensor" xml:space="preserve">
     <value>Create a sensor...</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_ResourceLink" xml:space="preserve">
+    <value>Create a Resource link...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Events" xml:space="preserve">
     <value>Events</value>
@@ -426,23 +711,41 @@
   <data name="MainForm_Tab_Home_Group_SettingsUpdateButton" xml:space="preserve">
     <value>Update Firmware</value>
   </data>
+  <data name="MainForm_Tab_Home_Group_SettingsUsers" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
   <data name="MainForm_Tab_Tools" xml:space="preserve">
     <value>Tools</value>
   </data>
-  <data name="MainForm_ListView_Context_Delete" xml:space="preserve">
-    <value>Delete...</value>
+  <data name="MainForm_Tab_View" xml:space="preserve">
+    <value>View</value>
   </data>
-  <data name="MainForm_ListView_Context_Identify" xml:space="preserve">
-    <value>Identify</value>
+  <data name="MainForm_Tab_View_AdditionalField" xml:space="preserve">
+    <value>Show More</value>
   </data>
-  <data name="MainForm_ListView_Context_Long" xml:space="preserve">
-    <value>Long</value>
+  <data name="MainForm_Tab_View_BulbsView" xml:space="preserve">
+    <value>Bulbs View</value>
   </data>
-  <data name="MainForm_ListView_Context_Rename" xml:space="preserve">
-    <value>Rename...</value>
+  <data name="MainForm_Tab_View_GroupsView" xml:space="preserve">
+    <value>Groups View</value>
   </data>
-  <data name="MainForm_ListView_Context_Short" xml:space="preserve">
-    <value>Short</value>
+  <data name="MainForm_Tab_View_SceneMapping" xml:space="preserve">
+    <value>Scenes Mapping</value>
+  </data>
+  <data name="MainForm_Tab_View_Sorting" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="MainForm_ToolsTab_Clapper" xml:space="preserve">
+    <value>Clapper</value>
+  </data>
+  <data name="MainForm_ToolsTab_CpuTempMon" xml:space="preserve">
+    <value>Cpu Temp Monitor</value>
+  </data>
+  <data name="MainForm_ToolsTab_RssFeed" xml:space="preserve">
+    <value>RSS Feed Monitor</value>
+  </data>
+  <data name="MainForm_ToolsTab_Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="MoodCreatorForm_Brightness" xml:space="preserve">
     <value>Brightness</value>
@@ -471,8 +774,53 @@
   <data name="RenameObjectForm_Title" xml:space="preserve">
     <value>Rename {0} ...</value>
   </data>
+  <data name="ResourceLinkCreatorForm_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_ClassID" xml:space="preserve">
+    <value>Class ID</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Editing" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_HoldControl" xml:space="preserve">
+    <value>*Hold control to select multiple objects.</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Recycle" xml:space="preserve">
+    <value>Recycle</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Title" xml:space="preserve">
+    <value>Resource Link Creator / Editor ...</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Watermark_Description" xml:space="preserve">
+    <value>A description is optional</value>
+  </data>
+  <data name="ResourceLinkCreatorForm_Watermark_Name" xml:space="preserve">
+    <value>Name is required</value>
+  </data>
   <data name="RuleCreatorForm_Actions" xml:space="preserve">
     <value>Actions</value>
+  </data>
+  <data name="RuleCreatorForm_AddAction" xml:space="preserve">
+    <value>Add Action</value>
+  </data>
+  <data name="RuleCreatorForm_AddProperty" xml:space="preserve">
+    <value>Add</value>
   </data>
   <data name="RuleCreatorForm_CancelButton" xml:space="preserve">
     <value>Done</value>
@@ -482,6 +830,18 @@
   </data>
   <data name="RuleCreatorForm_CreateButton" xml:space="preserve">
     <value>Create</value>
+  </data>
+  <data name="RuleCreatorForm_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RuleCreatorForm_Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="RuleCreatorForm_Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="RuleCreatorForm_Lights" xml:space="preserve">
+    <value>Lights</value>
   </data>
   <data name="RuleCreatorForm_Message1" xml:space="preserve">
     <value>The maximum number of actions is 8 and the maximum number of conditions is 8.</value>
@@ -501,8 +861,17 @@
   <data name="RuleCreatorForm_Operator_ToolTip" xml:space="preserve">
     <value>eq : is Equal , gt : Greater than, lt : Lower than, dx : On change</value>
   </data>
+  <data name="RuleCreatorForm_Scenes" xml:space="preserve">
+    <value>Scenes</value>
+  </data>
+  <data name="RuleCreatorForm_Schedules" xml:space="preserve">
+    <value>Schedules</value>
+  </data>
   <data name="RuleCreatorForm_Sensor" xml:space="preserve">
-    <value>Sensor : </value>
+    <value>Object : </value>
+  </data>
+  <data name="RuleCreatorForm_Sensors" xml:space="preserve">
+    <value>Sensors</value>
   </data>
   <data name="RuleCreatorForm_Type" xml:space="preserve">
     <value>Type : </value>
@@ -516,11 +885,14 @@
   <data name="SceneCreatorForm_CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="SceneCreatorForm_ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
   <data name="SceneCreatorForm_FromImageButton" xml:space="preserve">
     <value>From Image</value>
   </data>
   <data name="SceneCreatorForm_Message" xml:space="preserve">
-    <value>NOTE : Scenes cannot be deleted from the bridge. When the maximum number of scenes has been reached the scene which has been used the least is recycled. Limitations are : 50 scenes per lamp / 200 scenes in the bridge.</value>
+    <value>NOTE : V1 Scenes cannot be deleted from the bridge. When the maximum number of scenes has been reached the scene which has been used the least is recycled. Limitations are : 50 scenes per lamp / 200 scenes in the bridge.</value>
   </data>
   <data name="SceneCreatorForm_On" xml:space="preserve">
     <value>ON</value>
@@ -576,8 +948,11 @@
   <data name="ScheduleCreatorForm_Description" xml:space="preserve">
     <value>Description :</value>
   </data>
+  <data name="ScheduleCreatorForm_Desc_Tooltip" xml:space="preserve">
+    <value>Optional.</value>
+  </data>
   <data name="ScheduleCreatorForm_Enable" xml:space="preserve">
-    <value>Schedule Enabled</value>
+    <value>Enabled</value>
   </data>
   <data name="ScheduleCreatorForm_Friday" xml:space="preserve">
     <value>Friday</value>
@@ -591,11 +966,17 @@
   <data name="ScheduleCreatorForm_Name" xml:space="preserve">
     <value>Name :</value>
   </data>
+  <data name="ScheduleCreatorForm_Name_Tooltip" xml:space="preserve">
+    <value>The Bridge will generate a new name if not specified.</value>
+  </data>
   <data name="ScheduleCreatorForm_ON" xml:space="preserve">
     <value>ON</value>
   </data>
   <data name="ScheduleCreatorForm_Randomize" xml:space="preserve">
     <value>Randomize</value>
+  </data>
+  <data name="ScheduleCreatorForm_Repeat" xml:space="preserve">
+    <value>Repeat(s) :</value>
   </data>
   <data name="ScheduleCreatorForm_Saturation" xml:space="preserve">
     <value>Saturation</value>
@@ -617,6 +998,9 @@
   </data>
   <data name="ScheduleCreatorForm_StartTime" xml:space="preserve">
     <value>Start Date/Time :</value>
+  </data>
+  <data name="ScheduleCreatorForm_StartTimeTimer" xml:space="preserve">
+    <value>Occurs every :</value>
   </data>
   <data name="ScheduleCreatorForm_Sunday" xml:space="preserve">
     <value>Sunday</value>
@@ -675,6 +1059,9 @@
   <data name="SensorCreatorForm_CreateButton" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="SensorCreatorForm_EditButton" xml:space="preserve">
+    <value>Modify</value>
+  </data>
   <data name="SensorCreatorForm_MfgName" xml:space="preserve">
     <value>Mfg Name :</value>
   </data>
@@ -702,8 +1089,14 @@
   <data name="SensorCreatorForm_TestURLButton" xml:space="preserve">
     <value>Test URL</value>
   </data>
+  <data name="SensorCreatorForm_Title" xml:space="preserve">
+    <value>Create / Edit a sensor...</value>
+  </data>
   <data name="SensorCreatorForm_UniqueId" xml:space="preserve">
     <value>Unique Id :</value>
+  </data>
+  <data name="SensorCreatorForm_Update" xml:space="preserve">
+    <value>Update</value>
   </data>
   <data name="SensorCreatorForm_Url" xml:space="preserve">
     <value>Url :</value>
@@ -756,17 +1149,8 @@
   <data name="SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip" xml:space="preserve">
     <value>Checking this box will force WinHue 3 to detect local proxy and use it.</value>
   </data>
-  <data name="SettingsForm_Title" xml:space="preserve">
-    <value>WinHue 3 Settings...</value>
-  </data>
-  <data name="RuleCreatorForm_Groups" xml:space="preserve">
-    <value>Groups</value>
-  </data>
-  <data name="RuleCreatorForm_Lights" xml:space="preserve">
-    <value>Lights</value>
-  </data>
-  <data name="RuleCreatorForm_Scenes" xml:space="preserve">
-    <value>Scenes</value>
+  <data name="SettingsForm_Tab_MainSettings_Network_Timeout" xml:space="preserve">
+    <value>Timeout</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout" xml:space="preserve">
     <value>Upnp Timeout :</value>
@@ -774,122 +1158,20 @@
   <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip" xml:space="preserve">
     <value>Upnp Timeout in seconds</value>
   </data>
-  <data name="RuleCreatorForm_AddProperty" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="RuleCreatorForm_AddAction" xml:space="preserve">
-    <value>Add Action</value>
-  </data>
-  <data name="RuleCreatorForm_Enabled" xml:space="preserve">
-    <value>Enabled</value>
-  </data>
-  <data name="ScheduleCreatorForm_Desc_Tooltip" xml:space="preserve">
-    <value>Optional.</value>
-  </data>
-  <data name="ScheduleCreatorForm_Name_Tooltip" xml:space="preserve">
-    <value>The Bridge will generate a new name if not specified.</value>
-  </data>
-  <data name="BridgeDetectionPairing_ListView_Image" xml:space="preserve">
-    <value>Image</value>
-  </data>
-  <data name="BridgeDetectionPairing_ListView_IPAddress" xml:space="preserve">
-    <value>IP Address</value>
-  </data>
-  <data name="BridgeDetectionPairing_ListView_ApiKey" xml:space="preserve">
-    <value>API Key</value>
-  </data>
-  <data name="BridgeDetectionPairing_Pair" xml:space="preserve">
-    <value>Pair</value>
-  </data>
-  <data name="BridgeDetectionPairing_Scan" xml:space="preserve">
-    <value>Scan</value>
-  </data>
-  <data name="BridgeDetectionPairing_Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="BridgeDetectionPairing_ListBridge" xml:space="preserve">
-    <value>The following bridges have been found :</value>
-  </data>
-  <data name="BridgeDetectionPairing_Scan_Tooltip" xml:space="preserve">
-    <value>Scan all IP Addresses on your local network for a bridge.</value>
-  </data>
-  <data name="BridgeDetectionPairing_Pair_Tooltip" xml:space="preserve">
-    <value>Begin the pairing procedure. You will have 60 seconds to press the link button on the bridge.</value>
-  </data>
-  <data name="BridgeDetectionPairing_Abort" xml:space="preserve">
-    <value>Abort</value>
-  </data>
-  <data name="BridgeDetectionPairing_Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="BridgeDetectionPairing_Default_Tooltip" xml:space="preserve">
-    <value>This will set the selected bridge as the default bridge.</value>
-  </data>
-  <data name="MainForm_Menu_BridgePairing" xml:space="preserve">
-    <value>Detect and Pair bridges...</value>
-  </data>
-  <data name="BridgeDetectionPairing_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="MainForm_ListView_Context_Edit" xml:space="preserve">
-    <value>Edit...</value>
-  </data>
-  <data name="RuleCreatorForm_Sensors" xml:space="preserve">
-    <value>Sensors</value>
-  </data>
-  <data name="SceneCreatorForm_ClearButton" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="MainForm_ListView_Context_ReplaceLightsState" xml:space="preserve">
-    <value>Replace...</value>
-  </data>
-  <data name="RuleCreatorForm_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="SensorCreatorForm_Update" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="Tooltip_Optional" xml:space="preserve">
-    <value>Optional</value>
-  </data>
-  <data name="BridgeDetectionPairing_ManualIP" xml:space="preserve">
-    <value>Manual IP</value>
-  </data>
-  <data name="Form_AddManualIP_Apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="Form_AddManualIP_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Form_AddManualIP_Title" xml:space="preserve">
-    <value>Manual IP</value>
-  </data>
-  <data name="Form_AddManualIP_IP" xml:space="preserve">
-    <value>IP : </value>
-  </data>
-  <data name="ScheduleCreatorForm_StartTimeTimer" xml:space="preserve">
-    <value>Occurs every :</value>
-  </data>
-  <data name="MainForm_Tab_Home_Group_Creators_CreateAnimation" xml:space="preserve">
-    <value>Create an Animation</value>
-  </data>
-  <data name="WaitForm_Title" xml:space="preserve">
-    <value>Please Wait...</value>
-  </data>
   <data name="SettingsForm_Tab_MainSettings_Startup" xml:space="preserve">
     <value>Startup</value>
-  </data>
-  <data name="SettingsForm_Tab_MainSettings_Start_Windows" xml:space="preserve">
-    <value>Start with Windows</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Start_Minimized" xml:space="preserve">
     <value>Start Minimized</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_Start_Normally" xml:space="preserve">
+    <value>Start normally</value>
+  </data>
   <data name="SettingsForm_Tab_MainSettings_Start_Tray" xml:space="preserve">
     <value>Start in tray</value>
   </data>
-  <data name="SettingsForm_Tab_MainSettings_Start_Normally" xml:space="preserve">
-    <value>Start normally</value>
+  <data name="SettingsForm_Tab_MainSettings_Start_Windows" xml:space="preserve">
+    <value>Start with Windows</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Warning_Group" xml:space="preserve">
     <value>Warnings</value>
@@ -897,163 +1179,79 @@
   <data name="SettingsForm_Tab_MainSettings_Warning_Message_Upnp" xml:space="preserve">
     <value>Show upnp warning</value>
   </data>
-  <data name="ListView_Light" xml:space="preserve">
-    <value>Lights</value>
-  </data>
-  <data name="ListView_Schedule" xml:space="preserve">
-    <value>Schedules</value>
-  </data>
-  <data name="ListView_Scene" xml:space="preserve">
-    <value>Scenes</value>
-  </data>
-  <data name="ListView_Group" xml:space="preserve">
-    <value>Groups</value>
-  </data>
-  <data name="ListView_Sensor" xml:space="preserve">
-    <value>Sensors</value>
-  </data>
-  <data name="ListView_Rule" xml:space="preserve">
-    <value>Rules</value>
-  </data>
-  <data name="Form_HotKeyCreator_Title" xml:space="preserve">
-    <value>HotKey Creator...</value>
-  </data>
-  <data name="Form_HotKeyCreator_BridgeObject" xml:space="preserve">
-    <value>Bridge Object</value>
-  </data>
-  <data name="Form_HotKeyCreator_HotKey" xml:space="preserve">
-    <value>Hotkey</value>
-  </data>
-  <data name="Form_HotKeyCreator_AddHotkey" xml:space="preserve">
-    <value>Add Hotkey</value>
-  </data>
-  <data name="Form_HotKeyCreator_Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="Form_HotKeyCreator_Preset" xml:space="preserve">
-    <value>Preset</value>
-  </data>
-  <data name="Form_HotKeyCreator_Lights" xml:space="preserve">
-    <value>Lights</value>
-  </data>
-  <data name="Form_HotKeyCreator_Groups" xml:space="preserve">
-    <value>Groups</value>
-  </data>
-  <data name="Form_HotKeyCreator_Scenes" xml:space="preserve">
-    <value>Scenes</value>
-  </data>
-  <data name="MainForm_Tab_Home_Group_Creators_CreateHotkey" xml:space="preserve">
-    <value>Hotkey Creator...</value>
-  </data>
-  <data name="Form_HotKeyCreator_Record" xml:space="preserve">
-    <value>Record Hotkey</value>
-  </data>
-  <data name="Form_HotKeyCreator_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Form_HotKeyCreator_Description" xml:space="preserve">
-    <value>Desc</value>
-  </data>
-  <data name="Form_HotKeyCreator_Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="Form_HotKeyCreator_ID" xml:space="preserve">
-    <value>ID</value>
-  </data>
-  <data name="Form_HotKeyCreator_Type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="Form_HotKeyCreator_Generic" xml:space="preserve">
-    <value>Generic preset</value>
-  </data>
-  <data name="Form_HotKeyCreator_Generic_Tooltip" xml:space="preserve">
-    <value>Will apply this preset to any selected light or group on trigger. Will not work with system wide hotkeys.</value>
-  </data>
-  <data name="MainForm_Tab_View" xml:space="preserve">
-    <value>Views</value>
-  </data>
-  <data name="MainForm_Tab_View_SceneMapping" xml:space="preserve">
-    <value>Scenes Mapping</value>
-  </data>
-  <data name="Form_SceneMapping_Title" xml:space="preserve">
-    <value>Scenes Mapping and Informations</value>
-  </data>
-  <data name="Form_SceneMapping_RefreshTooltip" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="MainForm_Tab_View_BulbsView" xml:space="preserve">
-    <value>Bulbs View</value>
-  </data>
-  <data name="Form_BulbsView_Title" xml:space="preserve">
-    <value>Bulbs View</value>
-  </data>
-  <data name="Form_BulbsViewView_Reverse" xml:space="preserve">
-    <value>Reverse</value>
-  </data>
-  <data name="Form_GroupView_Title" xml:space="preserve">
-    <value>Groups View</value>
-  </data>
-  <data name="MainForm_Tab_View_GroupsView" xml:space="preserve">
-    <value>Groups View</value>
-  </data>
-  <data name="BridgeDetectionPairing_DetectBridge" xml:space="preserve">
-    <value>Detect Bridges</value>
-  </data>
-  <data name="BridgeDetectionPairing_DetectBridge_Tooltip" xml:space="preserve">
-    <value>Detect your bridges using the philips hue portal and UPNP.</value>
-  </data>
-  <data name="MainForm_ToolsTab_CpuTempMon" xml:space="preserve">
-    <value>Cpu Temp Monitor</value>
-  </data>
-  <data name="MainForm_ToolsTab_RssFeed" xml:space="preserve">
-    <value>RSS Feed Monitor</value>
-  </data>
-  <data name="MainForm_ToolsTab_Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="SettingsForm_Tab_OtherSettings" xml:space="preserve">
     <value>Other Settings</value>
   </data>
-  <data name="MainForm_ToolsTab_Clapper" xml:space="preserve">
-    <value>Clapper</value>
+  <data name="SettingsForm_Title" xml:space="preserve">
+    <value>WinHue 3 Settings...</value>
   </data>
-  <data name="RuleCreatorForm_Schedules" xml:space="preserve">
-    <value>Schedules</value>
+  <data name="Tooltip_Optional" xml:space="preserve">
+    <value>Optional</value>
   </data>
-  <data name="MainForm_ListView_Context_Sensitivity" xml:space="preserve">
-    <value>Sensitivity</value>
+  <data name="WaitForm_Title" xml:space="preserve">
+    <value>Please Wait...</value>
   </data>
-  <data name="MainForm_ListView_Context_Sensitivity_High" xml:space="preserve">
-    <value>High</value>
+  <data name="ManageUsers_Title" xml:space="preserve">
+    <value>Manage Users</value>
   </data>
-  <data name="MainForm_ListView_Context_Sensitivity_Medium" xml:space="preserve">
-    <value>Medium</value>
+  <data name="ManageUsers_AddUser" xml:space="preserve">
+    <value>Add User</value>
   </data>
-  <data name="MainForm_ListView_Context_Sensitivity_Low" xml:space="preserve">
-    <value>Low</value>
+  <data name="ManageUsers_Clear" xml:space="preserve">
+    <value>Clear</value>
   </data>
-  <data name="Form_HotKeyCreator_Warning_Generic" xml:space="preserve">
-    <value>Generic hotkey will only work when an object is selected in the bridge. They will not work when called from outside WinHue.</value>
+  <data name="ManageUsers_CreateDate" xml:space="preserve">
+    <value>Creation</value>
   </data>
-  <data name="ListView_Resourcelink" xml:space="preserve">
-    <value>Resource Links</value>
+  <data name="ManageUsers_Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="MainForm_Tab_Home_Group_Creators_ResourceLink" xml:space="preserve">
-    <value>Resource Link Creator</value>
+  <data name="ManageUsers_DeviceType" xml:space="preserve">
+    <value>Device Name</value>
   </data>
-  <data name="ResourceLinkCreatorForm_Title" xml:space="preserve">
-    <value>Resource Link Creator / Editor ...</value>
+  <data name="ManageUsers_Done" xml:space="preserve">
+    <value>Done</value>
   </data>
-  <data name="&lt;" xml:space="preserve">
-    <value>Name</value>
+  <data name="ManageUsers_Key" xml:space="preserve">
+    <value>Key</value>
   </data>
-  <data name="ResourceLinkCreatorForm_Create" xml:space="preserve">
-    <value>Create</value>
+  <data name="ManageUsers_LastUsed" xml:space="preserve">
+    <value>Last Use</value>
   </data>
-  <data name="ResourceLinkCreatorForm_Cancel" xml:space="preserve">
+  <data name="ManageUsers_Username" xml:space="preserve">
+    <value>Application Name</value>
+  </data>
+  <data name="RuleCreatorForm_Time" xml:space="preserve">
+    <value>Date / Time</value>
+  </data>
+  <data name="RuleCreatorForm_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="RuleCreatorForm_Editing" xml:space="preserve">
+    <value>Editing rule</value>
+  </data>
+  <data name="MainForm_Tab_View_ShowID" xml:space="preserve">
+    <value>Show Object ID</value>
+  </data>
+  <data name="MainForm_Tab_View_WrapText" xml:space="preserve">
+    <value>Wrap Object Text</value>
+  </data>
+  <data name="MainForm_Tab_View_TextBehavior" xml:space="preserve">
+    <value>Text Behavior</value>
+  </data>
+  <data name="SceneCreatorForm_Modify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="RuleCreatorForm_RuleGroupBox" xml:space="preserve">
+    <value>Rule</value>
+  </data>
+  <data name="Form_CloneRule_Title" xml:space="preserve">
+    <value>Cloning a Rule</value>
+  </data>
+  <data name="Form_CloneRule_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="ResourceLinkCreatorForm_Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="Form_CloneRule_Clone" xml:space="preserve">
+    <value>Clone</value>
   </data>
 </root>

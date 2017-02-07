@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
@@ -8,7 +9,7 @@ namespace WinHue3
     /// </summary>
     public partial class Form_Wait : Window
     {
-        private WaitView wv;
+        private WaitViewModel wv;
 
         public Form_Wait()
         {
@@ -18,10 +19,11 @@ namespace WinHue3
 
         public void ShowWait(string message, TimeSpan duration, Window owner)
         {
-            Owner = owner;            
-            wv = new WaitView(message, duration);
-            wv.OnWaitComplete += Wv_OnWaitComplete;
-            DataContext = wv;
+            Owner = owner;
+            wv = DataContext as WaitViewModel;
+            wv.Message = message;
+            wv.WaitTime = duration;
+            wv.OnWaitComplete += Wv_OnWaitComplete;          
             wv.StartWait();
             this.ShowDialog();
         }

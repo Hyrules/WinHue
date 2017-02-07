@@ -129,6 +129,33 @@
   <data name="BridgeConnected" xml:space="preserve">
     <value>Passerelle connectée</value>
   </data>
+  <data name="BridgeDetectionPairing_Pairing" xml:space="preserve">
+    <value>Jumelage débuté. Veuillez appuyer le le bouton de lien sur la passerelle afin de terminer le jumelage.</value>
+  </data>
+  <data name="BridgeDetectionPairing_PairingDone" xml:space="preserve">
+    <value>Jumelage terminé. Veuillez sélectionner une autre passerelle afin de débuter le jumelage ou bien sélectionnez la passerelle par défaut afin de terminer la procédure.</value>
+  </data>
+  <data name="BridgeDetectionPairing_PairNeeded" xml:space="preserve">
+    <value>Veuillez jumeller au moins une passerelle.</value>
+  </data>
+  <data name="BridgeDetectionPairing_ScanAborted" xml:space="preserve">
+    <value>Scan annulé.</value>
+  </data>
+  <data name="BridgeDetectionPairing_ScanComplete" xml:space="preserve">
+    <value>Scan terminé.</value>
+  </data>
+  <data name="BridgeDetectionPairing_Scanning" xml:space="preserve">
+    <value>Scan pour des passerelles en cours... veuillez patienter.</value>
+  </data>
+  <data name="BridgeDetectionPairing_SelectionMessage" xml:space="preserve">
+    <value>Veuillez sélectionner une passerelle et appuyez sur Jumeler afin de démarrer le jumelage.</value>
+  </data>
+  <data name="BridgeDetectionPairing_SetDefault" xml:space="preserve">
+    <value>Passerelle par défaut non définie</value>
+  </data>
+  <data name="BridgeDetectionPairing_Upnp_Not_Working" xml:space="preserve">
+    <value>Les services UPNP et SSDP ne semblent pas fonctionner. Veuillez les activer afin de permettre des meilleurs résultats lors de la détection de la passerelle.</value>
+  </data>
   <data name="BridgeDisconnect" xml:space="preserve">
     <value>Êtes-vous certain de vouloir vous déconnecter de la passerelle ?</value>
   </data>
@@ -138,8 +165,17 @@
   <data name="BridgeUnableToConnect" xml:space="preserve">
     <value>Impossible de se connecter à la passerelle {0} . Assurez-vous qu'il est bien connecté au réseau.</value>
   </data>
+  <data name="Bridge_Already_Detected" xml:space="preserve">
+    <value>Ce pont existe déjà dans la liste des ponts. Veuillez saisir une nouvelle addresse IP.</value>
+  </data>
+  <data name="Bridge_ApplyingUpdate" xml:space="preserve">
+    <value>Mise à jour en cours... Il se peut que la passerelle ne réponde pas pendant quelques minutes.</value>
+  </data>
   <data name="Bridge_Disconnected" xml:space="preserve">
     <value>Déconnecté de la passerelle.</value>
+  </data>
+  <data name="Bridge_IP_Different" xml:space="preserve">
+    <value>Votre passerelle {0} semble avoir changé d'adresse IP. Voulez vous remplacer l'adresse IP ?</value>
   </data>
   <data name="Bridge_LightSearch" xml:space="preserve">
     <value>Recherche de nouvelles ampoules pour 1 minute.</value>
@@ -156,14 +192,38 @@
   <data name="Bridge_Menu_Update" xml:space="preserve">
     <value>Mise à jour disponible</value>
   </data>
+  <data name="Bridge_Not_Signed_In" xml:space="preserve">
+    <value>Passerelle non authentifiée</value>
+  </data>
+  <data name="Bridge_SelectOne" xml:space="preserve">
+    <value>Veuillez sélectionner un pont pour contrôler avec WinHue.</value>
+  </data>
+  <data name="Bridge_Signed_In" xml:space="preserve">
+    <value>Passerelle authentifiée</value>
+  </data>
   <data name="ColorTempWarning" xml:space="preserve">
     <value>La température de la couleur ne peut pas être sélectionné en même temps que la couleur ou la saturation.</value>
+  </data>
+  <data name="Confirm_Delete_Object" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir supprimer {0} ?</value>
   </data>
   <data name="Connected" xml:space="preserve">
     <value>CONNECTÉ !</value>
   </data>
+  <data name="Create_User_Press_Link" xml:space="preserve">
+    <value>Veuillez svp appuyer sur le bouton LINK maintenant et appuyez sur OK pour terminer.</value>
+  </data>
+  <data name="Daylight_Latitude_Error" xml:space="preserve">
+    <value>La latitude ne doit pas être vide et doit être au format DDD.DDDD{N|S}</value>
+  </data>
+  <data name="Daylight_Longitude_Error" xml:space="preserve">
+    <value>La longitude ne doit pas être vide et doit être au format DDD.DDDD{E|W}</value>
+  </data>
   <data name="Disable_DHCP" xml:space="preserve">
     <value>Désactiver le DHCP permet d'entrer une adresse ip manuellement.</value>
+  </data>
+  <data name="Done_Searching" xml:space="preserve">
+    <value>Recherche terminé.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Erreur</value>
@@ -171,18 +231,60 @@
   <data name="Error_BridgeNotFound" xml:space="preserve">
     <value>Passerelle introuvable</value>
   </data>
+  <data name="Error_Bridge_Name" xml:space="preserve">
+    <value>Le nom du pont neut peut pas être vide ou fait d'espace blanc.</value>
+  </data>
   <data name="Error_Bridge_Not_Responding" xml:space="preserve">
     <value>La passerelle ne répond pas.</value>
     <comment>The bridge is not responding. If you entered a manual IP address verify that the bridge is properly working or the IP address valid then try reconnecting.</comment>
   </data>
+  <data name="Error_Bridge_Settings" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de l'application des paramêtres du pont. Voir le log pour plus d'info.</value>
+  </data>
   <data name="Error_Bridge_Unknown" xml:space="preserve">
     <value>Une erreur inconnue est survenue</value>
+  </data>
+  <data name="Error_Create_User" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la création de l'usager.</value>
+  </data>
+  <data name="Error_Creating_Scene" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la création d'une nouvelle scène. Veuillez vérifier le journal est événements pour plus de détail.</value>
   </data>
   <data name="Error_ErrorHasOccured" xml:space="preserve">
     <value>Une erreur est survenue</value>
   </data>
+  <data name="Error_Gateway_Invalid" xml:space="preserve">
+    <value>Le gateway sélectionné est invalide.</value>
+  </data>
+  <data name="Error_Getting_BridgeSettings" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la recherche des paramètres du pont.</value>
+  </data>
+  <data name="Error_Getting_Bridge_Basic_Config" xml:space="preserve">
+    <value>Une erreur s'est produite pendant la lecture de la configuration de base de la passerelle.</value>
+  </data>
+  <data name="Error_Getting_Groups" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la recherche de groupes.</value>
+  </data>
+  <data name="Error_Getting_Lights" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la recherche d'ampoules.</value>
+  </data>
+  <data name="Error_Getting_NewLights" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la recherche de nouvelles ampoules.</value>
+  </data>
+  <data name="Error_Getting_NewSensors" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la recherche de nouveau senseur.</value>
+  </data>
+  <data name="Error_Hotkey_Already_Assigned" xml:space="preserve">
+    <value>Ce raccourci semble déjà assigné à un autre processus. Veuillez svp sélectionner un autre raccourci clavier.</value>
+  </data>
+  <data name="Error_InvalidPort" xml:space="preserve">
+    <value>La valeur du port est invalide.</value>
+  </data>
   <data name="Error_Must_Be_4_Char" xml:space="preserve">
     <value>Doit être au minimum 4 caractères de long</value>
+  </data>
+  <data name="Error_NetMask_Invalid" xml:space="preserve">
+    <value>Le netmask sélectionné est invalide.</value>
   </data>
   <data name="Error_No_API_key_found" xml:space="preserve">
     <value>Aucune clé API valide trouvée</value>
@@ -190,9 +292,48 @@
   <data name="Error_No_Valid_IP" xml:space="preserve">
     <value>Aucune adresse IP valide trouvée</value>
   </data>
+  <data name="Error_Prox_Address" xml:space="preserve">
+    <value>L'adresse ip du proxy n'est pas valide.</value>
+  </data>
+  <data name="Error_Remove_User" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la suppression de l'usager.</value>
+  </data>
+  <data name="Error_Renaming" xml:space="preserve">
+    <value>Une erreur est survenu lors du changement de nom de l'objet. Vérifiez le journal des événements pour plus d'information.</value>
+  </data>
+  <data name="Error_Sending_AllOFF" xml:space="preserve">
+    <value>Il s'est produit une errur lors de l'envoi de la command Eteinde Tout.</value>
+  </data>
+  <data name="Error_Sending_AllON" xml:space="preserve">
+    <value>Il s'est produit une errur lors de l'envoi de la command Allumer Tout.</value>
+  </data>
+  <data name="Error_Timout_Portal" xml:space="preserve">
+    <value>Un timeout s'est produit lors de la tentative de connection au portal de philips. Veuillez essayer plus tard.</value>
+  </data>
   <data name="Error_Usermanager_NoDevType" xml:space="preserve">
     <value>Vous devez sasir au moins un nom d'app afin de pouvoir créer un utilisateur.</value>
     <comment>You must enter at least a device type in order to create a user.</comment>
+  </data>
+  <data name="Error_Username" xml:space="preserve">
+    <value>Le nom d'utilisateur ne peut pas commencer par un espace blanc et doit être entre 10 et 40 caractères de long.</value>
+  </data>
+  <data name="Error_WhileCreatingObject" xml:space="preserve">
+    <value>Une ou plusieurs erreurs s'est produite lors de la création de l'objet :</value>
+  </data>
+  <data name="Field_Empty" xml:space="preserve">
+    <value>Le champ ne peut être vide.</value>
+  </data>
+  <data name="Form_Hotkey_Help_Generic" xml:space="preserve">
+    <value>les états génériques sont des raccourcis clavier qui n'ont pas d'objet associé à leur action. Les états non génériques s'appliquent seulement à un objet spécifique.</value>
+  </data>
+  <data name="Group_Already_Exists" xml:space="preserve">
+    <value>Un groupe nommé {0} existe déjà. Veuillez choisir un autre nom et réessayer.</value>
+  </data>
+  <data name="Group_Create_Success" xml:space="preserve">
+    <value>Groupe {0} ajouté au pont.</value>
+  </data>
+  <data name="Group_Creation_Error" xml:space="preserve">
+    <value>Il s'est produit une erreur lors de la création du groupe {0}.</value>
   </data>
   <data name="Group_Delete" xml:space="preserve">
     <value>Êtes-vous certain de vouloir supprimer ce groupe ?</value>
@@ -200,12 +341,57 @@
   <data name="Group_Group" xml:space="preserve">
     <value>Groupe</value>
   </data>
+  <data name="Group_Modified_Success" xml:space="preserve">
+    <value>Le group à été modifié avec succès.</value>
+  </data>
+  <data name="Group_Name_Error" xml:space="preserve">
+    <value>Le nom du group doit avoir au moins une lettre.</value>
+  </data>
+  <data name="Group_Select_One_Light" xml:space="preserve">
+    <value>Veuillez sélectionner au moins une ampoule afin de créer un groupe.</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Aide</value>
+  </data>
   <data name="Help_String_Tablet_Mode" xml:space="preserve">
     <value>Activer le mode tablette rendra les icons de la barre d'outils, le boutons glissoirs et le sélectionneur de couleur plus gros afin d'avoir un meilleur contrôle sur une tablette.</value>
     <comment>Enabling tablet mode will make the toolbar icons, trackbar thumbs as well as the hue picker thumb bigger for better control on a tablet.</comment>
   </data>
+  <data name="HotKey_Already_Exists" xml:space="preserve">
+    <value>Ce raccourci existe déjà. Remplacer ?</value>
+  </data>
+  <data name="Hotkey_FillOneProperty" xml:space="preserve">
+    <value>Veuillez remplir au moins une propriété.</value>
+  </data>
+  <data name="Hotkey_RecordHotkey" xml:space="preserve">
+    <value>Veuillez enregistrer votre raccourci.</value>
+  </data>
+  <data name="Hotkey_SelectObject" xml:space="preserve">
+    <value>Veuillez sélectionner un objet.</value>
+  </data>
+  <data name="Hotkey_SelectObjectType" xml:space="preserve">
+    <value>Vous devez sélectionner au moins un type d'objet.</value>
+  </data>
+  <data name="HueTap_ButtonSelected" xml:space="preserve">
+    <value>Bouton {0} sélectionné.</value>
+  </data>
+  <data name="HueTap_NoButtonSelected" xml:space="preserve">
+    <value>Aucun bouton sélectionné.</value>
+  </data>
+  <data name="HueTap_SelectAButton" xml:space="preserve">
+    <value>Veuillez sélectionner un bouton afin de choisir son action.</value>
+  </data>
+  <data name="HueTap_SelectAScene" xml:space="preserve">
+    <value>Aucune scène sélectionnée. Veuillez sélectionner une scène et appuyer sur assigner à nouveau.</value>
+  </data>
   <data name="IncomingUpdate" xml:space="preserve">
     <value>Une mise à jour de firmware est disponible mais n'est pas encore prête.</value>
+  </data>
+  <data name="Interpreter_Error" xml:space="preserve">
+    <value>Erreur sur la ligne {0} , colone {1}.</value>
+  </data>
+  <data name="Interpreter_NoError" xml:space="preserve">
+    <value>Aucune erreur trouvée dans le code.</value>
   </data>
   <data name="Invalid_IP" xml:space="preserve">
     <value>L'adresse IP saisie n'est pas dans un format valide</value>
@@ -216,20 +402,53 @@
   <data name="Invalid_Scene_File" xml:space="preserve">
     <value>Fichier scène invalide</value>
   </data>
+  <data name="Language_Change_Warning" xml:space="preserve">
+    <value>Veuillez redémarrer le programme afin d'appliquer le changement de langue.</value>
+  </data>
+  <data name="Lights_DirectoryDoesNotExists" xml:space="preserve">
+    <value>Le dossier contenant les ampoules n'à pas été trouvé. Il sera créer...</value>
+  </data>
+  <data name="Light_Delete" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir supprimer cette ampoule ?</value>
+  </data>
   <data name="Light_Type_Lights" xml:space="preserve">
     <value>Ampoule</value>
   </data>
   <data name="LinkButton_Not_Pressed" xml:space="preserve">
     <value>Veuillez svp appuyer sur le bouton link situé sur le pont.</value>
   </data>
+  <data name="Link_Not_Pressed" xml:space="preserve">
+    <value>n'a pas été appuyé</value>
+  </data>
+  <data name="Link_Pressed" xml:space="preserve">
+    <value>a été appuyé</value>
+  </data>
+  <data name="Manual_Bridge_Found" xml:space="preserve">
+    <value>Pont trouvé ! Veuillez appuyer sur le bouton du pont pour terminer le jumellage.</value>
+  </data>
+  <data name="Manual_Bridge_Not_Found" xml:space="preserve">
+    <value>Aucun pont n'a été trouvé à cette adresse.</value>
+  </data>
   <data name="Moods_AlreadyExists" xml:space="preserve">
     <value>Un fichier Ambiance ayant ce nom existe déjà. L'écraser ?</value>
+  </data>
+  <data name="Moods_Delete" xml:space="preserve">
+    <value>Êtes-vous certains de vouloir supprimer ce mood ?</value>
+  </data>
+  <data name="Moods_Missing_Name" xml:space="preserve">
+    <value>Aucun nom saisie pour le mood. Veuillez saisir un nom.</value>
+  </data>
+  <data name="Moods_NotValidValues" xml:space="preserve">
+    <value>Les valeurs sélectionnées pour le mood ne sont pas valides. Veuillez sélectionner au moins une valeur valide.</value>
   </data>
   <data name="Mood_Missing_Folder" xml:space="preserve">
     <value>dossier mood manquant</value>
   </data>
   <data name="NoFirmwareUpdate" xml:space="preserve">
     <value>Firmware de la passerelle à jour.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Aucun</value>
   </data>
   <data name="Not_Connected" xml:space="preserve">
     <value>NON CONNECTÉ</value>
@@ -238,11 +457,113 @@
     <value>Aucune ampoule sélectionner. Veuillez S.V.P choisir une ampoule pour ce marqueur.</value>
     <comment>No light selected. Please chose a light for this marker.</comment>
   </data>
+  <data name="No_New_Messages" xml:space="preserve">
+    <value>Pas de nouveau messages.</value>
+  </data>
+  <data name="Plugins_Error" xml:space="preserve">
+    <value>Le plugin {0} a causer une exception. Le plugin sera désactivé afin d'empêcher un crash. Un fichier d'exception du plugin sera généré dans le dossier de WinHue.</value>
+  </data>
+  <data name="Plugins_NoDirectory" xml:space="preserve">
+    <value>Aucun dossier plugins n'à été trouver. Création d'une nouveau dossier.</value>
+  </data>
+  <data name="Plugin_Settings" xml:space="preserve">
+    <value>Paramêtres...</value>
+  </data>
   <data name="Press_Enter_To_Change_Name" xml:space="preserve">
     <value>Appuyer sur retour pour modifier le nom.</value>
   </data>
   <data name="Proxy_NONE" xml:space="preserve">
     <value>Entrez "none" pour aucun proxy.</value>
+  </data>
+  <data name="Require_admin" xml:space="preserve">
+    <value>L'utilisateur actuel n'est pas administrateur. L'application nécessite les droits d'administrateur pour pouvoir fonctionner correctement. Veuillez svp redémarrer avec les droits d'administrateur ou executer l'application en sélectionnant "Executer en tant qu'Administrateur"</value>
+  </data>
+  <data name="ResourceLinks_NameNeeded" xml:space="preserve">
+    <value>Veuillez saisir un nom pour le lien.</value>
+  </data>
+  <data name="ResourceLinks_SelectAtLeastOne" xml:space="preserve">
+    <value>Veuillez sélectionner au moins une ressource pour ce lien.</value>
+  </data>
+  <data name="Rule" xml:space="preserve">
+    <value>Règle</value>
+  </data>
+  <data name="Rule_ActionAlreadyExists" xml:space="preserve">
+    <value>Une action similaire existe déjà. Remplacer ?</value>
+  </data>
+  <data name="Rule_ConditionAlreadyExists" xml:space="preserve">
+    <value>Cette condition semble déjà exister. Remplacer ?</value>
+  </data>
+  <data name="Rule_Delete" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir supprimer cette règle ?</value>
+  </data>
+  <data name="Rule_EmptyBody" xml:space="preserve">
+    <value>Le champ body ne peut pas être vide.</value>
+  </data>
+  <data name="Rule_ErrorCreating" xml:space="preserve">
+    <value>Erreur(s) lors de la création de la règle :</value>
+  </data>
+  <data name="Rule_InvalidJson" xml:space="preserve">
+    <value>La chaine JSON saisie dans le champ Body est invalide.</value>
+  </data>
+  <data name="Rule_MaxAction" xml:space="preserve">
+    <value>Le nombre maximum d'actions est atteint. Veuillez supprimer une action afin d'ajouter une nouvelle action.</value>
+  </data>
+  <data name="Rule_MaxConditions" xml:space="preserve">
+    <value>Le maximum de condition est atteint. Supprimer une condition pour en ajouter une nouvelle.</value>
+  </data>
+  <data name="Rule_NameError" xml:space="preserve">
+    <value>Veuillez saisir un nom valide pour la règle.</value>
+  </data>
+  <data name="Rule_NeedsActionAndCondition" xml:space="preserve">
+    <value>Vous devez avoir au moins une action et une condition afin de créer une règle.</value>
+  </data>
+  <data name="Rule_NoAction" xml:space="preserve">
+    <value>Veuillez svp ajouter au moins une action.</value>
+  </data>
+  <data name="Rule_NoActionObject" xml:space="preserve">
+    <value>Vous devez sélectionner au moins un objet d'action.</value>
+  </data>
+  <data name="Rule_NoCondition" xml:space="preserve">
+    <value>Veuillez ajouter au moins une conditions à la règle.</value>
+  </data>
+  <data name="Rule_NoPropertySelected" xml:space="preserve">
+    <value>Veuillez sélectionner une propriété et essayer à nouveau.</value>
+  </data>
+  <data name="Rule_NotFound" xml:space="preserve">
+    <value>La scène recherche n'a pas été trouvé. Assurez-vous qu'elle existe encore.</value>
+  </data>
+  <data name="Rule_NotProperFormat" xml:space="preserve">
+    <value>La valeur n'est pas au bon format :</value>
+  </data>
+  <data name="Rule_OriginalObjectNotFound" xml:space="preserve">
+    <value>L'objet original de cette règle n'a pas été trouvé. Veuillez vous assurer qu'il est encore associé au pont et essayez de nouveau.</value>
+  </data>
+  <data name="Rule_PropertyAlreadyExists" xml:space="preserve">
+    <value>La propriété {0} existe déjà. Remplacer ?</value>
+  </data>
+  <data name="Rule_ReplaceAction" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir remplacer l'action sélectionnée ?</value>
+  </data>
+  <data name="Rule_ReplaceCondition" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir remplacer cette condition?</value>
+  </data>
+  <data name="Rule_SelectSensor" xml:space="preserve">
+    <value>Veuillez sélectionner un capteur afin de créer une condition.</value>
+  </data>
+  <data name="Rule_SensorRes" xml:space="preserve">
+    <value>La ressource du capteur ne peut pas être vide. Veuillez spécifier une ressource de capteur.</value>
+  </data>
+  <data name="Rule_ValueEmpty" xml:space="preserve">
+    <value>Le champ de valeur ne peut pas être vide.</value>
+  </data>
+  <data name="Rule_ValueNotInRange" xml:space="preserve">
+    <value>La valeur n'est pas dans plage de maximum et minimun pour le type :</value>
+  </data>
+  <data name="Rule_XYError" xml:space="preserve">
+    <value>Assurez-vous d'avoir remplis les 2 coordonnées X et Y.</value>
+  </data>
+  <data name="SaveSettings_Error" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la sauvegarde des paramètres.</value>
   </data>
   <data name="Scene_AlreadyExists" xml:space="preserve">
     <value>Une scène ayant ce nom existe déjà. L'écraser ?</value>
@@ -254,12 +575,30 @@
   <data name="Scene_Delete" xml:space="preserve">
     <value>Êtes-vous certain de vouloir supprimer cette scène ?</value>
   </data>
+  <data name="Scene_Load_RGB" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir charger l'image RGB ?</value>
+  </data>
   <data name="Scene_MissingFolder" xml:space="preserve">
     <value>Le dossier scenes est manquant... Création de celui-ci.</value>
     <comment>The scene folder is missing... recreating it.</comment>
   </data>
+  <data name="Scene_Name_Invalid" xml:space="preserve">
+    <value>Le nom de la scène saisie est invalide.</value>
+  </data>
+  <data name="Scene_NotFound" xml:space="preserve">
+    <value>La scène dans cette règle n'existe plus. </value>
+  </data>
+  <data name="Scene_Replace_Current_States" xml:space="preserve">
+    <value>Remplacer l'état des ampoule de la scène par l'état actuel ?</value>
+  </data>
   <data name="Scene_Scene" xml:space="preserve">
     <value>Scène</value>
+  </data>
+  <data name="Scene_SelectOneLight" xml:space="preserve">
+    <value>Vous devez sélectionner au moins une ampoule.</value>
+  </data>
+  <data name="Scene_Select_At_Least_One_Light" xml:space="preserve">
+    <value>Veuillez svp cocher au moins une ampoule.</value>
   </data>
   <data name="Schedule_Alarm" xml:space="preserve">
     <value>Alarme</value>
@@ -270,8 +609,26 @@
   <data name="Schedule_Schedule" xml:space="preserve">
     <value>Cédule</value>
   </data>
+  <data name="Schedule_SelectAtLeastOneDay" xml:space="preserve">
+    <value>Veuillez sélectionner au moins une journée de la semaine pour la répétition de l'alarme.</value>
+  </data>
   <data name="Schedule_Timer" xml:space="preserve">
     <value>Minuteur</value>
+  </data>
+  <data name="Schedule_Unknown_Group" xml:space="preserve">
+    <value>Groupe Inexistant</value>
+  </data>
+  <data name="Schedule_Unknown_Light" xml:space="preserve">
+    <value>Ampoule inexistante</value>
+  </data>
+  <data name="Schedule_Unknown_Scene" xml:space="preserve">
+    <value>Scène Inexistante</value>
+  </data>
+  <data name="Searching_Lights" xml:space="preserve">
+    <value>Recherche de nouvelles ampoules...</value>
+  </data>
+  <data name="Searching_Sensors" xml:space="preserve">
+    <value>Recherche de nouveau senseur...</value>
   </data>
   <data name="Select_Light_Group" xml:space="preserve">
     <value>Veuillez sélectionner une ampoule ou un groupe.</value>
@@ -280,8 +637,44 @@
     <value>Veuillez sélectionner au moins une ampoule pour la prévisualisation.</value>
     <comment>Please select at least one light to be previewed.</comment>
   </data>
+  <data name="Sensor" xml:space="preserve">
+    <value>Capteur</value>
+  </data>
+  <data name="Sensor_Delete" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir supprimer ce capteur ?</value>
+  </data>
+  <data name="Sensor_EmptyField_Error" xml:space="preserve">
+    <value>Ce champ ne peut pas être vide.</value>
+  </data>
+  <data name="Sensor_Error" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la communication.</value>
+  </data>
+  <data name="Sensor_FieldTooShort" xml:space="preserve">
+    <value>Le champ doit contenir au moins 6 caractères.</value>
+  </data>
+  <data name="Sensor_InvalidFields" xml:space="preserve">
+    <value>Veuillez vous assurez que tous les champ contiennent l'information approprié et que l'url est valide.</value>
+  </data>
+  <data name="Sensor_InvalidURL" xml:space="preserve">
+    <value>L'url spécifiée est invalide. Une url valide débute par http:// .</value>
+  </data>
+  <data name="Sensor_TestUrl" xml:space="preserve">
+    <value>Valeur Reçu</value>
+  </data>
+  <data name="Sensor_UnableToComm" xml:space="preserve">
+    <value>Ne capteur ne répond pas. Assurez-vous que l'url est valide.</value>
+  </data>
   <data name="Settings_ChangeIp" xml:space="preserve">
     <value>Adresse IP configuré à :</value>
+  </data>
+  <data name="Settings_CPU_Temp_NoValue" xml:space="preserve">
+    <value>Impossible de tester le gradient. Assurez-vous que vous avez sélectionné une temperature de début et de fin du gradient ainsi qu'un ampoule pour test.</value>
+  </data>
+  <data name="Settings_DisableAllTools" xml:space="preserve">
+    <value>Avertissement : La modification des paramètres entrainera la désactivation des outils. Êtes-vous certain de vouloir continuer ?</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Succès</value>
   </data>
   <data name="Tooltip_UserManager_CreateUser" xml:space="preserve">
     <value>Vous devez appuyer sur le bouton link pour activer le bouton.</value>
@@ -300,11 +693,20 @@
   <data name="Update_Confirmation" xml:space="preserve">
     <value>Êtes-vous certain de vouloir appliquer la mise à jour ?</value>
   </data>
+  <data name="Update_Delay_String" xml:space="preserve">
+    <value>Vérifier toutes les # minute(s)</value>
+  </data>
+  <data name="Update_Error" xml:space="preserve">
+    <value>Erreur de lecteur de l'état de la mise à jour.</value>
+  </data>
   <data name="UserManager_RemoveUser" xml:space="preserve">
     <value>Êtes-vous certain de vouloir supprimer cet utilisateur ?</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Avertissement</value>
+  </data>
+  <data name="Warning_Bridge_Not_Updated" xml:space="preserve">
+    <value>Attention la version de l'API de votre passerelle n'est pas à la version la plus récente. WinHue ne fonctionnera pas correctement si celle-ci n'est pas mis à jour. Veuillez svp faire la mise à jour de l'API de votre passerelle.</value>
   </data>
   <data name="Warning_ChangeLanguage" xml:space="preserve">
     <value>Vous devez redémarrer le logiciel pour appliquer le nouveau langage.</value>
@@ -315,394 +717,7 @@
   <data name="Warning_TransitionTime" xml:space="preserve">
     <value>Avertissement : le temps de transition est plus long que 3 secondes ! Vous ne serez pas capable de prévisualiser correctement. L'ampoule retournera à son état précédent après 3 secondes.</value>
   </data>
-  <data name="Group_Name_Error" xml:space="preserve">
-    <value>Le nom du group doit avoir au moins une lettre.</value>
-  </data>
-  <data name="Group_Select_One_Light" xml:space="preserve">
-    <value>Veuillez sélectionner au moins une ampoule afin de créer un groupe.</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Aucun</value>
-  </data>
-  <data name="Scene_Select_At_Least_One_Light" xml:space="preserve">
-    <value>Veuillez svp cocher au moins une ampoule.</value>
-  </data>
-  <data name="Scene_Name_Invalid" xml:space="preserve">
-    <value>Le nom de la scène saisie est invalide.</value>
-  </data>
-  <data name="Searching_Lights" xml:space="preserve">
-    <value>Recherche de nouvelles ampoules...</value>
-  </data>
-  <data name="Manual_Bridge_Found" xml:space="preserve">
-    <value>Pont trouvé ! Veuillez appuyer sur le bouton du pont pour terminer le jumellage.</value>
-  </data>
-  <data name="Manual_Bridge_Not_Found" xml:space="preserve">
-    <value>Aucun pont n'a été trouvé à cette adresse.</value>
-  </data>
-  <data name="Bridge_Already_Detected" xml:space="preserve">
-    <value>Ce pont existe déjà dans la liste des ponts. Veuillez saisir une nouvelle addresse IP.</value>
-  </data>
-  <data name="Group_Already_Exists" xml:space="preserve">
-    <value>Un groupe nommé {0} existe déjà. Veuillez choisir un autre nom et réessayer.</value>
-  </data>
-  <data name="Group_Create_Success" xml:space="preserve">
-    <value>Groupe {0} ajouté au pont.</value>
-  </data>
-  <data name="Group_Creation_Error" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la création du groupe {0}.</value>
-  </data>
-  <data name="Success" xml:space="preserve">
-    <value>Succès</value>
-  </data>
-  <data name="Update_Error" xml:space="preserve">
-    <value>Erreur de lecteur de l'état de la mise à jour.</value>
-  </data>
-  <data name="Create_User_Press_Link" xml:space="preserve">
-    <value>Veuillez svp appuyer sur le bouton LINK maintenant et appuyez sur OK pour terminer.</value>
-  </data>
-  <data name="Error_Create_User" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la création de l'usager.</value>
-  </data>
-  <data name="Error_Remove_User" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la suppression de l'usager.</value>
-  </data>
-  <data name="Error_Username" xml:space="preserve">
-    <value>Le nom d'utilisateur ne peut pas commencer par un espace blanc et doit être entre 10 et 40 caractères de long.</value>
-  </data>
-  <data name="Error_Bridge_Name" xml:space="preserve">
-    <value>Le nom du pont neut peut pas être vide ou fait d'espace blanc.</value>
-  </data>
-  <data name="Error_Bridge_Settings" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de l'application des paramêtres du pont. Voir le log pour plus d'info.</value>
-  </data>
-  <data name="Error_Gateway_Invalid" xml:space="preserve">
-    <value>Le gateway sélectionné est invalide.</value>
-  </data>
-  <data name="Error_NetMask_Invalid" xml:space="preserve">
-    <value>Le netmask sélectionné est invalide.</value>
-  </data>
-  <data name="Error_Prox_Address" xml:space="preserve">
-    <value>L'adresse ip du proxy n'est pas valide.</value>
-  </data>
-  <data name="Error_Creating_Scene" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la création d'une nouvelle scène. Veuillez vérifier le journal est événements pour plus de détail.</value>
-  </data>
-  <data name="Error_Getting_BridgeSettings" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la recherche des paramètres du pont.</value>
-  </data>
-  <data name="Error_Getting_Groups" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la recherche de groupes.</value>
-  </data>
-  <data name="Error_Getting_Lights" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la recherche d'ampoules.</value>
-  </data>
-  <data name="Error_Getting_NewLights" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la recherche de nouvelles ampoules.</value>
-  </data>
-  <data name="Error_Sending_AllOFF" xml:space="preserve">
-    <value>Il s'est produit une errur lors de l'envoi de la command Eteinde Tout.</value>
-  </data>
-  <data name="Error_Sending_AllON" xml:space="preserve">
-    <value>Il s'est produit une errur lors de l'envoi de la command Allumer Tout.</value>
-  </data>
-  <data name="Done_Searching" xml:space="preserve">
-    <value>Recherche terminé.</value>
-  </data>
-  <data name="Error_Getting_NewSensors" xml:space="preserve">
-    <value>Il s'est produit une erreur lors de la recherche de nouveau senseur.</value>
-  </data>
-  <data name="Searching_Sensors" xml:space="preserve">
-    <value>Recherche de nouveau senseur...</value>
-  </data>
-  <data name="Rule" xml:space="preserve">
-    <value>Règle</value>
-  </data>
-  <data name="Sensor" xml:space="preserve">
-    <value>Capteur</value>
-  </data>
-  <data name="Interpreter_Error" xml:space="preserve">
-    <value>Erreur sur la ligne {0} , colone {1}.</value>
-  </data>
-  <data name="Interpreter_NoError" xml:space="preserve">
-    <value>Aucune erreur trouvée dans le code.</value>
-  </data>
-  <data name="Rule_ConditionAlreadyExists" xml:space="preserve">
-    <value>Cette condition semble déjà exister. Remplacer ?</value>
-  </data>
-  <data name="Rule_MaxConditions" xml:space="preserve">
-    <value>Le maximum de condition est atteint. Supprimer une condition pour en ajouter une nouvelle.</value>
-  </data>
-  <data name="Rule_SelectSensor" xml:space="preserve">
-    <value>Veuillez sélectionner un capteur afin de créer une condition.</value>
-  </data>
-  <data name="Rule_SensorRes" xml:space="preserve">
-    <value>La ressource du capteur ne peut pas être vide. Veuillez spécifier une ressource de capteur.</value>
-  </data>
-  <data name="Rule_ValueEmpty" xml:space="preserve">
-    <value>Le champ de valeur ne peut pas être vide.</value>
-  </data>
-  <data name="Rule_EmptyBody" xml:space="preserve">
-    <value>Le champ body ne peut pas être vide.</value>
-  </data>
-  <data name="Rule_InvalidJson" xml:space="preserve">
-    <value>La chaine JSON saisie dans le champ Body est invalide.</value>
-  </data>
-  <data name="Rule_NeedsActionAndCondition" xml:space="preserve">
-    <value>Vous devez avoir au moins une action et une condition afin de créer une règle.</value>
-  </data>
-  <data name="Rule_NoActionObject" xml:space="preserve">
-    <value>Vous devez sélectionner au moins un objet d'action.</value>
-  </data>
-  <data name="Rule_NameError" xml:space="preserve">
-    <value>Veuillez saisir un nom valide pour la règle.</value>
-  </data>
-  <data name="Rule_Delete" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir supprimer cette règle ?</value>
-  </data>
-  <data name="Rule_MaxAction" xml:space="preserve">
-    <value>Le nombre maximum d'actions est atteint. Veuillez supprimer une action afin d'ajouter une nouvelle action.</value>
-  </data>
-  <data name="Require_admin" xml:space="preserve">
-    <value>L'utilisateur actuel n'est pas administrateur. L'application nécessite les droits d'administrateur pour pouvoir fonctionner correctement. Veuillez svp redémarrer avec les droits d'administrateur ou executer l'application en sélectionnant "Executer en tant qu'Administrateur"</value>
-  </data>
-  <data name="Rule_NotFound" xml:space="preserve">
-    <value>La scène recherche n'a pas été trouvé. Assurez-vous qu'elle existe encore.</value>
-  </data>
-  <data name="Rule_ErrorCreating" xml:space="preserve">
-    <value>Erreur(s) lors de la création de la règle :</value>
-  </data>
-  <data name="Rule_ReplaceAction" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir remplacer l'action sélectionnée ?</value>
-  </data>
-  <data name="Rule_ReplaceCondition" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir remplacer cette condition?</value>
-  </data>
-  <data name="Rule_XYError" xml:space="preserve">
-    <value>Assurez-vous d'avoir remplis les 2 coordonnées X et Y.</value>
-  </data>
-  <data name="HueTap_ButtonSelected" xml:space="preserve">
-    <value>Bouton {0} sélectionné.</value>
-  </data>
-  <data name="HueTap_NoButtonSelected" xml:space="preserve">
-    <value>Aucun bouton sélectionné.</value>
-  </data>
-  <data name="HueTap_SelectAButton" xml:space="preserve">
-    <value>Veuillez sélectionner un bouton afin de choisir son action.</value>
-  </data>
-  <data name="HueTap_SelectAScene" xml:space="preserve">
-    <value>No scene selected. Please select a scene and press assign again.</value>
-  </data>
-  <data name="Sensor_TestUrl" xml:space="preserve">
-    <value>Valeur Reçu</value>
-  </data>
-  <data name="Sensor_Error" xml:space="preserve">
-    <value>Une erreur s'est produite lors de la communication.</value>
-  </data>
-  <data name="Sensor_InvalidURL" xml:space="preserve">
-    <value>L'url spécifiée est invalide. Une url valide débute par http:// .</value>
-  </data>
-  <data name="Sensor_UnableToComm" xml:space="preserve">
-    <value>Ne capteur ne répond pas. Assurez-vous que l'url est valide.</value>
-  </data>
-  <data name="Settings_CPU_Temp_NoValue" xml:space="preserve">
-    <value>Impossible de tester le gradient. Assurez-vous que vous avez sélectionné une temperature de début et de fin du gradient ainsi qu'un ampoule pour test.</value>
-  </data>
-  <data name="Settings_DisableAllTools" xml:space="preserve">
-    <value>Avertissement : La modification des paramètres entrainera la désactivation des outils. Êtes-vous certain de vouloir continuer ?</value>
-  </data>
-  <data name="Sensor_Delete" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir supprimer ce capteur ?</value>
-  </data>
-  <data name="Light_Delete" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir supprimer cette ampoule ?</value>
-  </data>
-  <data name="Sensor_InvalidFields" xml:space="preserve">
-    <value>Veuillez vous assurez que tous les champ contiennent l'information approprié et que l'url est valide.</value>
-  </data>
-  <data name="Moods_Missing_Name" xml:space="preserve">
-    <value>Aucun nom saisie pour le mood. Veuillez saisir un nom.</value>
-  </data>
-  <data name="Moods_NotValidValues" xml:space="preserve">
-    <value>Les valeurs sélectionnées pour le mood ne sont pas valides. Veuillez sélectionner au moins une valeur valide.</value>
-  </data>
-  <data name="Plugins_NoDirectory" xml:space="preserve">
-    <value>Aucun dossier plugins n'à été trouver. Création d'une nouveau dossier.</value>
-  </data>
-  <data name="Lights_DirectoryDoesNotExists" xml:space="preserve">
-    <value>Le dossier contenant les ampoules n'à pas été trouvé. Il sera créer...</value>
-  </data>
-  <data name="Plugin_Settings" xml:space="preserve">
-    <value>Paramêtres...</value>
-  </data>
-  <data name="Plugins_Error" xml:space="preserve">
-    <value>Le plugin {0} a causer une exception. Le plugin sera désactivé afin d'empêcher un crash. Un fichier d'exception du plugin sera généré dans le dossier de WinHue.</value>
-  </data>
-  <data name="Group_Modified_Success" xml:space="preserve">
-    <value>Le group à été modifié avec succès.</value>
-  </data>
-  <data name="Bridge_SelectOne" xml:space="preserve">
-    <value>Veuillez sélectionner un pont pour contrôler avec WinHue.</value>
-  </data>
-  <data name="Moods_Delete" xml:space="preserve">
-    <value>Êtes-vous certains de vouloir supprimer ce mood ?</value>
-  </data>
-  <data name="Scene_Load_RGB" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir charger l'image RGB ?</value>
-  </data>
-  <data name="Schedule_Unknown_Group" xml:space="preserve">
-    <value>Groupe Inexistant</value>
-  </data>
-  <data name="Schedule_Unknown_Light" xml:space="preserve">
-    <value>Ampoule inexistante</value>
-  </data>
-  <data name="Schedule_Unknown_Scene" xml:space="preserve">
-    <value>Scène Inexistante</value>
-  </data>
-  <data name="Language_Change_Warning" xml:space="preserve">
-    <value>Veuillez redémarrer le programme afin d'appliquer le changement de langue.</value>
-  </data>
-  <data name="Error_Renaming" xml:space="preserve">
-    <value>Une erreur est survenu lors du changement de nom de l'objet. Vérifiez le journal des événements pour plus d'information.</value>
-  </data>
-  <data name="No_New_Messages" xml:space="preserve">
-    <value>Pas de nouveau messages.</value>
-  </data>
-  <data name="Scene_NotFound" xml:space="preserve">
-    <value>La scène dans cette règle n'existe plus. </value>
-  </data>
-  <data name="Rule_NoPropertySelected" xml:space="preserve">
-    <value>Veuillez sélectionner une propriété et essayer à nouveau.</value>
-  </data>
-  <data name="Rule_NoCondition" xml:space="preserve">
-    <value>Veuillez ajouter au moins une conditions à la règle.</value>
-  </data>
-  <data name="Rule_OriginalObjectNotFound" xml:space="preserve">
-    <value>L'objet original de cette règle n'a pas été trouvé. Veuillez vous assurer qu'il est encore associé au pont et essayez de nouveau.</value>
-  </data>
-  <data name="Schedule_SelectAtLeastOneDay" xml:space="preserve">
-    <value>Veuillez sélectionner au moins une journée de la semaine pour la répétition de l'alarme.</value>
-  </data>
-  <data name="Daylight_Longitude_Error" xml:space="preserve">
-    <value>La longitude ne doit pas être vide et doit être au format DDD.DDDD{E|W}</value>
-  </data>
-  <data name="Daylight_Latitude_Error" xml:space="preserve">
-    <value>La latitude ne doit pas être vide et doit être au format DDD.DDDD{N|S}</value>
-  </data>
-  <data name="Sensor_EmptyField_Error" xml:space="preserve">
-    <value>Ce champ ne peut pas être vide.</value>
-  </data>
-  <data name="BridgeDetectionPairing_SelectionMessage" xml:space="preserve">
-    <value>Veuillez sélectionner une passerelle et appuyez sur Jumeler afin de démarrer le jumelage.</value>
-  </data>
-  <data name="BridgeDetectionPairing_Pairing" xml:space="preserve">
-    <value>Jumelage débuté. Veuillez appuyer le le bouton de lien sur la passerelle afin de terminer le jumelage.</value>
-  </data>
-  <data name="BridgeDetectionPairing_PairingDone" xml:space="preserve">
-    <value>Jumelage terminé. Veuillez sélectionner une autre passerelle afin de débuter le jumelage ou bien sélectionnez la passerelle par défaut afin de terminer la procédure.</value>
-  </data>
-  <data name="BridgeDetectionPairing_Scanning" xml:space="preserve">
-    <value>Scan pour des passerelles en cours... veuillez patienter.</value>
-  </data>
-  <data name="BridgeDetectionPairing_ScanComplete" xml:space="preserve">
-    <value>Scan terminé.</value>
-  </data>
-  <data name="BridgeDetectionPairing_ScanAborted" xml:space="preserve">
-    <value>Scan annulé.</value>
-  </data>
-  <data name="Error_Timout_Portal" xml:space="preserve">
-    <value>Un timeout s'est produit lors de la tentative de connection au portal de philips. Veuillez essayer plus tard.</value>
-  </data>
-  <data name="Bridge_ApplyingUpdate" xml:space="preserve">
-    <value>Mise à jour en cours... Il se peut que la passerelle ne réponde pas pendant quelques minutes.</value>
-  </data>
-  <data name="Confirm_Delete_Object" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir supprimer {0} ?</value>
-  </data>
-  <data name="Error_WhileCreatingObject" xml:space="preserve">
-    <value>Une ou plusieurs erreurs s'est produite lors de la création de l'objet :</value>
-  </data>
-  <data name="Scene_SelectOneLight" xml:space="preserve">
-    <value>Vous devez sélectionner au moins une ampoule.</value>
-  </data>
-  <data name="Scene_Replace_Current_States" xml:space="preserve">
-    <value>Remplacer l'état des ampoule de la scène par l'état actuel ?</value>
-  </data>
-  <data name="Rule_NotProperFormat" xml:space="preserve">
-    <value>La valeur n'est pas au bon format :</value>
-  </data>
-  <data name="Rule_ValueNotInRange" xml:space="preserve">
-    <value>La valeur n'est pas dans plage de maximum et minimun pour le type :</value>
-  </data>
-  <data name="Field_Empty" xml:space="preserve">
-    <value>Le champ ne peut être vide.</value>
-  </data>
-  <data name="Rule_PropertyAlreadyExists" xml:space="preserve">
-    <value>La propriété {0} existe déjà. Remplacer ?</value>
-  </data>
-  <data name="Rule_NoAction" xml:space="preserve">
-    <value>Veuillez svp ajouter au moins une action.</value>
-  </data>
-  <data name="Rule_ActionAlreadyExists" xml:space="preserve">
-    <value>Une action similaire existe déjà. Remplacer ?</value>
-  </data>
-  <data name="SaveSettings_Error" xml:space="preserve">
-    <value>Une erreur s'est produite lors de la sauvegarde des paramètres.</value>
-  </data>
-  <data name="Link_Not_Pressed" xml:space="preserve">
-    <value>n'a pas été appuyé</value>
-  </data>
-  <data name="Link_Pressed" xml:space="preserve">
-    <value>a été appuyé</value>
-  </data>
-  <data name="Error_InvalidPort" xml:space="preserve">
-    <value>La valeur du port est invalide.</value>
-  </data>
-  <data name="Error_Getting_Bridge_Basic_Config" xml:space="preserve">
-    <value>Une erreur s'est produite pendant la lecture de la configuration de base de la passerelle.</value>
-  </data>
-  <data name="Sensor_FieldTooShort" xml:space="preserve">
-    <value>Le champ doit contenir au moins 6 caractères.</value>
-  </data>
-  <data name="BridgeDetectionPairing_Upnp_Not_Working" xml:space="preserve">
-    <value>Les services UPNP et SSDP ne semblent pas fonctionner. Veuillez les activer afin de permettre des meilleurs résultats lors de la détection de la passerelle.</value>
-  </data>
-  <data name="Bridge_Signed_In" xml:space="preserve">
-    <value>Passerelle authentifiée</value>
-  </data>
-  <data name="Bridge_Not_Signed_In" xml:space="preserve">
-    <value>Passerelle non authentifiée</value>
-  </data>
-  <data name="HotKey_Already_Exists" xml:space="preserve">
-    <value>Ce raccourci existe déjà. Remplacer ?</value>
-  </data>
-  <data name="Hotkey_SelectObjectType" xml:space="preserve">
-    <value>Vous devez sélectionner au moins un type d'objet.</value>
-  </data>
-  <data name="Hotkey_SelectObject" xml:space="preserve">
-    <value>Veuillez sélectionner un objet.</value>
-  </data>
-  <data name="Hotkey_RecordHotkey" xml:space="preserve">
-    <value>Veuillez enregistrer votre raccourci.</value>
-  </data>
-  <data name="Hotkey_FillOneProperty" xml:space="preserve">
-    <value>Veuillez remplir au moins une propriété.</value>
-  </data>
-  <data name="Error_Hotkey_Already_Assigned" xml:space="preserve">
-    <value>Ce raccourci semble déjà assigné à un autre processus. Veuillez svp sélectionner un autre raccourci clavier.</value>
-  </data>
-  <data name="Bridge_IP_Different" xml:space="preserve">
-    <value>Votre passerelle {0} semble avoir changé d'adresse IP. Voulez vous remplacer l'adresse IP ?</value>
-  </data>
-  <data name="Warning_Bridge_Not_Updated" xml:space="preserve">
-    <value>Attention la version de l'API de votre passerelle n'est pas à la version la plus récente. WinHue ne fonctionnera pas correctement si celle-ci n'est pas mis à jour. Veuillez svp faire la mise à jour de l'API de votre passerelle.</value>
-  </data>
-  <data name="Update_Delay_String" xml:space="preserve">
-    <value>Vérifier toutes les # minute(s)</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Aide</value>
-  </data>
-  <data name="Form_Hotkey_Help_Generic" xml:space="preserve">
-    <value>les états génériques sont des raccourcis clavier qui n'ont pas d'objet associé à leur action. Les états non génériques s'appliquent seulement à un objet spécifique.</value>
+  <data name="Error_While_Cloning" xml:space="preserve">
+    <value>Le clone de l'objet cloné n'a pas été trouvé. Veuillez modifier l'objet manuellement.</value>
   </data>
 </root>

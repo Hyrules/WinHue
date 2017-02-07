@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace HueLib2
 {
@@ -11,7 +13,7 @@ namespace HueLib2
         /// <summary>
         /// Button event number.
         /// </summary>
-        [DataMember, HueLib(false, false)]
+        [DataMember, ReadOnly(true)]
         public int? buttonevent { get; set; }
 
     }

@@ -1,0 +1,70 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:WinHue3" x:Class="WinHue3.Form_AppSettings"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:converters="clr-namespace:WinHue3.Converters"
+        Title="{x:Static resx:GUI.SettingsForm_Title}" Height="416" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" Icon="/WinHue3;component/Resources/gear_in.png">
+    <Window.Resources>
+        <converters:BoolToOppositeBoolConverter x:Key="ReverseToBoolConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="btnApply" HorizontalAlignment="Left" Margin="274,349,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>
+        <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="btnCancel" HorizontalAlignment="Left" Margin="354,349,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <TabControl x:Name="tcSettings" HorizontalAlignment="Left" Height="344" VerticalAlignment="Top" Width="429">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Language}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="61" Width="413" Margin="5,119,0,0">
+                        <ComboBox x:Name="cbLanguage" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="383">
+                            <ComboBoxItem x:Name="cbifrCA" Content="Français" Tag="fr-CA"></ComboBoxItem>
+                            <ComboBoxItem x:Name="cbienUS" Content="English" Tag="en-US"></ComboBoxItem>
+                        </ComboBox>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug}" HorizontalAlignment="Left" Margin="5,185,0,0" VerticalAlignment="Top" Height="121" Width="165">
+                        <CheckBox x:Name="chbDebug" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug}" HorizontalAlignment="Left" Margin="0,0,-1.667,-3" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip}" Width="155" Height="37"/>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="113" Width="191" Margin="5,1,0,0">
+                        <Grid>
+                            <CheckBox x:Name="chbLiveSliders" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_LiveSliders}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_LiveSliders_ToolTip}"/>
+                            <xctk:IntegerUpDown x:Name="nudSlidersDelay" IsEnabled="{Binding IsChecked, ElementName=chbLiveSliders}" HorizontalAlignment="Left" Margin="57,33,0,0" VerticalAlignment="Top" Width="71" Maximum="500" Minimum="10" Value="25" ToolTip="Delay duration in milliseconds for the live sliders."/>
+                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_Delay}" HorizontalAlignment="Left" Margin="7,30,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="chbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="groupBox" Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network}" HorizontalAlignment="Left" Margin="201,1,0,0" VerticalAlignment="Top" Height="113" Width="212">
+                        <Grid>
+                            <CheckBox x:Name="chbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}"/>
+                            <xctk:IntegerUpDown x:Name="nudUpnpTimeout" HorizontalAlignment="Left" Margin="128,34,0,0" VerticalAlignment="Top" Width="62" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}"/>
+                            <Label x:Name="lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="113"/>
+                            <xctk:IntegerUpDown x:Name="nudTimeout" HorizontalAlignment="Left" Margin="128,60,0,0" VerticalAlignment="Top" Width="62" Maximum="60000" Minimum="1000"/>
+                            <Label x:Name="lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Width="113"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="groupBox1" Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Startup}" HorizontalAlignment="Left" Margin="175,185,0,0" VerticalAlignment="Top" Height="121" Width="243">
+                        <Grid>
+                            <CheckBox x:Name="chbStartWindows" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Windows}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="rbStartMinimized" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Minimized}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="rbStartInTray" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Tray}" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="rbStartNormal" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Normally}" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_OtherSettings}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="92" Margin="-1.667,-2,-36.333,0">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox x:Name="groupBox2" Header="All On/Off settings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="191" Width="251">
+                        <Grid Margin="0,0,-1.667,-2.333">
+                            <xctk:IntegerUpDown x:Name="nudAllOnTT" HorizontalAlignment="Left" Margin="87,21,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" />
+                            <xctk:IntegerUpDown x:Name="nudAllOffTT" HorizontalAlignment="Left" Margin="87,54,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" />
+                            <Label x:Name="label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON }" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Width="72"/>
+                            <Label x:Name="label1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="72"/>
+                            <Label x:Name="label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="220"/>
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+</Window>

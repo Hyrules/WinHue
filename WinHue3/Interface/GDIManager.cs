@@ -10,7 +10,7 @@ namespace WinHue3
     public static class GDIManager
     {
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr hObject);
+        private static extern bool DeleteObject(IntPtr hObject);
 
         public static ImageSource CreateImageSourceFromImage(Bitmap img)
         {
