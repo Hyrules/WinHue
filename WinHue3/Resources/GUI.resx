@@ -1245,4 +1245,13 @@
   <data name="RuleCreatorForm_RuleGroupBox" xml:space="preserve">
     <value>Rule</value>
   </data>
+  <data name="Form_CloneRule_Title" xml:space="preserve">
+    <value>Cloning a Rule</value>
+  </data>
+  <data name="Form_CloneRule_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Form_CloneRule_Clone" xml:space="preserve">
+    <value>Clone</value>
+  </data>
 </root>

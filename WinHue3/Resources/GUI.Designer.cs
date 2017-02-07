@@ -718,6 +718,33 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Form_CloneRule_Cancel {
+            get {
+                return ResourceManager.GetString("Form_CloneRule_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clone.
+        /// </summary>
+        public static string Form_CloneRule_Clone {
+            get {
+                return ResourceManager.GetString("Form_CloneRule_Clone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cloning a Rule.
+        /// </summary>
+        public static string Form_CloneRule_Title {
+            get {
+                return ResourceManager.GetString("Form_CloneRule_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groups View.
         /// </summary>
         public static string Form_GroupView_Title {

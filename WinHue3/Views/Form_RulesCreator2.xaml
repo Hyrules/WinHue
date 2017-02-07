@@ -6,7 +6,7 @@
         xmlns:converter="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
         x:Class="WinHue3.Form_RulesCreator2"
-        Title="Create a rule..." Height="452.072" Width="914.326" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="Create a rule..." Height="452.072" Width="914.326" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/rules.png">
     <Window.DataContext>
         <viewmodels:RuleCreatorViewModel/>
     </Window.DataContext>

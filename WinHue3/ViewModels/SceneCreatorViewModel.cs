@@ -16,13 +16,11 @@ namespace WinHue3.ViewModels
     {
         private ObservableCollection<Light> _listAvailableLights;
         private ObservableCollection<Light> _selectedLight;
-        
+        private BackgroundWorker _bgWorker = new BackgroundWorker { WorkerReportsProgress = false, WorkerSupportsCancellation = false };
         private Bridge _bridge;
         private SceneCreatorModel _sceneCreatorModel;
         private Light _selectedSceneLight;
-
         private ObservableCollection<Light> _listSceneLights;
-
 
         public SceneCreatorViewModel()
         {
@@ -80,6 +78,7 @@ namespace WinHue3.ViewModels
             }
             set
             {
+
                 if (SelectedSceneLight != null)
                 {
                     SelectedSceneLight.state = value;             
@@ -169,10 +168,8 @@ namespace WinHue3.ViewModels
 
         private void DoPreviewScene()
         {
-
-            BackgroundWorker bgWorker = new BackgroundWorker { WorkerReportsProgress = false, WorkerSupportsCancellation = false };
-            bgWorker.DoWork += bgWorker_DoWork;
-            bgWorker.RunWorkerAsync(ListSceneLights);
+            _bgWorker.DoWork += bgWorker_DoWork;
+            _bgWorker.RunWorkerAsync(ListSceneLights);
         }
 
         void bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -281,11 +278,16 @@ namespace WinHue3.ViewModels
             return SelectedSceneLight != null;
         }
 
+        private bool CanPreview()
+        {
+            return ListSceneLights.Count > 0 && !_bgWorker.IsBusy;
+        }
+
         public ICommand RemoveSelectedSceneLightCommand => new RelayCommand(param => RemoveSelectedSceneLight(), param=> CanRemoveSelectedSceneLight());
         public ICommand SetRandomColorCommand => new RelayCommand(param => SetRandomColor());
         public ICommand GetColorFromImageCommand => new RelayCommand(param => GetColorFromImage());
         public ICommand ClearSelectionSceneLightCommand => new RelayCommand(param => ClearSelectionSceneLight());
-        public ICommand DoPreviewSceneCommand => new RelayCommand(param => DoPreviewScene());
+        public ICommand DoPreviewSceneCommand => new RelayCommand(param => DoPreviewScene(), (param) => CanPreview());
         public ICommand AddSelectedLightsToSceneCommand => new RelayCommand(param => AddSelectedLightsToScene(), param => CanAddLightsToScene());
         public ICommand ModifyStateCommand => new RelayCommand(param => ModifyState(), (param) => CanModify());
 

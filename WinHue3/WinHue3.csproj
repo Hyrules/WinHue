@@ -211,6 +211,7 @@
     <Compile Include="Controls\BindableHueSlider.cs" />
     <Compile Include="Controls\BindableListView.cs" />
     <Compile Include="Controls\BindableSlider.cs" />
+    <Compile Include="Models\CloneRuleModel.cs" />
     <Compile Include="Models\EventViewerModel.cs" />
     <Compile Include="Models\HotKeyCreatorModel.cs" />
     <Compile Include="Models\ManageUsersModel.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Utils\TimeSensorState.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="View.cs" />
+    <Compile Include="ViewModels\CloneRuleViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
@@ -338,6 +340,9 @@
     <Compile Include="ViewModels\ColorFromImageViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="Settings\WinHueSettings.cs" />
+    <Compile Include="Views\Form_CloneRule.xaml.cs">
+      <DependentUpon>Form_CloneRule.xaml</DependentUpon>
+    </Compile>
     <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -505,6 +510,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Form_CloneRule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color\HSLColor.cs" />
