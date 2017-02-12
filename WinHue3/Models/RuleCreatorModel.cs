@@ -28,7 +28,7 @@ namespace WinHue3.Models
         }
 
         [Required]
-        [StringLength(20,MinimumLength = 1)]
+        [StringLength(32,MinimumLength = 1)]
         public string Name
         {
             get { return _name; }

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinHue 3"
-#define MyAppVersion "BETA 25"
+#define MyAppVersion "BETA 26"
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
 #define MyAppExeName "WinHue3.exe"
@@ -26,7 +26,7 @@ OutputBaseFilename={#MyAppName} {#MyAppVersion} Setup
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
-SetupIconFile="D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\icon.ico"
+SetupIconFile="D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\icon.ico"
 InfoBeforeFile="D:\Desktop\readme\WinHue\README.txt"
 
 [Languages]
@@ -38,32 +38,32 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\*.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\whc.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Xceed.Wpf.DataGrid.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\WinHue3.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\HueLib2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\ManagedUPnP.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\OpenHardwareMonitorLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\NDesk.Options.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Xceed.Wpf.Toolkit.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\log4net.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\fr\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\prism.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\prism.wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\bin\Debug\procdump.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\*.pdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\whc.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.DataGrid.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\WinHue3.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\HueLib2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\ManagedUPnP.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\OpenHardwareMonitorLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\NDesk.Options.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.Toolkit.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4net.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\fr\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\prism.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\prism.wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\procdump.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{group}\progdump"; Filename: "{app}\procdump.exe"; Parameters : "-e -w -ma WinHue3.exe {localappdata}\WinHue3"
+Name: "{group}\procdump"; Filename: "{app}\procdump.exe"; Parameters : "-e -w -ma WinHue3.exe {localappdata}\WinHue3"
 Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon

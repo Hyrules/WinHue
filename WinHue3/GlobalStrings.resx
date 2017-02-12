@@ -711,4 +711,10 @@
   <data name="Error_While_Cloning" xml:space="preserve">
     <value>Cloned Object not found in the list. Please edit the object manually.</value>
   </data>
+  <data name="Error_ScheduleTimeInvalid" xml:space="preserve">
+    <value>Time must be a valid HH:mm:ss value.</value>
+  </data>
+  <data name="Error_ScheduleInvalidTT" xml:space="preserve">
+    <value>Transition time must be a valud between 0 and 65535</value>
+  </data>
 </root>

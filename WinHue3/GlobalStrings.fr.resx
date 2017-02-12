@@ -720,4 +720,10 @@
   <data name="Error_While_Cloning" xml:space="preserve">
     <value>Le clone de l'objet cloné n'a pas été trouvé. Veuillez modifier l'objet manuellement.</value>
   </data>
+  <data name="Error_ScheduleTimeInvalid" xml:space="preserve">
+    <value>L'heure doit être au type HH:mm:ss.</value>
+  </data>
+  <data name="Error_ScheduleInvalidTT" xml:space="preserve">
+    <value>Le temps de transition doit être entre 0 et 65535.</value>
+  </data>
 </root>

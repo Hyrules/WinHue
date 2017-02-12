@@ -65,10 +65,10 @@ namespace WinHue3.ViewModels
                         sat = ScheduleModel.Sat,
                         hue = ScheduleModel.Hue,
                         ct = ScheduleModel.Ct,
-                        transitiontime = ScheduleModel.Transitiontime,
+                        transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime),
 
                     },method = "PUT",address = TargetObject},
-                    localtime = BuildScheduleLocaltime(ScheduleModel.LocalTime,SelectedType),
+                    localtime = BuildScheduleLocaltime($"{ScheduleModel.Date} {ScheduleModel.Time}",SelectedType),
                 };
 
                 if (schedule.command.body.scene == null)
@@ -124,13 +124,15 @@ namespace WinHue3.ViewModels
                 {
                     case "W":
                         ScheduleMask = Convert.ToByte(GetMaskFromAlarm(schedule.localtime));
-                        ScheduleModel.LocalTime = schedule.localtime.Substring(6);
+                        ScheduleModel.Time = schedule.localtime.Substring(6);
                         break;
                     case "T":
-                        ScheduleModel.LocalTime = schedule.localtime.Replace('T', ' ');
+                        string[] datetime = schedule.localtime.Split('T');
+                        ScheduleModel.Date = datetime[0];
+                        ScheduleModel.Time = datetime[1];
                         break;
                     case "PT":
-                        ScheduleModel.LocalTime = schedule.localtime.Replace("PT", "");
+                        ScheduleModel.Time = schedule.localtime.Replace("PT", "");
                         break;
                     default:
                         goto case "T";
@@ -251,7 +253,8 @@ namespace WinHue3.ViewModels
             ScheduleModel.Sat = null;
             ScheduleModel.Autodelete = null;
             ScheduleModel.On = true;
-            ScheduleModel.LocalTime = DateTime.Now.ToString("yyyy - MM - dd HH: mm:ss");
+            ScheduleModel.Time = DateTime.Now.Add(new TimeSpan(0,0,5)).ToString("HH:mm:ss");
+            ScheduleModel.Date = DateTime.Now.ToString("yyyy-MM-dd");
             ScheduleModel.Randomize = null;
             ScheduleModel.Repetition = null;
             ScheduleModel.X = null;

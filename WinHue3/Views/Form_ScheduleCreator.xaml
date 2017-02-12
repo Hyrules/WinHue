@@ -6,7 +6,8 @@
         x:Class="WinHue3.Form_ScheduleCreator"
         xmlns:winHue3="clr-namespace:WinHue3"
         xmlns:viewModel="clr-namespace:WinHue3.ViewModels"
-        xmlns:converter="clr-namespace:WinHue3.Converters"       
+        xmlns:converter="clr-namespace:WinHue3.Converters"  
+        xmlns:controls="clr-namespace:WinHue3.Controls"
     Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="628" Width="716" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SchedulesLarge.png">
 
     <Window.DataContext>
@@ -23,7 +24,20 @@
         <converter:NudToTransitionTimeConverter x:Key="NudToTransitionTimeConverter"/>
         <converter:HueColorConverter x:Key="HueColorConverter"/>
         <converter:BoolToOppositeBoolConverter x:Key="BoolToOppositeBoolConverter"/>
-        <Style TargetType="{x:Type xctk:CheckComboBox}">
+        <Style TargetType="{x:Type DatePicker}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedType}" Value="W">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="T">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="PT">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
                     <Setter Property="ToolTip"
@@ -43,11 +57,48 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="{x:Type xctk:CheckComboBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="W">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="T">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="PT">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel DockPanel.Dock="Right">
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                            <TextBlock Margin="3" Foreground="Red">!</TextBlock>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="{x:Type Button}" x:Key="btnSave">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=chcbDOW, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=tbTime, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=tbTT, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+
             </Style.Triggers>
         </Style>
     </Window.Resources>
@@ -107,7 +158,6 @@
 
         <GroupBox Header="{x:Static resx:GUI.ScheduleCreatorForm_ScheduleInformation}" HorizontalAlignment="Left" Height="246" Margin="6,6,0,0" VerticalAlignment="Top" Width="685">
             <Grid Margin="0,0,0,3">
-                <xctk:DoubleUpDown x:Name="dudTT" Value="{Binding ScheduleModel.Transitiontime,Converter={StaticResource NudToTransitionTimeConverter}}" HorizontalAlignment="Left" Margin="134,189,0,0" VerticalAlignment="Top" Width="83" Text="0" Maximum="65535" Minimum="-1" TabIndex="6" Height="23" ToolTip="In milliseconds. Maximum is 65535 ms.(set to 0 for no delay and -1 to default." DefaultValue="0" IsEnabled="{Binding CanSetSettings}"/>
 
                 <!--<xctk:DateTimePicker x:Name="dtpScheduleDateTime" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" HorizontalAlignment="Left" Height="23" Margin="134,145,0,0" VerticalAlignment="Top" Width="239" TabIndex="4" TimeFormatString="{Binding TimeFormatString}" ToolTip="Must be geater than 5 minutes from now." SnapsToDevicePixels="True" TimePickerAllowSpin="True" Format="Custom" FormatString="{Binding TimeFormatString}" TimeFormat="Custom" />-->
                 <!-- {x:Static resx:GUI.ScheduleCreatorForm_StartTime} -->
@@ -119,31 +169,42 @@
                     <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}"/>
                     <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}"/>
                 </ComboBox>
-                <xctk:CheckComboBox x:Name="chcbDOW" Visibility="{Binding IsAlarm}" HorizontalAlignment="Left" Margin="435,15,0,0" VerticalAlignment="Top" Width="198" Height="23" SnapsToDevicePixels="True" TabIndex="1" DisplayMemberPath="Text" ValueMemberPath="Name">
-                    <xctk:CheckComboBox.SelectedValue>
+                <!--<ComboBox x:Name="chcbDOW" HorizontalAlignment="Left" Margin="435,15,0,0" VerticalAlignment="Top" Width="198" Height="23" SnapsToDevicePixels="True" TabIndex="1" DisplayMemberPath="Text" >
+                    <ComboBox.SelectedValue>
                         <Binding Path="ScheduleMask" Converter="{StaticResource ScheduleMaskConverter}" ValidatesOnDataErrors="True" ValidatesOnNotifyDataErrors="True" UpdateSourceTrigger="PropertyChanged" />
-                    </xctk:CheckComboBox.SelectedValue>
-                    <TextBlock x:Name="Mon" Text="{x:Static resx:GUI.ScheduleCreatorForm_Monday}"/>
-                    <TextBlock x:Name="Tue" Text="{x:Static resx:GUI.ScheduleCreatorForm_Tuesday}"/>
-                    <TextBlock x:Name="Wed" Text="{x:Static resx:GUI.ScheduleCreatorForm_Wednesday}"/>
-                    <TextBlock x:Name="Thu" Text="{x:Static resx:GUI.ScheduleCreatorForm_Thursday}"/>
-                    <TextBlock x:Name="Fri" Text="{x:Static resx:GUI.ScheduleCreatorForm_Friday}"/>
-                    <TextBlock x:Name="Sat" Text="{x:Static resx:GUI.ScheduleCreatorForm_Saturday}"/>
-                    <TextBlock x:Name="Sun" Text="{x:Static resx:GUI.ScheduleCreatorForm_Sunday}"/>
-                </xctk:CheckComboBox>
+                    </ComboBox.SelectedValue>
+                    <CheckBox x:Name="Mon" Content="{x:Static resx:GUI.ScheduleCreatorForm_Monday}"/>
+                    <CheckBox x:Name="Tue" Content="{x:Static resx:GUI.ScheduleCreatorForm_Tuesday}"/>
+                    <CheckBox x:Name="Wed" Content="{x:Static resx:GUI.ScheduleCreatorForm_Wednesday}"/>
+                    <CheckBox x:Name="Thu" Content="{x:Static resx:GUI.ScheduleCreatorForm_Thursday}"/>
+                    <CheckBox x:Name="Fri" Content="{x:Static resx:GUI.ScheduleCreatorForm_Friday}"/>
+                    <CheckBox x:Name="Sat" Content="{x:Static resx:GUI.ScheduleCreatorForm_Saturday}"/>
+                    <CheckBox x:Name="Sun" Content="{x:Static resx:GUI.ScheduleCreatorForm_Sunday}"/>
+                </ComboBox>-->
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Type}" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Width="119"/>
                 <Label x:Name="lblDOW" Content="{x:Static resx:GUI.ScheduleCreatorForm_DaysOfWeek}" HorizontalAlignment="Left" Height="34" Margin="315,11,0,0" VerticalAlignment="Top" Width="115" Visibility="{Binding IsAlarm}"/>
-                <CheckBox x:Name="chbON" IsChecked="{Binding ScheduleModel.On}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="595,150,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below." IsEnabled="{Binding CanSetSettings}"/>
-                <CheckBox x:Name="chbRandomize" IsChecked="{Binding ScheduleModel.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="378,150,0,0" VerticalAlignment="Top" Width="83" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
-                <CheckBox x:Name="chbAutodelete" IsChecked="{Binding ScheduleModel.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="479,150,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True"/>
-                <CheckBox x:Name="chbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="571,195,0,0" VerticalAlignment="Top" IsChecked="{Binding ScheduleModel.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not."/>
+                <CheckBox x:Name="chbON" IsChecked="{Binding ScheduleModel.On}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="567,15,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below." IsEnabled="{Binding CanSetSettings}" Width="96"/>
+                <CheckBox x:Name="chbRandomize" IsChecked="{Binding ScheduleModel.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="567,69,0,0" VerticalAlignment="Top" Width="83" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
+                <CheckBox x:Name="chbAutodelete" IsChecked="{Binding ScheduleModel.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="567,43,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True"/>
+                <CheckBox x:Name="chbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="567,95,0,0" VerticalAlignment="Top" IsChecked="{Binding ScheduleModel.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not."/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="222,188,0,0" VerticalAlignment="Top" Width="161"/>
                 <Label x:Name="label" Content="Transition time :" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top"/>
-                <xctk:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="134,60,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Name}" VerticalAlignment="Top" Width="499" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name_Tooltip}"/>
-                <xctk:WatermarkTextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="134,102,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Description}" VerticalAlignment="Top" Width="499" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}"/>
+                <controls:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="134,60,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Name}" VerticalAlignment="Top" Width="296" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name_Tooltip}" Height="24" Padding="3"/>
+                <controls:WatermarkTextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="134,102,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Description}" VerticalAlignment="Top" Width="296" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}" Height="24" Padding="3"/>
                 <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="479,189,0,0" VerticalAlignment="Top" Minimum="1" Maximum="99" Height="23" Width="59" Value="{Binding ScheduleModel.Repetition}" Visibility="{Binding CanRepeat}"/>
                 <Label x:Name="label1" Content="{x:Static resx:GUI.ScheduleCreatorForm_Repeat}" HorizontalAlignment="Left" Margin="383,188,0,0" VerticalAlignment="Top" Width="91" Visibility="{Binding CanRepeat}"/>
-                <xctk:DateTimeUpDown HorizontalAlignment="Left" Margin="134,147,0,0" VerticalAlignment="Top" Width="228" Value="{Binding ScheduleModel.LocalTime, Converter={StaticResource DateTimeToScheduleConverter}}" Format="Custom" FormatString="yyyy-MM-dd HH:mm:ss" />
+                <DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="134,143,0,0" VerticalAlignment="Top" Text="{Binding ScheduleModel.Date}" Width="159"/>
+                <TextBox x:Name="tbTime" HorizontalAlignment="Left" Height="24" Margin="298,143,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Time, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="62" MaxLength="8" Padding="0,2,0,0"/>
+                <TextBox x:Name="tbTT" HorizontalAlignment="Left" Height="23" Margin="134,189,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Transitiontime, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="83"/>
+                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="151" Margin="447,15,0,0" VerticalAlignment="Top" Width="108">
+                    <CheckBox x:Name="Mon" Content="{x:Static resx:GUI.ScheduleCreatorForm_Monday}"/>
+                    <CheckBox x:Name="Tue" Content="{x:Static resx:GUI.ScheduleCreatorForm_Tuesday}"/>
+                    <CheckBox x:Name="Wed" Content="{x:Static resx:GUI.ScheduleCreatorForm_Wednesday}"/>
+                    <CheckBox x:Name="Thu" Content="{x:Static resx:GUI.ScheduleCreatorForm_Thursday}"/>
+                    <CheckBox x:Name="Fri" Content="{x:Static resx:GUI.ScheduleCreatorForm_Friday}"/>
+                    <CheckBox x:Name="Sat" Content="{x:Static resx:GUI.ScheduleCreatorForm_Saturday}"/>
+                    <CheckBox x:Name="Sun" Content="{x:Static resx:GUI.ScheduleCreatorForm_Sunday}"/>
+                </ListBox>
             </Grid>
         </GroupBox>
         <Button x:Name="btnClear" Content="{x:Static resx:GUI.ScheduleCreatorForm_ClearButton}" IsEnabled="{Binding IsEditing, Converter={StaticResource BoolToOppositeBoolConverter}}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="456,564,0,0" VerticalAlignment="Top" Width="75"/>
