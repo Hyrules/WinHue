@@ -1,0 +1,20 @@
+﻿DotNetProjects.Wpf.Extended.Toolkit
+
+
+library
+C#
+.cs
+D:\Documents\Visual Studio 2012\Projects\WinHue3_1\packages\ForkedWPFToolkitFixed\WpfExtendedToolkit-Extended\Src\Xceed.Wpf.Toolkit\obj\Debug\
+Xceed.Wpf.Toolkit
+none
+false
+DEBUG;TRACE
+
+82-1466841885
+
+294-2133976059
+152107787869
+BrushPicker\Themes\Generic.xaml;BusyIndicator\Themes\Aero2.NormalColor.xaml;BusyIndicator\Themes\Generic.xaml;ButtonSpinner\Themes\Aero2.NormalColor.xaml;ButtonSpinner\Themes\Generic.xaml;CalculatorUpDown\Themes\Aero2.NormalColor.xaml;CalculatorUpDown\Themes\Generic.xaml;Calculator\Themes\Aero2.NormalColor.xaml;Calculator\Themes\Generic.xaml;CheckComboBox\Themes\Aero2.NormalColor.xaml;CheckListBox\Themes\Aero2.NormalColor.xaml;CheckListBox\Themes\Generic.xaml;ChildWindow\Themes\Aero2.NormalColor.xaml;ChildWindow\Themes\Generic.xaml;Chromes\Themes\Aero2.NormalColor.xaml;Chromes\Themes\Generic.xaml;CollectionControl\Implementation\CollectionControlDialog.xaml;CollectionControl\Themes\Aero2.NormalColor.xaml;CollectionControl\Themes\Generic.xaml;ColorCanvas\Themes\Aero2.NormalColor.xaml;ColorCanvas\Themes\Generic.xaml;ColorPicker\Themes\Aero2.NormalColor.xaml;ColorPicker\Themes\Generic.xaml;CheckComboBox\Themes\Generic.xaml;Primitives\Themes\Aero2\SelectorItem.xaml;Primitives\Themes\Aero2\WindowControl.xaml;Primitives\Themes\Generic\SelectorItem.xaml;Primitives\Themes\Generic\WindowControl.xaml;DateTimePicker\Themes\Aero2.NormalColor.xaml;DateTimePicker\Themes\Generic.xaml;DateTimeUpDown\Themes\Aero2.NormalColor.xaml;DateTimeUpDown\Themes\Generic.xaml;DropDownButton\Themes\Aero2.NormalColor.xaml;DropDownButton\Themes\Generic.xaml;Magnifier\Themes\Generic.xaml;MessageBox\Themes\Aero2.NormalColor.xaml;MessageBox\Themes\Generic.xaml;MultiLineTextEditor\Themes\Aero2.NormalColor.xaml;MultiLineTextEditor\Themes\Generic.xaml;NumericUpDown\Themes\Aero2.NormalColor.xaml;NumericUpDown\Themes\Generic.xaml;Pie\Themes\Aero2.NormalColor.xaml;Pie\Themes\Generic.xaml;PropertyGrid\Themes\Aero2.NormalColor.xaml;PropertyGrid\Themes\Generic.xaml;RangeSlider\Themes\Aero2.NormalColor.xaml;RangeSlider\Themes\Generic.xaml;RichTextBoxFormatBar\Themes\Aero2.NormalColor.xaml;RichTextBoxFormatBar\Themes\Generic.xaml;SplitButton\Themes\Aero2.NormalColor.xaml;SplitButton\Themes\Generic.xaml;Themes\Aero.NormalColor.xaml;Themes\Aero2.NormalColor.xaml;Themes\Aero2\Brushes.xaml;Themes\Aero2\Buttons.xaml;Themes\Aero2\Common.xaml;Themes\Aero2\Glyphs.xaml;Themes\Aero\Brushes_NormalColor.xaml;Themes\Aero\Buttons_NormalColor.xaml;Themes\classic.xaml;Themes\Generic.xaml;Themes\Generic\Brushes.xaml;Themes\Generic\Buttons.xaml;Themes\Generic\Common.xaml;Themes\Generic\Glyphs.xaml;Themes\luna.homestead.xaml;Themes\luna.metallic.xaml;Themes\luna.normalcolor.xaml;Themes\royale.normalcolor.xaml;TimePicker\Themes\Aero2.NormalColor.xaml;TimePicker\Themes\Generic.xaml;TimeSpanUpDown\Themes\Aero2.NormalColor.xaml;TimeSpanUpDown\Themes\Generic.xaml;WatermarkComboBox\Themes\Aero2.NormalColor.xaml;WatermarkComboBox\Themes\Generic.xaml;TokenizedTextBox\Themes\Generic.xaml;WatermarkTextBox\Themes\Aero2.NormalColor.xaml;WatermarkTextBox\Themes\Generic.xaml;Wizard\Themes\Aero2.NormalColor.xaml;Wizard\Themes\Generic.xaml;Zoombox\Themes\Aero2.NormalColor.xaml;Zoombox\Themes\Generic.xaml;
+
+False
+
