@@ -16,10 +16,12 @@ namespace WinHue3.ViewModels
     {
         private GroupCreatorModel _groupCreator;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private string _id;
 
         public GroupCreatorViewModel()
         {
             _groupCreator = new GroupCreatorModel();
+            _id = string.Empty;
         }
 
         public Group Group
@@ -28,6 +30,7 @@ namespace WinHue3.ViewModels
             {
                 Group gr = value;
                 GroupCreator.Name = gr.name;
+                _id = gr.Id;
                 ObservableCollection<Light> list = new ObservableCollection<Light>();
                 foreach (string s in gr.lights)
                 {
@@ -43,6 +46,8 @@ namespace WinHue3.ViewModels
             get
             {
                 Group gr = new Group {name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
+                if (_id != string.Empty)
+                    gr.Id = _id;
                 if (GroupCreator.Type == "Room")
                     gr.@class = GroupCreator.Class;
                 return gr;

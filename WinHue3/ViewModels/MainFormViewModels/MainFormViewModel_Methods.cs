@@ -664,7 +664,7 @@ namespace WinHue3.ViewModels
 
             if (_selectedObject is Group)
             {
-                Form_GroupCreator fgc = new Form_GroupCreator(SelectedObject, SelectedBridge) { Owner = Application.Current.MainWindow };
+                Form_GroupCreator fgc = new Form_GroupCreator((Group)SelectedObject, SelectedBridge) { Owner = Application.Current.MainWindow };
                 if (fgc.ShowDialog() == true)
                 {
                     RefreshObject(_selectedObject);
