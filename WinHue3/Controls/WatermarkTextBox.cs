@@ -16,7 +16,7 @@ namespace WinHue3.Controls
     {
         public WatermarkTextBox() :base()
         {
-          
+            DefaultStyleKeyProperty.OverrideMetadata(Watermark.GetType(),new FrameworkPropertyMetadata(Watermark));
            
         }
 
@@ -32,10 +32,10 @@ namespace WinHue3.Controls
 
         private static void WatermarkChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            WatermarkTextBox wtb = d as WatermarkTextBox;
-            wtb.Background = new DrawingBrush(wtb.DrawText(wtb.Watermark));
+         //   WatermarkTextBox wtb = d as WatermarkTextBox;
+        //    wtb.Background = new DrawingBrush(wtb.DrawText(wtb.Watermark));
         }
-
+/*
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             if (this.Text == string.Empty)
@@ -54,7 +54,7 @@ namespace WinHue3.Controls
             }
             base.OnLostFocus(e);
         }
-
+        */
         private Drawing DrawText(string textString)
         {
             // Create a new DrawingGroup of the control.
