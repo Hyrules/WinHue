@@ -187,8 +187,9 @@
     <Compile Include="Color\Q42ColorConversion.cs" />
     <Compile Include="Color\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
-    <Compile Include="Controls\WatermarkTextBox.xaml.cs">
-      <DependentUpon>WatermarkTextBox.xaml</DependentUpon>
+    <Compile Include="Controls\WatermarkTextBox.cs" />
+    <Compile Include="Controls\WatermarkTextBoxUC.xaml.cs">
+      <DependentUpon>WatermarkTextBoxUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
@@ -363,7 +364,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\WatermarkTextBox.xaml">
+    <Page Include="Controls\WatermarkTextBoxUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

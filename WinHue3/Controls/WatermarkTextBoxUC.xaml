@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WinHue3.Controls.WatermarkTextBox"
+﻿<UserControl x:Class="WinHue3.Controls.WatermarkTextBoxUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WinHue3.Controls"
              BorderThickness="0"
              mc:Ignorable="d" Height="23.187" Width="145.8">
-    <Grid>
+    <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" >
         <TextBox x:Name="tbWatermark" IsReadOnly="True" HorizontalAlignment="Left" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" Background="White" Foreground="#FF939393" ForceCursor="True" />
         <TextBox x:Name="tbValue" HorizontalAlignment="Left" Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" Background="{x:Null}" TextChanged="tbValue_TextChanged" GotFocus="tbValue_GotFocus" LostFocus="tbValue_LostFocus"/>
 

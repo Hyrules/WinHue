@@ -85,7 +85,7 @@ namespace WinHue3.ViewModels
             set
             {
                 IsEditing = true;
-                Schedule schedule = (Schedule) value;
+                Schedule schedule = value;
                 ScheduleModel.Enabled = schedule.status == "enabled";
                 ScheduleModel.Name = schedule.name;
                 ScheduleModel.Description = schedule.description;

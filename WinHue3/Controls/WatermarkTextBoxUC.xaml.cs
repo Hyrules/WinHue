@@ -18,9 +18,10 @@ namespace WinHue3.Controls
     /// <summary>
     /// Interaction logic for WatermarkTextBox.xaml
     /// </summary>
-    public partial class WatermarkTextBox : UserControl
+    public partial class WatermarkTextBoxUC : UserControl
     {
-        public WatermarkTextBox()
+        
+        public WatermarkTextBoxUC()
         {
             InitializeComponent();
         }
@@ -33,11 +34,11 @@ namespace WinHue3.Controls
 
         // Using a DependencyProperty as the backing store for Watermark.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WatermarkProperty =
-            DependencyProperty.Register("Watermark", typeof(string), typeof(WatermarkTextBox), new FrameworkPropertyMetadata("Please enter name", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertyChanged));
+            DependencyProperty.Register("Watermark", typeof(string), typeof(WatermarkTextBoxUC), new FrameworkPropertyMetadata("Please enter name", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertyChanged));
 
         private static void PropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            WatermarkTextBox wtb = dependencyObject as WatermarkTextBox;
+            WatermarkTextBoxUC wtb = dependencyObject as WatermarkTextBoxUC;
             wtb.tbWatermark.Text = wtb.Watermark;
         }
 
@@ -49,11 +50,11 @@ namespace WinHue3.Controls
 
         // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(WatermarkTextBox), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TextPropertyChanged));
+            DependencyProperty.Register("Text", typeof(string), typeof(WatermarkTextBoxUC), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TextPropertyChanged));
 
         private static void TextPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            WatermarkTextBox wtb = dependencyObject as WatermarkTextBox;
+            WatermarkTextBoxUC wtb = dependencyObject as WatermarkTextBoxUC;
             wtb.tbWatermark.Background = (string)dependencyPropertyChangedEventArgs.NewValue != string.Empty ? new SolidColorBrush(Colors.White) : null;
         }
 
