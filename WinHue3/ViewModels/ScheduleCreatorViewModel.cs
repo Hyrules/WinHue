@@ -162,7 +162,6 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _selectedType,value);
-                OnPropertyChanged("IsAlarm");
                 OnPropertyChanged("StartTimeText");
                 OnPropertyChanged("CanRepeat");
                 OnPropertyChanged("ScheduleMask");
@@ -173,8 +172,6 @@ namespace WinHue3.ViewModels
         }
 
         public Visibility CanRepeat => _selectedType == "PT" ? Visibility.Visible : Visibility.Collapsed;
-
-        public Visibility IsAlarm => _selectedType == "W" ? Visibility.Visible : Visibility.Collapsed;
 
         public string StartTimeText => _selectedType == "PT" ? Resources.GUI.ScheduleCreatorForm_StartTimeTimer : Resources.GUI.ScheduleCreatorForm_StartTime;
 
