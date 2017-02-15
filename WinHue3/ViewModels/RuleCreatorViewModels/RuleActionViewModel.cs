@@ -328,6 +328,7 @@ namespace WinHue3.ViewModels
             }
 
             ListActions.Add(action);
+            ListActionObjects = null;
             SelectedActionObject = null;
             SelectedActionType = null;
             ListActionPropertyInfos.Clear();
@@ -377,7 +378,11 @@ namespace WinHue3.ViewModels
                     ListActionProperties = new SceneBody().GetType().GetProperties();
                     break;
                 case "sensors":
-                    if (SelectedActionObject == null) ListActionProperties = new PropertyInfo[0];
+                    if (SelectedActionObject == null)
+                    {
+                        ListActionProperties = new PropertyInfo[0];
+                        break;
+                    }
                     PropertyInfo[] listnewprop = ((Sensor)SelectedActionObject).state.GetType().GetProperties();
                     int index = listnewprop.FindIndex(x => x.Name == "lastupdated");
                     if (index != -1)

@@ -44,6 +44,12 @@ namespace WinHue3.ViewModels
             ListSceneLights = new ObservableCollection<Light>();
         }
 
+        public void Initialize(Bridge bridge)
+        {
+            _bridge = bridge;
+            ListSceneLights = new ObservableCollection<Light>();
+        }
+
         public ObservableCollection<Light> ListSceneLights
         {
             get { return _listSceneLights; }
@@ -169,17 +175,24 @@ namespace WinHue3.ViewModels
         private void DoPreviewScene()
         {
             _bgWorker.DoWork += bgWorker_DoWork;
-            _bgWorker.RunWorkerAsync(ListSceneLights);
+            _bgWorker.RunWorkerCompleted += _bgWorker_RunWorkerCompleted;
+            _bgWorker.RunWorkerAsync(new object[] { ListSceneLights,_bridge});
+        }
+
+        private void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            CommandManager.InvalidateRequerySuggested();
         }
 
         void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-
-            ObservableCollection<Light> li = (ObservableCollection<Light>)e.Argument;
+            object[] objarr = (object[]) e.Argument;
+            Bridge br = (Bridge)objarr[1];
+            ObservableCollection<Light> li = (ObservableCollection<Light>)objarr[0];
             ObservableCollection<Light> liOriginalState = new ObservableCollection<Light>();
             foreach (Light obj in li)
             {
-                HelperResult hr = HueObjectHelper.GetObject<Light>(_bridge, obj.Id);
+                HelperResult hr = HueObjectHelper.GetObject<Light>(br, obj.Id);
                 if (!hr.Success) continue;
                 Light newlight = (Light)hr.Hrobject;
                 newlight.state.alert = null;

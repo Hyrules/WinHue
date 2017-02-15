@@ -83,7 +83,7 @@ namespace WinHue3.Models
             set{ SetProperty(ref _transitiontime, value); }
         }
 
-        [RegularExpression(@"^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$", ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Error_ScheduleTimeInvalid" )]
+        [RegularExpression(@"^([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5]?\d)$", ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Error_ScheduleTimeInvalid" )]
         public string Time
         {
             get { return _time; }

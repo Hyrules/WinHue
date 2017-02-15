@@ -65,12 +65,17 @@ namespace WinHue3.ViewModels
                         sat = ScheduleModel.Sat,
                         hue = ScheduleModel.Hue,
                         ct = ScheduleModel.Ct,
-                        transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime),
+                        
 
                     },method = "PUT",address = TargetObject},
                     localtime = BuildScheduleLocaltime($"{ScheduleModel.Date} {ScheduleModel.Time}",SelectedType),
                 };
 
+                if (ScheduleModel.Transitiontime != string.Empty)
+                {
+                    schedule.command.body.transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime); ScheduleModel.Transitiontime = null;
+                }
+                
                 if (schedule.command.body.scene == null)
                 {
                     schedule.command.body.on = ScheduleModel.On;
@@ -163,15 +168,12 @@ namespace WinHue3.ViewModels
             {
                 SetProperty(ref _selectedType,value);
                 OnPropertyChanged("StartTimeText");
-                OnPropertyChanged("CanRepeat");
                 OnPropertyChanged("ScheduleMask");
                 if (SelectedType != "PT") ScheduleModel.Repetition = null;
                 TimeFormatString = _selectedType == "T" ? "yyyy-MM-dd HH:mm:ss" : "HH:mm:ss";
                    
             }
         }
-
-        public Visibility CanRepeat => _selectedType == "PT" ? Visibility.Visible : Visibility.Collapsed;
 
         public string StartTimeText => _selectedType == "PT" ? Resources.GUI.ScheduleCreatorForm_StartTimeTimer : Resources.GUI.ScheduleCreatorForm_StartTime;
 
