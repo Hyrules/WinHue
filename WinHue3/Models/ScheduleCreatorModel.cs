@@ -184,7 +184,10 @@ namespace WinHue3.Models
         public string Date
         {
             get { return _date; }
-            set { SetProperty(ref _date,value); }
+            set
+            {
+                SetProperty(ref _date,value);
+            }
         }
     }
 }

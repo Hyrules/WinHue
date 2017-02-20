@@ -24,6 +24,20 @@
         <converter:NudToTransitionTimeConverter x:Key="NudToTransitionTimeConverter"/>
         <converter:HueColorConverter x:Key="HueColorConverter"/>
         <converter:BoolToOppositeBoolConverter x:Key="BoolToOppositeBoolConverter"/>
+        <converter:DateFormatConverter x:Key="DateFormatConverter"/>
+        <Style TargetType="{x:Type CheckBox}" x:Key="AutoDeleteHide">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedType}" Value="W">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="T">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="PT">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="{x:Type xctk:IntegerUpDown}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding SelectedType}" Value="W">
@@ -224,7 +238,7 @@
                 <Label x:Name="lblDOW" Style="{StaticResource LblDow}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_DaysOfWeek}" HorizontalAlignment="Left" Height="34" Margin="258,11,0,0" VerticalAlignment="Top" Width="115"/>
                 <CheckBox x:Name="chbON" IsChecked="{Binding ScheduleModel.On}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="567,15,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below." IsEnabled="{Binding CanSetSettings}" Width="96"/>
                 <CheckBox x:Name="chbRandomize" IsChecked="{Binding ScheduleModel.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="567,80,0,0" VerticalAlignment="Top" Width="83" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
-                <CheckBox x:Name="chbAutodelete" IsChecked="{Binding ScheduleModel.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="567,46,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True"/>
+                <CheckBox x:Name="chbAutodelete" Style="{StaticResource AutoDeleteHide}" IsChecked="{Binding ScheduleModel.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="567,46,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True"/>
                 <CheckBox x:Name="chbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="567,110,0,0" VerticalAlignment="Top" IsChecked="{Binding ScheduleModel.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not."/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="198,188,0,0" VerticalAlignment="Top" Width="161"/>
                 <Label x:Name="label" Content="Transition time :" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top"/>
@@ -232,7 +246,7 @@
                 <xctk:WatermarkTextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="134,102,0,0" Text="{Binding ScheduleModel.Description}" VerticalAlignment="Top" Width="379" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}" Height="24" SnapsToDevicePixels="True" />
                 <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="479,189,0,0" VerticalAlignment="Top" Minimum="1" Maximum="99" Height="23" Width="59" Value="{Binding ScheduleModel.Repetition}"/>
                 <Label x:Name="label1" Style="{StaticResource lblRepeat}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Repeat}" HorizontalAlignment="Left" Margin="383,188,0,0" VerticalAlignment="Top" Width="91"/>
-                <DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="201,144,0,0" VerticalAlignment="Top" Text="{Binding ScheduleModel.Date}" Width="159"/>
+                <DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="201,144,0,0" VerticalAlignment="Top" SelectedDate="{Binding ScheduleModel.Date, Converter={StaticResource DateFormatConverter}, UpdateSourceTrigger=PropertyChanged}" Width="159"/>
                 <TextBox x:Name="tbTime" HorizontalAlignment="Left" Height="24" Margin="134,144,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Time, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="62" MaxLength="8" Padding="0,2,0,0"/>
                 <TextBox x:Name="tbTT" HorizontalAlignment="Left" Height="23" Margin="134,189,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Transitiontime, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="62" SnapsToDevicePixels="True"/>
                 <!--<ListBox x:Name="listBox" HorizontalAlignment="Left" Height="151" Margin="447,15,0,0" VerticalAlignment="Top" Width="108">

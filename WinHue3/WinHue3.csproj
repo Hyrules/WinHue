@@ -192,6 +192,7 @@
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToWrappingConverter.cs" />
+    <Compile Include="Converters\DateFormatConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
     <Compile Include="Converters\DoubleToDecimalConverter.cs" />
     <Compile Include="Converters\GroupClassConverter.cs" />

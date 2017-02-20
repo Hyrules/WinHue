@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,16 +33,10 @@ namespace WinHue3.ViewModels
             _scheduleCreatorModel = new ScheduleCreatorModel();
             _selectedType = "T";
             _smask = 0;
-            TimeFormatString = "yyyy-MM-dd HH:mm:ss";
             _randomizetime = string.Empty;
             
         }
 
-        public string TimeFormatString
-        {
-            get { return _timeformat; }
-            set { SetProperty(ref _timeformat,value); }
-        }
 
         public bool IsEditing
         {
@@ -54,7 +49,7 @@ namespace WinHue3.ViewModels
             get {
                 Schedule schedule = new Schedule
                 {
-                    autodelete = ScheduleModel.Autodelete,
+                    
                     description = ScheduleModel.Description,
                     name = ScheduleModel.Name,
                     status = ScheduleModel.Enabled ? "enabled" : "disabled",
@@ -70,6 +65,11 @@ namespace WinHue3.ViewModels
                     },method = "PUT",address = TargetObject},
                     localtime = BuildScheduleLocaltime($"{ScheduleModel.Date} {ScheduleModel.Time}",SelectedType),
                 };
+
+                if (SelectedType != "T")
+                {
+                    Schedule.autodelete = ScheduleModel.Autodelete;
+                }
 
                 if (ScheduleModel.Transitiontime != string.Empty)
                 {
@@ -97,6 +97,7 @@ namespace WinHue3.ViewModels
                 ScheduleModel.Bri = schedule.command.body.bri;
                 ScheduleModel.Sat = schedule.command.body.sat;
                 ScheduleModel.Scene = schedule.command.body.scene;
+                ScheduleModel.Autodelete = schedule.autodelete;
 
                 if (schedule.command.body.hue != null)
                     ScheduleModel.Hue = schedule.command.body.hue;
@@ -169,9 +170,7 @@ namespace WinHue3.ViewModels
                 SetProperty(ref _selectedType,value);
                 OnPropertyChanged("StartTimeText");
                 OnPropertyChanged("ScheduleMask");
-                if (SelectedType != "PT") ScheduleModel.Repetition = null;
-                TimeFormatString = _selectedType == "T" ? "yyyy-MM-dd HH:mm:ss" : "HH:mm:ss";
-                   
+                if (SelectedType != "PT") ScheduleModel.Repetition = null;    
             }
         }
 
