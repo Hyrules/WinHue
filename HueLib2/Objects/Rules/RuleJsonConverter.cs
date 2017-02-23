@@ -37,7 +37,7 @@ namespace HueLib2
             {
                 rulebody = JsonConvert.DeserializeObject<SceneBody>(obj.ToString());
             }
-            else if (obj.ToString().Contains("status")|| obj.ToString().Contains("autodelete") || obj.ToString().Contains("recycle"))
+            else if (obj.ToString().Contains("status") && obj.ToString().Contains("autodelete") && obj.ToString().Contains("recycle"))
             {
                 rulebody = JsonConvert.DeserializeObject<ScheduleBody>(obj.ToString());
             }

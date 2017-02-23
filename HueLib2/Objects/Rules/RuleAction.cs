@@ -22,7 +22,7 @@ namespace HueLib2
         /// <summary>
         /// Body.
         /// </summary>
-        [DataMember,JsonConverter(typeof(RuleBodyJsonConverter))]
+       // [DataMember,JsonConverter(typeof(RuleBodyJsonConverter))]
         public RuleBody body { get; set; }
 
         /// <summary>
