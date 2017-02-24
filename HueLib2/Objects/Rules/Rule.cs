@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using HueLib2.Objects.Rules;
 
 namespace HueLib2
 {
     /// <summary>
     /// Rules.
     /// </summary>
-    [DataContract]
+    [DataContract, JsonConverter(typeof(RuleJsonConverter))]
     public class Rule : HueObject
     {
         private string _name;

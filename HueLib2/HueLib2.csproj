@@ -117,6 +117,7 @@
     <Compile Include="Objects\Light\Light.cs" />
     <Compile Include="Objects\Light\State.cs" />
     <Compile Include="Objects\Rules\Body\ScheduleBody.cs" />
+    <Compile Include="Objects\Rules\RuleJsonConverter.cs" />
     <Compile Include="Objects\Sensor\ClipGenericFlag\ClipGenericFlagSensorConfig.cs" />
     <Compile Include="Objects\Sensor\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
     <Compile Include="Objects\Sensor\ClipHumidty\ClipHumiditySensorConfig.cs" />
@@ -138,7 +139,7 @@
     <Compile Include="Objects\Rules\RuleAction.cs" />
     <Compile Include="Objects\Rules\RuleBody.cs" />
     <Compile Include="Objects\Rules\RuleCondition.cs" />
-    <Compile Include="Objects\Rules\RuleJsonConverter.cs" />
+    <Compile Include="Objects\Rules\RuleBodyJsonConverter.cs" />
     <Compile Include="Objects\Scene\AppData.cs" />
     <Compile Include="Objects\Scene\Scene.cs" />
     <Compile Include="Objects\Schedule\Body.cs" />
