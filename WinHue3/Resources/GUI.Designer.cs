@@ -2329,6 +2329,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string RuleCreatorForm_ClearAction {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_ClearAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string RuleCreatorForm_ClearCondition {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_ClearCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conditions.
         /// </summary>
         public static string RuleCreatorForm_Conditions {

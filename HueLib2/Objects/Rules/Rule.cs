@@ -31,12 +31,12 @@ namespace HueLib2
         /// <summary>
         /// Conditions.
         /// </summary>
-        [DataMember, Category("Conditions"), Description("Conditions of the rule"),Browsable(false)]
+        [DataMember, Category("Conditions"), Description("Conditions of the rule"),ExpandableObject]
         public List<RuleCondition> conditions { get; set; }
         /// <summary>
         /// actions.
         /// </summary>
-        [DataMember, Category("Actions"), Description("Actions of the rule"), Browsable(false)]
+        [DataMember, Category("Actions"), Description("Actions of the rule"),ExpandableObject]
         public List<RuleAction> actions { get; set; }
 
         /// <summary>

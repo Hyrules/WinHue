@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using HueLib2.Objects.Rules;
 
 namespace HueLib2
 {
@@ -12,21 +13,21 @@ namespace HueLib2
         /// Address.
         /// </summary>
         [DataMember]
-        public string address { get; set; }
+        public RuleAddress address { get; set; }
         /// <summary>
         /// Operator.
         /// </summary>
-        [DataMember(Name="operator")]
-        public string op { get; set; }
+        [DataMember]
+        public string @operator { get; set; }
         /// <summary>
         /// Value.
         /// </summary>
         [DataMember]
-        public string value { get; set; }
+        public dynamic value { get; set; }
 
         public override string ToString()
         {
-            return $"{address} {op} {value}";
+            return $"{address} {@operator} {value}";
         }
     }
 }

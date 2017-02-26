@@ -484,10 +484,10 @@
     <value>Rule</value>
   </data>
   <data name="Rule_ActionAlreadyExists" xml:space="preserve">
-    <value>A similar action already exists. Replace ?</value>
+    <value>Do you want to replace the selected action ?</value>
   </data>
   <data name="Rule_ConditionAlreadyExists" xml:space="preserve">
-    <value>A similar condition already exists. Replace ?</value>
+    <value>Do you want to replace the selected condition ?</value>
   </data>
   <data name="Rule_Delete" xml:space="preserve">
     <value>Are you sure you want to delete this rule ?</value>

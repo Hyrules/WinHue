@@ -17,7 +17,7 @@ namespace HueLib2
         /// <returns></returns>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(RuleBody) ? true : false;
+            return objectType == typeof(RuleBody);
         }
 
         /// <summary>

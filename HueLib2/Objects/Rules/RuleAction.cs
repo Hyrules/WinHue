@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using HueLib2.Objects.Rules;
 using Newtonsoft.Json;
 
 namespace HueLib2
@@ -13,7 +14,7 @@ namespace HueLib2
         /// Address.
         /// </summary>
         [DataMember]
-        public string address { get;set; }
+        public RuleAddress address { get;set; }
         /// <summary>
         /// Method.
         /// </summary>
@@ -22,7 +23,7 @@ namespace HueLib2
         /// <summary>
         /// Body.
         /// </summary>
-       // [DataMember,JsonConverter(typeof(RuleBodyJsonConverter))]
+        [DataMember/*,JsonConverter(typeof(RuleBodyJsonConverter))*/]
         public RuleBody body { get; set; }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace HueLib2
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} {1}",address, method);
+            return $"{address} {method} {body}";
         }
     }
 }

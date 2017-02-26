@@ -7,12 +7,12 @@ namespace HueLib2
     /// Sensor for detecting presence.
     /// </summary>
     [DataContract]
-    public class ClipPresenceSensorState : SensorState
+    public class PresenceSensorState : SensorState
     {
         /// <summary>
         /// Presense detected.
         /// </summary>
         [DataMember]
-        public bool presence { get; set; }
+        public bool? presence { get; set; }
     }
 }

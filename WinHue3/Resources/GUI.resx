@@ -1254,4 +1254,10 @@
   <data name="Form_CloneRule_Clone" xml:space="preserve">
     <value>Clone</value>
   </data>
+  <data name="RuleCreatorForm_ClearAction" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="RuleCreatorForm_ClearCondition" xml:space="preserve">
+    <value>Clear</value>
+  </data>
 </root>

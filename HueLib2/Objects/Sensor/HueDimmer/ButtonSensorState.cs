@@ -9,10 +9,16 @@ using System.Threading.Tasks;
 
 namespace HueLib2
 {
+    /// <summary>
+    /// Hue Tap Sensor State.
+    /// </summary>
     [DataContract]
-    public class HueMotionSensorState : SensorState
+    class ButtonSensorState : SensorState
     {
+        /// <summary>
+        /// Button event number.
+        /// </summary>
         [DataMember, ReadOnly(true)]
-        public bool? presence { get; set; }
+        public int? buttonevent { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using HueLib2;
+using HueLib2.Objects.Rules;
 using WinHue3.Models;
 using WinHue3.Validation;
 
@@ -76,7 +77,7 @@ namespace WinHue3.ViewModels
                 {
                     new RuleAction()
                     {
-                        address = "/groups/0/action",
+                        address = new RuleAddress() {objecttype = "groups", id = "0", property = "action"},
                         body = new SceneBody() {scene = SelectedScene.Id},
                         method = "PUT"
                     }
@@ -85,14 +86,14 @@ namespace WinHue3.ViewModels
                 {
                     new RuleCondition()
                     {
-                        address = $"/sensors/{HueTapModel.Id}/state/buttonevent",
-                        op = "eq",
+                        address = new RuleAddress() { objecttype = "sensors", id = HueTapModel.Id, property = "state", subprop = "buttonevent"},
+                        @operator = "eq",
                         value = HueTapModel.Buttonid
                     },
                     new RuleCondition()
                     {
-                        address = $"/sensors/{HueTapModel.Id}/state/lastupdated",
-                        op = "dx"
+                        address = new RuleAddress() {objecttype = "sensors", id = HueTapModel.Id, property = "state", subprop = "lastupdated"},
+                        @operator = "dx"
                     }
                 }
             };

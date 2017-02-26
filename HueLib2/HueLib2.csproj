@@ -117,6 +117,7 @@
     <Compile Include="Objects\Light\Light.cs" />
     <Compile Include="Objects\Light\State.cs" />
     <Compile Include="Objects\Rules\Body\ScheduleBody.cs" />
+    <Compile Include="Objects\Rules\RuleAddress.cs" />
     <Compile Include="Objects\Rules\RuleJsonConverter.cs" />
     <Compile Include="Objects\Sensor\ClipGenericFlag\ClipGenericFlagSensorConfig.cs" />
     <Compile Include="Objects\Sensor\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
@@ -129,7 +130,6 @@
     <Compile Include="Objects\Sensor\Daylight\DaylightSensorConfig.cs" />
     <Compile Include="Objects\Sensor\HueDimmer\HueDimmerSensorConfig.cs" />
     <Compile Include="Objects\Sensor\HueMotionSensor\HueMotionSensorConfig.cs" />
-    <Compile Include="Objects\Sensor\HueMotionSensor\HueMotionSensorState.cs" />
     <Compile Include="Objects\Sensor\HueTap\HueTapSensorConfig.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -149,11 +149,10 @@
     <Compile Include="Objects\Sensor\ClipGenericStatus\ClipGenericStatusState.cs" />
     <Compile Include="Objects\Sensor\ClipHumidty\ClipHumiditySensorState.cs" />
     <Compile Include="Objects\Sensor\ClipOpenClose\ClipOpenCloseSensorState.cs" />
-    <Compile Include="Objects\Sensor\ClipPresence\ClipPresenceSensorState.cs" />
+    <Compile Include="Objects\Sensor\ClipPresence\PresenceSensorState.cs" />
     <Compile Include="Objects\Sensor\ClipZLLTemperature\TemperatureSensorState.cs" />
     <Compile Include="Objects\Sensor\Daylight\DaylightSensorState.cs" />
-    <Compile Include="Objects\Sensor\HueDimmer\HueDimmerSensorState.cs" />
-    <Compile Include="Objects\Sensor\HueTap\HueTapSensorState.cs" />
+    <Compile Include="Objects\Sensor\HueDimmer\ButtonSensorState.cs" />
     <Compile Include="Objects\Sensor\Sensor.cs" />
     <Compile Include="Objects\Sensor\SensorConfig.cs" />
     <Compile Include="Objects\Sensor\SensorState.cs" />

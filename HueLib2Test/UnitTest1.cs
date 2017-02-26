@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HueLib2;
 using Action = HueLib2.Action;
 using System.Collections.Generic;
+using HueLib2.Objects.Rules;
 
 namespace HueLib2Test
 {
@@ -22,8 +23,11 @@ namespace HueLib2Test
             Rule newrule = new Rule();
             newrule.name = "test";
             newrule.actions = new List<RuleAction>();
-            newrule.actions.Add(new RuleAction() { address = "/sensor/2/state", method = "PUT", body = new ClipGenericStatusState { status = 1 } });
-            newrule.actions.Add(new RuleAction() { address = "/sensor/4/state", method = "PUT", body = new ClipGenericStatusState { status = 2 } });
+            newrule.actions.Add(new RuleAction() { address = new RuleAddress() {objecttype = "sensors", id = "2", property = "state"}, method = "PUT", body = new ClipGenericStatusState { status = 1 } });
+            newrule.actions.Add(new RuleAction() { address = new RuleAddress() { objecttype = "sensors", id = "4", property = "state" }, method = "PUT", body = new ClipGenericStatusState { status = 2 } });
+            newrule.conditions = new List<RuleCondition>();
+            newrule.conditions.Add(new RuleCondition() {address = new RuleAddress() { objecttype = "sensor", id = "2", property = "state", subprop = "status"}, @operator = "eq", value = 1});
+            newrule.conditions.Add(new RuleCondition() { address = new RuleAddress() { objecttype = "sensor", id = "4", property = "state", subprop = "flag" }, @operator = "eq", value = true });
             string json = Serializer.SerializeToJson(newrule);
 
             Rule Test = Serializer.DeserializeToObject<Rule>(json);

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using HueLib2;
+using HueLib2.Objects.Rules;
 using WinHue3.Validation;
 using Action = HueLib2.Action;
 
@@ -126,6 +127,7 @@ namespace WinHue3.ViewModels
         private void FillActionPropertyFromAction()
         {
             if (SelectedAction == null) return;
+
             ListActionPropertyInfos.Clear();
             PropertyInfo[] prop = SelectedAction.body.GetType().GetProperties();
             foreach (PropertyInfo p in prop)
@@ -133,9 +135,12 @@ namespace WinHue3.ViewModels
                 if (p.GetValue(SelectedAction.body) == null) continue;
                 ListActionPropertyInfos.Add(new KeyValuePair<PropertyInfo, dynamic>(p, p.GetValue(SelectedAction.body)));
             }
-            string[] adr = SelectedAction.address.Split('/');
-            SelectedActionType = adr[2] == "0" ? "scenes" : adr[1];
-            string id = adr[2] == "0" ? ((SceneBody)SelectedAction.body).scene : adr[2];
+            
+            SelectedActionType = SelectedAction.address.id == "0" && SelectedAction.body.GetType() == typeof(SceneBody) ? "scenes" : SelectedAction.address.objecttype;
+            string id = SelectedAction.address.id == "0" && SelectedAction.body.GetType() == typeof(SceneBody)
+                ? ((SceneBody) SelectedAction.body).scene
+                : SelectedAction.address.id;
+ 
             SelectedActionObject = ListActionObjects.Find(x => x.Id == id);
             if (SelectedActionObject == null)
             {
@@ -292,42 +297,73 @@ namespace WinHue3.ViewModels
             }
 
             RuleAction action = new RuleAction() { method = "PUT" };
+            action.address = new RuleAddress() {id = SelectedActionObject.Id, objecttype = SelectedActionType};
             switch (SelectedActionType)
             {
                 case "lights":
-                    action.address = $@"/lights/{SelectedActionObject.Id}/state";
+                    action.address = new RuleAddress()
+                    {
+                        id = SelectedActionObject.Id,
+                        objecttype = SelectedActionType,
+                        property = "state"
+                    };
                     action.body = FillPropertiesFromList<State>();
                     break;
                 case "groups":
-                    action.address = $@"/groups/{SelectedActionObject.Id}/action";
+                    action.address = new RuleAddress()
+                    {
+                        id = SelectedActionObject.Id,
+                        objecttype = SelectedActionType,
+                        property = "action"
+                    };
                     action.body = FillPropertiesFromList<Action>();
                     break;
                 case "scenes":
-                    action.address = "/groups/0/action";
+                    action.address = new RuleAddress()
+                    {
+                        id = "0",
+                        objecttype = "groups",
+                        property = "action"
+                    };
                     action.body = new SceneBody() { scene = ListActionPropertyInfos.First().Value };
                     break;
                 case "sensors":
-                    action.address = $@"/sensors/{SelectedActionObject.Id}/state";
+                    action.address = new RuleAddress()
+                    {
+                        id = SelectedActionObject.Id,
+                        objecttype = SelectedActionType,
+                        property = "state"
+                    };
                     action.body = FillPropertiesFromList(((Sensor)SelectedActionObject).state.GetType());
                     break;
                 case "schedules":
-                    action.address = $@"/schedules/{SelectedActionObject.Id}";
+                    action.address = new RuleAddress()
+                    {
+                        id = SelectedActionObject.Id,
+                        objecttype = SelectedActionType,
+                    };
                     action.body = FillPropertiesFromList<ScheduleBody>();
                     break;
                 default:
                     break;
             }
 
-            if (ListActions.Any(x => x.address == action.address))
+            if (SelectedAction != null)
             {
-                if (MessageBox.Show(GlobalStrings.Rule_ActionAlreadyExists, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                if (
+                    MessageBox.Show(GlobalStrings.Rule_ActionAlreadyExists, GlobalStrings.Warning,
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     return;
-                int index = ListActions.FindIndex(x => x.address == action.address);
+                int index = ListActions.FindIndex(x => x == SelectedAction);
                 if (index == -1) return;
                 ListActions.RemoveAt(index);
+                ListActions.Insert(index,action);
             }
-
-            ListActions.Add(action);
+            else
+            {
+                ListActions.Add(action);
+            }
+            
             ListActionObjects = null;
             SelectedActionObject = null;
             SelectedActionType = null;
@@ -399,6 +435,7 @@ namespace WinHue3.ViewModels
 
         private void ResetActionPropertyFields()
         {
+
             SelectedActionProperty = null;
             ActionPropertyValue = string.Empty;
         }
@@ -412,6 +449,19 @@ namespace WinHue3.ViewModels
             if (SelectedActionType == "scenes" && SelectedActionObject is Scene && SelectedActionProperty.Name == "scene") return true;
             if (ActionPropertyValue == string.Empty) return false;
             return true;
+        }
+
+        private void ClearSelection()
+        {
+            ResetActionPropertyFields();
+            ListActionObjects = null;
+            SelectedActionObject = null;
+            SelectedActionType = null;
+            SelectedAction = null;
+            ListActionPropertyInfos.Clear();
+            ResetActionPropertyFields();
+            OnPropertyChanged("ListActions");
+            
         }
 
         private bool CanDeleteProperty()
@@ -440,7 +490,7 @@ namespace WinHue3.ViewModels
         public ICommand DeletePropertyCommand => new RelayCommand(param => DeleteProperty(), (param) => CanDeleteProperty());
         public ICommand SelectActionCommand => new RelayCommand(param => SelectAction(), (param) => CanSelectAction());
         public ICommand SelectActionObjectCommand => new RelayCommand(param => SelectActionObject(), (param) => CanSelectAction());
-
+        public ICommand ClearActionCommand => new RelayCommand(param => ClearSelection());
 
     }
 }

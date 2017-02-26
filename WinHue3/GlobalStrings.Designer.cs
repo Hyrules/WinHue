@@ -1186,7 +1186,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A similar action already exists. Replace ?.
+        ///   Looks up a localized string similar to Do you want to replace the selected action ?.
         /// </summary>
         public static string Rule_ActionAlreadyExists {
             get {
@@ -1195,7 +1195,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A similar condition already exists. Replace ?.
+        ///   Looks up a localized string similar to Do you want to replace the selected condition ?.
         /// </summary>
         public static string Rule_ConditionAlreadyExists {
             get {
