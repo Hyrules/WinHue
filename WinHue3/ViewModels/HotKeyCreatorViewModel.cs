@@ -222,7 +222,7 @@ namespace WinHue3.ViewModels
 
             if (hr.Success)
             {
-                ListHueObject = (List<HueObject>)hr.Hrobject;
+                ListHueObject = (List<Light>)hr.Hrobject;
             }
         }
 
