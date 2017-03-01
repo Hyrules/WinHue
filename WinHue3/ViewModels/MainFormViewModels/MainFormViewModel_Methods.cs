@@ -24,10 +24,10 @@ namespace WinHue3.ViewModels
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
-        private T ExecuteGenericMethod<T>(object objectmethod, string methodname, object[] paramsarray) where T : new()
+        private T ExecuteGenericMethod<T>(object objectmethod,Type objecttype, string methodname, object[] paramsarray) where T : new()
         {
             MethodInfo mi = objectmethod.GetType().GetMethod(methodname);
-            MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
+            MethodInfo generic = mi.MakeGenericMethod(objecttype);
             object result = generic.Invoke(SelectedBridge, paramsarray);
             return (T)result;
         }
@@ -440,10 +440,12 @@ namespace WinHue3.ViewModels
                     else if (objtype == typeof(Group) || objtype == typeof(Light))
                     {
 
-                        List<object> listparams = new List<object>();
-                        listparams.Add(Convert.ChangeType(h.properties, typeof(CommonProperties)));
-                        listparams.Add(h.objecType != null ? h.id : SelectedObject.Id);
-                        ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", listparams.ToArray());
+                        List<object> listparams = new List<object>
+                        {
+                            h.properties,
+                            h.objecType != null ? h.id : SelectedObject.Id
+                        };
+                        ExecuteGenericMethod<CommandResult>(SelectedBridge,h.objecType, "SetState", listparams.ToArray());
                     }
                     else
                     {
@@ -493,7 +495,7 @@ namespace WinHue3.ViewModels
         #region SLIDERS_METHODS
         private void SliderChangeHue()
         {
-            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { hue = MainFormModel.SliderHue, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(),"SetState", new object[] { new CommonProperties() { hue = MainFormModel.SliderHue, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderHue = MainFormModel.OldSliderHue;
@@ -512,7 +514,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeBri()
         {
-            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { bri = MainFormModel.SliderBri, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { bri = MainFormModel.SliderBri, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderBri = MainFormModel.OldSliderBri;
@@ -530,7 +532,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeCt()
         {
-            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { ct = MainFormModel.SliderCt, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { ct = MainFormModel.SliderCt, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderCt = MainFormModel.OldSliderCt;
@@ -548,7 +550,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeSat()
         {
-            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderSat = MainFormModel.OldSliderSat;
@@ -566,7 +568,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeXy()
         {
-            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = SliderTt }, _selectedObject.Id });
             if (!cr.Success)
             {
                 MainFormModel.SliderX = MainFormModel.OldSliderX;
@@ -794,7 +796,7 @@ namespace WinHue3.ViewModels
         private bool Duplicate()
         {
             bool result = false;
-            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, "CreateObject", new[] { SelectedObject.Clone() });
+            CommandResult cr = ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(), "CreateObject", new[] { SelectedObject.Clone() });
             if (cr.Success)
             {
                 log.Info("Object cloned succesfully !");

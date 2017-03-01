@@ -21,7 +21,7 @@ namespace WinHue3.ViewModels
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private List<HueObject> _listHueObject;
+        private ObservableCollection<HueObject> _listHueObject;
         private HueObject _selectedHueObject;
         private CommonProperties _propertyObject;
         private ObservableCollection<HotKey> _listHotKeys;
@@ -101,7 +101,7 @@ namespace WinHue3.ViewModels
             HotKeyModel.RecordButtonColor = new SolidColorBrush() { Color = Color.FromRgb(255, 0, 0) };
         }
 
-        public List<HueObject> ListHueObject
+        public ObservableCollection<HueObject> ListHueObject
         {
             get { return _listHueObject; }
             set { SetProperty(ref _listHueObject, value); }
@@ -143,7 +143,7 @@ namespace WinHue3.ViewModels
                     {
                         ObjectTypeIndex = 2;
                     }
-                    SelectedHueObject = _listHueObject.Find(x => x.Id == value.id);
+                    SelectedHueObject = _listHueObject.First(x => x.Id == value.id);
                    
 
                 }
@@ -208,22 +208,31 @@ namespace WinHue3.ViewModels
             {
                 case 0:
                     hr = HueObjectHelper.GetBridgeLights(_bridge);
+                    if (hr.Success)
+                    {
+                        ListHueObject = new ObservableCollection<HueObject>((List<Light>)hr.Hrobject);
+                    }
                     break;
                 case 1:
                     hr = HueObjectHelper.GetBridgeGroups(_bridge);
+                    if (hr.Success)
+                    {
+                        ListHueObject = new ObservableCollection<HueObject>((List<Group>)hr.Hrobject);
+                    }
                     break;
                 case 2:
                     hr = HueObjectHelper.GetBridgeScenes(_bridge);
+                    if (hr.Success)
+                    {
+                        ListHueObject = new ObservableCollection<HueObject>((List<Scene>)hr.Hrobject);
+                    }
                     break;
                 default:
                     hr = new HelperResult() { Success = false };
                     break;
             }
 
-            if (hr.Success)
-            {
-                ListHueObject = (List<Light>)hr.Hrobject;
-            }
+
         }
 
         public bool ValidateHotKeyProperties()
