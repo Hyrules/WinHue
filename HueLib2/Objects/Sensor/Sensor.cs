@@ -289,7 +289,7 @@ namespace HueLib2
                 case "ZGPSwitch":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<HueTapSensorState>(state.ToString(), jss);
+                        sensor.state = JsonConvert.DeserializeObject<ButtonSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "Daylight":
@@ -301,7 +301,7 @@ namespace HueLib2
                 case "CLIPPresence":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<ClipPresenceSensorState>(state.ToString(), jss);
+                        sensor.state = JsonConvert.DeserializeObject<PresenceSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPGenericFlag":
@@ -338,13 +338,13 @@ namespace HueLib2
                 case "ZLLSwitch":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<HueDimmerSensorState>(state.ToString(), jss);
+                        sensor.state = JsonConvert.DeserializeObject<ButtonSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "ZLLPresence":
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<HueMotionSensorState>(state.ToString(), jss);
+                        sensor.state = JsonConvert.DeserializeObject<PresenceSensorState>(state.ToString(), jss);
                     }
                     break;
                 case "CLIPLightlevel":

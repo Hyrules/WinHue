@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HueLib2;
+using System.ComponentModel.DataAnnotations;
+using WinHue3.Validation;
 
 namespace WinHue3.Models
 {
@@ -16,8 +19,8 @@ namespace WinHue3.Models
         private bool? _autodelete;
         private bool _on = true;
         private bool _enabled = true;
-        private uint? _transitiontime;
-        private string _localtime;
+        private string _transitiontime;
+        private string _time;
         private ushort? _hue;
         private byte? _bri;
         private byte? _sat;
@@ -26,12 +29,15 @@ namespace WinHue3.Models
         private decimal? _y;
         private string _scene;
         private int? _repetition;
+        private string _date;
 
         public ScheduleCreatorModel()
         {
             On = true;
             Enabled = true;
-            LocalTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            Time = DateTime.Now.Add(new TimeSpan(0,0,5)).ToString("HH:mm:ss");
+            Date = DateTime.Now.ToString("yyyy-MM-dd");
+            Transitiontime = string.Empty;
         }
 
         public string Name
@@ -70,16 +76,18 @@ namespace WinHue3.Models
             set { SetProperty(ref _enabled,value);}
         }
 
-        public uint? Transitiontime
+        [UIntValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Error_ScheduleInvalidTT")]
+        public string Transitiontime
         {
             get { return _transitiontime; }
             set{ SetProperty(ref _transitiontime, value); }
         }
 
-        public string LocalTime
+        [RegularExpression(@"^([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5]?\d)$", ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Error_ScheduleTimeInvalid" )]
+        public string Time
         {
-            get { return _localtime; }
-            set { SetProperty(ref _localtime, value); }
+            get { return _time; }
+            set { SetProperty(ref _time, value); }
         }
 
         public ushort? Hue
@@ -171,6 +179,15 @@ namespace WinHue3.Models
         {
             get { return _scene; }
             set { SetProperty(ref _scene,value); }
+        }
+
+        public string Date
+        {
+            get { return _date; }
+            set
+            {
+                SetProperty(ref _date,value);
+            }
         }
     }
 }

@@ -69,7 +69,8 @@
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HueLib2">
+    <Reference Include="HueLib2, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -192,6 +193,7 @@
     </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToWrappingConverter.cs" />
+    <Compile Include="Converters\DateFormatConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
     <Compile Include="Converters\DoubleToDecimalConverter.cs" />
     <Compile Include="Converters\GroupClassConverter.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="Settings\CustomSettings.cs" />
     <Compile Include="Utils\TimeSensorState.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
+    <Compile Include="Validation\UIntValidation.cs" />
     <Compile Include="View.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />

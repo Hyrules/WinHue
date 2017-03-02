@@ -610,6 +610,24 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transition time must be a valud between 0 and 65535.
+        /// </summary>
+        public static string Error_ScheduleInvalidTT {
+            get {
+                return ResourceManager.GetString("Error_ScheduleInvalidTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time must be a valid HH:mm:ss value..
+        /// </summary>
+        public static string Error_ScheduleTimeInvalid {
+            get {
+                return ResourceManager.GetString("Error_ScheduleTimeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error while sending the all lights OFF command..
         /// </summary>
         public static string Error_Sending_AllOFF {
@@ -1168,7 +1186,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A similar action already exists. Replace ?.
+        ///   Looks up a localized string similar to Do you want to replace the selected action ?.
         /// </summary>
         public static string Rule_ActionAlreadyExists {
             get {
@@ -1177,7 +1195,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A similar condition already exists. Replace ?.
+        ///   Looks up a localized string similar to Do you want to replace the selected condition ?.
         /// </summary>
         public static string Rule_ConditionAlreadyExists {
             get {

@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using HueLib2.Objects.Rules;
 
 namespace HueLib2
 {
     /// <summary>
     /// Rules.
     /// </summary>
-    [DataContract]
+    [DataContract, JsonConverter(typeof(RuleJsonConverter))]
     public class Rule : HueObject
     {
         private string _name;
@@ -30,12 +31,12 @@ namespace HueLib2
         /// <summary>
         /// Conditions.
         /// </summary>
-        [DataMember, Category("Conditions"), Description("Conditions of the rule"),Browsable(false)]
+        [DataMember, Category("Conditions"), Description("Conditions of the rule"),ExpandableObject]
         public List<RuleCondition> conditions { get; set; }
         /// <summary>
         /// actions.
         /// </summary>
-        [DataMember, Category("Actions"), Description("Actions of the rule"), Browsable(false)]
+        [DataMember, Category("Actions"), Description("Actions of the rule"),ExpandableObject]
         public List<RuleAction> actions { get; set; }
 
         /// <summary>

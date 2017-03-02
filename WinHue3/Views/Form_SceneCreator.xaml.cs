@@ -39,7 +39,7 @@ namespace WinHue3
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
             if (hr.Success)
             {
-                _scvm.ListAvailableLights = new ObservableCollection<Light>((List<Light>) hr.Hrobject);
+                _scvm.Initialize((List<Light>)hr.Hrobject,_bridge);
             }
             else
             {
@@ -52,6 +52,7 @@ namespace WinHue3
                 CommandResult cr = _bridge.GetObject<Scene>(sceneid);
                 if (cr.Success)
                 {
+                    _scvm.Initialize(_bridge);
                     _scvm.Scene = (Scene) cr.resultobject;
                 }
                 else

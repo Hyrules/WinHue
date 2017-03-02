@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using HueLib2;
+using HueLib2.Objects.Rules;
 using WinHue3.Validation;
 
 namespace WinHue3.Models
@@ -83,14 +84,14 @@ namespace WinHue3.Models
                 if (SelectedCondition == null) return;
                 RuleCondition rc = SelectedCondition;
                 Value = rc.value ?? string.Empty;
-                string[] sensorinfo = rc.address.Split('/');
-                string classname = sensorinfo[1].TrimEnd('s');
+                
+                string classname = rc.address.objecttype.TrimEnd('s');
                 classname = "HueLib2." + classname.First().ToString().ToUpper() + string.Join("", classname.Skip(1));
                 Type type = Type.GetType($"{classname}, HueLib2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
-                SelectedSensor = ListSensors?.Find(x => x.Id == sensorinfo[2] && x.GetType() == type);
+                SelectedSensor = ListSensors?.Find(x => x.Id == rc.address.id && x.GetType() == type);
                 SelectSensor();
-                Property = ListSensorProperties?.First(x => x.Name == sensorinfo[4]);
-                Operator = rc.op;
+                Property = ListSensorProperties?.First(x => x.Name == rc.address.subprop);
+                Operator = rc.@operator;
             }
         }
 
@@ -113,23 +114,46 @@ namespace WinHue3.Models
                 typename = SelectedSensor.GetType().BaseType.ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
             }
 
+
             RuleCondition rc = new RuleCondition()
-            {
-                address = SelectedSensor.GetName() != "config" ? $"/{typename}/{SelectedSensor.Id}/state/{Property.Name}" : $"/{SelectedSensor.Id}/{Property.Name}",
-                op = Operator,
+            {         
+                @operator = Operator,
                 value = Operator != "dx" ? Value : null
             };
 
-            if (ListConditions.Any(x => x.address == rc.address))
+            if (SelectedSensor.GetName() == "config")
             {
-                if (MessageBox.Show(GlobalStrings.Rule_ConditionAlreadyExists, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-                int index = ListConditions.FindIndex(x => x.address == rc.address);
-                if (index == -1) return;
-                ListConditions.RemoveAt(index);
+                rc.address = new RuleAddress()
+                {
+                    objecttype = "config",
+                    property = Property.Name
+                };
+            }
+            else
+            {
+                rc.address = new RuleAddress()
+                {
+                    objecttype = typename,
+                    id = SelectedSensor.Id,
+                    property = "state",
+                    subprop = Property.Name
+                };
             }
 
-            ListConditions.Add(rc);
+            if (SelectedCondition != null) 
+            {
+                if (MessageBox.Show(GlobalStrings.Rule_ConditionAlreadyExists, GlobalStrings.Warning,MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return;
+                int index = ListConditions.FindIndex(x => x == SelectedCondition);
+                if (index == -1) return;
+                ListConditions.RemoveAt(index);
+                ListConditions.Insert(index,rc);
+            }
+            else
+            {
+                ListConditions.Add(rc);
+            }
+            
             ResetConditionFields();
             OnPropertyChanged("ListConditions");
         }
@@ -146,6 +170,7 @@ namespace WinHue3.Models
             SelectedSensor = null;
             Property = null;
             Value = string.Empty;
+            SelectedCondition = null;
         }
 
         private void SelectSensor()
@@ -195,6 +220,7 @@ namespace WinHue3.Models
         public ICommand DeleteConditionCommand => new RelayCommand(param => DeleteCondition(), (param) => CanDeleteCondition());
         public ICommand AddConditionCommand => new RelayCommand(param => AddCondition(), (param) => CanAddCondition());
         public ICommand SelectSensorCommand => new RelayCommand(param => SelectSensor());
+        public ICommand ClearConditionCommand => new RelayCommand(param => ResetConditionFields());
 
 
     }

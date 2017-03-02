@@ -50,18 +50,7 @@ namespace WinHue3
 
             bgwOpen = new BackgroundWorker();
             bgwOpen.DoWork += bgwOpen_DoWork;
-            try
-            {
-                comp.Open();
-                UpdateSensors();
-                comp.Close();
-                Working = true;
-            }
-            catch (Exception)
-            {
-                Working = false;
-            }
-            
+           
             pollSensorName = "CPU Package";
         }
 

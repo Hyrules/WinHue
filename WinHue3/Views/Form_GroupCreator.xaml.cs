@@ -37,7 +37,7 @@ namespace WinHue3
                 gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>((List<Light>)hr.Hrobject);
         }
 
-        public Form_GroupCreator(HueObject selectedGroup,Bridge bridge)
+        public Form_GroupCreator(Group selectedGroup,Bridge bridge)
         {
             InitializeComponent();
             _bridge = bridge;
@@ -47,7 +47,10 @@ namespace WinHue3
             if (hr.Success)
             {
                 gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>((List<Light>)hr.Hrobject);
-                gcvm.Group = (Group)selectedGroup;
+
+                HelperResult hr2 = HueObjectHelper.GetObject<Group>(bridge,selectedGroup.Id);
+                if (hr2.Success)
+                    gcvm.Group = (Group) hr2.Hrobject;
             }
             else
             {

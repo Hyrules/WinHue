@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,16 +33,10 @@ namespace WinHue3.ViewModels
             _scheduleCreatorModel = new ScheduleCreatorModel();
             _selectedType = "T";
             _smask = 0;
-            TimeFormatString = "yyyy-MM-dd HH:mm:ss";
             _randomizetime = string.Empty;
             
         }
 
-        public string TimeFormatString
-        {
-            get { return _timeformat; }
-            set { SetProperty(ref _timeformat,value); }
-        }
 
         public bool IsEditing
         {
@@ -54,7 +49,7 @@ namespace WinHue3.ViewModels
             get {
                 Schedule schedule = new Schedule
                 {
-                    autodelete = ScheduleModel.Autodelete,
+                    
                     description = ScheduleModel.Description,
                     name = ScheduleModel.Name,
                     status = ScheduleModel.Enabled ? "enabled" : "disabled",
@@ -65,12 +60,22 @@ namespace WinHue3.ViewModels
                         sat = ScheduleModel.Sat,
                         hue = ScheduleModel.Hue,
                         ct = ScheduleModel.Ct,
-                        transitiontime = ScheduleModel.Transitiontime,
+                        
 
                     },method = "PUT",address = TargetObject},
-                    localtime = BuildScheduleLocaltime(ScheduleModel.LocalTime,SelectedType),
+                    localtime = BuildScheduleLocaltime($"{ScheduleModel.Date} {ScheduleModel.Time}",SelectedType),
                 };
 
+                if (SelectedType != "T")
+                {
+                    Schedule.autodelete = ScheduleModel.Autodelete;
+                }
+
+                if (ScheduleModel.Transitiontime != string.Empty)
+                {
+                    schedule.command.body.transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime); ScheduleModel.Transitiontime = null;
+                }
+                
                 if (schedule.command.body.scene == null)
                 {
                     schedule.command.body.on = ScheduleModel.On;
@@ -85,13 +90,14 @@ namespace WinHue3.ViewModels
             set
             {
                 IsEditing = true;
-                Schedule schedule = (Schedule) value;
+                Schedule schedule = value;
                 ScheduleModel.Enabled = schedule.status == "enabled";
                 ScheduleModel.Name = schedule.name;
                 ScheduleModel.Description = schedule.description;
                 ScheduleModel.Bri = schedule.command.body.bri;
                 ScheduleModel.Sat = schedule.command.body.sat;
                 ScheduleModel.Scene = schedule.command.body.scene;
+                ScheduleModel.Autodelete = schedule.autodelete;
 
                 if (schedule.command.body.hue != null)
                     ScheduleModel.Hue = schedule.command.body.hue;
@@ -124,13 +130,15 @@ namespace WinHue3.ViewModels
                 {
                     case "W":
                         ScheduleMask = Convert.ToByte(GetMaskFromAlarm(schedule.localtime));
-                        ScheduleModel.LocalTime = schedule.localtime.Substring(6);
+                        ScheduleModel.Time = schedule.localtime.Substring(6);
                         break;
                     case "T":
-                        ScheduleModel.LocalTime = schedule.localtime.Replace('T', ' ');
+                        string[] datetime = schedule.localtime.Split('T');
+                        ScheduleModel.Date = datetime[0];
+                        ScheduleModel.Time = datetime[1];
                         break;
                     case "PT":
-                        ScheduleModel.LocalTime = schedule.localtime.Replace("PT", "");
+                        ScheduleModel.Time = schedule.localtime.Replace("PT", "");
                         break;
                     default:
                         goto case "T";
@@ -160,19 +168,11 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _selectedType,value);
-                OnPropertyChanged("IsAlarm");
                 OnPropertyChanged("StartTimeText");
-                OnPropertyChanged("CanRepeat");
                 OnPropertyChanged("ScheduleMask");
-                if (SelectedType != "PT") ScheduleModel.Repetition = null;
-                TimeFormatString = _selectedType == "T" ? "yyyy-MM-dd HH:mm:ss" : "HH:mm:ss";
-                   
+                if (SelectedType != "PT") ScheduleModel.Repetition = null;    
             }
         }
-
-        public Visibility CanRepeat => _selectedType == "PT" ? Visibility.Visible : Visibility.Collapsed;
-
-        public Visibility IsAlarm => _selectedType == "W" ? Visibility.Visible : Visibility.Collapsed;
 
         public string StartTimeText => _selectedType == "PT" ? Resources.GUI.ScheduleCreatorForm_StartTimeTimer : Resources.GUI.ScheduleCreatorForm_StartTime;
 
@@ -251,7 +251,8 @@ namespace WinHue3.ViewModels
             ScheduleModel.Sat = null;
             ScheduleModel.Autodelete = null;
             ScheduleModel.On = true;
-            ScheduleModel.LocalTime = DateTime.Now.ToString("yyyy - MM - dd HH: mm:ss");
+            ScheduleModel.Time = DateTime.Now.Add(new TimeSpan(0,0,5)).ToString("HH:mm:ss");
+            ScheduleModel.Date = DateTime.Now.ToString("yyyy-MM-dd");
             ScheduleModel.Randomize = null;
             ScheduleModel.Repetition = null;
             ScheduleModel.X = null;

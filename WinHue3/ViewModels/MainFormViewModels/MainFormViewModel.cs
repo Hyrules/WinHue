@@ -169,6 +169,7 @@ namespace WinHue3.ViewModels
                 if (SelectedBridge != null)
                 {
                     _ctm = new CpuTempMonitor(SelectedBridge);
+                    LoadHotkeys();
                 }
 
 

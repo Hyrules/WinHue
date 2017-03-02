@@ -488,10 +488,10 @@
     <value>Règle</value>
   </data>
   <data name="Rule_ActionAlreadyExists" xml:space="preserve">
-    <value>Une action similaire existe déjà. Remplacer ?</value>
+    <value>Voulez vous remplacer l'action sélectionnée ?</value>
   </data>
   <data name="Rule_ConditionAlreadyExists" xml:space="preserve">
-    <value>Cette condition semble déjà exister. Remplacer ?</value>
+    <value>Voulez vous remplacer la condition sélectionnée ?</value>
   </data>
   <data name="Rule_Delete" xml:space="preserve">
     <value>Êtes-vous certain de vouloir supprimer cette règle ?</value>
@@ -719,5 +719,11 @@
   </data>
   <data name="Error_While_Cloning" xml:space="preserve">
     <value>Le clone de l'objet cloné n'a pas été trouvé. Veuillez modifier l'objet manuellement.</value>
+  </data>
+  <data name="Error_ScheduleTimeInvalid" xml:space="preserve">
+    <value>L'heure doit être au type HH:mm:ss.</value>
+  </data>
+  <data name="Error_ScheduleInvalidTT" xml:space="preserve">
+    <value>Le temps de transition doit être entre 0 et 65535.</value>
   </data>
 </root>
