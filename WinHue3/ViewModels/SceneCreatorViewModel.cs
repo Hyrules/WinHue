@@ -106,7 +106,8 @@ namespace WinHue3.ViewModels
                 {
                     name = SceneCreatorModel.Name,
                     lights = ListSceneLights.Select(x => x.Id).ToList(),
-                    lightstates = new Dictionary<string, State>()
+                    lightstates = new Dictionary<string, State>(),
+                    recycle = SceneCreatorModel.Recycle
                 };
                 
                 foreach (Light l in ListSceneLights)

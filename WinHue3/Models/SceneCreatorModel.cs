@@ -14,7 +14,7 @@ namespace WinHue3.Models
     public class SceneCreatorModel : ValidatableBindableBase
     {
         private string _name;
-
+        private bool _recycle;
         private State _state;
 
         public SceneCreatorModel()
@@ -22,6 +22,7 @@ namespace WinHue3.Models
             State = new State() { on = true };
             On = true;
             TT = null;
+            Recycle = false;
         }
 
         public State State
@@ -158,8 +159,10 @@ namespace WinHue3.Models
 
         }
 
-
-
-
+        public bool Recycle
+        {
+            get { return _recycle; }
+            set { SetProperty(ref _recycle,value); }
+        }
     }
 }

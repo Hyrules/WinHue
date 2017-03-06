@@ -35,6 +35,7 @@ namespace WinHue3
         {
             InitializeComponent();
             _bridge = bridge;
+            _currentsceneid = string.Empty;
             _scvm = DataContext as SceneCreatorViewModel;
             HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
             if (hr.Success)

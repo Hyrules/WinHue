@@ -1260,4 +1260,7 @@
   <data name="RuleCreatorForm_ClearCondition" xml:space="preserve">
     <value>Clear</value>
   </data>
+  <data name="SceneCreatorForm_Recycle" xml:space="preserve">
+    <value>Recycle</value>
+  </data>
 </root>
