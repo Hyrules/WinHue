@@ -2626,6 +2626,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recycle.
+        /// </summary>
+        public static string SceneCreatorForm_Recycle {
+            get {
+                return ResourceManager.GetString("SceneCreatorForm_Recycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string SceneCreatorForm_RemoveButton {
