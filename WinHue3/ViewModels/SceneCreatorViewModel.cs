@@ -202,7 +202,8 @@ namespace WinHue3.ViewModels
 
             foreach (Light obj in li)
             {
-                _bridge.SetState<Light>(obj.state, obj.Id);
+                State state = obj.state;
+                _bridge.SetState<Light>(state, obj.Id);
             }
 
             Thread.Sleep(5000);
@@ -228,7 +229,7 @@ namespace WinHue3.ViewModels
             foreach (Light obj in SelectedAvailableLights)
             {
                 ListAvailableLights.Remove(obj);
-                obj.state = new State { hue = SceneCreatorModel.Hue, bri = SceneCreatorModel.Bri, sat = SceneCreatorModel.Sat, ct = SceneCreatorModel.Ct };
+                obj.state = new State { hue = SceneCreatorModel.Hue, bri = SceneCreatorModel.Bri, sat = SceneCreatorModel.Sat, ct = SceneCreatorModel.Ct, on = SceneCreatorModel.On };
                 if (SceneCreatorModel.X != null && SceneCreatorModel.Y != null)
                 {
                     obj.state.xy = new XY(Convert.ToDecimal(SceneCreatorModel.X), Convert.ToDecimal(SceneCreatorModel.Y));
@@ -284,6 +285,15 @@ namespace WinHue3.ViewModels
 
         private bool CanAddLightsToScene()
         {
+            if (SceneCreatorModel.X == null &&
+            SceneCreatorModel.Y == null &&
+            SceneCreatorModel.Hue == null &&
+            SceneCreatorModel.Bri == null &&
+            SceneCreatorModel.Ct == null &&
+            SceneCreatorModel.TT == null &&
+            SceneCreatorModel.Sat == null && 
+            SceneCreatorModel.On == true) return false;
+
             return SelectedAvailableLights.Count > 0;
         }
 
