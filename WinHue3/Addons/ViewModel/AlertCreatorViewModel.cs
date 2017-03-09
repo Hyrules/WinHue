@@ -14,6 +14,7 @@ namespace WinHue3.Addons.ViewModel
         private AlertCreatorModel _alertCreatorModel;
         private ObservableCollection<Criteria> _criterias;
         private Body _action;
+        private string _value;
 
         public AlertCreatorModel AlertCreatorModel
         {
@@ -25,6 +26,19 @@ namespace WinHue3.Addons.ViewModel
             set
             {
                 SetProperty(ref _alertCreatorModel,value);
+            }
+        }
+
+        public string Value
+        {
+            get
+            {
+                return _value;
+            }
+
+            set
+            {
+                SetProperty(ref _value,value);
             }
         }
 
