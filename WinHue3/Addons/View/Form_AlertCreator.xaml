@@ -3,16 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:datacontext="clr-namespace:WinHue3.Addons.ViewModel"
         x:Class="WinHue3.Form_AlertCreator"
         mc:Ignorable="d"
         Title="Create an alert..." Height="410.689" Width="428.631" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <datacontext:AlertCreatorViewModel/>
+    </Window.DataContext>
     <Grid>
 
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="330,346,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="250,346,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
         <GroupBox x:Name="gbStep1" Header="STEP 2 : Set the url to the RSS Feed" HorizontalAlignment="Left" VerticalAlignment="Top" Height="53" Width="401" Margin="4,84,0,0">
             <Grid>
-                <TextBox x:Name="tbUrl" HorizontalAlignment="Left" Height="23" Margin="10,3,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="322"/>
+                <TextBox x:Name="tbUrl" HorizontalAlignment="Left" Height="23" Margin="10,3,0,0" TextWrapping="Wrap" Text="{Binding AlertCreatorModel.Url}" VerticalAlignment="Top" Width="322"/>
                 <Button x:Name="btnCheck" Content="Check" HorizontalAlignment="Left" Margin="337,3,0,0" VerticalAlignment="Top" Width="45" Click="btnCheck_Click" Height="23"/>
 
             </Grid>
@@ -38,13 +42,13 @@
             </Grid>
         </GroupBox>
         <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="170,346,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click"/>
-        <CheckBox x:Name="chbEnabled" Content="Enable" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox x:Name="chbEnabled" Content="Enable" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" IsChecked="{Binding AlertCreatorModel.Enable}"/>
         <GroupBox x:Name="groupBox2" Header="STEP 1 : Name your Alert" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" Height="79" Width="401">
             <Grid>
                 <Label x:Name="label" Content="Name : " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="66,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="313"/>
+                <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="66,4,0,0" TextWrapping="Wrap" Text="{Binding AlertCreatorModel.Name}" VerticalAlignment="Top" Width="313"/>
                 <Label x:Name="label1" Content="Descr :" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Height="23" Margin="66,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="313"/>
+                <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Height="23" Margin="66,30,0,0" TextWrapping="Wrap" Text="{Binding AlertCreatorModel.Description}" VerticalAlignment="Top" Width="313"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="groupBox1" Header="STEP 4 : Select what to do when your criterias are met" HorizontalAlignment="Left" Margin="4,285,0,0" VerticalAlignment="Top" Height="56" Width="401">

@@ -171,12 +171,14 @@
     <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Addons\Model\AlertCreatorModel.cs" />
     <Compile Include="Addons\RssFeedMonitor\Alert.cs" />
     <Compile Include="Addons\RssFeedMonitor\Criteria.cs" />
     <Compile Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml.cs">
       <DependentUpon>Form_ActionPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Addons\RssFeedMonitor\Form_AlertCreator.xaml.cs">
+    <Compile Include="Addons\ViewModel\AlertCreatorViewModel.cs" />
+    <Compile Include="Addons\View\Form_AlertCreator.xaml.cs">
       <DependentUpon>Form_AlertCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedAlertHandler.cs" />
@@ -354,7 +356,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Addons\RssFeedMonitor\Form_AlertCreator.xaml">
+    <Page Include="Addons\View\Form_AlertCreator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
