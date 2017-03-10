@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
 using HueLib2;
+using WinHue3.Addons.ViewModel;
 
 namespace WinHue3
 {
@@ -27,28 +28,19 @@ namespace WinHue3
         private bool _actionSet;
         private Form_ActionPicker fap;
         private string _oldName;
+        private AlertCreatorViewModel _alertCreatorModelView;
 
-        public Form_AlertCreator(Bridge bridge)
+        public Form_AlertCreator(Bridge bridge, Alert alert = null)
         {
             InitializeComponent();
+            _alertCreatorModelView = DataContext as AlertCreatorViewModel;
             fap = new Form_ActionPicker(bridge);
             _oldName = null;
-        }
 
-        public Form_AlertCreator(Alert alert)
-        {
-            InitializeComponent();
-            tbDescription.Text = alert.Description;
-            tbName.Text = alert.Name;
-            tbUrl.Text = alert.Url;
-            chbEnabled.IsChecked = alert.Enabled;
-            foreach (Criteria c in alert.Criterias)
+            if(alert != null)
             {
-                lbConditions.Items.Add(c);
+                _alertCreatorModelView.Alert = alert;
             }
-            fap = new Form_ActionPicker(alert.Action, alert.lights);
-            chbEnabled.IsChecked = alert.Enabled;
-            _oldName = alert.Name;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -60,44 +52,12 @@ namespace WinHue3
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
-            Uri uriResult;
-            bool result = Uri.TryCreate(tbUrl.Text, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-            if (!result) return;
 
-            try
-            {
-                XmlReader reader = XmlReader.Create(uriResult.ToString());
-                SyndicationFeed obj = SyndicationFeed.Load(reader);
-                btnAddCondition.IsEnabled = true;
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The entered url does not seem to be valid.\r\n Please enter a valid RSS feed url.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void btnAddCondition_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(tbUserCondition.Text) || tbUserCondition.Text == string.Empty)
-            {
-                MessageBox.Show("Please enter a word in user alert box.", "Error", MessageBoxButton.OK,MessageBoxImage.Error);
-                return;
-                
-            }
 
-            if (cbRssElements.SelectedItem == null)
-            {
-                MessageBox.Show("Please select an rss element to monitor.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            lbConditions.Items.Add(new Criteria
-            {
-                RSSElement = cbRssElements.Text,
-                Condition = cbCondition.Text,
-                UserCondition = tbUserCondition.Text
-            });
-            ((ComboBoxItem)cbRssElements.SelectedItem).Visibility = Visibility.Collapsed;
-            ClearCondition();
         }
 
         private void ClearCondition()
@@ -164,21 +124,7 @@ namespace WinHue3
 
             }
 
-            Alert newCondition = new Alert
-            {
-                Name = tbName.Text,
-                Description = tbDescription.Text,
-                Enabled = (bool)chbEnabled.IsChecked,
-                Action = fap.GetAction(),
-                Criterias = new List<Criteria>(),
-                lights = fap.GetSelectedLights(),
-                Url = tbUrl.Text
-            };
-
-            foreach (Criteria t in lbConditions.Items)
-            {
-                newCondition.Criterias.Add(t);    
-            }
+            Alert newCondition = _alertCreatorModelView.Alert;
 
             if (_oldName != null)
             {
@@ -213,14 +159,6 @@ namespace WinHue3
             }
         }
 
-        private void btnSelectAction_Click(object sender, RoutedEventArgs e)
-        {
-           
-            if (fap.ShowDialog() == true)
-            {
-                _actionSet = true;
-            }
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

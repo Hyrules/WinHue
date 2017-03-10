@@ -23,54 +23,26 @@ namespace WinHue3.Addons.Model
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
-
-            set
-            {
-                SetProperty(ref _name,value);
-            }
+            get { return _name; }
+            set { SetProperty(ref _name,value); }
         }
 
         public string Description
         {
-            get
-            {
-                return _description;
-            }
-
-            set
-            {
-                SetProperty(ref _description,value);
-            }
+            get { return _description; }
+            set { SetProperty(ref _description,value); }
         }
 
         public string Url
         {
-            get
-            {
-                return _url;
-            }
-
-            set
-            {
-                SetProperty(ref _url,value);
-            }
+            get { return _url; }
+            set { SetProperty(ref _url,value); }
         }
 
         public bool Enable
         {
-            get
-            {
-                return _enable;
-            }
-
-            set
-            {
-                SetProperty(ref _enable,value);
-            }
+            get { return _enable; }
+            set { SetProperty(ref _enable,value); }
         }
     }
 }

@@ -166,6 +166,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Addons\Clapper\Clapper.cs" />
+    <Compile Include="Addons\Converter\RssElementConverter.cs" />
+    <Compile Include="Addons\Converter\RssOperatorConverter.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTemp.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTempMonitor.cs" />
     <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
