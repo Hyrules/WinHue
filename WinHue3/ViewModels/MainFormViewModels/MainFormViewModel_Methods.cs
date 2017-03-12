@@ -960,5 +960,19 @@ namespace WinHue3.ViewModels
             };
             Process.Start(psi);
         }
+
+        private void RssFeedMon()
+        {
+          //  throw new NotImplementedException();
+        }
+
+        private void RssFeedMonSettings()
+        {
+            RssFeedMonitorSettingsForm rssfeedsettings = new RssFeedMonitorSettingsForm
+            {
+                Owner = Application.Current.MainWindow
+            };
+            rssfeedsettings.ShowDialog();
+        }
     }
 }

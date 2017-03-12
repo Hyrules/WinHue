@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xaml;
 using System.Xml;
-
+using WinHue3.Addons.ViewModel;
 
 namespace WinHue3
 {
@@ -22,13 +22,13 @@ namespace WinHue3
     /// </summary>
     public partial class RssFeedMonitorSettingsForm : Window
     {
-        private RssFeedMonitorSettingsView rfmsv;
+        private RssFeedSettingsViewModel rfmsv;
 
         public RssFeedMonitorSettingsForm()
         {
             InitializeComponent();
-            rfmsv = new RssFeedMonitorSettingsView();
-            DataContext = rfmsv;
+            rfmsv = DataContext as RssFeedSettingsViewModel;
+
         }
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)

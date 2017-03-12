@@ -180,12 +180,13 @@
       <DependentUpon>Form_ActionPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\ViewModel\AlertCreatorViewModel.cs" />
+    <Compile Include="Addons\ViewModel\RssFeedSettingsViewModel.cs" />
     <Compile Include="Addons\View\Form_AlertCreator.xaml.cs">
       <DependentUpon>Form_AlertCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedAlertHandler.cs" />
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitor.cs" />
-    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml.cs">
+    <Compile Include="Addons\View\RssFeedMonitorSettingsForm.xaml.cs">
       <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
@@ -362,7 +363,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsForm.xaml">
+    <Page Include="Addons\View\RssFeedMonitorSettingsForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
