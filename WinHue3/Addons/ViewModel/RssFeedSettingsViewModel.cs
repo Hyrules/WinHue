@@ -45,17 +45,17 @@ namespace WinHue3.Addons.ViewModel
 
         private void CreateNewAlert()
         {
-            /*    Form_AlertCreator fcc = new Form_AlertCreator() { Owner = Application.Current.MainWindow };
-                if (fcc.ShowDialog() == true)
-                {
-                    //PopulateAlertList();
-                }*/
+            Form_AlertCreator fcc = new Form_AlertCreator(_bridge) { Owner = Application.Current.MainWindow };
+            if (fcc.ShowDialog() == true)
+            {
+                //PopulateAlertList();
+            }
         }
 
         private void EditAlert()
         {
             if (_selectedAlert == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator(_bridge, _selectedAlert) { Owner = Application.Current.MainWindow };
+            Form_AlertCreator fac = new Form_AlertCreator(_bridge, SelectedAlert) { Owner = Application.Current.MainWindow };
             if (fac.ShowDialog() == true)
             {
 

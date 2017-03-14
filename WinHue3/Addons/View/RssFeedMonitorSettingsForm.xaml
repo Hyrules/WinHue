@@ -18,7 +18,7 @@
         <GroupBox x:Name="groupBox" Header="General Settings" HorizontalAlignment="Left" Margin="241,149,0,0" VerticalAlignment="Top" Height="141" Width="271">
             <Grid>
                 <xctk:IntegerUpDown x:Name="nudUpdateInterval" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Width="244" Minimum="1" Maximum="1440" Value="{Binding AlertCheckDelay}" FormatString="{Binding UpdateDelayString}" ToolTip="This delay applies to all conditions."/>
-                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="5,35,0,0" TextWrapping="Wrap" Text="Warning : Do not use the rss feed system for life threatening situations. I will not be held responsible if, for any reasons, the monitor or WinHue does not trigger your actions upon an alert." VerticalAlignment="Top" Height="79" Width="244" FontSize="10"/>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="5,35,0,0" TextWrapping="Wrap" Text="Warning : Do not use the rss feed system for life threatening situations. The programmer of WinHue will not be held responsible if, for any reasons, the monitor or WinHue does not trigger your actions upon an alert." VerticalAlignment="Top" Height="79" Width="244" FontSize="10"/>
             </Grid>
         </GroupBox>
         <ListView x:Name="listView" HorizontalAlignment="Left" Height="143" Margin="10,10,0,0" VerticalAlignment="Top" Width="502" SelectedItem="{Binding SelectedAlert}" ItemsSource="{Binding ListAlerts}" AlternationCount="2">
