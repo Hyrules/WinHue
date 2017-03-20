@@ -1177,6 +1177,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This criteria already exists. Replace ?.
+        /// </summary>
+        public static string RssFeedMonitor_CriteriaAlreadyExists {
+            get {
+                return ResourceManager.GetString("RssFeedMonitor_CriteriaAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rule.
         /// </summary>
         public static string Rule {

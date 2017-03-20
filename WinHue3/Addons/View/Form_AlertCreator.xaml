@@ -5,12 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:datacontext="clr-namespace:WinHue3.Addons.ViewModel"
         xmlns:converter="clr-namespace:WinHue3.Addons.Converter"
+        xmlns:triggerhelper="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.Form_AlertCreator"
         mc:Ignorable="d"
         Title="Create an alert..." Height="410.689" Width="428.631" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
     <Window.Resources>
         <converter:RssElementConverter x:Key="RssElementConverter"/>
         <converter:RssOperatorConverter x:Key="RssOperatorConverter"/>
+        <Style x:Key="HiddenOperator" TargetType="{x:Type ComboBoxItem}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=cbRssElements, Path=SelectedIndex}" Value="3">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=cbRssElements, Path=SelectedIndex}"  Value="0">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=cbRssElements, Path=SelectedIndex}"  Value="1">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=cbRssElements, Path=SelectedIndex}"  Value="2">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+
+
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <datacontext:AlertCreatorViewModel/>
@@ -37,10 +56,10 @@
                 <ComboBox x:Name="cbCondition" HorizontalAlignment="Left" Margin="247,10,0,0" VerticalAlignment="Top" Width="137" SelectedIndex="{Binding Operator, Converter={StaticResource RssOperatorConverter}}">
                     <ComboBoxItem x:Name="cbiContains" Content="Contains"/>
                     <ComboBoxItem x:Name="cbiEquals" Content="Equals"/>
-                    <ComboBoxItem x:Name="cbiGreater" Content="Greater Than" Visibility="Collapsed"/>
-                    <ComboBoxItem x:Name="cbiLower" Content="Lower Then" Visibility="Collapsed"/>
+                    <ComboBoxItem x:Name="cbiGreater" Content="Greater Than" Style="{StaticResource HiddenOperator}"/>
+                    <ComboBoxItem x:Name="cbiLower" Content="Lower Then" Style="{StaticResource HiddenOperator}"/>
                 </ComboBox>
-                <TextBox x:Name="tbUserCondition" HorizontalAlignment="Left" Height="23" Margin="10,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232" ToolTip="Case is not sensitive."/>
+                <TextBox x:Name="tbUserCondition" HorizontalAlignment="Left" Height="23" Margin="10,37,0,0" TextWrapping="Wrap" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="232" ToolTip="Case is not sensitive."/>
                 <Button x:Name="btnAddCondition" Content="Add" HorizontalAlignment="Left" Margin="247,37,0,0" VerticalAlignment="Top" Width="137" Height="23" ToolTip="Multiple alert are linked by the AND operator." Command="{Binding AddCriteriaCommand}"/>
                 <ListBox x:Name="lbConditions" HorizontalAlignment="Left" Height="57" Margin="10,65,0,0" VerticalAlignment="Top" Width="374" KeyDown="lbConditions_KeyDown" ToolTip="Press Delete on the keyboard to remove a trigger." ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding Criterias}"/>
 

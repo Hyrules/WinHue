@@ -23,6 +23,7 @@ namespace WinHue3.Addons.ViewModel
         private string _operator;
         private Bridge _bridge;
 
+
         public AlertCreatorModel AlertCreatorModel
         {
             get { return _alertCreatorModel; }
@@ -87,7 +88,10 @@ namespace WinHue3.Addons.ViewModel
 
         public AlertCreatorViewModel()
         {
-            _alertCreatorModel = new AlertCreatorModel();
+            AlertCreatorModel = new AlertCreatorModel();
+            Criterias = new ObservableCollection<Criteria>();
+            RssElement = "Title";
+            Operator = "Contains";
         }
 
         private void CheckRssFeedUrl()
@@ -109,21 +113,47 @@ namespace WinHue3.Addons.ViewModel
 
         private void AddCriteria()
         {
+            if (Criterias.Any(x => x.RSSElement == RssElement && x.Condition == Operator))
+            {
+                if (
+                    MessageBox.Show(GlobalStrings.RssFeedMonitor_CriteriaAlreadyExists, GlobalStrings.Error,
+                        MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                {
+                    int index = Criterias.FindIndex(x => x.RSSElement == RssElement && x.Condition == Operator);
+                    if (index != -1)
+                    {
+                        Criterias.RemoveAt(index);
+                        AddCriteriaFinal();
+                        ClearCondition();
+                    }
+                    
+                }
+            }
+            else
+            {
+                AddCriteriaFinal();
+            }
+
+        }
+
+        private void AddCriteriaFinal()
+        {
             Criterias.Add(new Criteria
             {
                 RSSElement = RssElement,
                 Condition = Operator,
                 UserCondition = Value
             });
-            
+
             ClearCondition();
         }
+    
 
         private void ClearCondition()
         {
-            Operator = string.Empty;
+            Operator = "Contains";
             Value = string.Empty;
-            RssElement = string.Empty;
+            RssElement = "Title";
         }
 
         private void SelectAction()

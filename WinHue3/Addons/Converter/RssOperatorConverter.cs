@@ -12,25 +12,9 @@ namespace WinHue3.Addons.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return string.Empty;
-            switch ((int)value)
-            {
-                case 0:
-                    return "Contains";
-                case 1:
-                    return "Equals";
-                case 2:
-                    return "Greater";
-                case 3:
-                    return "Lower";
-                default:
-                    return "Contains";
-            }
-        }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value.ToString() == string.Empty) return 0;
+            if (value == null) return 0;
+            if ((string) value == string.Empty) return 0;
             switch ((string)value)
             {
                 case "Contains":
@@ -45,6 +29,25 @@ namespace WinHue3.Addons.Converter
                     return 0;
 
             }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return string.Empty;
+            switch ((int)value)
+            {
+                case 0:
+                    return "Contains";
+                case 1:
+                    return "Equals";
+                case 2:
+                    return "Greater";
+                case 3:
+                    return "Lower";
+                default:
+                    return "Contains";
+            }
+
         }
     }
 }

@@ -50,15 +50,6 @@ namespace WinHue3
         }
 
 
-        private void btnCheck_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddCondition_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void ClearCondition()
         {
