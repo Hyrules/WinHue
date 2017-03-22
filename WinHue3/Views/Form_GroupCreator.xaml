@@ -65,7 +65,7 @@
                 </DataTemplate>
             </CustomControls:BindableListView.ItemTemplate>
         </CustomControls:BindableListView>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="170" SelectedIndex="{Binding GroupCreator.Type, Converter={StaticResource GroupTypeConverter}}">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="170" IsEnabled="{Binding CanChangeType}"  SelectedIndex="{Binding GroupCreator.Type, Converter={StaticResource GroupTypeConverter}}">
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_LightGroup}"/>
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_Room}"/>
         </ComboBox>
