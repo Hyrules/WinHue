@@ -45,8 +45,8 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _listBridges, value);
-                OnPropertyChanged("DefaultSet");
-                OnPropertyChanged("AnyPaired");
+                RaisePropertyChanged("DefaultSet");
+                RaisePropertyChanged("AnyPaired");
             }
         } 
 
@@ -114,7 +114,7 @@ namespace WinHue3.ViewModels
                 SelectedBridge.ApiKey = (string)bresult.resultobject;
                 BridgePairModel.UserMessage = GlobalStrings.BridgeDetectionPairing_PairingDone;
                 StopPairTimer();
-                OnPropertyChanged("AnyPaired");
+                RaisePropertyChanged("AnyPaired");
             }
         }
 
@@ -194,7 +194,7 @@ namespace WinHue3.ViewModels
                 br.IsDefault = false;
             }
             SelectedBridge.IsDefault = true;
-            OnPropertyChanged("DefaultSet");
+            RaisePropertyChanged("DefaultSet");
             log.Info($@"Settings default bridge to {_selectedBridge}");
 
         }
@@ -304,7 +304,7 @@ namespace WinHue3.ViewModels
 
         public bool CanPair()
         {
-            return SelectedBridge != null && SelectedBridge.ApiKey == string.Empty && !_pairTimer.IsEnabled && !Hue.IsDetectingBridge && !Hue.IsScanningForBridge;
+            return SelectedBridge != null && !_pairTimer.IsEnabled && !Hue.IsDetectingBridge && !Hue.IsScanningForBridge;
         }
 
         public bool CanScan()

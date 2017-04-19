@@ -32,7 +32,7 @@ namespace WinHue3
             set
             {
                 _listalerts = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
 
         }
@@ -55,8 +55,8 @@ namespace WinHue3
             set
             {
                 _selectedAlert = value;
-                OnPropertyChanged();
-                OnPropertyChanged("CanEditAlert");
+                RaisePropertyChanged();
+                RaisePropertyChanged("CanEditAlert");
             }
         }
 
@@ -69,7 +69,7 @@ namespace WinHue3
             set
             {
                 _checkdelay = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

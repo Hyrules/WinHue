@@ -73,8 +73,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
@@ -93,20 +93,17 @@
       <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenHardwareMonitorLib">
       <HintPath>..\packages\OpenHardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
     </Reference>
-    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Prism.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -121,7 +118,9 @@
     <Reference Include="System.Web" />
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -204,6 +203,7 @@
     <Compile Include="Converters\GroupClassConverter.cs" />
     <Compile Include="Converters\GroupTypeConverter.cs" />
     <Compile Include="Converters\IndexToSortConverter.cs" />
+    <Compile Include="Converters\IntToUshortConverter.cs" />
     <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
     <Compile Include="Converters\RuleEnabledConverter.cs" />
     <Compile Include="Converters\RuleOperatorConverter.cs" />
@@ -214,10 +214,14 @@
     <Compile Include="Converters\DoubleToByteConverter.cs" />
     <Compile Include="Converters\DoubleToUshortConverter.cs" />
     <Compile Include="Converters\SliderToXYConverter.cs" />
+    <Compile Include="Converters\SortToIndexConverter.cs" />
     <Compile Include="Converters\VisibleToBoolConverter.cs" />
     <Compile Include="Controls\BindableHueSlider.cs" />
     <Compile Include="Controls\BindableListView.cs" />
     <Compile Include="Controls\BindableSlider.cs" />
+    <Compile Include="Models\AppSettings\AppMainSettingsModel.cs" />
+    <Compile Include="Models\AppSettings\AppDefaultsModel.cs" />
+    <Compile Include="Models\AppSettings\AppViewSettingsModel.cs" />
     <Compile Include="Models\CloneRuleModel.cs" />
     <Compile Include="Models\EventViewerModel.cs" />
     <Compile Include="Models\HotKeyCreatorModel.cs" />
@@ -229,6 +233,7 @@
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Validation\UIntValidation.cs" />
     <Compile Include="View.cs" />
+    <Compile Include="ViewModels\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
@@ -603,6 +608,9 @@
     <Content Include="lights\LLC007_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="lights\LLC011_off.png" />
+    <Resource Include="lights\LLC011_on.png" />
+    <Resource Include="lights\LLC011_unr.png" />
     <Content Include="lights\LLC012_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -648,6 +656,9 @@
     <Content Include="lights\LLC010_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="lights\LST002_off.png" />
+    <Resource Include="lights\LST002_on.png" />
+    <Resource Include="lights\LST002_unr.png" />
     <Content Include="lights\LWB001_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

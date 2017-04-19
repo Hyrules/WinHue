@@ -20,14 +20,42 @@ namespace HueLib2Test
             //    
             //ScheduleCreatorViewModel sv = new ScheduleCreatorViewModel();
             // string test = Serializer.SerializeToJson(new WebException());
-            Rule newrule = new Rule();
-            newrule.name = "test";
-            newrule.actions = new List<RuleAction>();
-            newrule.actions.Add(new RuleAction() { address = new RuleAddress() {objecttype = "sensors", id = "2", property = "state"}, method = "PUT", body = new ClipGenericStatusState { status = 1 } });
-            newrule.actions.Add(new RuleAction() { address = new RuleAddress() { objecttype = "sensors", id = "4", property = "state" }, method = "PUT", body = new ClipGenericStatusState { status = 2 } });
-            newrule.conditions = new List<RuleCondition>();
-            newrule.conditions.Add(new RuleCondition() {address = new RuleAddress() { objecttype = "sensor", id = "2", property = "state", subprop = "status"}, @operator = "eq", value = 1});
-            newrule.conditions.Add(new RuleCondition() { address = new RuleAddress() { objecttype = "sensor", id = "4", property = "state", subprop = "flag" }, @operator = "eq", value = true });
+            Rule newrule = new Rule
+            {
+                name = "test",
+                actions = new List<RuleAction>
+                {
+                    new RuleAction()
+                    {
+                        address = new RuleAddress() {objecttype = "sensors", id = "2", property = "state"},
+                        method = "PUT",
+                        body = new ClipGenericStatusState {status = 1}
+                    },
+                    new RuleAction()
+                    {
+                        address = new RuleAddress() {objecttype = "sensors", id = "4", property = "state"},
+                        method = "PUT",
+                        body = new ClipGenericStatusState {status = 2}
+                    }
+                },
+                conditions = new List<RuleCondition>
+                {
+                    new RuleCondition()
+                    {
+                        address =
+                            new RuleAddress() {objecttype = "sensor", id = "2", property = "state", subprop = "status"},
+                        @operator = "eq",
+                        value = 1
+                    },
+                    new RuleCondition()
+                    {
+                        address =
+                            new RuleAddress() {objecttype = "sensor", id = "4", property = "state", subprop = "flag"},
+                        @operator = "eq",
+                        value = true
+                    }
+                }
+            };
             string json = Serializer.SerializeToJson(newrule);
 
             Rule Test = Serializer.DeserializeToObject<Rule>(json);

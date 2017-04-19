@@ -92,7 +92,7 @@ namespace WinHue3.ViewModels
                 dt.Rows.Add(data);
             }
             _dt = dt;
-            OnPropertyChanged("BulbsDetails");
+            RaisePropertyChanged("BulbsDetails");
 
         }
 
@@ -146,7 +146,7 @@ namespace WinHue3.ViewModels
             }
 
             _dt = dt;
-            OnPropertyChanged("BulbsDetails");
+            RaisePropertyChanged("BulbsDetails");
 
         }
 

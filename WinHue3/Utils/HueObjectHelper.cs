@@ -634,9 +634,10 @@ namespace WinHue3
         /// Toggle the state of an object on and off (Light or group)
         /// </summary>
         /// <param name="bridge">Bridge to get the information from.</param>
-        /// <param name="id">ID of the object to toggle.</param>
+        /// <param name="obj">Object to toggle.</param>
+        /// <param name="tt">Transition Time (Optional)</param>
         /// <returns>The new image of the object.</returns>
-        public static HelperResult ToggleObjectOnOffState(Bridge bridge, HueObject obj)
+        public static HelperResult ToggleObjectOnOffState(Bridge bridge, HueObject obj, ushort? tt = null)
         {
             if (obj == null) return new HelperResult() { Success = false, Hrobject = "The object cannot be null" };
             if (bridge == null) return new HelperResult() { Success = false, Hrobject = "The bridge cannot be null" };
@@ -660,7 +661,7 @@ namespace WinHue3
                         if (currentState.state.on == true)
                         {
                             log.Debug("Toggling light state : OFF");
-                            CommandResult bsetlightstate = bridge.SetState<Light>(new State() { on = false }, obj.Id);
+                            CommandResult bsetlightstate = bridge.SetState<Light>(new State() { on = false, transitiontime = tt}, obj.Id);
 
                             if (bsetlightstate.Success)
                             {
@@ -676,7 +677,7 @@ namespace WinHue3
                         else
                         {
                             log.Debug("Toggling light state : ON");
-                            CommandResult bsetlightstate = bridge.SetState<Light>(new State() { on = true }, obj.Id);
+                            CommandResult bsetlightstate = bridge.SetState<Light>(new State() { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id);
 
                             if (bsetlightstate.Success)
                             {
@@ -708,7 +709,7 @@ namespace WinHue3
                     if (currentstate.action.on == true)
                     {
                         log.Debug("Toggling group state : ON");
-                        CommandResult bsetgroupstate = bridge.SetState<Group>(new HueLib2.Action() { on = false }, obj.Id);
+                        CommandResult bsetgroupstate = bridge.SetState<Group>(new HueLib2.Action() { on = false, transitiontime = tt}, obj.Id);
 
                         if (bsetgroupstate.Success)
                         {
@@ -723,7 +724,7 @@ namespace WinHue3
                     else
                     {
                         log.Debug("Toggling group state : OFF");
-                        CommandResult bsetgroupstate = bridge.SetState<Group>(new HueLib2.Action() { on = true }, obj.Id);
+                        CommandResult bsetgroupstate = bridge.SetState<Group>(new HueLib2.Action() { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriGroup }, obj.Id);
                         if (bsetgroupstate.Success)
                         {
                             hr.Success = true;

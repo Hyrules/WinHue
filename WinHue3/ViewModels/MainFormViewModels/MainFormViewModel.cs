@@ -40,7 +40,7 @@ namespace WinHue3.ViewModels
             _findsensortimer.Tick += _findsensortimer_Tick;
             _listHotKeys = WinHueSettings.settings.listHotKeys;
             _mainFormModel = new MainFormModel();
-            _sliderTT = null;
+            SliderTt = WinHueSettings.settings.DefaultTT;
 
             Communication.Timeout = WinHueSettings.settings.Timeout;
             MainFormModel.Sort = WinHueSettings.settings.Sort;
@@ -151,7 +151,10 @@ namespace WinHue3.ViewModels
                         if (DoBridgePairing(ListBridges))
                         {
                             if (br.IsDefault)
+                            {
                                 SelectedBridge = br;
+                                SelectedBridge.ForceCheckForUpdate();
+                            }
                             continue;
                         }
                         else
@@ -162,7 +165,11 @@ namespace WinHue3.ViewModels
                     else
                     {
                         if (br.IsDefault)
+                        {
                             SelectedBridge = br;
+                            SelectedBridge.ForceCheckForUpdate();
+                        }
+                            
                     }
                 }
 

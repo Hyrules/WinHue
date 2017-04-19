@@ -40,12 +40,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
     </Reference>
-    <Reference Include="Prism">
-      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="Prism.Wpf">
-      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>

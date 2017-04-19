@@ -70,11 +70,13 @@ namespace WinHue3.Addons.ViewModel
         {
             get
             {
-                Alert alert = new Alert();
-                alert.Name = AlertCreatorModel.Name;
-                alert.Description = AlertCreatorModel.Description;
-                alert.Criterias = Criterias;
-                alert.Enabled = AlertCreatorModel.Enable;
+                Alert alert = new Alert
+                {
+                    Name = AlertCreatorModel.Name,
+                    Description = AlertCreatorModel.Description,
+                    Criterias = Criterias,
+                    Enabled = AlertCreatorModel.Enable
+                };
                 return alert;
             }
             set
@@ -96,8 +98,7 @@ namespace WinHue3.Addons.ViewModel
 
         private void CheckRssFeedUrl()
         {
-            Uri uriResult;
-            bool result = Uri.TryCreate(AlertCreatorModel.Url, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+            bool result = Uri.TryCreate(AlertCreatorModel.Url, UriKind.Absolute, out Uri uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
 
             try
             {

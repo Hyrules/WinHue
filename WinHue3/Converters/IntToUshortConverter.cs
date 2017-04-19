@@ -8,19 +8,18 @@ using System.Windows.Data;
 
 namespace WinHue3.Converters
 {
-    
-    public class DoubleToUShortConverter : IValueConverter
+    class IntToUshortConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return -1;
-            return System.Convert.ToDouble(value);
+            return System.Convert.ToInt32(value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
 
-            if ((double) value == -1) return null;
+            if ((int)value == -1) return null;
             return System.Convert.ToUInt16(value);
 
         }

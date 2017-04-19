@@ -63,7 +63,7 @@ namespace WinHue3.Models
                 SetProperty(ref _type,value);
                 if (value == "LightGroup")
                     Class = "Other";
-                OnPropertyChanged("CanClass");
+                RaisePropertyChanged("CanClass");
 
             }
         }

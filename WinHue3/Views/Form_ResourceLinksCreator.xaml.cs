@@ -33,7 +33,7 @@ namespace WinHue3
             InitializeComponent();
             rlcvm = this.DataContext as ResourceLinkCreatorViewModel;
             rlcvm.LinkCreatorModel.ShowID = WinHueSettings.settings.ShowID;
-            rlcvm.LinkCreatorModel.Wrap = WinHueSettings.settings.WrapText == TextWrapping.Wrap ? true : false;
+            rlcvm.LinkCreatorModel.Wrap = WinHueSettings.settings.WrapText;
 
             HelperResult hr = HueObjectHelper.GetBridgeDataStore(_bridge);
             if (hr.Success)

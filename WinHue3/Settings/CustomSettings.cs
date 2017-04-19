@@ -30,7 +30,10 @@ namespace WinHue3.Settings
             Timeout = 3000;
             ShowID = false;
             Sort = 0;
-            WrapText = TextWrapping.NoWrap;
+            WrapText = false;
+            DefaultTT = null;
+            DefaultBriGroup = 255;
+            DefaultBriLight = 255;
         }
 
         [DataMember]
@@ -58,9 +61,9 @@ namespace WinHue3.Settings
         [DataMember(EmitDefaultValue = true)]
         public List<HotKey> listHotKeys { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public uint? AllOnTT { get; set; }
+        public ushort? AllOnTT { get; set; }
         [DataMember(EmitDefaultValue = false)]
-        public uint? AllOffTT { get; set; }
+        public ushort? AllOffTT { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public int Timeout { get; set; }
         [DataMember(EmitDefaultValue = true)]
@@ -68,7 +71,14 @@ namespace WinHue3.Settings
         [DataMember(EmitDefaultValue = true)]
         public WinHueSortOrder Sort { get; set; }
         [DataMember(EmitDefaultValue =true)]
-        public TextWrapping WrapText { get; set; }
+        public bool WrapText { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public ushort? DefaultTT { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public byte DefaultBriLight { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public byte DefaultBriGroup { get; set; }
+
 
         public override string ToString()
         {

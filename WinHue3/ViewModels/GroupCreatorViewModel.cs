@@ -32,7 +32,7 @@ namespace WinHue3.ViewModels
                 GroupCreator.Name = gr.name;
                 GroupCreator.Type = gr.type;
                 _id = gr.Id;
-                OnPropertyChanged("CanChangeType");
+                RaisePropertyChanged("CanChangeType");
                 ObservableCollection<Light> list = new ObservableCollection<Light>();
                 foreach (string s in gr.lights)
                 {

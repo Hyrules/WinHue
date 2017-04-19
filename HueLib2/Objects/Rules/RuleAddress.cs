@@ -74,6 +74,10 @@ namespace HueLib2.Objects.Rules
             return objA.ToString() != objB.ToString();
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     public class RuleAddressJsonConverter : JsonConverter
@@ -113,5 +117,7 @@ namespace HueLib2.Objects.Rules
         {
             return objectType == typeof(RuleAddress);
         }
+
+        
     }
 }

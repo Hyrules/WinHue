@@ -66,7 +66,7 @@ namespace WinHue3
         public bool IsRunning
         {
             get { return _isrunning; }
-            private set { _isrunning = true; OnPropertyChanged(); }
+            private set { _isrunning = true; RaisePropertyChanged(); }
         }
 
         public void CheckAlertAndTriggers()

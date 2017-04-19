@@ -19,7 +19,7 @@
         <converter:ScheduleMaskConverter x:Key="ScheduleMaskConverter"/>
         <converter:DateTimeToScheduleConverter x:Key="DateTimeToScheduleConverter"/>
         <converter:DoubleToByteConverter x:Key="SliderToByteConverter"/>
-        <converter:DoubleToUshortConverter x:Key="SliderToUshortConverter"/>
+        <converter:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
         <converter:SliderToXYConverter x:Key="SliderToXyConverter"/>
         <converter:NudToTransitionTimeConverter x:Key="NudToTransitionTimeConverter"/>
         <converter:HueColorConverter x:Key="HueColorConverter"/>

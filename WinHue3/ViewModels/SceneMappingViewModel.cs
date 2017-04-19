@@ -130,7 +130,7 @@ namespace WinHue3.ViewModels
 
 
             _dt = dt;
-            OnPropertyChanged("SceneMapping");
+            RaisePropertyChanged("SceneMapping");
             
             
         }

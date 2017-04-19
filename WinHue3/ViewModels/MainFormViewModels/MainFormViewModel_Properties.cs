@@ -19,7 +19,7 @@ namespace WinHue3.ViewModels
         private ObservableCollection<Bridge> _listBridges;
         private HueObject _selectedObject;
         private Bridge _selectedBridge;
-        private uint? _sliderTT;
+        private ushort? _sliderTT;
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
@@ -29,14 +29,14 @@ namespace WinHue3.ViewModels
             {
                 SetProperty(ref _selectedBridge,value);
                 RefreshView();     
-                OnPropertyChanged("UpdateAvailable");         
+                RaisePropertyChanged("UpdateAvailable");         
             }
         }
 
         public ObservableCollection<HueObject> ListBridgeObjects
         {
             get { return _listBridgeObjects; }
-            set { SetProperty(ref _listBridgeObjects, value); OnPropertyChanged("MultiBridgeCB");}
+            set { SetProperty(ref _listBridgeObjects, value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
         public string Lastmessage
@@ -48,7 +48,7 @@ namespace WinHue3.ViewModels
         public ObservableCollection<Bridge> ListBridges
         {
             get { return _listBridges; }
-            set { SetProperty(ref _listBridges,value); OnPropertyChanged("MultiBridgeCB");}
+            set { SetProperty(ref _listBridges,value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
         public HueObject SelectedObject
@@ -106,13 +106,13 @@ namespace WinHue3.ViewModels
             }
         }
 
-        public uint? SliderTt
+        public ushort? SliderTt
         {
             get { return _sliderTT; }
             set
             {
                 SetProperty(ref _sliderTT, value); 
-                OnPropertyChanged("TransitionTimeTooltip");
+                RaisePropertyChanged("TransitionTimeTooltip");
             }
         }
 

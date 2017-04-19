@@ -51,7 +51,7 @@ namespace WinHue3.ViewModels
                         SelectedBridge = selbr;
                     }
                     RefreshView();
-                    OnPropertyChanged("UpdateAvailable");
+                    RaisePropertyChanged("UpdateAvailable");
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace WinHue3.ViewModels
             log.Debug("Double click on : " + SelectedObject);
             if ((SelectedObject is Light) || (SelectedObject is Group))
             {
-                HelperResult hr = HueObjectHelper.ToggleObjectOnOffState(SelectedBridge, SelectedObject);
+                HelperResult hr = HueObjectHelper.ToggleObjectOnOffState(SelectedBridge, SelectedObject, SliderTt);
                 if (hr.Success)
                 {
                     ImageSource newimg = (ImageSource)hr.Hrobject;
@@ -417,7 +417,7 @@ namespace WinHue3.ViewModels
                 }
             }
 
-            OnPropertyChanged("UpdateAvailable");
+            RaisePropertyChanged("UpdateAvailable");
         }
 
         public void HandleHotkey(HotKeyHandle e)
@@ -431,7 +431,7 @@ namespace WinHue3.ViewModels
                 HotKey h = _listHotKeys.First(x => x.Modifier == m && x.Key == k);
                 if (!(h.objecType == null && SelectedObject == null))
                 {
-                    Type objtype = h.objecType == null ? SelectedObject.GetType() : h.objecType;
+                    Type objtype = h?.objecType == null ? SelectedObject.GetType() : h.objecType;
 
                     if (objtype == typeof(Scene))
                     {
@@ -882,7 +882,6 @@ namespace WinHue3.ViewModels
         {
             RefreshView();
             WinHueSettings.settings.Sort = MainFormModel.Sort;
-            WinHueSettings.Save();
         }
 
         #endregion
@@ -912,6 +911,23 @@ namespace WinHue3.ViewModels
             Form_AppSettings settings = new Form_AppSettings() { Owner = Application.Current.MainWindow };
             if (settings.ShowDialog() != true) return;
             Communication.Timeout = WinHueSettings.settings.Timeout;
+            if (MainFormModel.ShowId != WinHueSettings.settings.ShowID)
+            {
+                MainFormModel.ShowId = WinHueSettings.settings.ShowID;
+            }
+
+            if (MainFormModel.WrapText != WinHueSettings.settings.WrapText)
+            {
+                MainFormModel.WrapText = WinHueSettings.settings.WrapText;
+                RefreshView();
+            }
+
+            if (SliderTt != WinHueSettings.settings.DefaultTT)
+            {
+                SliderTt = WinHueSettings.settings.DefaultTT;
+            }
+
+
         }
 
         private void QuitApplication()
@@ -937,18 +953,6 @@ namespace WinHue3.ViewModels
         private void CpuTempMonSettings()
         {
             _ctm.ShowSettingsForm();
-        }
-
-        private void ShowID()
-        {
-            WinHueSettings.settings.ShowID = MainFormModel.ShowId;
-            WinHueSettings.Save(); 
-        }
-
-        private void WrapText()
-        {
-            WinHueSettings.settings.WrapText = MainFormModel.WrapText;
-            WinHueSettings.Save();
         }
 
         private void StartProcDump()

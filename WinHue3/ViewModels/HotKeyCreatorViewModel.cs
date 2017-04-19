@@ -63,7 +63,7 @@ namespace WinHue3.ViewModels
             {
                 SetProperty(ref _isGeneric, value);
                 PropertyGridObject = value ? new CommonProperties() : null;
-                OnPropertyChanged("SelectedHueObject");
+                RaisePropertyChanged("SelectedHueObject");
             }
         }
 
@@ -152,7 +152,7 @@ namespace WinHue3.ViewModels
                     IsGeneric = true;
                 }
                 PropertyGridObject = value.properties;
-                OnPropertyChanged("CurrentHotKey");
+                RaisePropertyChanged("CurrentHotKey");
             }
         }
 
@@ -174,7 +174,7 @@ namespace WinHue3.ViewModels
             CanRecordKeyUp = false;
             HotKeyModel.ModifierKeys = e.KeyboardDevice.Modifiers;
             HotKeyModel.Key = e.Key;
-            OnPropertyChanged("CurrentHotKey");
+            RaisePropertyChanged("CurrentHotKey");
         }
 
         private void StopRecording()
@@ -186,7 +186,7 @@ namespace WinHue3.ViewModels
         private void DeleteHotkey()
         {
             ListHotKeys.Remove(SelectedHotKey);
-            OnPropertyChanged("ListHotKeys");
+            RaisePropertyChanged("ListHotKeys");
         }
 
         private void _hotkeyrecordTimer_Tick(object sender, EventArgs e)
@@ -288,9 +288,8 @@ namespace WinHue3.ViewModels
                     }
                 }
 
-                HotKey existingKey;
 
-                if (!HotkeyAlreadyExists(hotkey, out existingKey))
+                if (!HotkeyAlreadyExists(hotkey, out HotKey existingKey))
                 {
                     HotKeyHandle hkh = new HotKeyHandle(hotkey, null);
                     if (hkh.Register())
@@ -319,7 +318,7 @@ namespace WinHue3.ViewModels
                     }
                 }
 
-                OnPropertyChanged("ListHotKeys");
+                RaisePropertyChanged("ListHotKeys");
             }
             else
             {

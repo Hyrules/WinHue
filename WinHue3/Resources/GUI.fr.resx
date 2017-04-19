@@ -1179,8 +1179,8 @@
   <data name="SettingsForm_Tab_MainSettings_Warning_Message_Upnp" xml:space="preserve">
     <value>Afficher l'avertissement UPNP</value>
   </data>
-  <data name="SettingsForm_Tab_OtherSettings" xml:space="preserve">
-    <value>Autres paramètres</value>
+  <data name="SettingsForm_Tab_Defaults" xml:space="preserve">
+    <value>Defauts</value>
   </data>
   <data name="SettingsForm_Title" xml:space="preserve">
     <value>Paramètres de WinHue 3...</value>
@@ -1262,5 +1262,35 @@
   </data>
   <data name="SceneCreatorForm_Recycle" xml:space="preserve">
     <value>Recycler</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_TransitionTime" xml:space="preserve">
+    <value>Temps de transition</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_DefaultTT" xml:space="preserve">
+    <value>Temps de transition par défaut</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_MinusOne" xml:space="preserve">
+    <value>Mettre à -1 pour la valeur par defaut, Valeur x 100ms</value>
+  </data>
+  <data name="SettingsForm_Tab_View" xml:space="preserve">
+    <value>Configuration de la vue</value>
+  </data>
+  <data name="SettingsForm_Tab_View_DefautSort" xml:space="preserve">
+    <value>Tri par défaut</value>
+  </data>
+  <data name="SettingsForm_Tab_View_ShowID" xml:space="preserve">
+    <value>Afficher l'ID</value>
+  </data>
+  <data name="SettingsForm_Tab_View_WrapText" xml:space="preserve">
+    <value>Retour à la ligne</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_Brightness" xml:space="preserve">
+    <value>Luminosité</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_Lights" xml:space="preserve">
+    <value>Ampoules</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_Groups" xml:space="preserve">
+    <value>Groupes</value>
   </data>
 </root>

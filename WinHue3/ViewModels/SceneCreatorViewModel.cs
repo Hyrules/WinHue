@@ -156,6 +156,8 @@ namespace WinHue3.ViewModels
                 SceneCreatorModel.Bri = value.state.bri;
                 SceneCreatorModel.Sat = value.state.sat;
                 SceneCreatorModel.Ct = value.state.ct;
+                if(value.state.on != null)
+                    SceneCreatorModel.On = (bool)value.state.on;
                 if (value.state.xy != null)
                 {
                     SceneCreatorModel.X = value.state.xy.x;
@@ -175,7 +177,7 @@ namespace WinHue3.ViewModels
 
         private void DoPreviewScene()
         {
-            _bgWorker.DoWork += bgWorker_DoWork;
+            _bgWorker.DoWork += BgWorker_DoWork;
             _bgWorker.RunWorkerCompleted += _bgWorker_RunWorkerCompleted;
             _bgWorker.RunWorkerAsync(new object[] { ListSceneLights,_bridge});
         }
@@ -185,7 +187,7 @@ namespace WinHue3.ViewModels
             CommandManager.InvalidateRequerySuggested();
         }
 
-        void bgWorker_DoWork(object sender, DoWorkEventArgs e)
+        void BgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             object[] objarr = (object[]) e.Argument;
             Bridge br = (Bridge)objarr[1];

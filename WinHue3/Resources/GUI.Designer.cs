@@ -3229,6 +3229,69 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Defaults.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_Brightness {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Transition Time.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_DefaultTT {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_DefaultTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_Groups {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_Groups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lights.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_Lights {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_Lights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set to -1 for default, Value x 100ms.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_MinusOne {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_MinusOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Time.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_TransitionTime {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_TransitionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Settings.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings {
@@ -3463,11 +3526,38 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Other Settings.
+        ///   Looks up a localized string similar to View Settings.
         /// </summary>
-        public static string SettingsForm_Tab_OtherSettings {
+        public static string SettingsForm_Tab_View {
             get {
-                return ResourceManager.GetString("SettingsForm_Tab_OtherSettings", resourceCulture);
+                return ResourceManager.GetString("SettingsForm_Tab_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Sort.
+        /// </summary>
+        public static string SettingsForm_Tab_View_DefautSort {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_View_DefautSort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show ID.
+        /// </summary>
+        public static string SettingsForm_Tab_View_ShowID {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_View_ShowID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrap Text.
+        /// </summary>
+        public static string SettingsForm_Tab_View_WrapText {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_View_WrapText", resourceCulture);
             }
         }
         
