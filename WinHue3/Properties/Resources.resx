@@ -388,4 +388,7 @@
   <data name="SceneLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1486263478_movie-01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="resettt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\resettt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -12,7 +12,7 @@
         xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:th="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.MainWindow"
-        Title="WinHue 3" Height="768" Width="1024" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
+        Title="WinHue 3" Height="768" Width="1171.022" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
     <Window.DataContext>
         <viewmodels:MainFormViewModel/>
     </Window.DataContext>
@@ -79,6 +79,7 @@
                     <RibbonButton x:Name="btnBridgeSettings" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeImageSource="Resources/1417331999_Gear.png" SmallImageSource="Resources/1417331999_Gear.png" Command="{Binding ChangeBridgeSettingsCommand}"/>
                     <RibbonButton x:Name="btnUpdate" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Visibility="{Binding UpdateAvailable, FallbackValue=Collapsed}" LargeImageSource="Resources/1417332335_Warning.png" Command="{Binding UpdateBridgeCommand}"/>
                     <RibbonButton x:Name="btnUser" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" LargeImageSource="Resources/user.png" Command="{Binding ManageUsersCommand}" />
+                    <RibbonButton x:Name="btnResetTT" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" LargeImageSource="Resources/resettt.png" Command="{Binding ResetTransitionTimeCommand}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}">
                     <RibbonButton x:Name="btnEventLog" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" LargeImageSource="Resources/1416205084_Book_edit.png" SmallImageSource="Resources/1416205084_Book_edit.png" Command="{Binding ShowEventLogCommand}" KeyTip="E"/>

@@ -21,10 +21,7 @@ namespace WinHue3.Settings
             Language = "en-US";
             DetectProxy = false;
             EnableDebug = true;
-            LiveSliders = false;
             UpnpTimeout = 5000;
-            DelayLiveSliders = 25;
-            StartWithWindows = false;
             StartMode = 0;
             listHotKeys = new List<HotKey>();
             Timeout = 3000;
@@ -49,13 +46,7 @@ namespace WinHue3.Settings
         [DataMember(EmitDefaultValue = true)]
         public bool EnableDebug { get; set; }
         [DataMember(EmitDefaultValue = true)]
-        public bool LiveSliders { get; set; }
-        [DataMember(EmitDefaultValue = true)]
         public int UpnpTimeout { get; set; }
-        [DataMember(EmitDefaultValue = true)]
-        public int DelayLiveSliders { get; set; }
-        [DataMember(EmitDefaultValue = true)]
-        public bool StartWithWindows { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public int StartMode { get; set; }
         [DataMember(EmitDefaultValue = true)]

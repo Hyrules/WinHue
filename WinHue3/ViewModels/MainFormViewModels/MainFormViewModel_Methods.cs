@@ -180,6 +180,11 @@ namespace WinHue3.ViewModels
 
         }
 
+        private void ResetTransitionTime()
+        {
+            SliderTt = WinHueSettings.settings.DefaultTT;
+        }
+
         private void RefreshObject(HueObject obj, bool logging = false)
         {
             int index = ListBridgeObjects.FindIndex(x => x.Id == obj.Id && x.GetType() == obj.GetType());

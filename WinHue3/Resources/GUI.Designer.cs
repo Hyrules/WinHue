@@ -1861,6 +1861,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset Transition Time to Default.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_SettingsResetTT {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_SettingsResetTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Firmware.
         /// </summary>
         public static string MainForm_Tab_Home_Group_SettingsUpdateButton {
@@ -3463,6 +3472,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not start with Windows.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_Start_DoNotStart {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Start_DoNotStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Minimized.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Start_Minimized {
@@ -3486,15 +3504,6 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Start_Tray {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Start_Tray", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start with Windows.
-        /// </summary>
-        public static string SettingsForm_Tab_MainSettings_Start_Windows {
-            get {
-                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Start_Windows", resourceCulture);
             }
         }
         

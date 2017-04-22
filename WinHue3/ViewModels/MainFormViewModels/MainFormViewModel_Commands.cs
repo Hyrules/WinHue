@@ -187,6 +187,7 @@ namespace WinHue3.ViewModels
             return SelectedObject is Group && SelectedObject.Id == "0";
         }
 
+
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new RelayCommand(param => OpenSettingsWindow());
@@ -216,7 +217,7 @@ namespace WinHue3.ViewModels
         public ICommand ShowEventLogCommand => new RelayCommand(param => ShowEventLog());
         public ICommand SearchNewLightsCommand => new RelayCommand(param => CheckForNewBulb(), (param) => EnableButtons() && CanSearchNewLights());
         public ICommand SearchNewSensorsCommand => new RelayCommand(param => SearchNewSensors(), (param) => EnableButtons() && CanSearchNewSensor());
-
+        public ICommand ResetTransitionTimeCommand => new RelayCommand(param => ResetTransitionTime(), (param)=> EnableButtons());
         //*************** Sliders Commands ********************
         public ICommand SliderHueChangedCommand => new RelayCommand(param => SliderChangeHue(), (param) => CanHue());
         public ICommand SliderBriChangedCommand => new RelayCommand(param => SliderChangeBri(), (param) => CanBri());

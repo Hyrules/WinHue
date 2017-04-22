@@ -1170,8 +1170,8 @@
   <data name="SettingsForm_Tab_MainSettings_Start_Tray" xml:space="preserve">
     <value>Démarrer dans la barre d'outils</value>
   </data>
-  <data name="SettingsForm_Tab_MainSettings_Start_Windows" xml:space="preserve">
-    <value>Démarrer avec Windows</value>
+  <data name="SettingsForm_Tab_MainSettings_Start_DoNotStart" xml:space="preserve">
+    <value>Ne pas démarrer avec Windows</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Warning_Group" xml:space="preserve">
     <value>Avertissements</value>
@@ -1292,5 +1292,8 @@
   </data>
   <data name="SettingsForm_Tab_Defaults_Groups" xml:space="preserve">
     <value>Groupes</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SettingsResetTT" xml:space="preserve">
+    <value>Réinit. Temps de transition par défaut</value>
   </data>
 </root>

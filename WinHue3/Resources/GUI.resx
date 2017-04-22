@@ -1170,8 +1170,8 @@
   <data name="SettingsForm_Tab_MainSettings_Start_Tray" xml:space="preserve">
     <value>Start in tray</value>
   </data>
-  <data name="SettingsForm_Tab_MainSettings_Start_Windows" xml:space="preserve">
-    <value>Start with Windows</value>
+  <data name="SettingsForm_Tab_MainSettings_Start_DoNotStart" xml:space="preserve">
+    <value>Do not start with Windows</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Warning_Group" xml:space="preserve">
     <value>Warnings</value>
@@ -1292,5 +1292,8 @@
   </data>
   <data name="SettingsForm_Tab_Defaults_Groups" xml:space="preserve">
     <value>Groups</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SettingsResetTT" xml:space="preserve">
+    <value>Reset Transition Time to Default</value>
   </data>
 </root>

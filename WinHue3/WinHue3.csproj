@@ -608,6 +608,7 @@
     <Content Include="lights\LLC007_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\resettt.png" />
     <Resource Include="lights\LLC011_off.png" />
     <Resource Include="lights\LLC011_on.png" />
     <Resource Include="lights\LLC011_unr.png" />
