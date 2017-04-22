@@ -726,4 +726,7 @@
   <data name="Error_ScheduleInvalidTT" xml:space="preserve">
     <value>Le temps de transition doit être entre 0 et 65535.</value>
   </data>
+  <data name="RssFeedMonitor_CriteriaAlreadyExists" xml:space="preserve">
+    <value>Cette critère existe déjà. Remplacer ?</value>
+  </data>
 </root>

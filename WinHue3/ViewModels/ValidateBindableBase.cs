@@ -13,12 +13,12 @@ namespace WinHue3
 {
     public class ValidatableBindableBase : BindableBase, IDataErrorInfo, IChangeTracking
     {
-        private ValidationContext validationContext { get; set; }
+        private ValidationContext _validationContext { get; set; }
         private bool _isChanged;
 
         protected ValidatableBindableBase()
         {
-            this.validationContext = new ValidationContext(this);
+            this._validationContext = new ValidationContext(this);
         }
 
         public string this[string propertyName]
@@ -32,7 +32,7 @@ namespace WinHue3
                 {
                     try
                     {
-                        v.Validate(prop.GetValue(this, null), validationContext);
+                        v.Validate(prop.GetValue(this, null), _validationContext);
                     }
                     catch (Exception)
                     {
@@ -49,14 +49,8 @@ namespace WinHue3
 
         public bool IsChanged
         {
-            get
-            {
-                return _isChanged;
-            }
-            internal set
-            {
-                _isChanged = value;
-            }
+            get => _isChanged;
+            internal set => _isChanged =value;
         }
 
         public void AcceptChanges()
@@ -64,10 +58,10 @@ namespace WinHue3
             this.IsChanged = false;
         }
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             this.IsChanged = true;
-            base.OnPropertyChanged(propertyName);
+            base.OnPropertyChanged(args);
         }
     }
 }

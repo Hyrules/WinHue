@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using HueLib2;
 
 namespace WinHue3
 {
@@ -14,7 +15,7 @@ namespace WinHue3
         private ObservableCollection<Alert> _listalerts;
         private Alert _selectedAlert;
         private double _checkdelay;
-
+        private Bridge _bridge;
         public RssFeedMonitorSettingsView()
         {
             _checkdelay = Properties.Settings.Default.UpdateInterval;
@@ -31,7 +32,7 @@ namespace WinHue3
             set
             {
                 _listalerts = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
 
         }
@@ -54,8 +55,8 @@ namespace WinHue3
             set
             {
                 _selectedAlert = value;
-                OnPropertyChanged();
-                OnPropertyChanged("CanEditAlert");
+                RaisePropertyChanged();
+                RaisePropertyChanged("CanEditAlert");
             }
         }
 
@@ -68,7 +69,7 @@ namespace WinHue3
             set
             {
                 _checkdelay = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -84,7 +85,7 @@ namespace WinHue3
         private void EditAlert()
         {
             if (_selectedAlert == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator(_selectedAlert) { Owner = Application.Current.MainWindow };
+            Form_AlertCreator fac = new Form_AlertCreator(_bridge,_selectedAlert) { Owner = Application.Current.MainWindow };
             if (fac.ShowDialog() == true)
             {
                 
@@ -102,7 +103,7 @@ namespace WinHue3
         public void DoubleClickObject()
         {
             if (_selectedAlert == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator(_selectedAlert) {Owner = Application.Current.MainWindow};
+            Form_AlertCreator fac = new Form_AlertCreator(_bridge,_selectedAlert) {Owner = Application.Current.MainWindow};
             fac.Show();
         }
 

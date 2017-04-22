@@ -100,9 +100,9 @@ namespace WinHue3.Models
                 _x = null;
                 _y = null;
                 _ct = null;
-                OnPropertyChanged("X");
-                OnPropertyChanged("Y");
-                OnPropertyChanged("Ct");
+                RaisePropertyChanged("X");
+                RaisePropertyChanged("Y");
+                RaisePropertyChanged("Ct");
             }
         }
 
@@ -127,9 +127,9 @@ namespace WinHue3.Models
                 _x = null;
                 _y = null;
                 _hue = null;
-                OnPropertyChanged("X");
-                OnPropertyChanged("Y");
-                OnPropertyChanged("Hue");
+                RaisePropertyChanged("X");
+                RaisePropertyChanged("Y");
+                RaisePropertyChanged("Hue");
             }
         }
 
@@ -144,10 +144,10 @@ namespace WinHue3.Models
                 if (_y == 0)
                 {
                     _y = 0;
-                    OnPropertyChanged("Y");
+                    RaisePropertyChanged("Y");
                 }
-                OnPropertyChanged("Hue");
-                OnPropertyChanged("Ct");
+                RaisePropertyChanged("Hue");
+                RaisePropertyChanged("Ct");
             }
         }
 
@@ -162,10 +162,10 @@ namespace WinHue3.Models
                 if (_x == null)
                 {
                     _x = 0;
-                    OnPropertyChanged("X");
+                    RaisePropertyChanged("X");
                 }
-                OnPropertyChanged("Hue");
-                OnPropertyChanged("Ct");
+                RaisePropertyChanged("Hue");
+                RaisePropertyChanged("Ct");
             }
         }
 

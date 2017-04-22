@@ -68,7 +68,7 @@ namespace WinHue3.ViewModels
 
                 if (SelectedType != "T")
                 {
-                    Schedule.autodelete = ScheduleModel.Autodelete;
+                    schedule.autodelete = ScheduleModel.Autodelete;
                 }
 
                 if (ScheduleModel.Transitiontime != string.Empty)
@@ -168,8 +168,8 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _selectedType,value);
-                OnPropertyChanged("StartTimeText");
-                OnPropertyChanged("ScheduleMask");
+                RaisePropertyChanged("StartTimeText");
+                RaisePropertyChanged("ScheduleMask");
                 if (SelectedType != "PT") ScheduleModel.Repetition = null;    
             }
         }
@@ -194,22 +194,21 @@ namespace WinHue3.ViewModels
 
         private string BuildScheduleLocaltime(string timevalue, string type)
         {
-            string time = timevalue;
+            string time;
+            DateTime dt = DateTime.ParseExact(timevalue,"yyyy-MM-dd HH:mm:ss",CultureInfo.InvariantCulture);
             switch (type)
             {
                 case "T":
-                    time = time.Replace(" ", "T");
+                    time = timevalue.Replace(" ", "T");
                     break;
                 case "PT":
-                    time = DateTime.Parse(time).ToString("HH:mm:ss");
-                    time = time.Insert(0, "PT");
+                    time = $"{dt:HH:mm:ss}".Insert(0, "PT");
                     break;
                 case "W":
-                    time = DateTime.Parse(time).ToString("HH:mm:ss");
-                    time = time.Insert(0, $"W{_smask:000}/T");
+                    time = $"{dt:HH:mm:ss}".Insert(0, $"W{_smask:000}/T");
                     break;
                 default:
-                    time = time.Replace(" ", "T");
+                    time = timevalue.Replace(" ", "T");
                     break;
             }
 

@@ -119,7 +119,7 @@ namespace WinHue3.Utils
                     {
                         BeginStoryboard bsb = triggerAction as BeginStoryboard;
 
-                        if (bsb != null && bsb.Storyboard != null && bsb.Storyboard is TriggerTraceStoryboard)
+                        if (bsb?.Storyboard is TriggerTraceStoryboard)
                         {
                             actionCollection.Remove(bsb);
                             break;
@@ -162,8 +162,7 @@ namespace WinHue3.Utils
 
                 if (format.StartsWith("Storyboard has begun;"))
                 {
-                    TriggerTraceStoryboard storyboard = args[1] as TriggerTraceStoryboard;
-                    if (storyboard != null)
+                    if (args[1] is TriggerTraceStoryboard storyboard)
                     {
                         // add a breakpoint here to see when your trigger has been
                         // entered or exited

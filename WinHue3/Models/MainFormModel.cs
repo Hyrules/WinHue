@@ -31,7 +31,7 @@ namespace WinHue3.Models
         private decimal _oldsliderX;
         private decimal _oldsliderY;
         private bool _showId;
-        private TextWrapping _wrapText;
+        private bool _wrapText;
 
         private WinHueSortOrder _sort;
 
@@ -124,7 +124,7 @@ namespace WinHue3.Models
             set { SetProperty(ref _showId,value); }
         }
         
-        public TextWrapping WrapText
+        public bool WrapText
         {
             get { return _wrapText;}
             set {SetProperty(ref _wrapText,value); }

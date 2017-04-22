@@ -80,7 +80,7 @@ namespace WinHue3.ViewModels
             {
                 SetProperty(ref _selectedColor,value);
                 CanSelectColor = true;
-                OnPropertyChanged("SelectedColorBackground");
+                RaisePropertyChanged("SelectedColorBackground");
             }
         }
         #endregion

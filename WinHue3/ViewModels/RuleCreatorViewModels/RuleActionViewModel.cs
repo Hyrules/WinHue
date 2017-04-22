@@ -369,7 +369,7 @@ namespace WinHue3.ViewModels
             SelectedActionType = null;
             ListActionPropertyInfos.Clear();
             ResetActionPropertyFields();
-            OnPropertyChanged("ListActions");
+            RaisePropertyChanged("ListActions");
         }
 
         private void SelectAction()
@@ -460,7 +460,7 @@ namespace WinHue3.ViewModels
             SelectedAction = null;
             ListActionPropertyInfos.Clear();
             ResetActionPropertyFields();
-            OnPropertyChanged("ListActions");
+            RaisePropertyChanged("ListActions");
             
         }
 

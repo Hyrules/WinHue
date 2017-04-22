@@ -9,7 +9,7 @@ using System.Windows.Data;
 namespace WinHue3.Converters
 {
     
-    public class DoubleToUshortConverter : IValueConverter
+    public class DoubleToUShortConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -19,6 +19,7 @@ namespace WinHue3.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+
             if ((double) value == -1) return null;
             return System.Convert.ToUInt16(value);
 

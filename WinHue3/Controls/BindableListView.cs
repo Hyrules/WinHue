@@ -38,9 +38,9 @@ namespace WinHue3.Controls
         }
 
         public static readonly DependencyProperty SelectedItemsListProperty =
-        DependencyProperty.Register("SelectedItemsList", typeof(IList), typeof(BindableListView), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,OnPropertyChanged));
+        DependencyProperty.Register("SelectedItemsList", typeof(IList), typeof(BindableListView), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,RaisePropertyChanged));
 
-        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void RaisePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             d.SetCurrentValue(SelectedItemsListProperty, e.NewValue);
             BindableListView blv = d as BindableListView; 

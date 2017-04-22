@@ -187,6 +187,7 @@ namespace WinHue3.ViewModels
             return SelectedObject is Group && SelectedObject.Id == "0";
         }
 
+
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new RelayCommand(param => OpenSettingsWindow());
@@ -216,7 +217,7 @@ namespace WinHue3.ViewModels
         public ICommand ShowEventLogCommand => new RelayCommand(param => ShowEventLog());
         public ICommand SearchNewLightsCommand => new RelayCommand(param => CheckForNewBulb(), (param) => EnableButtons() && CanSearchNewLights());
         public ICommand SearchNewSensorsCommand => new RelayCommand(param => SearchNewSensors(), (param) => EnableButtons() && CanSearchNewSensor());
-
+        public ICommand ResetTransitionTimeCommand => new RelayCommand(param => ResetTransitionTime(), (param)=> EnableButtons());
         //*************** Sliders Commands ********************
         public ICommand SliderHueChangedCommand => new RelayCommand(param => SliderChangeHue(), (param) => CanHue());
         public ICommand SliderBriChangedCommand => new RelayCommand(param => SliderChangeBri(), (param) => CanBri());
@@ -251,13 +252,14 @@ namespace WinHue3.ViewModels
         public ICommand ViewBulbsCommand => new RelayCommand(param => ViewBulbs(), (param) => EnableButtons());
         public ICommand ViewGroupsCommand => new RelayCommand(param => ViewGroups(), (param) => EnableButtons());
         public ICommand SortListViewCommand => new RelayCommand(param => SortListView(), (param) => EnableButtons());
-        public ICommand ShowIDCommand => new RelayCommand(param => ShowID(), (param) => EnableButtons());
-        public ICommand WrapTextCommand => new RelayCommand(param => WrapText(), (param) => EnableButtons());
+
 
 
         //*************** Toolbar ******************************
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons());
         public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons());
+        public ICommand RssFeedMonCommand => new RelayCommand(param => RssFeedMon(), (param) => EnableButtons());
+        public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());
         //*************** Help ******************************
         public ICommand OpenWinHueWebsiteCommand => new RelayCommand(param => OpenWinHueWebsite());
 

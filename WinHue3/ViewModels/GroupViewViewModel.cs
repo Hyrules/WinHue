@@ -119,7 +119,7 @@ namespace WinHue3.ViewModels
                 dt.Rows.Add(data);
             }
             _dt = dt;
-            OnPropertyChanged("GroupsDetails");
+            RaisePropertyChanged("GroupsDetails");
         }
 
         private void BuildGroupViewReverse()
@@ -185,7 +185,7 @@ namespace WinHue3.ViewModels
 
             }
             _dt = dt;
-            OnPropertyChanged("GroupsDetails");
+            RaisePropertyChanged("GroupsDetails");
         }
 
         public string Filter

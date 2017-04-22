@@ -37,7 +37,7 @@ namespace WinHue3.Models
             set
             {
                 _state.hue = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 if (value == null) return;
                 Ct = null;
                 X = null;
@@ -48,13 +48,13 @@ namespace WinHue3.Models
         public byte? Bri
         {
             get { return _state.bri; }
-            set { _state.bri = value; OnPropertyChanged(); }
+            set { _state.bri = value; RaisePropertyChanged(); }
         }
 
         public byte? Sat
         {
             get { return _state.sat; }
-            set { _state.sat = value; OnPropertyChanged(); }
+            set { _state.sat = value; RaisePropertyChanged(); }
         }
 
         public decimal? X
@@ -67,8 +67,8 @@ namespace WinHue3.Models
                     if (_state.xy == null) _state.xy = new XY();
                     _state.xy.x = Convert.ToDecimal(value);
                 }
-                OnPropertyChanged();
-                OnPropertyChanged("Y");
+                RaisePropertyChanged();
+                RaisePropertyChanged("Y");
                 if (value == null) return;
                 Ct = null;
                 Hue = null;
@@ -86,8 +86,8 @@ namespace WinHue3.Models
                     _state.xy.y = Convert.ToDecimal(value);
                 }
 
-                OnPropertyChanged();
-                OnPropertyChanged("X");
+                RaisePropertyChanged();
+                RaisePropertyChanged("X");
                 if (value == null) return;
                 Ct = null;
                 Hue = null;
@@ -118,13 +118,13 @@ namespace WinHue3.Models
             get { return _state.transitiontime; }
             set
             {
-                _state.transitiontime = value; OnPropertyChanged("TransitionTimeMessage"); }
+                _state.transitiontime = value; RaisePropertyChanged("TransitionTimeMessage"); }
         }
 
         public bool On
         {
             get { return _state.on ?? true; }
-            set { _state.on = value; OnPropertyChanged(); }
+            set { _state.on = value; RaisePropertyChanged(); }
         }
 
         public string TransitionTimeMessage

@@ -4,67 +4,88 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:WinHue3" x:Class="WinHue3.Form_AppSettings"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:converters="clr-namespace:WinHue3.Converters"
+        xmlns:wh="clr-namespace:WinHue3"
+        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         Title="{x:Static resx:GUI.SettingsForm_Title}" Height="416" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" Icon="/WinHue3;component/Resources/gear_in.png">
     <Window.Resources>
         <converters:BoolToOppositeBoolConverter x:Key="ReverseToBoolConverter"/>
+        <converters:DoubleToUShortConverter x:Key="DoubleToUShortConverter"/>
+        <converters:SortToIndexConverter x:Key="SortToIndexConverter"/>
+        <converters:BoolToWrappingConverter x:Key="BoolToWrappingConverter"/>
+        <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
     </Window.Resources>
+    <Window.DataContext>
+        <viewmodels:AppSettingsViewModel/>
+    </Window.DataContext>
     <Grid>
         <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="btnApply" HorizontalAlignment="Left" Margin="274,349,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>
         <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="btnCancel" HorizontalAlignment="Left" Margin="354,349,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <TabControl x:Name="tcSettings" HorizontalAlignment="Left" Height="344" VerticalAlignment="Top" Width="429">
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
                 <Grid Background="#FFE5E5E5">
-                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Language}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="61" Width="413" Margin="5,119,0,0">
-                        <ComboBox x:Name="cbLanguage" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="383">
-                            <ComboBoxItem x:Name="cbifrCA" Content="Français" Tag="fr-CA"></ComboBoxItem>
-                            <ComboBoxItem x:Name="cbienUS" Content="English" Tag="en-US"></ComboBoxItem>
-                        </ComboBox>
-                    </GroupBox>
-                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug}" HorizontalAlignment="Left" Margin="5,185,0,0" VerticalAlignment="Top" Height="121" Width="165">
-                        <CheckBox x:Name="chbDebug" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug}" HorizontalAlignment="Left" Margin="0,0,-1.667,-3" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip}" Width="155" Height="37"/>
-                    </GroupBox>
-                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="113" Width="191" Margin="5,1,0,0">
-                        <Grid>
-                            <CheckBox x:Name="chbLiveSliders" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_LiveSliders}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_LiveSliders_ToolTip}"/>
-                            <xctk:IntegerUpDown x:Name="nudSlidersDelay" IsEnabled="{Binding IsChecked, ElementName=chbLiveSliders}" HorizontalAlignment="Left" Margin="57,33,0,0" VerticalAlignment="Top" Width="71" Maximum="500" Minimum="10" Value="25" ToolTip="Delay duration in milliseconds for the live sliders."/>
-                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_Delay}" HorizontalAlignment="Left" Margin="7,30,0,0" VerticalAlignment="Top"/>
-                            <CheckBox x:Name="chbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}"/>
-                        </Grid>
-                    </GroupBox>
-                    <GroupBox x:Name="groupBox" Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network}" HorizontalAlignment="Left" Margin="201,1,0,0" VerticalAlignment="Top" Height="113" Width="212">
-                        <Grid>
-                            <CheckBox x:Name="chbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}"/>
-                            <xctk:IntegerUpDown x:Name="nudUpnpTimeout" HorizontalAlignment="Left" Margin="128,34,0,0" VerticalAlignment="Top" Width="62" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}"/>
-                            <Label x:Name="lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="113"/>
-                            <xctk:IntegerUpDown x:Name="nudTimeout" HorizontalAlignment="Left" Margin="128,60,0,0" VerticalAlignment="Top" Width="62" Maximum="60000" Minimum="1000"/>
-                            <Label x:Name="lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Width="113"/>
-                        </Grid>
-                    </GroupBox>
-                    <GroupBox x:Name="groupBox1" Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Startup}" HorizontalAlignment="Left" Margin="175,185,0,0" VerticalAlignment="Top" Height="121" Width="243">
-                        <Grid>
-                            <CheckBox x:Name="chbStartWindows" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Windows}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="rbStartMinimized" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Minimized}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="rbStartInTray" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Tray}" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="rbStartNormal" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Normally}" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                        </Grid>
-                    </GroupBox>
+                    <CheckBox x:Name="chbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}"/>
+                    <CheckBox x:Name="chbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}"/>
+                    <Label x:Name="lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="113"/>
+                    <xctk:IntegerUpDown x:Name="nudUpnpTimeout" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Width="62" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}"/>
+                    <Label x:Name="lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="113"/>
+                    <xctk:IntegerUpDown x:Name="nudTimeout" HorizontalAlignment="Left" Margin="128,39,0,0" VerticalAlignment="Top" Width="62" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}"/>
+                    <ComboBox x:Name="cbLanguage" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="180" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Language}" >
+                        <ComboBoxItem x:Name="cbifrCA" Content="Français" Tag="fr-CA"/>
+                        <ComboBoxItem x:Name="cbienUS" Content="English" Tag="en-US"/>
+                    </ComboBox>
+                    <CheckBox x:Name="chbDebug" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug}" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip}" Width="145" Height="17" IsChecked="{Binding MainSettingsModel.Debug}"/>
+                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" Width="180" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.StartMode}">
+                        <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_DoNotStart}" Tag="0"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Minimized}" Tag="1"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Tray}" Tag="2"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Normally}" Tag="3"/>
+                    </ComboBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_OtherSettings}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="92" Margin="-1.667,-2,-36.333,0">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="92" Margin="-1.667,-2,-36.333,0">
                 <Grid Background="#FFE5E5E5">
                     <GroupBox x:Name="groupBox2" Header="All On/Off settings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="191" Width="251">
                         <Grid Margin="0,0,-1.667,-2.333">
-                            <xctk:IntegerUpDown x:Name="nudAllOnTT" HorizontalAlignment="Left" Margin="87,21,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" />
-                            <xctk:IntegerUpDown x:Name="nudAllOffTT" HorizontalAlignment="Left" Margin="87,54,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" />
+                            <xctk:IntegerUpDown x:Name="nudAllOnTT" HorizontalAlignment="Left" Margin="87,21,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource IntToUshortConverter }}" />
+                            <xctk:IntegerUpDown x:Name="nudAllOffTT" HorizontalAlignment="Left" Margin="87,54,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOffTt, Converter={StaticResource IntToUshortConverter}}" />
                             <Label x:Name="label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON }" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Width="72"/>
                             <Label x:Name="label1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="72"/>
                             <Label x:Name="label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="220"/>
                         </Grid>
                     </GroupBox>
+                    <GroupBox x:Name="groupBox3" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}" HorizontalAlignment="Left" Margin="256,0,0,0" VerticalAlignment="Top" Height="191" Width="162">
+                        <Grid>
+                            <TextBlock x:Name="label3" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,16,-2,0" Width="152" Height="33" TextWrapping="Wrap" TextAlignment="Center"/>
+                            <xctk:IntegerUpDown x:Name="nudTT" HorizontalAlignment="Left" Margin="3,54,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}"/>
+                            <TextBlock x:Name="TextBlock1" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_MinusOne}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,134,0,0" Width="150" Height="33" TextWrapping="Wrap" TextAlignment="Center"/>
+                        </Grid>
+
+
+                    </GroupBox>
+                    <GroupBox x:Name="groupBox4" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Brightness}" HorizontalAlignment="Left" Height="115" Margin="0,191,0,0" VerticalAlignment="Top" Width="251">
+                        <Grid>
+                            <xctk:ByteUpDown x:Name="budLightsDefault" HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="133" Value="{Binding DefaultModel.DefaultLightBri}"/>
+                            <xctk:ByteUpDown x:Name="budGroupsDefault" HorizontalAlignment="Left" Margin="93,49,0,0" VerticalAlignment="Top" Width="133" Value="{Binding DefaultModel.DefaultGroupBri}"/>
+                            <Label x:Name="label4" Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Lights}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78"/>
+                            <Label x:Name="label5" Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Groups}" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="78"/>
+                        </Grid>
+                    </GroupBox>
 
                 </Grid>
             </TabItem>
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="99" Margin="-1.667,-2,-43.333,0">
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox x:Name="cbDefaultSort" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="165" SelectedIndex="{Binding ViewSettingsModel.Sort, Converter={StaticResource SortToIndexConverter}}">
+                        <ComboBoxItem Content="Defaut"/>
+                        <ComboBoxItem Content="Ascending"/>
+                        <ComboBoxItem Content="Descending"/>
+                    </ComboBox>
+                    <Label x:Name="lblDefaultSort" Content="{x:Static resx:GUI.SettingsForm_Tab_View_DefautSort}" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="112"/>
+                    <CheckBox x:Name="chbShowID" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" HorizontalAlignment="Left" Margin="307,13,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.ShowId}"/>
+                    <CheckBox x:Name="chbWrapText" Content="{x:Static resx:GUI.SettingsForm_Tab_View_WrapText}" HorizontalAlignment="Left" Margin="307,45,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.Wrap}"/>
+                </Grid>
+            </TabItem>
         </TabControl>
-        
+
     </Grid>
 </Window>

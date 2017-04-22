@@ -107,7 +107,7 @@ namespace WinHue3.ViewModels
                 HueTapModel.BtnFourBG = new SolidColorBrush(_deselectedColor);
                 HueTapModel.Buttonid = string.Empty;
                 SelectedScene = null;
-                OnPropertyChanged("CanSave");
+                RaisePropertyChanged("CanSave");
             }
             else
             {
@@ -133,7 +133,7 @@ namespace WinHue3.ViewModels
         public Scene SelectedScene
         {
             get { return _selectedScene; }
-            set { SetProperty(ref _selectedScene,value); OnPropertyChanged("CanSave"); }
+            set { SetProperty(ref _selectedScene,value); RaisePropertyChanged("CanSave"); }
         }
 
         public Bridge Bridge

@@ -108,7 +108,7 @@ namespace WinHue3.ViewModels
         public bool IsEditing
         {
             get { return _isEditing; }
-            set { SetProperty(ref _isEditing,value); OnPropertyChanged("BtnSaveText"); }
+            set { SetProperty(ref _isEditing,value); RaisePropertyChanged("BtnSaveText"); }
         }
 
     }

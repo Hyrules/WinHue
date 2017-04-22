@@ -66,7 +66,7 @@ namespace WinHue3
         public bool IsRunning
         {
             get { return _isrunning; }
-            private set { _isrunning = true; OnPropertyChanged(); }
+            private set { _isrunning = true; RaisePropertyChanged(); }
         }
 
         public void CheckAlertAndTriggers()
@@ -82,7 +82,7 @@ namespace WinHue3
 
                 List<SyndicationItem> si = sf.Items.ToList();
 
-                if (a.Criterias.Exists(x => x.RSSElement == "Title") == true)
+                if (a.Criterias.Any(x => x.RSSElement == "Title") == true)
                 {
                     Criteria cr = (Criteria)a.Criterias.Select(x => x.RSSElement == "Title");
                     if (cr.Condition == "Contains")
@@ -92,7 +92,7 @@ namespace WinHue3
                         si.RemoveAll(x => x.Title.Text != cr.UserCondition);
                 }
 
-                if (a.Criterias.Exists(x => x.RSSElement == "Description") == true)
+                if (a.Criterias.Any(x => x.RSSElement == "Description") == true)
                 {
                     Criteria cr = (Criteria)a.Criterias.Select(x => x.RSSElement == "Description");
                     if (cr.Condition == "Contains")
@@ -102,7 +102,7 @@ namespace WinHue3
                         si.RemoveAll(x => x.Summary.Text != cr.UserCondition);
                 }
 
-                if (a.Criterias.Exists(x => x.RSSElement == "Publication Date") == true)
+                if (a.Criterias.Any(x => x.RSSElement == "Publication Date") == true)
                 {
                     Criteria cr = (Criteria)a.Criterias.Select(x => x.RSSElement == "Title");
                     if (cr.Condition == "Contains")
@@ -118,7 +118,7 @@ namespace WinHue3
                         si.RemoveAll(x => x.PublishDate < DateTimeOffset.Parse(cr.UserCondition));
                 }
 
-                if (a.Criterias.Exists(x => x.RSSElement == "Category") == true)
+                if (a.Criterias.Any(x => x.RSSElement == "Category") == true)
                 {
                     Criteria cr = (Criteria)a.Criterias.Select(x => x.RSSElement == "Title");
                     /*if (cr.Condition == "Contains")

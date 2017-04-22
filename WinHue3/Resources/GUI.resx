@@ -1170,8 +1170,8 @@
   <data name="SettingsForm_Tab_MainSettings_Start_Tray" xml:space="preserve">
     <value>Start in tray</value>
   </data>
-  <data name="SettingsForm_Tab_MainSettings_Start_Windows" xml:space="preserve">
-    <value>Start with Windows</value>
+  <data name="SettingsForm_Tab_MainSettings_Start_DoNotStart" xml:space="preserve">
+    <value>Do not start with Windows</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Warning_Group" xml:space="preserve">
     <value>Warnings</value>
@@ -1179,8 +1179,8 @@
   <data name="SettingsForm_Tab_MainSettings_Warning_Message_Upnp" xml:space="preserve">
     <value>Show upnp warning</value>
   </data>
-  <data name="SettingsForm_Tab_OtherSettings" xml:space="preserve">
-    <value>Other Settings</value>
+  <data name="SettingsForm_Tab_Defaults" xml:space="preserve">
+    <value>Defaults</value>
   </data>
   <data name="SettingsForm_Title" xml:space="preserve">
     <value>WinHue 3 Settings...</value>
@@ -1262,5 +1262,38 @@
   </data>
   <data name="SceneCreatorForm_Recycle" xml:space="preserve">
     <value>Recycle</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_TransitionTime" xml:space="preserve">
+    <value>Transition Time</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_DefaultTT" xml:space="preserve">
+    <value>Default Transition Time</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_MinusOne" xml:space="preserve">
+    <value>Set to -1 for default, Value x 100ms</value>
+  </data>
+  <data name="SettingsForm_Tab_View" xml:space="preserve">
+    <value>View Settings</value>
+  </data>
+  <data name="SettingsForm_Tab_View_DefautSort" xml:space="preserve">
+    <value>Default Sort</value>
+  </data>
+  <data name="SettingsForm_Tab_View_ShowID" xml:space="preserve">
+    <value>Show ID</value>
+  </data>
+  <data name="SettingsForm_Tab_View_WrapText" xml:space="preserve">
+    <value>Wrap Text</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_Lights" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SettingsResetTT" xml:space="preserve">
+    <value>Reset Transition Time to Default</value>
   </data>
 </root>

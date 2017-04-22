@@ -67,7 +67,7 @@ namespace WinHue3.Models
         public string Buttonid
         {
             get { return _buttonid; }
-            set { SetProperty(ref _buttonid,value); OnPropertyChanged("CanSave"); }
+            set { SetProperty(ref _buttonid,value); RaisePropertyChanged("CanSave"); }
         }
     }
 }

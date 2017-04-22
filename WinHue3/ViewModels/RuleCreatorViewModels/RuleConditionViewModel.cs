@@ -155,7 +155,7 @@ namespace WinHue3.Models
             }
             
             ResetConditionFields();
-            OnPropertyChanged("ListConditions");
+            RaisePropertyChanged("ListConditions");
         }
 
         private void DeleteCondition()

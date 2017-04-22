@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Windows;
 using System.Collections.Generic;
 using HueLib2;
+using System.Collections.ObjectModel;
 
 namespace WinHue3
 {
@@ -19,7 +20,7 @@ namespace WinHue3
         public string Url { get; set; }
 
         [DataMember]
-        public List<Criteria> Criterias { get; set; }
+        public ObservableCollection<Criteria> Criterias { get; set; }
 
         [DataMember]
         public Body Action { get; set; }
