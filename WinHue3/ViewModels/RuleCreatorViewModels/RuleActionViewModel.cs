@@ -27,6 +27,8 @@ namespace WinHue3.ViewModels
         private List<HueObject> _listDataStore;
         private PropertyInfo[] _listActionProperties;
         private List<HueObject> _listActionObjects;
+        private IList<PropertyTreeItem> _listPropTree;
+
         public RuleActionViewModel()
         {
             ListActionPropertyInfos = new ObservableCollection<KeyValuePair<PropertyInfo, dynamic>>();   
@@ -419,11 +421,25 @@ namespace WinHue3.ViewModels
                         ListActionProperties = new PropertyInfo[0];
                         break;
                     }
-                    PropertyInfo[] listnewprop = ((Sensor)SelectedActionObject).state.GetType().GetProperties();
-                    int index = listnewprop.FindIndex(x => x.Name == "lastupdated");
-                    if (index != -1)
-                        listnewprop = listnewprop.RemoveAt(index);
-                    ListActionProperties = listnewprop;
+
+                    IList<PropertyTreeItem> list = new List<PropertyTreeItem>();
+                    list.Add(new PropertyTreeItem(){ Name = "config"});
+                    list.Add(new PropertyTreeItem() { Name = "state" });
+                    list[0].listProperties.AddRange(((Sensor)SelectedActionObject).config.GetType().GetProperties().ToList());
+                    list[0].listProperties.RemoveAll(x => x.Name == "reachable");
+                    list[1].listProperties.AddRange(((Sensor)SelectedActionObject).state.GetType().GetProperties().ToList());
+                    list[1].listProperties.RemoveAll(x => x.Name == "lastupdated");
+
+                    //  list.Add(((Sensor)SelectedActionObject).GetType().GetProperty("state"));
+                    ListPropTree = list;
+                    /*    List<PropertyInfo> listnewprop = ((Sensor)SelectedActionObject).state.GetType().GetProperties().ToList();
+                        listnewprop.AddRange(((Sensor) SelectedActionObject).config.GetType().GetProperties().ToList());
+
+                        listnewprop.RemoveAll(x => x.Name == "lastupdated");
+                        listnewprop.RemoveAll(x => x.Name == "reachable");
+
+                        ListActionProperties = listnewprop.ToArray();*/
+
                     break;
                 case "schedules":
                     ListActionProperties = new ScheduleBody().GetType().GetProperties();
@@ -492,5 +508,23 @@ namespace WinHue3.ViewModels
         public ICommand SelectActionObjectCommand => new RelayCommand(param => SelectActionObject(), (param) => CanSelectAction());
         public ICommand ClearActionCommand => new RelayCommand(param => ClearSelection());
 
+        public IList<PropertyTreeItem> ListPropTree
+        {
+            get { return _listPropTree; }
+            set { SetProperty(ref _listPropTree,value); }
+        }
     }
+
+    public class PropertyTreeItem
+    {
+        public PropertyTreeItem()
+        {
+            listProperties = new List<PropertyInfo>();
+        }
+
+        public string Name { get; set; }
+        public List<PropertyInfo> listProperties { get; set; }
+
+    }
+
 }

@@ -49,7 +49,7 @@ namespace WinHue3.ViewModels
 
         public void Initialize(List<HueObject> listObjects, Rule modifiedRule)
         {
-            _rule = (Rule)modifiedRule;
+            _rule = modifiedRule;
             RuleActionViewModel.ListDataStore = listObjects;
             RuleActionViewModel.ListDataStore.Add(new Sensor()
             {

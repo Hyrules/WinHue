@@ -74,6 +74,7 @@
                     <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
                     <RibbonButton x:Name="btnCreateHotkey" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}" LargeImageSource="Resources/1465102684_preferences-desktop-keyboard-shortcuts.png"/>
                     <RibbonButton x:Name="btnCreateResourceLink" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}" LargeImageSource="Resources/resource.png"/>
+                    <RibbonButton x:Name="btnCreateAdvanced" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" LargeImageSource="Resources/advanced.png"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}">
                     <RibbonButton x:Name="btnBridgeSettings" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeImageSource="Resources/1417331999_Gear.png" SmallImageSource="Resources/1417331999_Gear.png" Command="{Binding ChangeBridgeSettingsCommand}"/>

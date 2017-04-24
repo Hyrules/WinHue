@@ -1296,4 +1296,7 @@
   <data name="MainForm_Tab_Home_Group_SettingsResetTT" xml:space="preserve">
     <value>Reset Transition Time to Default</value>
   </data>
+  <data name="MainForm_Tab_Home_Group_Creators_AdvancedCreator" xml:space="preserve">
+    <value>Advanced Creator</value>
+  </data>
 </root>

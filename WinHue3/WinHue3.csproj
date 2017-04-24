@@ -73,6 +73,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -233,6 +236,7 @@
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Validation\UIntValidation.cs" />
     <Compile Include="View.cs" />
+    <Compile Include="ViewModels\AdvancedCreatorViewModel.cs" />
     <Compile Include="ViewModels\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
@@ -254,6 +258,9 @@
     <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
+    <Compile Include="Views\Form_AdvancedCreator.xaml.cs">
+      <DependentUpon>Form_AdvancedCreator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
     </Compile>
@@ -375,6 +382,10 @@
     <Page Include="Controls\XYSliders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Form_AdvancedCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form_ManageUsers.xaml">
       <SubType>Designer</SubType>
@@ -608,6 +619,7 @@
     <Content Include="lights\LLC007_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\advanced.png" />
     <Resource Include="Resources\resettt.png" />
     <Resource Include="lights\LLC011_off.png" />
     <Resource Include="lights\LLC011_on.png" />

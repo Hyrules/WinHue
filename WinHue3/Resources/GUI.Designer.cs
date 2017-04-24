@@ -1699,6 +1699,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced Creator.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Creators_AdvancedCreator {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators_AdvancedCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an Animation.
         /// </summary>
         public static string MainForm_Tab_Home_Group_Creators_CreateAnimation {

@@ -19,6 +19,7 @@ using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
 using System.Diagnostics;
 using WinHue3.Settings;
+using WinHue3.Views;
 
 namespace WinHue3.ViewModels
 {
@@ -87,6 +88,14 @@ namespace WinHue3.ViewModels
         #endregion
 
         #region HOME_TAB_METHODS
+
+        private void CreateAdvanced()
+        {
+            Form_AdvancedCreator fac = new Form_AdvancedCreator();
+            fac.Owner = Application.Current.MainWindow;
+            fac.Show();
+        }
+
         private void RefreshView()
         {
             if (SelectedBridge == null) return;

@@ -31,11 +31,11 @@ namespace WinHue3
 
                 if (WinHueSettings.settings.ShowHiddenScenes)
                 {
-                    tcvm.HueTapModel.ListScenes = (List<HueObject>)hr.Hrobject;
+                    tcvm.HueTapModel.ListScenes = (List<Scene>)hr.Hrobject;
                 }
                 else
                 {
-                    List<HueObject> temp = ((List<HueObject>)hr.Hrobject);
+                    List<Scene> temp = ((List<Scene>)hr.Hrobject);
                     temp = temp.Where(x => !x.GetName().StartsWith("HIDDEN")).ToList();
                     tcvm.HueTapModel.ListScenes = temp;
                 }

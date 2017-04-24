@@ -1,0 +1,33 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Views"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
+        x:Class="WinHue3.Views.Form_AdvancedCreator"
+        mc:Ignorable="d"
+        Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <viewModels:AdvancedCreatorViewModel/>
+    </Window.DataContext>
+    <DockPanel x:Name="DockPanel" Margin="0,0,0.333,0" LastChildFill="False">
+        <Ribbon x:Name="ribbon" Margin="0,0,0.667,359.333" DockPanel.Dock="Top" VerticalAlignment="Top" ApplicationMenu="{x:Null}">
+            <RibbonTab Header="Templates" Margin="0,0,-0.333,-0.333">
+                <RibbonGroup Header="Templates">
+                    <RibbonButton Label="Rule Template" LargeImageSource="/WinHue3;component/Resources/rules.png" Command="{Binding CreateRuleTemplateCommand}"  />
+                    <RibbonButton Label="Sensor Template" LargeImageSource="/WinHue3;component/Resources/sensor.png" Command="{Binding CreateSensorTemplateCommand}" />
+                    <RibbonButton Label="Resource Link Template" LargeImageSource="/WinHue3;component/Resources/resource.png" />
+                    <RibbonButton Label="Group Template" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" />
+                    <RibbonButton Label="Schedule Template" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <StatusBar Height="28" VerticalAlignment="Top" Width="auto" DockPanel.Dock="Bottom" Margin="0,0,0,0" />
+        <avalonedit:TextEditor Margin="0,-359.667,0,-0.333" Width="{Binding ElementName=DockPanel, Path=ActualWidth}" ShowLineNumbers="True" />
+
+    </DockPanel>
+</Window>

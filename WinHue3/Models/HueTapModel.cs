@@ -8,7 +8,7 @@ namespace WinHue3.Models
 {
     public class HueTapModel : ValidatableBindableBase
     {
-        private List<HueObject> _listScenes;
+        private List<Scene> _listScenes;
         private SolidColorBrush _btnonebg;
         private SolidColorBrush _btntwobg;
         private SolidColorBrush _btnthreebg;
@@ -18,7 +18,7 @@ namespace WinHue3.Models
 
         public HueTapModel()
         {
-            _listScenes = new List<HueObject>();
+            _listScenes = new List<Scene>();
             _btnfourbg = new SolidColorBrush(Color.FromArgb(0,0,0,0));
             _btnonebg = new SolidColorBrush(Color.FromArgb(0,0,0,0));
             _btnthreebg = new SolidColorBrush(Color.FromArgb(0,0,0,0));
@@ -27,7 +27,7 @@ namespace WinHue3.Models
             _buttonid = string.Empty;
         }
 
-        public List<HueObject> ListScenes
+        public List<Scene> ListScenes
         {
             get{return _listScenes; }
             set { SetProperty(ref _listScenes, value); }

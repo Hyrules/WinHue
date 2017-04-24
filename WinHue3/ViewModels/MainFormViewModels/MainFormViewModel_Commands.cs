@@ -209,6 +209,8 @@ namespace WinHue3.ViewModels
         public ICommand CreateScheduleCommand => new RelayCommand(param => CreateSchedule(), (param) => EnableButtons() && CanSchedule());
         public ICommand CreateRuleCommand => new RelayCommand(param => CreateRule(), (param) => EnableButtons());
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor(), (param) => EnableButtons());
+        public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(), (param) => EnableButtons());
+
         //  public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
         public ICommand CreateHotKeyCommand => new RelayCommand(param => CreateHotKey(), (param) => EnableButtons());
         public ICommand CreateResourceLinkCommand => new RelayCommand(param => CreateResourceLink(), (param) => EnableButtons());

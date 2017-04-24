@@ -5,6 +5,7 @@
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converter="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:reflection="clr-namespace:System.Reflection;assembly=mscorlib"
         x:Class="WinHue3.Form_RulesCreator2"
         Title="Create a rule..." Height="452.072" Width="914.326" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/rules.png">
     <Window.DataContext>
@@ -128,16 +129,7 @@
                 <Button x:Name="btnAddProperty" Content="{x:Static resources:GUI.RuleCreatorForm_AddProperty}" HorizontalAlignment="Left" Margin="212,98,0,0" VerticalAlignment="Top" Width="53" Height="23" Command="{Binding RuleActionViewModel.AddPropertyCommand}"/>
                 <Label x:Name="lblValueProp" Visibility="{Binding ElementName=tbValue,Path=Visibility}" Content="{x:Static resources:GUI.RuleCreatorForm_Value}" HorizontalAlignment="Left" Margin="0,95,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="tbValue" Style="{StaticResource HideActionValue}"  HorizontalAlignment="Left" Height="23" Margin="65,98,0,0" TextWrapping="Wrap" Text="{Binding RuleActionViewModel.ActionPropertyValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="142"/>
-                <ListBox x:Name="lbActions" ItemsSource="{Binding RuleActionViewModel.ListActions, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" SelectedItem="{Binding RuleActionViewModel.SelectedAction}" HorizontalAlignment="Left" Margin="0,140,0,0" Width="488" Height="205" VerticalAlignment="Top" ContextMenuOpening="lbActions_ContextMenuOpening">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <Label Content="{Binding address}"/>
-                                <Label Content="{Binding method}"/>
-                                <Label Content="{Binding body}"/>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <ListBox x:Name="lbActions" ItemsSource="{Binding RuleActionViewModel.ListActions, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" SelectedItem="{Binding RuleActionViewModel.SelectedAction}" HorizontalAlignment="Left" Margin="263,126,0,0" Width="225" Height="209" VerticalAlignment="Top" ContextMenuOpening="lbActions_ContextMenuOpening">
                     <ListBox.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="{x:Static resources:GUI.RuleCreatorForm_Delete}" Command="{Binding RuleActionViewModel.DeleteActionCommand}"/>
@@ -146,6 +138,13 @@
                 </ListBox>
                 <Button x:Name="btnAddAction" Content="{x:Static resources:GUI.RuleCreatorForm_AddAction}" HorizontalAlignment="Left" Margin="270,98,0,0" VerticalAlignment="Top" Width="134" Height="23" Command="{Binding RuleActionViewModel.AddActionCommand}"/>
                 <Button x:Name="btnClearAction" Content="{x:Static resources:GUI.RuleCreatorForm_ClearAction}" HorizontalAlignment="Left" Margin="409,98,0,0" VerticalAlignment="Top" Width="79" Height="23" Command="{Binding RuleActionViewModel.ClearActionCommand}"/>
+                <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="209" Margin="10,126,0,0" VerticalAlignment="Top" Width="241" ItemsSource="{Binding RuleActionViewModel.ListPropTree}" >
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding listProperties }" DataType="{x:Type reflection:PropertyInfo}">
+                            <TreeViewItem Header="{Binding Name}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
 
             </Grid>
         </GroupBox>
@@ -163,5 +162,7 @@
 
     </Grid>
 </Window>
+
+    
 
     
