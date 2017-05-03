@@ -317,6 +317,9 @@
     <Compile Include="Views\Form_BulbsView.xaml.cs">
       <DependentUpon>Form_BulbsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Form_RulesCreator.xaml.cs">
+      <DependentUpon>Form_RulesCreator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form_SceneMapping.xaml.cs">
       <DependentUpon>Form_SceneMapping.xaml</DependentUpon>
     </Compile>
@@ -417,6 +420,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form_Daylight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Form_RulesCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
