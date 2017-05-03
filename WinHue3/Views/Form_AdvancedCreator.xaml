@@ -7,7 +7,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="WinHue3.Views.Form_AdvancedCreator"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
@@ -23,11 +25,20 @@
                     <RibbonButton Label="Group Template" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" />
                     <RibbonButton Label="Schedule Template" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
                 </RibbonGroup>
+                <RibbonGroup Header="Actions">
+                    <RibbonButton Label="Clear" LargeImageSource="/WinHue3;component/Resources/1493782199_draft.png" />
+                    <RibbonButton Label="Send" LargeImageSource="/WinHue3;component/Resources/bridge.png"  />
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
 
         <StatusBar Height="28" VerticalAlignment="Top" Width="auto" DockPanel.Dock="Bottom" Margin="0,0,0,0" />
-        <avalonedit:TextEditor Margin="0,-359.667,0,-0.333" Width="{Binding ElementName=DockPanel, Path=ActualWidth}" ShowLineNumbers="True" />
+        <avalonedit:TextEditor Margin="0,-359.667,0,-0.333" Width="{Binding ElementName=DockPanel, Path=ActualWidth}" ShowLineNumbers="True">
+            <i:Interaction.Behaviors>
+                <controls:AvalonEditBehaviour  EditorText="{Binding Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </i:Interaction.Behaviors>
+        </avalonedit:TextEditor> 
+
 
     </DockPanel>
 </Window>

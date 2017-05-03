@@ -91,8 +91,9 @@ namespace WinHue3.ViewModels
 
         private void CreateAdvanced()
         {
-            Form_AdvancedCreator fac = new Form_AdvancedCreator();
+            Form_AdvancedCreator fac = new Form_AdvancedCreator(SelectedBridge);
             fac.Owner = Application.Current.MainWindow;
+            
             fac.Show();
         }
 

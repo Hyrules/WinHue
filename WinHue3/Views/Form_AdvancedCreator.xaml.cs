@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HueLib2;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Views
 {
@@ -19,9 +21,13 @@ namespace WinHue3.Views
     /// </summary>
     public partial class Form_AdvancedCreator : Window
     {
-        public Form_AdvancedCreator()
+        private AdvancedCreatorViewModel _acvm;
+
+        public Form_AdvancedCreator(Bridge bridge)
         {
             InitializeComponent();
+            _acvm = DataContext as AdvancedCreatorViewModel;
+            _acvm.Initialize(bridge);
         }
     }
 }
