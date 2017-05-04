@@ -4,10 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3.Views"
+        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         mc:Ignorable="d"
         Title="Form_RulesCreator" Height="300" Width="486.475">
+    <Window.Resources>
+        
+    </Window.Resources>
+    <Window.DataContext>
+        <viewmodels:RuleCreatorViewModel/>
+    </Window.DataContext>
     <Grid>
-        <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="134" Margin="10,10,0,0"/>
+        <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="134" Margin="10,10,0,0">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <StackPanel>
+                        <Image Source="/WinHue3;component/Resources/1417331999_Gear.png" Height="16"/>
+                        <TextBlock Text=""/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.Items>
+                <TreeViewItem Header="Config">
+                <TreeViewItem Header="Lights"/>
+                <TreeViewItem Header="Groups"/>
+                <TreeViewItem Header="Rules"/>
+                <TreeViewItem Header="Scenes"/>
+                <TreeViewItem Header="Schedules"/>
+            </TreeView.Items>
+        </TreeView>
 
     </Grid>
 </Window>

@@ -240,6 +240,7 @@
     <Compile Include="ViewModels\AdvancedCreatorViewModel.cs" />
     <Compile Include="ViewModels\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
