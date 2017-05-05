@@ -48,14 +48,14 @@
                         </StackPanel>
                     </TreeViewItem.Header>
                 </TreeViewItem>
-                <TreeViewItem x:Name="tviRules">
+               <!-- <TreeViewItem x:Name="tviRules">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/WinHue3;component/Resources/rules.png" Height="16" Width="16"/>
                             <TextBlock Text="Rules" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
-                </TreeViewItem>
+                </TreeViewItem>-->
                 <TreeViewItem x:Name="tviScenes">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">

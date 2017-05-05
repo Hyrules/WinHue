@@ -21,8 +21,8 @@
                 <RibbonGroup Header="Templates">
                     <RibbonButton Label="Rule Template" LargeImageSource="/WinHue3;component/Resources/rules.png" Command="{Binding CreateRuleTemplateCommand}"  />
                     <RibbonButton Label="Sensor Template" LargeImageSource="/WinHue3;component/Resources/sensor.png" Command="{Binding CreateSensorTemplateCommand}" />
-                    <RibbonButton Label="Resource Link Template" LargeImageSource="/WinHue3;component/Resources/resource.png" />
-                    <RibbonButton Label="Group Template" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" />
+                    <RibbonButton Label="Resource Link Template" LargeImageSource="/WinHue3;component/Resources/resource.png" Command="{Binding CreateResourceLinkTemplateCommand }" />
+                    <RibbonButton Label="Group Template" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" Command="{Binding CreateGroupTemplateCommand}" />
                     <RibbonButton Label="Schedule Template" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Actions">
