@@ -14,7 +14,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
 {
-    public class RuleCreatorViewModel : ValidatableBindableBase
+    public class RuleCreatorViewModelOld : ValidatableBindableBase
     {
         private Rule _rule;
 
@@ -24,7 +24,7 @@ namespace WinHue3.ViewModels
 
         #region CTOR
 
-        public RuleCreatorViewModel()
+        public RuleCreatorViewModelOld()
         {
             _ruleCreatorModel = new RuleCreatorModel();
             _ruleConditionViewModel = new RuleConditionViewModel();

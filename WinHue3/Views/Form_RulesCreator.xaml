@@ -14,7 +14,7 @@
         <viewmodels:RuleCreatorViewModel/>
     </Window.DataContext>
     <Grid>
-        <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="134" Margin="10,10,0,0">
+        <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="183" Margin="10,10,0,0">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate>
                     <StackPanel>
@@ -24,12 +24,62 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
             <TreeView.Items>
-                <TreeViewItem Header="Config">
-                <TreeViewItem Header="Lights"/>
-                <TreeViewItem Header="Groups"/>
-                <TreeViewItem Header="Rules"/>
-                <TreeViewItem Header="Scenes"/>
-                <TreeViewItem Header="Schedules"/>
+                <TreeViewItem x:Name="tviConfig">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/1417331999_Gear.png" Height="16" Width="16"/>
+                            <TextBlock Text="Config" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviLights">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/HueLightOn-Large.png" Height="16" Width="16"/>
+                            <TextBlock Text="Lights" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviGroups">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="16" Width="16"/>
+                            <TextBlock Text="Groups" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviRules">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/rules.png" Height="16" Width="16"/>
+                            <TextBlock Text="Rules" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviScenes">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/1486263478_movie-01.png" Height="16" Width="16"/>
+                            <TextBlock Text="Scenes" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviSchedules">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="16" Width="16"/>
+                            <TextBlock Text="Schedules" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviResourceLinks">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/resource.png" Height="16" Width="16"/>
+                            <TextBlock Text="Resource Links" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
             </TreeView.Items>
         </TreeView>
 
