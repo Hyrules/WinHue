@@ -491,7 +491,7 @@
     <value>Voulez vous remplacer l'action sélectionnée ?</value>
   </data>
   <data name="Rule_ConditionAlreadyExists" xml:space="preserve">
-    <value>Voulez vous remplacer la condition sélectionnée ?</value>
+    <value>Une condition similaire existe déjà. Remplacer ?</value>
   </data>
   <data name="Rule_Delete" xml:space="preserve">
     <value>Êtes-vous certain de vouloir supprimer cette règle ?</value>

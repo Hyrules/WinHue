@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,24 @@ namespace HueLib2.Objects.Rules
         public string id { get; set; }
         public string property { get; set; }
         public string subprop { get; set; }
+
+        public RuleAddress(string address)
+        {
+            string[] parts = address.Split('/');
+            objecttype = parts[1];
+            if (parts.Length == 3)
+            {
+                property = parts[2];
+                id = string.Empty;
+            }
+            else
+            {
+                id = parts[2];
+                property = parts[3];
+            }
+                
+            subprop = parts.Length == 5 ? parts[4] : string.Empty;
+        }
 
         public override string ToString()
         {
@@ -78,6 +97,8 @@ namespace HueLib2.Objects.Rules
         {
             return base.GetHashCode();
         }
+
+ 
     }
 
     public class RuleAddressJsonConverter : JsonConverter

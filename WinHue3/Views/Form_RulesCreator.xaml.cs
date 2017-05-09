@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HueLib2;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Views
 {
@@ -19,9 +21,15 @@ namespace WinHue3.Views
     /// </summary>
     public partial class Form_RulesCreator : Window
     {
-        public Form_RulesCreator()
+        private RuleCreatorViewModel _rcvm;
+
+        public Form_RulesCreator(DataStore ds)
         {
             InitializeComponent();
+            _rcvm = DataContext as RuleCreatorViewModel;
+            _rcvm.Initialize(ds);
         }
+
+
     }
 }

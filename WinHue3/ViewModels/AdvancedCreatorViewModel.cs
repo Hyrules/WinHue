@@ -17,6 +17,7 @@ namespace WinHue3.ViewModels
         public AdvancedCreatorViewModel()
         {
             Text = string.Empty;
+            Type = string.Empty;
         }
 
         public void Initialize(Bridge bridge)
@@ -119,12 +120,21 @@ namespace WinHue3.ViewModels
 ";
         }
 
+        private void ClearTemplate()
+        {
+            Type = string.Empty;
+            Text = string.Empty;
+            
+        }    
+
 
         public ICommand CreateScheduleTemplateCommand => new RelayCommand(param => CreateScheduleTemplate(), (param) => Type == string.Empty);
         public ICommand CreateSensorTemplateCommand => new RelayCommand(param => CreateSensorTemplate(), (param) => Type == string.Empty);
         public ICommand CreateRuleTemplateCommand => new RelayCommand(param => CreateRuleTemplate(), (param) => Type == string.Empty);
         public ICommand CreateResourceLinkTemplateCommand => new RelayCommand(param => CreateResourceLinkTemplate(), (param) => Type == string.Empty);
         public ICommand CreateGroupTemplateCommand => new RelayCommand(param => CreateGroupTemplate(), (param) => Type == string.Empty);
+        public ICommand ClearTemplateCommand => new RelayCommand(param => ClearTemplate(), (param) => Text != string.Empty);
+
 
         public string Text
         {

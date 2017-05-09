@@ -16,7 +16,12 @@
         <viewModels:AdvancedCreatorViewModel/>
     </Window.DataContext>
     <DockPanel x:Name="DockPanel" Margin="0,0,0.333,0" LastChildFill="False">
-        <Ribbon x:Name="ribbon" Margin="0,0,0.667,359.333" DockPanel.Dock="Top" VerticalAlignment="Top" ApplicationMenu="{x:Null}">
+        <Ribbon x:Name="ribbon" Margin="0,0,0.667,359.333" DockPanel.Dock="Top" VerticalAlignment="Top" >
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu>
+                    <RibbonApplicationMenuItem Header="Close"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
             <RibbonTab Header="Templates" Margin="0,0,-0.333,-0.333">
                 <RibbonGroup Header="Templates">
                     <RibbonButton Label="Rule Template" LargeImageSource="/WinHue3;component/Resources/rules.png" Command="{Binding CreateRuleTemplateCommand}"  />
@@ -26,7 +31,7 @@
                     <RibbonButton Label="Schedule Template" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Actions">
-                    <RibbonButton Label="Clear" LargeImageSource="/WinHue3;component/Resources/1493782199_draft.png" />
+                    <RibbonButton Label="Clear" LargeImageSource="/WinHue3;component/Resources/1493782199_draft.png" Command="{Binding ClearTemplateCommand}"/>
                     <RibbonButton Label="Send" LargeImageSource="/WinHue3;component/Resources/bridge.png"  />
                 </RibbonGroup>
             </RibbonTab>
@@ -42,3 +47,4 @@
 
     </DockPanel>
 </Window>
+

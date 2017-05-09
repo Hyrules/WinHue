@@ -19,14 +19,14 @@ namespace WinHue3
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 //        private Dictionary<PropertyInfo,dynamic> listproperties = new Dictionary<PropertyInfo, dynamic>();
         private Rule _editedRule;
-        private RuleCreatorViewModel _rcv;
+        private RuleCreatorViewModelOld _rcv;
         private string id;
 
         public Form_RulesCreator2(Bridge bridge)
         {
             InitializeComponent();
             _br = bridge;
-            _rcv = DataContext as RuleCreatorViewModel;
+            _rcv = DataContext as RuleCreatorViewModelOld;
 
             HelperResult hr = HueObjectHelper.GetBridgeDataStore(bridge);
             if (hr.Success)
@@ -45,7 +45,7 @@ namespace WinHue3
         {
             InitializeComponent();
             _br = bridge;
-            _rcv = DataContext as RuleCreatorViewModel;
+            _rcv = DataContext as RuleCreatorViewModelOld;
 
             HelperResult hr = HueObjectHelper.GetBridgeDataStore(bridge);
 

@@ -1204,7 +1204,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to replace the selected condition ?.
+        ///   Looks up a localized string similar to A similar condition already exists. Do you want to replace it ?.
         /// </summary>
         public static string Rule_ConditionAlreadyExists {
             get {

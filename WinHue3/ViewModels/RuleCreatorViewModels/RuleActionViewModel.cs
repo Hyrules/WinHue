@@ -295,7 +295,7 @@ namespace WinHue3.ViewModels
             if (ListActions.Count == 8)
             {
                 MessageBox.Show(GlobalStrings.Rule_MaxAction, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                return;dw
             }
 
             RuleAction action = new RuleAction() { method = "PUT" };

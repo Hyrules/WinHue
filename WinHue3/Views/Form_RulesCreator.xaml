@@ -5,83 +5,170 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3.Views"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
         mc:Ignorable="d"
-        Title="Form_RulesCreator" Height="300" Width="486.475">
+        Title="Rule Creator..." Height="660.001" Width="642.475" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Window.Resources>
-        
+
     </Window.Resources>
     <Window.DataContext>
         <viewmodels:RuleCreatorViewModel/>
     </Window.DataContext>
     <Grid>
-        <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="183" Margin="10,10,0,0">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate>
-                    <StackPanel>
-                        <Image Source="/WinHue3;component/Resources/1417331999_Gear.png" Height="16"/>
-                        <TextBlock Text=""/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
+        <controls:BindableTreeView x:Name="tvProperties" Margin="10,10,0,44.667" FontSize="18" HorizontalAlignment="Left" Width="256" BindableSelectedItem="{Binding SelectedProperty, Mode=TwoWay}">
             <TreeView.Items>
-                <TreeViewItem x:Name="tviConfig">
+                <TreeViewItem x:Name="tviConfig" ItemsSource="{Binding ConfigProperties}">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/WinHue3;component/Resources/1417331999_Gear.png" Height="16" Width="16"/>
+                            <Image Source="/WinHue3;component/Resources/1417331999_Gear.png" Height="20" Width="20"/>
                             <TextBlock Text="Config" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-                <TreeViewItem x:Name="tviLights">
+                <TreeViewItem x:Name="tviLights" ItemsSource="{Binding LightsProperties}">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/WinHue3;component/Resources/HueLightOn-Large.png" Height="16" Width="16"/>
+                            <Image Source="/WinHue3;component/Resources/HueLightOn-Large.png" Height="20" Width="20"/>
                             <TextBlock Text="Lights" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-                <TreeViewItem x:Name="tviGroups">
+                <TreeViewItem x:Name="tviGroups" ItemsSource="{Binding GroupsProperties}">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="16" Width="16"/>
+                            <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="20" Width="20"/>
                             <TextBlock Text="Groups" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-               <!-- <TreeViewItem x:Name="tviRules">
+                <TreeViewItem x:Name="tviRules" ItemsSource="{Binding RuleProperties}">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/WinHue3;component/Resources/rules.png" Height="16" Width="16"/>
+                            <Image Source="/WinHue3;component/Resources/rules.png" Height="20" Width="20"/>
                             <TextBlock Text="Rules" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
-                </TreeViewItem>-->
-                <TreeViewItem x:Name="tviScenes">
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviScenes" ItemsSource="{Binding ScenesProperties}">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/WinHue3;component/Resources/1486263478_movie-01.png" Height="16" Width="16"/>
+                            <Image Source="/WinHue3;component/Resources/1486263478_movie-01.png" Height="20" Width="20"/>
                             <TextBlock Text="Scenes" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-                <TreeViewItem x:Name="tviSchedules">
+                <TreeViewItem x:Name="tviSchedules" ItemsSource="{Binding SchedulesProperties}">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="16" Width="16"/>
+                            <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="20" Width="20"/>
                             <TextBlock Text="Schedules" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-                <TreeViewItem x:Name="tviResourceLinks">
+                <TreeViewItem x:Name="tviResourceLinks" ItemsSource="{Binding ResourceLinksProperties}">
                     <TreeViewItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/WinHue3;component/Resources/resource.png" Height="16" Width="16"/>
+                            <Image Source="/WinHue3;component/Resources/resource.png" Height="20" Width="20"/>
                             <TextBlock Text="Resource Links" Padding="5,0,0,0"/>
                         </StackPanel>
                     </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviSensors" ItemsSource="{Binding SensorsProperties}">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/WinHue3;component/Resources/sensor.png" Height="20" Width="20"/>
+                            <TextBlock Text="Sensors" Padding="5,0,0,0"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" Padding="16,0,0,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
             </TreeView.Items>
-        </TreeView>
+        </controls:BindableTreeView>
+        <GroupBox x:Name="groupBox" Header="Conditions" HorizontalAlignment="Left" Height="278" Margin="271,10,0,0" VerticalAlignment="Top" Width="337" >
+            <Grid>
+                <ListBox x:Name="lbListConditions" HorizontalAlignment="Left" Height="144" Margin="10,101,0,0" VerticalAlignment="Top" Width="305" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListConditions}"/>
+                <TextBox x:Name="tbValueCdn" HorizontalAlignment="Left" Height="23" Margin="10,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305" Text="{Binding ConditionValue, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox x:Name="cbOperatorCdn" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="305" SelectedValue="{Binding Operator}" SelectedValuePath="Tag">
+                    <ComboBoxItem x:Name="cbiEqual" Content="Equals" Tag="eq"/>
+                    <ComboBoxItem x:Name="cbiGreater" Content="Greater than" Tag="gt" />
+                    <ComboBoxItem x:Name="cbiLess" Content="Lower than" Tag="lt"/>
+                    <ComboBoxItem x:Name="cbiChanged" Content="Changed" Tag="dx"/>
+                    <ComboBoxItem x:Name="cbiChangeDelayed" Content="Delayed changed" Tag="ddx"/>
+                    <ComboBoxItem x:Name="cbiStable" Content="stable" Tag="stable"/>
+                    <ComboBoxItem x:Name="cbiNotStable" Content="Not stable"/>
+                    <ComboBoxItem x:Name="cbiIn" Content="In" Tag="in"/>
+                    <ComboBoxItem x:Name="cbiNotIn" Content="Not in" Tag="not in"/>
+                </ComboBox>
+                <Button x:Name="btnAddCondition" Content="Add" HorizontalAlignment="Left" Margin="240,65,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddConditionCommand}"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox1" Header="Actions" HorizontalAlignment="Left" Height="293" Margin="271,293,0,0" VerticalAlignment="Top" Width="337" Grid.RowSpan="2">
+            <Grid>
+                <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="193" Margin="10,67,0,0" VerticalAlignment="Top" Width="308" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListActions}">
+                </ListBox>
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding ActionValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="308"/>
+                <Button x:Name="btnAddAction" Content="Add" HorizontalAlignment="Left" Margin="243,38,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddActionCommand}"/>
+
+            </Grid>
+        </GroupBox>
+        <Button x:Name="btnSaveRule" Content="Save" HorizontalAlignment="Left" Margin="453,591,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="533,591,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

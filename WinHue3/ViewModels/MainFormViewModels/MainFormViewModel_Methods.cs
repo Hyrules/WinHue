@@ -314,7 +314,7 @@ namespace WinHue3.ViewModels
 
         private void CreateRule()
         {
-            Form_RulesCreator2 frc = new Form_RulesCreator2(SelectedBridge) { Owner = Application.Current.MainWindow };
+           /* Form_RulesCreator2 frc = new Form_RulesCreator2(SelectedBridge) { Owner = Application.Current.MainWindow };
             log.Debug($@"Opening the rule creator window passing bridge {SelectedBridge.IpAddress} ");
             if (frc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created rule ID {frc.GetCreatedOrModifiedId()} from bridge {SelectedBridge.IpAddress}");
@@ -328,7 +328,17 @@ namespace WinHue3.ViewModels
             {
                 MessageBoxError.ShowLastErrorMessages(SelectedBridge);
             }
+            */
+            CommandResult cr = SelectedBridge.GetBridgeDataStore();
+            
+            if (cr.Success)
+            {
+                DataStore ds = (DataStore) cr.resultobject;
+                Form_RulesCreator frc = new Form_RulesCreator(ds);
+                frc.Owner = Application.Current.MainWindow;
+                frc.ShowDialog();
 
+            }
         }
 
         private void CreateSensor()
