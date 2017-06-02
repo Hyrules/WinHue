@@ -1003,5 +1003,17 @@ namespace WinHue3.ViewModels
             };
             rssfeedsettings.ShowDialog();
         }
+
+        private void Colorloop()
+        {
+            ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { effect = "colorloop" }, SelectedObject.Id });
+
+        }
+
+        private void NoEffect()
+        {
+            ExecuteGenericMethod<CommandResult>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { effect = "none" }, SelectedObject.Id });
+        }
+
     }
 }

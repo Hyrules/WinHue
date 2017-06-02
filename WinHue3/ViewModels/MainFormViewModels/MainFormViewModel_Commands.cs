@@ -187,7 +187,6 @@ namespace WinHue3.ViewModels
             return SelectedObject is Group && SelectedObject.Id == "0";
         }
 
-
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new RelayCommand(param => OpenSettingsWindow());
@@ -245,7 +244,8 @@ namespace WinHue3.ViewModels
         public ICommand QuickCloneCommand => new RelayCommand(param => Clone(true), (param) => CanClone());
         public ICommand CopyToJsonCommand => new RelayCommand(param => CopyToJson(false), (param) => IsObjectSelected());
         public ICommand CopyToJsonRawCommand => new RelayCommand(param => CopyToJson(true), (param) => IsObjectSelected());
-
+        public ICommand ColorloopCommand => new RelayCommand(param => Colorloop(), (param) => CanIdentify());
+        public ICommand NoEffectCommand => new RelayCommand(param => NoEffect(), (param) => CanIdentify());
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new RelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());
 

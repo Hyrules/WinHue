@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:WinHue3.Views"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:resources="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:utils="clr-namespace:WinHue3.Utils"
+        xmlns:converters="clr-namespace:WinHue3.Converters"
         mc:Ignorable="d"
-        Title="Rule Creator..." Height="660.001" Width="642.475" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="Rule Creator..." Height="660.001" Width="697.141" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Window.Resources>
 
     </Window.Resources>
@@ -15,7 +19,12 @@
         <viewmodels:RuleCreatorViewModel/>
     </Window.DataContext>
     <Grid>
-        <controls:BindableTreeView x:Name="tvProperties" Margin="10,10,0,44.667" FontSize="18" HorizontalAlignment="Left" Width="256" BindableSelectedItem="{Binding SelectedProperty, Mode=TwoWay}">
+        <controls:BindableTreeView x:Name="tvProperties" Margin="10,10,0,45" FontSize="18" HorizontalAlignment="Left" Width="328" BindableSelectedItem="{Binding SelectedProperty, Mode=TwoWay}">
+            <controls:BindableTreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add to Conditions" Command="{Binding AddConditionCommand}"/>
+                </ContextMenu>
+            </controls:BindableTreeView.ContextMenu>
             <TreeView.Items>
                 <TreeViewItem x:Name="tviConfig" ItemsSource="{Binding ConfigProperties}">
                     <TreeViewItem.Header>
@@ -139,36 +148,57 @@
                 </TreeViewItem>
             </TreeView.Items>
         </controls:BindableTreeView>
-        <GroupBox x:Name="groupBox" Header="Conditions" HorizontalAlignment="Left" Height="278" Margin="271,10,0,0" VerticalAlignment="Top" Width="337" >
-            <Grid>
-                <ListBox x:Name="lbListConditions" HorizontalAlignment="Left" Height="144" Margin="10,101,0,0" VerticalAlignment="Top" Width="305" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListConditions}"/>
-                <TextBox x:Name="tbValueCdn" HorizontalAlignment="Left" Height="23" Margin="10,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305" Text="{Binding ConditionValue, UpdateSourceTrigger=PropertyChanged}"/>
-                <ComboBox x:Name="cbOperatorCdn" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="305" SelectedValue="{Binding Operator}" SelectedValuePath="Tag">
-                    <ComboBoxItem x:Name="cbiEqual" Content="Equals" Tag="eq"/>
-                    <ComboBoxItem x:Name="cbiGreater" Content="Greater than" Tag="gt" />
-                    <ComboBoxItem x:Name="cbiLess" Content="Lower than" Tag="lt"/>
-                    <ComboBoxItem x:Name="cbiChanged" Content="Changed" Tag="dx"/>
-                    <ComboBoxItem x:Name="cbiChangeDelayed" Content="Delayed changed" Tag="ddx"/>
-                    <ComboBoxItem x:Name="cbiStable" Content="stable" Tag="stable"/>
-                    <ComboBoxItem x:Name="cbiNotStable" Content="Not stable"/>
-                    <ComboBoxItem x:Name="cbiIn" Content="In" Tag="in"/>
-                    <ComboBoxItem x:Name="cbiNotIn" Content="Not in" Tag="not in"/>
-                </ComboBox>
-                <Button x:Name="btnAddCondition" Content="Add" HorizontalAlignment="Left" Margin="240,65,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddConditionCommand}"/>
-
-            </Grid>
-        </GroupBox>
-        <GroupBox x:Name="groupBox1" Header="Actions" HorizontalAlignment="Left" Height="293" Margin="271,293,0,0" VerticalAlignment="Top" Width="337" Grid.RowSpan="2">
-            <Grid>
-                <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="193" Margin="10,67,0,0" VerticalAlignment="Top" Width="308" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListActions}">
-                </ListBox>
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding ActionValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="308"/>
-                <Button x:Name="btnAddAction" Content="Add" HorizontalAlignment="Left" Margin="243,38,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddActionCommand}"/>
-
-            </Grid>
-        </GroupBox>
         <Button x:Name="btnSaveRule" Content="Save" HorizontalAlignment="Left" Margin="453,591,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="533,591,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="533,591,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <controls:BindableTreeView x:Name="treeView" HorizontalAlignment="Left" Height="576" Margin="343,10,0,0" VerticalAlignment="Top" Width="328">
+            <TreeView.Items>
+                <TreeViewItem x:Name="tviCdn" ItemsSource="{Binding ListConditions}">
+                    <TreeViewItem.Header>
+                        <Label Content="Conditions" FontSize="18"/>
+                    </TreeViewItem.Header>
+                    <TreeViewItem.ItemTemplate>
+                        <HierarchicalDataTemplate >
+                            <Expander Background="#FFFF7070" >
+                                <Expander.Header>
+                                    <Label Content="{Binding address, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                                </Expander.Header>
+                                <StackPanel Margin="5"  >
+                                    <ComboBox x:Name="cbOperator" SelectedIndex="{Binding operator}" ToolTip="{x:Static resources:GUI.RuleCreatorForm_Operator_ToolTip}" TabIndex="3" Width="200" Margin="0,-1,0,5" SelectedValuePath="Tag" >
+                                        <ComboBoxItem x:Name="cbiEqual" Content="Equals" Tag="equals"/>
+                                        <ComboBoxItem x:Name="cbiGreater" Content="Greater than" Tag="gt" />
+                                        <ComboBoxItem x:Name="cbiLess" Content="Lower than" Tag="lt"/>
+                                        <ComboBoxItem x:Name="cbiChanged" Content="Changed" Tag="dx"/>
+                                        <ComboBoxItem x:Name="cbiChangeDelayed" Content="Delayed changed" Tag="ddx"/>
+                                        <ComboBoxItem x:Name="cbiStable" Content="stable" Tag="stable"/>
+                                        <ComboBoxItem x:Name="cbiNotStable" Content="Not stable" Tag="not stable"/>
+                                        <ComboBoxItem x:Name="cbiIn" Content="In" Tag="in"/>
+                                        <ComboBoxItem x:Name="cbiNotIn" Content="Not in" Tag="not in"/>
+                                    </ComboBox>
+                                    <xctk:WatermarkTextBox Text="{Binding value}" Watermark="Condition Value" Width="200" >
+                                        <xctk:WatermarkTextBox.Style>
+                                            <Style>
+                                                <Setter Property="xctk:WatermarkTextBox.Visibility" Value="Visible"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding operator, RelativeSource={RelativeSource Self}}" Value="dx" utils:TriggerTracing.TriggerName="Value Visible" utils:TriggerTracing.TraceEnabled="True">
+                                                        <Setter  Property="xctk:WatermarkTextBox.Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </xctk:WatermarkTextBox.Style>
+                                    </xctk:WatermarkTextBox>
+                                </StackPanel>
+                            </Expander>
+                        </HierarchicalDataTemplate>
+                    </TreeViewItem.ItemTemplate>
+                </TreeViewItem>
+                <TreeViewItem x:Name="tviAct">
+                    <TreeViewItem.Header>
+                        <Label Content="Actions" FontSize="18"/>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+            </TreeView.Items>
+ 
+        </controls:BindableTreeView>
 
     </Grid>
 </Window>

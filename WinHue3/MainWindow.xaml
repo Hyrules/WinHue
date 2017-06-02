@@ -165,6 +165,10 @@
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" x:Name="mnuIdentifyLong" Command="{Binding IdentifyLongCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" x:Name="mnuIdentifyShort" Command="{Binding IdentifyShortCommand}"/>
                         </MenuItem>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Effects}">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Colorloop}" x:Name="mnuColorloop" Command="{Binding ColorloopCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" x:Name="mnuEffectNone" Command="{Binding NoEffectCommand}"/>
+                        </MenuItem>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}" x:Name="mnuSensitivity">
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" x:Name="mnuSensivityHigh" Command="{Binding SensitivityHighCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" x:Name="mnuSensivityMed" Command="{Binding SensitivityMediumCommand}"/>

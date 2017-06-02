@@ -29,10 +29,6 @@ namespace WinHue3.ViewModels
         private ObservableCollection<RuleTreeViewItem> _ruleProperties;
         private ObservableCollection<RuleCondition> _listConditions;
         private ObservableCollection<RuleTreeViewItem> _listActions;
-        private string _operator;
-
-        private string _conditionValue;
-        private string _actionValue;
 
         private RuleTreeViewItem _selectedProperty;
 
@@ -48,9 +44,7 @@ namespace WinHue3.ViewModels
             _ruleProperties = new ObservableCollection<RuleTreeViewItem>();
             _listActions = new ObservableCollection<RuleTreeViewItem>();
             _listConditions = new ObservableCollection<RuleCondition>();
-            ConditionValue = string.Empty;
-            ActionValue = string.Empty;
-            Operator = "eq";
+
         }
 
         public List<RuleTreeViewItem> ConfigProperties
@@ -101,18 +95,6 @@ namespace WinHue3.ViewModels
             set { SetProperty(ref _selectedProperty,value); }
         }
 
-        public string ConditionValue
-        {
-            get { return _conditionValue; }
-            set { _conditionValue = value; }
-        }
-
-        public string ActionValue
-        {
-            get { return _actionValue; }
-            set { _actionValue = value; }
-        }
-
         public ObservableCollection<RuleTreeViewItem> RuleProperties
         {
             get { return _ruleProperties; }
@@ -129,12 +111,6 @@ namespace WinHue3.ViewModels
         {
             get { return _listActions; }
             set { SetProperty(ref _listActions, value); }
-        }
-
-        public string Operator
-        {
-            get { return _operator; }
-            set { _operator = value; }
         }
 
         public void Initialize(DataStore currentDataStore)
@@ -261,7 +237,6 @@ namespace WinHue3.ViewModels
         private bool CanAddAction()
         {
             if (SelectedProperty == null) return false;
-            if (!ActionValue.IsValid()) return false;
             return true;
         }
 
@@ -275,14 +250,14 @@ namespace WinHue3.ViewModels
 
             };
 
-            ActionValue = string.Empty;
+
             SelectedProperty = null;
         }
 
         private bool CanAddCondition()
         {
             if (SelectedProperty == null) return false;
-            if (!ConditionValue.IsValid()) return false;
+          //  if (!ConditionValue.IsValid()) return false;
             return true;
         }
 
@@ -292,15 +267,12 @@ namespace WinHue3.ViewModels
             RuleCondition rc = new RuleCondition
             {
                 address = new RuleAddress(SelectedProperty.Path),
-                @operator = Operator,
-                value = ConditionValue,
             };
 
 
             if (!ListConditions.Any(x => x.address.ToString() == SelectedProperty.Path))
             {
                 ListConditions.Add(rc);
-                ConditionValue = string.Empty;
                 SelectedProperty = null;
             }
             else
@@ -310,7 +282,6 @@ namespace WinHue3.ViewModels
                 {
                     ListConditions.Remove(ListConditions.First(x => x.ToString() == SelectedProperty.Path));
                     ListConditions.Add(rc);
-                    ConditionValue = string.Empty;
                     SelectedProperty = null;
 
                 }

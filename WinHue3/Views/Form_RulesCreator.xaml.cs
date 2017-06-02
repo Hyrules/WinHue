@@ -30,6 +30,9 @@ namespace WinHue3.Views
             _rcvm.Initialize(ds);
         }
 
-
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

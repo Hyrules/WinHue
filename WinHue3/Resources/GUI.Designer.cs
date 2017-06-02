@@ -1339,6 +1339,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Colorloop.
+        /// </summary>
+        public static string MainForm_ListView_Context_Colorloop {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Colorloop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string MainForm_ListView_Context_Copy {
@@ -1380,6 +1389,15 @@ namespace WinHue3.Resources {
         public static string MainForm_ListView_Context_Edit {
             get {
                 return ResourceManager.GetString("MainForm_ListView_Context_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effects.
+        /// </summary>
+        public static string MainForm_ListView_Context_Effects {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Effects", resourceCulture);
             }
         }
         

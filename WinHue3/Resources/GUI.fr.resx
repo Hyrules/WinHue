@@ -1299,4 +1299,10 @@
   <data name="MainForm_Tab_Home_Group_Creators_AdvancedCreator" xml:space="preserve">
     <value>Créateur Avancé</value>
   </data>
+  <data name="MainForm_ListView_Context_Colorloop" xml:space="preserve">
+    <value>Cycle de couleur</value>
+  </data>
+  <data name="MainForm_ListView_Context_Effects" xml:space="preserve">
+    <value>Effets</value>
+  </data>
 </root>
