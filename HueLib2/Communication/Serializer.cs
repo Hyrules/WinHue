@@ -93,7 +93,30 @@ namespace HueLib2
 
         }
 
+        public static MessageCollection DeserializeMessages(string json)
+        {
 
+            MessageCollection collection;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(json) && !json.Equals("{}"))
+                {
+                    collection = JsonConvert.DeserializeObject<MessageCollection>(json, new MessageJsonConverter());
+                }
+                else
+                {
+                    collection = null;
+                }
+            }
+            catch(Exception)
+            {
+                collection = null;
+            }
+
+            return collection;
+
+        }
     }
 
 
