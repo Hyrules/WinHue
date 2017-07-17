@@ -14,8 +14,6 @@
         <viewmodel:ResourceLinkCreatorViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <converter:BoolToOppositeBoolConverter x:Key="BoolToOppositeBoolConverter"/>
         <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.Wrap, ElementName=Form_ResourceLink}" Value="True">
@@ -82,7 +80,7 @@
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                         <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                        <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock x:Name="tblName" Text="{Binding Name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
                         <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tblID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                     </WrapPanel>
                 </DataTemplate>
@@ -119,9 +117,9 @@
         <Label x:Name="label1" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Description}" HorizontalAlignment="Left" Margin="11,67,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock" Margin="243,0,181.333,34.667" TextWrapping="Wrap" Text="{x:Static resx:GUI.ResourceLinkCreatorForm_HoldControl}" FontSize="10" Height="15" VerticalAlignment="Bottom"/>
         <Label x:Name="label2" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_ClassID}" HorizontalAlignment="Left" Margin="16,200,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="167,327,0,0" VerticalAlignment="Top" IsThreeState="True" IsChecked="{Binding LinkCreatorModel.Recycle}" IsEnabled="{Binding IsEditing,Converter={StaticResource BoolToOppositeBoolConverter}}"/>
+        <CheckBox x:Name="checkBox" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="167,327,0,0" VerticalAlignment="Top" IsThreeState="True" IsChecked="{Binding LinkCreatorModel.Recycle}" IsEnabled="{Binding NotEditing}"/>
 
-        <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="16,231,0,0" VerticalAlignment="Top" Width="210" Minimum="1" Maximum="10000" Value="{Binding LinkCreatorModel.ClassId}" IsEnabled="{Binding IsEditing, Converter={StaticResource BoolToOppositeBoolConverter}}"/>
+        <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="16,231,0,0" VerticalAlignment="Top" Width="210" Minimum="1" Maximum="10000" Value="{Binding LinkCreatorModel.ClassId}" IsEnabled="{Binding NotEditing}"/>
         <xctk:WatermarkTextBox x:Name="watermarkTextBox" HorizontalAlignment="Left" Margin="16,28,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Name, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="210" Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Name}"/>
         <xctk:WatermarkTextBox x:Name="watermarkTextBox1" HorizontalAlignment="Left" Margin="16,93,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Description}" VerticalAlignment="Top" Height="107" Width="210" Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Description}"/>
 

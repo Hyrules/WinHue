@@ -4,14 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using HueLib2.BridgeMessages;
+using HueLib2.Objects.HueObject;
 
 namespace HueLib2
 {
     public partial class Bridge
     {
-        public CommandResult FindNewObjects<T>() where T: HueObject
+        public CommandResult<MessageCollection> FindNewObjects<T>() where T: IHueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult<MessageCollection> bresult = new CommandResult<MessageCollection>() {Success = false};
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
@@ -21,27 +23,25 @@ namespace HueLib2
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
+                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
                         bresult.Success = lastMessages.FailureCount == 0;
-                        bresult.resultobject = lastMessages;
+                        bresult.Data = lastMessages;
                         break;
                     case WebExceptionStatus.Timeout:
                         lastMessages = new MessageCollection { _bridgeNotResponding };
                         BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
-                        bresult.resultobject = comres.data;
-                        bresult.ex = comres.ex;
+                        bresult.Exception = comres.ex;
                         break;
                     default:
                         lastMessages = new MessageCollection { new UnkownError(comres) };
-                        bresult.resultobject = comres.data;
-                        bresult.ex = comres.ex;
+                        bresult.Exception = comres.ex;
                         break;
                 }
                 
             }
             else
             {
-                bresult.resultobject = "Type of object cannot be null";
+                bresult.Exception = new NullReferenceException("Type cannot be null.");
             }
             return bresult;
         }

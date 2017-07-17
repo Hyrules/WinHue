@@ -18,7 +18,7 @@ namespace WinHue3.Models
         private Brush _recordbuttoncolor;
         private string _name;
         private string _description;
-
+        private string _id;
 
         public Brush RecordButtonColor
         {
@@ -52,14 +52,22 @@ namespace WinHue3.Models
             set { SetProperty(ref _name,value); }
         }
 
+        public string Id
+        {
+            get { return _id; }
+            set { SetProperty(ref _id,value); }
+        }
+
 
         public HotKeyCreatorModel()
         {
             Name = string.Empty;
             Description = string.Empty;
+            Id = string.Empty;
             Key = default(Key);
             ModifierKeys = default(ModifierKeys);
             RecordButtonColor = new SolidColorBrush() { Color = Color.FromRgb(240, 240, 240) };
+
         }
 
 

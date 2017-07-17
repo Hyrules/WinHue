@@ -1,17 +1,17 @@
-﻿using HueLib2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Microsoft.Build.Framework;
+using HueLib2;
+using HueLib2.Objects.HueObject;
+using log4net;
 using WinHue3.Models;
+using WinHue3.Utils;
 using WinHue3.Validation;
 
 namespace WinHue3.ViewModels
@@ -19,17 +19,17 @@ namespace WinHue3.ViewModels
     
     public class HotKeyCreatorViewModel : ValidatableBindableBase
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private ObservableCollection<HueObject> _listHueObject;
-        private HueObject _selectedHueObject;
+        private ObservableCollection<IHueObject> _listHueObject;
+        private IHueObject _selectedHueObject;
         private CommonProperties _propertyObject;
         private ObservableCollection<HotKey> _listHotKeys;
         private readonly DispatcherTimer _hotkeyrecordTimer;
         private Bridge _bridge;
         private HotKeyCreatorModel _hotKeyModel;
         private HotKey _selectedHotKey;
-        private int _objectypeindex;
+        private Type _objectype;
         private bool _canRecordKeyUp;
         private bool _isGeneric;
 
@@ -41,14 +41,16 @@ namespace WinHue3.ViewModels
             _hotkeyrecordTimer.Interval = new TimeSpan(0, 0, 0, 10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
             ListHotKeys = new ObservableCollection<HotKey>(WinHueSettings.settings.listHotKeys);
-            ObjectTypeIndex = -1;
+            ObjectType = typeof(Light);
         }
 
+        public bool NotGeneric => !_isGeneric;
 
         public void Initialize(Bridge bridge)
         {
             CanRecordKeyUp = false;
-            _bridge = bridge;            
+            _bridge = bridge;
+            FetchHueObject();
         }
 
         public CommonProperties PropertyGridObject
@@ -64,18 +66,19 @@ namespace WinHue3.ViewModels
                 SetProperty(ref _isGeneric, value);
                 PropertyGridObject = value ? new CommonProperties() : null;
                 RaisePropertyChanged("SelectedHueObject");
+                RaisePropertyChanged("NotGeneric");
             }
         }
 
         public string CurrentHotKey => HotKeyModel.Key == default(Key) && HotKeyModel.ModifierKeys == default(ModifierKeys) ? string.Empty : $"{HotKeyModel.ModifierKeys} + {HotKeyModel.Key}";
 
-        public int ObjectTypeIndex
+        public Type ObjectType
         {
-            get { return _objectypeindex; }
+            get { return _objectype; }
             set
             {
-                SetProperty(ref _objectypeindex,value);
-                if (_objectypeindex != -1)
+                SetProperty(ref _objectype,value);
+                if (_objectype != null)
                 {
                     FetchHueObject();
                 }
@@ -98,17 +101,17 @@ namespace WinHue3.ViewModels
         {
             _hotkeyrecordTimer.Start();
             CanRecordKeyUp = true;
-            HotKeyModel.RecordButtonColor = new SolidColorBrush() { Color = Color.FromRgb(255, 0, 0) };
+            HotKeyModel.RecordButtonColor = new SolidColorBrush { Color = Color.FromRgb(255, 0, 0) };
         }
 
-        public ObservableCollection<HueObject> ListHueObject
+        public ObservableCollection<IHueObject> ListHueObject
         {
             get { return _listHueObject; }
             set { SetProperty(ref _listHueObject, value); }
         }
 
         [HotKeySelectedValidation(ErrorMessageResourceName = "Hotkey_SelectObject", ErrorMessageResourceType = typeof(GlobalStrings))]
-        public HueObject SelectedHueObject
+        public IHueObject SelectedHueObject
         {
             get { return _selectedHueObject; }
             set
@@ -129,22 +132,12 @@ namespace WinHue3.ViewModels
                 HotKeyModel.Description = value.Description;
                 HotKeyModel.Key = value.Key;
                 HotKeyModel.ModifierKeys = value.Modifier;
+                HotKeyModel.Id = value.id;
+
                 if (value.objecType != null)
                 {
-                    if (value.objecType == typeof(Light))
-                    {
-                        ObjectTypeIndex = 0;
-                    }
-                    else if (value.objecType == typeof(Group))
-                    {
-                        ObjectTypeIndex = 1;
-                    }
-                    else
-                    {
-                        ObjectTypeIndex = 2;
-                    }
-                    SelectedHueObject = _listHueObject.First(x => x.Id == value.id);
-                   
+                    ObjectType = value.objecType;
+                    SelectedHueObject = ListHueObject.FirstOrDefault(x => x.Id == value.id);                   
 
                 }
                 else
@@ -180,14 +173,15 @@ namespace WinHue3.ViewModels
         private void StopRecording()
         {
             _hotkeyrecordTimer.Stop();
-            HotKeyModel.RecordButtonColor = new SolidColorBrush() { Color = Color.FromRgb(240, 240, 240) };
+            HotKeyModel.RecordButtonColor = new SolidColorBrush { Color = Color.FromRgb(240, 240, 240) };
         }
 
         private void DeleteHotkey()
-        {
+        {           
             ListHotKeys.Remove(SelectedHotKey);
             RaisePropertyChanged("ListHotKeys");
         }
+
 
         private void _hotkeyrecordTimer_Tick(object sender, EventArgs e)
         {
@@ -196,43 +190,38 @@ namespace WinHue3.ViewModels
 
         private void FetchHueObject()
         {
-            if (_objectypeindex == -1)
+            if (ObjectType == null || _bridge == null)
             {
                 ListHueObject = null;
                 return;
             }
 
-            HelperResult hr;
-
-            switch (_objectypeindex)
+           
+            if (ObjectType == typeof(Light))
             {
-                case 0:
-                    hr = HueObjectHelper.GetBridgeLights(_bridge);
-                    if (hr.Success)
-                    {
-                        ListHueObject = new ObservableCollection<HueObject>((List<Light>)hr.Hrobject);
-                    }
-                    break;
-                case 1:
-                    hr = HueObjectHelper.GetBridgeGroups(_bridge);
-                    if (hr.Success)
-                    {
-                        ListHueObject = new ObservableCollection<HueObject>((List<Group>)hr.Hrobject);
-                    }
-                    break;
-                case 2:
-                    hr = HueObjectHelper.GetBridgeScenes(_bridge);
-                    if (hr.Success)
-                    {
-                        ListHueObject = new ObservableCollection<HueObject>((List<Scene>)hr.Hrobject);
-                    }
-                    break;
-                default:
-                    hr = new HelperResult() { Success = false };
-                    break;
+                List<Light> hr = HueObjectHelper.GetBridgeLights(_bridge);
+                if (hr != null)
+                {
+                    ListHueObject = new ObservableCollection<IHueObject>(hr);
+                }   
+
             }
-
-
+            else if (ObjectType == typeof(Group))
+            {
+                List<Group> hr = HueObjectHelper.GetBridgeGroups(_bridge);
+                if (hr != null)
+                {
+                    ListHueObject = new ObservableCollection<IHueObject>(hr);
+                }
+            }
+            else if( ObjectType == typeof(Scene))
+            {
+                List<Scene> hr = HueObjectHelper.GetBridgeScenes(_bridge);
+                if (hr != null)
+                {
+                    ListHueObject = new ObservableCollection<IHueObject>(hr);
+                }
+            }
         }
 
         public bool ValidateHotKeyProperties()
@@ -258,34 +247,20 @@ namespace WinHue3.ViewModels
         {
             if (ValidateHotKeyProperties())
             {
-                HotKey hotkey = new HotKey()
+                HotKey hotkey = new HotKey
                 {
                     Modifier = HotKeyModel.ModifierKeys,
                     Key = HotKeyModel.Key,
                     properties = _propertyObject,
                     Name = HotKeyModel.Name,
-                    Description = HotKeyModel.Description,
+                    Description = HotKeyModel.Description                  
                 };
 
                 if (!IsGeneric)
                 {
                     hotkey.id = SelectedHueObject.Id;
+                    hotkey.objecType = ObjectType;
 
-                    switch (_objectypeindex)
-                    {
-                        case 0:
-                            hotkey.objecType = typeof(Light);
-                            break;
-                        case 1:
-                            hotkey.objecType = typeof(Group);
-                            break;
-                        case 2:
-                            hotkey.objecType = typeof(Scene);
-                            break;
-                        default:
-                            return;
-
-                    }
                 }
 
 
@@ -345,14 +320,16 @@ namespace WinHue3.ViewModels
         {
             SelectedHueObject = null;
             SelectedHotKey = null;
-            ObjectTypeIndex = -1;
+            
+            ObjectType = null;
             PropertyGridObject = null;
             HotKeyModel.Name = string.Empty;
             HotKeyModel.Description = string.Empty;
-            ListHueObject = null;
-            ObjectTypeIndex = -1;
             HotKeyModel.Key = Key.None;
- 
+            HotKeyModel.ModifierKeys = ModifierKeys.None;
+            ListHueObject = null;
+            IsGeneric = false;
+            RaisePropertyChanged("CurrentHotKey");
         }
 
         private bool CanAddHotKey()
@@ -360,9 +337,8 @@ namespace WinHue3.ViewModels
             if (IsGeneric)
                 return HotKeyModel.Name != string.Empty && HotKeyModel.Key != default(Key) &&
                        HotKeyModel.ModifierKeys != default(ModifierKeys);
-            else
-                return HotKeyModel.Name != string.Empty && IsObjectSelected() && HotKeyModel.Key != default(Key) &&
-                       HotKeyModel.ModifierKeys != default(ModifierKeys);
+            return HotKeyModel.Name != string.Empty && IsObjectSelected() && HotKeyModel.Key != default(Key) &&
+                   HotKeyModel.ModifierKeys != default(ModifierKeys);
         }
 
         private bool IsObjectSelected()
@@ -375,9 +351,9 @@ namespace WinHue3.ViewModels
             return !CanRecordKeyUp;
         }
 
-        public ICommand AddHotkeyCommand => new RelayCommand(param => AddHotkey(),(param) => CanAddHotKey());
-        public ICommand RecordHotKeyCommand => new RelayCommand(param => RecordHotKey(), (param) => CanRecord());
-        public ICommand DeleteHotKeyCommand => new RelayCommand(param => DeleteHotkey(), (param)=> IsObjectSelected());
+        public ICommand AddHotkeyCommand => new RelayCommand(param => AddHotkey(),param => CanAddHotKey());
+        public ICommand RecordHotKeyCommand => new RelayCommand(param => RecordHotKey(), param => CanRecord());
+        public ICommand DeleteHotKeyCommand => new RelayCommand(param => DeleteHotkey(), param=> IsObjectSelected());
         public ICommand ClearFieldsCommand => new RelayCommand(param => Clearfields());
 
 

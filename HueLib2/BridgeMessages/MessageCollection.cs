@@ -3,44 +3,23 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using HueLib2.BridgeMessages;
 
 namespace HueLib2
 {
-    public class MessageCollection : Collection<Message>
+    public class MessageCollection : Collection<IMessage> 
     {
         public EventArgs e = null;
-        public MessageCollection()
-        {
-
-        }
-
-        public MessageCollection(IList<Message> list) : base(list)
-        {
-     
-        }
-
-        protected override void ClearItems()
+        public MessageCollection() 
         {
             
-            base.ClearItems();
+
         }
 
-        protected override void RemoveItem(int index)
-        {
-            base.RemoveItem(index);
+        public MessageCollection(IList<IMessage> list) : base(list)
+        { 
+
         }
-
-        protected override void InsertItem(int index, Message item)
-        {
-            base.InsertItem(index, item);
-        }
-
-        protected override void SetItem(int index, Message item)
-        {
-            base.SetItem(index, item);
-        }
-
-
 
         /// <summary>
         /// List the amount of success messages.
@@ -67,7 +46,7 @@ namespace HueLib2
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (Message m in this)
+            foreach (IMessage m in this)
             {
                 sb.AppendLine(m.ToString());
             }

@@ -68,7 +68,7 @@
                         <DataTemplate>
                             <WrapPanel >
                                 <Image Source="{Binding Image}" Height="32" Width="32"/>
-                                <TextBlock Text="{Binding name}"/>
+                                <TextBlock Text="{Binding Name}"/>
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -155,7 +155,7 @@
                         <DataTemplate>
                             <WrapPanel>
                                 <Image Source="{Binding Image}" Width="32" Height="32"/>
-                                <Label Content="{Binding name}"/>
+                                <Label Content="{Binding Name}"/>
                                 <Rectangle Grid.Row="0" Height="22" Width="22" Fill="Transparent" x:Name="sampleColor"/>
 
                             </WrapPanel>

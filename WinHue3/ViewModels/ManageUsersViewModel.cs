@@ -62,10 +62,10 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _bridge, value);
-                CommandResult cr = _bridge.GetUserList();
+                CommandResult<Dictionary<string,Whitelist>> cr = _bridge.GetUserList();
                 if (cr.Success)
                 {
-                    Dictionary<string, Whitelist> list = (Dictionary<string, Whitelist>) cr.resultobject;
+                    Dictionary<string, Whitelist> list = cr.Data;
 
                     foreach (var item in list)
                     {
@@ -90,7 +90,7 @@ namespace WinHue3.ViewModels
 
         private void Delete()
         {
-            CommandResult cr = _bridge.RemoveUser(UsersModel.Key);
+            CommandResult<bool> cr = _bridge.RemoveUser(UsersModel.Key);
             if (cr.Success)
             {
                 ListUsers.Remove(SelectedUser);
@@ -108,13 +108,13 @@ namespace WinHue3.ViewModels
         private void AddUser()
         {
             string uname = UsersModel.Devtype != string.Empty ? UsersModel.ApplicationName + "#" + UsersModel.Devtype : UsersModel.ApplicationName;
-            CommandResult cr = _bridge.CreateUser(uname);
+            CommandResult<string> cr = _bridge.CreateUser(uname);
             if (cr.Success)
             {
                 Whitelist newitem = new Whitelist
                 {
                     Name = uname,
-                    id = cr.resultobject.ToString(),
+                    id = cr.Data,
                     CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
                 };
                 ListUsers.Add(newitem);

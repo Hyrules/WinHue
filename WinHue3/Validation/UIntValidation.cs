@@ -17,7 +17,7 @@ namespace WinHue3.Validation
             {
                 System.Convert.ToUInt16(value);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new ValidationResult(ErrorMessageString);
             }

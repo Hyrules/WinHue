@@ -9,10 +9,12 @@ using HueLib2;
 using Action = HueLib2.Action;
 using MessageBox = System.Windows.MessageBox;
 using System.ComponentModel;
+using HueLib2.Objects.HueObject;
 using WinHue3.Models;
+using WinHue3.ViewModels.RuleCreatorViewModels;
 using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.ViewModels.RuleCreatorViewModels
 {
     public class RuleCreatorViewModelOld : ValidatableBindableBase
     {
@@ -31,7 +33,7 @@ namespace WinHue3.ViewModels
             _ruleActionViewModel = new RuleActionViewModel();
         }
 
-        public void Initialize(List<HueObject> listObjects)
+        public void Initialize(List<IHueObject> listObjects)
         {
             
             _rule = new Rule();
@@ -39,7 +41,7 @@ namespace WinHue3.ViewModels
             RuleActionViewModel.ListDataStore.Add(new Sensor()
             {
                 Id = "config",
-                name = "config",
+                Name = "config",
                 state = new TimeSensorState()
             });
             RuleConditionViewModel.ListSensors.AddRange(listObjects.OfType<Light>().ToList());
@@ -47,18 +49,18 @@ namespace WinHue3.ViewModels
             RuleConditionViewModel.ListSensors.AddRange(listObjects.OfType<Sensor>().ToList());
         }
 
-        public void Initialize(List<HueObject> listObjects, Rule modifiedRule)
+        public void Initialize(List<IHueObject> listObjects, Rule modifiedRule)
         {
             _rule = modifiedRule;
             RuleActionViewModel.ListDataStore = listObjects;
             RuleActionViewModel.ListDataStore.Add(new Sensor()
             {
                 Id = "config",
-                name = "config",
+                Name = "config",
                 state = new TimeSensorState()            
             });
 
-            RuleCreatorModel.Name = _rule.name;
+            RuleCreatorModel.Name = _rule.Name;
             RuleCreatorModel.RuleEnabled = _rule.status;
             RuleConditionViewModel.ListSensors = listObjects.ToList();
             RuleConditionViewModel.ListConditions = new ObservableCollection<RuleCondition>(_rule.conditions);
@@ -93,7 +95,7 @@ namespace WinHue3.ViewModels
 
         public Rule GetRule()
         {
-            _rule.name = RuleCreatorModel.Name;
+            _rule.Name = RuleCreatorModel.Name;
             _rule.status = RuleCreatorModel.RuleEnabled;
             _rule.conditions = new List<RuleCondition>(RuleConditionViewModel.ListConditions);
             _rule.actions = new List<RuleAction>(RuleActionViewModel.ListActions);

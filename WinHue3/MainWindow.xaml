@@ -11,6 +11,7 @@
         xmlns:converters="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:th="clr-namespace:WinHue3.Utils"
+        xmlns:models="clr-namespace:WinHue3.Models"
         x:Class="WinHue3.MainWindow"
         Title="WinHue 3" Height="768" Width="1171.022" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
     <Window.DataContext>
@@ -19,7 +20,6 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
-        <converters:IndexToSortConverter x:Key="IndexToSortConverter"/>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
         <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
             <Setter Property="TextWrapping" Value="NoWrap"/>
@@ -109,10 +109,10 @@
                 <RibbonGroup x:Name="rgViewSort" Width="auto" Header="{x:Static resx:GUI.MainForm_Tab_View_Sorting}">
                     <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Label Content="Sorting"/>
-                        <controls:CommandComboBox x:Name="rbcSorting" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedIndex="{Binding MainFormModel.Sort, Converter={StaticResource IndexToSortConverter}}" Command="{Binding SortListViewCommand}">
-                            <ComboBoxItem Content="Defaut"/>
-                            <ComboBoxItem Content="Ascending"/>
-                            <ComboBoxItem Content="Descending"/>
+                        <controls:CommandComboBox x:Name="rbcSorting" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedValue="{Binding MainFormModel.Sort}" SelectedValuePath="Tag"  Command="{Binding SortListViewCommand}">
+                            <ComboBoxItem Content="Defaut" Tag="{x:Static models:WinHueSortOrder.Default}"/>
+                            <ComboBoxItem Content="Ascending" Tag="{x:Static models:WinHueSortOrder.Ascending}"/>
+                            <ComboBoxItem Content="Descending" Tag="{x:Static models:WinHueSortOrder.Descending}"/>
                         </controls:CommandComboBox>
                     </WrapPanel>
                 </RibbonGroup>
@@ -126,9 +126,24 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <StatusBar x:Name="sbStatusBar" Height="28" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch">
+        <StatusBar x:Name="sbStatusBar" Height="28" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <ComboBox x:Name="cbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" Visibility="{Binding MultiBridgeCB}" Width="200"/>
-            <TextBlock x:Name="lblSBMessage" Text="{Binding Lastmessage}" Width="806" HorizontalAlignment="Stretch"/>
+            <TextBlock x:Name="lblSBMessage" Text="{Binding Lastmessage}" Width="800" HorizontalAlignment="Stretch"/>
+            <Label Width="16" Height="16">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Background" Value="Yellow"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HotkeyDetected}" Value="True">
+                                <Setter Property="Background" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding HotkeyDetected}" Value="{x:Null}">
+                                <Setter Property="Background" Value="Red"/> 
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
         </StatusBar>
         <Grid Width="{Binding Parent.ActualWidth, RelativeSource={RelativeSource Mode=Self}}">
             <Grid.ColumnDefinitions>
@@ -201,7 +216,7 @@
                     <DataTemplate>
                         <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock x:Name="tblName" Text="{Binding Name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
                             <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tbWrap}" Visibility="{Binding Path=DataContext.MainFormModel.ShowId, Converter={StaticResource BoolToVisibilityConverter}, ElementName=MainForm}" TextAlignment="Center" FontStyle="Italic" >
                             </TextBlock>
                         </WrapPanel>

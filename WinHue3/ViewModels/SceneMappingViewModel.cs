@@ -82,7 +82,7 @@ namespace WinHue3.ViewModels
 
             if (!WinHueSettings.settings.ShowHiddenScenes)
                 lscenes = _listscenes.Where(
-                        x => x.Value.name.Contains("HIDDEN") == false)
+                        x => x.Value.Name.Contains("HIDDEN") == false)
                     .ToDictionary(p => p.Key, p => p.Value);
             else
                 lscenes = _listscenes;
@@ -98,7 +98,7 @@ namespace WinHue3.ViewModels
             // Add all light columns
             foreach (KeyValuePair<string, Light> kvp in llights)
             {
-                dt.Columns.Add(kvp.Value.name);
+                dt.Columns.Add(kvp.Value.Name);
             }
 
             dt.Columns.Add("Locked");
@@ -112,7 +112,7 @@ namespace WinHue3.ViewModels
                 object[] data = new object[llights.Count + 5];
 
                 data[0] = new string(svp.Key.ToCharArray());
-                data[1] = new string(svp.Value.name.ToCharArray());
+                data[1] = new string(svp.Value.Name.ToCharArray());
                 int i = 2;
                 foreach (KeyValuePair<string, Light> lvp in llights)
                 {

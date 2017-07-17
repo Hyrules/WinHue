@@ -28,11 +28,11 @@ namespace WinHue3
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             Sensor sensor = _scvm.Sensor;
-            CommandResult comres;
+            CommandResult<MessageCollection> comres;
             if (modifiedsensor == null)
             {
                 comres = _bridge.CreateObject<Sensor>(sensor);
-                MessageCollection mc = (MessageCollection) comres.resultobject;
+                MessageCollection mc = (MessageCollection) comres.Data;
                 modifiedsensor = new Sensor() {Id = ((CreationSuccess)mc[0]).id};
             }
             else

@@ -12,8 +12,8 @@ namespace WinHue3.ViewModels
 {
     public class GroupViewViewModel : ValidatableBindableBase
     {
-        private Dictionary<string, Group> _groups;
-        private Dictionary<string, Light> _lights;
+        private List<Group> _groups;
+        private List<Light> _lights;
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
@@ -23,7 +23,7 @@ namespace WinHue3.ViewModels
 
         }
 
-        public void Initialize(Dictionary<string, Group> groups, Dictionary<string, Light> lights)
+        public void Initialize(List<Group> groups, List<Light> lights)
         {
             _groups = groups;
             _lights = lights;
@@ -51,18 +51,16 @@ namespace WinHue3.ViewModels
 
         private void BuildGroupView()
         {
-            Dictionary<string, Group> lgroups = _groups;
-            Dictionary<string, Light> llights = _lights;
+            List<Group> lgroups = _groups;
+            List<Light> llights = _lights;
             if (lgroups == null) return;
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Properties");
-            foreach (KeyValuePair<string,Group> gvp in lgroups)
+            foreach (Group gvp in lgroups)
             {
-                dt.Columns.Add(gvp.Value.name);
+                dt.Columns.Add(gvp.Name);
             }
-
-
 
             PropertyInfo[] listproperties = typeof(Group).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             PropertyInfo[] listaction = typeof(Action).GetProperties();
@@ -74,14 +72,14 @@ namespace WinHue3.ViewModels
             object[] data = new object[lgroups.Count+1];
 
             
-            foreach (KeyValuePair<string, Light> lvp in llights)
+            foreach (Light l in llights)
             {
                 int i = 0;
-                data[i] = lvp.Value.name;
+                data[i] = l.Name;
                 i++;
-                foreach (KeyValuePair<string, Group> gvp in lgroups)
+                foreach (Group g in lgroups)
                 {
-                    if (gvp.Value.lights.Contains(lvp.Key))
+                    if (g.lights.Contains(l.Id))
                         data[i] = "Assigned";
                     else
                     {
@@ -96,20 +94,20 @@ namespace WinHue3.ViewModels
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights") continue;
+                if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights" || pi.Name == "Image") continue;
 
                 int i = 1;
                 data[0] = pi.Name;
 
-                foreach (KeyValuePair<string, Group> gvp in lgroups)
+                foreach (Group g in lgroups)
                 {
                     if (Array.Find(listaction,x => x.Name == pi.Name) != null)
                     {
-                        data[i] = pi.GetValue(gvp.Value.action);
+                        data[i] = pi.GetValue(g.action);
                     }
                     else
                     {
-                        data[i] = pi.GetValue(gvp.Value);
+                        data[i] = pi.GetValue(g);
                     }
                     
                     i++;
@@ -124,8 +122,8 @@ namespace WinHue3.ViewModels
 
         private void BuildGroupViewReverse()
         {
-            Dictionary<string, Group> lgroups = _groups;
-            Dictionary<string, Light> llights = _lights;
+            List<Group> lgroups = _groups;
+            List<Light> llights = _lights;
             if (lgroups == null) return;
             DataTable dt = new DataTable();
             dt.Columns.Add("Groups");
@@ -137,14 +135,14 @@ namespace WinHue3.ViewModels
             listproperties.CopyTo(listPropertyInfos, 0);
             liststate.CopyTo(listPropertyInfos, listproperties.Length);
 
-            foreach (KeyValuePair<string, Light> lvp in llights)
+            foreach (Light l in llights)
             {
-                dt.Columns.Add(lvp.Value.name);
+                dt.Columns.Add(l.Name);
             }
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights") continue;
+                if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights" || pi.Name == "Image") continue;
                 dt.Columns.Add(pi.Name);
             }
 
@@ -152,14 +150,14 @@ namespace WinHue3.ViewModels
 
             object[] data = new object[nbrcol];
 
-            foreach (KeyValuePair<string,Group> gvp in lgroups)
+            foreach (Group gvp in lgroups)
             {
                 int i = 1;
-                data[0] = gvp.Value.name;
+                data[0] = gvp.Name;
 
-                foreach (KeyValuePair<string, Light> lvp in llights)
+                foreach (Light l in llights)
                 {
-                    if (gvp.Value.lights.Contains(lvp.Key))
+                    if (gvp.lights.Contains(l.Id))
                         data[i] = "Assigned";
                     else
                         data[i] = "";
@@ -168,15 +166,15 @@ namespace WinHue3.ViewModels
 
                 foreach (PropertyInfo pi in listPropertyInfos)
                 {
-                    if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights") continue;
+                    if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights" || pi.Name == "Image") continue;
 
                     if (Array.Find(liststate, x => x.Name == pi.Name) != null)
                     {
-                        data[i] = pi.GetValue(gvp.Value.action);
+                        data[i] = pi.GetValue(gvp.action);
                     }
                     else
                     {
-                        data[i] = pi.GetValue(gvp.Value);
+                        data[i] = pi.GetValue(gvp);
                     }
                     i++;
 

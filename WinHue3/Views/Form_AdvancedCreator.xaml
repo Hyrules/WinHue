@@ -10,41 +10,56 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="WinHue3.Views.Form_AdvancedCreator"
         xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:hueLib2="clr-namespace:HueLib2;assembly=HueLib2"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner" Name="Window">
     <Window.DataContext>
         <viewModels:AdvancedCreatorViewModel/>
     </Window.DataContext>
-    <DockPanel x:Name="DockPanel" Margin="0,0,0.333,0" LastChildFill="False">
-        <Ribbon x:Name="ribbon" Margin="0,0,0.667,359.333" DockPanel.Dock="Top" VerticalAlignment="Top" >
+    <Grid x:Name="DockPanel">
+        <Ribbon x:Name="ribbon" Width="auto">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu>
-                    <RibbonApplicationMenuItem Header="Close"/>
+                    <RibbonApplicationMenuItem Header="Close" Click="RibbonApplicationMenuItem_Click"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Templates" Margin="0,0,-0.333,-0.333">
-                <RibbonGroup Header="Templates">
-                    <RibbonButton Label="Rule Template" LargeImageSource="/WinHue3;component/Resources/rules.png" Command="{Binding CreateRuleTemplateCommand}"  />
-                    <RibbonButton Label="Sensor Template" LargeImageSource="/WinHue3;component/Resources/sensor.png" Command="{Binding CreateSensorTemplateCommand}" />
-                    <RibbonButton Label="Resource Link Template" LargeImageSource="/WinHue3;component/Resources/resource.png" Command="{Binding CreateResourceLinkTemplateCommand }" />
-                    <RibbonButton Label="Group Template" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" Command="{Binding CreateGroupTemplateCommand}" />
-                    <RibbonButton Label="Schedule Template" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
+            <RibbonTab Header="{x:Static resx:GUI.Form_AdvancedCreator_Templates}" >
+                <RibbonGroup Header="{x:Static resx:GUI.Form_AdvancedCreator_Templates}">
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_RuleTemplate}" LargeImageSource="/WinHue3;component/Resources/rules.png" Command="{Binding CreateRuleTemplateCommand}"  />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SensorTemplate}" LargeImageSource="/WinHue3;component/Resources/sensor.png" Command="{Binding CreateSensorTemplateCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_ResourceLinkTemplate}" LargeImageSource="/WinHue3;component/Resources/resource.png" Command="{Binding CreateResourceLinkTemplateCommand }" />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_GroupTemplate}" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" Command="{Binding CreateGroupTemplateCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_ScheduleTemplate}" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneTemplate}" LargeImageSource="/WinHue3;component/Resources/1486263478_movie-01.png" Command="{Binding CreateSceneTemplateCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneLightTemplate}" LargeImageSource="/WinHue3;component/Resources/1486263478_movie-01.png" Command="{Binding CreateSceneStateCommand}" />
                 </RibbonGroup>
-                <RibbonGroup Header="Actions">
-                    <RibbonButton Label="Clear" LargeImageSource="/WinHue3;component/Resources/1493782199_draft.png" Command="{Binding ClearTemplateCommand}"/>
-                    <RibbonButton Label="Send" LargeImageSource="/WinHue3;component/Resources/bridge.png"  />
+                <RibbonGroup Header="{x:Static resx:GUI.Form_AdvancedCreator_Actions}">
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_Clear}" LargeImageSource="/WinHue3;component/Resources/1493782199_draft.png" Command="{Binding ClearTemplateCommand}"/>
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_Send}" LargeImageSource="/WinHue3;component/Resources/bridge.png" Command="{Binding SendCommand}" />
                 </RibbonGroup>
-            </RibbonTab>
-        </Ribbon>
 
-        <StatusBar Height="28" VerticalAlignment="Top" Width="auto" DockPanel.Dock="Bottom" Margin="0,0,0,0" />
-        <avalonedit:TextEditor Margin="0,-359.667,0,-0.333" Width="{Binding ElementName=DockPanel, Path=ActualWidth}" ShowLineNumbers="True">
+            </RibbonTab>
+
+        </Ribbon>
+        <Button Margin="0,137,0,0" Command="{Binding SetBridgeUrlCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Width="29" Height="29" VerticalAlignment="Top">
+            <Button.Content>
+                <Image Source="/WinHue3;component/Resources/bridge.png" HorizontalAlignment="Left" Width="22"  Margin="2,0,0,-0.333" Height="23" VerticalAlignment="Top"/>
+            </Button.Content>
+        </Button>
+
+        <xctk:WatermarkTextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="29,138,99.333,0" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}" />
+        <ComboBox Margin="0,138,0.333,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content">
+            <ComboBoxItem Content="POST" Tag="{x:Static hueLib2:WebRequestType.POST}"/>
+            <ComboBoxItem Content="PUT" Tag="{x:Static hueLib2:WebRequestType.PUT}"/>
+            <ComboBoxItem Content="DELETE" Tag="{x:Static hueLib2:WebRequestType.DELETE}"/>
+            <ComboBoxItem Content="GET" Tag="{x:Static hueLib2:WebRequestType.GET}"/>
+        </ComboBox>
+        <avalonedit:TextEditor ShowLineNumbers="True" Margin="0,166,0.333,-0.333" >
             <i:Interaction.Behaviors>
                 <controls:AvalonEditBehaviour  EditorText="{Binding Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </i:Interaction.Behaviors>
-        </avalonedit:TextEditor> 
+        </avalonedit:TextEditor>
+    </Grid>
 
-
-    </DockPanel>
 </Window>
 

@@ -31,11 +31,11 @@ namespace WinHue3.ViewModels
             set
             {
                 _bridge = value;
-                CommandResult cr = _bridge.GetBridgeSettings();
+                CommandResult<BridgeSettings> cr = _bridge.GetBridgeSettings();
                 if(cr.Success)
                 {
                     //****** General Pane **********
-                    BridgeSettings brs = (BridgeSettings)cr.resultobject;
+                    BridgeSettings brs = cr.Data;
                     GeneralModel.Apiversion = brs.apiversion;
                     GeneralModel.Linkstate = brs.linkbutton == true ? GlobalStrings.Link_Pressed : GlobalStrings.Link_Not_Pressed;
                     GeneralModel.Localtime = brs.localtime;
@@ -44,10 +44,10 @@ namespace WinHue3.ViewModels
                     GeneralModel.Zigbeechannel = brs.zigbeechannel.ToString();
                     GeneralModel.Utc = brs.UTC;
 
-                    CommandResult tz = _bridge.GetTimeZones();
+                    CommandResult<List<string>> tz = _bridge.GetTimeZones();
                     if(tz.Success)
                     {
-                        GeneralModel.ListTimeZones = (List<string>)tz.resultobject;
+                        GeneralModel.ListTimeZones = tz.Data;
                         GeneralModel.Timezone = brs.timezone;
                     }
 
@@ -123,7 +123,7 @@ namespace WinHue3.ViewModels
 
         private void ApplyNetworkSettings()
         {
-            CommandResult cr = _bridge.SetBridgeSettings(new BridgeSettings()
+            CommandResult<MessageCollection> cr = _bridge.SetBridgeSettings(new BridgeSettings()
             {
                 dhcp = NetworkModel.Dhcp,
                 ipaddress = NetworkModel.Ip,
@@ -144,7 +144,7 @@ namespace WinHue3.ViewModels
 
         private void ApplyGeneralSettings()
         {
-            CommandResult cr = _bridge.ChangeBridgeName(GeneralModel.Name);
+            CommandResult<MessageCollection> cr = _bridge.ChangeBridgeName(GeneralModel.Name);
             if (!cr.Success)
                 MessageBoxError.ShowLastErrorMessages(_bridge);
 

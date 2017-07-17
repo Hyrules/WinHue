@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using WinHue3.Resources;
 
 namespace WinHue3
@@ -20,8 +21,8 @@ namespace WinHue3
         public override object GroupNameFromItem(object item, int level, CultureInfo culture)
         {
             if (item == null) return GUI.ListView_Other;
-            if(item.GetType().BaseType == typeof(HueObject)) return GUI.ResourceManager.GetString("ListView_" + item.GetType().Name);
-            return GUI.ResourceManager.GetString("ListView_" + item.GetType().BaseType.Name);
+            if(item.GetType() == typeof(IHueObject)) return GUI.ResourceManager.GetString("ListView_" + item.GetType().Name);
+            return GUI.ResourceManager.GetString("ListView_" + item.GetType().Name);
 
         }
     }

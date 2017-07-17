@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Windows.Media;
+using HueLib2.Objects.HueObject;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -11,14 +14,32 @@ namespace HueLib2
     /// Scene Class.
     /// </summary>
     [DataContract, Serializable]
-    public class Scene : HueObject
+    public class Scene : IHueObject
     {
         private string _name;
+        private ImageSource _image;
+
+        /// <summary>
+        /// Image of the rule.
+        /// </summary>
+        [DataMember, Category("Scene Properties"), Description("Image of the Scene"),  ReadOnly(true), Browsable(false)]
+        public ImageSource Image
+        {
+            get { return _image; }
+            set { _image = value; OnPropertyChanged(); }
+        }
+
+        /// <summary>
+        /// ID of the rule.
+        /// </summary>
+        [DataMember, Category("Scene Properties"), Description("ID of the Scene"), ReadOnly(true), Browsable(false)]
+        public string Id { get; set; }
+
         /// <summary>
         /// Name of the scene.
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("Name of the scene")]
-        public string name
+        [DataMember(Name="name"), Category("Scene Properties"), Description("Name of the scene")]
+        public string Name
         {
             get { return _name; }
             set
@@ -102,5 +123,23 @@ namespace HueLib2
 
         }
 
+        /// <summary>
+        /// Event that happen when property has change.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// When a property has change this event is triggered - needed for the binding to refresh properly.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using WinHue3.Resources;
+using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
 {
@@ -17,7 +19,7 @@ namespace WinHue3.ViewModels
     {
         private Form_EventLog _eventlogform;
         private ObservableCollection<Bridge> _listBridges;
-        private HueObject _selectedObject;
+        private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
 
@@ -33,7 +35,9 @@ namespace WinHue3.ViewModels
             }
         }
 
-        public ObservableCollection<HueObject> ListBridgeObjects
+        public bool CanRunTempPlugin => UacHelper.IsProcessElevated;
+
+        public ObservableCollection<IHueObject> ListBridgeObjects
         {
             get { return _listBridgeObjects; }
             set { SetProperty(ref _listBridgeObjects, value); RaisePropertyChanged("MultiBridgeCB");}
@@ -51,7 +55,7 @@ namespace WinHue3.ViewModels
             set { SetProperty(ref _listBridges,value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
-        public HueObject SelectedObject
+        public IHueObject SelectedObject
         {
             get { return _selectedObject; }
             set
@@ -61,9 +65,9 @@ namespace WinHue3.ViewModels
                 {
                     MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
                     MethodInfo generic = mi.MakeGenericMethod(value.GetType());
-                    HelperResult hr = (HelperResult)generic.Invoke(SelectedBridge, new object[] {SelectedBridge, value.Id });
-                    if (!hr.Success) return;
-                    _selectedObject = (HueObject)hr.Hrobject;
+                    IHueObject hr = (IHueObject)generic.Invoke(SelectedBridge, new object[] {SelectedBridge, value.Id});
+                    if (hr != null) return;
+                    _selectedObject = hr;
                 }
                 SetMainFormModel();
             }
@@ -127,9 +131,9 @@ namespace WinHue3.ViewModels
             {
                 if(SelectedBridge == null) return Visibility.Collapsed;
                
-                CommandResult cr = SelectedBridge.GetBridgeSettings();
+                CommandResult<BridgeSettings> cr = SelectedBridge.GetBridgeSettings();
                 if (!cr.Success) return Visibility.Collapsed;
-                BridgeSettings brs = (BridgeSettings) cr.resultobject;
+                BridgeSettings brs = cr.Data;
                 return brs.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
         }

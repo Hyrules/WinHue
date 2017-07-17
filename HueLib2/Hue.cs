@@ -61,10 +61,10 @@ namespace HueLib2
                     {
                         if (!dev.ModelName.Contains("Philips hue bridge")) continue;
 
-                        CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
+                        CommandResult<BasicConfig> bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.RootHostName));
                         if (bresult.Success)
                         {
-                            newdetectedBridge.Add(dev.RootHostName, (BasicConfig)bresult.resultobject);
+                            newdetectedBridge.Add(dev.RootHostName, bresult.Data);
                         }
 
                     }
@@ -89,10 +89,10 @@ namespace HueLib2
                         foreach (Device dev in portalDevices)
                         {
                             if (newdetectedBridge.ContainsKey(dev.internalipaddress)) continue;
-                            CommandResult bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.internalipaddress));
+                            CommandResult<BasicConfig> bresult = GetBridgeBasicConfig(IPAddress.Parse(dev.internalipaddress));
                             if (bresult.Success)
                             {
-                                newdetectedBridge.Add(dev.internalipaddress, (BasicConfig) bresult.resultobject);
+                                newdetectedBridge.Add(dev.internalipaddress, (BasicConfig) bresult.Data);
                             }
                             
                         }
@@ -293,9 +293,9 @@ namespace HueLib2
         /// </summary>
         /// <param name="BridgeIP">IP Address of the bridge.</param>
         /// <returns>The basic configuration of the bridge.</returns>
-        public static CommandResult GetBridgeBasicConfig(IPAddress BridgeIP)
+        public static CommandResult<BasicConfig> GetBridgeBasicConfig(IPAddress BridgeIP)
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult<BasicConfig> bresult = new CommandResult<BasicConfig>() {Success = false};
 
             CommResult comres = Communication.SendRequest(new Uri($@"http://{BridgeIP}/api/config"), WebRequestType.GET);
 
@@ -306,16 +306,17 @@ namespace HueLib2
                     if (config != null)
                     {
                         bresult.Success = true;
-                        bresult.resultobject = config;
+                        bresult.Data = config;
                     }
-                    else
-                    {
-                        bresult.resultobject = comres.status;
-                    }
-                    
+                    break;
+                case WebExceptionStatus.Timeout:
+                    bresult.Exception = new System.TimeoutException("Connexion timout !");
+                    break;
+                case WebExceptionStatus.UnknownError:
+                    bresult.Exception = new Exception("Unknown error !");
                     break;
                 default:
-                    bresult.resultobject = comres.status;
+                    bresult.Exception = new Exception("Other Exception !");
                     break;
             }
 

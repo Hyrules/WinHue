@@ -2,9 +2,12 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using WinHue3.Resources;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
+using WinHue3.ViewModels.RuleCreatorViewModels;
 
 namespace WinHue3
 {
@@ -28,11 +31,11 @@ namespace WinHue3
             _br = bridge;
             _rcv = DataContext as RuleCreatorViewModelOld;
 
-            HelperResult hr = HueObjectHelper.GetBridgeDataStore(bridge);
-            if (hr.Success)
+            List<IHueObject> hr = HueObjectHelper.GetBridgeDataStore(bridge);
+            if (hr != null)
             {
 
-                _rcv.Initialize((List<HueObject>)hr.Hrobject);
+                _rcv.Initialize(hr);
             }
             else
             {
@@ -47,11 +50,11 @@ namespace WinHue3
             _br = bridge;
             _rcv = DataContext as RuleCreatorViewModelOld;
 
-            HelperResult hr = HueObjectHelper.GetBridgeDataStore(bridge);
+            List<IHueObject> hr = HueObjectHelper.GetBridgeDataStore(bridge);
 
-            if (hr.Success)
+            if (hr != null)
             {
-                _rcv.Initialize((List<HueObject>)hr.Hrobject, rule);
+                _rcv.Initialize(hr, rule);
 
             }
             else
@@ -61,7 +64,7 @@ namespace WinHue3
 
             _editedRule = (Rule)rule;
             id = _editedRule.Id;
-            Title = $"{GUI.RuleCreatorForm_Editing} {((Rule)rule).name}...";
+            Title = $"{GUI.RuleCreatorForm_Editing} {((Rule)rule).Name}...";
             btnCreateRule.Content = GUI.RuleCreatorForm_Update;
         }
 
@@ -73,7 +76,7 @@ namespace WinHue3
         private void btnCreateRule_Click(object sender, RoutedEventArgs e)
         {
             Rule newRule = _rcv.GetRule();
-            CommandResult comres;
+            CommandResult<MessageCollection> comres;
 
             if (_editedRule == null)
             {
@@ -87,14 +90,14 @@ namespace WinHue3
 
             if (comres.Success)
             {
-                log.Info(_editedRule == null ? $"Created new rule : {newRule.name}" : $"Updated rule : {newRule.name}");
-                if (((MessageCollection) comres.resultobject)[0] is CreationSuccess)
+                log.Info(_editedRule == null ? $"Created new rule : {newRule.Name}" : $"Updated rule : {newRule.Name}");
+                if (comres.Data[0] is CreationSuccess)
                 {
-                    id = ((CreationSuccess)((MessageCollection)comres.resultobject)[0]).id;
+                    id = ((CreationSuccess)comres.Data[0]).id;
                 }
                 else
                 {
-                    id = ((Success)((MessageCollection)comres.resultobject)[0]).id;
+                    id = ((Success)comres.Data[0]).id;
                 }
                
                 DialogResult = true;

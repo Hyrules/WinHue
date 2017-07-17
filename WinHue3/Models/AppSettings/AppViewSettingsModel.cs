@@ -9,19 +9,19 @@ namespace WinHue3.Models.AppSettings
 {
     public class AppViewSettingsModel : ValidatableBindableBase
     {
-        private MainFormModel.WinHueSortOrder _sort;
+        private WinHueSortOrder _sort;
         private bool _showId;
         private bool _wrap;
 
         public AppViewSettingsModel()
         {
-            Sort = MainFormModel.WinHueSortOrder.Default;
+            Sort = WinHueSortOrder.Default;
             ShowId = false;
             Wrap = false;
         }
 
 
-        public MainFormModel.WinHueSortOrder Sort
+        public WinHueSortOrder Sort
         {
             get { return _sort; }
             set { SetProperty(ref _sort,value); }

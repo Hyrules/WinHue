@@ -529,7 +529,7 @@
     <value>Rule not found. Please make sure that the rule still exists.</value>
   </data>
   <data name="Rule_NotProperFormat" xml:space="preserve">
-    <value>The value is not of the proper format for the type :</value>
+    <value>The value is not of the proper format for the type : {0}</value>
   </data>
   <data name="Rule_OriginalObjectNotFound" xml:space="preserve">
     <value>The original object of this rule was not found. Please make sure the object still exists in the bridge and try again.</value>
@@ -719,5 +719,14 @@
   </data>
   <data name="RssFeedMonitor_CriteriaAlreadyExists" xml:space="preserve">
     <value>This criteria already exists. Replace ?</value>
+  </data>
+  <data name="InvalidString" xml:space="preserve">
+    <value>Entered string is not valid</value>
+  </data>
+  <data name="AdvancedCreator_ObjectCreated" xml:space="preserve">
+    <value>Object created successfully !</value>
+  </data>
+  <data name="AdvancedCreator_WarningDelete" xml:space="preserve">
+    <value>Sending a delete request will mostlikely delete the specified object. Delete ?</value>
   </data>
 </root>

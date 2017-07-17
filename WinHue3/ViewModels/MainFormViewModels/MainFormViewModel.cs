@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using WinHue3.Models;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -20,7 +21,7 @@ namespace WinHue3.ViewModels
     public partial class MainFormViewModel : ValidatableBindableBase
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private ObservableCollection<HueObject> _listBridgeObjects;
+        private ObservableCollection<IHueObject> _listBridgeObjects;
         private readonly DispatcherTimer _findlighttimer = new DispatcherTimer();
         private readonly DispatcherTimer _findsensortimer = new DispatcherTimer();
         private readonly List<HotKeyHandle> _lhk;
@@ -28,11 +29,20 @@ namespace WinHue3.ViewModels
         private string _lastmessage = string.Empty;
         private MainFormModel _mainFormModel;
         private CpuTempMonitor _ctm;
+        private DispatcherTimer _ledTimer;
+        private bool _hotkeyDetected;
+
         public MainFormViewModel()
         {
-
+            _ledTimer = new DispatcherTimer()
+            {
+                Interval = new TimeSpan(0, 0, 0, 2)
+                
+            };
+            _hotkeyDetected = false;
+            _ledTimer.Tick += _ledTimer_Tick;
             _lhk = new List<HotKeyHandle>();
-            _listBridgeObjects = new ObservableCollection<HueObject>();
+            _listBridgeObjects = new ObservableCollection<IHueObject>();
             _listBridges = new ObservableCollection<Bridge>();
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;
@@ -46,12 +56,25 @@ namespace WinHue3.ViewModels
             MainFormModel.Sort = WinHueSettings.settings.Sort;
             MainFormModel.ShowId = WinHueSettings.settings.ShowID;
             MainFormModel.WrapText = WinHueSettings.settings.WrapText;
+
+        }
+
+        private void _ledTimer_Tick(object sender, EventArgs e)
+        {
+            _ledTimer.Stop();
+            HotkeyDetected = false;
         }
 
         public MainFormModel MainFormModel
         {
             get { return _mainFormModel; }
             set { SetProperty(ref _mainFormModel,value); }
+        }
+
+        public bool HotkeyDetected
+        {
+            get { return _hotkeyDetected; }
+            set { SetProperty(ref _hotkeyDetected,value); }
         }
 
         private bool CheckBridge(Bridge bridge)
@@ -155,7 +178,6 @@ namespace WinHue3.ViewModels
                                 SelectedBridge = br;
                                 SelectedBridge.ForceCheckForUpdate();
                             }
-                            continue;
                         }
                         else
                         {

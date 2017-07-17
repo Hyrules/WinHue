@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using HueLib2;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
+using HueLib2.BridgeMessages;
+using HueLib2.Objects.HueObject;
 
 namespace WinHue3
 {
+
     public static class StringExtensionMethods
     {
         /// <summary>
@@ -22,30 +26,54 @@ namespace WinHue3
             }
             return false;
         }
- 
+
+        /// <summary>
+        /// Capitalize the first letter of the string.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string CapitalizeFirstLetter(this string str)
+        {
+            if (String.IsNullOrEmpty(str))
+                throw new ArgumentException("ARGH!");
+            return str.First().ToString().ToUpper() + str.Substring(1);
+        }
+
+        /// <summary>
+        /// Lowercase the first letter of the string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string LowerFirstLetter(this string str)
+        {
+            if (String.IsNullOrEmpty(str))
+                throw new ArgumentException("ARGH!");
+            return str.First().ToString().ToLower() + str.Substring(1);
+        }
     }
 
     public static class ObjectExtensionMethods
     {
+        /// <summary>
+        /// Check if the object has a specified property.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="propertyName">Name of the property to check for.</param>
+        /// <returns></returns>
         public static bool HasProperty(this object obj, string propertyName)
         {
             if (obj == null) return false;
             return obj.GetType().GetProperty(propertyName) != null;
         }
-    }
 
-    public static class HueObjectExtensionMethods
-    {
-        public static string GetName(this HueObject obj)
+        /// <summary>
+        /// Check if the object is nullable
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static bool IsNullable(this object n)
         {
-            return obj.HasProperty("name") ? obj.GetType().GetProperty("name").GetValue(obj).ToString() : "Unknown";
-        }
-
-        public static void SetName(this HueObject obj, string newName)
-        {
-            if (newName == null) return;
-            if (!obj.HasProperty("name")) return;
-            obj.GetType().GetProperty("name").SetValue(obj, newName);
+            return Nullable.GetUnderlyingType(n.GetType()) != null;
         }
     }
 
@@ -55,7 +83,7 @@ namespace WinHue3
         {
             StringBuilder errors = new StringBuilder();
             errors.AppendLine(GlobalStrings.Error_WhileCreatingObject);
-            foreach (Message error in bridge.lastMessages)
+            foreach (IMessage error in bridge.lastMessages)
             {
                 errors.AppendLine("");
                 errors.AppendLine(error.ToString());
@@ -67,6 +95,13 @@ namespace WinHue3
 
     public static class ObservableCollectionExtensionMethods
     {
+        /// <summary>
+        /// Find the index of the object of the specified type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public static int FindIndex<T>(this IEnumerable<T> collection, Func<T, bool> predicate)
         {
             int i = 0;
@@ -79,6 +114,12 @@ namespace WinHue3
             return -1;
         }
 
+        /// <summary>
+        /// Add a range of item to the observablecollection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="oc"></param>
+        /// <param name="collection"></param>
         public static void AddRange<T>(this ObservableCollection<T> oc, IEnumerable<T> collection)
         {
             if (collection == null)
@@ -109,6 +150,23 @@ namespace WinHue3
         }
     }
 
+    public static class DictionaryExtensionMethods
+    {
+        public static List<T> ToHueList<T>(this Dictionary<string, T> dic) where T : IHueObject
+        {
+            List<T> newlist = new List<T>();
+
+            foreach (KeyValuePair<string, T> kvp in dic)
+            {
+                T obj = kvp.Value;
+                obj.Id = kvp.Key;
+                newlist.Add(obj);
+            }
+
+            return newlist;
+        }
+
+    }
 
     /*
     public static class CommonPropertiesExtensionMethods

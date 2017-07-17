@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 
 namespace WinHue3
 {
@@ -52,7 +53,7 @@ namespace WinHue3
 
         }
 
-        private void ApplyMood(HueObject obj,Mood mood)
+        private void ApplyMood(IHueObject obj,Mood mood)
         {
 
     /*        dynamic state;

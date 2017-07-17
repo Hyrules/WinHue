@@ -8,25 +8,26 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using HueLib2.Objects.Rules;
 using WinHue3.Validation;
 using Action = HueLib2.Action;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.ViewModels.RuleCreatorViewModels
 {
     public class RuleActionViewModel : ValidatableBindableBase
     {
         private string _selectedActionType = null;
-        private HueObject _selectedActionObject;
+        private IHueObject _selectedActionObject;
         private PropertyInfo _selectedActionProperty;
         private string _actionPropertyValue = string.Empty;
         private ObservableCollection<KeyValuePair<PropertyInfo, dynamic>> _listActionPropertyInfos;
         private RuleAction _selectedAction;
         private ObservableCollection<RuleAction> _listActions;
         private KeyValuePair<PropertyInfo, dynamic> _selectedProperty;
-        private List<HueObject> _listDataStore;
+        private List<IHueObject> _listDataStore;
         private PropertyInfo[] _listActionProperties;
-        private List<HueObject> _listActionObjects;
+        private List<IHueObject> _listActionObjects;
         private IList<PropertyTreeItem> _listPropTree;
 
         public RuleActionViewModel()
@@ -53,7 +54,7 @@ namespace WinHue3.ViewModels
             set { SetProperty(ref _selectedActionProperty, value); }
         }
 
-        public List<HueObject> ListActionObjects
+        public List<IHueObject> ListActionObjects
         {
             get { return _listActionObjects;}
             set { SetProperty(ref _listActionObjects, value); }
@@ -66,7 +67,7 @@ namespace WinHue3.ViewModels
             set { SetProperty(ref _listActions, value); }
         }
 
-        public List<HueObject> ListDataStore
+        public List<IHueObject> ListDataStore
         {
             get { return _listDataStore; }
             set { SetProperty(ref _listDataStore, value); }
@@ -78,7 +79,7 @@ namespace WinHue3.ViewModels
             set { SetProperty(ref _selectedActionType, value); }
         }
 
-        public HueObject SelectedActionObject
+        public IHueObject SelectedActionObject
         {
             get { return _selectedActionObject; }
             set { SetProperty(ref _selectedActionObject, value); }
@@ -380,19 +381,19 @@ namespace WinHue3.ViewModels
             switch (SelectedActionType)
             {
                 case "lights":
-                    ListActionObjects = ListDataStore.OfType<Light>().ToList<HueObject>();
+                    ListActionObjects = ListDataStore.OfType<Light>().ToList<IHueObject>();
                     break;
                 case "groups":
-                    ListActionObjects = ListDataStore.OfType<Group>().ToList<HueObject>();
+                    ListActionObjects = ListDataStore.OfType<Group>().ToList<IHueObject>();
                     break;
                 case "scenes":
-                    ListActionObjects = ListDataStore.OfType<Scene>().ToList<HueObject>();
+                    ListActionObjects = ListDataStore.OfType<Scene>().ToList<IHueObject>();
                     break;
                 case "sensors":
-                    ListActionObjects = ListDataStore.OfType<Sensor>().ToList<HueObject>();
+                    ListActionObjects = ListDataStore.OfType<Sensor>().ToList<IHueObject>();
                     break;
                 case "schedules":
-                    ListActionObjects = ListDataStore.OfType<Schedule>().ToList<HueObject>();
+                    ListActionObjects = ListDataStore.OfType<Schedule>().ToList<IHueObject>();
                     break;
                 default:
                     break;

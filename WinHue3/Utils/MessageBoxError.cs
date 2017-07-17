@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Windows;
 using HueLib2;
+using HueLib2.BridgeMessages;
 
 namespace WinHue3
 {
@@ -9,7 +10,7 @@ namespace WinHue3
         public static void ShowLastErrorMessages(Bridge bridge)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (Message m in bridge.lastMessages)
+            foreach (IMessage m in bridge.lastMessages)
             {
                 sb.AppendLine(m.ToString());
             }

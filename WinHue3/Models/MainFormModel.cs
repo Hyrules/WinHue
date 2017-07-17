@@ -8,14 +8,16 @@ using System.Windows.Controls;
 
 namespace WinHue3.Models
 {
+    public enum WinHueSortOrder
+    {
+        Default,
+        Ascending,
+        Descending
+    }
+
     public class MainFormModel : ValidatableBindableBase
     {
-        public enum WinHueSortOrder
-        {
-            Default,
-            Ascending,
-            Descending
-        }
+
 
         private byte _sliderBri;
         private ushort _sliderHue;

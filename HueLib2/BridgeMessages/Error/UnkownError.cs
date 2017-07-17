@@ -4,10 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using HueLib2.BridgeMessages;
 
 namespace HueLib2
 {
-    public class UnkownError : Message
+    public class UnkownError : IMessage
     {
         public UnkownError(CommResult comres)
         {

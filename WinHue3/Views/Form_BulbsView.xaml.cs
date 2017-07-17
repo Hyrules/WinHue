@@ -17,9 +17,9 @@ namespace WinHue3
             InitializeComponent();
             _bvv = DataContext as BulbsViewViewModel;
             _bridge = bridge;
-            CommandResult lresult = _bridge.GetListObjects<Light>();
-            if (!lresult.Success) return;
-            _bvv.Initialize((Dictionary<string, Light>)lresult.resultobject);
+            List<Light> lresult = HueObjectHelper.GetObjectsList<Light>(_bridge);
+            if (lresult == null) return;
+            _bvv.Initialize(lresult);
         }
 
     }

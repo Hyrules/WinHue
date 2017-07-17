@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
@@ -11,8 +13,10 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using WinHue3.Converters;
 using WinHue3.Models;
+using WinHue3.Utils;
 using WinHue3.Validation;
 
 namespace WinHue3.ViewModels
@@ -27,6 +31,9 @@ namespace WinHue3.ViewModels
         private string _randomizetime;
         private bool _isedit;
         private bool _cansetsettings = true;
+        private ObservableCollection<IHueObject> _listTarget;
+        private Bridge _bridge;
+        private IHueObject _selectedObject;
 
         public ScheduleCreatorViewModel()
         {
@@ -34,14 +41,50 @@ namespace WinHue3.ViewModels
             _selectedType = "T";
             _smask = 0;
             _randomizetime = string.Empty;
-            
         }
 
+        public void Initialize(Bridge bridge)
+        {
+            _bridge = bridge;
+            ListTarget = new ObservableCollection<IHueObject>();
+            List<IHueObject> listObjects = HueObjectHelper.GetBridgeDataStore(_bridge);
+            
+            if (listObjects != null)
+            {
+                ListTarget.AddRange(listObjects.Where(x => x is Light));
+                ListTarget.AddRange(listObjects.Where(x => x is Group));
+                ListTarget.AddRange(listObjects.Where(x => x is Scene));
+            }
+
+        }
 
         public bool IsEditing
         {
             get { return _isedit; }
-            set { SetProperty(ref _isedit, value); }
+            set { SetProperty(ref _isedit, !value); }
+        }
+
+        public ObservableCollection<IHueObject> ListTarget
+        {
+            get { return _listTarget; }
+            set { SetProperty(ref _listTarget, value); }
+        }
+
+        public IHueObject SelectedObject
+        {
+            get { return _selectedObject; }
+            set
+            {
+                SetProperty(ref _selectedObject, value);
+                if (value == null) return;
+                string id = SelectedObject is Scene ? "0" : SelectedObject.Id;
+                string part = SelectedObject is Light ? "state" : "action";
+                string type = SelectedObject is Scene
+                    ? "groups"
+                    : SelectedObject.GetType().Name.LowerFirstLetter() + "s";
+
+                TargetObject = $"/api/{_bridge.ApiKey}/{type}/{id}/{part}";
+            }
         }
 
         public Schedule Schedule
@@ -51,7 +94,7 @@ namespace WinHue3.ViewModels
                 {
                     
                     description = ScheduleModel.Description,
-                    name = ScheduleModel.Name,
+                    Name = ScheduleModel.Name,
                     status = ScheduleModel.Enabled ? "enabled" : "disabled",
                     command = new Command() {body = new Body()
                     {
@@ -62,8 +105,10 @@ namespace WinHue3.ViewModels
                         ct = ScheduleModel.Ct,
                         
 
-                    },method = "PUT",address = TargetObject},
+                    },
+                    method = "PUT",address = TargetObject},
                     localtime = BuildScheduleLocaltime($"{ScheduleModel.Date} {ScheduleModel.Time}",SelectedType),
+                    
                 };
 
                 if (SelectedType != "T")
@@ -73,7 +118,7 @@ namespace WinHue3.ViewModels
 
                 if (ScheduleModel.Transitiontime != string.Empty)
                 {
-                    schedule.command.body.transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime); ScheduleModel.Transitiontime = null;
+                    schedule.command.body.transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime);
                 }
                 
                 if (schedule.command.body.scene == null)
@@ -92,12 +137,13 @@ namespace WinHue3.ViewModels
                 IsEditing = true;
                 Schedule schedule = value;
                 ScheduleModel.Enabled = schedule.status == "enabled";
-                ScheduleModel.Name = schedule.name;
+                ScheduleModel.Name = schedule.Name;
                 ScheduleModel.Description = schedule.description;
                 ScheduleModel.Bri = schedule.command.body.bri;
                 ScheduleModel.Sat = schedule.command.body.sat;
                 ScheduleModel.Scene = schedule.command.body.scene;
                 ScheduleModel.Autodelete = schedule.autodelete;
+                ScheduleModel.Transitiontime = schedule.command.body.transitiontime.ToString();
 
                 if (schedule.command.body.hue != null)
                     ScheduleModel.Hue = schedule.command.body.hue;
@@ -106,6 +152,12 @@ namespace WinHue3.ViewModels
                     ScheduleModel.Ct = schedule.command.body.ct;
 
                 _targetobject = schedule.command.address;
+                string[] _split = _targetobject.Split('/');
+                string _type = _split[3].TrimEnd(new char[] { 's' }).CapitalizeFirstLetter();
+                string _id = _split[4];
+
+                SelectedObject = ListTarget.FirstOrDefault(x => x.Id == _id && x.GetType() == HueObjectHelper.GetTypeFromName(_type));
+
                 if (schedule.command.body.xy != null)
                 {
                     ScheduleModel.X = schedule.command.body.xy.x;
@@ -261,5 +313,7 @@ namespace WinHue3.ViewModels
         }
 
         public ICommand ClearFieldsCommand => new RelayCommand(param => ClearFields());
+
+
     }
 }

@@ -69,8 +69,7 @@
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HueLib2, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="HueLib2">
       <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
@@ -172,6 +171,7 @@
     <Compile Include="Addons\Converter\RssOperatorConverter.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTemp.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTempMonitor.cs" />
+    <Compile Include="Addons\CpuTempMon\CpuTempViewModel.cs" />
     <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
@@ -200,26 +200,19 @@
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToWrappingConverter.cs" />
     <Compile Include="Converters\DateFormatConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
     <Compile Include="Converters\DoubleToDecimalConverter.cs" />
-    <Compile Include="Converters\GroupClassConverter.cs" />
-    <Compile Include="Converters\GroupTypeConverter.cs" />
-    <Compile Include="Converters\IndexToSortConverter.cs" />
     <Compile Include="Converters\IntToUshortConverter.cs" />
     <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
     <Compile Include="Converters\RuleEnabledConverter.cs" />
     <Compile Include="Converters\RuleOperatorConverter.cs" />
     <Compile Include="Converters\ScheduleMaskConverter.cs" />
-    <Compile Include="Converters\ScheduleTypeConverter.cs" />
     <Compile Include="Converters\SelectedActionTypeConverter.cs" />
-    <Compile Include="Converters\SensorToTypeConverter.cs" />
     <Compile Include="Converters\DoubleToByteConverter.cs" />
     <Compile Include="Converters\DoubleToUshortConverter.cs" />
     <Compile Include="Converters\SliderToXYConverter.cs" />
-    <Compile Include="Converters\SortToIndexConverter.cs" />
     <Compile Include="Converters\VisibleToBoolConverter.cs" />
     <Compile Include="Controls\BindableHueSlider.cs" />
     <Compile Include="Controls\BindableListView.cs" />
@@ -237,11 +230,16 @@
     <Compile Include="Utils\RuleTreeViewItem.cs" />
     <Compile Include="Utils\TimeSensorState.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
+    <Compile Include="Utils\UACHelper.cs" />
+    <Compile Include="Validation\RuleValueValidation.cs" />
     <Compile Include="Validation\UIntValidation.cs" />
     <Compile Include="View.cs" />
     <Compile Include="ViewModels\AdvancedCreatorViewModel.cs" />
     <Compile Include="ViewModels\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
+    <Compile Include="ViewModels\RuleActionPropertyViewModel.cs" />
+    <Compile Include="ViewModels\RuleActionViewModel.cs" />
+    <Compile Include="ViewModels\RuleConditionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
@@ -319,6 +317,9 @@
     </Compile>
     <Compile Include="Views\Form_BulbsView.xaml.cs">
       <DependentUpon>Form_BulbsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Form_RuleConditionCreator.xaml.cs">
+      <DependentUpon>Form_RuleConditionCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Form_RulesCreator.xaml.cs">
       <DependentUpon>Form_RulesCreator.xaml</DependentUpon>
@@ -423,6 +424,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form_Daylight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Form_RuleConditionCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -552,7 +557,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color\HSLColor.cs" />
-    <Compile Include="Converters\ReverseBoolConverter.cs" />
     <Compile Include="Interface\VisualHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

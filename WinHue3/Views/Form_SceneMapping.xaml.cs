@@ -19,14 +19,14 @@ namespace WinHue3
         {
             _bridge = bridge;
             InitializeComponent();
-            CommandResult lresult = _bridge.GetListObjects<Light>();
+            CommandResult<Dictionary<string,Light>> lresult = _bridge.GetListObjects<Light>();
             if (lresult.Success)
             {
-                CommandResult sresult = _bridge.GetListObjects<Scene>();
+                CommandResult<Dictionary<string,Scene>> sresult = _bridge.GetListObjects<Scene>();
                 if (sresult.Success)
                 {
                     _smv = DataContext as SceneMappingViewModel;
-                    _smv.Initialize((Dictionary<string, Scene>)sresult.resultobject, (Dictionary<string, Light>)lresult.resultobject, _bridge);
+                    _smv.Initialize(sresult.Data, lresult.Data, _bridge);
                 }
                 else
                 {

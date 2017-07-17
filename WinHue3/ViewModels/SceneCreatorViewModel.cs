@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using HueLib2;
 using WinHue3.Models;
+using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
 {
@@ -21,7 +22,7 @@ namespace WinHue3.ViewModels
         private SceneCreatorModel _sceneCreatorModel;
         private Light _selectedSceneLight;
         private ObservableCollection<Light> _listSceneLights;
-
+        
         public SceneCreatorViewModel()
         {
             SceneCreatorModel = new SceneCreatorModel();
@@ -104,7 +105,7 @@ namespace WinHue3.ViewModels
             {
                 Scene scene = new Scene
                 {
-                    name = SceneCreatorModel.Name,
+                    Name = SceneCreatorModel.Name,
                     lights = ListSceneLights.Select(x => x.Id).ToList(),
                     lightstates = new Dictionary<string, State>(),
                     recycle = SceneCreatorModel.Recycle
@@ -119,7 +120,7 @@ namespace WinHue3.ViewModels
             }
             set
             {
-                SceneCreatorModel.Name = value.name;
+                SceneCreatorModel.Name = value.Name;
                 ListSceneLights = new ObservableCollection<Light>(ListAvailableLights.Where(x => value.lights.Contains(x.Id)));
                 foreach (Light h in ListSceneLights)
                 {
@@ -195,9 +196,9 @@ namespace WinHue3.ViewModels
             ObservableCollection<Light> liOriginalState = new ObservableCollection<Light>();
             foreach (Light obj in li)
             {
-                HelperResult hr = HueObjectHelper.GetObject<Light>(br, obj.Id);
-                if (!hr.Success) continue;
-                Light newlight = (Light)hr.Hrobject;
+                Light hr = HueObjectHelper.GetObject<Light>(br, obj.Id);
+                if (hr == null) continue;
+                Light newlight = hr;
                 newlight.state.alert = null;
                 liOriginalState.Add(newlight);
             }

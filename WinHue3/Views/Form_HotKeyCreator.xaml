@@ -4,20 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
+        xmlns:huelib="clr-namespace:HueLib2;assembly=HueLib2"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resources="clr-namespace:WinHue3.Resources"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         x:Class="WinHue3.Form_HotKeyCreator"
-        xmlns:converter="clr-namespace:WinHue3.Converters"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/1465102684_preferences-desktop-keyboard-shortcuts.png" PreviewKeyUp="Window_PreviewKeyUp">
     <Window.DataContext>
         <viewmodels:HotKeyCreatorViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <converter:BoolToOppositeBoolConverter x:Key="BoolToOppositeBoolConverter"/>
         <Style TargetType="{x:Type Button}" x:Key="btnSave">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding (Validation.HasError), ElementName=cbListObjects}" Value="True">
@@ -33,15 +30,15 @@
         <xctk:PropertyGrid x:Name="pgObjectPresets" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Height="216" Width="594" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding PropertyGridObject}"/>
         <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
         <Button x:Name="btnAdd" Style="{StaticResource btnSave}"  Content="Add Hotkey" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
-        <ComboBox x:Name="cbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,108,0,0" Height="24" SelectedIndex="{Binding ObjectTypeIndex}" IsEnabled="{Binding ElementName=chbGeneric,Path=IsChecked,Converter={StaticResource BoolToOppositeBoolConverter }}">
-            <ComboBoxItem x:Name="cbOTLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}"/>
-            <ComboBoxItem x:Name="cbOTGroup" Content="{x:Static resources:GUI.Form_HotKeyCreator_Groups}"/>
-            <ComboBoxItem x:Name="cbOTScene" Content="{x:Static resources:GUI.Form_HotKeyCreator_Scenes}"/>
+        <ComboBox x:Name="cbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,108,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}">
+            <ComboBoxItem x:Name="cbOTLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}" Tag="{x:Type huelib:Light}"/>
+            <ComboBoxItem x:Name="cbOTGroup" Content="{x:Static resources:GUI.Form_HotKeyCreator_Groups}" Tag="{x:Type huelib:Group}"/>
+            <ComboBoxItem x:Name="cbOTScene" Content="{x:Static resources:GUI.Form_HotKeyCreator_Scenes}" Tag="{x:Type huelib:Scene}"/>
         </ComboBox>
-        <ComboBox x:Name="cbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" IsEnabled="{Binding ElementName=chbGeneric,Path=IsChecked,Converter={StaticResource BoolToOppositeBoolConverter }}"/>
+        <ComboBox x:Name="cbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}"/>
         <Label x:Name="label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="5,81,0,0" VerticalAlignment="Top" Width="301"/>
         <Button x:Name="BtnRecordKeyPress" Content="{x:Static resources:GUI.Form_HotKeyCreator_Record}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="98" Command="{Binding RecordHotKeyCommand}" Height="30" />
-        <Label x:Name="label2" Content="{Binding CurrentHotKey}" HorizontalAlignment="Left" Margin="113,165,0,0" VerticalAlignment="Top" Width="226" Height="30" Background="{Binding HotKeyModel.RecordButtonColor}" BorderBrush="#FF8E8E8E" BorderThickness="1"/>
+        <Label x:Name="label2" Content="{Binding CurrentHotKey, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="113,165,0,0" VerticalAlignment="Top" Width="226" Height="30" Background="{Binding HotKeyModel.RecordButtonColor}" BorderBrush="#FF8E8E8E" BorderThickness="1"/>
         <Label x:Name="label3" Content="{x:Static resources:GUI.Form_HotKeyCreator_Name}" HorizontalAlignment="Left" Margin="6,14,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbHotkeyName" HorizontalAlignment="Left" Height="23" Margin="57,18,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Name,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="282"/>
         <Label x:Name="label4" Content="{x:Static resources:GUI.Form_HotKeyCreator_Description}" HorizontalAlignment="Left" Margin="5,50,0,0" VerticalAlignment="Top"/>
@@ -55,11 +52,9 @@
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_HotKey}" Binding="{Binding Hotkey}"  Width="150" IsReadOnly="True"/>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_Preset}" Binding="{Binding properties}"  Width="*" IsReadOnly="True"/>
             </DataGrid.Columns>
-            <i:Interaction.Triggers>
-                <ei:KeyTrigger Key="Delete">
-                    <i:InvokeCommandAction Command="{Binding DeleteHotKeyCommand}" />
-                </ei:KeyTrigger>
-            </i:Interaction.Triggers>
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DeleteHotKeyCommand}"/>
+            </DataGrid.InputBindings>
         </DataGrid>
         <Button x:Name="btnClearFields" Content="{x:Static resources:GUI.Form_HotKeyCreator_Clear}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="265,200,0,0" VerticalAlignment="Top" Width="74" Height="26"/>
         <CheckBox x:Name="chbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,112,0,0" VerticalAlignment="Top" Width="156" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>

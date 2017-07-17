@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Linq;
 using System.Net;
-using System.Runtime.Remoting.Channels;
-using NDesk.Options;
-using System.Text;
-using Action = HueLib2.Action;
 using HueLib2;
+using NDesk.Options;
+using Action = HueLib2.Action;
 
 namespace whc
 {
@@ -16,7 +12,7 @@ namespace whc
     {
   
         static Bridge bridge;
-        internal enum Command { LIGHT, GROUP, SCENE, SCHEDULE, BRIDGE, NONE, CREATEGROUP, DELETEGROUP, SENSOR };
+        internal enum Command { LIGHT, GROUP, SCENE, SCHEDULE, BRIDGE, NONE, CREATEGROUP, DELETEGROUP, SENSOR }
         internal static Command cmd;
         static OptionSet mainOpts;
         static OptionSet objOpts;
@@ -40,20 +36,21 @@ namespace whc
             nomsg = false;
             cmd = Command.NONE;
             #region MAIN_OPTIONS           
-            mainOpts = new OptionSet()
+            mainOpts = new OptionSet
             {
                 {"noprompt", "Set this option if you want to ignore prompts. (This will assume yes for all questions)", delegate(string v){noprompt = true;}},
-                {"nomsg","Cancel the output of messages from the bridge.(The application will not output anything) ", delegate(string v){nomsg = true;}},
+                {"nomsg","Cancel the output of messages from the bridge.(The application will not output anything) ", delegate(string v){nomsg = true;}}
             };
             #endregion
             #region OBJECT_OPTIONS
-            objOpts = new OptionSet()
+            objOpts = new OptionSet
             {
                 {"l|light=","Set the mode to light.", delegate(string v) 
                 { 
                     if(cmd == Command.NONE)
                     {
                         cmd = Command.LIGHT;
+                        error = !CheckIDType(v);
                         id = v;
                         state = new State();
                     }
@@ -65,6 +62,7 @@ namespace whc
                     if(cmd == Command.NONE)
                     {
                         action = new Action();
+                        error = !CheckIDType(v);
                         id = v;
                         cmd = Command.GROUP;
                     }
@@ -97,7 +95,7 @@ namespace whc
                     if(cmd == Command.NONE)
                     {
                         id = v;
-
+                        error = !CheckIDType(v);
                         cmd = Command.SENSOR;
                     }
                     else
@@ -118,7 +116,7 @@ namespace whc
                         cmd = Command.DELETEGROUP;
                         if(PromptYesNo() || noprompt)
                         {
-                            CommandResult bresult = bridge.RemoveObject<Group>(v);
+                            CommandResult<MessageCollection> bresult = bridge.RemoveObject<Group>(v);
                             if (bresult.Success)
                             {
 
@@ -137,7 +135,7 @@ namespace whc
                     {
                         if(PromptYesNo() || noprompt)
                         {
-                            CommandResult bresult = bridge.RemoveObject<Schedule>(v);
+                            CommandResult<MessageCollection> bresult = bridge.RemoveObject<Schedule>(v);
                             if (bresult.Success)
                             {
                                 WriteMessageToConsole($"Schedule {v} deleted succesfully.");
@@ -155,7 +153,7 @@ namespace whc
                     {
                         if(PromptYesNo() || noprompt)
                         {
-                            CommandResult bresult = bridge.RemoveObject<Light>(v);         
+                            CommandResult<MessageCollection> bresult = bridge.RemoveObject<Light>(v);         
                             if (bresult.Success)
                             {
                                 WriteMessageToConsole($"Light {v} deleted succesfully.");
@@ -173,7 +171,7 @@ namespace whc
                     {
                         if(PromptYesNo() || noprompt)
                         {
-                            CommandResult bresult = bridge.RemoveObject<Sensor>(v);
+                            CommandResult<MessageCollection> bresult = bridge.RemoveObject<Sensor>(v);
                             if (bresult.Success)
                             {
                                 WriteMessageToConsole($"Sensor {v} deleted succesfully.");
@@ -191,7 +189,7 @@ namespace whc
                     {
                         if(PromptYesNo() || noprompt)
                         {
-                            CommandResult bresult = bridge.RemoveObject<HueLib2.Rule>(v);
+                            CommandResult<MessageCollection> bresult = bridge.RemoveObject<Rule>(v);
                             if (bresult.Success)
                             {
                                 WriteMessageToConsole($"Rule {v} deleted succesfully.");
@@ -205,10 +203,10 @@ namespace whc
                 }},
                 {"ll", "List the lights available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Light>();
+                    CommandResult<Dictionary<string,Light>> bresult = bridge.GetListObjects<Light>();
                     if(bresult.Success)
                     {
-                        Dictionary<string, Light> listLights = (Dictionary<string, Light>)bresult.resultobject;
+                        Dictionary<string, Light> listLights = bresult.Data;
                         foreach(KeyValuePair<string,Light> kvp in listLights)
                         {
                             WriteMessageToConsole(
@@ -217,15 +215,15 @@ namespace whc
                     }               
                     else
                     {
-                        WriteMessageToConsole("An error occured while fetching the list of lights :" + bresult.resultobject );
+                        WriteMessageToConsole("An error occured while fetching the list of lights :" + bresult.Data );
                     }
                 }},
                 {"lg", "List the groups available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Group>();
+                    CommandResult<Dictionary<string,Group>> bresult = bridge.GetListObjects<Group>();
                     if(bresult.Success)
                     {
-                        Dictionary<string, Group> listgroups = (Dictionary<string, Group>)bresult.resultobject;
+                        Dictionary<string, Group> listgroups = bresult.Data;
                         foreach(KeyValuePair<string,Group> kvp in listgroups)
                         {
                             WriteMessageToConsole(
@@ -234,15 +232,15 @@ namespace whc
                     }               
                     else
                     {
-                        WriteMessageToConsole("An error occured while fetching the list of groups : " + bresult.resultobject);
+                        WriteMessageToConsole("An error occured while fetching the list of groups : " + bresult.Data);
                     }
                 }},
                 {"ls", "List the scenes available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Scene>();
+                    CommandResult<Dictionary<string,Scene>> bresult = bridge.GetListObjects<Scene>();
                     if(bresult.Success)
                     {
-                        Dictionary<string, Scene> listscenes = (Dictionary<string, Scene>) bresult.resultobject;
+                        Dictionary<string, Scene> listscenes = bresult.Data;
                         foreach(KeyValuePair<string,Scene> kvp in listscenes)
                         {
                             WriteMessageToConsole(
@@ -251,15 +249,15 @@ namespace whc
                     }               
                     else
                     {
-                        WriteMessageToConsole("An error occured while fetching the list of scenes : " + bresult.resultobject);
+                        WriteMessageToConsole("An error occured while fetching the list of scenes : " + bresult.Data);
                     }
                 }},
                 {"lc", "List the schedules available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Schedule>();
+                    CommandResult<Dictionary<string,Schedule>> bresult = bridge.GetListObjects<Schedule>();
                     if(bresult.Success)
                     {
-                        Dictionary<string, Schedule> listscenes = (Dictionary<string, Schedule>)bresult.resultobject;
+                        Dictionary<string, Schedule> listscenes = bresult.Data;
                         foreach(KeyValuePair<string,Schedule> kvp in listscenes)
                         {
                             WriteMessageToConsole($"[ID]={kvp.Key}, Name={kvp.Value.name}, Time={kvp.Value.localtime}");
@@ -267,16 +265,16 @@ namespace whc
                     }               
                     else
                     {
-                        WriteMessageToConsole("An error occured while fetching the list of schedules : " + bresult.resultobject);
+                        WriteMessageToConsole("An error occured while fetching the list of schedules : " + bresult.Data);
                     }
                 }},
                 {"lo", "List the sensors available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<Sensor>();
+                    CommandResult<Dictionary<string,Sensor>> bresult = bridge.GetListObjects<Sensor>();
                     
                     if(bresult.Success)
                     {
-                        Dictionary<string, Sensor> listsensors = (Dictionary<string, Sensor>) bresult.resultobject;
+                        Dictionary<string, Sensor> listsensors = bresult.Data;
                         foreach(KeyValuePair<string,Sensor> kvp in listsensors)
                         {
                             WriteMessageToConsole(
@@ -285,17 +283,17 @@ namespace whc
                     }               
                     else
                     {
-                        WriteMessageToConsole("An error occured while fetching the list of sensors : " + bresult.resultobject);
+                        WriteMessageToConsole("An error occured while fetching the list of sensors : " + bresult.Data);
                     }
                 }},
                 {"lr", "List the rules available in the bridge", delegate(string v)
                 {
-                    CommandResult bresult = bridge.GetListObjects<HueLib2.Rule>();
+                    CommandResult<Dictionary<string,Rule>> bresult = bridge.GetListObjects<Rule>();
 
                     if(bresult.Success)
                     {
-                        Dictionary<string, HueLib2.Rule> listrules = (Dictionary<string, HueLib2.Rule>) bresult.resultobject;
-                        foreach(KeyValuePair<string, HueLib2.Rule> kvp in listrules)
+                        Dictionary<string, Rule> listrules = bresult.Data;
+                        foreach(KeyValuePair<string, Rule> kvp in listrules)
                         {
                             WriteMessageToConsole(
                                 $"[ID]={kvp.Key}, Name={kvp.Value.name}, Owner={kvp.Value.owner}, Status={kvp.Value.status}, TimesTriggered={kvp.Value.timestriggered}");
@@ -303,7 +301,7 @@ namespace whc
                     }               
                     else
                     {
-                        WriteMessageToConsole("An error occured while fetching the list of rules : " + bresult.resultobject);
+                        WriteMessageToConsole("An error occured while fetching the list of rules : " + bresult.Data);
                     }
                 }},
                 {"lightstate=","Get the state of a light", delegate(string v)
@@ -313,16 +311,16 @@ namespace whc
                     
                     if (isValidid && v != "0")
                     {
-                        CommandResult bresult = bridge.GetObject<Light>(v);
+                        CommandResult<Light> bresult = bridge.GetObject<Light>(v);
                         if (bresult.Success)
                         {
-                            Light light = (Light) bresult.resultobject;
-                            WriteMessageToConsole(@light.state.ToString() ?? bridge.lastMessages.ToString());
+                            Light light = bresult.Data;
+                            WriteMessageToConsole(light.state.ToString() ?? bridge.lastMessages.ToString());
 
                         }
                         else
                         {
-                            WriteMessageToConsole("Error getting the light : " + bresult.resultobject);
+                            WriteMessageToConsole("Error getting the light : " + bresult.Data);
                         }
                     }
                     else
@@ -337,16 +335,16 @@ namespace whc
 
                     if (isValidid)
                     {
-                        CommandResult bresult = bridge.GetObject<Group>(v);
+                        CommandResult<Group> bresult = bridge.GetObject<Group>(v);
                         if (bresult.Success)
                         {
-                            Group group = (Group) bresult.resultobject;
-                            WriteMessageToConsole(@group.action.ToString());
+                            Group group = bresult.Data;
+                            WriteMessageToConsole(group.action.ToString());
 
                         }
                         else
                         {
-                            WriteMessageToConsole("Error getting group : " + bresult.resultobject);
+                            WriteMessageToConsole("Error getting group : " + bresult.Data);
                         }
                     }
                     else
@@ -354,12 +352,12 @@ namespace whc
                         WriteMessageToConsole($"ERROR: The provided value {v} is not a valid id for the light. Please use a number between 1 and 255");
                     }
 
-                }},
+                }}
 
             };
             #endregion
             #region LIGHT_OPTIONS
-            lightOpts = new OptionSet()
+            lightOpts = new OptionSet
             {
                 {"bri=","Brightness of a light [0-254]", delegate(string v)
                 {
@@ -417,12 +415,12 @@ namespace whc
                 {
                     if(v == null)
                     {
-                        CommandResult bresult = bridge.GetObject<Light>(id);
+                        CommandResult<Light> bresult = bridge.GetObject<Light>(id);
                         
                         if (bresult.Success)
                         {
-                            Light light = (Light) bresult.resultobject;
-                            if(light.state.@on != null && (bool)light.state.@on)
+                            Light light = bresult.Data;
+                            if(light.state.on != null && (bool)light.state.on)
                             {
                                 state.on = false;
                             }
@@ -433,7 +431,7 @@ namespace whc
                         }
                         else
                         {
-                            WriteMessageToConsole("Error getting light " + bresult.resultobject);
+                            WriteMessageToConsole("Error getting light " + bresult.Data);
                         }
                     }
                     else
@@ -522,11 +520,11 @@ namespace whc
                 {"tt|transitiontime=","Transition time of the light", delegate(ushort v)
                 {
                     state.transitiontime = v;
-                }},
+                }}
             };
             #endregion
             #region GROUP_OPTIONS
-            groupOpts = new OptionSet()
+            groupOpts = new OptionSet
             {
                 {"bri=","Brightness of a group [0-254]", delegate(string v)
                 {
@@ -581,11 +579,11 @@ namespace whc
                 {
                     if(v == null)
                     {
-                        CommandResult bresult = bridge.GetObject<Group>(id);
+                        CommandResult<Group> bresult = bridge.GetObject<Group>(id);
                         if (bresult.Success)
                         {
-                            Group group = (Group) bresult.resultobject;
-                            if(@group.action.@on != null && (bool)@group.action.@on)
+                            Group group = bresult.Data;
+                            if(group.action.on != null && (bool)group.action.on)
                             {
                                 action.on = false;
                             }
@@ -597,7 +595,7 @@ namespace whc
                         }
                         else
                         {
-                            WriteMessageToConsole("Error getting group : " + bresult.resultobject);
+                            WriteMessageToConsole("Error getting group : " + bresult.Data);
                         }
                     }
                     else
@@ -673,11 +671,11 @@ namespace whc
                 {"tt|transitiontime=","Transition time of the group", delegate(ushort v)
                 {
                     action.transitiontime = v;
-                }},
+                }}
             };
             #endregion
             #region CREATE_GROUP_OPTIONS
-            createGrOpts = new OptionSet()
+            createGrOpts = new OptionSet
             {
                 {"n|name=","Name of the new group",delegate(string v)
                 {
@@ -686,12 +684,12 @@ namespace whc
                 {"members=","ID of the lights in the group splitted by a comma. [eg:1,2,3]", delegate(string v)
                 {                  
                     grp.lights.AddRange(v.Split(',').ToArray());
-                }},
+                }}
             };
             #endregion
             #region SENSOR
 
-            sensorOpts = new OptionSet()
+            sensorOpts = new OptionSet
             {
                 {"open=", "Open attribute of the sensor", delegate(string v)
                     {
@@ -757,7 +755,7 @@ namespace whc
                 },
                 {"presence=","Presence attribute of the sensor", delegate(string v)
                     {
-                        ClipPresenceSensorState ps = new ClipPresenceSensorState();
+                        PresenceSensorState ps = new PresenceSensorState();
                         bool presence;
                         if (bool.TryParse(v, out presence))
                         {
@@ -929,7 +927,7 @@ namespace whc
         {
             if (grp.name != null && grp.lights != null)
             {
-                CommandResult bresult = bridge.CreateObject<Group>(grp);
+                CommandResult<MessageCollection> bresult = bridge.CreateObject(grp);
                 if(bresult.Success)
                 {
                     WriteMessageToConsole("Groupe named " + grp.name + " created succesfully");                    
@@ -941,7 +939,7 @@ namespace whc
 
         private static void SetGroupAction()
         {
-            CommandResult bresult = bridge.SetState<Group>(action, id);
+            CommandResult<MessageCollection> bresult = bridge.SetState<Group>(action, id);
             
             if (!bresult.Success || error)
             {
@@ -959,9 +957,23 @@ namespace whc
             }
         }
 
+        private static bool CheckIDType(string objectid)
+        {
+            bool result = true;
+            try
+            {
+                long number = Convert.ToInt64(objectid);
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return result;
+        }
+
         private static void WriteMessagesToConsole(object sender, EventArgs e)
         {
-            if (nomsg != false) return;
+            if (nomsg) return;
             foreach (Message m in bridge.lastMessages)
             {
                 Type typeofM = m.GetType();
@@ -990,7 +1002,7 @@ namespace whc
 
         private static void SetLightState()
         {
-            CommandResult bresult = bridge.SetState<Light>(state, id);
+            CommandResult<MessageCollection> bresult = bridge.SetState<Light>(state, id);
             
             if (!bresult.Success || error)
             {
@@ -1003,7 +1015,7 @@ namespace whc
 
         private static void SetSensorState()
         {
-            CommandResult bresult = bridge.ChangeSensorState(id, sensorstate);
+            CommandResult<MessageCollection> bresult = bridge.ChangeSensorState(id, sensorstate);
             
             if (!bresult.Success || error)
             {

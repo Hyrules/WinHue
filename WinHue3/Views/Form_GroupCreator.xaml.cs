@@ -4,6 +4,7 @@ using System.Windows;
 using HueLib2;
 
 using WinHue3.Resources;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 using Group = HueLib2.Group;
 
@@ -32,9 +33,9 @@ namespace WinHue3
             _bridge = bridge;
             InitializeComponent();
             gcvm = this.DataContext as GroupCreatorViewModel;
-            HelperResult hr = HueObjectHelper.GetBridgeLights(bridge);
-            if(hr.Success)
-                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>((List<Light>)hr.Hrobject);
+            List<Light> hr = HueObjectHelper.GetBridgeLights(bridge);
+            if(hr != null)
+                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
         }
 
         public Form_GroupCreator(Group selectedGroup,Bridge bridge)
@@ -43,14 +44,14 @@ namespace WinHue3
             _bridge = bridge;
             gcvm = this.DataContext as GroupCreatorViewModel;
             
-            HelperResult hr = HueObjectHelper.GetBridgeLights(bridge);
-            if (hr.Success)
+            List<Light> hr = HueObjectHelper.GetBridgeLights(bridge);
+            if (hr != null)
             {
-                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>((List<Light>)hr.Hrobject);
+                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                HelperResult hr2 = HueObjectHelper.GetObject<Group>(bridge,selectedGroup.Id);
-                if (hr2.Success)
-                    gcvm.Group = (Group) hr2.Hrobject;
+                Group hr2 = HueObjectHelper.GetObject<Group>(bridge,selectedGroup.Id);
+                if (hr2 != null)
+                    gcvm.Group = hr2;
             }
             else
             {
@@ -71,12 +72,12 @@ namespace WinHue3
         {
             if (gcvm.Group.Id == null)
             {
-                CommandResult bresult = _bridge.CreateObject<Group>(gcvm.Group);
+                CommandResult<MessageCollection> bresult = _bridge.CreateObject<Group>(gcvm.Group);
                 if (bresult.Success)
                 {
                     DialogResult = true;
-                    log.Info(bresult.resultobject);
-                    _id = ((MessageCollection)bresult.resultobject)[0].ToString();
+                    log.Info(bresult.Data);
+                    _id = ((CreationSuccess) bresult.Data[0]).id;
                     Close();
                 }
                 else
@@ -88,7 +89,7 @@ namespace WinHue3
             else
             {
 
-                CommandResult bresult = _bridge.ModifyObject<Group>(gcvm.Group, gcvm.Group.Id);
+                CommandResult<MessageCollection> bresult = _bridge.ModifyObject<Group>(gcvm.Group, gcvm.Group.Id);
                 if (bresult.Success)
                 {
                     DialogResult = true;

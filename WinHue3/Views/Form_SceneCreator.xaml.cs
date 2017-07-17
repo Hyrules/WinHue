@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using HueLib2;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
 namespace WinHue3
@@ -37,10 +38,10 @@ namespace WinHue3
             _bridge = bridge;
             _currentsceneid = string.Empty;
             _scvm = DataContext as SceneCreatorViewModel;
-            HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
-            if (hr.Success)
+            List<Light> hr = HueObjectHelper.GetObjectsList<Light>(bridge);
+            if (hr != null)
             {
-                _scvm.Initialize((List<Light>)hr.Hrobject,_bridge);
+                _scvm.Initialize(hr,_bridge);
             }
             else
             {
@@ -50,11 +51,11 @@ namespace WinHue3
             if (sceneid != null)
             {
                 _currentsceneid = sceneid;
-                CommandResult cr = _bridge.GetObject<Scene>(sceneid);
+                CommandResult<Scene> cr = _bridge.GetObject<Scene>(sceneid);
                 if (cr.Success)
                 {
                     _scvm.Initialize(_bridge);
-                    _scvm.Scene = (Scene) cr.resultobject;
+                    _scvm.Scene = cr.Data;
                 }
                 else
                 {
@@ -74,11 +75,11 @@ namespace WinHue3
             Scene newScene = _scvm.Scene;
 
             log.Info("Scene to be created : " + newScene);
-            CommandResult comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>((Scene)newScene.Clone()) : _bridge.ModifyObject<Scene>((Scene)newScene.Clone(),_currentsceneid);
+            CommandResult<MessageCollection> comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>((Scene)newScene.Clone()) : _bridge.ModifyObject<Scene>((Scene)newScene.Clone(),_currentsceneid);
 
             if (comres.Success)
             {
-                MessageCollection mc = ((MessageCollection) comres.resultobject);
+                MessageCollection mc = comres.Data;
 
                 string id = "";
                 id = _currentsceneid != string.Empty ? _currentsceneid : ((CreationSuccess)mc[0]).id;

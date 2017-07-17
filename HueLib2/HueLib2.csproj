@@ -81,8 +81,9 @@
   <ItemGroup>
     <Compile Include="BridgeMessages\Error\Error.cs" />
     <Compile Include="BridgeMessages\Error\UnkownError.cs" />
-    <Compile Include="BridgeMessages\Message.cs" />
+    <Compile Include="BridgeMessages\IMessage.cs" />
     <Compile Include="BridgeMessages\MessageCollection.cs" />
+    <Compile Include="BridgeMessages\MessageConverter.cs" />
     <Compile Include="BridgeMessages\Success\CreationSuccess.cs" />
     <Compile Include="BridgeMessages\Success\DeletionSuccess.cs" />
     <Compile Include="BridgeMessages\Success\Success.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="Objects\Group\Action.cs" />
     <Compile Include="Objects\Group\Group.cs" />
     <Compile Include="Objects\Group\GroupState.cs" />
-    <Compile Include="Objects\HueObject\HueObject.cs" />
+    <Compile Include="Objects\HueObject\IHueObject.cs" />
     <Compile Include="Objects\ItemSource\AlertItemsSource.cs" />
     <Compile Include="Objects\ItemSource\EffectItemsSource.cs" />
     <Compile Include="Objects\Light\Light.cs" />

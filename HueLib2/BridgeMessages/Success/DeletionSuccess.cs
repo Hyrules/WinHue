@@ -1,9 +1,10 @@
 ﻿using System.Runtime.Serialization;
+using HueLib2.BridgeMessages;
 
 namespace HueLib2
 {
     [DataContract]
-    public class DeletionSuccess : Message
+    public class DeletionSuccess : IMessage
     {
         [DataMember]
         public string success { get; set; }

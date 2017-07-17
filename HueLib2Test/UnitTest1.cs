@@ -22,7 +22,7 @@ namespace HueLib2Test
             // string test = Serializer.SerializeToJson(new WebException());
             Rule newrule = new Rule
             {
-                name = "test",
+                Name = "test",
                 actions = new List<RuleAction>
                 {
                     new RuleAction()

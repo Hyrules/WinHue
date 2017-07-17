@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using HueLib2.BridgeMessages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace HueLib2
 {
     [DataContract, JsonConverter(typeof(SuccessJsonConverter))]
-    public class Success : Message
+    public class Success : IMessage
     {
         [DataMember]
         public string Address
@@ -27,16 +28,16 @@ namespace HueLib2
                 {
                     if (nbrsl == 4)
                     {
-                        _obj = mc[0].Groups[1].Value.ToString();
-                        _id = mc[0].Groups[2].Value.ToString();
-                        _ds = mc[0].Groups[3].Value.ToString();
-                        _prop = mc[0].Groups[4].Value.ToString();
+                        _obj = mc[0].Groups[1].Value;
+                        _id = mc[0].Groups[2].Value;
+                        _ds = mc[0].Groups[3].Value;
+                        _prop = mc[0].Groups[4].Value;
                     }
                     else if( nbrsl == 3)
                     {
-                        _obj = mc[0].Groups[1].Value.ToString();
-                        _id = mc[0].Groups[2].Value.ToString();
-                        _prop = mc[0].Groups[4].Value.ToString();
+                        _obj = mc[0].Groups[1].Value;
+                        _id = mc[0].Groups[2].Value;
+                        _prop = mc[0].Groups[4].Value;
                     }
                     _address = value;
                 }
@@ -72,7 +73,8 @@ namespace HueLib2
 
         public override string ToString()
         {
-            return string.Format("address {0} to {1}",_address,Value);
+            if (_address == null) return $"{Value}";
+            return $"address {_address} to {Value}";
         }
 
         public string id
@@ -117,7 +119,7 @@ namespace HueLib2
             if (obj != null)
             {
                 IList<string> keys = obj.Properties().Select(p => p.Name).ToList();
-                JToken tok = (JToken)obj[keys[0]];
+                JToken tok = obj[keys[0]];
                 string val;
                 if (tok.Type == JTokenType.Array)
                 {

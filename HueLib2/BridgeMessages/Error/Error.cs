@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using HueLib2.BridgeMessages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -9,7 +10,7 @@ namespace HueLib2
     /// Error class
     /// </summary>
     [DataContract,JsonConverter(typeof(ErrorMessageConverter))]
-    public class Error : Message
+    public class Error :IMessage
     {
         /// <summary>
         /// Type of error.
@@ -29,7 +30,7 @@ namespace HueLib2
 
         public override string ToString()
         {
-            return string.Format("Type : {0}, {1} at address {2}.",type,description,address);
+            return $"Type : {type}, {description} at address {address}.";
         }
 
   

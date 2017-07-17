@@ -13,14 +13,14 @@ namespace WinHue3.ViewModels
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
-        private Dictionary<string, Light> _listlights;
+        private List<Light> _listlights;
 
         public BulbsViewViewModel()
         {
 
         }
 
-        public void Initialize(Dictionary<string, Light> lights)
+        public void Initialize(List<Light> lights)
         {
             Listlights = lights;
             BuildBulbsViewReverse();
@@ -49,13 +49,13 @@ namespace WinHue3.ViewModels
         {
 
 
-            Dictionary<string, Light> llights = Listlights;
+            List<Light> llights = Listlights;
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Properties");
-            foreach (KeyValuePair<string, Light> lvp in llights)
+            foreach (Light lvp in llights)
             {
-                dt.Columns.Add(lvp.Value.name);
+                dt.Columns.Add(lvp.Name);
             }
 
             PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
@@ -69,20 +69,20 @@ namespace WinHue3.ViewModels
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
+                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "Image") continue;
 
                 data[0] = pi.Name;
 
                 int i = 1;
-                foreach (KeyValuePair<string, Light> lvp in llights)
+                foreach (Light l in llights)
                 {
                     if (Array.Find(liststate, x => x.Name == pi.Name) != null)
                     {
-                        data[i] = pi.GetValue(lvp.Value.state);
+                        data[i] = pi.GetValue(l.state);
                     }
                     else
                     {
-                        data[i] = pi.GetValue(lvp.Value);
+                        data[i] = pi.GetValue(l);
                     }
 
                     i++;
@@ -99,7 +99,7 @@ namespace WinHue3.ViewModels
         private void BuildBulbsViewReverse()
         {
 
-            Dictionary<string, Light> llights = Listlights;
+            List<Light> llights = Listlights;
             if (llights == null) return;
             DataTable dt = new DataTable();
             dt.Columns.Add("Lights");
@@ -114,7 +114,7 @@ namespace WinHue3.ViewModels
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
+                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "Image") continue;
                 dt.Columns.Add(pi.Name);
             }
 
@@ -122,22 +122,22 @@ namespace WinHue3.ViewModels
 
             object[] data = new object[nbrcol];
 
-            foreach (KeyValuePair<string, Light> lvp in llights)
+            foreach (Light l in llights)
             {
                 int i = 1;
-                data[0] = lvp.Value.name;
+                data[0] = l.Name;
 
                 foreach (PropertyInfo pi in listPropertyInfos)
                 {
-                    if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc")) continue;
+                    if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "Image") continue;
 
                     if (Array.Find(liststate, x => x.Name == pi.Name) != null)
                     {
-                        data[i] = pi.GetValue(lvp.Value.state);
+                        data[i] = pi.GetValue(l.state);
                     }
                     else
                     {
-                        data[i] = pi.GetValue(lvp.Value);
+                        data[i] = pi.GetValue(l);
                     }
                     i++;
 
@@ -162,7 +162,7 @@ namespace WinHue3.ViewModels
             }
         }
 
-        public Dictionary<string, Light> Listlights
+        public List<Light> Listlights
         {
             get
             {

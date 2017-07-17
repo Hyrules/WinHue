@@ -13,6 +13,7 @@ using HueLib2;
 using System.Threading;
 using System.Windows.Interop;
 using System.Windows.Media;
+using HueLib2.Objects.HueObject;
 using WinHue3.ViewModels;
 
 namespace WinHue3
@@ -74,10 +75,10 @@ namespace WinHue3
             }
         }
 
-        public void SetObjectBackground(List<HueObject> objectlist)
+        public void SetObjectBackground(List<IHueObject> objectlist)
         {
             if (objectlist.Count <= 0) return;
-            foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<HueObject>()
+            foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<IHueObject>()
                                                        where objectlist.Contains(item)
                                                        select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
@@ -109,8 +110,8 @@ namespace WinHue3
             if (lvMainObjects.SelectedItem is Resourcelink)
             {
                 Resourcelink rl = (Resourcelink) lvMainObjects.SelectedItem;
-                List<HueObject> listhue = new List<HueObject>();
-                List<HueObject> bo = new List<HueObject>(lvMainObjects.Items.OfType<HueObject>());
+                List<IHueObject> listhue = new List<IHueObject>();
+                List<IHueObject> bo = new List<IHueObject>(lvMainObjects.Items.OfType<IHueObject>());
                 foreach (string s in rl.links)
                 {
                     string[] objbreak = s.Split('/');

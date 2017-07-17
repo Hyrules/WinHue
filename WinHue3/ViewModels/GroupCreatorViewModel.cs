@@ -29,7 +29,7 @@ namespace WinHue3.ViewModels
             set
             {
                 Group gr = value;
-                GroupCreator.Name = gr.name;
+                GroupCreator.Name = gr.Name;
                 GroupCreator.Type = gr.type;
                 _id = gr.Id;
                 RaisePropertyChanged("CanChangeType");
@@ -47,7 +47,7 @@ namespace WinHue3.ViewModels
             }
             get
             {
-                Group gr = new Group {name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
+                Group gr = new Group {Name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
                 if (_id != string.Empty)
                     gr.Id = _id;
                 if (GroupCreator.Type == "Room")

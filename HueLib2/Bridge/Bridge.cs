@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using HueLib2.BridgeMessages;
 using Newtonsoft.Json;
 
 namespace HueLib2
@@ -158,23 +159,60 @@ namespace HueLib2
         }
 
         /// <summary>
-        /// Send a raw json command to the bridge.
+        /// Send a raw json command to the bridge without altering the bridge lastmessages
         /// </summary>
         /// <param name="url">url to send the command to.</param>
         /// <param name="data">raw json data string</param>
         /// <param name="type">type of command.</param>
         /// <returns>json test resulting of the command.</returns>
-        public string SendRawCommand(string url,string data, WebRequestType type)
+        public CommResult SendRawCommand(string url,string data, WebRequestType type)
         {
             CommResult comres = Communication.SendRequest(new Uri(url), type, data);
-            return comres.data;
+            return comres;
+        }
+
+        /// <summary>
+        /// Send a raw json to the bridge updating the bridge last messages.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public CommandResult<string> SendCommand(string url, string data, WebRequestType type)
+        {
+            CommResult comres = Communication.SendRequest(new Uri(url), type, data);
+            CommandResult<string> bresult = new CommandResult<string>() { Success = false };
+
+            switch (comres.status)
+            {
+                case WebExceptionStatus.Success:
+                    lastMessages = type != WebRequestType.GET ? new MessageCollection(Serializer.DeserializeToObject<List<IMessage>>(comres.data)) : new MessageCollection();
+                    bresult.Success = lastMessages.FailureCount == 0;
+                    if (type == WebRequestType.GET)
+                    {
+                        dynamic json = JsonConvert.DeserializeObject(comres.data);
+                        bresult.Data = JsonConvert.SerializeObject(json, Formatting.Indented);
+                    }
+                    break;
+                case WebExceptionStatus.Timeout:
+                    lastMessages = new MessageCollection { _bridgeNotResponding };
+                    BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
+                    bresult.Exception = comres.ex;
+                    break;
+                default:
+                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    bresult.Exception = comres.ex;
+                    break;
+            }
+
+            return bresult;
         }
 
         /// <summary>
         /// Get all objects from the bridge.
         /// </summary>
         /// <returns>A DataStore of objects from the bridge.</returns>
-        public CommandResult GetBridgeDataStore()
+        public CommandResult<DataStore> GetBridgeDataStore()
         {
             DataStore listObjets = new DataStore();
 
@@ -184,9 +222,9 @@ namespace HueLib2
             {
                 case WebExceptionStatus.Success:
                     listObjets = Serializer.DeserializeToObject<DataStore>(comres.data);
-                    if (listObjets != null) return new CommandResult() {Success = true, resultobject = listObjets};
+                    if (listObjets != null) return new CommandResult<DataStore>() {Success = true, Data = listObjets};
                     listObjets = new DataStore();
-                    List<Message> lstmsg = Serializer.DeserializeToObject<List<Message>>(Communication.lastjson);
+                    List<IMessage> lstmsg = Serializer.DeserializeToObject<List<IMessage>>(Communication.lastjson);
                     lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
                     break;
                 case WebExceptionStatus.Timeout:
@@ -199,16 +237,16 @@ namespace HueLib2
                     break;
             }
 
-            return new CommandResult() {Success = false,resultobject = "Error deserializing the result object."};
+            return new CommandResult<DataStore>() {Success = false};
         }
 
         public bool CheckAuthorization()
         {
             bool authorization = false;
             if (ApiKey == string.Empty) return false;
-            CommandResult cr = GetBridgeSettings();
+            CommandResult<BridgeSettings> cr = GetBridgeSettings();
             if (!cr.Success) return false;
-            BridgeSettings settings = (BridgeSettings) cr.resultobject;
+            BridgeSettings settings = cr.Data;
             if (settings.portalservices != null)
             {
                 authorization = true;                     

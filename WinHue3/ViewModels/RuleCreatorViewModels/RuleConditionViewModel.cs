@@ -9,30 +9,31 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using HueLib2.Objects.Rules;
 using WinHue3.Validation;
 
-namespace WinHue3.Models
+namespace WinHue3.ViewModels.RuleCreatorViewModels
 {
     public class RuleConditionViewModel : ValidatableBindableBase
     {
-        private HueObject _selectedSensor;
+        private IHueObject _selectedSensor;
         private PropertyInfo _property;
         private string _operator;
         private string _value;
-        private List<HueObject> _listsensors;
+        private List<IHueObject> _listsensors;
         private RuleCondition _selectedCondition;
         private ObservableCollection<RuleCondition> _listConditions;
         private PropertyInfo[] _listSensorProperties;
 
         public RuleConditionViewModel()
         {
-            ListSensors = new List<HueObject>();     
+            ListSensors = new List<IHueObject>();     
             ListConditions = new ObservableCollection<RuleCondition>();
             Value = string.Empty;
         }
 
-        public HueObject SelectedSensor
+        public IHueObject SelectedSensor
         {
             get { return _selectedSensor; }
             set { SetProperty(ref _selectedSensor,value); }
@@ -45,7 +46,7 @@ namespace WinHue3.Models
             set { SetProperty(ref _listConditions, value); }
         }
 
-        public List<HueObject> ListSensors
+        public List<IHueObject> ListSensors
         {
             get { return _listsensors; }
             set { SetProperty(ref _listsensors, value); }
@@ -104,24 +105,14 @@ namespace WinHue3.Models
             }
             string ns = SelectedSensor.GetType().Namespace;
 
-            string typename = string.Empty;
-            if (SelectedSensor.GetType().BaseType == typeof(HueObject))
-            {
-                typename = SelectedSensor.GetType().ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-            }
-            else
-            {
-                typename = SelectedSensor.GetType().BaseType.ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-            }
-
-
+            string typename = SelectedSensor.GetType().ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
             RuleCondition rc = new RuleCondition()
             {         
                 @operator = Operator,
                 value = Operator != "dx" ? Value : null
             };
 
-            if (SelectedSensor.GetName() == "config")
+            if (SelectedSensor.Name == "config")
             {
                 rc.address = new RuleAddress()
                 {
@@ -186,7 +177,7 @@ namespace WinHue3.Models
                     ListSensorProperties = SelectedSensor.GetType().GetProperty("state").GetValue(SelectedSensor).GetType().GetProperties();
                 }
                 
-                if (SelectedSensor.GetName() == "config")
+                if (SelectedSensor.Name == "config")
                 {
                     ListSensorProperties = ListSensorProperties.RemoveAt(2);
                 }

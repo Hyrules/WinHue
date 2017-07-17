@@ -11,7 +11,7 @@ using HueLib2;
 namespace WinHue3
 {
     
-    public class CpuTempMonitor : View
+    public class CpuTempMonitor : ValidatableBindableBase
     {
         /// <summary>
         /// Name of the plugin.
@@ -51,6 +51,7 @@ namespace WinHue3
 
         private void LoadSettings()
         {
+
             _gradientStartColor = Properties.Settings.Default.CPUTemp_gradientStartColor;
             _gradientStartTemp = Properties.Settings.Default.CPUTemp_gradientStartTemp;
             _gradientStopColor = Properties.Settings.Default.CPUTemp_gradientStopColor;
@@ -173,6 +174,6 @@ namespace WinHue3
                 _bridge.SetState<Group>(new HueLib2.Action() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
             }
 
-          }
+        }
     }
 }

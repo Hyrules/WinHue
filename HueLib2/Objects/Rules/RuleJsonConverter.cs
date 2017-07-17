@@ -21,7 +21,7 @@ namespace HueLib2.Objects.Rules
             Rule rule = new Rule();
 
             if (obj["name"] != null)
-                rule.name = obj["name"].ToString();
+                rule.Name = obj["name"].ToString();
 
             if (obj["owner"] != null)
                 rule.owner = obj["owner"].ToObject<string>();

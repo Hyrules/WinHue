@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using WinHue3.Validation;
 
 namespace WinHue3.Models
@@ -13,7 +14,7 @@ namespace WinHue3.Models
     public class ResourceLinkCreatorModel : ValidatableBindableBase
     {
         private string _name;
-        private ObservableCollection<HueObject> _listlinkObject;
+        private ObservableCollection<IHueObject> _listlinkObject;
         private string _description;
         private bool? _recycle;
         private ushort _classId;
@@ -23,7 +24,7 @@ namespace WinHue3.Models
         public ResourceLinkCreatorModel()
         {
             _name = string.Empty;
-            ListlinkObject = new ObservableCollection<HueObject>();
+            ListlinkObject = new ObservableCollection<IHueObject>();
             ClassId = 1;
         }
 
@@ -34,7 +35,7 @@ namespace WinHue3.Models
             set { SetProperty(ref _name,value); }
         }
        
-        public ObservableCollection<HueObject> ListlinkObject
+        public ObservableCollection<IHueObject> ListlinkObject
         {
             get { return _listlinkObject; }
             set { SetProperty(ref _listlinkObject,value); }

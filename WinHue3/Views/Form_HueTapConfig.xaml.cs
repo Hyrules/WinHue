@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using HueLib2;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
 namespace WinHue3
@@ -24,19 +25,19 @@ namespace WinHue3
             tcvm.HueTapModel.Id = sensorid;
 
 
-            HelperResult hr = HueObjectHelper.GetBridgeScenes(_bridge);            
+            List<Scene> hr = HueObjectHelper.GetBridgeScenes(_bridge);            
 
-            if (hr.Success)
+            if (hr != null)
             {
 
                 if (WinHueSettings.settings.ShowHiddenScenes)
                 {
-                    tcvm.HueTapModel.ListScenes = (List<Scene>)hr.Hrobject;
+                    tcvm.HueTapModel.ListScenes = hr;
                 }
                 else
                 {
-                    List<Scene> temp = ((List<Scene>)hr.Hrobject);
-                    temp = temp.Where(x => !x.GetName().StartsWith("HIDDEN")).ToList();
+                    List<Scene> temp = hr;
+                    temp = temp.Where(x => !x.Name.StartsWith("HIDDEN")).ToList();
                     tcvm.HueTapModel.ListScenes = temp;
                 }
 

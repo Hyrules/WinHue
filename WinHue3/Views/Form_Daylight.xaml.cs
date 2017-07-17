@@ -36,7 +36,7 @@ namespace WinHue3
                 sunsetoffset = Convert.ToSByte(_dvm.Daylight.SunsetOffset)
             };
 
-            CommandResult bresult = _bridge.ChangeSensorConfig(_id, config);
+            CommandResult<MessageCollection> bresult = _bridge.ChangeSensorConfig(_id, config);
             if(bresult.Success)
             {
                 this.Close();

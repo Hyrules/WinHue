@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using HueLib2;
+using HueLib2.Objects.HueObject;
+using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
 {
@@ -13,14 +15,10 @@ namespace WinHue3.ViewModels
     {
         private void Bridge_OnMessageAdded(object sender, EventArgs e)
         {
-
-            if (SelectedBridge.lastMessages != null)
-            {
-                log.Info(SelectedBridge.lastMessages);
-                if (SelectedBridge.lastMessages.Count > 0)
-                    Lastmessage = SelectedBridge.lastMessages[SelectedBridge.lastMessages.Count - 1].ToString();
-            }
-            
+            if (SelectedBridge.lastMessages == null) return;
+            log.Info(SelectedBridge.lastMessages);
+            if (SelectedBridge.lastMessages.Count > 0)
+                Lastmessage = SelectedBridge.lastMessages[SelectedBridge.lastMessages.Count - 1].ToString();
         }
 
         private void Bridge_BridgeNotResponding(object sender, EventArgs e)
@@ -43,9 +41,9 @@ namespace WinHue3.ViewModels
         {
             _findlighttimer.Stop();
             log.Info("Done searching for new lights.");
-            HelperResult hr = HueObjectHelper.GetBridgeNewLights(SelectedBridge);
-            if (!hr.Success) return;
-            List<HueObject> newlights = (List<HueObject>)hr.Hrobject;
+            List<IHueObject> hr = HueObjectHelper.GetBridgeNewLights(SelectedBridge);
+            if (hr == null) return;
+            List<IHueObject> newlights = hr;
             log.Info($"Found {newlights.Count} new lights.");
             ListBridgeObjects.AddRange(newlights);
             CommandManager.InvalidateRequerySuggested();
@@ -55,9 +53,9 @@ namespace WinHue3.ViewModels
         {
             _findsensortimer.Stop();
             log.Info("Done searching for new sensors.");
-            HelperResult hr = HueObjectHelper.GetBridgeNewSensors(SelectedBridge);
-            if (!hr.Success) return;
-            List<HueObject> newsensors = (List<HueObject>)hr.Hrobject;
+            List<IHueObject> hr = HueObjectHelper.GetBridgeNewSensors(SelectedBridge);
+            if (hr == null) return;
+            List<IHueObject> newsensors = hr;
             log.Info($"Found {newsensors.Count} new sensors.");
             ListBridgeObjects.AddRange(newsensors);
             CommandManager.InvalidateRequerySuggested();

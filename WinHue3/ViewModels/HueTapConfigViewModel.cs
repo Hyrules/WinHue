@@ -72,7 +72,7 @@ namespace WinHue3.ViewModels
 
             Rule newRule = new Rule
             {
-                name = $"TAP {HueTapModel.Buttonid}",
+                Name = $"TAP {HueTapModel.Buttonid}",
                 actions = new List<RuleAction>
                 {
                     new RuleAction()
@@ -98,7 +98,7 @@ namespace WinHue3.ViewModels
                 }
             };
 
-            CommandResult comres = _bridge.CreateObject<Rule>(newRule);
+            CommandResult<MessageCollection> comres = _bridge.CreateObject<Rule>(newRule);
             if (comres.Success)
             {
                 HueTapModel.BtnOneBG = new SolidColorBrush(_deselectedColor);

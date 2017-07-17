@@ -6,44 +6,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HueLib2.Objects.HueObject;
 
 namespace WinHue3.ViewModels
 {
     public class CloneRuleViewModel : ValidatableBindableBase
     {
-        private ObservableCollection<HueObject> _listRuleObject;
-        private ObservableCollection<HueObject> _listReplacementsObject;
-        private HueObject _selectedRuleObject;
-        private HueObject _selectedReplacementObject;
+        private ObservableCollection<IHueObject> _listRuleObject;
+        private ObservableCollection<IHueObject> _listReplacementsObject;
+        private IHueObject _selectedRuleObject;
+        private IHueObject _selectedReplacementObject;
         public CloneRuleViewModel()
         {
 
         }
 
-        public void Initialize(List<HueObject> listRuleobject)
+        public void Initialize(List<IHueObject> listRuleobject)
         {
-            ListRuleObject = new ObservableCollection<HueObject>(listRuleobject);
+            ListRuleObject = new ObservableCollection<IHueObject>(listRuleobject);
         }
 
-        public ObservableCollection<HueObject> ListReplacementsObject
+        public ObservableCollection<IHueObject> ListReplacementsObject
         {
             get { return _listReplacementsObject; }
             set { SetProperty(ref _listReplacementsObject,value); }
         }
 
-        public ObservableCollection<HueObject> ListRuleObject
+        public ObservableCollection<IHueObject> ListRuleObject
         {
             get { return _listRuleObject; }
             set { _listRuleObject = value; }
         }
 
-        public HueObject SelectedRuleObject
+        public IHueObject SelectedRuleObject
         {
             get { return _selectedRuleObject; }
             set { SetProperty(ref _selectedRuleObject, value); }
         }
 
-        public HueObject SelectedReplacementObject
+        public IHueObject SelectedReplacementObject
         {
             get { return _selectedReplacementObject; }
             set { SetProperty(ref _selectedReplacementObject, value); }

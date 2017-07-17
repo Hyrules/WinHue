@@ -107,11 +107,11 @@ namespace WinHue3.ViewModels
             }
             else
             {
-                CommandResult bresult = _selectedBridge.CreateUser("WinHue");
+                CommandResult<string> bresult = _selectedBridge.CreateUser("WinHue");
                 if (!bresult.Success) return;
                 
                 log.Info("Bridge Pairing complete.");
-                SelectedBridge.ApiKey = (string)bresult.resultobject;
+                SelectedBridge.ApiKey = bresult.Data;
                 BridgePairModel.UserMessage = GlobalStrings.BridgeDetectionPairing_PairingDone;
                 StopPairTimer();
                 RaisePropertyChanged("AnyPaired");
@@ -275,13 +275,13 @@ namespace WinHue3.ViewModels
         /// <returns>AddManualBridgeResult</returns>
         public AddManualBridgeResult AddManualBridge(IPAddress bridgeaddress)
         {
-            CommandResult bresult = Hue.GetBridgeBasicConfig(bridgeaddress);
+            CommandResult<BasicConfig> bresult = Hue.GetBridgeBasicConfig(bridgeaddress);
             if (!bresult.Success)
             {
-                WebExceptionStatus webex = (WebExceptionStatus)bresult.resultobject;
-                return webex == WebExceptionStatus.Timeout ? AddManualBridgeResult.NotResponding : AddManualBridgeResult.UnknownError;
+                Exception webex = bresult.Exception;
+                return webex is TimeoutException ? AddManualBridgeResult.NotResponding : AddManualBridgeResult.UnknownError;
             }
-            BasicConfig bconfig = (BasicConfig)bresult.resultobject;
+            BasicConfig bconfig = (BasicConfig)bresult.Data;
             Bridge newbridge = new Bridge()
             {
                 IpAddress = bridgeaddress,

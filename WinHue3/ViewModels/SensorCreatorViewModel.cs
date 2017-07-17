@@ -25,7 +25,7 @@ namespace WinHue3.ViewModels
             {
                 Sensor sensor = new Sensor()
                 {
-                    name = SensorModel.Name,
+                    Name = SensorModel.Name,
                     manufacturername = SensorModel.Mfgname,
                     modelid = SensorModel.ModelId,
                     swversion = SensorModel.Swversion,
@@ -39,7 +39,7 @@ namespace WinHue3.ViewModels
             {
                 IsEditing = true;
                 SensorModel.Type = value.type;
-                SensorModel.Name = value.name;
+                SensorModel.Name = value.Name;
                 SensorModel.Mfgname = value.manufacturername;
                 SensorModel.ModelId = value.modelid;
                 SensorModel.Swversion = value.swversion;
@@ -59,7 +59,9 @@ namespace WinHue3.ViewModels
         public bool IsEditing
         {
             get { return _isEditing; }
-            set { SetProperty(ref _isEditing,value); }
+            set { SetProperty(ref _isEditing,value); RaisePropertyChanged("NotEditing"); }
         }
+
+        public bool NotEditing => !_isEditing;
     }
 }

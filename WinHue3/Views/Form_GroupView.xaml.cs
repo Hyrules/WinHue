@@ -16,16 +16,16 @@ namespace WinHue3
         {
             _bridge = bridge;
             InitializeComponent();
-            CommandResult comlgt = _bridge.GetListObjects<Light>();
+            List<Light> comlgt = HueObjectHelper.GetObjectsList<Light>(_bridge);
             _gvv = DataContext as GroupViewViewModel;
 
-            if (comlgt.Success)
+            if (comlgt != null)
             {
-                CommandResult comgrp = _bridge.GetListObjects<Group>();
-                if (comgrp.Success)
+                List<Group> comgrp = HueObjectHelper.GetObjectsList<Group>(_bridge);
+                if (comgrp != null)
                 {
                     
-                    _gvv.Initialize((Dictionary<string, Group>)comgrp.resultobject, (Dictionary<string, Light>)comlgt.resultobject);
+                    _gvv.Initialize(comgrp, comlgt);
                 }
                 else
                 {

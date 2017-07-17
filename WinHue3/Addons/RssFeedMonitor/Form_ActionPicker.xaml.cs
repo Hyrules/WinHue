@@ -102,10 +102,10 @@ namespace WinHue3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CommandResult bresult = _bridge.GetListObjects<Light>();
+            CommandResult<Dictionary<string,Light>> bresult = _bridge.GetListObjects<Light>();
             if (bresult.Success)
             {
-                Dictionary<string, Light> listlights = (Dictionary<string, Light>) bresult.resultobject;
+                Dictionary<string, Light> listlights = bresult.Data;
 
                 foreach (KeyValuePair<string, Light> kvp in listlights)
                 {

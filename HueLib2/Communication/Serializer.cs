@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HueLib2.BridgeMessages;
 using Newtonsoft.Json;
 
 namespace HueLib2
@@ -10,6 +11,11 @@ namespace HueLib2
     public static class Serializer
     {
         private static readonly JsonSerializerSettings jss = new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default};
+
+        static Serializer()
+        {
+            jss.Converters.Add(new MessageConverter());
+        }
 
         /// <summary>
         /// This method serialize an object into a JSON string,
@@ -57,7 +63,7 @@ namespace HueLib2
                     NewObject = default(T);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 NewObject = default(T);
             }
@@ -89,4 +95,6 @@ namespace HueLib2
 
 
     }
+
+
 }

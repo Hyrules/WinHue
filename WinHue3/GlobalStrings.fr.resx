@@ -533,7 +533,7 @@
     <value>La scène recherche n'a pas été trouvé. Assurez-vous qu'elle existe encore.</value>
   </data>
   <data name="Rule_NotProperFormat" xml:space="preserve">
-    <value>La valeur n'est pas au bon format :</value>
+    <value>La valeur n'est pas au bon format : {0}</value>
   </data>
   <data name="Rule_OriginalObjectNotFound" xml:space="preserve">
     <value>L'objet original de cette règle n'a pas été trouvé. Veuillez vous assurer qu'il est encore associé au pont et essayez de nouveau.</value>
@@ -728,5 +728,14 @@
   </data>
   <data name="RssFeedMonitor_CriteriaAlreadyExists" xml:space="preserve">
     <value>Cette critère existe déjà. Remplacer ?</value>
+  </data>
+  <data name="InvalidString" xml:space="preserve">
+    <value>La chaine saisie est invalide.</value>
+  </data>
+  <data name="AdvancedCreator_ObjectCreated" xml:space="preserve">
+    <value>Objet crée avec succès !</value>
+  </data>
+  <data name="AdvancedCreator_WarningDelete" xml:space="preserve">
+    <value>Envoyer une requête de type DELETE résultera en la suppression de ce objet. Supprimer ?</value>
   </data>
 </root>

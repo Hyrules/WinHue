@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Forms;
 using HueLib2;
+using HueLib2.Objects.HueObject;
 using MessageBox = System.Windows.MessageBox;
 
 namespace WinHue3
@@ -14,15 +15,15 @@ namespace WinHue3
     public partial class Form_RenameObject : Window
     {
         private readonly Bridge _bridge;
-        private readonly HueObject _obj;
-        public Form_RenameObject(Bridge bridge,HueObject obj)
+        private readonly IHueObject _obj;
+        public Form_RenameObject(Bridge bridge,IHueObject obj)
         {
 
             InitializeComponent();
             _bridge = bridge;
             _obj = obj;
-            Title = string.Format(Title,  obj.GetName());
-            tbNewName.Text = obj.GetName();
+            Title = string.Format(Title,  obj.Name);
+            tbNewName.Text = obj.Name;
 
         }
 
@@ -31,7 +32,7 @@ namespace WinHue3
 
             MethodInfo mi = typeof(Bridge).GetMethod("RenameObject");
             MethodInfo generic = mi.MakeGenericMethod(_obj.GetType());
-            CommandResult comres = (CommandResult)generic.Invoke(_bridge, new object[] {_obj.Id, tbNewName.Text});
+            CommandResult<MessageCollection> comres = (CommandResult<MessageCollection>)generic.Invoke(_bridge, new object[] {_obj.Id, tbNewName.Text});
 
             if (comres.Success)
             {
