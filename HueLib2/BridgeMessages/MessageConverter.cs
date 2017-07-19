@@ -18,10 +18,19 @@ namespace HueLib2.BridgeMessages
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            Messages msg = new Messages();
             JArray obj = serializer.Deserialize<JArray>(reader);
-            foreach (JToken tk in obj)
+            foreach (JObject tk in obj)
             {
-                
+                Dictionary<string,JToken> dic = tk.ToObject<Dictionary<string, JToken>>();
+                switch(dic[0].Keys[0].ToString())
+                {
+                    case "success":
+
+                        break;
+                }
+                // KeyValuePair<string, JToken> kvp = (KeyValuePair<string, JToken>)tk. ;
+             //   switch (((KeyValuePair<string,JToken>)tk).Key)
             }
             return obj;
         }

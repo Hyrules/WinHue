@@ -5,6 +5,7 @@ using HueLib2;
 using Action = HueLib2.Action;
 using System.Collections.Generic;
 using HueLib2.Objects.Rules;
+using HueLib2.BridgeMessages;
 
 namespace HueLib2Test
 {
@@ -14,7 +15,7 @@ namespace HueLib2Test
         [TestMethod]
         public void TestMethod1()
         {
-            
+            Messages msg = Serializer.DeserializeToObject<Messages>("[ { \"success\": { \" / lights\": \"Searching for new devices\" } } ]");
         }
     }
 }
