@@ -83,7 +83,7 @@ namespace WinHue3
         {
             StringBuilder errors = new StringBuilder();
             errors.AppendLine(GlobalStrings.Error_WhileCreatingObject);
-            foreach (IMessage error in bridge.lastMessages)
+            foreach (Error error in bridge.lastMessages.ErrorMessages)
             {
                 errors.AppendLine("");
                 errors.AppendLine(error.ToString());

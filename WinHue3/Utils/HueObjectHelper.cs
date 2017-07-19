@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using HueLib2.Objects.HueObject;
 using log4net;
 using WinHue3.SupportedLights;
@@ -522,7 +523,7 @@ namespace WinHue3
                         if (currentState.state.on == true)
                         {
                             log.Debug("Toggling light state : OFF");
-                            CommandResult<MessageCollection> bsetlightstate = bridge.SetState<Light>(new State { on = false, transitiontime = tt}, obj.Id);
+                            CommandResult<Messages> bsetlightstate = bridge.SetState<Light>(new State { on = false, transitiontime = tt}, obj.Id);
 
                             if (bsetlightstate.Success)
                             {
@@ -533,7 +534,7 @@ namespace WinHue3
                         else
                         {
                             log.Debug("Toggling light state : ON");
-                            CommandResult<MessageCollection> bsetlightstate = bridge.SetState<Light>(new State { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id);
+                            CommandResult<Messages> bsetlightstate = bridge.SetState<Light>(new State { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id);
 
                             if (bsetlightstate.Success)
                             {
@@ -558,7 +559,7 @@ namespace WinHue3
                     if (currentstate.action.on == true)
                     {
                         log.Debug("Toggling group state : ON");
-                        CommandResult<MessageCollection> bsetgroupstate = bridge.SetState<Group>(new Action { on = false, transitiontime = tt}, obj.Id);
+                        CommandResult<Messages> bsetgroupstate = bridge.SetState<Group>(new Action { on = false, transitiontime = tt}, obj.Id);
 
                         if (bsetgroupstate.Success)
                         {
@@ -569,7 +570,7 @@ namespace WinHue3
                     else
                     {
                         log.Debug("Toggling group state : OFF");
-                        CommandResult<MessageCollection> bsetgroupstate = bridge.SetState<Group>(new Action { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriGroup }, obj.Id);
+                        CommandResult<Messages> bsetgroupstate = bridge.SetState<Group>(new Action { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriGroup }, obj.Id);
                         if (bsetgroupstate.Success)
                         {
                             hr = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOn_Large);

@@ -19,6 +19,7 @@ using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
 using System.Diagnostics;
 using System.Security.Principal;
+using HueLib2.BridgeMessages;
 using HueLib2.Objects.HueObject;
 using WinHue3.Settings;
 using WinHue3.Utils;
@@ -236,7 +237,7 @@ namespace WinHue3.ViewModels
             log.Info("Sending all on command to bridge" + SelectedBridge.IpAddress);
             HueLib2.Action act = new HueLib2.Action() { on = true };
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
-            CommandResult<MessageCollection> bresult = SelectedBridge.SetState<Group>(act, "0");
+            CommandResult<Messages> bresult = SelectedBridge.SetState<Group>(act, "0");
             if (!bresult.Success) return;
             log.Debug("Refreshing the main view.");
             RefreshView();
@@ -247,7 +248,7 @@ namespace WinHue3.ViewModels
             log.Info("Sending all off command to bridge" + SelectedBridge.IpAddress);
             HueLib2.Action act = new Action() { on = false };
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
-            CommandResult<MessageCollection> bresult = SelectedBridge.SetState<Group>(act, "0");
+            CommandResult<Messages> bresult = SelectedBridge.SetState<Group>(act, "0");
             if (!bresult.Success) return;
             log.Debug("Refreshing the main view.");
             RefreshView();
@@ -255,7 +256,7 @@ namespace WinHue3.ViewModels
 
         private void CheckForNewBulb()
         {
-            CommandResult<MessageCollection> bresult = SelectedBridge.FindNewObjects<Light>();
+            CommandResult<Messages> bresult = SelectedBridge.FindNewObjects<Light>();
             if (bresult.Success)
             {
                 log.Info("Seaching for new lights...");
@@ -369,7 +370,7 @@ namespace WinHue3.ViewModels
 
         private void SearchNewSensors()
         {
-            CommandResult<MessageCollection> bresult = SelectedBridge.FindNewObjects<Sensor>();
+            CommandResult<Messages> bresult = SelectedBridge.FindNewObjects<Sensor>();
             if (bresult.Success)
             {
                 log.Info("Looking for new sensors for 1 minute.");
@@ -412,7 +413,7 @@ namespace WinHue3.ViewModels
         {
             if (MessageBox.Show(GlobalStrings.Update_Confirmation, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
             log.Info("Updating bridge to the latest firmware.");
-            CommandResult<MessageCollection> bresult = SelectedBridge.DoSwUpdate();
+            CommandResult<Messages> bresult = SelectedBridge.DoSwUpdate();
             if (!bresult.Success)
             {
                 log.Error("An error occured while trying to start a bridge update. Please try again later.");
@@ -481,7 +482,7 @@ namespace WinHue3.ViewModels
                             h.properties,
                             h.objecType != null ? h.id : SelectedObject.Id
                         };
-                        ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge,h.objecType, "SetState", listparams.ToArray());
+                        ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge,h.objecType, "SetState", listparams.ToArray());
                     }
                     else
                     {
@@ -546,7 +547,7 @@ namespace WinHue3.ViewModels
         #region SLIDERS_METHODS
         private void SliderChangeHue()
         {
-            CommandResult<MessageCollection> cr = ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(),"SetState", new object[] { new CommonProperties() { hue = MainFormModel.SliderHue, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult<Messages> cr = ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(),"SetState", new object[] { new CommonProperties() { hue = MainFormModel.SliderHue, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderHue = MainFormModel.OldSliderHue;
@@ -565,7 +566,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeBri()
         {
-            CommandResult<MessageCollection> cr = ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { bri = MainFormModel.SliderBri, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult<Messages> cr = ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { bri = MainFormModel.SliderBri, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderBri = MainFormModel.OldSliderBri;
@@ -583,7 +584,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeCt()
         {
-            CommandResult<MessageCollection> cr = ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { ct = MainFormModel.SliderCt, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult<Messages> cr = ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { ct = MainFormModel.SliderCt, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderCt = MainFormModel.OldSliderCt;
@@ -601,7 +602,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeSat()
         {
-            CommandResult<MessageCollection> cr = ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult<Messages> cr = ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { sat = MainFormModel.SliderSat, transitiontime = SliderTt }, _selectedObject.Id });
             if(!cr.Success)
             {
                 MainFormModel.SliderSat = MainFormModel.OldSliderSat;
@@ -619,7 +620,7 @@ namespace WinHue3.ViewModels
 
         private void SliderChangeXy()
         {
-            CommandResult<MessageCollection> cr = ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = SliderTt }, _selectedObject.Id });
+            CommandResult<Messages> cr = ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { xy = new XY() { x = MainFormModel.SliderX, y = MainFormModel.SliderY}, transitiontime = SliderTt }, _selectedObject.Id });
             if (!cr.Success)
             {
                 MainFormModel.SliderX = MainFormModel.OldSliderX;
@@ -811,7 +812,7 @@ namespace WinHue3.ViewModels
             MethodInfo mi = typeof(Bridge).GetMethod("SetState");
             MethodInfo generic = mi.MakeGenericMethod(_selectedObject.GetType());
             log.Info($@"Sending the {type} Identify command to object ID : {_selectedObject.Id}");
-            CommandResult<MessageCollection> hr = (CommandResult<MessageCollection>)generic.Invoke(SelectedBridge, new object[] { new CommonProperties() { alert = type }, _selectedObject.Id });
+            CommandResult<Messages> hr = (CommandResult<Messages>)generic.Invoke(SelectedBridge, new object[] { new CommonProperties() { alert = type }, _selectedObject.Id });
         }
 
         private void Clone(bool quick)
@@ -844,7 +845,7 @@ namespace WinHue3.ViewModels
         private bool Duplicate()
         {
             bool result = false;
-            CommandResult<MessageCollection> cr = ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(), "CreateObject", new[] { SelectedObject.Clone() });
+            CommandResult<Messages> cr = ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(), "CreateObject", new[] { SelectedObject.Clone() });
             if (cr.Success)
             {
                 log.Info("Object cloned succesfully !");
@@ -886,7 +887,7 @@ namespace WinHue3.ViewModels
                 return;
             MethodInfo method = typeof(Bridge).GetMethod("RemoveObject");
             MethodInfo generic = method.MakeGenericMethod(_selectedObject.GetType());
-            CommandResult<MessageCollection> bresult = (CommandResult<MessageCollection>)generic.Invoke(SelectedBridge, new object[] { SelectedObject.Id });
+            CommandResult<Messages> bresult = (CommandResult<Messages>)generic.Invoke(SelectedBridge, new object[] { SelectedObject.Id });
 
             log.Debug("Result : " + bresult.Data);
             if (bresult.Success)
@@ -1029,13 +1030,13 @@ namespace WinHue3.ViewModels
 
         private void Colorloop()
         {
-            ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { effect = "colorloop" }, SelectedObject.Id });
+            ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { effect = "colorloop" }, SelectedObject.Id });
 
         }
 
         private void NoEffect()
         {
-            ExecuteGenericMethod<CommandResult<MessageCollection>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { effect = "none" }, SelectedObject.Id });
+            ExecuteGenericMethod<CommandResult<Messages>>(SelectedBridge, SelectedObject.GetType(), "SetState", new object[] { new CommonProperties() { effect = "none" }, SelectedObject.Id });
         }
 
     }

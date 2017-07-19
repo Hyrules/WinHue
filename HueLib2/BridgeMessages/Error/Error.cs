@@ -10,7 +10,7 @@ namespace HueLib2
     /// Error class
     /// </summary>
     [DataContract,JsonConverter(typeof(ErrorMessageConverter))]
-    public class Error :IMessage
+    public class Error
     {
         /// <summary>
         /// Type of error.

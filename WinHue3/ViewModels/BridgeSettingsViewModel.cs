@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HueLib2;
 using WinHue3.Models.BridgeSettings;
 using System.Windows.Input;
+using HueLib2.BridgeMessages;
 
 namespace WinHue3.ViewModels
 {
@@ -123,7 +124,7 @@ namespace WinHue3.ViewModels
 
         private void ApplyNetworkSettings()
         {
-            CommandResult<MessageCollection> cr = _bridge.SetBridgeSettings(new BridgeSettings()
+            CommandResult<Messages> cr = _bridge.SetBridgeSettings(new BridgeSettings()
             {
                 dhcp = NetworkModel.Dhcp,
                 ipaddress = NetworkModel.Ip,
@@ -144,7 +145,7 @@ namespace WinHue3.ViewModels
 
         private void ApplyGeneralSettings()
         {
-            CommandResult<MessageCollection> cr = _bridge.ChangeBridgeName(GeneralModel.Name);
+            CommandResult<Messages> cr = _bridge.ChangeBridgeName(GeneralModel.Name);
             if (!cr.Success)
                 MessageBoxError.ShowLastErrorMessages(_bridge);
 

@@ -11,9 +11,9 @@ namespace HueLib2
 {
     public partial class Bridge
     {
-        public CommandResult<MessageCollection> FindNewObjects<T>() where T: IHueObject
+        public CommandResult<Messages> FindNewObjects<T>() where T: IHueObject
         {
-            CommandResult<MessageCollection> bresult = new CommandResult<MessageCollection>() {Success = false};
+            CommandResult<Messages> bresult = new CommandResult<Messages>() {Success = false};
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
@@ -23,17 +23,17 @@ namespace HueLib2
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
-                        lastMessages = new MessageCollection(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
-                        bresult.Success = lastMessages.FailureCount == 0;
+                        lastMessages = Serializer.DeserializeToObject<Messages>(comres.data);
+                        bresult.Success = lastMessages.AllSuccess;
                         bresult.Data = lastMessages;
                         break;
                     case WebExceptionStatus.Timeout:
-                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        lastMessages = new Messages();
                         BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                         bresult.Exception = comres.ex;
                         break;
                     default:
-                        lastMessages = new MessageCollection { new UnkownError(comres) };
+                        lastMessages = new Messages();
                         bresult.Exception = comres.ex;
                         break;
                 }

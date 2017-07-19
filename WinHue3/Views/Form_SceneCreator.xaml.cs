@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using WinHue3.Utils;
 using WinHue3.ViewModels;
 
@@ -75,14 +76,14 @@ namespace WinHue3
             Scene newScene = _scvm.Scene;
 
             log.Info("Scene to be created : " + newScene);
-            CommandResult<MessageCollection> comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>((Scene)newScene.Clone()) : _bridge.ModifyObject<Scene>((Scene)newScene.Clone(),_currentsceneid);
+            CommandResult<Messages> comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>((Scene)newScene.Clone()) : _bridge.ModifyObject<Scene>((Scene)newScene.Clone(),_currentsceneid);
 
             if (comres.Success)
             {
-                MessageCollection mc = comres.Data;
+                Messages mc = comres.Data;
 
                 string id = "";
-                id = _currentsceneid != string.Empty ? _currentsceneid : ((CreationSuccess)mc[0]).id;
+                id = _currentsceneid != string.Empty ? _currentsceneid : mc.SuccessMessages[0].value;
                 log.Info("Id of the scene" + id);
                 
                 foreach (KeyValuePair<string,State> obj in newScene.lightstates)

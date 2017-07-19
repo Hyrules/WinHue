@@ -81,12 +81,12 @@
   <ItemGroup>
     <Compile Include="BridgeMessages\Error\Error.cs" />
     <Compile Include="BridgeMessages\Error\UnkownError.cs" />
-    <Compile Include="BridgeMessages\IMessage.cs" />
-    <Compile Include="BridgeMessages\MessageCollection.cs" />
+    <Compile Include="BridgeMessages\Messages.cs" />
     <Compile Include="BridgeMessages\MessageConverter.cs" />
     <Compile Include="BridgeMessages\Success\CreationSuccess.cs" />
     <Compile Include="BridgeMessages\Success\DeletionSuccess.cs" />
     <Compile Include="BridgeMessages\Success\Success.cs" />
+    <Compile Include="BridgeMessages\Success\SuccessOld.cs" />
     <Compile Include="Bridge\Bridge_Settings.cs" />
     <Compile Include="Bridge\Bridge_Update.cs" />
     <Compile Include="Bridge\Objects\BasicConfig.cs" />

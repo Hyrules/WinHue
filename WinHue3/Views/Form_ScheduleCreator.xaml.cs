@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using HueLib2.Objects.HueObject;
 using WinHue3.Resources;
 using WinHue3.ViewModels;
@@ -62,7 +63,7 @@ namespace WinHue3
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Schedule sc = scvm.Schedule;
-            CommandResult<MessageCollection> comres;
+            CommandResult<Messages> comres;
             if (actualobj is Schedule)
             {
                 comres = _bridge.ModifyObject<Schedule>(sc, actualobj.Id);
@@ -76,8 +77,8 @@ namespace WinHue3
             if (comres.Success)
             {
                 DialogResult = true;
-                MessageCollection mc = comres.Data;
-                actualobj = new Schedule() { Id = mc[0].ToString()};
+                Messages mc = comres.Data;
+                actualobj = new Schedule() { Id = mc.SuccessMessages[0].value};
                 Close();
             }
             else

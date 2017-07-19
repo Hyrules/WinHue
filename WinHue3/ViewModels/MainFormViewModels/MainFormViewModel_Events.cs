@@ -17,8 +17,8 @@ namespace WinHue3.ViewModels
         {
             if (SelectedBridge.lastMessages == null) return;
             log.Info(SelectedBridge.lastMessages);
-            if (SelectedBridge.lastMessages.Count > 0)
-                Lastmessage = SelectedBridge.lastMessages[SelectedBridge.lastMessages.Count - 1].ToString();
+            /*if (SelectedBridge.lastMessages.Count > 0)
+               Lastmessage = SelectedBridge.lastMessages[SelectedBridge.lastMessages.Count - 1].ToString();*/
         }
 
         private void Bridge_BridgeNotResponding(object sender, EventArgs e)

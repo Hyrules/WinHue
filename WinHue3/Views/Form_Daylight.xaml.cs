@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using WinHue3.ViewModels;
 
 namespace WinHue3
@@ -36,7 +37,7 @@ namespace WinHue3
                 sunsetoffset = Convert.ToSByte(_dvm.Daylight.SunsetOffset)
             };
 
-            CommandResult<MessageCollection> bresult = _bridge.ChangeSensorConfig(_id, config);
+            CommandResult<Messages> bresult = _bridge.ChangeSensorConfig(_id, config);
             if(bresult.Success)
             {
                 this.Close();

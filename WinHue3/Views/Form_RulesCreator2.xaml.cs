@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using HueLib2.Objects.HueObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
@@ -76,7 +77,7 @@ namespace WinHue3
         private void btnCreateRule_Click(object sender, RoutedEventArgs e)
         {
             Rule newRule = _rcv.GetRule();
-            CommandResult<MessageCollection> comres;
+            CommandResult<Messages> comres;
 
             if (_editedRule == null)
             {
@@ -91,15 +92,10 @@ namespace WinHue3
             if (comres.Success)
             {
                 log.Info(_editedRule == null ? $"Created new rule : {newRule.Name}" : $"Updated rule : {newRule.Name}");
-                if (comres.Data[0] is CreationSuccess)
+                if (comres.Data.AllSuccess)
                 {
-                    id = ((CreationSuccess)comres.Data[0]).id;
+                    id = comres.Data.SuccessMessages[0].value;
                 }
-                else
-                {
-                    id = ((Success)comres.Data[0]).id;
-                }
-               
                 DialogResult = true;
                 Close();
             }

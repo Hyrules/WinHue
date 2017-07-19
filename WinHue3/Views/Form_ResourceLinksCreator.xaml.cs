@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using HueLib2.Objects.HueObject;
 using WinHue3.Models;
 using WinHue3.Utils;
@@ -85,14 +86,14 @@ namespace WinHue3
         private void btnCreateResourceLink_Click(object sender, RoutedEventArgs e)
         {
             Resourcelink rl = rlcvm.Resourcelink;
-            CommandResult<MessageCollection> cr = rlcvm.IsEditing ? _bridge.ModifyObject<Resourcelink>(rl,rl.Id) : _bridge.CreateObject<Resourcelink>(rl);
+            CommandResult<Messages> cr = rlcvm.IsEditing ? _bridge.ModifyObject<Resourcelink>(rl,rl.Id) : _bridge.CreateObject<Resourcelink>(rl);
             
             if (cr.Success)
             {
                 if (rlcvm.IsEditing)
                     id = rl.Id;
                 else
-                    id = ((CreationSuccess)cr.Data[0]).id;
+                    id = cr.Data.SuccessMessages[0].value;
                 DialogResult = true;
                 Close();
             }

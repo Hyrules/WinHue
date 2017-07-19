@@ -4,7 +4,7 @@ using HueLib2.BridgeMessages;
 namespace HueLib2
 {
     [DataContract]
-    public class DeletionSuccess : IMessage
+    public class DeletionSuccess
     {
         [DataMember]
         public string success { get; set; }

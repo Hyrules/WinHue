@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using HueLib2.Objects.Rules;
 using WinHue3.Models;
 using WinHue3.Validation;
@@ -98,7 +99,7 @@ namespace WinHue3.ViewModels
                 }
             };
 
-            CommandResult<MessageCollection> comres = _bridge.CreateObject<Rule>(newRule);
+            CommandResult<Messages> comres = _bridge.CreateObject<Rule>(newRule);
             if (comres.Success)
             {
                 HueTapModel.BtnOneBG = new SolidColorBrush(_deselectedColor);

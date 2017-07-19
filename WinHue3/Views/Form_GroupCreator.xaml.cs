@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using HueLib2;
-
+using HueLib2.BridgeMessages;
 using WinHue3.Resources;
 using WinHue3.Utils;
 using WinHue3.ViewModels;
@@ -72,12 +72,12 @@ namespace WinHue3
         {
             if (gcvm.Group.Id == null)
             {
-                CommandResult<MessageCollection> bresult = _bridge.CreateObject<Group>(gcvm.Group);
+                CommandResult<Messages> bresult = _bridge.CreateObject<Group>(gcvm.Group);
                 if (bresult.Success)
                 {
                     DialogResult = true;
                     log.Info(bresult.Data);
-                    _id = ((CreationSuccess) bresult.Data[0]).id;
+                    _id = bresult.Data.SuccessMessages[0].value;
                     Close();
                 }
                 else
@@ -89,7 +89,7 @@ namespace WinHue3
             else
             {
 
-                CommandResult<MessageCollection> bresult = _bridge.ModifyObject<Group>(gcvm.Group, gcvm.Group.Id);
+                CommandResult<Messages> bresult = _bridge.ModifyObject<Group>(gcvm.Group, gcvm.Group.Id);
                 if (bresult.Success)
                 {
                     DialogResult = true;

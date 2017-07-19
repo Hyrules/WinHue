@@ -10,7 +10,7 @@ namespace WinHue3
         public static void ShowLastErrorMessages(Bridge bridge)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (IMessage m in bridge.lastMessages)
+            foreach (Error m in bridge.lastMessages.ErrorMessages)
             {
                 sb.AppendLine(m.ToString());
             }

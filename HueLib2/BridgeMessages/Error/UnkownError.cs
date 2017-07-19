@@ -8,7 +8,7 @@ using HueLib2.BridgeMessages;
 
 namespace HueLib2
 {
-    public class UnkownError : IMessage
+    public class UnkownError
     {
         public UnkownError(CommResult comres)
         {

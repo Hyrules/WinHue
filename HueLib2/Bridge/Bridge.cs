@@ -16,7 +16,7 @@ namespace HueLib2
         
         private string _apiKey = string.Empty;
         readonly EventArgs _e = null;
-        MessageCollection _lastmessages;
+        Messages _lastmessages;
         private string _apiversion = string.Empty;
         private string _mac = string.Empty;
         private string _swversion;
@@ -107,7 +107,7 @@ namespace HueLib2
         /// </summary>
         public string lastJson => Communication.lastjson;
 
-        public MessageCollection lastMessages
+        public Messages lastMessages
         {
             get 
             { 
@@ -133,7 +133,7 @@ namespace HueLib2
         {
             _ipAddress = IPAddress.None;
             _apiKey = string.Empty;
-            _lastmessages = new MessageCollection();
+            _lastmessages = new Messages();
             _bridgeNotResponding = new Error() { address = $"{_ipAddress}", description = "Bridge is not responding", type = -999 };
         }
 
@@ -186,8 +186,8 @@ namespace HueLib2
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    lastMessages = type != WebRequestType.GET ? new MessageCollection(Serializer.DeserializeToObject<List<IMessage>>(comres.data)) : new MessageCollection();
-                    bresult.Success = lastMessages.FailureCount == 0;
+                    lastMessages = type != WebRequestType.GET ? Serializer.DeserializeToObject<Messages>(comres.data) : new Messages();
+                    bresult.Success = lastMessages.AllSuccess == true;
                     if (type == WebRequestType.GET)
                     {
                         dynamic json = JsonConvert.DeserializeObject(comres.data);
@@ -195,12 +195,12 @@ namespace HueLib2
                     }
                     break;
                 case WebExceptionStatus.Timeout:
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
+                    lastMessages = new Messages(); //TODO:Add Message;
                     BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.Exception = comres.ex;
                     break;
                 default:
-                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    lastMessages = new Messages(); //TODO:Add Message;
                     bresult.Exception = comres.ex;
                     break;
             }
@@ -223,16 +223,14 @@ namespace HueLib2
                 case WebExceptionStatus.Success:
                     listObjets = Serializer.DeserializeToObject<DataStore>(comres.data);
                     if (listObjets != null) return new CommandResult<DataStore>() {Success = true, Data = listObjets};
-                    listObjets = new DataStore();
-                    List<IMessage> lstmsg = Serializer.DeserializeToObject<List<IMessage>>(Communication.lastjson);
-                    lastMessages = lstmsg != null ? new MessageCollection(lstmsg) : new MessageCollection { new UnkownError(comres) };
+                    Messages lstmsg = Serializer.DeserializeToObject<Messages>(Communication.lastjson);
+                    lastMessages = lstmsg ?? new Messages();
                     break;
                 case WebExceptionStatus.Timeout:
-                    lastMessages = new MessageCollection { _bridgeNotResponding };
                     BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
-                    lastMessages = new MessageCollection { new UnkownError(comres) };
+                    lastMessages = new Messages(); //TODO:Add Message;
 
                     break;
             }

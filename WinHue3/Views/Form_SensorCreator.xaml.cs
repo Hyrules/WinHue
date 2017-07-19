@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using HueLib2;
+using HueLib2.BridgeMessages;
 using WinHue3.ViewModels;
 
 namespace WinHue3
@@ -28,12 +29,12 @@ namespace WinHue3
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             Sensor sensor = _scvm.Sensor;
-            CommandResult<MessageCollection> comres;
+            CommandResult<Messages> comres;
             if (modifiedsensor == null)
             {
                 comres = _bridge.CreateObject<Sensor>(sensor);
-                MessageCollection mc = (MessageCollection) comres.Data;
-                modifiedsensor = new Sensor() {Id = ((CreationSuccess)mc[0]).id};
+                Messages mc = comres.Data;
+                modifiedsensor = new Sensor() {Id = mc.SuccessMessages[0].value};
             }
             else
             {
