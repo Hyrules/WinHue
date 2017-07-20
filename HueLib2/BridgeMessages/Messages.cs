@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace HueLib2.BridgeMessages
 {
-    [JsonConverter(typeof(MessageConverter))]
+    [JsonConverter(typeof(MessagesConverter))]
     public class Messages
     {
         private List<Success> _success;

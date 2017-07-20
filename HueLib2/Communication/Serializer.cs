@@ -12,10 +12,6 @@ namespace HueLib2
     {
         private static readonly JsonSerializerSettings jss = new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default};
 
-        static Serializer()
-        {
-            jss.Converters.Add(new MessageConverter());
-        }
 
         /// <summary>
         /// This method serialize an object into a JSON string,

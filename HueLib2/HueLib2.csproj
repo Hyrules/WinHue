@@ -82,7 +82,7 @@
     <Compile Include="BridgeMessages\Error\Error.cs" />
     <Compile Include="BridgeMessages\Error\UnkownError.cs" />
     <Compile Include="BridgeMessages\Messages.cs" />
-    <Compile Include="BridgeMessages\MessageConverter.cs" />
+    <Compile Include="BridgeMessages\MessagesConverter.cs" />
     <Compile Include="BridgeMessages\Success\CreationSuccess.cs" />
     <Compile Include="BridgeMessages\Success\DeletionSuccess.cs" />
     <Compile Include="BridgeMessages\Success\Success.cs" />
@@ -104,7 +104,6 @@
     <Compile Include="Bridge\Objects\SwUpdate.cs" />
     <Compile Include="Bridge\Objects\User.cs" />
     <Compile Include="Bridge\Objects\WhiteList.cs" />
-    <Compile Include="Communication\MessageJsonConverter.cs" />
     <Compile Include="HueLibAttribute.cs" />
     <Compile Include="Objects\Device.cs" />
     <Compile Include="Hue.cs" />

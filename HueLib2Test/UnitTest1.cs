@@ -15,7 +15,7 @@ namespace HueLib2Test
         [TestMethod]
         public void TestMethod1()
         {
-            Messages msg = Serializer.DeserializeToObject<Messages>("[ { \"success\": { \" / lights\": \"Searching for new devices\" } } ]");
+            Messages msg = Serializer.DeserializeToObject<Messages>("[ { \"success\": { \" / lights\": \"Searching for new devices\" } }, { \"error\": { \"type\": 123 , \"address\": \" resource / parameteraddress \" , \"description\": \"description\"  }} ]");
         }
     }
 }

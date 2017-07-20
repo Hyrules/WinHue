@@ -8,29 +8,37 @@ using Newtonsoft.Json.Linq;
 
 namespace HueLib2.BridgeMessages
 {
-    public class MessageConverter : JsonConverter
+    public class MessagesConverter : JsonConverter
     {
-       
+     
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             serializer.Serialize(writer, value);
         }
-
+        
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             Messages msg = new Messages();
             JArray obj = serializer.Deserialize<JArray>(reader);
-            foreach (JObject tk in obj)
+            foreach (JToken tk in obj)
             {
                 Dictionary<string,JToken> dic = tk.ToObject<Dictionary<string, JToken>>();
-                switch(dic[0].Keys[0].ToString())
+                foreach(KeyValuePair<string,JToken> d in dic)
                 {
-                    case "success":
-
-                        break;
+                    Dictionary<string, JToken> s = d.Value.ToObject<Dictionary<string, JToken>>();
+                    switch (d.Key)
+                    {
+                            
+                        case "success":
+                            msg.SuccessMessages.Add(new Success(){ Address = s.Keys.ToArray()[0], value = s[s.Keys.ToArray()[0]].Value<string>()});
+                            break;
+                        case "error":
+                            msg.ErrorMessages.Add(JObject.Parse(tk.First.ToString()).ToObject<Error>());
+                            break;
+                        default:
+                            break;
+                    }
                 }
-                // KeyValuePair<string, JToken> kvp = (KeyValuePair<string, JToken>)tk. ;
-             //   switch (((KeyValuePair<string,JToken>)tk).Key)
             }
             return obj;
         }
