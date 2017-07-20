@@ -9,7 +9,7 @@ namespace HueLib2
     /// <summary>
     /// Error class
     /// </summary>
-    [DataContract,JsonConverter(typeof(ErrorMessageConverter))]
+    ///[DataContract,JsonConverter(typeof(ErrorMessageConverter))]
     public class Error
     {
         /// <summary>
@@ -17,7 +17,7 @@ namespace HueLib2
         /// </summary>
         [DataMember]
         public int type { get; set; }
-        /// <summary>
+        /// <summary>s
         /// Address of the error.
         /// </summary>
         [DataMember(EmitDefaultValue=false,IsRequired=false)]
@@ -34,6 +34,12 @@ namespace HueLib2
         }
 
   
+    }
+
+    public class ErrorMessage
+    {
+        public Error message { get; set; }
+
     }
 
     public class ErrorMessageConverter : JsonConverter

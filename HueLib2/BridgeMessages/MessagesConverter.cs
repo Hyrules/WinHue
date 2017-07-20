@@ -33,14 +33,15 @@ namespace HueLib2.BridgeMessages
                             msg.SuccessMessages.Add(new Success(){ Address = s.Keys.ToArray()[0], value = s[s.Keys.ToArray()[0]].Value<string>()});
                             break;
                         case "error":
-                            msg.ErrorMessages.Add(JObject.Parse(tk.First.ToString()).ToObject<Error>());
+                            
+                            msg.ErrorMessages.Add(new Error() { type = s["type"].Value<int>(), address = s["address"].Value<string>(), description = s["description"].Value<string>()});
                             break;
                         default:
                             break;
                     }
                 }
             }
-            return obj;
+            return msg;
         }
 
         public override bool CanConvert(Type objectType)
