@@ -22,26 +22,58 @@ namespace HueLib2.BridgeMessages
             JArray obj = serializer.Deserialize<JArray>(reader);
             foreach (JToken tk in obj)
             {
-                Dictionary<string,JToken> dic = tk.ToObject<Dictionary<string, JToken>>();
-                foreach(KeyValuePair<string,JToken> d in dic)
+                JObject jo = tk as JObject;
+                List<JProperty> jp = jo.Properties().ToList();
+                foreach (JProperty j in jp)
                 {
-                    Dictionary<string, JToken> s = d.Value.ToObject<Dictionary<string, JToken>>();
-                    switch (d.Key)
+                    switch (j.Name)
                     {
-                            
                         case "success":
-                            msg.SuccessMessages.Add(new Success(){ Address = s.Keys.ToArray()[0], value = s[s.Keys.ToArray()[0]].Value<string>()});
+                            msg.SuccessMessages.Add(ProcessSuccess(j.Value));
                             break;
                         case "error":
-                            
-                            msg.ErrorMessages.Add(new Error() { type = s["type"].Value<int>(), address = s["address"].Value<string>(), description = s["description"].Value<string>()});
+                            msg.ErrorMessages.Add(ProcessError(j.Value));
                             break;
                         default:
                             break;
                     }
                 }
+                
+
             }
             return msg;
+        }
+
+        private Error ProcessError(JToken token)
+        {
+            Error e = new Error();
+            JObject o = token as JObject;
+            List<JProperty> p = o.Properties().ToList();
+            foreach (JProperty prop in p)
+            {
+                if (prop.Name == "type")
+                    e.type = prop.Value.Value<int>();
+                if (prop.Name == "address")
+                    e.address = prop.Value.Value<string>();
+                if (prop.Name == "description")
+                    e.description = prop.Value.Value<string>();
+            }
+
+            return e;
+        }
+
+        private Success ProcessSuccess(JToken token)
+        {
+            Success s = new Success();
+            JObject o = token as JObject;
+            List<JProperty> p = o.Properties().ToList();
+            foreach (JProperty prop in p)
+            {
+                s.Address = prop.Name;
+                s.value = prop.Value.Value<string>();
+                
+            }
+            return s;
         }
 
         public override bool CanConvert(Type objectType)

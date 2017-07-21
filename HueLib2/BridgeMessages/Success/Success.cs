@@ -12,5 +12,9 @@ namespace HueLib2.BridgeMessages
         public string Address { get; set; }
         public string value { get; set; }
 
+        public override string ToString()
+        {
+            return $"Success : {Address} => {value}";
+        }
     }
 }

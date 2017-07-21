@@ -21,6 +21,9 @@ namespace HueLib2.BridgeMessages
             _errors = new List<Error>();
         }
 
+        public Error LastError => _errors.Count > 0 ? _errors[_errors.Count - 1] : null;
+        public Success LastSucccess => _success.Count > 0 ? _success[_success.Count - 1] : null;
+    
         public List<Success> SuccessMessages
         {
             get { return _success; }
@@ -37,9 +40,10 @@ namespace HueLib2.BridgeMessages
         public bool AnySuccess => _success.Count > 0;
 
         public bool AllErrors => _errors.Count > 0 && _success.Count == 0;
-        public bool AllSuccess => _errors.Count == 0 && _success.Count > 1;
+        public bool AllSuccess => _errors.Count == 0 && _success.Count > 0;
 
         public int Count => SuccessMessages.Count + ErrorMessages.Count;
-        
+
+
     }
 }

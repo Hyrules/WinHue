@@ -83,10 +83,7 @@
     <Compile Include="BridgeMessages\Error\UnkownError.cs" />
     <Compile Include="BridgeMessages\Messages.cs" />
     <Compile Include="BridgeMessages\MessagesConverter.cs" />
-    <Compile Include="BridgeMessages\Success\CreationSuccess.cs" />
-    <Compile Include="BridgeMessages\Success\DeletionSuccess.cs" />
     <Compile Include="BridgeMessages\Success\Success.cs" />
-    <Compile Include="BridgeMessages\Success\SuccessOld.cs" />
     <Compile Include="Bridge\Bridge_Settings.cs" />
     <Compile Include="Bridge\Bridge_Update.cs" />
     <Compile Include="Bridge\Objects\BasicConfig.cs" />
