@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WinHue3.Interface;
+using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
 {
@@ -26,38 +28,20 @@ namespace WinHue3.ViewModels
         #region PROPERTIES
         public ImageSource ImageSource
         {
-            get
-            {
-                return _imagesource;
-            }
-            set
-            {
-                SetProperty(ref _imagesource,value);
-            }
+            get => _imagesource;
+            set => SetProperty(ref _imagesource,value);
         }
 
         public bool CanLoadRGB
         {
-            get
-            {
-                return _canloadrgb;
-            }
-            set
-            {
-                SetProperty(ref _canloadrgb,value);
-            }
+            get => _canloadrgb;
+            set => SetProperty(ref _canloadrgb,value);
         }
 
         public bool CanSelectColor
         {
-            get
-            {
-                return _canselectcolor;
-            }
-            set
-            {
-                SetProperty(ref _canselectcolor,value);
-            }
+            get => _canselectcolor;
+            set => SetProperty(ref _canselectcolor,value);
         }
 
         public SolidColorBrush SelectedColorBackground
@@ -72,10 +56,7 @@ namespace WinHue3.ViewModels
         
         public System.Windows.Media.Color SelectedColor
         {
-            get
-            {
-                return _selectedColor;
-            }
+            get => _selectedColor;
             set
             {
                 SetProperty(ref _selectedColor,value);

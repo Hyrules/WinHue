@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HueLib2;
+﻿using WinHue3.ViewModels;
 
 namespace WinHue3.Models
 {
@@ -26,26 +20,26 @@ namespace WinHue3.Models
 
         public string UserMessage
         {
-            get { return _userMessage; }
-            set { SetProperty(ref _userMessage, value); }
+            get => _userMessage;
+            set => SetProperty(ref _userMessage, value);
         }
 
         public double ProgressBarMax
         {
-            get { return _progressBarMax; }
-            set { SetProperty(ref _progressBarMax, value); }
+            get => _progressBarMax;
+            set => SetProperty(ref _progressBarMax, value);
         }
 
         public double ProgressBarMin
         {
-            get { return _progressBarMin; }
-            set { SetProperty(ref _progressBarMin, value); }
+            get => _progressBarMin;
+            set => SetProperty(ref _progressBarMin, value);
         }
 
         public double ProgressBarValue
         {
-            get { return _progressBarValue; }
-            set { SetProperty(ref _progressBarValue,value); }
+            get => _progressBarValue;
+            set => SetProperty(ref _progressBarValue,value);
         }
     }
 }

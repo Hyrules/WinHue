@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace HueLib2
 {
     [DataContract]
-    public class ScheduleBody : RuleBody
+    public class ScheduleBody : IRuleBody
     {
         [DataMember]
         public string localtime { get; set; }

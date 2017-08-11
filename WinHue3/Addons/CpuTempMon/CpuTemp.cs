@@ -1,42 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Management;
-using OpenHardwareMonitor;
-using OpenHardwareMonitor.Hardware;
-using OpenHardwareMonitor.Collections;
-using System.Windows.Threading;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Windows.Threading;
+using OpenHardwareMonitor.Hardware;
+using WinHue3.ExtensionMethods;
+using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Addons.CpuTempMon
 {
-    public class CpuTemp
+    public class CpuTemp : ValidatableBindableBase
     {
-        public float? temperature
-        {
-            get;
-            private set;
-        }
-
-        public string pollSensorName;
-
-        public List<ISensor> cpuSensors
-        {
-            get;
-            private set;
-        }
-
+        private float? _temperature;
+        private ObservableCollection<ISensor> _cpuSensors;
+        private string _pollSensorName;
         private readonly DispatcherTimer timer;
         private readonly Computer comp;
         private readonly BackgroundWorker bgwOpen;
-        private bool _notWorking = false;
+        private bool _working = false;
+
+
+        public string PollSensorName
+        {
+            get => _pollSensorName;
+            set => SetProperty(ref _pollSensorName, value);
+        }
+
+        public float? Temperature
+        {
+            get => _temperature;
+            private set => SetProperty(ref _temperature, value);
+        }
+
+        public ObservableCollection<ISensor> CpuSensors
+        {
+            get => _cpuSensors;
+            private set => SetProperty(ref _cpuSensors, value);
+        }
 
         public bool Working 
         {
-            get{ return _notWorking;}
-            private set{ _notWorking = value;}
+            get => _working;
+            private set => SetProperty(ref _working,value);
         }
 
         public CpuTemp(int pollingInterval)
@@ -47,11 +53,10 @@ namespace WinHue3
             timer.Tick += timer_Tick;
             timer.Interval = new TimeSpan(0, 0, pollingInterval);
             comp.CPUEnabled = true;
-
             bgwOpen = new BackgroundWorker();
             bgwOpen.DoWork += bgwOpen_DoWork;
            
-            pollSensorName = "CPU Package";
+            PollSensorName = "CPU Package";
         }
 
         void bgwOpen_DoWork(object sender, DoWorkEventArgs e)
@@ -72,7 +77,7 @@ namespace WinHue3
 
         public void Start()
         {
-            if (!timer.IsEnabled && Working)
+            if (!timer.IsEnabled && !Working)
             {
                 bgwOpen.RunWorkerAsync();
             }
@@ -88,12 +93,12 @@ namespace WinHue3
         private void timer_Tick(object sender, EventArgs e)
         {
             UpdateSensors();
-            int cpuPackage = cpuSensors.FindIndex(sensor => sensor.Name == pollSensorName);
+            int cpuPackage = CpuSensors.FindIndex(sensor => sensor.Name == PollSensorName);
             if (cpuPackage == -1)
                 cpuPackage = 0;
             
-            temperature = cpuSensors[cpuPackage].Value;
-            OnTempUpdated?.Invoke(this, new CpuTempEventArgs() { currentTemp= temperature});
+            Temperature = CpuSensors[cpuPackage].Value;
+            OnTempUpdated?.Invoke(this, new CpuTempEventArgs() { currentTemp= Temperature});
         }
 
         public event CpuTempEvent OnTempUpdated;
@@ -108,9 +113,9 @@ namespace WinHue3
                 if (hardware.HardwareType != HardwareType.CPU) continue;
 
                 hardware.Update();
-
-                cpuSensors = hardware.Sensors.ToList<ISensor>();
-                cpuSensors.RemoveAll(sens => sens.SensorType != SensorType.Temperature);
+                List<ISensor> sensors = hardware.Sensors.ToList<ISensor>();
+                sensors.RemoveAll(sens => sens.SensorType != SensorType.Temperature);
+                CpuSensors = new ObservableCollection<ISensor>(sensors);
             }
             OnSensorUpdated?.Invoke(this, new EventArgs());
         }
@@ -119,5 +124,6 @@ namespace WinHue3
     public class CpuTempEventArgs : EventArgs
     {
         public float? currentTemp;
+        
     }
 }

@@ -8,7 +8,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
-        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" xmlns:Classes="clr-namespace:WinHue3.Classes" x:Class="WinHue3.Form_SceneMapping"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="WinHue3.Views.Form_SceneMapping"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_SceneMapping_Title}" Height="653.956" Width="891.887" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SceneMapping.png" ResizeMode="CanResizeWithGrip" >
 

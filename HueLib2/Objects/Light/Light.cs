@@ -1,6 +1,10 @@
 ﻿using System.CodeDom;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Windows.Media;
+using HueLib2.Objects.HueObject;
+using HueLib2.Objects.Interfaces;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -9,14 +13,26 @@ namespace HueLib2
     /// <summary>
     /// Light Class.
     /// </summary>
-    [DefaultProperty("Light"), DataContract]
-    public class Light : HueObject
+    [DefaultProperty("Light"), DataContract, HueType("lights")]
+    public class Light : IHueObject
     {
         private string _name;
+        private ImageSource _image;
+
+
+        /// <summary>
+        /// Image
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Image of the light"), ReadOnly(true), Browsable(false)]
+        public ImageSource Image
+        {
+            get { return _image; }
+            set { _image = value; OnPropertyChanged(); }
+        }
+
         /// <summary>
         /// State of the Light.
         /// </summary>
-
         [DataMember(EmitDefaultValue = false, IsRequired = false), Category("State"), Description("State of the light"),ExpandableObject, ReadOnly(true)]
         public State state { get; set; }
         /// <summary>
@@ -33,10 +49,16 @@ namespace HueLib2
         public string manufacturername { get; set; }
 
         /// <summary>
+        /// ID of the Light
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("ID"), ReadOnly(true)]
+        public string Id { get; set; }
+
+        /// <summary>
         /// Name of the light.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Light Name")]
-        public string name {
+        [DataMember(Name = "name",EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Light Name")]
+        public string Name {
             get { return _name; }
             set
             {
@@ -44,6 +66,7 @@ namespace HueLib2
                 OnPropertyChanged();
             }
         }
+
         /// <summary>
         /// Model ID of the Light.
         /// </summary>
@@ -70,5 +93,23 @@ namespace HueLib2
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
         }
 
+        /// <summary>
+        /// Event that happen when property has change.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// When a property has change this event is triggered - needed for the binding to refresh properly.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

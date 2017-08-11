@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HueLib2;
-using Color = System.Drawing.Color;
+using System.Windows.Forms.VisualStyles;
+using Newtonsoft.Json;
+using WinHue3.Color;
+using WinHue3.Colors;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 
-namespace WinHue3
+
+namespace WinHue3.Addons.RssFeedMonitor
 {
     /// <summary>
     /// Interaction logic for Form_ActionPicker.xaml
@@ -24,7 +20,7 @@ namespace WinHue3
     {
 
         private List<string> _listselectedLights;
-        private Body _action;
+        private IBaseProperties _action;
         private readonly Bridge _bridge;
 
         public Form_ActionPicker(Bridge bridge)
@@ -35,7 +31,7 @@ namespace WinHue3
             _listselectedLights = null;
         }
 
-        public Form_ActionPicker(Body action, List<string> listlights )
+        public Form_ActionPicker(IBaseProperties action, List<string> listlights )
         {
             InitializeComponent();
             _action = action;
@@ -47,7 +43,7 @@ namespace WinHue3
         {
             if (slSATEndGradient == null) return;
             double val = slHue.Value / 273.06;
-            Color color = new HSLColor(val, 240, 120);
+            System.Drawing.Color color = new HSLColor(val, 240, 120);
             slSATEndGradient.Color = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
         }
 
@@ -102,10 +98,10 @@ namespace WinHue3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CommandResult bresult = _bridge.GetListObjects<Light>();
-            if (bresult.Success)
+            Dictionary<string,Light> bresult = _bridge.GetListObjects<Light>();
+            if (bresult != null)
             {
-                Dictionary<string, Light> listlights = (Dictionary<string, Light>) bresult.resultobject;
+                Dictionary<string, Light> listlights = bresult;
 
                 foreach (KeyValuePair<string, Light> kvp in listlights)
                 {
@@ -188,7 +184,7 @@ namespace WinHue3
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
 
-            if ((!(bool)chbHue.IsChecked && !(bool)chbBri.IsChecked && !(bool)chbSAT.IsChecked && !(bool)chbCT.IsChecked && !(bool)chbX.IsChecked && cbAlert.SelectedIndex == 0) && (bool)chbOn.IsChecked)
+            if ((!chbHue.IsChecked.GetValueOrDefault() && !chbBri.IsChecked.GetValueOrDefault() && !chbSAT.IsChecked.GetValueOrDefault() && !chbCT.IsChecked.GetValueOrDefault() && !chbX.IsChecked.GetValueOrDefault() && cbAlert.SelectedIndex == 0) && chbOn.IsChecked.GetValueOrDefault())
             {
                 MessageBox.Show("Please check at least one action to do when the conditions are met.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -200,28 +196,28 @@ namespace WinHue3
                 return;
             }
 
-            _action = new Body();
+     //       _action = JsonConvert.SerializeObject(_action);
             _listselectedLights = new List<string>();
 
-            if ((bool)chbHue.IsChecked)
+            if (chbHue.IsChecked.GetValueOrDefault())
                 _action.hue = (byte)slHue.Value;
 
-            if ((bool)chbBri.IsChecked)
+            if (chbBri.IsChecked.GetValueOrDefault())
                 _action.bri = (byte)slBri.Value;
 
-            if ((bool)chbCT.IsChecked)
+            if (chbCT.IsChecked.GetValueOrDefault())
                 _action.ct = (ushort)slCT.Value;
 
-            if ((bool)chbSAT.IsChecked)
+            if (chbSAT.IsChecked.GetValueOrDefault())
                 _action.sat = (byte)slSAT.Value;
 
-            if ((bool) chbX.IsChecked)
+            if (chbX.IsChecked.GetValueOrDefault())
             {
-                _action.xy = new XY();
-                _action.xy.x = (decimal) slX.Value;
-                _action.xy.y = (decimal) slY.Value;
+                _action.xy = new decimal[2];
+                _action.xy[0] = (decimal) slX.Value;
+                _action.xy[1] = (decimal) slY.Value;
             }
-            if ((bool)chbTT.IsChecked)
+            if (chbTT.IsChecked.GetValueOrDefault())
                 _action.transitiontime = (ushort)slTT.Value;
 
             _action.on = chbOn.IsChecked;
@@ -258,7 +254,7 @@ namespace WinHue3
             return _listselectedLights;
         }
 
-        public Body GetAction()
+        public IBaseProperties GetAction()
         {
             return _action;
         }
@@ -266,7 +262,7 @@ namespace WinHue3
         public void ClearAction()
         {
             _listselectedLights = new List<string>();
-            _action = new Body();
+            _action = null;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace WinHue3
+namespace WinHue3.Addons.RssFeedMonitor
 {
     [DataContract,Serializable]
     public class Criteria

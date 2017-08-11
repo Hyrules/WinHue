@@ -1,12 +1,5 @@
-﻿
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using HueLib2;
-using System.ComponentModel.DataAnnotations;
-using Prism.Mvvm;
-using WinHue3.Resources;
+﻿using System.ComponentModel.DataAnnotations;
+using WinHue3.ViewModels;
 
 
 namespace WinHue3.Models
@@ -31,16 +24,13 @@ namespace WinHue3.Models
 
         public sbyte SunriseOffset
         {
-            get { return _sunriseoffset;}
-            set
-            {
-                SetProperty(ref _sunriseoffset, value);
-            }
+            get => _sunriseoffset;
+            set => SetProperty(ref _sunriseoffset, value);
         }
 
         public sbyte SunsetOffset
         {
-            get {return _sunsetoffset;}
+            get => _sunsetoffset;
             set
             {
                 _sunsetoffset = value;

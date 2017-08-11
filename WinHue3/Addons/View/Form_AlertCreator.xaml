@@ -6,7 +6,7 @@
         xmlns:datacontext="clr-namespace:WinHue3.Addons.ViewModel"
         xmlns:converter="clr-namespace:WinHue3.Addons.Converter"
         xmlns:triggerhelper="clr-namespace:WinHue3.Utils"
-        x:Class="WinHue3.Form_AlertCreator"
+        x:Class="WinHue3.Addons.View.Form_AlertCreator"
         mc:Ignorable="d"
         Title="Create an alert..." Height="410.689" Width="428.631" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
     <Window.Resources>

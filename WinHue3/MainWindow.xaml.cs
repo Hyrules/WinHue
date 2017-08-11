@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using HueLib2;
 using System.Threading;
-using System.Windows.Interop;
 using System.Windows.Media;
+using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
+using WinHue3.Settings;
 using WinHue3.ViewModels;
+using WinHue3.ViewModels.MainFormViewModels;
+using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3
 {
@@ -25,14 +26,14 @@ namespace WinHue3
         private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);     
         public string Version { get; set; }
-        public Form_EventLog _fel;
+        public Views.Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
         /// <summary>
         /// Form of the Eventlog.
         /// </summary>
 
-        public MainWindow(Form_EventLog formEventLog)
+        public MainWindow(Views.Form_EventLog formEventLog)
         {
             _fel = formEventLog;
 
@@ -70,20 +71,20 @@ namespace WinHue3
             {
                 dependencyobject.Background = new SolidColorBrush();
                 ((SolidColorBrush) dependencyobject.Background).Color =
-                    Color.FromArgb(20, 0, 200, 0);
+                    System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
             }
         }
 
-        public void SetObjectBackground(List<HueObject> objectlist)
+        public void SetObjectBackground(List<IHueObject> objectlist)
         {
             if (objectlist.Count <= 0) return;
-            foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<HueObject>()
+            foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<IHueObject>()
                                                        where objectlist.Contains(item)
                                                        select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
                 dependencyobject.Background = new SolidColorBrush();
                 ((SolidColorBrush)dependencyobject.Background).Color =
-                    Color.FromArgb(20, 0, 200, 0);
+                    System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
             }
         }
 
@@ -109,8 +110,8 @@ namespace WinHue3
             if (lvMainObjects.SelectedItem is Resourcelink)
             {
                 Resourcelink rl = (Resourcelink) lvMainObjects.SelectedItem;
-                List<HueObject> listhue = new List<HueObject>();
-                List<HueObject> bo = new List<HueObject>(lvMainObjects.Items.OfType<HueObject>());
+                List<IHueObject> listhue = new List<IHueObject>();
+                List<IHueObject> bo = new List<IHueObject>(lvMainObjects.Items.OfType<IHueObject>());
                 foreach (string s in rl.links)
                 {
                     string[] objbreak = s.Split('/');

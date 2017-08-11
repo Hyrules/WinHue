@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
+using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
+using Messages = WinHue3.Philips_Hue.BridgeObject.BridgeMessages.Messages;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for SceneCreator.xaml
@@ -18,7 +21,7 @@ namespace WinHue3
         /// <summary>
         /// Current bridge.
         /// </summary>
-        readonly Bridge _bridge;
+        private Bridge _bridge;
 
         /// <summary>
         /// Id of the new or modified scene.
@@ -31,16 +34,22 @@ namespace WinHue3
         /// ctor
         /// </summary>
         /// <param name="bridge">active bridge.</param>
-        public Form_SceneCreator(Bridge bridge, string sceneid = null)
+        public Form_SceneCreator()
         {
             InitializeComponent();
-            _bridge = bridge;
-            _currentsceneid = string.Empty;
             _scvm = DataContext as SceneCreatorViewModel;
-            HelperResult hr = HueObjectHelper.GetObjectsList<Light>(bridge);
-            if (hr.Success)
+
+        }
+
+        public async Task Inititalize(Bridge bridge, string sceneid = null)
+        {
+            _bridge = bridge;
+            _currentsceneid = sceneid ?? string.Empty;
+
+            List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+            if (hr != null)
             {
-                _scvm.Initialize((List<Light>)hr.Hrobject,_bridge);
+                _scvm.Initialize(hr, _bridge);
             }
             else
             {
@@ -50,18 +59,17 @@ namespace WinHue3
             if (sceneid != null)
             {
                 _currentsceneid = sceneid;
-                CommandResult cr = _bridge.GetObject<Scene>(sceneid);
-                if (cr.Success)
+                Scene cr = _bridge.GetObject<Scene>(sceneid);
+                if (cr != null)
                 {
                     _scvm.Initialize(_bridge);
-                    _scvm.Scene = (Scene) cr.resultobject;
+                    _scvm.Scene = cr;
                 }
                 else
                 {
                     MessageBoxError.ShowLastErrorMessages(_bridge);
                 }
             }
- 
         }
 
         public string GetCreatedOrModifiedID()
@@ -72,16 +80,23 @@ namespace WinHue3
         private void btnSaveScene_Click(object sender, RoutedEventArgs e)
         {
             Scene newScene = _scvm.Scene;
+            bool result;
 
             log.Info("Scene to be created : " + newScene);
-            CommandResult comres = _currentsceneid == string.Empty? _bridge.CreateObject<Scene>((Scene)newScene.Clone()) : _bridge.ModifyObject<Scene>((Scene)newScene.Clone(),_currentsceneid);
 
-            if (comres.Success)
+            if (_currentsceneid == string.Empty)
             {
-                MessageCollection mc = ((MessageCollection) comres.resultobject);
-
-                string id = "";
-                id = _currentsceneid != string.Empty ? _currentsceneid : ((CreationSuccess)mc[0]).id;
+                result = _bridge.CreateObject(newScene);
+            }
+            else
+            {
+                newScene.Id = _currentsceneid;
+                result = _bridge.ModifyObject(newScene);
+            }
+            
+            if (result)
+            {
+                string id = _currentsceneid != string.Empty ? _currentsceneid : _bridge.LastCommandMessages.LastSuccess.value;
                 log.Info("Id of the scene" + id);
                 
                 foreach (KeyValuePair<string,State> obj in newScene.lightstates)
@@ -95,7 +110,7 @@ namespace WinHue3
             else
             {
                 _bridge.ShowErrorMessages();
-                log.Error(_bridge.lastMessages);
+                log.Error(_bridge.LastCommandMessages);
             }
             
         }

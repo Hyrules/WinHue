@@ -53,11 +53,17 @@ namespace HueLib2
         /// Type of the update.
         /// </summary>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
-        bool? bridge { get; set; }
+        public bool? bridge { get; set; }
         /// <summary>
         /// Lights to update.
         /// </summary>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
-        List<string> lights { get; set; }
+        public List<string> lights { get; set; }
+
+        /// <summary>
+        /// Sensors to update.
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        public List<string> sensors { get; set; }
     }
 }

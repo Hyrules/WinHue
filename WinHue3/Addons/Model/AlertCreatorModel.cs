@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinHue3.ViewModels;
 
 namespace WinHue3.Addons.Model
 {
@@ -23,26 +19,26 @@ namespace WinHue3.Addons.Model
 
         public string Name
         {
-            get { return _name; }
-            set { SetProperty(ref _name,value); }
+            get => _name;
+            set => SetProperty(ref _name,value);
         }
 
         public string Description
         {
-            get { return _description; }
-            set { SetProperty(ref _description,value); }
+            get => _description;
+            set => SetProperty(ref _description,value);
         }
 
         public string Url
         {
-            get { return _url; }
-            set { SetProperty(ref _url,value); }
+            get => _url;
+            set => SetProperty(ref _url,value);
         }
 
         public bool Enable
         {
-            get { return _enable; }
-            set { SetProperty(ref _enable,value); }
+            get => _enable;
+            set => SetProperty(ref _enable,value);
         }
     }
 }

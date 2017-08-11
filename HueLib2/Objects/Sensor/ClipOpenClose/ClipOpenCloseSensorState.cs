@@ -8,12 +8,14 @@ namespace HueLib2
     /// SensorState class.
     /// </summary>
     [DataContract]
-    public class ClipOpenCloseSensorState : SensorState
+    public class ClipOpenCloseSensorState : ISensorState, IRuleBody
     {
         /// <summary>
         /// Open or close.
         /// </summary>
         [DataMember]
         public bool open { get; set; }
+        [DataMember]
+        public string lastupdated { get; set; }
     }
 }

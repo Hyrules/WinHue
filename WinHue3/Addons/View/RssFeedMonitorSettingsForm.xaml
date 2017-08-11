@@ -4,7 +4,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewmodel="clr-namespace:WinHue3.Addons.ViewModel"
-        x:Class="WinHue3.RssFeedMonitorSettingsForm"
+        x:Class="WinHue3.Addons.View.RssFeedMonitorSettingsForm"
         Title="Settings..." Height="361.431" Width="538.651" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Window.DataContext>
         <viewmodel:RssFeedSettingsViewModel/>

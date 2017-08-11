@@ -3,8 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-
-namespace WinHue3
+namespace WinHue3.Interface
 {
     public static class ScreenPixelHandler 
     {
@@ -25,7 +24,7 @@ namespace WinHue3
 
       
 
-        public static Color GetColorAtCursor()
+        public static System.Drawing.Color GetColorAtCursor()
         {
             Point cursor = new Point();
             GetCursorPos(ref cursor);

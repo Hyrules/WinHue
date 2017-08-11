@@ -7,12 +7,14 @@ namespace HueLib2
     /// Sensor State.
     /// </summary>
     [DataContract]
-    public class ClipGenericFlagSensorState : SensorState
+    public class ClipGenericFlagSensorState : ISensorState, IRuleBody
     {
         /// <summary>
         /// url.
         /// </summary>
         [DataMember]
         public bool flag { get; set; }
+        [DataMember]
+        public string lastupdated { get; set; }
     }
 }

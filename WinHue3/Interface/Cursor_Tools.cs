@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace WinHue3
+namespace WinHue3.Interface
 {
     public static class Cursor_Tools
     {

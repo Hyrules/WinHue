@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Form_AddManualIp"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Views.Form_AddManualIp"
         mc:Ignorable="d"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:modelview="clr-namespace:WinHue3.ViewModels"

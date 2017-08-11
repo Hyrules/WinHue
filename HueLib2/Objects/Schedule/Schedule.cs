@@ -1,6 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Windows.Media;
+using HueLib2.Objects.HueObject;
+using HueLib2.Objects.Interfaces;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -9,15 +13,33 @@ namespace HueLib2
     /// <summary>
     /// Class for a schedule.
     /// </summary>
-    [DataContract, DefaultProperty("Schedule"),Serializable]
-    public class Schedule : HueObject
+    [DataContract, DefaultProperty("Schedule"),Serializable, HueType("schedules")]
+    public class Schedule : IHueObject
     {
         private string _name;
+        private ImageSource _image;
+
+        /// <summary>
+        /// Image of the rule.
+        /// </summary>
+        [DataMember, Category("Schedule Properties"), Description("Image of the Schedule"), ReadOnly(true), Browsable(false)]
+        public ImageSource Image
+        {
+            get { return _image; }
+            set { _image = value; OnPropertyChanged(); }
+        }
+
+        /// <summary>
+        /// ID of the rule.
+        /// </summary>
+        [DataMember, Category("Schedule Properties"), Description("ID of the Schedule"), ReadOnly(true), Browsable(false)]
+        public string Id { get; set; }
+
         /// <summary>
         /// Name of the Schedule.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Name of the schedule")]
-        public string name
+        [DataMember(Name = "name"), Category("Schedule Properties"), Description("Name of the schedule")]
+        public string Name
         {
             get { return _name; }
             set
@@ -83,6 +105,25 @@ namespace HueLib2
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
+        }
+
+        /// <summary>
+        /// Event that happen when property has change.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// When a property has change this event is triggered - needed for the binding to refresh properly.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 

@@ -1,4 +1,4 @@
-﻿namespace WinHue3
+﻿namespace WinHue3.Views
 {
     partial class AboutBox
     {

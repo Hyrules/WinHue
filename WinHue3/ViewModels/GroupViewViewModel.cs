@@ -1,44 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using HueLib2;
-using Action = HueLib2.Action;
-using Group = HueLib2.Group;
+using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
+
 
 namespace WinHue3.ViewModels
 {
     public class GroupViewViewModel : ValidatableBindableBase
     {
-        private Dictionary<string, Group> _groups;
-        private Dictionary<string, Light> _lights;
+        private List<Group> _groups;
+        private List<Light> _lights;
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
 
         public GroupViewViewModel()
         {
-
+            _dt = new DataTable();
         }
 
-        public void Initialize(Dictionary<string, Group> groups, Dictionary<string, Light> lights)
+        public void Initialize(List<Group> groups, List<Light> lights)
         {
             _groups = groups;
             _lights = lights;
             BuildGroupViewReverse();
         }
 
-        public DataView GroupsDetails => _dt?.DefaultView;
+        public DataView GroupsDetails
+        {
+            get => _dt.DefaultView;
+
+        } 
 
         public bool Reverse
         {
-            get { return _reverse; }
+            get => _reverse;
             set
             {
                 SetProperty(ref _reverse,value);
-                if (value == true)
+                if (value)
                 {
                     BuildGroupView();
                 }
@@ -51,37 +58,35 @@ namespace WinHue3.ViewModels
 
         private void BuildGroupView()
         {
-            Dictionary<string, Group> lgroups = _groups;
-            Dictionary<string, Light> llights = _lights;
+            List<Group> lgroups = _groups;
+            List<Light> llights = _lights;
             if (lgroups == null) return;
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Properties");
-            foreach (KeyValuePair<string,Group> gvp in lgroups)
+            foreach (Group gvp in lgroups)
             {
-                dt.Columns.Add(gvp.Value.name);
+                dt.Columns.Add(gvp.name);
             }
 
-
-
-            PropertyInfo[] listproperties = typeof(Group).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            PropertyInfo[] listaction = typeof(Action).GetProperties();
+            PropertyInfo[] listproperties = typeof(Group).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "action").ToArray(); 
+            PropertyInfo[] listaction = typeof(Action).GetHueProperties().Where(x => !x.Name.Contains("_inc") && x.Name != "scene").ToArray(); 
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + listaction.Length];
 
             listproperties.CopyTo(listPropertyInfos,0);
             listaction.CopyTo(listPropertyInfos,listproperties.Length);
 
-            object[] data = new object[lgroups.Count+1];
+            object[] data = new object[dt.Columns.Count];
 
             
-            foreach (KeyValuePair<string, Light> lvp in llights)
+            foreach (Light l in llights)
             {
                 int i = 0;
-                data[i] = lvp.Value.name;
+                data[i] = l.name;
                 i++;
-                foreach (KeyValuePair<string, Group> gvp in lgroups)
+                foreach (Group g in lgroups)
                 {
-                    if (gvp.Value.lights.Contains(lvp.Key))
+                    if (g.lights.Contains(l.Id))
                         data[i] = "Assigned";
                     else
                     {
@@ -96,22 +101,21 @@ namespace WinHue3.ViewModels
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights") continue;
 
                 int i = 1;
                 data[0] = pi.Name;
 
-                foreach (KeyValuePair<string, Group> gvp in lgroups)
+                foreach (Group g in lgroups)
                 {
-                    if (Array.Find(listaction,x => x.Name == pi.Name) != null)
+                    object value = null;
+                    value = Array.Find(listaction, x => x.Name == pi.Name) != null ? pi.GetValue(g.action) : pi.GetValue(g);
+
+                    if (value is Array)
                     {
-                        data[i] = pi.GetValue(gvp.Value.action);
+                        value = ((Array)value).ArrayToString();
                     }
-                    else
-                    {
-                        data[i] = pi.GetValue(gvp.Value);
-                    }
-                    
+
+                    data[i] = value;
                     i++;
                 }
               
@@ -122,44 +126,42 @@ namespace WinHue3.ViewModels
             RaisePropertyChanged("GroupsDetails");
         }
 
+        
         private void BuildGroupViewReverse()
         {
-            Dictionary<string, Group> lgroups = _groups;
-            Dictionary<string, Light> llights = _lights;
+            List<Group> lgroups = _groups;
+            List<Light> llights = _lights;
             if (lgroups == null) return;
             DataTable dt = new DataTable();
             dt.Columns.Add("Groups");
 
-            PropertyInfo[] listproperties = typeof(Group).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            PropertyInfo[] liststate = typeof(Action).GetProperties();
-            PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
+            PropertyInfo[] listproperties = typeof(Group).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "action").ToArray();
+            PropertyInfo[] listaction = typeof(Action).GetHueProperties().Where(x => !x.Name.Contains("_inc") && x.Name != "scene").ToArray();
+            PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + listaction.Length];
 
             listproperties.CopyTo(listPropertyInfos, 0);
-            liststate.CopyTo(listPropertyInfos, listproperties.Length);
+            listaction.CopyTo(listPropertyInfos, listproperties.Length);
 
-            foreach (KeyValuePair<string, Light> lvp in llights)
+            foreach (Light l in llights)
             {
-                dt.Columns.Add(lvp.Value.name);
+                dt.Columns.Add(l.name);
             }
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights") continue;
                 dt.Columns.Add(pi.Name);
             }
 
-            int nbrcol =  listPropertyInfos.Length - 2 - liststate.Count(x => x.Name.Contains("_inc")) + llights.Count;
-
-            object[] data = new object[nbrcol];
-
-            foreach (KeyValuePair<string,Group> gvp in lgroups)
+            object[] data = new object[dt.Columns.Count];
+           
+            foreach (Group g in lgroups)
             {
                 int i = 1;
-                data[0] = gvp.Value.name;
+                data[0] = g.name;
 
-                foreach (KeyValuePair<string, Light> lvp in llights)
+                foreach (Light l in llights)
                 {
-                    if (gvp.Value.lights.Contains(lvp.Key))
+                    if (g.lights.Contains(l.Id))
                         data[i] = "Assigned";
                     else
                         data[i] = "";
@@ -168,29 +170,30 @@ namespace WinHue3.ViewModels
 
                 foreach (PropertyInfo pi in listPropertyInfos)
                 {
-                    if (pi.Name == "action" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "lights") continue;
+                    object value = null;
+                    value = Array.Find(listaction, x => x.Name == pi.Name) != null ? pi.GetValue(g.action) : pi.GetValue(g);
 
-                    if (Array.Find(liststate, x => x.Name == pi.Name) != null)
+                    if (value is Array)
                     {
-                        data[i] = pi.GetValue(gvp.Value.action);
+                        value = ((Array)value).ArrayToString();
                     }
-                    else
-                    {
-                        data[i] = pi.GetValue(gvp.Value);
-                    }
+
+                    data[i] = value;
                     i++;
 
                 }
+                Console.WriteLine(i);
                 dt.Rows.Add(data);
 
             }
             _dt = dt;
             RaisePropertyChanged("GroupsDetails");
+
         }
 
         public string Filter
         {
-            get { return _filter; }
+            get => _filter;
             set
             {
                 SetProperty(ref _filter,value);
@@ -201,7 +204,7 @@ namespace WinHue3.ViewModels
 
         public void FilterData()
         {
-            if (_filter == string.Empty)
+          /*  if (_filter == string.Empty)
             {
                 _dt.DefaultView.RowFilter = string.Empty;
             }
@@ -216,7 +219,7 @@ namespace WinHue3.ViewModels
 
                 sb.Remove(sb.Length - 3, 3);
                 _dt.DefaultView.RowFilter = sb.ToString();
-            }
+            }*/
         }
 
     }

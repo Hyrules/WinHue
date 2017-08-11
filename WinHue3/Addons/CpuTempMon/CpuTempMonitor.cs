@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.ViewModels;
 
-namespace WinHue3
+
+namespace WinHue3.Addons.CpuTempMon
 {
     
-    public class CpuTempMonitor : View
+    public class CpuTempMonitor : ValidatableBindableBase
     {
         /// <summary>
         /// Name of the plugin.
@@ -51,6 +49,7 @@ namespace WinHue3
 
         private void LoadSettings()
         {
+
             _gradientStartColor = Properties.Settings.Default.CPUTemp_gradientStartColor;
             _gradientStartTemp = Properties.Settings.Default.CPUTemp_gradientStartTemp;
             _gradientStopColor = Properties.Settings.Default.CPUTemp_gradientStopColor;
@@ -64,7 +63,7 @@ namespace WinHue3
 
         public bool IsRunning
         {
-            get { return _isrunning;}
+            get => _isrunning;
             private set { _isrunning = value; RaisePropertyChanged(); }
 
         }
@@ -91,15 +90,9 @@ namespace WinHue3
 
         public CpuTemp Temp
         {
-            get
-            {
-                return _temp;
-            }
+            get => _temp;
 
-            set
-            {
-                _temp = value;
-            }
+            set => _temp = value;
         }
 
         /// <summary>
@@ -166,13 +159,13 @@ namespace WinHue3
 
             if (_objectType == true)
             {
-                _bridge.SetState<Light>(new State() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
+                _bridge.SetState(new State() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
             }
             else
             {
-                _bridge.SetState<Group>(new HueLib2.Action() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
+                _bridge.SetState(new Action() { hue = hueTemp, bri = _userBri, sat = _userSat, @on = true, transitiontime = 9 },_objectId);
             }
 
-          }
+        }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinHue3.ViewModels;
 
 namespace WinHue3.Models
 {
@@ -27,32 +22,32 @@ namespace WinHue3.Models
 
         public string ApplicationName
         {
-            get { return _appname; }
-            set { SetProperty(ref _appname,value); }
+            get => _appname;
+            set => SetProperty(ref _appname,value);
         }
 
         public string Devtype
         {
-            get { return _devtype; }
-            set { SetProperty(ref _devtype,value); }
+            get => _devtype;
+            set => SetProperty(ref _devtype,value);
         }
 
         public string Lastused
         {
-            get { return _lastused; }
-            set { SetProperty(ref _lastused,value); }
+            get => _lastused;
+            set => SetProperty(ref _lastused,value);
         }
 
         public string Created
         {
-            get { return _created; }
-            set { SetProperty(ref _created,value); }
+            get => _created;
+            set => SetProperty(ref _created,value);
         }
 
         public string Key
         {
-            get { return _key; }
-            set { SetProperty(ref _key,value); }
+            get => _key;
+            set => SetProperty(ref _key,value);
         }
     }
 }

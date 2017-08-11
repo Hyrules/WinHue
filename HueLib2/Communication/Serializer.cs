@@ -1,5 +1,8 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics;
+using HueLib2.BridgeMessages;
 using Newtonsoft.Json;
 
 namespace HueLib2
@@ -10,6 +13,7 @@ namespace HueLib2
     public static class Serializer
     {
         private static readonly JsonSerializerSettings jss = new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default};
+
 
         /// <summary>
         /// This method serialize an object into a JSON string,
@@ -41,27 +45,45 @@ namespace HueLib2
         /// <typeparam name="T">Type of object you want the string deserialize into</typeparam>
         /// <param name="json">JSON string to deserialize</param>
         /// <returns>The object result of the deserialized string</returns>
-        public static T DeserializeToObject<T>(string json) where T : new()
-        {
-            T NewObject = new T();
 
+
+        public static T DeserializeToObject<T>(string json)
+        {
+            T newObject;
             try
             {
-                if (!string.IsNullOrEmpty(json))
+
+                if (!json.Equals("{}") && !string.IsNullOrEmpty(json))
                 {
-                    if (!json.Equals("{}"))
-                        NewObject = JsonConvert.DeserializeObject<T>(json, jss);
+                    newObject = JsonConvert.DeserializeObject<T>(json, jss);
                 }
                 else
                 {
-                    NewObject = default(T);
+                    newObject = default(T);
                 }
+
+            }
+            catch (Exception ex)
+            {
+                newObject = default(T);
+            }
+            return newObject;
+        }
+
+        public static object DeserializeMessage(string json)
+        {
+            object obj = new object();
+
+
+            try
+            {
+                obj = JsonConvert.DeserializeObject(json);
             }
             catch (Exception)
             {
-                NewObject = default(T);
+                obj = null;
             }
-            return NewObject;
+            return obj;
         }
 
         public static SearchResult DeserializeSearchResult(string json)
@@ -87,6 +109,7 @@ namespace HueLib2
 
         }
 
-
     }
+
+
 }

@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WinHue3.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="CPUTemp_gradientStartColor" Type="System.Double" Scope="User">
+    <Setting Name="CPUTemp__lowerGradientColor" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="CPUTemp_gradientStartTemp" Type="System.Double" Scope="User">
@@ -31,6 +31,9 @@
     </Setting>
     <Setting Name="CPUTemp_SensorName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CPUTemp_gradientStartColor" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

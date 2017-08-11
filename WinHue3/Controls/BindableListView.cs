@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using HueLib2;
-using WinHue3.Annotations;
 
 namespace WinHue3.Controls
 {
@@ -33,8 +24,8 @@ namespace WinHue3.Controls
 
         public IList SelectedItemsList
         {
-            get { return (IList)GetValue(SelectedItemsListProperty); }
-            set { SetValue(SelectedItemsListProperty, value); }
+            get => (IList)GetValue(SelectedItemsListProperty);
+            set => SetValue(SelectedItemsListProperty, value);
         }
 
         public static readonly DependencyProperty SelectedItemsListProperty =

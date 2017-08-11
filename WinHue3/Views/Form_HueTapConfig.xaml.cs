@@ -1,42 +1,49 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Settings;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_HueTapConfig.xaml
     /// </summary>
     public partial class Form_HueTapConfig : Window
     {
-        private readonly Bridge _bridge;
+        private Bridge _bridge;
+        HueTapConfigViewModel tcvm;
+        public Form_HueTapConfig()
+        {
 
-        public Form_HueTapConfig(string sensorid,Bridge bridge)
+            InitializeComponent();
+            tcvm = DataContext as HueTapConfigViewModel;  
+        }
+
+        public async Task Initialize(string sensorid, Bridge bridge)
         {
             _bridge = bridge;
-            InitializeComponent();
-            HueTapConfigViewModel tcvm = this.DataContext as HueTapConfigViewModel;
             tcvm.Bridge = bridge;
             tcvm.HueTapModel.Id = sensorid;
 
+            List<Scene> hr = await HueObjectHelper.GetBridgeScenesAsyncTask(_bridge);
 
-            HelperResult hr = HueObjectHelper.GetBridgeScenes(_bridge);            
-
-            if (hr.Success)
+            if (hr != null)
             {
 
                 if (WinHueSettings.settings.ShowHiddenScenes)
                 {
-                    tcvm.HueTapModel.ListScenes = (List<HueObject>)hr.Hrobject;
+                    tcvm.HueTapModel.ListScenes = hr;
                 }
                 else
                 {
-                    List<HueObject> temp = ((List<HueObject>)hr.Hrobject);
-                    temp = temp.Where(x => !x.GetName().StartsWith("HIDDEN")).ToList();
+                    List<Scene> temp = hr;
+                    temp = temp.Where(x => !x.name.StartsWith("HIDDEN")).ToList();
                     tcvm.HueTapModel.ListScenes = temp;
                 }
 

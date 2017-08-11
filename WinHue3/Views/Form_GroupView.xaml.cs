@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_BulbsView.xaml
@@ -11,21 +15,25 @@ namespace WinHue3
     public partial class Form_GroupView : Window
     {
         private GroupViewViewModel _gvv;
-        private readonly Bridge _bridge;
-        public Form_GroupView(Bridge bridge)
+        private Bridge _bridge;
+        public Form_GroupView()
+        {
+            InitializeComponent();
+        }
+
+        public async Task Initialize(Bridge bridge)
         {
             _bridge = bridge;
-            InitializeComponent();
-            CommandResult comlgt = _bridge.GetListObjects<Light>();
+            List<Light> comlgt = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
             _gvv = DataContext as GroupViewViewModel;
 
-            if (comlgt.Success)
+            if (comlgt != null)
             {
-                CommandResult comgrp = _bridge.GetListObjects<Group>();
-                if (comgrp.Success)
+                List<Group> comgrp = await HueObjectHelper.GetBridgeGroupsAsyncTask(_bridge);
+                if (comgrp != null)
                 {
-                    
-                    _gvv.Initialize((Dictionary<string, Group>)comgrp.resultobject, (Dictionary<string, Light>)comlgt.resultobject);
+
+                    _gvv.Initialize(comgrp, comlgt);
                 }
                 else
                 {
@@ -39,9 +47,6 @@ namespace WinHue3
             {
                 MessageBoxError.ShowLastErrorMessages(bridge);
             }
-
-
-
         }
 
     }

@@ -61,6 +61,24 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Object created successfully !.
+        /// </summary>
+        public static string AdvancedCreator_ObjectCreated {
+            get {
+                return ResourceManager.GetString("AdvancedCreator_ObjectCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sending a delete request will mostlikely delete the specified object. Delete ?.
+        /// </summary>
+        public static string AdvancedCreator_WarningDelete {
+            get {
+                return ResourceManager.GetString("AdvancedCreator_WarningDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ALREADY CONNECTED.
         /// </summary>
         public static string Already_Connected {
@@ -934,6 +952,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entered string is not valid.
+        /// </summary>
+        public static string InvalidString {
+            get {
+                return ResourceManager.GetString("InvalidString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please restart the application in order to apply language change..
         /// </summary>
         public static string Language_Change_Warning {
@@ -1204,7 +1231,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to replace the selected condition ?.
+        ///   Looks up a localized string similar to A similar condition already exists. Do you want to replace it ?.
         /// </summary>
         public static string Rule_ConditionAlreadyExists {
             get {
@@ -1330,7 +1357,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value is not of the proper format for the type :.
+        ///   Looks up a localized string similar to The value is not of the proper format for the type : {0}.
         /// </summary>
         public static string Rule_NotProperFormat {
             get {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using HueLib2.Objects.Interfaces;
 
 namespace HueLib2
 {
@@ -23,7 +24,7 @@ namespace HueLib2
         public Dictionary<string, Scene> scenes { get; set; }
 
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
-        public Dictionary<string, Sensor> sensors { get; set; }
+        public Dictionary<string, ISensor> sensors { get; set; }
 
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public Dictionary<string, Rule> rules { get; set; }

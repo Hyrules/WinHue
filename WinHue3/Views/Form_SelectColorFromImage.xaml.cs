@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_SelectColorFromImage.xaml
@@ -30,13 +30,13 @@ namespace WinHue3
         {
             if (ImageViewer.Source != null)
             {
-                Color c = PickColor(e.GetPosition(this).X,e.GetPosition(this).Y);
+                System.Windows.Media.Color c = PickColor(e.GetPosition(this).X,e.GetPosition(this).Y);
                 cfiv.SelectedColor = c;
             }
 
         }
 
-        private Color PickColor(double x, double y)
+        private System.Windows.Media.Color PickColor(double x, double y)
         {
 
             BitmapSource bitmapSource = ImageViewer.Source as BitmapSource;
@@ -90,11 +90,11 @@ namespace WinHue3
                     bitmapSource.CopyPixels(new Int32Rect((int) x, (int) y, 1, 1),
                         pixels, stride, 0);
 
-                    return Color.FromArgb(pixels[3], pixels[2], pixels[1], pixels[0]);
+                    return System.Windows.Media.Color.FromArgb(pixels[3], pixels[2], pixels[1], pixels[0]);
                 }
                 
             }
-            return Color.FromArgb(255,0,0,0);
+            return System.Windows.Media.Color.FromArgb(255,0,0,0);
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
@@ -103,7 +103,7 @@ namespace WinHue3
             Close();
         }
 
-        public Color GetSelectedColor()
+        public System.Windows.Media.Color GetSelectedColor()
         {
             return cfiv.SelectedColor;
         }

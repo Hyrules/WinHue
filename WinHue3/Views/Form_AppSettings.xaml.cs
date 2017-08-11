@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using HueLib2;
+﻿using System.Windows;
 using Microsoft.Win32;
-using WinHue3.Models;
+using WinHue3.Settings;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for AppSettings.xaml

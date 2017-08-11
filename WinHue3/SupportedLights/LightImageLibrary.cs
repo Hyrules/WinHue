@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WinHue3.Interface;
 
 
 namespace WinHue3.SupportedLights
@@ -29,14 +27,7 @@ namespace WinHue3.SupportedLights
 
         }
 
-        public static Dictionary<string, Dictionary<string, ImageSource>> Images
-        {
-            get
-            {
-                return _images;
-            }
-
-        }
+        public static Dictionary<string, Dictionary<string, ImageSource>> Images => _images;
 
         public static void LoadLightsImages()
         {

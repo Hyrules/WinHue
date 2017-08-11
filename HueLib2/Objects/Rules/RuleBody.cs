@@ -1,9 +1,12 @@
-﻿namespace HueLib2
+﻿using Newtonsoft.Json;
+
+namespace HueLib2
 {
     /// <summary>
     /// Abstract class to regroup difference Rule body.
     /// </summary>
-    public abstract class RuleBody
+    ///[JsonConverter(typeof(RuleBodyJsonConverter))]
+    public interface IRuleBody
     {
 
     }

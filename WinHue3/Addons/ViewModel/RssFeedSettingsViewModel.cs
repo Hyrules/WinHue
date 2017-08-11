@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using HueLib2;
+using WinHue3.Addons.RssFeedMonitor;
+using WinHue3.Utils;
+using WinHue3.ViewModels;
+using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
 namespace WinHue3.Addons.ViewModel
 {
@@ -27,25 +25,25 @@ namespace WinHue3.Addons.ViewModel
 
         public ObservableCollection<Alert> ListAlerts
         {
-            get { return _listalerts; }
-            set { SetProperty(ref _listalerts,value); }
+            get => _listalerts;
+            set => SetProperty(ref _listalerts,value);
         }
 
         public Alert SelectedAlert
         {
-            get { return _selectedAlert; }
-            set { SetProperty(ref _selectedAlert,value);}
+            get => _selectedAlert;
+            set => SetProperty(ref _selectedAlert,value);
         }
 
         public double AlertCheckDelay
         {
-            get { return _checkdelay; }
-            set { SetProperty(ref _checkdelay,value); }
+            get => _checkdelay;
+            set => SetProperty(ref _checkdelay,value);
         }
 
         private void CreateNewAlert()
         {
-            Form_AlertCreator fcc = new Form_AlertCreator(_bridge) { Owner = Application.Current.MainWindow };
+            View.Form_AlertCreator fcc = new View.Form_AlertCreator(_bridge) { Owner = Application.Current.MainWindow };
             if (fcc.ShowDialog() == true)
             {
                 //PopulateAlertList();
@@ -55,7 +53,7 @@ namespace WinHue3.Addons.ViewModel
         private void EditAlert()
         {
             if (_selectedAlert == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator(_bridge, SelectedAlert) { Owner = Application.Current.MainWindow };
+            View.Form_AlertCreator fac = new View.Form_AlertCreator(_bridge, SelectedAlert) { Owner = Application.Current.MainWindow };
             if (fac.ShowDialog() == true)
             {
 
@@ -73,7 +71,7 @@ namespace WinHue3.Addons.ViewModel
         public void DoubleClickObject()
         {
             if (_selectedAlert == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator(_bridge, _selectedAlert) { Owner = Application.Current.MainWindow };
+            View.Form_AlertCreator fac = new View.Form_AlertCreator(_bridge, _selectedAlert) { Owner = Application.Current.MainWindow };
             fac.Show();
         }
 

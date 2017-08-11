@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace HueLib2
 {
     [DataContract]
-    public class LightLevelState : SensorState
+    public class LightLevelState : ISensorState, IRuleBody
     {
         [DataMember,ReadOnly(true)]
         public UInt16? lightlevel { get; set; }
@@ -17,5 +17,7 @@ namespace HueLib2
         [DataMember, ReadOnly(true)]
         public bool? daylight { get; set; }
 
+        [DataMember]
+        public string lastupdated { get; set; }
     }
 }

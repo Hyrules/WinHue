@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Runtime.Serialization;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +16,12 @@ namespace HueLib2
 
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<string, string> kvp in listnewobjects)
+            {
+                sb.AppendLine($"{kvp.Key} => {kvp.Value}");
+            }
+            return sb.ToString();
         }
     }
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class HueMotionSensorConfig : SensorConfig
+    public class HueMotionSensorConfig : ISensorConfig
     {
         [DataMember]
         public int? sensitivity { get; set; }

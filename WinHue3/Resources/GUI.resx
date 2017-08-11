@@ -507,28 +507,28 @@
   <data name="HueTapSetupForm_TopMessage" xml:space="preserve">
     <value>Select a button to assign an action...</value>
   </data>
-  <data name="ListView_Group" xml:space="preserve">
+  <data name="ListView_groups" xml:space="preserve">
     <value>Groups</value>
   </data>
-  <data name="ListView_Light" xml:space="preserve">
+  <data name="ListView_lights" xml:space="preserve">
     <value>Lights</value>
   </data>
-  <data name="ListView_Other" xml:space="preserve">
+  <data name="ListView_others" xml:space="preserve">
     <value>Others</value>
   </data>
-  <data name="ListView_Resourcelink" xml:space="preserve">
+  <data name="ListView_resourcelinks" xml:space="preserve">
     <value>Resource Links</value>
   </data>
-  <data name="ListView_Rule" xml:space="preserve">
+  <data name="ListView_rules" xml:space="preserve">
     <value>Rules</value>
   </data>
-  <data name="ListView_Scene" xml:space="preserve">
+  <data name="ListView_scenes" xml:space="preserve">
     <value>Scenes</value>
   </data>
-  <data name="ListView_Schedule" xml:space="preserve">
+  <data name="ListView_schedules" xml:space="preserve">
     <value>Schedules</value>
   </data>
-  <data name="ListView_Sensor" xml:space="preserve">
+  <data name="ListView_sensors" xml:space="preserve">
     <value>Sensors</value>
   </data>
   <data name="MainForm_ListView_Context_Clone" xml:space="preserve">
@@ -823,13 +823,10 @@
     <value>Add</value>
   </data>
   <data name="RuleCreatorForm_CancelButton" xml:space="preserve">
-    <value>Done</value>
+    <value>Cancel</value>
   </data>
   <data name="RuleCreatorForm_Conditions" xml:space="preserve">
     <value>Conditions</value>
-  </data>
-  <data name="RuleCreatorForm_CreateButton" xml:space="preserve">
-    <value>Create</value>
   </data>
   <data name="RuleCreatorForm_Delete" xml:space="preserve">
     <value>Delete</value>
@@ -850,7 +847,7 @@
     <value>The bridge can contain a maximum of 100 rules of 4 actions and 4 conditions.</value>
   </data>
   <data name="RuleCreatorForm_Name" xml:space="preserve">
-    <value>Name : </value>
+    <value>(Name of the rule)</value>
   </data>
   <data name="RuleCreatorForm_Object" xml:space="preserve">
     <value>Object :</value>
@@ -943,10 +940,10 @@
     <value>Color Temp.</value>
   </data>
   <data name="ScheduleCreatorForm_DaysOfWeek" xml:space="preserve">
-    <value>Days of week :</value>
+    <value>Days of week</value>
   </data>
   <data name="ScheduleCreatorForm_Description" xml:space="preserve">
-    <value>Description :</value>
+    <value>Description</value>
   </data>
   <data name="ScheduleCreatorForm_Desc_Tooltip" xml:space="preserve">
     <value>Optional.</value>
@@ -964,7 +961,7 @@
     <value>Monday</value>
   </data>
   <data name="ScheduleCreatorForm_Name" xml:space="preserve">
-    <value>Name :</value>
+    <value>Name</value>
   </data>
   <data name="ScheduleCreatorForm_Name_Tooltip" xml:space="preserve">
     <value>The Bridge will generate a new name if not specified.</value>
@@ -976,7 +973,7 @@
     <value>Randomize</value>
   </data>
   <data name="ScheduleCreatorForm_Repeat" xml:space="preserve">
-    <value>Repeat(s) :</value>
+    <value>Repeat(s)</value>
   </data>
   <data name="ScheduleCreatorForm_Saturation" xml:space="preserve">
     <value>Saturation</value>
@@ -997,10 +994,10 @@
     <value>Schedule Settings</value>
   </data>
   <data name="ScheduleCreatorForm_StartTime" xml:space="preserve">
-    <value>Start Date/Time :</value>
+    <value>Start Date/Time</value>
   </data>
   <data name="ScheduleCreatorForm_StartTimeTimer" xml:space="preserve">
-    <value>Occurs every :</value>
+    <value>Occurs every</value>
   </data>
   <data name="ScheduleCreatorForm_Sunday" xml:space="preserve">
     <value>Sunday</value>
@@ -1015,10 +1012,10 @@
     <value>Create / Edit a Schedule...</value>
   </data>
   <data name="ScheduleCreatorForm_Title_Create" xml:space="preserve">
-    <value>Creating Schedule for : </value>
+    <value>Creating Schedule for </value>
   </data>
   <data name="ScheduleCreatorForm_Title_Modify" xml:space="preserve">
-    <value>Modifying Schedule : </value>
+    <value>Modifying Schedule</value>
   </data>
   <data name="ScheduleCreatorForm_TransitionTime_Legend" xml:space="preserve">
     <value>x 100 ms ( 1000 ms = 1 sec )</value>
@@ -1027,7 +1024,7 @@
     <value>Tuesday</value>
   </data>
   <data name="ScheduleCreatorForm_Type" xml:space="preserve">
-    <value>Type :</value>
+    <value>Type</value>
   </data>
   <data name="ScheduleCreatorForm_Wednesday" xml:space="preserve">
     <value>Wednesday</value>
@@ -1295,5 +1292,119 @@
   </data>
   <data name="MainForm_Tab_Home_Group_SettingsResetTT" xml:space="preserve">
     <value>Reset Transition Time to Default</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_AdvancedCreator" xml:space="preserve">
+    <value>Advanced Creator</value>
+  </data>
+  <data name="MainForm_ListView_Context_Colorloop" xml:space="preserve">
+    <value>Colorloop</value>
+  </data>
+  <data name="MainForm_ListView_Context_Effects" xml:space="preserve">
+    <value>Effects</value>
+  </data>
+  <data name="ScheduleCreatorForm_Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Form_AdvancedCreator_RuleTemplate" xml:space="preserve">
+    <value>Rule</value>
+  </data>
+  <data name="Form_AdvancedCreator_SensorTemplate" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="Form_AdvancedCreator_ResourceLinkTemplate" xml:space="preserve">
+    <value>Resource Link</value>
+  </data>
+  <data name="Form_AdvancedCreator_GroupTemplate" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Form_AdvancedCreator_ScheduleTemplate" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="Form_AdvancedCreator_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Form_AdvancedCreator_Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Form_AdvancedCreator_Templates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="Form_AdvancedCreator_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Form_AdvancedCreator_SceneTemplate" xml:space="preserve">
+    <value>Scene</value>
+  </data>
+  <data name="Form_AdvancedCreator_UrlWatermark" xml:space="preserve">
+    <value>Enter custom url otherwise leave empty.</value>
+  </data>
+  <data name="Form_AdvancedCreator_SceneLightTemplate" xml:space="preserve">
+    <value>Scene Light</value>
+  </data>
+  <data name="MainForm_StatusBar_ToolTip_HotKey" xml:space="preserve">
+    <value>Indicate if a hotkey has been detected.</value>
+  </data>
+  <data name="MainForm_StatusBar_ToolTip_Search" xml:space="preserve">
+    <value>Indicate if a search for new light or sensor is in progress.</value>
+  </data>
+  <data name="BridgeSettingsForm_ForceCheckUpdate" xml:space="preserve">
+    <value>Force Check for Update</value>
+  </data>
+  <data name="RuleCreatorForm_Create" xml:space="preserve">
+    <value>Create a new rule...</value>
+  </data>
+  <data name="RuleCreatorForm_ResourceLinks" xml:space="preserve">
+    <value>Resource Links</value>
+  </data>
+  <data name="RuleCreatorForm_Rules" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="RuleCreatorForm_Config" xml:space="preserve">
+    <value>Config</value>
+  </data>
+  <data name="RuleCreatorForm_ObjectType_Watermark" xml:space="preserve">
+    <value>(Choose the object type)</value>
+  </data>
+  <data name="RuleCreatorForm_Object_Watermark" xml:space="preserve">
+    <value>(Choose the object)</value>
+  </data>
+  <data name="RuleCreatorForm_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="RuleCreatorForm_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="RuleCreatorForm_Value_Watermark" xml:space="preserve">
+    <value>(Enter the value here)</value>
+  </data>
+  <data name="RuleCreatorForm_Equals" xml:space="preserve">
+    <value>Equals</value>
+  </data>
+  <data name="RuleCreatorForm_Changed" xml:space="preserve">
+    <value>Changed</value>
+  </data>
+  <data name="RuleCreatorForm_Delayed_Changed" xml:space="preserve">
+    <value>Delayed Changed</value>
+  </data>
+  <data name="RuleCreatorForm_In" xml:space="preserve">
+    <value>In</value>
+  </data>
+  <data name="RuleCreatorForm_Not_In" xml:space="preserve">
+    <value>Not In</value>
+  </data>
+  <data name="RuleCreatorForm_Stable" xml:space="preserve">
+    <value>Stable</value>
+  </data>
+  <data name="RuleCreatorForm_Not_Stable" xml:space="preserve">
+    <value>Not Stable</value>
+  </data>
+  <data name="RuleCreatorForm_Lower_Than" xml:space="preserve">
+    <value>Lower Than</value>
+  </data>
+  <data name="RuleCreatorForm_Greater_Than" xml:space="preserve">
+    <value>Greater Than</value>
+  </data>
+  <data name="MainForm_ToolsTab_CpuTempMon_Tooltip" xml:space="preserve">
+    <value>WinHue must be run as administrator in order to run the CPU Temp Monitor</value>
   </data>
 </root>

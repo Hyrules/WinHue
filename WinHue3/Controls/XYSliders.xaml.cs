@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Drawing;
-using System.Runtime.CompilerServices;
-using WinHue3.Annotations;
-using WinHue3;
+using WinHue3.Color;
+using WinHue3.Colors;
 
 namespace WinHue3.Controls
 {
@@ -79,8 +67,8 @@ namespace WinHue3.Controls
 
         public double OldXValue
         {
-            get { return (int)GetValue(OldXValueProperty); }
-            set { SetValue(OldXValueProperty, value); }
+            get => (int)GetValue(OldXValueProperty);
+            set => SetValue(OldXValueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for OldXValue.  This enables animation, styling, binding, etc...
@@ -89,8 +77,8 @@ namespace WinHue3.Controls
 
         public double OldYValue
         {
-            get { return (double)GetValue(OldYValueProperty); }
-            set { SetValue(OldYValueProperty, value); }
+            get => (double)GetValue(OldYValueProperty);
+            set => SetValue(OldYValueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for OldYValue.  This enables animation, styling, binding, etc...
@@ -101,8 +89,8 @@ namespace WinHue3.Controls
 
         public string XSliderLabel
         {
-            get { return (string)GetValue(XSliderLabelProperty); }
-            set { SetValue(XSliderLabelProperty, value); }
+            get => (string)GetValue(XSliderLabelProperty);
+            set => SetValue(XSliderLabelProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for XSliderLabel.  This enables animation, styling, binding, etc...
@@ -116,8 +104,8 @@ namespace WinHue3.Controls
 
         public string YSliderLabel
         {
-            get { return (string)GetValue(YSliderLabelProperty); }
-            set { SetValue(YSliderLabelProperty, value); }
+            get => (string)GetValue(YSliderLabelProperty);
+            set => SetValue(YSliderLabelProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for YSliderLabel.  This enables animation, styling, binding, etc...
@@ -131,8 +119,8 @@ namespace WinHue3.Controls
 
         public double XValue
         {
-            get { return (double)GetValue(XSliderValueProperty); }
-            set { SetValue(XSliderValueProperty, value);}
+            get => (double)GetValue(XSliderValueProperty);
+            set => SetValue(XSliderValueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
@@ -146,8 +134,8 @@ namespace WinHue3.Controls
 
         public double YValue
         {
-            get { return (double)GetValue(YValueProperty); }
-            set { SetValue(YValueProperty, value); }
+            get => (double)GetValue(YValueProperty);
+            set => SetValue(YValueProperty, value);
         }
       
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
@@ -162,14 +150,14 @@ namespace WinHue3.Controls
         #region COMMAND
         public ICommand Command
         {    
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }           
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         public object CommandParameter
         {
-            get { return (object)GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get => (object)GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
         }
 
         public static readonly DependencyProperty CommandParameterProperty =
@@ -188,8 +176,8 @@ namespace WinHue3.Controls
 
         public IInputElement CommandTarget
         {
-            get { return (IInputElement)GetValue(CommandTargetProperty); }
-            set { SetValue(CommandTargetProperty, value); }
+            get => (IInputElement)GetValue(CommandTargetProperty);
+            set => SetValue(CommandTargetProperty, value);
         }
 
         public static readonly DependencyProperty CommandTargetProperty =

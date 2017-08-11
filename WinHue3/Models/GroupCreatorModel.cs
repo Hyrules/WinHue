@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HueLib2;
+﻿using System.Collections.ObjectModel;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Validation;
 using WinHue3.ViewModels;
 
@@ -32,32 +25,28 @@ namespace WinHue3.Models
 
         public string Name
         {
-            get { return _name; }
-            set
-            {
-                SetProperty(ref _name, value);
-
-            }
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         [MinimumCount(1, ErrorMessageResourceName = "Group_Select_One_Light", ErrorMessageResourceType = typeof(GlobalStrings))]
         public ObservableCollection<Light> Listlights
         {
-            get { return _listlights; }
-            set { SetProperty(ref _listlights,value); }
+            get => _listlights;
+            set => SetProperty(ref _listlights,value);
         }
 
         public ObservableCollection<Light> ListAvailableLights
         {
-            get { return _listAvailableLights; }
-            set { SetProperty(ref _listAvailableLights,value); }
+            get => _listAvailableLights;
+            set => SetProperty(ref _listAvailableLights,value);
         }
 
         public bool CanClass => Type == "Room";
 
         public string Type
         {
-            get { return _type; }
+            get => _type;
             set
             {
                 SetProperty(ref _type,value);
@@ -70,8 +59,8 @@ namespace WinHue3.Models
 
         public string Class
         {
-            get { return _class; }
-            set { SetProperty(ref _class,value); }
+            get => _class;
+            set => SetProperty(ref _class,value);
         }
     }
 }

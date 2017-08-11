@@ -1,17 +1,14 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:WinHue3" x:Class="WinHue3.Form_AppSettings"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:WinHue3" x:Class="WinHue3.Views.Form_AppSettings"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:converters="clr-namespace:WinHue3.Converters"
         xmlns:wh="clr-namespace:WinHue3"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
+        xmlns:models="clr-namespace:WinHue3.Models"
         Title="{x:Static resx:GUI.SettingsForm_Title}" Height="416" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" Icon="/WinHue3;component/Resources/gear_in.png">
     <Window.Resources>
-        <converters:BoolToOppositeBoolConverter x:Key="ReverseToBoolConverter"/>
-        <converters:DoubleToUShortConverter x:Key="DoubleToUShortConverter"/>
-        <converters:SortToIndexConverter x:Key="SortToIndexConverter"/>
-        <converters:BoolToWrappingConverter x:Key="BoolToWrappingConverter"/>
         <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
     </Window.Resources>
     <Window.DataContext>
@@ -75,10 +72,10 @@
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="99" Margin="-1.667,-2,-43.333,0">
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="cbDefaultSort" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="165" SelectedIndex="{Binding ViewSettingsModel.Sort, Converter={StaticResource SortToIndexConverter}}">
-                        <ComboBoxItem Content="Defaut"/>
-                        <ComboBoxItem Content="Ascending"/>
-                        <ComboBoxItem Content="Descending"/>
+                    <ComboBox x:Name="cbDefaultSort" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="165" SelectedValue="{Binding ViewSettingsModel.Sort}" SelectedValuePath="Tag" >
+                        <ComboBoxItem Content="Defaut" Tag="{x:Static models:WinHueSortOrder.Default}"/>
+                        <ComboBoxItem Content="Ascending" Tag="{x:Static models:WinHueSortOrder.Ascending}"/>
+                        <ComboBoxItem Content="Descending" Tag="{x:Static models:WinHueSortOrder.Descending}"/>
                     </ComboBox>
                     <Label x:Name="lblDefaultSort" Content="{x:Static resx:GUI.SettingsForm_Tab_View_DefautSort}" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="112"/>
                     <CheckBox x:Name="chbShowID" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" HorizontalAlignment="Left" Margin="307,13,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.ShowId}"/>

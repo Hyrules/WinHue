@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class DaylightSensorConfig : SensorConfig
+    public class DaylightSensorConfig : ISensorConfig
     {
         /// <summary>
         /// Longitude of the sensor.

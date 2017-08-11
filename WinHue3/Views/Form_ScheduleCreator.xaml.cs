@@ -1,9 +1,19 @@
-﻿using System.Windows;
-using HueLib2;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Resources;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for ScheduleCreator.xaml
@@ -11,35 +21,27 @@ namespace WinHue3
     public partial class Form_ScheduleCreator : Window
     {
         private ScheduleCreatorViewModel scvm;
-        private readonly Bridge _bridge;
-        private HueObject actualobj;
+        private Bridge _bridge;
+        private IHueObject actualobj;
 
-        public Form_ScheduleCreator(HueObject obj, Bridge bridge)
+
+        public Form_ScheduleCreator()
         {
-            _bridge = bridge;
             InitializeComponent();
             scvm = this.DataContext as ScheduleCreatorViewModel;
-            string id = string.Empty;
-           
+        
+        }
+
+
+        public async Task Initialize(Bridge bridge, IHueObject obj)
+        {
+            _bridge = bridge;
+            await scvm.Initialize(bridge, obj);
+
             actualobj = obj;
 
-            if (obj is Schedule)
-            {
-                scvm.Schedule = (Schedule)obj;
-            }
-            else
-            {
-                if (obj is Scene)
-                {
-                    scvm.CanSetSettings = false;
-                    scvm.IsEditing = true;
-                    scvm.ScheduleModel.Scene = ((Scene) obj).Id;
-                }
-                scvm.TargetObject = $@"/api/{_bridge.ApiKey}/{(obj is Light ? "lights" : "groups")}/{(obj is Scene ? "0": obj.Id)}/{(obj is Light ? "state" : "action")}";
-            }
+            Title = obj is Schedule ? GUI.ScheduleCreatorForm_Title_Modify + obj.name : GUI.ScheduleCreatorForm_Title_Create + obj.name;
 
-            Title = obj is Schedule ? GUI.ScheduleCreatorForm_Title_Modify + obj.GetName() : GUI.ScheduleCreatorForm_Title_Create + obj.GetName();
-            
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -51,27 +53,26 @@ namespace WinHue3
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Schedule sc = scvm.Schedule;
-            CommandResult comres;
+            bool result;
             if (actualobj is Schedule)
             {
-                comres = _bridge.ModifyObject<Schedule>(sc, actualobj.Id);
-                
+                sc.Id = actualobj.Id;
+                result = _bridge.ModifyObject(sc);             
             }
             else
             {
-                comres = _bridge.CreateObject<Schedule>(sc);
+                result = _bridge.CreateObject(sc);
             }
 
-            if (comres.Success)
+            if (result)
             {
                 DialogResult = true;
-                MessageCollection mc = (MessageCollection) comres.resultobject;
-                actualobj = new Schedule() { Id = mc[0].ToString()};
+                actualobj = new Schedule() { Id = _bridge.LastCommandMessages.LastSuccess.value};
                 Close();
             }
             else
             {
-                MessageBox.Show($"{GlobalStrings.Error_ErrorHasOccured} : {_bridge.lastMessages.ToString()}", GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{GlobalStrings.Error_ErrorHasOccured} : {_bridge.LastCommandMessages}", GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }    
 
         }

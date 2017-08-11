@@ -23,8 +23,8 @@ namespace HueLib2
         /// <summary>
         /// Body.
         /// </summary>
-        [DataMember/*,JsonConverter(typeof(RuleBodyJsonConverter))*/]
-        public RuleBody body { get; set; }
+        [DataMember]
+        public IRuleBody body { get; set; }
 
         /// <summary>
         /// Convert the rule action to a string.

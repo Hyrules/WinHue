@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HueLib2.Objects.Scene;
 
 namespace HueLib2.Objects.Rules
 {
@@ -21,7 +22,7 @@ namespace HueLib2.Objects.Rules
             Rule rule = new Rule();
 
             if (obj["name"] != null)
-                rule.name = obj["name"].ToString();
+                rule.Name = obj["name"].ToString();
 
             if (obj["owner"] != null)
                 rule.owner = obj["owner"].ToObject<string>();

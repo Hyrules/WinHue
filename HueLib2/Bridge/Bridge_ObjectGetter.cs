@@ -5,6 +5,9 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using HueLib2.BridgeMessages;
+using HueLib2.Objects.HueObject;
+using HueLib2.Objects.Interfaces;
 
 namespace HueLib2
 {
@@ -14,58 +17,54 @@ namespace HueLib2
         /// <summary>
         /// Get the specified object freom the bridge.
         /// </summary>
-        /// <typeparam name="T">HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</typeparam>
+        /// <typeparam name="T">Type of object to deserialize to</typeparam>
         /// <param name="id">Id of the object to get</param>
         /// <returns>BridgeCommResult</returns>
-        public CommandResult GetObject<T>(string id) where T : HueObject
+        public CommandResult<T> GetObject<T>(string id) where T : IHueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult<T> bresult = new CommandResult<T>() {Success = false};
             string ns = typeof(T).Namespace;
 
             if (ns != null)
             {
-                string typename = string.Empty;
-                if (typeof(T).BaseType == typeof(HueObject))
-                {
-                    typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                }
-                else
-                {
-                    typename = typeof(T).BaseType.ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
-                }
+                
+                //string typename = typeof(T).ToString().Replace(ns, "").Replace(".", "").ToLower() + "s";
+                
+                HueType ht = typeof(T).GetCustomAttribute<HueType>();
+                string typename = ht?.HueObjectType;
+                if (ht == null) return bresult;
 
                 CommResult comres = Communication.SendRequest(new Uri(BridgeUrl + $"/{typename}/{id}"),WebRequestType.GET);
-
+               
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
-                        MethodInfo method = typeof(Serializer).GetMethod("DeserializeToObject");
-                        MethodInfo generic = method.MakeGenericMethod(typeof(T));
-                        bresult.resultobject = generic.Invoke(this, new object[] { comres.data });
-                        bresult.Success = bresult.resultobject != null;
-                        if (bresult.resultobject == null)
+
+                        bresult.Data = Serializer.DeserializeToObject<T>(comres.data);
+                        bresult.Success = bresult.Data != null;
+                        if (bresult.Data == null)
                         {
-                            bresult.resultobject = new MessageCollection(Serializer.DeserializeToObject<List<Message>>(comres.data));
-                            lastMessages = (MessageCollection)bresult.resultobject;
+                            lastMessages = new Messages(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
                         }
                         break;
                     case WebExceptionStatus.Timeout:
-                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        lastMessages = new Messages();
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}/{id}", description = "A Timeout occured.", type = 65535 });
                         BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() {ex = comres});
-                        bresult.resultobject = comres.data;
-                        bresult.ex = comres.ex;
+
+                        bresult.Exception = comres.ex;
                         break;
                     default:
-                        lastMessages = new MessageCollection { new UnkownError(comres) };
-                        bresult.resultobject = "Unknown Error : " + comres.data;
-                        bresult.ex = comres.ex;
+                        lastMessages = new Messages(); 
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}/{id}", description = "An unkown error occured.", type = 65535 });
+                        bresult.Exception = comres.ex;
                         break;
                 }
             }
             else
             {
                 bresult.Success = false;
-                bresult.resultobject = "Type of object cannot be null";
+                bresult.Exception = new NullReferenceException("Type cannot be null.");
             }
 
             return bresult;
@@ -76,9 +75,9 @@ namespace HueLib2
         /// </summary>
         /// <typeparam name="T">HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</typeparam>
         /// <returns>BridgeCommResult</returns>
-        public CommandResult GetListObjects<T>() where T : HueObject
+        public CommandResult<Dictionary<string, T>> GetListObjects<T>() where T : IHueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult<Dictionary<string,T>> bresult = new CommandResult<Dictionary<string, T>>() {Success = false};
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
@@ -89,26 +88,30 @@ namespace HueLib2
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
-                        bresult.resultobject = Serializer.DeserializeToObject<Dictionary<string, T>>(comres.data);
-                        bresult.Success = true;
+                        bresult.Data = Serializer.DeserializeToObject<Dictionary<string, T>>(comres.data);
+                        bresult.Success = bresult.Data != null;
+                        if (bresult.Data == null)
+                        {
+                            lastMessages = new Messages(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
+                        }
                         break;
                     case WebExceptionStatus.Timeout:
-                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        lastMessages = new Messages();
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}", description = "A Timeout occured.", type = 65535 });
                         BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
-                        bresult.resultobject = comres.data;
-                        bresult.ex = comres.ex;
+                        bresult.Exception = comres.ex;
                         break;
                     default:
-                        lastMessages = new MessageCollection { new UnkownError(comres) };
-                        bresult.resultobject = comres.data;
-                        bresult.ex = comres.ex;
+                        lastMessages = new Messages();
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}", description = "An unkown error occured.", type = 65535 });
+                        bresult.Exception = comres.ex;
                         break;
                 }
 
             }
             else
             {
-                bresult.resultobject = "Type of object cannot be null";
+                bresult.Exception = new NullReferenceException("Type cannot be null.");
             }
             return bresult;
         }
@@ -118,9 +121,9 @@ namespace HueLib2
         /// </summary>
         /// <typeparam name="T">Type of the object to detect.</typeparam>
         /// <returns>BridgeCommResult</returns>
-        public CommandResult GetNewObjects<T>() where T : HueObject
+        public CommandResult<SearchResult> GetNewObjects<T>() where T : IHueObject
         {
-            CommandResult bresult = new CommandResult() {Success = false};
+            CommandResult<SearchResult> bresult = new CommandResult<SearchResult>() {Success = false};
             string ns = typeof(T).Namespace;
             if (ns != null)
             {
@@ -130,26 +133,30 @@ namespace HueLib2
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
-                        bresult.Success = true;
-                        bresult.resultobject = Serializer.DeserializeSearchResult(comres.data);
+                        bresult.Data = Serializer.DeserializeSearchResult(comres.data);
+                        bresult.Success = bresult.Data != null;
+                        if (bresult.Data == null)
+                        {
+                            lastMessages = new Messages(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
+                        }
                         break;
                     case WebExceptionStatus.Timeout:
-                        lastMessages = new MessageCollection { _bridgeNotResponding };
+                        lastMessages = new Messages();
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}/new", description = "A Timeout occured.", type = 65535 });
                         BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
-                        bresult.resultobject = comres.data;
-                        bresult.ex = comres.ex;
+                        bresult.Exception = comres.ex;
                         break;
                     default:
-                        lastMessages = new MessageCollection { new UnkownError(comres) };
-                        bresult.resultobject = comres.data;
-                        bresult.ex = comres.ex;
+                        lastMessages = new Messages();
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}/new", description = "An unkown error occured.", type = 65535 });
+                        bresult.Exception = comres.ex;
                         break;
                 }
 
             }
             else
             {
-                bresult.resultobject = "Type of object cannot be null";
+                bresult.Exception = new NullReferenceException("Type cannot be null.");
             }
             return bresult;
         }

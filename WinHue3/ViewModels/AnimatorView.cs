@@ -1,7 +1,4 @@
-﻿using System.Windows.Input;
-using HueLib2;
-
-namespace WinHue3
+﻿namespace WinHue3.ViewModels
 {
    /* public class AnimatorView : View
     {

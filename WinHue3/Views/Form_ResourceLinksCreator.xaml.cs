@@ -1,22 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HueLib2;
+using WinHue3.ExtensionMethods;
+using WinHue3.Interface;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
+using WinHue3.Philips_Hue.HueObjects.RuleObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
+using WinHue3.Philips_Hue.HueObjects.SensorObject;
+using WinHue3.Settings;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_ResourceLinksCreator.xaml
@@ -24,73 +29,76 @@ namespace WinHue3
     public partial class Form_ResourceLinksCreator : Window
     {
         private ResourceLinkCreatorViewModel rlcvm;
-        private readonly Bridge _bridge;
+        private Bridge _bridge;
         private string id;
 
-        public Form_ResourceLinksCreator(Bridge bridge,Resourcelink rl = null)
-        {
-            _bridge = bridge;
+        public Form_ResourceLinksCreator()
+        {        
             InitializeComponent();
             rlcvm = this.DataContext as ResourceLinkCreatorViewModel;
+        }
+
+        public async Task Initialize(Bridge bridge, Resourcelink rl = null)
+        {
+            _bridge = bridge;
+           
             rlcvm.LinkCreatorModel.ShowID = WinHueSettings.settings.ShowID;
             rlcvm.LinkCreatorModel.Wrap = WinHueSettings.settings.WrapText;
 
-            HelperResult hr = HueObjectHelper.GetBridgeDataStore(_bridge);
-            if (hr.Success)
+            List<IHueObject> hr = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
+            if (hr == null) return;
+            ObservableCollection<IHueObject> listbrobj = new ObservableCollection<IHueObject>();
+            List<IHueObject> listobj = hr;
+
+            switch (WinHueSettings.settings.Sort)
             {
-                ObservableCollection<HueObject> _listbrobj = new ObservableCollection<HueObject>();
-                List<HueObject> listobj = (List<HueObject>) hr.Hrobject;
-
-                switch (WinHueSettings.settings.Sort)
-                {
-                    case MainFormModel.WinHueSortOrder.Default:
-                        _listbrobj = new ObservableCollection<HueObject>((List<HueObject>)hr.Hrobject);                     
-                        break;
-                    case MainFormModel.WinHueSortOrder.Ascending:
-                        _listbrobj.AddRange(from item in listobj where item is Light orderby item.GetName() ascending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Group orderby item.GetName() ascending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Schedule orderby item.GetName() ascending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Scene orderby item.GetName() ascending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Sensor orderby item.GetName() ascending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Rule orderby item.GetName() ascending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Resourcelink orderby item.GetName() ascending select item);
-                        break;
-                    case MainFormModel.WinHueSortOrder.Descending:
-                        _listbrobj.AddRange(from item in listobj where item is Light orderby item.GetName() descending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Group orderby item.GetName() descending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Schedule orderby item.GetName() descending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Scene orderby item.GetName() descending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Sensor orderby item.GetName() descending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Rule orderby item.GetName() descending select item);
-                        _listbrobj.AddRange(from item in listobj where item is Resourcelink orderby item.GetName() descending select item);
-                        break;
-                    default:
-                        goto case MainFormModel.WinHueSortOrder.Default;
-                }
-                rlcvm.ListHueObjects = _listbrobj;
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(rlcvm.ListHueObjects);
-                view.GroupDescriptions?.Clear();
-                PropertyGroupDescription groupDesc = new TypeGroupDescription();
-                view.GroupDescriptions?.Add(groupDesc);
-
-                CollectionView view2 = (CollectionView)CollectionViewSource.GetDefaultView(rlcvm.LinkCreatorModel.ListlinkObject);
-                view2.GroupDescriptions?.Clear();
-                PropertyGroupDescription groupDesc2 = new TypeGroupDescription();
-                view2.GroupDescriptions?.Add(groupDesc2);
-                if(rl != null)
-                    rlcvm.Resourcelink = rl;
+                case WinHueSortOrder.Default:
+                    listbrobj = new ObservableCollection<IHueObject>(hr);
+                    break;
+                case WinHueSortOrder.Ascending:
+                    listbrobj.AddRange(from item in listobj where item is Light orderby item.name ascending select item);
+                    listbrobj.AddRange(from item in listobj where item is Group orderby item.name ascending select item);
+                    listbrobj.AddRange(from item in listobj where item is Schedule orderby item.name ascending select item);
+                    listbrobj.AddRange(from item in listobj where item is Scene orderby item.name ascending select item);
+                    listbrobj.AddRange(from item in listobj where item is ISensor orderby item.name ascending select item);
+                    listbrobj.AddRange(from item in listobj where item is Rule orderby item.name ascending select item);
+                    listbrobj.AddRange(from item in listobj where item is Resourcelink orderby item.name ascending select item);
+                    break;
+                case WinHueSortOrder.Descending:
+                    listbrobj.AddRange(from item in listobj where item is Light orderby item.name descending select item);
+                    listbrobj.AddRange(from item in listobj where item is Group orderby item.name descending select item);
+                    listbrobj.AddRange(from item in listobj where item is Schedule orderby item.name descending select item);
+                    listbrobj.AddRange(from item in listobj where item is Scene orderby item.name descending select item);
+                    listbrobj.AddRange(from item in listobj where item is ISensor orderby item.name descending select item);
+                    listbrobj.AddRange(from item in listobj where item is Rule orderby item.name descending select item);
+                    listbrobj.AddRange(from item in listobj where item is Resourcelink orderby item.name descending select item);
+                    break;
+                default:
+                    goto case WinHueSortOrder.Default;
             }
-            
+            rlcvm.ListHueObjects = listbrobj;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(rlcvm.ListHueObjects);
+            view.GroupDescriptions?.Clear();
+            PropertyGroupDescription groupDesc = new TypeGroupDescription();
+            view.GroupDescriptions?.Add(groupDesc);
+
+            CollectionView view2 = (CollectionView)CollectionViewSource.GetDefaultView(rlcvm.LinkCreatorModel.ListlinkObject);
+            view2.GroupDescriptions?.Clear();
+            PropertyGroupDescription groupDesc2 = new TypeGroupDescription();
+            view2.GroupDescriptions?.Add(groupDesc2);
+            if (rl != null)
+                rlcvm.Resourcelink = rl;
         }
 
         private void btnCreateResourceLink_Click(object sender, RoutedEventArgs e)
         {
             Resourcelink rl = rlcvm.Resourcelink;
-            CommandResult cr = rlcvm.IsEditing ? _bridge.ModifyObject<Resourcelink>(rl,rl.Id) : _bridge.CreateObject<Resourcelink>(rl);
+            bool result = rlcvm.IsEditing ? _bridge.ModifyObject(rl) : _bridge.CreateObject(rl);
             
-            if (cr.Success)
+            
+            if (result)
             {
-                id = cr.resultobject.ToString();
+                id = rlcvm.IsEditing ? rl.Id : _bridge.LastCommandMessages.LastSuccess.value;
                 DialogResult = true;
                 Close();
             }

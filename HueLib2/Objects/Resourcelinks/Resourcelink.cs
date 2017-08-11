@@ -3,28 +3,46 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using HueLib2.Objects.HueObject;
+using HueLib2.Objects.Interfaces;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace HueLib2
 {
-    [DefaultProperty("Resource Links"), DataContract]
-    public class Resourcelink : HueObject
+    [DefaultProperty("Resource Links"), DataContract, HueType("resourcelinks")]
+    public class Resourcelink : IHueObject
     {
         private string _name;
+        private ImageSource _image;
+
+        /// <summary>
+        /// ID of the ResourceLink
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("ID of the resource link")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Image of the ResourceLink
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Image of the resource link"), Browsable(false)]
+        public ImageSource Image
+        {
+            get { return _image; }
+            set {_image = value; OnPropertyChanged(); }
+        }
 
         /// <summary>
         /// Name of the resource link
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Name of the resource link")]
-        public string name
+        [DataMember(Name = "name",EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Name of the resource link")]
+        public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set { _name = value; OnPropertyChanged(); }
         }
 
@@ -63,5 +81,26 @@ namespace HueLib2
         /// </summary>
         [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("List of resource links"), Browsable(false)]
         public List<string> links { get; set; }
+
+        /// <summary>
+        /// Event that happen when property has change.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
+        }
     }
 }

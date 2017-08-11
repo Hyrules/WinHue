@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml;
-using HueLib2;
+using WinHue3.Addons.RssFeedMonitor;
 using WinHue3.Addons.ViewModel;
+using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
-namespace WinHue3
+namespace WinHue3.Addons.View
 {
     /// <summary>
     /// Interaction logic for Form_AlertCreator.xaml
@@ -26,7 +14,7 @@ namespace WinHue3
     {
 
         private bool _actionSet;
-        private Form_ActionPicker fap;
+        private RssFeedMonitor.Form_ActionPicker fap;
         private string _oldName;
         private AlertCreatorViewModel _alertCreatorModelView;
 
@@ -34,7 +22,7 @@ namespace WinHue3
         {
             InitializeComponent();
             _alertCreatorModelView = DataContext as AlertCreatorViewModel;
-            fap = new Form_ActionPicker(bridge);
+            fap = new RssFeedMonitor.Form_ActionPicker(bridge);
             _oldName = null;
 
             if(alert != null)

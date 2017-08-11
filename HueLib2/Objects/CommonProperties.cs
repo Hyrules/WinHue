@@ -16,7 +16,7 @@ namespace HueLib2
     /// Common properties for Action and State
     /// </summary>
     [DataContract]
-    public class CommonProperties : RuleBody
+    public class CommonProperties : IRuleBody
     {
 
         private ushort? _ct;
@@ -81,7 +81,7 @@ namespace HueLib2
         /// <summary>
         /// Transition time of the group.
         /// </summary>
-        [DataMember(IsRequired = false), Description("Transition time ( Given in multiple of 100ms , Default to 4 )"), Category("Properties"), Browsable(false)]
+        [DataMember(IsRequired = false), Description("Transition time ( Given in multiple of 100ms , Default to 4 )"), Category("Properties")]
         public uint? transitiontime { get; set; }
         /// <summary>
         /// Alert of the group.

@@ -6,12 +6,14 @@ namespace HueLib2
     /// Humidity Sensor State.
     /// </summary>
     [DataContract]
-    public class ClipHumiditySensorState : SensorState
+    public class ClipHumiditySensorState : ISensorState, IRuleBody
     {
         /// <summary>
         /// humidity.
         /// </summary>
         [DataMember]
         public int humidity { get;set; }
+        [DataMember]
+        public string lastupdated { get; set; }
     }
 }

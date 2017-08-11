@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Windows;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.SensorObject;
+using WinHue3.Philips_Hue.HueObjects.SensorObject.Daylight;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_PowerFailure.xaml
@@ -13,10 +17,10 @@ namespace WinHue3
         
         private string _id;
 
-        public DaylightViewModel _dvm => this.DataContext as DaylightViewModel;
+        private DaylightViewModel _dvm => this.DataContext as DaylightViewModel;
         private readonly Bridge _bridge;
 
-        public Form_Daylight(Sensor obj,Bridge bridge)
+        public Form_Daylight(DaylightSensor obj,Bridge bridge)
         {
             _bridge = bridge;
             InitializeComponent();
@@ -36,8 +40,8 @@ namespace WinHue3
                 sunsetoffset = Convert.ToSByte(_dvm.Daylight.SunsetOffset)
             };
 
-            CommandResult bresult = _bridge.ChangeSensorConfig(_id, config);
-            if(bresult.Success)
+            bool bresult = _bridge.ChangeSensorConfig(_id, config);
+            if(bresult)
             {
                 this.Close();
             }

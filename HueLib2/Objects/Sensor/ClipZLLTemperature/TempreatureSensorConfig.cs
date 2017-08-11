@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class TemperatureSensorConfig : SensorConfig
+    public class TemperatureSensorConfig : ISensorConfig
     {
         /// <summary>
         /// url.

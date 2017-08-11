@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.ViewModels;
 
 namespace WinHue3.Validation
 {
@@ -17,7 +12,7 @@ namespace WinHue3.Validation
             {
                 System.Convert.ToUInt16(value);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new ValidationResult(ErrorMessageString);
             }

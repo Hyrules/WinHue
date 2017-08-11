@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinHue3.ViewModels;
 
 namespace WinHue3.Models.AppSettings
 {
@@ -25,32 +21,32 @@ namespace WinHue3.Models.AppSettings
 
         public ushort? AllOnTt
         {
-            get { return _allOnTT; }
-            set { SetProperty(ref _allOnTT,value); }
+            get => _allOnTT;
+            set => SetProperty(ref _allOnTT,value);
         }
 
         public ushort? AllOffTt
         {
-            get { return _allOffTT; }
-            set { SetProperty(ref _allOffTT,value); }
+            get => _allOffTT;
+            set => SetProperty(ref _allOffTT,value);
         }
 
         public ushort? DefaultTt
         {
-            get { return _defaultTT; }
-            set { SetProperty(ref _defaultTT,value); }
+            get => _defaultTT;
+            set => SetProperty(ref _defaultTT,value);
         }
 
         public byte DefaultLightBri
         {
-            get { return _defaultLightBri; }
-            set { SetProperty(ref _defaultLightBri,value); }
+            get => _defaultLightBri;
+            set => SetProperty(ref _defaultLightBri,value);
         }
 
         public byte DefaultGroupBri
         {
-            get { return _defaultGroupBri; }
-            set { SetProperty(ref _defaultGroupBri,value); }
+            get => _defaultGroupBri;
+            set => SetProperty(ref _defaultGroupBri,value);
         }
     }
 }

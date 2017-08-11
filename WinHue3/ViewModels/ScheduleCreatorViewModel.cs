@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using HueLib2;
-using WinHue3.Converters;
+using Newtonsoft.Json;
+using WinHue3.ExtensionMethods;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
+using WinHue3.Utils;
 using WinHue3.Validation;
+using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
+using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
+using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3.ViewModels
 {
@@ -21,12 +26,16 @@ namespace WinHue3.ViewModels
     {
         private ScheduleCreatorModel _scheduleCreatorModel;
         private string  _selectedType;
-        private string _targetobject;
+        private HueAddress _targetobject;
         private byte _smask;
         private string _timeformat;
         private string _randomizetime;
         private bool _isedit;
         private bool _cansetsettings = true;
+        private ObservableCollection<IHueObject> _listTarget;
+        private Bridge _bridge;
+        private IHueObject _selectedObject;
+        private IBaseProperties _body;
 
         public ScheduleCreatorViewModel()
         {
@@ -34,86 +43,49 @@ namespace WinHue3.ViewModels
             _selectedType = "T";
             _smask = 0;
             _randomizetime = string.Empty;
+        }
+
+        public async Task Initialize(Bridge bridge, IHueObject obj)
+        {
+            _bridge = bridge;
+            ListTarget = new ObservableCollection<IHueObject>();
+            List<IHueObject> listObjects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
             
-        }
-
-
-        public bool IsEditing
-        {
-            get { return _isedit; }
-            set { SetProperty(ref _isedit, value); }
-        }
-
-        public Schedule Schedule
-        {
-            get {
-                Schedule schedule = new Schedule
-                {
-                    
-                    description = ScheduleModel.Description,
-                    name = ScheduleModel.Name,
-                    status = ScheduleModel.Enabled ? "enabled" : "disabled",
-                    command = new Command() {body = new Body()
-                    {
-                        scene = ScheduleModel.Scene,
-                        bri = ScheduleModel.Bri,
-                        sat = ScheduleModel.Sat,
-                        hue = ScheduleModel.Hue,
-                        ct = ScheduleModel.Ct,
-                        
-
-                    },method = "PUT",address = TargetObject},
-                    localtime = BuildScheduleLocaltime($"{ScheduleModel.Date} {ScheduleModel.Time}",SelectedType),
-                };
-
-                if (SelectedType != "T")
-                {
-                    schedule.autodelete = ScheduleModel.Autodelete;
-                }
-
-                if (ScheduleModel.Transitiontime != string.Empty)
-                {
-                    schedule.command.body.transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime); ScheduleModel.Transitiontime = null;
-                }
-                
-                if (schedule.command.body.scene == null)
-                {
-                    schedule.command.body.on = ScheduleModel.On;
-                }
-
-                if(ScheduleModel.X != null && ScheduleModel.Y != null)
-                {
-                    schedule.command.body.xy = new XY { x = (decimal)ScheduleModel.X, y = (decimal)ScheduleModel.Y };
-                }
-                return schedule;
-            }
-            set
+            if (listObjects != null)
             {
+                ListTarget.AddRange(listObjects.Where(x => x is Light));
+                ListTarget.AddRange(listObjects.Where(x => x is Group));
+                ListTarget.AddRange(listObjects.Where(x => x is Scene));
+            }
+
+
+            if (obj is Schedule)
+            {
+
                 IsEditing = true;
-                Schedule schedule = value;
+                Schedule schedule = (Schedule)obj;
+                Body = BasePropertiesCreator.CreateBaseProperties(schedule.command.address.objecttype);
+                JsonConvert.PopulateObject(schedule.command.body, Body);
+
                 ScheduleModel.Enabled = schedule.status == "enabled";
                 ScheduleModel.Name = schedule.name;
                 ScheduleModel.Description = schedule.description;
-                ScheduleModel.Bri = schedule.command.body.bri;
-                ScheduleModel.Sat = schedule.command.body.sat;
-                ScheduleModel.Scene = schedule.command.body.scene;
+                if (schedule.command.address.id == "0" && schedule.command.address.objecttype == "groups")
+                    ((Action)Body).scene = ((Action)Body).scene;
                 ScheduleModel.Autodelete = schedule.autodelete;
-
-                if (schedule.command.body.hue != null)
-                    ScheduleModel.Hue = schedule.command.body.hue;
-
-                if (schedule.command.body.ct != null)
-                    ScheduleModel.Ct = schedule.command.body.ct;
-
+                ScheduleModel.Transitiontime = Body.transitiontime.ToString();
                 _targetobject = schedule.command.address;
-                if (schedule.command.body.xy != null)
-                {
-                    ScheduleModel.X = schedule.command.body.xy.x;
-                    ScheduleModel.Y = schedule.command.body.xy.y;
-                }
-                ScheduleModel.On = schedule.command.body.on ?? (ScheduleModel.Scene == null);
-                SelectedType = GetScheduleTypeFromTime(schedule.localtime);
 
+                SelectedObject = ListTarget.FirstOrDefault(x => x.Id == _targetobject.id && x.GetType() == (HueObjectCreator.CreateHueObject(_targetobject.objecttype)).GetType());
+
+                if (Body.xy != null)
+                {
+                    Body.xy[0] = Body.xy[0];
+                    Body.xy[1] = Body.xy[1];
+                }
+                Body.on = Body.on ?? (((Action)Body).scene == null);
+                SelectedType = GetScheduleTypeFromTime(schedule.localtime);
+                Body.hue = 65535;
                 if (schedule.localtime.Contains("A"))
                 {
                     int indexA = schedule.localtime.IndexOf("A", StringComparison.Ordinal);
@@ -143,28 +115,107 @@ namespace WinHue3.ViewModels
                     default:
                         goto case "T";
                 }
-                
             }
+            else
+            {
+                if (obj is Scene)
+                {
+                    CanSetSettings = false;
+                    IsEditing = true;
+                    Body = BasePropertiesCreator.CreateBaseProperties("action");
+                    ((Action)Body).scene = ((Scene)obj).Id;
+                }
+                TargetObject = new HueAddress($@"/{(obj is Light ? "lights" : "groups")}/{(obj is Scene ? "0" : obj.Id)}/{(obj is Light ? "state" : "action")}");
+                SelectedObject = ListTarget.FirstOrDefault(x => x.Id == obj.Id && x.GetType() == obj.GetType());
+            }
+
+        }
+
+        public bool IsEditing
+        {
+            get => _isedit;
+            set => SetProperty(ref _isedit, !value);
+        }
+
+        public ObservableCollection<IHueObject> ListTarget
+        {
+            get => _listTarget;
+            set => SetProperty(ref _listTarget, value);
+        }
+
+        public IHueObject SelectedObject
+        {
+            get => _selectedObject;
+            set
+            {
+                SetProperty(ref _selectedObject, value);
+                if (value == null) return;
+                string id = SelectedObject is Scene ? "0" : SelectedObject.Id;
+                string part = SelectedObject is Light ? "state" : "action";
+                string type = SelectedObject is Scene
+                    ? "groups"
+                    : SelectedObject.GetType().Name.LowerFirstLetter() + "s";
+
+                TargetObject = new HueAddress($"/api/{_bridge.ApiKey}/{type}/{id}/{part}");
+            }
+        }
+
+        public Schedule Schedule
+        {
+            get {
+                Schedule schedule = new Schedule
+                {
+                    
+                    description = ScheduleModel.Description,
+                    name = ScheduleModel.Name,
+                    status = ScheduleModel.Enabled ? "enabled" : "disabled",
+                    command = new Command() {method = "PUT",address = TargetObject},
+                    localtime = BuildScheduleLocaltime($"{ScheduleModel.Date} {ScheduleModel.Time}",SelectedType),                   
+                };
+
+                IBaseProperties scheduleBody = Body;
+                         
+                if (SelectedType != "T")
+                {
+                    schedule.autodelete = ScheduleModel.Autodelete;
+                }
+
+                if (ScheduleModel.Transitiontime != string.Empty)
+                {
+                    scheduleBody.transitiontime = Convert.ToUInt32(ScheduleModel.Transitiontime);
+                }
+
+                if (schedule.command.address.id != "0" && schedule.command.address.objecttype != "groups")
+                {
+                    scheduleBody.on = Body.on;
+                }
+
+                if(Body.xy != null )
+                {
+                    scheduleBody.xy = new decimal[] { Body.xy[0], Body.xy[1] };
+                }
+
+                schedule.command.body = Serializer.SerializeToJson(scheduleBody);
+                return schedule;
+            }
+
         }
 
         public bool CanSetSettings
         {
-            get { return _cansetsettings; }
-            set
-            {
-                SetProperty(ref _cansetsettings,value);
-            }
+            get => _cansetsettings;
+            set => SetProperty(ref _cansetsettings,value);
         }
 
         public ScheduleCreatorModel ScheduleModel
         {
-            get { return _scheduleCreatorModel; }
-            set { SetProperty(ref _scheduleCreatorModel, value); }
+            get => _scheduleCreatorModel;
+            set => SetProperty(ref _scheduleCreatorModel, value);
         }
 
         public string SelectedType
         {
-            get { return _selectedType; }
+            get => _selectedType;
             set
             {
                 SetProperty(ref _selectedType,value);
@@ -179,17 +230,14 @@ namespace WinHue3.ViewModels
         [RequireMask(ErrorMessageResourceName = "Schedule_SelectAtLeastOneDay",ErrorMessageResourceType = typeof(GlobalStrings))]
         public byte ScheduleMask
         {
-            get { return _smask; }
-            set
-            {
-                SetProperty(ref _smask, value);
-            }
+            get => _smask;
+            set => SetProperty(ref _smask, value);
         }
 
-        public string TargetObject
+        public HueAddress TargetObject
         {
-            get { return _targetobject; }
-            set { SetProperty(ref _targetobject,value); }
+            get => _targetobject;
+            set => SetProperty(ref _targetobject,value);
         }
 
         private string BuildScheduleLocaltime(string timevalue, string type)
@@ -243,23 +291,28 @@ namespace WinHue3.ViewModels
             SelectedType = "T";
             ScheduleModel.Name = string.Empty;
             ScheduleModel.Description = string.Empty;
-            ScheduleModel.Hue = null;
-            ScheduleModel.Bri = null;
-            ScheduleModel.Sat = null;
-            ScheduleModel.Ct = null;
-            ScheduleModel.Sat = null;
+            Body.hue = null;
+            Body.bri = null;
+            Body.sat = null;
+            Body.ct = null;
+            Body.sat = null;
             ScheduleModel.Autodelete = null;
-            ScheduleModel.On = true;
+            Body.on = true;
             ScheduleModel.Time = DateTime.Now.Add(new TimeSpan(0,0,5)).ToString("HH:mm:ss");
             ScheduleModel.Date = DateTime.Now.ToString("yyyy-MM-dd");
             ScheduleModel.Randomize = null;
             ScheduleModel.Repetition = null;
-            ScheduleModel.X = null;
-            ScheduleModel.Y = null;
+            Body.xy = null;
             ScheduleModel.Transitiontime = null;
             ScheduleModel.Enabled = true;
         }
 
         public ICommand ClearFieldsCommand => new RelayCommand(param => ClearFields());
+
+        public IBaseProperties Body
+        {
+            get { return _body; }
+            set { SetProperty(ref _body,value); }
+        }
     }
 }

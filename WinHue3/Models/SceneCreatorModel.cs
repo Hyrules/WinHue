@@ -1,13 +1,8 @@
-﻿using HueLib2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿using System;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Resources;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Models
 {
@@ -27,13 +22,13 @@ namespace WinHue3.Models
 
         public State State
         {
-            get { return new State(); }
-            set { SetProperty(ref _state, value); }
+            get => new State();
+            set => SetProperty(ref _state, value);
         }
 
         public ushort? Hue
         {
-            get { return _state.hue; }
+            get => _state.hue;
             set
             {
                 _state.hue = value;
@@ -47,26 +42,28 @@ namespace WinHue3.Models
 
         public byte? Bri
         {
-            get { return _state.bri; }
+            get => _state.bri;
             set { _state.bri = value; RaisePropertyChanged(); }
         }
 
         public byte? Sat
         {
-            get { return _state.sat; }
+            get => _state.sat;
             set { _state.sat = value; RaisePropertyChanged(); }
         }
 
         public decimal? X
         {
-            get { return _state.xy?.x; }
+            get => _state.xy?[0];
             set
             {
                 if (value != null)
                 {
-                    if (_state.xy == null) _state.xy = new XY();
-                    _state.xy.x = Convert.ToDecimal(value);
+                    if (_state.xy == null) _state.xy = new decimal[2];
+                    _state.xy[0] = Convert.ToDecimal(value);
                 }
+                if (Y < 0)
+                    Y = 0;
                 RaisePropertyChanged();
                 RaisePropertyChanged("Y");
                 if (value == null) return;
@@ -77,15 +74,17 @@ namespace WinHue3.Models
 
         public decimal? Y
         {
-            get { return _state.xy?.y; }
+            get => _state.xy?[1];
+
             set
             {
                 if (value != null)
                 {
-                    if (_state.xy == null) _state.xy = new XY();
-                    _state.xy.y = Convert.ToDecimal(value);
+                    if (_state.xy == null) _state.xy = new decimal[2];
+                    _state.xy[1] = Convert.ToDecimal(value);
                 }
-
+                if (X < 0)
+                    X = 0;
                 RaisePropertyChanged();
                 RaisePropertyChanged("X");
                 if (value == null) return;
@@ -96,13 +95,13 @@ namespace WinHue3.Models
 
         public string Name
         {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public ushort? Ct
         {
-            get { return _state.ct; }
+            get => _state.ct;
             set
             {
                 _state.ct = value;
@@ -115,7 +114,7 @@ namespace WinHue3.Models
 
         public uint? TT
         {
-            get { return _state.transitiontime; }
+            get => _state.transitiontime;
             set
             {
                 _state.transitiontime = value; RaisePropertyChanged("TransitionTimeMessage"); }
@@ -123,7 +122,7 @@ namespace WinHue3.Models
 
         public bool On
         {
-            get { return _state.on ?? true; }
+            get => _state.on ?? true;
             set { _state.on = value; RaisePropertyChanged(); }
         }
 
@@ -161,8 +160,8 @@ namespace WinHue3.Models
 
         public bool Recycle
         {
-            get { return _recycle; }
-            set { SetProperty(ref _recycle,value); }
+            get => _recycle;
+            set => SetProperty(ref _recycle,value);
         }
     }
 }

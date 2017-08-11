@@ -1,46 +1,58 @@
-﻿using System;
-using System.Windows;
-using HueLib2;
+﻿using System.Windows;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.SensorObject;
+using WinHue3.Resources;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_SensorCreator.xaml
     /// </summary>
     public partial class Form_SensorCreator : Window
     {
-        private Sensor modifiedsensor;
         private SensorCreatorViewModel _scvm;
         private readonly Bridge _bridge;
+        private string _sensorId;
+        private bool _editing;
 
-        public Form_SensorCreator(Bridge bridge, Sensor obj = null)
+        public Form_SensorCreator(Bridge bridge, ISensor obj = null)
         {
             _bridge = bridge;
             InitializeComponent();
-            _scvm = this.DataContext as SensorCreatorViewModel;
+            _scvm = DataContext as SensorCreatorViewModel;
             if (obj != null)
             {
+                _sensorId = obj.Id;
                 _scvm.Sensor = obj;
+                _editing = true;
+                btnCreate.Content = GUI.SensorCreatorForm_EditButton;
+                
             }
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            Sensor sensor = _scvm.Sensor;
-            CommandResult comres;
-            if (modifiedsensor == null)
+            ISensor sensor = _scvm.Sensor;
+            bool result;
+            if (!_editing)
             {
-                comres = _bridge.CreateObject<Sensor>(sensor);
-                MessageCollection mc = (MessageCollection) comres.resultobject;
-                modifiedsensor = new Sensor() {Id = ((CreationSuccess)mc[0]).id};
+                result = _bridge.CreateObject(sensor);
+                _sensorId = _bridge.LastCommandMessages.LastSuccess.value;
             }
             else
             {
-                comres = _bridge.ModifyObject(modifiedsensor, modifiedsensor.Id);
+                sensor.Id = _sensorId;              
+                result = _bridge.ModifyObject(sensor);
+                if (result)
+                {
+                    _bridge.ChangeSensorConfig(sensor.Id,sensor.GetConfig());
+                }
+
             }
 
-            if (comres.Success)
+            if (result)
             {
                 DialogResult = true;
                 Close();
@@ -55,7 +67,7 @@ namespace WinHue3
 
         public string GetCreatedOrModifiedID()
         {
-            return modifiedsensor.Id;
+            return _sensorId;
         } 
 
   

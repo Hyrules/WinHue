@@ -223,6 +223,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Force Check for Update.
+        /// </summary>
+        public static string BridgeSettingsForm_ForceCheckUpdate {
+            get {
+                return ResourceManager.GetString("BridgeSettingsForm_ForceCheckUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General Settings.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings {
@@ -696,6 +705,114 @@ namespace WinHue3.Resources {
         public static string Form_AddManualIP_Title {
             get {
                 return ResourceManager.GetString("Form_AddManualIP_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        public static string Form_AdvancedCreator_Actions {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Form_AdvancedCreator_Clear {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string Form_AdvancedCreator_GroupTemplate {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_GroupTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource Link.
+        /// </summary>
+        public static string Form_AdvancedCreator_ResourceLinkTemplate {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_ResourceLinkTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule.
+        /// </summary>
+        public static string Form_AdvancedCreator_RuleTemplate {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_RuleTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Light.
+        /// </summary>
+        public static string Form_AdvancedCreator_SceneLightTemplate {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_SceneLightTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scene.
+        /// </summary>
+        public static string Form_AdvancedCreator_SceneTemplate {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_SceneTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule.
+        /// </summary>
+        public static string Form_AdvancedCreator_ScheduleTemplate {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_ScheduleTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Form_AdvancedCreator_Send {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor.
+        /// </summary>
+        public static string Form_AdvancedCreator_SensorTemplate {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_SensorTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Templates.
+        /// </summary>
+        public static string Form_AdvancedCreator_Templates {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_Templates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter custom url otherwise leave empty..
+        /// </summary>
+        public static string Form_AdvancedCreator_UrlWatermark {
+            get {
+                return ResourceManager.GetString("Form_AdvancedCreator_UrlWatermark", resourceCulture);
             }
         }
         
@@ -1260,72 +1377,72 @@ namespace WinHue3.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Groups.
         /// </summary>
-        public static string ListView_Group {
+        public static string ListView_groups {
             get {
-                return ResourceManager.GetString("ListView_Group", resourceCulture);
+                return ResourceManager.GetString("ListView_groups", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Lights.
         /// </summary>
-        public static string ListView_Light {
+        public static string ListView_lights {
             get {
-                return ResourceManager.GetString("ListView_Light", resourceCulture);
+                return ResourceManager.GetString("ListView_lights", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
-        public static string ListView_Other {
+        public static string ListView_others {
             get {
-                return ResourceManager.GetString("ListView_Other", resourceCulture);
+                return ResourceManager.GetString("ListView_others", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Resource Links.
         /// </summary>
-        public static string ListView_Resourcelink {
+        public static string ListView_resourcelinks {
             get {
-                return ResourceManager.GetString("ListView_Resourcelink", resourceCulture);
+                return ResourceManager.GetString("ListView_resourcelinks", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rules.
         /// </summary>
-        public static string ListView_Rule {
+        public static string ListView_rules {
             get {
-                return ResourceManager.GetString("ListView_Rule", resourceCulture);
+                return ResourceManager.GetString("ListView_rules", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Scenes.
         /// </summary>
-        public static string ListView_Scene {
+        public static string ListView_scenes {
             get {
-                return ResourceManager.GetString("ListView_Scene", resourceCulture);
+                return ResourceManager.GetString("ListView_scenes", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Schedules.
         /// </summary>
-        public static string ListView_Schedule {
+        public static string ListView_schedules {
             get {
-                return ResourceManager.GetString("ListView_Schedule", resourceCulture);
+                return ResourceManager.GetString("ListView_schedules", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Sensors.
         /// </summary>
-        public static string ListView_Sensor {
+        public static string ListView_sensors {
             get {
-                return ResourceManager.GetString("ListView_Sensor", resourceCulture);
+                return ResourceManager.GetString("ListView_sensors", resourceCulture);
             }
         }
         
@@ -1335,6 +1452,15 @@ namespace WinHue3.Resources {
         public static string MainForm_ListView_Context_Clone {
             get {
                 return ResourceManager.GetString("MainForm_ListView_Context_Clone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colorloop.
+        /// </summary>
+        public static string MainForm_ListView_Context_Colorloop {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Colorloop", resourceCulture);
             }
         }
         
@@ -1380,6 +1506,15 @@ namespace WinHue3.Resources {
         public static string MainForm_ListView_Context_Edit {
             get {
                 return ResourceManager.GetString("MainForm_ListView_Context_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effects.
+        /// </summary>
+        public static string MainForm_ListView_Context_Effects {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Effects", resourceCulture);
             }
         }
         
@@ -1618,6 +1753,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indicate if a hotkey has been detected..
+        /// </summary>
+        public static string MainForm_StatusBar_ToolTip_HotKey {
+            get {
+                return ResourceManager.GetString("MainForm_StatusBar_ToolTip_HotKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicate if a search for new light or sensor is in progress..
+        /// </summary>
+        public static string MainForm_StatusBar_ToolTip_Search {
+            get {
+                return ResourceManager.GetString("MainForm_StatusBar_ToolTip_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string MainForm_Tab_Help {
@@ -1695,6 +1848,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Home_Group_Creators {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Creator.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Creators_AdvancedCreator {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators_AdvancedCreator", resourceCulture);
             }
         }
         
@@ -1992,6 +2154,15 @@ namespace WinHue3.Resources {
         public static string MainForm_ToolsTab_CpuTempMon {
             get {
                 return ResourceManager.GetString("MainForm_ToolsTab_CpuTempMon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WinHue must be run as administrator in order to run the CPU Temp Monitor.
+        /// </summary>
+        public static string MainForm_ToolsTab_CpuTempMon_Tooltip {
+            get {
+                return ResourceManager.GetString("MainForm_ToolsTab_CpuTempMon_Tooltip", resourceCulture);
             }
         }
         
@@ -2311,6 +2482,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string RuleCreatorForm_Add {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Action.
         /// </summary>
         public static string RuleCreatorForm_AddAction {
@@ -2329,11 +2509,20 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Done.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string RuleCreatorForm_CancelButton {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changed.
+        /// </summary>
+        public static string RuleCreatorForm_Changed {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Changed", resourceCulture);
             }
         }
         
@@ -2365,11 +2554,29 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized string similar to Config.
         /// </summary>
-        public static string RuleCreatorForm_CreateButton {
+        public static string RuleCreatorForm_Config {
             get {
-                return ResourceManager.GetString("RuleCreatorForm_CreateButton", resourceCulture);
+                return ResourceManager.GetString("RuleCreatorForm_Config", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new rule....
+        /// </summary>
+        public static string RuleCreatorForm_Create {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delayed Changed.
+        /// </summary>
+        public static string RuleCreatorForm_Delayed_Changed {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Delayed_Changed", resourceCulture);
             }
         }
         
@@ -2401,6 +2608,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Equals.
+        /// </summary>
+        public static string RuleCreatorForm_Equals {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Equals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greater Than.
+        /// </summary>
+        public static string RuleCreatorForm_Greater_Than {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Greater_Than", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groups.
         /// </summary>
         public static string RuleCreatorForm_Groups {
@@ -2410,11 +2635,29 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In.
+        /// </summary>
+        public static string RuleCreatorForm_In {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lights.
         /// </summary>
         public static string RuleCreatorForm_Lights {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Lights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lower Than.
+        /// </summary>
+        public static string RuleCreatorForm_Lower_Than {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Lower_Than", resourceCulture);
             }
         }
         
@@ -2437,11 +2680,29 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name : .
+        ///   Looks up a localized string similar to (Name of the rule).
         /// </summary>
         public static string RuleCreatorForm_Name {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not In.
+        /// </summary>
+        public static string RuleCreatorForm_Not_In {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Not_In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Stable.
+        /// </summary>
+        public static string RuleCreatorForm_Not_Stable {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Not_Stable", resourceCulture);
             }
         }
         
@@ -2451,6 +2712,24 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Object {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Object", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Choose the object).
+        /// </summary>
+        public static string RuleCreatorForm_Object_Watermark {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Object_Watermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Choose the object type).
+        /// </summary>
+        public static string RuleCreatorForm_ObjectType_Watermark {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_ObjectType_Watermark", resourceCulture);
             }
         }
         
@@ -2473,11 +2752,38 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resource Links.
+        /// </summary>
+        public static string RuleCreatorForm_ResourceLinks {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_ResourceLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rule.
         /// </summary>
         public static string RuleCreatorForm_RuleGroupBox {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_RuleGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rules.
+        /// </summary>
+        public static string RuleCreatorForm_Rules {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string RuleCreatorForm_Save {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Save", resourceCulture);
             }
         }
         
@@ -2518,6 +2824,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stable.
+        /// </summary>
+        public static string RuleCreatorForm_Stable {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Stable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date / Time.
         /// </summary>
         public static string RuleCreatorForm_Time {
@@ -2550,6 +2865,15 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Value {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Enter the value here).
+        /// </summary>
+        public static string RuleCreatorForm_Value_Watermark {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Value_Watermark", resourceCulture);
             }
         }
         
@@ -2761,7 +3085,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Days of week :.
+        ///   Looks up a localized string similar to Days of week.
         /// </summary>
         public static string ScheduleCreatorForm_DaysOfWeek {
             get {
@@ -2779,7 +3103,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description :.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string ScheduleCreatorForm_Description {
             get {
@@ -2824,7 +3148,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name :.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ScheduleCreatorForm_Name {
             get {
@@ -2860,7 +3184,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repeat(s) :.
+        ///   Looks up a localized string similar to Repeat(s).
         /// </summary>
         public static string ScheduleCreatorForm_Repeat {
             get {
@@ -2923,7 +3247,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Date/Time :.
+        ///   Looks up a localized string similar to Start Date/Time.
         /// </summary>
         public static string ScheduleCreatorForm_StartTime {
             get {
@@ -2932,7 +3256,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Occurs every :.
+        ///   Looks up a localized string similar to Occurs every.
         /// </summary>
         public static string ScheduleCreatorForm_StartTimeTimer {
             get {
@@ -2946,6 +3270,15 @@ namespace WinHue3.Resources {
         public static string ScheduleCreatorForm_Sunday {
             get {
                 return ResourceManager.GetString("ScheduleCreatorForm_Sunday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string ScheduleCreatorForm_Target {
+            get {
+                return ResourceManager.GetString("ScheduleCreatorForm_Target", resourceCulture);
             }
         }
         
@@ -2977,7 +3310,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating Schedule for : .
+        ///   Looks up a localized string similar to Creating Schedule for .
         /// </summary>
         public static string ScheduleCreatorForm_Title_Create {
             get {
@@ -2986,7 +3319,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modifying Schedule : .
+        ///   Looks up a localized string similar to Modifying Schedule.
         /// </summary>
         public static string ScheduleCreatorForm_Title_Modify {
             get {
@@ -3013,7 +3346,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type :.
+        ///   Looks up a localized string similar to Type.
         /// </summary>
         public static string ScheduleCreatorForm_Type {
             get {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinHue3.ViewModels;
 
 namespace WinHue3.Models.BridgeSettings
 {
@@ -22,38 +18,38 @@ namespace WinHue3.Models.BridgeSettings
 
         public bool Portalservice
         {
-            get { return _portalservice; }
-            set { SetProperty(ref _portalservice,value); }
+            get => _portalservice;
+            set => SetProperty(ref _portalservice,value);
         }
 
         public string Connection
         {
-            get { return _connection; }
-            set { SetProperty(ref _connection,value); }
+            get => _connection;
+            set => SetProperty(ref _connection,value);
         }
 
         public string Signedon
         {
-            get { return _signedon; }
-            set { SetProperty(ref _signedon,value); }
+            get => _signedon;
+            set => SetProperty(ref _signedon,value);
         }
 
         public string Outgoing
         {
-            get { return _outgoing; }
-            set { SetProperty(ref _outgoing,value); }
+            get => _outgoing;
+            set => SetProperty(ref _outgoing,value);
         }
 
         public string Incoming
         {
-            get { return _incoming; }
-            set { SetProperty(ref _incoming,value); }
+            get => _incoming;
+            set => SetProperty(ref _incoming,value);
         }
 
         public string Communication
         {
-            get { return _communication; }
-            set { SetProperty(ref _communication,value); }
+            get => _communication;
+            set => SetProperty(ref _communication,value);
         }
     }
 }

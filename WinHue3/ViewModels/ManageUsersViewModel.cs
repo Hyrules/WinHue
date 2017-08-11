@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HueLib2;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
 {
@@ -27,22 +26,19 @@ namespace WinHue3.ViewModels
 
         public ManageUsersModel UsersModel
         {
-            get { return _manageUsersModel; }
-            set { SetProperty(ref _manageUsersModel,value); }
+            get => _manageUsersModel;
+            set => SetProperty(ref _manageUsersModel,value);
         }
 
         public ObservableCollection<Whitelist> ListUsers
         {
-            get { return _listUsers; }
-            set { SetProperty(ref _listUsers, value); }
+            get => _listUsers;
+            set => SetProperty(ref _listUsers, value);
         }
 
         public Whitelist SelectedUser
         {
-            get
-            {
-                return _selectedUser;
-            }
+            get => _selectedUser;
             set
             {
                 SetProperty(ref _selectedUser, value);
@@ -50,36 +46,31 @@ namespace WinHue3.ViewModels
                 string[] userdev = _selectedUser.Name.Split('#');
                 UsersModel.Created = _selectedUser.CreateDate;
                 UsersModel.Lastused = _selectedUser.LastUseDate;
-                UsersModel.Key = _selectedUser.id;
+                UsersModel.Key = _selectedUser.Id;
                 UsersModel.ApplicationName = userdev[0];
                 UsersModel.Devtype = userdev.Length > 1 ? userdev[1] : string.Empty;
             }
         }
 
-        public Bridge Bridge
+        public async Task Initialize(Bridge bridge)
         {
-            get { return _bridge; }
-            set
+            _bridge = bridge;
+            Dictionary<string, Whitelist> cr = await _bridge.GetUserListAsyncTask();
+            if (cr != null)
             {
-                SetProperty(ref _bridge, value);
-                CommandResult cr = _bridge.GetUserList();
-                if (cr.Success)
-                {
-                    Dictionary<string, Whitelist> list = (Dictionary<string, Whitelist>) cr.resultobject;
 
-                    foreach (var item in list)
-                    {
-                        Whitelist i = item.Value;
-                        i.id = item.Key;
-                        if (i.id != _bridge.ApiKey)
-                            ListUsers.Add(i);
-                    }
-
-                }
-                else
+                foreach (KeyValuePair<string, Whitelist> item in cr)
                 {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                    Whitelist i = item.Value;
+                    i.Id = item.Key;
+                    if (i.Id != _bridge.ApiKey)
+                        ListUsers.Add(i);
                 }
+
+            }
+            else
+            {
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
         }
 
@@ -88,10 +79,10 @@ namespace WinHue3.ViewModels
             return SelectedUser != null;
         }
 
-        private void Delete()
+        private async Task Delete()
         {
-            CommandResult cr = _bridge.RemoveUser(UsersModel.Key);
-            if (cr.Success)
+            bool cr = await _bridge.RemoveUserAsyncTask(UsersModel.Key);
+            if (cr)
             {
                 ListUsers.Remove(SelectedUser);
                 Clear();
@@ -105,16 +96,16 @@ namespace WinHue3.ViewModels
             return SelectedUser == null;
         }
 
-        private void AddUser()
+        private async Task AddUser()
         {
             string uname = UsersModel.Devtype != string.Empty ? UsersModel.ApplicationName + "#" + UsersModel.Devtype : UsersModel.ApplicationName;
-            CommandResult cr = _bridge.CreateUser(uname);
-            if (cr.Success)
+            string cr = await _bridge.CreateUserAsyncTask(uname);
+            if (cr != null)
             {
                 Whitelist newitem = new Whitelist
                 {
                     Name = uname,
-                    id = cr.resultobject.ToString(),
+                    Id = cr,
                     CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
                 };
                 ListUsers.Add(newitem);
@@ -137,8 +128,8 @@ namespace WinHue3.ViewModels
         }
 
 
-        public ICommand DeleteCommand => new RelayCommand(param => Delete(), (param)=> CanDeleteUser());
-        public ICommand AddUserCommand => new RelayCommand(param => AddUser(), (param) => CanAddUser());
+        public ICommand DeleteCommand => new AsyncRelayCommand(param => Delete(), (param)=> CanDeleteUser());
+        public ICommand AddUserCommand => new AsyncRelayCommand(param => AddUser(), (param) => CanAddUser());
         public ICommand ClearCommand => new RelayCommand(param => Clear(), (param) => CanDeleteUser());
 
 

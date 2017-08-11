@@ -1,22 +1,22 @@
-﻿namespace HueLib2
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+namespace HueLib2.Objects.Scene
 {
-    /// <summary>
-    /// ActionBody class.
-    /// </summary>
-    public class SceneBody : RuleBody
+    [DataContract]
+    public class SceneBody : IRuleBody
     {
-        /// <summary>
-        /// Scene variable.
-        /// </summary>
+        [DataMember]
         public string scene { get; set; }
 
-        /// <summary>
-        /// Override to string function.
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return scene;
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

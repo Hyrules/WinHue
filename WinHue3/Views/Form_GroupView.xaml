@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="WinHue3.Form_GroupView"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="WinHue3.Views.Form_GroupView"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.Form_GroupView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">

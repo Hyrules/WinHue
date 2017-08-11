@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 using Prism.Mvvm;
 
-namespace WinHue3
+namespace WinHue3.ViewModels
 {
     public class ValidatableBindableBase : BindableBase, IDataErrorInfo, IChangeTracking
     {
@@ -21,6 +19,7 @@ namespace WinHue3
             this._validationContext = new ValidationContext(this);
         }
 
+        [Browsable(false),JsonIgnore]
         public string this[string propertyName]
         {
             get
@@ -45,12 +44,16 @@ namespace WinHue3
             }
         }
         
+
+
+        [Browsable(false),JsonIgnore]
         public string Error { get; internal set; }
 
+        [Browsable(false),JsonIgnore]
         public bool IsChanged
         {
             get => _isChanged;
-            internal set => _isChanged =value;
+            private set => _isChanged =value;
         }
 
         public void AcceptChanges()

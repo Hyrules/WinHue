@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Windows.Input;
-using HueLib2;
+using WinHue3.Philips_Hue.HueObjects.Common;
 
-namespace WinHue3
+namespace WinHue3.Hotkeys
 {
     [DataContract]
     public class HotKey
@@ -18,7 +18,7 @@ namespace WinHue3
         [DataMember]
         public string id { get; set; }
         [DataMember]
-        public CommonProperties properties { get; set; }
+        public IBaseProperties properties { get; set; }
 
         public string Hotkey => Modifier + " + " + Key;
 
