@@ -2,14 +2,14 @@
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     partial class AboutBox : Form
     {
         public AboutBox()
         {
             InitializeComponent();
-            this.Text = String.Format("About {0}", AssemblyTitle);
+            this.Text = $"About {AssemblyTitle}";
             this.labelProductName.Text = AssemblyProduct;
             //this.labelVersion.Text = Ap
             this.labelCopyright.Text = AssemblyCopyright;
@@ -36,13 +36,7 @@ namespace WinHue3
             }
         }
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string AssemblyDescription
         {

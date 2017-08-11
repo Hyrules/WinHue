@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using HueLib2.Objects.HueObject;
+using HueLib2.Objects.Interfaces;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using HueLib2.Objects.Rules;
@@ -14,7 +15,7 @@ namespace HueLib2
     /// <summary>
     /// Rules.
     /// </summary>
-    [DataContract, JsonConverter(typeof(RuleJsonConverter))]
+    [DataContract, JsonConverter(typeof(RuleJsonConverter)), HueType("rules")]
     public class Rule : IHueObject
     {
         private string _name;
@@ -103,7 +104,7 @@ namespace HueLib2
         /// Event that happen when property has change.
         /// </summary>
         /// <param name="propertyName"></param>
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinHue3.ViewModels;
 
 namespace WinHue3.Models.AppSettings
 {
@@ -30,44 +26,44 @@ namespace WinHue3.Models.AppSettings
 
         public bool DetectProxy
         {
-            get { return detectProxy; }
-            set { SetProperty(ref detectProxy,value); }
+            get => detectProxy;
+            set => SetProperty(ref detectProxy,value);
         }
 
         public bool Debug
         {
-            get { return debug; }
-            set { SetProperty(ref debug,value); }
+            get => debug;
+            set => SetProperty(ref debug,value);
         }
 
         public bool ShowHidden
         {
-            get { return showHidden; }
-            set { SetProperty(ref showHidden,value); }
+            get => showHidden;
+            set => SetProperty(ref showHidden,value);
         }
 
         public int UpnpTimeout
         {
-            get { return upnpTimeout; }
-            set { SetProperty(ref upnpTimeout,value); }
+            get => upnpTimeout;
+            set => SetProperty(ref upnpTimeout,value);
         }
 
         public int Timeout
         {
-            get { return timeout; }
-            set { SetProperty(ref timeout,value); }
+            get => timeout;
+            set => SetProperty(ref timeout,value);
         }
 
         public string Language
         {
-            get { return language; }
-            set { SetProperty(ref language,value); }
+            get => language;
+            set => SetProperty(ref language,value);
         }
 
         public int StartMode
         {
-            get { return startMode; }
-            set { SetProperty(ref startMode,value); }
+            get => startMode;
+            set => SetProperty(ref startMode,value);
         }
     }
 }

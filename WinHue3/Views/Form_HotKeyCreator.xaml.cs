@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using HueLib2;
-using WinHue3.Resources;
+using WinHue3.Hotkeys;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_HotKeyCreator.xaml
@@ -15,12 +17,15 @@ namespace WinHue3
     {
         private HotKeyCreatorViewModel _hkv;
 
-        public Form_HotKeyCreator(Bridge bridge)
+        public Form_HotKeyCreator()
         {
             InitializeComponent();
-            _hkv = DataContext as HotKeyCreatorViewModel;
-            _hkv.Initialize(bridge);   
-               
+            _hkv = DataContext as HotKeyCreatorViewModel;           
+        }
+
+        public async Task Initialize(Bridge bridge)
+        {
+            await _hkv.Initialize(bridge);
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)

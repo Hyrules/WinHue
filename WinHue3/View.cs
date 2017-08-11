@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using WinHue3.ViewModels;
 
 namespace WinHue3
 {
-    public abstract class View : INotifyPropertyChanged , INotifyDataErrorInfo
+    public abstract class View : ValidatableBindableBase , INotifyDataErrorInfo
     {
         private Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
 
-        public Dictionary<string, List<string>> Errors
-        {
-            get { return _errors; }
-        }
+        public Dictionary<string, List<string>> Errors => _errors;
 
         #region //************************ PROPERTIES *****************************************
 
@@ -63,11 +61,6 @@ namespace WinHue3
             
         }
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void OnErrorChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
@@ -97,7 +90,6 @@ namespace WinHue3
 
         #region //*********************** EVENTS ****************************
 
-        public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         #endregion
 

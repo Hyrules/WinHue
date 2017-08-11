@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Runtime.Serialization;
-using System.Windows;
 using System.Collections.Generic;
-using HueLib2;
 using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
 
-namespace WinHue3
+namespace WinHue3.Addons.RssFeedMonitor
 {
     [DataContract,Serializable]
     public class Alert
@@ -23,7 +21,7 @@ namespace WinHue3
         public ObservableCollection<Criteria> Criterias { get; set; }
 
         [DataMember]
-        public Body Action { get; set; }
+        public string Action { get; set; }
 
         [DataMember]
         public bool Enabled { get; set; }

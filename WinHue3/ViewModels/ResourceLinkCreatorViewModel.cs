@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using HueLib2;
-using HueLib2.Objects.HueObject;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Resources;
 using WinHue3.Validation;
+
 
 namespace WinHue3.ViewModels
 {
@@ -35,18 +35,11 @@ namespace WinHue3.ViewModels
         {
             get
             {
-                Resourcelink rl = new Resourcelink {Name = LinkCreatorModel.Name, links = new List<string>(),description = LinkCreatorModel.Description,classid = LinkCreatorModel.ClassId, recycle = LinkCreatorModel.Recycle,Id = _id};
+                Resourcelink rl = new Resourcelink {name = LinkCreatorModel.Name, links = new List<string>(),description = LinkCreatorModel.Description,classid = LinkCreatorModel.ClassId, recycle = LinkCreatorModel.Recycle,Id = _id};
                 foreach (IHueObject obj in _selectedLinkObjects)
                 {
-                    string typename = string.Empty;
-                    if (obj.GetType().BaseType == typeof(IHueObject))
-                    {
-                        typename = obj.GetType().ToString().Replace(obj.GetType().Namespace, "").Replace(".", "").ToLower() + "s";
-                    }
-                    else
-                    {
-                        typename = obj.GetType().BaseType?.ToString().Replace(obj.GetType().Namespace, "").Replace(".", "").ToLower() + "s";
-                    }
+                    HueType ht = obj.GetType().GetCustomAttribute<HueType>();
+                    string typename = ht?.HueObjectType;
                     rl.links.Add($"/{typename}/{obj.Id}");
                 }
                 log.Info($"Getting Resource Link : {Serializer.SerializeToJson(rl)}");
@@ -56,27 +49,22 @@ namespace WinHue3.ViewModels
             {
                 IsEditing = true;
                 Resourcelink rl = value;
-                log.Info($"Setting Resource Link : {Serializer.SerializeToJson(rl)}");
+                log.Info($"Setting Resource Link : {rl}");
                 _id = rl.Id;
-                LinkCreatorModel.Name = rl.Name;
+                LinkCreatorModel.Name = rl.name;
                 LinkCreatorModel.ClassId = rl.classid;
                 LinkCreatorModel.Description = rl.description;
                 LinkCreatorModel.Recycle = rl.recycle;
                 ObservableCollection<IHueObject> listsel = new ObservableCollection<IHueObject>();
                 foreach (string s in rl.links)
                 {
-                    string[] parts = s.Split('/');
-                    Assembly asm = typeof(Light).Assembly;
-                    parts[1] = parts[1].TrimEnd('s');
-                    parts[1] = parts[1].First().ToString().ToUpper() + string.Join("", parts[1].Skip(1));
+                    List<string> parts = s.Split('/').ToList();
+                    parts.RemoveAt(0);    
 
-                    Type objtype = Type.GetType($"HueLib2.{parts[1]}, {asm}");
-
-                    IHueObject obj = ListHueObjects.First(x => x.Id == parts[2] && x.GetType() == objtype);
+                    IHueObject obj = ListHueObjects.First(x => x.Id == parts[1] && x.GetType() == HueObjectCreator.CreateHueObject(parts[0]).GetType());
                     if (obj != null)
                     {
-                        listsel.Add(obj);
-                        
+                        listsel.Add(obj);                       
                     }
 
                     
@@ -89,26 +77,26 @@ namespace WinHue3.ViewModels
 
         public ResourceLinkCreatorModel LinkCreatorModel
         {
-            get { return _resourceLinkCreatorModel; }
-            set { SetProperty(ref _resourceLinkCreatorModel,value); }
+            get => _resourceLinkCreatorModel;
+            set => SetProperty(ref _resourceLinkCreatorModel,value);
         }
 
         public ObservableCollection<IHueObject> ListHueObjects
         {
-            get { return _listIHueObjects; }
-            set { SetProperty(ref _listIHueObjects, value); }
+            get => _listIHueObjects;
+            set => SetProperty(ref _listIHueObjects, value);
         }
 
         [MinimumCount(1, ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "ResourceLinks_SelectAtLeastOne")]
         public ObservableCollection<IHueObject> SelectedLinkObjects
         {
-            get { return _selectedLinkObjects; }
-            set { SetProperty(ref _selectedLinkObjects,value); }
+            get => _selectedLinkObjects;
+            set => SetProperty(ref _selectedLinkObjects,value);
         }
 
         public bool IsEditing
         {
-            get { return _isEditing; }
+            get => _isEditing;
             set { SetProperty(ref _isEditing,value); RaisePropertyChanged("BtnSaveText"); RaisePropertyChanged("NotEditing"); }
         }
 

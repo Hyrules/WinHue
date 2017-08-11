@@ -9,11 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using HueLib2.Objects.HueObject;
+using HueLib2.Objects.Interfaces;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace HueLib2
 {
-    [DefaultProperty("Resource Links"), DataContract]
+    [DefaultProperty("Resource Links"), DataContract, HueType("resourcelinks")]
     public class Resourcelink : IHueObject
     {
         private string _name;
@@ -85,7 +86,7 @@ namespace HueLib2
         /// Event that happen when property has change.
         /// </summary>
         /// <param name="propertyName"></param>
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -95,6 +96,11 @@ namespace HueLib2
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
         }
     }
 }

@@ -507,28 +507,28 @@
   <data name="HueTapSetupForm_TopMessage" xml:space="preserve">
     <value>Sélectionnez un bouton pour assigner une action...</value>
   </data>
-  <data name="ListView_Group" xml:space="preserve">
+  <data name="ListView_groups" xml:space="preserve">
     <value>Groupes</value>
   </data>
-  <data name="ListView_Light" xml:space="preserve">
+  <data name="ListView_lights" xml:space="preserve">
     <value>Ampoules</value>
   </data>
-  <data name="ListView_Other" xml:space="preserve">
+  <data name="ListView_others" xml:space="preserve">
     <value>Autres</value>
   </data>
-  <data name="ListView_Resourcelink" xml:space="preserve">
+  <data name="ListView_resourcelinks" xml:space="preserve">
     <value>Liens de Ressources</value>
   </data>
-  <data name="ListView_Rule" xml:space="preserve">
+  <data name="ListView_rules" xml:space="preserve">
     <value>Règles</value>
   </data>
-  <data name="ListView_Scene" xml:space="preserve">
+  <data name="ListView_scenes" xml:space="preserve">
     <value>Scènes</value>
   </data>
-  <data name="ListView_Schedule" xml:space="preserve">
+  <data name="ListView_schedules" xml:space="preserve">
     <value>Cédules</value>
   </data>
-  <data name="ListView_Sensor" xml:space="preserve">
+  <data name="ListView_sensors" xml:space="preserve">
     <value>Capteurs</value>
   </data>
   <data name="MainForm_ListView_Context_Clone" xml:space="preserve">
@@ -828,9 +828,6 @@
   <data name="RuleCreatorForm_Conditions" xml:space="preserve">
     <value>Conditions</value>
   </data>
-  <data name="RuleCreatorForm_CreateButton" xml:space="preserve">
-    <value>Créer</value>
-  </data>
   <data name="RuleCreatorForm_Delete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
@@ -850,7 +847,7 @@
     <value>La passerelle peut contenir un maximum de 100 règles de 4 actions et 4 conditions.</value>
   </data>
   <data name="RuleCreatorForm_Name" xml:space="preserve">
-    <value>Nom : </value>
+    <value>(Nom de la règle)</value>
   </data>
   <data name="RuleCreatorForm_Object" xml:space="preserve">
     <value>Objet :</value>
@@ -1343,5 +1340,71 @@
   </data>
   <data name="Form_AdvancedCreator_SceneLightTemplate" xml:space="preserve">
     <value>Ampoule de scène</value>
+  </data>
+  <data name="MainForm_StatusBar_ToolTip_HotKey" xml:space="preserve">
+    <value>Indique sur une clé raccourci a été détectée</value>
+  </data>
+  <data name="MainForm_StatusBar_ToolTip_Search" xml:space="preserve">
+    <value>Indique sur une recherche pour des nouveaux capteur ou ampoule est en cours.</value>
+  </data>
+  <data name="BridgeSettingsForm_ForceCheckUpdate" xml:space="preserve">
+    <value>Force la détection de MAJ</value>
+  </data>
+  <data name="RuleCreatorForm_ResourceLinks" xml:space="preserve">
+    <value>Liens Resource</value>
+  </data>
+  <data name="RuleCreatorForm_Rules" xml:space="preserve">
+    <value>Règles</value>
+  </data>
+  <data name="RuleCreatorForm_Config" xml:space="preserve">
+    <value>Config</value>
+  </data>
+  <data name="RuleCreatorForm_Create" xml:space="preserve">
+    <value>Créer une nouvelle règle...</value>
+  </data>
+  <data name="RuleCreatorForm_ObjectType_Watermark" xml:space="preserve">
+    <value>(Sélectionnez le type d'objet)</value>
+  </data>
+  <data name="RuleCreatorForm_Object_Watermark" xml:space="preserve">
+    <value>(Choisissez l'objet)</value>
+  </data>
+  <data name="RuleCreatorForm_Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="RuleCreatorForm_Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="RuleCreatorForm_Value_Watermark" xml:space="preserve">
+    <value>(Saisissez la valeur ici)</value>
+  </data>
+  <data name="RuleCreatorForm_Equals" xml:space="preserve">
+    <value>Égal</value>
+  </data>
+  <data name="RuleCreatorForm_Changed" xml:space="preserve">
+    <value>Est Modifié</value>
+  </data>
+  <data name="RuleCreatorForm_Delayed_Changed" xml:space="preserve">
+    <value>Est Modifié avec délai</value>
+  </data>
+  <data name="RuleCreatorForm_Not_In" xml:space="preserve">
+    <value>Pas dans</value>
+  </data>
+  <data name="RuleCreatorForm_In" xml:space="preserve">
+    <value>Dans</value>
+  </data>
+  <data name="RuleCreatorForm_Stable" xml:space="preserve">
+    <value>Stable</value>
+  </data>
+  <data name="RuleCreatorForm_Not_Stable" xml:space="preserve">
+    <value>Pas stable</value>
+  </data>
+  <data name="RuleCreatorForm_Lower_Than" xml:space="preserve">
+    <value>Plus petit que</value>
+  </data>
+  <data name="RuleCreatorForm_Greater_Than" xml:space="preserve">
+    <value>Plus grand que</value>
+  </data>
+  <data name="MainForm_ToolsTab_CpuTempMon_Tooltip" xml:space="preserve">
+    <value>WinHue doit être exécuté en tant qu'administrateur afin d'utiliser le moniteur de température de CPU.</value>
   </data>
 </root>

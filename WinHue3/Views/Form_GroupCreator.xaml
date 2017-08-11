@@ -7,7 +7,7 @@
         xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
         xmlns:CustomControls="clr-namespace:WinHue3.Controls"
         xmlns:converter="clr-namespace:WinHue3.Converters"
-        x:Class="WinHue3.Form_GroupCreator"
+        x:Class="WinHue3.Views.Form_GroupCreator"
         Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="600" MinWidth="800">
     <Window.Resources>
         <Style TargetType="{x:Type CustomControls:BindableListView}">
@@ -58,7 +58,7 @@
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
                         <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                        <TextBlock x:Name="tblName" Text="{Binding Name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
                     </WrapPanel>
                 </DataTemplate>
             </CustomControls:BindableListView.ItemTemplate>

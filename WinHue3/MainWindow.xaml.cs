@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using HueLib2;
 using System.Threading;
-using System.Windows.Interop;
 using System.Windows.Media;
-using HueLib2.Objects.HueObject;
+using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
+using WinHue3.Settings;
 using WinHue3.ViewModels;
+using WinHue3.ViewModels.MainFormViewModels;
+using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3
 {
@@ -26,14 +26,14 @@ namespace WinHue3
         private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);     
         public string Version { get; set; }
-        public Form_EventLog _fel;
+        public Views.Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
         /// <summary>
         /// Form of the Eventlog.
         /// </summary>
 
-        public MainWindow(Form_EventLog formEventLog)
+        public MainWindow(Views.Form_EventLog formEventLog)
         {
             _fel = formEventLog;
 
@@ -71,7 +71,7 @@ namespace WinHue3
             {
                 dependencyobject.Background = new SolidColorBrush();
                 ((SolidColorBrush) dependencyobject.Background).Color =
-                    Color.FromArgb(20, 0, 200, 0);
+                    System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
             }
         }
 
@@ -84,7 +84,7 @@ namespace WinHue3
             {
                 dependencyobject.Background = new SolidColorBrush();
                 ((SolidColorBrush)dependencyobject.Background).Color =
-                    Color.FromArgb(20, 0, 200, 0);
+                    System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
             }
         }
 

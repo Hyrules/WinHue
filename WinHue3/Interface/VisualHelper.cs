@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace WinHue3
+namespace WinHue3.Interface
 {
     /// <summary>
     /// The visual helper helps find visual children.

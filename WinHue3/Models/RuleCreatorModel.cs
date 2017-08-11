@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.Validation;
+﻿using System.ComponentModel.DataAnnotations;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Models
 {
@@ -23,16 +18,16 @@ namespace WinHue3.Models
 
         public string RuleEnabled
         {
-            get { return _ruleEnabled; }
-            set { SetProperty(ref _ruleEnabled,value); }
+            get => _ruleEnabled;
+            set => SetProperty(ref _ruleEnabled,value);
         }
 
         [Required]
         [StringLength(32,MinimumLength = 1)]
         public string Name
         {
-            get { return _name; }
-            set { SetProperty(ref _name,value); }
+            get => _name;
+            set => SetProperty(ref _name,value);
         }
     }
 }

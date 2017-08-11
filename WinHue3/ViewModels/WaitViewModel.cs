@@ -34,33 +34,25 @@ namespace WinHue3.ViewModels
 
         public string Message
         {
-            get
-            {
-                return _message;
-            }
-            set
-            {
-                SetProperty(ref _message, value);
-            }         
+            get => _message;
+            set => SetProperty(ref _message, value);
         }
 
 
         public TimeSpan WaitTime
         {
-            get
-            {
-                return _waittime;
-            }
+            get => _waittime;
             set
             {
                 SetProperty(ref _waittime, value);
+                _pbtimer.Interval = _waittime;              
             }
         }
 
         public int pbValue
         {
-            get { return _pbvalue; }
-            set { SetProperty(ref _pbvalue,value); }
+            get => _pbvalue;
+            set => SetProperty(ref _pbvalue,value);
         }
         public event WaitComplete OnWaitComplete;
         public delegate void WaitComplete(object sender, EventArgs e);

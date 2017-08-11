@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,8 +15,8 @@ namespace WinHue3.Controls
 
         public IInputElement CommandTarget
         {
-            get { return (IInputElement)GetValue(CommandTargetProperty); }
-            set { SetValue(CommandTargetProperty, value); }
+            get => (IInputElement)GetValue(CommandTargetProperty);
+            set => SetValue(CommandTargetProperty, value);
         }
         public static readonly DependencyProperty CommandTargetProperty =
         DependencyProperty.Register(
@@ -32,8 +28,8 @@ namespace WinHue3.Controls
 
         public object CommandParameter
         {
-            get { return (object)GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get => (object)GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
         }
 
         public static readonly DependencyProperty CommandParameterProperty =
@@ -46,8 +42,8 @@ namespace WinHue3.Controls
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...

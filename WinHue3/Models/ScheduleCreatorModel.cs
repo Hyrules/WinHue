@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using HueLib2;
 using System.ComponentModel.DataAnnotations;
+using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Validation;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Models
 {
@@ -17,23 +13,14 @@ namespace WinHue3.Models
         private string _description;
         private bool? _randomize;
         private bool? _autodelete;
-        private bool _on = true;
         private bool _enabled = true;
         private string _transitiontime;
         private string _time;
-        private ushort? _hue;
-        private byte? _bri;
-        private byte? _sat;
-        private ushort? _ct;
-        private decimal? _x;
-        private decimal? _y;
-        private string _scene;
         private int? _repetition;
         private string _date;
 
         public ScheduleCreatorModel()
         {
-            On = true;
             Enabled = true;
             Time = DateTime.Now.Add(new TimeSpan(0,0,5)).ToString("HH:mm:ss");
             Date = DateTime.Now.ToString("yyyy-MM-dd");
@@ -42,153 +29,60 @@ namespace WinHue3.Models
 
         public string Name
         {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public string Description
         {
-            get { return _description; }
-            set { SetProperty(ref _description, value); }
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         public bool? Randomize
         {
-            get { return _randomize; }
-            set { SetProperty(ref _randomize, value); }
+            get => _randomize;
+            set => SetProperty(ref _randomize, value);
         }
 
         public bool? Autodelete
         {
-            get { return _autodelete; }
-            set { SetProperty(ref _autodelete, value); }
-        }
-
-        public bool On
-        {
-            get { return _on; }
-            set { SetProperty(ref _on,value);}
+            get => _autodelete;
+            set => SetProperty(ref _autodelete, value);
         }
 
         public bool Enabled
         {
-            get { return _enabled; }
-            set { SetProperty(ref _enabled,value);}
+            get => _enabled;
+            set => SetProperty(ref _enabled,value);
         }
 
         [UIntValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Error_ScheduleInvalidTT")]
         public string Transitiontime
         {
-            get { return _transitiontime; }
-            set{ SetProperty(ref _transitiontime, value); }
+            get => _transitiontime;
+            set => SetProperty(ref _transitiontime, value);
         }
 
         [RegularExpression(@"^([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5]?\d)$", ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName = "Error_ScheduleTimeInvalid" )]
         public string Time
         {
-            get { return _time; }
-            set { SetProperty(ref _time, value); }
-        }
-
-        public ushort? Hue
-        {
-            get { return _hue; }
-            set
-            {
-
-                SetProperty(ref _hue,value);
-                _x = null;
-                _y = null;
-                _ct = null;
-                RaisePropertyChanged("X");
-                RaisePropertyChanged("Y");
-                RaisePropertyChanged("Ct");
-            }
-        }
-
-        public byte? Bri
-        {
-            get { return _bri; }
-            set { SetProperty(ref _bri,value); }
-        }
-
-        public byte? Sat
-        {
-            get { return _sat; }
-            set { SetProperty(ref _sat, value); }
-        }
-
-        public ushort? Ct
-        {
-            get { return _ct; }
-            set
-            {
-                SetProperty(ref _ct,value);
-                _x = null;
-                _y = null;
-                _hue = null;
-                RaisePropertyChanged("X");
-                RaisePropertyChanged("Y");
-                RaisePropertyChanged("Hue");
-            }
-        }
-
-        public decimal? X
-        {
-            get { return _x; }
-            set
-            {
-                SetProperty(ref _x,value);
-                _hue = null;
-                _ct = null;
-                if (_y == 0)
-                {
-                    _y = 0;
-                    RaisePropertyChanged("Y");
-                }
-                RaisePropertyChanged("Hue");
-                RaisePropertyChanged("Ct");
-            }
-        }
-
-        public decimal? Y
-        {
-            get { return _y; }
-            set
-            {
-                SetProperty(ref _y,value);
-                _hue = null;
-                _ct = null;
-                if (_x == null)
-                {
-                    _x = 0;
-                    RaisePropertyChanged("X");
-                }
-                RaisePropertyChanged("Hue");
-                RaisePropertyChanged("Ct");
-            }
+            get => _time;
+            set => SetProperty(ref _time, value);
         }
 
         public int? Repetition
         {
-            get { return _repetition; }
-            set { SetProperty(ref _repetition,value); }
-        }
-
-        public string Scene
-        {
-            get { return _scene; }
-            set { SetProperty(ref _scene,value); }
+            get => _repetition;
+            set => SetProperty(ref _repetition,value);
         }
 
         public string Date
         {
-            get { return _date; }
-            set
-            {
-                SetProperty(ref _date,value);
-            }
+            get => _date;
+            set => SetProperty(ref _date,value);
         }
+
     }
 }
 

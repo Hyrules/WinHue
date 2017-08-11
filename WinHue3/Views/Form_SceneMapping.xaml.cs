@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Views
 {   
 
     /// <summary>
@@ -14,19 +19,24 @@ namespace WinHue3
     {
 
         private readonly SceneMappingViewModel _smv;
-        private readonly Bridge _bridge;
-        public Form_SceneMapping(Bridge bridge)
+        private Bridge _bridge;
+        public Form_SceneMapping()
+        {
+            InitializeComponent();
+            _smv = DataContext as SceneMappingViewModel;
+        }
+
+        public async Task Initialize(Bridge bridge)
         {
             _bridge = bridge;
-            InitializeComponent();
-            CommandResult<Dictionary<string,Light>> lresult = _bridge.GetListObjects<Light>();
-            if (lresult.Success)
+            Dictionary<string, Light> lresult = await _bridge.GetListObjectsAsyncTask<Light>();
+            if (lresult != null)
             {
-                CommandResult<Dictionary<string,Scene>> sresult = _bridge.GetListObjects<Scene>();
-                if (sresult.Success)
+                Dictionary<string, Scene> sresult = await _bridge.GetListObjectsAsyncTask<Scene>();
+                if (sresult != null)
                 {
-                    _smv = DataContext as SceneMappingViewModel;
-                    _smv.Initialize(sresult.Data, lresult.Data, _bridge);
+                    
+                    _smv.Initialize(sresult, lresult, _bridge);
                 }
                 else
                 {
@@ -37,8 +47,6 @@ namespace WinHue3
             {
                 MessageBoxError.ShowLastErrorMessages(bridge);
             }
-            
-
         }
 
         private void dgListScenes_ItemsSourceChangeCompleted(object sender, EventArgs e)

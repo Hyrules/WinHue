@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Collections.ObjectModel;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_BridgeDetectionPairing.xaml

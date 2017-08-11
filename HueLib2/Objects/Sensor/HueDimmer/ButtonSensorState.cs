@@ -13,12 +13,14 @@ namespace HueLib2
     /// Hue Tap Sensor State.
     /// </summary>
     [DataContract]
-    class ButtonSensorState : SensorState
+    public class ButtonSensorState : ISensorState, IRuleBody
     {
         /// <summary>
         /// Button event number.
         /// </summary>
         [DataMember, ReadOnly(true)]
         public int? buttonevent { get; set; }
+        [DataMember]
+        public string lastupdated { get; set; }
     }
 }

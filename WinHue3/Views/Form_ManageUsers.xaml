@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Form_ManageUsers"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Views.Form_ManageUsers"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ManageUsers_Title}" Height="359.614" Width="641.738" Icon="/WinHue3;component/Resources/user.png" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
 

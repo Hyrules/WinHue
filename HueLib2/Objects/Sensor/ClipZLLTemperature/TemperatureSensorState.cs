@@ -8,12 +8,14 @@ namespace HueLib2
     /// Temperature sensor state.
     /// </summary>
     [DataContract]
-    public class TemperatureSensorState : SensorState
+    public class TemperatureSensorState : ISensorState, IRuleBody
     {
         /// <summary>
         /// Current temperature.
         /// </summary>
         [DataMember, ReadOnly(true)]
         public int? temperature { get; set; }
+        [DataMember]
+        public string lastupdated { get; set; }
     }
 }

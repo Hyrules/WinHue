@@ -69,15 +69,15 @@
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HueLib2">
-      <HintPath>..\HueLib2\bin\Debug\HueLib2.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="ManagedUPnP">
+      <HintPath>..\packages\ManagedUPnP\ManagedUPnP.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -95,8 +95,12 @@
       <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NDesk.Options, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenHardwareMonitorLib">
       <HintPath>..\packages\OpenHardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
@@ -117,12 +121,16 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
+    <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -136,29 +144,23 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.2.16567.21060, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -192,10 +194,9 @@
       <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
-    <Compile Include="Color\Q42ColorConversion.cs" />
-    <Compile Include="Color\Q42ColorConversion_Array.cs" />
+    <Compile Include="Colors\Q42ColorConversion.cs" />
+    <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
-    <Compile Include="Controls\BindableTreeView.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
@@ -225,10 +226,106 @@
     <Compile Include="Models\HotKeyCreatorModel.cs" />
     <Compile Include="Models\ManageUsersModel.cs" />
     <Compile Include="Models\SceneCreatorModel.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\AlertItemSource.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\Backup.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\BasicConfig.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\BridgeSettings.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\ColormodeItemSource.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\DataStore.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\Description.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\EffectItemSource.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\PortalState.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\SwUpdate.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\User.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\WhiteList.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge_Events.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeMessages\Error.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeMessages\IMessage.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeMessages\MessageJsonConverter.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeMessages\Messages.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeMessages\Success.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge_Methods.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge_ObjectFinder.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge_ObjectGetter.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge_ObjectSetter.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge_Settings.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Bridge_Update.cs" />
+    <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
+    <Compile Include="Philips Hue\HueDevice.cs" />
+    <Compile Include="Philips Hue\Communication\Communication.cs" />
+    <Compile Include="Philips Hue\Communication\Serializer.cs" />
+    <Compile Include="Philips Hue\Communication\WebClientTimeout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Philips Hue\Hue.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\BasePropertiesFactory.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\CreateOnlyAttribute.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\HueFactory.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\HuePropertyAttribute.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\IBaseProperties.cs" />
+    <Compile Include="Philips Hue\HueObjects\GroupObject\Action.cs" />
+    <Compile Include="Philips Hue\HueObjects\GroupObject\Group.cs" />
+    <Compile Include="Philips Hue\HueObjects\GroupObject\GroupState.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\HueTypeAttribute.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\IHueObject.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericFlag\ClipGenericFlagSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericStatus\ClipGenericStatusSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipHumidity\ClipHumiditySensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipOpenClose\ClipOpenCloseSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipPresence\ClipPresenceSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllLightLevel\ClipZllLightLevelSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllTemperature\ClipZllTemperatureSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\Daylight\DaylightSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueDimmer\HueDimmerSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueMotion\HueMotionSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueSensorConfigFactory.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueTap\HueTapSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ISensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
+    <Compile Include="Utils\AsyncRelayCommand.cs" />
+    <Compile Include="Utils\ListExpandableObjectConverter.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
+    <Compile Include="Philips Hue\HueObjects\ResourceLinkObject\ResourceLink.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\Rule.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleAction.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\HueAddress.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionJsonConverter.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleCondition.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleJsonConverter.cs" />
+    <Compile Include="Philips Hue\HueObjects\SceneObject\AppData.cs" />
+    <Compile Include="Philips Hue\HueObjects\SceneObject\Scene.cs" />
+    <Compile Include="Philips Hue\HueObjects\SceneObject\SceneBody.cs" />
+    <Compile Include="Philips Hue\HueObjects\ScheduleObject\Command.cs" />
+    <Compile Include="Philips Hue\HueObjects\ScheduleObject\Schedule.cs" />
+    <Compile Include="Philips Hue\HueObjects\ScheduleObject\ScheduleJsonConverter.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericStatus\ClipGenericStatusSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipHumidity\ClipHumiditySensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipHumidity\ClipHumiditySensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipOpenClose\ClipOpenCloseSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipOpenClose\ClipOpenCloseSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipPresence\ClipPresenceSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipPresence\PresenceSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllLightLevel\LightLevelConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllLightLevel\LightLevelState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllTemperature\TemperatureSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllTemperature\TempreatureSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\Daylight\DaylightSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\Daylight\DaylightSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueDimmer\ButtonSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueDimmer\HueDimmerSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueMotion\HueMotionSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\HueTap\HueTapSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\OldSensor\Sensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericFlag\ClipGenericFlagSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericFlag\ClipGenericFlagSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\OldSensor\SensorJsonConverter.cs" />
     <Compile Include="Settings\BridgeSaveSettings.cs" />
     <Compile Include="Settings\CustomSettings.cs" />
-    <Compile Include="Utils\RuleTreeViewItem.cs" />
-    <Compile Include="Utils\TimeSensorState.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
     <Compile Include="Validation\RuleValueValidation.cs" />
@@ -237,12 +334,6 @@
     <Compile Include="ViewModels\AdvancedCreatorViewModel.cs" />
     <Compile Include="ViewModels\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
-    <Compile Include="ViewModels\RuleActionPropertyViewModel.cs" />
-    <Compile Include="ViewModels\RuleActionViewModel.cs" />
-    <Compile Include="ViewModels\RuleConditionViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModels\RuleActionViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModels\RuleConditionViewModel.cs" />
     <Compile Include="Models\RuleCreatorModel.cs" />
     <Compile Include="Resources\GUI.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -259,6 +350,9 @@
     <Compile Include="ViewModels\EventViewerViewModel.cs" />
     <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorActionViewModel.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorConditionViewModel.cs" />
+    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
     <Compile Include="Views\Form_AdvancedCreator.xaml.cs">
       <DependentUpon>Form_AdvancedCreator.xaml</DependentUpon>
@@ -318,11 +412,8 @@
     <Compile Include="Views\Form_BulbsView.xaml.cs">
       <DependentUpon>Form_BulbsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_RuleConditionCreator.xaml.cs">
-      <DependentUpon>Form_RuleConditionCreator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Form_RulesCreator.xaml.cs">
-      <DependentUpon>Form_RulesCreator.xaml</DependentUpon>
+    <Compile Include="Views\Form_RuleCreator.xaml.cs">
+      <DependentUpon>Form_RuleCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Form_SceneMapping.xaml.cs">
       <DependentUpon>Form_SceneMapping.xaml</DependentUpon>
@@ -341,7 +432,7 @@
     <Compile Include="Logs\DgLogEntry.cs" />
     <Compile Include="Hotkeys\HotKeyHandle.cs" />
     <Compile Include="Utils\MessageBoxError.cs" />
-    <Compile Include="Utils\DelegateCommand.cs" />
+    <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="Views\Form_BridgeDetectionPairing.xaml.cs">
       <DependentUpon>Form_BridgeDetectionPairing.xaml</DependentUpon>
     </Compile>
@@ -353,8 +444,6 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\Marker.cs" />
-    <Compile Include="Mood\Mood.cs" />
-    <Compile Include="Mood\MoodHandler.cs" />
     <Compile Include="ExtensionMethods\ExtensionMethods.cs" />
     <Compile Include="Interface\ScreenPixelHandler.cs" />
     <Compile Include="Interface\TypeGroupDescription.cs" />
@@ -366,7 +455,6 @@
     <Compile Include="ViewModels\SceneMappingViewModel.cs" />
     <Compile Include="ViewModels\WaitViewModel.cs" />
     <Compile Include="ViewModels\ColorFromImageViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="Settings\WinHueSettings.cs" />
     <Compile Include="Views\Form_CloneRule.xaml.cs">
       <DependentUpon>Form_CloneRule.xaml</DependentUpon>
@@ -427,15 +515,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_RuleConditionCreator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Form_RulesCreator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Form_RulesCreator2.xaml">
+    <Page Include="Views\Form_RuleCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -495,7 +575,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Color\ColorPicker.cs" />
+    <Compile Include="Colors\ColorPicker.cs" />
     <Compile Include="Interface\Cursor_Tools.cs" />
     <Compile Include="Views\Form_BridgeSettings.xaml.cs">
       <DependentUpon>Form_BridgeSettings.xaml</DependentUpon>
@@ -511,9 +591,6 @@
     </Compile>
     <Compile Include="Views\Form_Daylight.xaml.cs">
       <DependentUpon>Form_Daylight.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Form_RulesCreator2.xaml.cs">
-      <DependentUpon>Form_RulesCreator2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Form_SceneCreator.xaml.cs">
       <DependentUpon>Form_SceneCreator.xaml</DependentUpon>
@@ -538,14 +615,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Color\HueXYArray.cs" />
+    <Compile Include="Colors\HueXYArray.cs" />
     <Compile Include="Converters\HueColorConverter.cs" />
     <Compile Include="Resources\GUI.fr.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GUI.fr.resx</DependentUpon>
     </Compile>
-    <Compile Include="MainForm\MainForm_Moods.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -556,7 +632,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Color\HSLColor.cs" />
+    <Compile Include="Colors\HSLColor.cs" />
     <Compile Include="Interface\VisualHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

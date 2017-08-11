@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using HueLib2;
-using HueLib2.Objects.HueObject;
 using log4net;
+using WinHue3.ExtensionMethods;
+using WinHue3.Hotkeys;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Settings;
 using WinHue3.Utils;
 using WinHue3.Validation;
+
 
 namespace WinHue3.ViewModels
 {
@@ -23,7 +31,7 @@ namespace WinHue3.ViewModels
 
         private ObservableCollection<IHueObject> _listHueObject;
         private IHueObject _selectedHueObject;
-        private CommonProperties _propertyObject;
+        private IBaseProperties _propertyObject;
         private ObservableCollection<HotKey> _listHotKeys;
         private readonly DispatcherTimer _hotkeyrecordTimer;
         private Bridge _bridge;
@@ -46,25 +54,25 @@ namespace WinHue3.ViewModels
 
         public bool NotGeneric => !_isGeneric;
 
-        public void Initialize(Bridge bridge)
+        public async Task Initialize(Bridge bridge)
         {
             CanRecordKeyUp = false;
             _bridge = bridge;
-            FetchHueObject();
+            await FetchHueObject();
         }
 
-        public CommonProperties PropertyGridObject
+        public IBaseProperties PropertyGridObject
         {
-            get { return _propertyObject; }
-            set { SetProperty(ref _propertyObject,value); }
+            get => _propertyObject;
+            set => SetProperty(ref _propertyObject,value);
         }
         public bool IsGeneric
         {
-            get { return _isGeneric; }
+            get => _isGeneric;
             set
             {
                 SetProperty(ref _isGeneric, value);
-                PropertyGridObject = value ? new CommonProperties() : null;
+                PropertyGridObject = value ? BasePropertiesCreator.CreateBaseProperties(_objectype) : null;
                 RaisePropertyChanged("SelectedHueObject");
                 RaisePropertyChanged("NotGeneric");
             }
@@ -74,56 +82,49 @@ namespace WinHue3.ViewModels
 
         public Type ObjectType
         {
-            get { return _objectype; }
-            set
-            {
-                SetProperty(ref _objectype,value);
-                if (_objectype != null)
-                {
-                    FetchHueObject();
-                }
-            }
+            get => _objectype;
+            set => SetProperty(ref _objectype,value);
         }
 
         public ObservableCollection<HotKey> ListHotKeys
         {
-            get { return _listHotKeys; }
-            set { SetProperty(ref _listHotKeys,value); }
+            get => _listHotKeys;
+            set => SetProperty(ref _listHotKeys,value);
         }
 
         public HotKeyCreatorModel HotKeyModel
         {
-            get { return _hotKeyModel; }
-            set { SetProperty(ref _hotKeyModel, value); }
+            get => _hotKeyModel;
+            set => SetProperty(ref _hotKeyModel, value);
         }
 
-        public void RecordHotKey()
+        private void RecordHotKey()
         {
             _hotkeyrecordTimer.Start();
             CanRecordKeyUp = true;
-            HotKeyModel.RecordButtonColor = new SolidColorBrush { Color = Color.FromRgb(255, 0, 0) };
+            HotKeyModel.RecordButtonColor = new SolidColorBrush { Color = System.Windows.Media.Color.FromRgb(255, 0, 0) };
         }
 
         public ObservableCollection<IHueObject> ListHueObject
         {
-            get { return _listHueObject; }
-            set { SetProperty(ref _listHueObject, value); }
+            get => _listHueObject;
+            set => SetProperty(ref _listHueObject, value);
         }
 
         [HotKeySelectedValidation(ErrorMessageResourceName = "Hotkey_SelectObject", ErrorMessageResourceType = typeof(GlobalStrings))]
         public IHueObject SelectedHueObject
         {
-            get { return _selectedHueObject; }
+            get => _selectedHueObject;
             set
             {
                 SetProperty(ref _selectedHueObject, value);
-                PropertyGridObject = _selectedHueObject != null ? new CommonProperties() : null;
+                PropertyGridObject = _selectedHueObject != null ? BasePropertiesCreator.CreateBaseProperties(_objectype) : null;
             }
         }
 
         public HotKey SelectedHotKey
         {
-            get { return _selectedHotKey; }
+            get => _selectedHotKey;
             set
             {
                 SetProperty(ref _selectedHotKey, value);
@@ -151,8 +152,8 @@ namespace WinHue3.ViewModels
 
         public bool CanRecordKeyUp
         {
-            get { return _canRecordKeyUp; }
-            set { SetProperty(ref _canRecordKeyUp, value); }
+            get => _canRecordKeyUp;
+            set => SetProperty(ref _canRecordKeyUp, value);
         }
 
         public void SaveHotKeys()
@@ -173,7 +174,7 @@ namespace WinHue3.ViewModels
         private void StopRecording()
         {
             _hotkeyrecordTimer.Stop();
-            HotKeyModel.RecordButtonColor = new SolidColorBrush { Color = Color.FromRgb(240, 240, 240) };
+            HotKeyModel.RecordButtonColor = new SolidColorBrush { Color = System.Windows.Media.Color.FromRgb(240, 240, 240) };
         }
 
         private void DeleteHotkey()
@@ -188,7 +189,7 @@ namespace WinHue3.ViewModels
             StopRecording();
         }
 
-        private void FetchHueObject()
+        private async Task FetchHueObject()
         {
             if (ObjectType == null || _bridge == null)
             {
@@ -199,7 +200,7 @@ namespace WinHue3.ViewModels
            
             if (ObjectType == typeof(Light))
             {
-                List<Light> hr = HueObjectHelper.GetBridgeLights(_bridge);
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
                 if (hr != null)
                 {
                     ListHueObject = new ObservableCollection<IHueObject>(hr);
@@ -208,7 +209,7 @@ namespace WinHue3.ViewModels
             }
             else if (ObjectType == typeof(Group))
             {
-                List<Group> hr = HueObjectHelper.GetBridgeGroups(_bridge);
+                List<Group> hr = await HueObjectHelper.GetBridgeGroupsAsyncTask(_bridge);
                 if (hr != null)
                 {
                     ListHueObject = new ObservableCollection<IHueObject>(hr);
@@ -216,7 +217,7 @@ namespace WinHue3.ViewModels
             }
             else if( ObjectType == typeof(Scene))
             {
-                List<Scene> hr = HueObjectHelper.GetBridgeScenes(_bridge);
+                List<Scene> hr = await HueObjectHelper.GetBridgeScenesAsyncTask(_bridge);
                 if (hr != null)
                 {
                     ListHueObject = new ObservableCollection<IHueObject>(hr);
@@ -224,12 +225,12 @@ namespace WinHue3.ViewModels
             }
         }
 
-        public bool ValidateHotKeyProperties()
+        private bool ValidateHotKeyProperties()
         {
             bool valid = false;
             if (_propertyObject != null)
             {
-                PropertyInfo[] prop = _propertyObject.GetType().GetProperties();
+                PropertyInfo[] prop = _propertyObject.GetType().GetHueProperties();
                 foreach (PropertyInfo p in prop)
                 {
                     if (p.GetValue(_propertyObject) != null)
@@ -355,7 +356,14 @@ namespace WinHue3.ViewModels
         public ICommand RecordHotKeyCommand => new RelayCommand(param => RecordHotKey(), param => CanRecord());
         public ICommand DeleteHotKeyCommand => new RelayCommand(param => DeleteHotkey(), param=> IsObjectSelected());
         public ICommand ClearFieldsCommand => new RelayCommand(param => Clearfields());
+        public ICommand ChangeObjectTypeCommand => new AsyncRelayCommand(param => ChangeObject());
 
-
+        private async Task ChangeObject()
+        {
+            if (_objectype != null)
+            {
+                await FetchHueObject();
+            }
+        }
     }
 }

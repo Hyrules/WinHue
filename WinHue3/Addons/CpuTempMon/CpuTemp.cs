@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Management;
-using OpenHardwareMonitor;
-using OpenHardwareMonitor.Hardware;
-using OpenHardwareMonitor.Collections;
-using System.Windows.Threading;
 using System.ComponentModel;
+using System.Linq;
+using System.Windows.Threading;
+using OpenHardwareMonitor.Hardware;
+using WinHue3.ExtensionMethods;
+using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Addons.CpuTempMon
 {
     public class CpuTemp : ValidatableBindableBase
     {
@@ -26,26 +23,26 @@ namespace WinHue3
 
         public string PollSensorName
         {
-            get { return _pollSensorName; }
-            set { SetProperty(ref _pollSensorName, value); }
+            get => _pollSensorName;
+            set => SetProperty(ref _pollSensorName, value);
         }
 
         public float? Temperature
         {
-            get { return _temperature; }
-            private set { SetProperty(ref _temperature, value); }
+            get => _temperature;
+            private set => SetProperty(ref _temperature, value);
         }
 
         public ObservableCollection<ISensor> CpuSensors
         {
-            get { return _cpuSensors; }
-            private set { SetProperty(ref _cpuSensors, value); }
+            get => _cpuSensors;
+            private set => SetProperty(ref _cpuSensors, value);
         }
 
         public bool Working 
         {
-            get{ return _working;}
-            private set{ SetProperty(ref _working,value);}
+            get => _working;
+            private set => SetProperty(ref _working,value);
         }
 
         public CpuTemp(int pollingInterval)

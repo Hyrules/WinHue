@@ -10,7 +10,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="WinHue3.Views.Form_AdvancedCreator"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-        xmlns:hueLib2="clr-namespace:HueLib2;assembly=HueLib2"
+        xmlns:hueLib2="clr-namespace:WinHue3.Philips_Hue.Communication"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner" Name="Window">
     <Window.DataContext>

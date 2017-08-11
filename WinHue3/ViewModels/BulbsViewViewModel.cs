@@ -4,7 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using HueLib2;
+using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 
 namespace WinHue3.ViewModels
 {
@@ -30,7 +31,7 @@ namespace WinHue3.ViewModels
 
         public bool Reverse
         {
-            get { return _reverse; }
+            get => _reverse;
             set
             {
                 SetProperty(ref _reverse,value);
@@ -55,36 +56,35 @@ namespace WinHue3.ViewModels
             dt.Columns.Add("Properties");
             foreach (Light lvp in llights)
             {
-                dt.Columns.Add(lvp.Name);
+                dt.Columns.Add(lvp.name);
             }
 
-            PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            PropertyInfo[] liststate = typeof(State).GetProperties();
+            PropertyInfo[] listproperties = typeof(Light).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "state").ToArray();
+            PropertyInfo[] liststate = typeof(State).GetHueProperties().Where(x => !x.Name.Contains("_inc")).ToArray();
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
 
             listproperties.CopyTo(listPropertyInfos, 0);
             liststate.CopyTo(listPropertyInfos, listproperties.Length);
 
-            object[] data = new object[llights.Count + 1];
+            object[] data = new object[dt.Columns.Count];
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "Image") continue;
 
                 data[0] = pi.Name;
 
                 int i = 1;
                 foreach (Light l in llights)
                 {
-                    if (Array.Find(liststate, x => x.Name == pi.Name) != null)
+                    object value = null;
+                    value = Array.Find(liststate, x => x.Name == pi.Name) != null ? pi.GetValue(l.state) : pi.GetValue(l);
+
+                    if (value is Array)
                     {
-                        data[i] = pi.GetValue(l.state);
-                    }
-                    else
-                    {
-                        data[i] = pi.GetValue(l);
+                        value = ((Array)value).ArrayToString();
                     }
 
+                    data[i] = value;
                     i++;
                 }
 
@@ -96,6 +96,7 @@ namespace WinHue3.ViewModels
 
         }
 
+
         private void BuildBulbsViewReverse()
         {
 
@@ -104,9 +105,9 @@ namespace WinHue3.ViewModels
             DataTable dt = new DataTable();
             dt.Columns.Add("Lights");
 
-            PropertyInfo[] listproperties =
-                typeof(Light).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            PropertyInfo[] liststate = typeof(State).GetProperties();
+            PropertyInfo[] listproperties = typeof(Light).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "state").ToArray();
+            PropertyInfo[] liststate = typeof(State).GetHueProperties().Where(x => !x.Name.Contains("_inc")).ToArray();
+            
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
 
             listproperties.CopyTo(listPropertyInfos, 0);
@@ -114,31 +115,29 @@ namespace WinHue3.ViewModels
 
             foreach (PropertyInfo pi in listPropertyInfos)
             {
-                if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "Image") continue;
+               
                 dt.Columns.Add(pi.Name);
             }
 
-            int nbrcol = 1 + listPropertyInfos.Length - 2 - liststate.Count(x => x.Name.Contains("_inc"));
-
-            object[] data = new object[nbrcol];
+            object[] data = new object[dt.Columns.Count];
 
             foreach (Light l in llights)
             {
                 int i = 1;
-                data[0] = l.Name;
+                data[0] = l.name;
 
                 foreach (PropertyInfo pi in listPropertyInfos)
                 {
-                    if (pi.Name == "state" || pi.Name == "name" || pi.Name.Contains("_inc") || pi.Name == "Image") continue;
 
-                    if (Array.Find(liststate, x => x.Name == pi.Name) != null)
+                    object value = null;
+                    value = Array.Find(liststate, x => x.Name == pi.Name) != null ? pi.GetValue(l.state) : pi.GetValue(l);
+
+                    if (value is Array)
                     {
-                        data[i] = pi.GetValue(l.state);
+                        value = ((Array)value).ArrayToString();
                     }
-                    else
-                    {
-                        data[i] = pi.GetValue(l);
-                    }
+
+                    data[i] = value;
                     i++;
 
                 }
@@ -152,7 +151,7 @@ namespace WinHue3.ViewModels
 
         public string Filter
         {
-            get { return _filter; }
+            get => _filter;
             set
             {
                 SetProperty(ref _filter,value);
@@ -164,15 +163,9 @@ namespace WinHue3.ViewModels
 
         public List<Light> Listlights
         {
-            get
-            {
-                return _listlights;
-            }
+            get => _listlights;
 
-            set
-            {
-                SetProperty(ref _listlights,value);
-            }
+            set => SetProperty(ref _listlights,value);
         }
 
         public void FilterData()

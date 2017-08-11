@@ -6,7 +6,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converters="clr-namespace:WinHue3.Converters"
-        x:Class="WinHue3.Form_BridgeSettings"
+        x:Class="WinHue3.Views.Form_BridgeSettings"
         Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="502" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/1417331999_Gear.png" Loaded="Window_Loaded">
     <Window.DataContext>
         <viewmodels:BridgeSettingsViewModel/>
@@ -115,6 +115,7 @@
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="90"/>
                     <Label x:Name="lblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="289"/>
                     <CheckBox x:Name="chbNotify" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Notify}" IsChecked="{Binding SoftwareModel.Notify,Mode=OneWay}" HorizontalAlignment="Left" Margin="11,114,0,0" VerticalAlignment="Top" Width="89" IsHitTestVisible="False"/>
+                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top" Width="170" Command="{Binding ForceCheckUpdateCommand}"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -3,7 +3,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Settings;
+using WinHue3.Utils;
+
 
 namespace WinHue3.ViewModels
 {
@@ -34,7 +39,7 @@ namespace WinHue3.ViewModels
 
         public string Filter
         {
-            get { return _filter; }
+            get => _filter;
             set
             {
                 SetProperty(ref _filter,value);
@@ -45,15 +50,8 @@ namespace WinHue3.ViewModels
 
         public object Row
         {
-            get
-            {
-                return _row;           
-            }
-            set
-            {
-                SetProperty(ref _row,value);
-
-            }
+            get => _row;
+            set => SetProperty(ref _row,value);
         }
 
         public void FilterData()
@@ -82,7 +80,7 @@ namespace WinHue3.ViewModels
 
             if (!WinHueSettings.settings.ShowHiddenScenes)
                 lscenes = _listscenes.Where(
-                        x => x.Value.Name.Contains("HIDDEN") == false)
+                        x => x.Value.name.Contains("HIDDEN") == false)
                     .ToDictionary(p => p.Key, p => p.Value);
             else
                 lscenes = _listscenes;
@@ -98,7 +96,7 @@ namespace WinHue3.ViewModels
             // Add all light columns
             foreach (KeyValuePair<string, Light> kvp in llights)
             {
-                dt.Columns.Add(kvp.Value.Name);
+                dt.Columns.Add(kvp.Value.name);
             }
 
             dt.Columns.Add("Locked");
@@ -112,7 +110,7 @@ namespace WinHue3.ViewModels
                 object[] data = new object[llights.Count + 5];
 
                 data[0] = new string(svp.Key.ToCharArray());
-                data[1] = new string(svp.Value.Name.ToCharArray());
+                data[1] = new string(svp.Value.name.ToCharArray());
                 int i = 2;
                 foreach (KeyValuePair<string, Light> lvp in llights)
                 {

@@ -187,7 +187,7 @@ namespace HueLib2
             {
                 case WebExceptionStatus.Success:
                     lastMessages = type != WebRequestType.GET ? Serializer.DeserializeToObject<Messages>(comres.data) : new Messages();
-                    bresult.Success = lastMessages.AllSuccess == true;
+                    bresult.Success = lastMessages.Success;
                     if (type == WebRequestType.GET)
                     {
                         dynamic json = JsonConvert.DeserializeObject(comres.data);
@@ -195,12 +195,14 @@ namespace HueLib2
                     }
                     break;
                 case WebExceptionStatus.Timeout:
-                    lastMessages = new Messages(); //TODO:Add Message;
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error(){ address = url, description = "A Timeout occured." ,type = 65535});
                     BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                     bresult.Exception = comres.ex;
                     break;
                 default:
-                    lastMessages = new Messages(); //TODO:Add Message;
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = url, description = "A unknown error occured.", type = 65535 });
                     bresult.Exception = comres.ex;
                     break;
             }
@@ -223,15 +225,17 @@ namespace HueLib2
                 case WebExceptionStatus.Success:
                     listObjets = Serializer.DeserializeToObject<DataStore>(comres.data);
                     if (listObjets != null) return new CommandResult<DataStore>() {Success = true, Data = listObjets};
-                    Messages lstmsg = Serializer.DeserializeToObject<Messages>(Communication.lastjson);
-                    lastMessages = lstmsg ?? new Messages();
+                    lastMessages = Serializer.DeserializeToObject<Messages>(Communication.lastjson);
+                    
                     break;
                 case WebExceptionStatus.Timeout:
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl, description = "A Timeout occured." });
                     BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
-                    lastMessages = new Messages(); //TODO:Add Message;
-
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl, description = "A unknown error occured." });
                     break;
             }
 
@@ -267,6 +271,8 @@ namespace HueLib2
             // return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
             return $@"ipaddress : {IpAddress}, IsDefault : {IsDefault}, SwVersion : {SwVersion}, Mac : {Mac}, ApiVersion : {ApiVersion}, ApiKey : {ApiKey}, BridgeUrl : {BridgeUrl} ";
         }
+
+
     }
 
     public class BridgeNotRespondingEventArgs : EventArgs

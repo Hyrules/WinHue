@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        x:Class="WinHue3.Form_ScheduleCreator"
+        x:Class="WinHue3.Views.Form_ScheduleCreator"
         xmlns:winHue3="clr-namespace:WinHue3"
         xmlns:viewModel="clr-namespace:WinHue3.ViewModels"
         xmlns:converter="clr-namespace:WinHue3.Converters"  
@@ -155,7 +155,7 @@
         <GroupBox x:Name="grpSettings" Header="{x:Static resx:GUI.ScheduleCreatorForm_ScheduleSettings}" HorizontalAlignment="Left" Margin="7,304,0,0" VerticalAlignment="Top" Height="302" Width="685" IsEnabled="{Binding CanSetSettings}">
             <Grid>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Center" Margin="10,0,561,254" Width="102"/>
-                <Slider x:Name="slHue" Value="{Binding ScheduleModel.Hue, Converter={StaticResource SliderToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,619,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding ElementName=slHue,Path=Value}" IsMoveToPointEnabled="True">
+                <Slider x:Name="slHue" Value="{Binding Body.hue, Converter={StaticResource SliderToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,619,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding ElementName=slHue,Path=Value}" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0" >
                             <GradientStop Color="#FFFF0000" />
@@ -172,7 +172,7 @@
                     </Slider.Style>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Brightness}" HorizontalAlignment="Center" Margin="117,0,460,254" Width="96"/>
-                <Slider x:Name="slBri" Value="{Binding ScheduleModel.Bri, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Margin="140,31,511,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" Minimum="-1" IsMoveToPointEnabled="True">
+                <Slider x:Name="slBri" Value="{Binding Body.bri, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Margin="140,31,511,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" Minimum="-1" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
                             <GradientStop Color="White" Offset="1"/>
@@ -181,7 +181,7 @@
                     </Slider.Background>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_ColorTemp}" HorizontalAlignment="Center"  Width="101" Margin="218,0,354,254"/>
-                <Slider x:Name="slCT" Value="{Binding ScheduleModel.Ct, Converter={StaticResource SliderToUshortConverter}}"  Height="217" VerticalAlignment="Top" Maximum="500" Margin="249,31,403,0" Width="Auto" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
+                <Slider x:Name="slCT" Value="{Binding Body.ct, Converter={StaticResource SliderToUshortConverter}}"  Height="217" VerticalAlignment="Top" Maximum="500" Margin="249,31,403,0" Width="Auto" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFFF8912" Offset="0"/>
@@ -190,7 +190,7 @@
                     </Slider.Background>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Saturation}" HorizontalAlignment="Center" Margin="339,0,241,254" Width="93"/>
-                <Slider x:Name="slSAT" Value="{Binding ScheduleModel.Sat, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="361,31,290,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
+                <Slider x:Name="slSAT" Value="{Binding Body.sat, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="361,31,290,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush  EndPoint="0.5,0" StartPoint="0.5,1">
                             <GradientStop Color="White" x:Name="slSATStartGradient"/>
@@ -199,9 +199,9 @@
                     </Slider.Background>
                 </Slider>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_XColorSpace}" HorizontalAlignment="Center" Margin="447,0,136,254" Width="90" RenderTransformOrigin="0.507,0"/>
-                <Slider x:Name="slX" Value="{Binding ScheduleModel.X, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="479,31,167,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True" />
+                <Slider x:Name="slX" Value="{Binding Body.xy.X, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="479,31,167,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True" />
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_YColorSpace}" HorizontalAlignment="Center" Margin="557,0,28,254" Width="88"/>
-                <Slider x:Name="slY" Value="{Binding ScheduleModel.Y, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="589,31,60,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True"/>
+                <Slider x:Name="slY" Value="{Binding Body.xy.Y, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="589,31,60,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True"/>
             </Grid>
         </GroupBox>
 
@@ -251,7 +251,7 @@
                         <DataTemplate>
                             <DockPanel HorizontalAlignment="Left" >
                                 <Image Height="16" Source="{Binding Image}"/>
-                                <Label Content="{Binding Name}"/>
+                                <Label Content="{Binding name}"/>
                             </DockPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>

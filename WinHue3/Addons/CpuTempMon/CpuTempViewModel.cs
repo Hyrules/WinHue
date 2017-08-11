@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows.Threading;
-using HueLib2;
-using HueLib2.Objects.HueObject;
 using OpenHardwareMonitor.Hardware;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
-using Action = System.Action;
+using WinHue3.ViewModels;
+
 
 namespace WinHue3.Addons.CpuTempMon
 {
@@ -107,11 +107,11 @@ namespace WinHue3.Addons.CpuTempMon
 
             if (SelectedObject is Light)
             {
-                _bridge.SetState<Light>(new State() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
+                _bridge.SetState(new State() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
             }
             else
             {
-                _bridge.SetState<Group>(new HueLib2.Action() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
+                _bridge.SetState(new Philips_Hue.HueObjects.GroupObject.Action() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
             }
 
             
@@ -121,82 +121,82 @@ namespace WinHue3.Addons.CpuTempMon
 
         public int LowerTemp
         {
-            get { return _lowerTemp; }
-            set { SetProperty(ref _lowerTemp,value); }
+            get => _lowerTemp;
+            set => SetProperty(ref _lowerTemp,value);
         }
 
         public int UpperTemp
         {
-            get { return _UpperTemp; }
-            set { SetProperty(ref _UpperTemp,value); }
+            get => _UpperTemp;
+            set => SetProperty(ref _UpperTemp,value);
         }
 
         public int LowerGradientColor
         {
-            get { return _lowerGradientColor; }
-            set { SetProperty(ref _lowerGradientColor,value); }
+            get => _lowerGradientColor;
+            set => SetProperty(ref _lowerGradientColor,value);
         }
 
         public int UpperGradientColor
         {
-            get { return _upperGradientColor; }
-            set { SetProperty(ref _upperGradientColor,value); }
+            get => _upperGradientColor;
+            set => SetProperty(ref _upperGradientColor,value);
         }
 
         public CpuTemp Temp
         {
-            get { return _temp; }
-            set { SetProperty(ref _temp,value); }
+            get => _temp;
+            set => SetProperty(ref _temp,value);
         }
 
         public bool CanTest
         {
-            get { return _canTest; }
-            set { SetProperty(ref _canTest, value); }
+            get => _canTest;
+            set => SetProperty(ref _canTest, value);
         }
 
         public string CpuTemp
         {
-            get { return _cpuTemp; }
-            set { SetProperty(ref _cpuTemp,value); }
+            get => _cpuTemp;
+            set => SetProperty(ref _cpuTemp,value);
         }
 
         public ISensor SelectedSensor
         {
-            get { return _selectedSensor; }
-            set { SetProperty(ref _selectedSensor, value); }
+            get => _selectedSensor;
+            set => SetProperty(ref _selectedSensor, value);
         }
 
         public IHueObject SelectedObject
         {
-            get { return _selectedObject; }
-            set { SetProperty(ref _selectedObject, value); }
+            get => _selectedObject;
+            set => SetProperty(ref _selectedObject, value);
         }
 
         public byte Bri
         {
-            get { return _bri; }
-            set { SetProperty(ref _bri,value); }
+            get => _bri;
+            set => SetProperty(ref _bri,value);
         }
 
         public byte Sat
         {
-            get { return _sat; }
-            set { SetProperty(ref _sat,value); }
+            get => _sat;
+            set => SetProperty(ref _sat,value);
         }
 
         public List<IHueObject> ListLightGroups
         {
-            get { return _listLightGroups; }
-            set { SetProperty(ref _listLightGroups, value); }
+            get => _listLightGroups;
+            set => SetProperty(ref _listLightGroups, value);
         }
 
         public ICommand TestCpuTempCommand => new RelayCommand(param => TestCpuTemp());
 
         public ObservableCollection<ISensor> ListCpuSensors
         {
-            get { return _listCpuSensors; }
-            set { SetProperty(ref _listCpuSensors,value); }
+            get => _listCpuSensors;
+            set => SetProperty(ref _listCpuSensors,value);
         }
 
         private void TestCpuTemp()

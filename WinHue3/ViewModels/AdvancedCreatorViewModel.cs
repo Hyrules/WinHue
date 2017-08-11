@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using HueLib2;
+using Newtonsoft.Json;
+using WinHue3.Utils;
+using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 using MessageBox = System.Windows.Forms.MessageBox;
+using WebRequestType = WinHue3.Philips_Hue.Communication.WebRequestType;
 
 namespace WinHue3.ViewModels
 {
@@ -147,7 +145,7 @@ namespace WinHue3.ViewModels
 
         }
 
-        private void Send()
+        private async Task Send()
         {
             DialogResult result = DialogResult.Yes;
 
@@ -158,9 +156,9 @@ namespace WinHue3.ViewModels
             }
 
             if (result == DialogResult.Yes)
-            {               
-                CommandResult<string> cr = _bridge.SendCommand(Url, Text, RequestType);
-                if (cr.Success == false)
+            {
+                string json = await _bridge.SendRawCommandAsyncTask(Url, Text, RequestType);
+                if (json == null)
                 {
                     _bridge.ShowErrorMessages();
                 }
@@ -168,11 +166,11 @@ namespace WinHue3.ViewModels
                 {
                     if (RequestType == WebRequestType.GET)
                     {
-                        Text = cr.Data;
+                        Text = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(json), Formatting.Indented);
                     }
                     else
                     {
-                        MessageBox.Show(_bridge.lastMessages.ToString(), GlobalStrings.Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(_bridge.LastCommandMessages.ToString(), GlobalStrings.Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         OnObjectCreated?.Invoke(this, EventArgs.Empty);
                     }
                 
@@ -219,7 +217,7 @@ namespace WinHue3.ViewModels
         public ICommand CreateResourceLinkTemplateCommand => new RelayCommand(param => CreateResourceLinkTemplate(), (param) => Type == string.Empty);
         public ICommand CreateGroupTemplateCommand => new RelayCommand(param => CreateGroupTemplate(), (param) => Type == string.Empty);
         public ICommand ClearTemplateCommand => new RelayCommand(param => ClearTemplate(), (param) => Text != string.Empty);
-        public ICommand SendCommand => new RelayCommand(param => Send());
+        public ICommand SendCommand => new AsyncRelayCommand(param => Send());
         public ICommand CreateSceneTemplateCommand => new RelayCommand(param => CreateSceneTemplate(), (param) => Text == string.Empty);
         public ICommand CreateSceneStateCommand => new RelayCommand(param => CreateSceneStateTemplate(), (param) => Text == string.Empty);
         public ICommand SetBridgeUrlCommand => new RelayCommand(param => SetBridgeUrl());
@@ -231,26 +229,26 @@ namespace WinHue3.ViewModels
 
         public string Text
         {
-            get { return _text; }
-            set { SetProperty(ref _text,value); }
+            get => _text;
+            set => SetProperty(ref _text,value);
         }
 
         public string Type
         {
-            get { return _type; }
-            set { SetProperty(ref _type,value); }
+            get => _type;
+            set => SetProperty(ref _type,value);
         }
 
         public WebRequestType RequestType
         {
-            get { return _requestType; }
-            set { SetProperty(ref _requestType,value); }
+            get => _requestType;
+            set => SetProperty(ref _requestType,value);
         }
 
         public string Url
         {
-            get { return _url; }
-            set { SetProperty(ref _url,value); }
+            get => _url;
+            set => SetProperty(ref _url,value);
         }
 
         public event EventHandler OnObjectCreated;

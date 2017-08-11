@@ -346,6 +346,16 @@ namespace HueLib2
         #endregion
     }
 
+    enum HueObjectType
+    {
+        lights,
+        groups,
+        sensors,
+        scenes,
+        schedules,
+        resourcelinks,
+        rules
+    };
 
     public class DetectionErrorEventArgs : EventArgs
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using System.Drawing;
+using System.Runtime.Serialization;
 
-namespace WinHue3
+namespace WinHue3.Interface
 {
     /// <summary>
     /// Marker on the scene creator window.

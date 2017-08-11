@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinHue3.ViewModels;
 
 namespace WinHue3.Models.BridgeSettings
 {
@@ -20,26 +16,26 @@ namespace WinHue3.Models.BridgeSettings
 
         public string Url
         {
-            get { return _url; }
-            set { SetProperty(ref _url,value); }
+            get => _url;
+            set => SetProperty(ref _url,value);
         }
 
         public string Text
         {
-            get { return _text; }
-            set { SetProperty(ref _text,value); }
+            get => _text;
+            set => SetProperty(ref _text,value);
         }
 
         public string Updatestate
         {
-            get { return _updatestate; }
-            set { SetProperty(ref _updatestate,value); }
+            get => _updatestate;
+            set => SetProperty(ref _updatestate,value);
         }
 
         public bool Notify
         {
-            get { return _notify; }
-            set { SetProperty(ref _notify,value); }
+            get => _notify;
+            set => SetProperty(ref _notify,value);
         }
     }
 }

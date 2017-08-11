@@ -1,12 +1,8 @@
-﻿using HueLib2;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HueLib2.Objects.HueObject;
+using WinHue3.Utils;
+using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3.ViewModels
 {
@@ -28,26 +24,26 @@ namespace WinHue3.ViewModels
 
         public ObservableCollection<IHueObject> ListReplacementsObject
         {
-            get { return _listReplacementsObject; }
-            set { SetProperty(ref _listReplacementsObject,value); }
+            get => _listReplacementsObject;
+            set => SetProperty(ref _listReplacementsObject,value);
         }
 
         public ObservableCollection<IHueObject> ListRuleObject
         {
-            get { return _listRuleObject; }
-            set { _listRuleObject = value; }
+            get => _listRuleObject;
+            set => _listRuleObject = value;
         }
 
         public IHueObject SelectedRuleObject
         {
-            get { return _selectedRuleObject; }
-            set { SetProperty(ref _selectedRuleObject, value); }
+            get => _selectedRuleObject;
+            set => SetProperty(ref _selectedRuleObject, value);
         }
 
         public IHueObject SelectedReplacementObject
         {
-            get { return _selectedReplacementObject; }
-            set { SetProperty(ref _selectedReplacementObject, value); }
+            get => _selectedReplacementObject;
+            set => SetProperty(ref _selectedReplacementObject, value);
         }
 
         private void AddToList()

@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converter="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-        x:Name="FormSceneCreator" x:Class="WinHue3.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/SceneLarge.png">
+        x:Name="FormSceneCreator" x:Class="WinHue3.Views.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/SceneLarge.png">
     <Window.DataContext>
         <viewmodels:SceneCreatorViewModel/>
     </Window.DataContext>
@@ -68,7 +68,7 @@
                         <DataTemplate>
                             <WrapPanel >
                                 <Image Source="{Binding Image}" Height="32" Width="32"/>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding name}"/>
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -155,7 +155,7 @@
                         <DataTemplate>
                             <WrapPanel>
                                 <Image Source="{Binding Image}" Width="32" Height="32"/>
-                                <Label Content="{Binding Name}"/>
+                                <Label Content="{Binding name}"/>
                                 <Rectangle Grid.Row="0" Height="22" Width="22" Fill="Transparent" x:Name="sampleColor"/>
 
                             </WrapPanel>

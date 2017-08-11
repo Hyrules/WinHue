@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.Eventing.Reader;
+using HueLib2.Objects.Scene;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,7 +18,7 @@ namespace HueLib2
         /// <returns></returns>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(RuleBody);
+            return objectType == typeof(IRuleBody);
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace HueLib2
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject obj = (JObject)serializer.Deserialize(reader);
-            RuleBody rulebody;
+            IRuleBody rulebody;
 
             if (obj.ToString().Contains("scene"))
             {

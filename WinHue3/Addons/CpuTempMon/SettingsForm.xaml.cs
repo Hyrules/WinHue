@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Drawing;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
-using HueLib2;
-using OpenHardwareMonitor.Hardware;
-using WinHue3.Addons.CpuTempMon;
-using Action = System.Action;
+using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
-namespace WinHue3
+namespace WinHue3.Addons.CpuTempMon
 {
     /// <summary>
     /// Logique d'interaction pour Window1.xaml

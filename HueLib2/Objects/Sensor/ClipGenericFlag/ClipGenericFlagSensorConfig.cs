@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class ClipGenericFlagSensorConfig : SensorConfig
+    public class ClipGenericFlagSensorConfig : ISensorConfig
     {
         /// <summary>
         /// url.

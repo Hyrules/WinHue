@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -20,8 +16,8 @@ namespace WinHue3.Controls
 
         public double OldValue
         {
-            get { return (double)GetValue(OldValueProperty); }
-            set { SetValue(OldValueProperty, value); }
+            get => (double)GetValue(OldValueProperty);
+            set => SetValue(OldValueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for OldValue.  This enables animation, styling, binding, etc...
@@ -30,8 +26,8 @@ namespace WinHue3.Controls
 
         public IInputElement CommandTarget
         {
-            get { return (IInputElement)GetValue(CommandTargetProperty); }
-            set { SetValue(CommandTargetProperty, value); }
+            get => (IInputElement)GetValue(CommandTargetProperty);
+            set => SetValue(CommandTargetProperty, value);
         }
 
         public static readonly DependencyProperty CommandTargetProperty =
@@ -44,8 +40,8 @@ namespace WinHue3.Controls
 
         public object CommandParameter
         {
-            get { return (object)GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get => (object)GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
         }
 
 
@@ -59,8 +55,8 @@ namespace WinHue3.Controls
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...

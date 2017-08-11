@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using WinHue3.Hotkeys;
 using WinHue3.Models;
-using static WinHue3.Models.MainFormModel;
 
 namespace WinHue3.Settings
 {

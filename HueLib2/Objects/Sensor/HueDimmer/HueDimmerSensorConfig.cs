@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class HueDimmerSensorConfig : SensorConfig
+    public class HueDimmerSensorConfig : ISensorConfig
     {
 
         /// <summary>

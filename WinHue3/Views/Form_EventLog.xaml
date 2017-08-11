@@ -2,14 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="Form_EventLogger" x:Class="WinHue3.Form_EventLog"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="Form_EventLogger" x:Class="WinHue3.Views.Form_EventLog"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/1416205084_Book_edit.png" ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <viewmodels:EventViewerViewModel/>
     </Window.DataContext>
     <Grid>
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding EventViewerModel.ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" Margin="0,0,0,19">
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding EventViewerModel.ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" Margin="0,0,0,19" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn MinWidth="100" Header="Timestamp">
                     <DataGridTemplateColumn.CellTemplate>

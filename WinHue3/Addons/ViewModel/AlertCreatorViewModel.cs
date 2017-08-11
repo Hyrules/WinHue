@@ -1,15 +1,17 @@
-﻿using HueLib2;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using WinHue3.Addons.Model;
+using WinHue3.Addons.RssFeedMonitor;
+using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Utils;
+using WinHue3.ViewModels;
+using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
 namespace WinHue3.Addons.ViewModel
 {
@@ -17,7 +19,7 @@ namespace WinHue3.Addons.ViewModel
     {
         private AlertCreatorModel _alertCreatorModel;
         private ObservableCollection<Criteria> _criterias;
-        private Body _action;
+        private IBaseProperties _action;
         private string _value;
         private string _rsselement;
         private string _operator;
@@ -26,8 +28,8 @@ namespace WinHue3.Addons.ViewModel
 
         public AlertCreatorModel AlertCreatorModel
         {
-            get { return _alertCreatorModel; }
-            set { SetProperty(ref _alertCreatorModel,value); }
+            get => _alertCreatorModel;
+            set => SetProperty(ref _alertCreatorModel,value);
         }
 
         public void Initialize(Bridge bridge)
@@ -38,32 +40,32 @@ namespace WinHue3.Addons.ViewModel
 
         public string Value
         {
-            get { return _value; }
-            set { SetProperty(ref _value,value); }
+            get => _value;
+            set => SetProperty(ref _value,value);
         }
 
         public ObservableCollection<Criteria> Criterias
         {
-            get { return _criterias; }
-            set { SetProperty(ref _criterias, value); }
+            get => _criterias;
+            set => SetProperty(ref _criterias, value);
         }
 
-        public Body Action
+        public IBaseProperties Action
         {
-            get { return _action; }
-            set { SetProperty(ref _action, value); }
+            get => _action;
+            set => SetProperty(ref _action, value);
         }
 
         public string RssElement
         {
-            get { return _rsselement; }
-            set { SetProperty(ref _rsselement,value); }
+            get => _rsselement;
+            set => SetProperty(ref _rsselement,value);
         }
 
         public string Operator
         {
-            get { return _operator; }
-            set { SetProperty(ref _operator,value); }
+            get => _operator;
+            set => SetProperty(ref _operator,value);
         }
 
         public Alert Alert
@@ -159,7 +161,7 @@ namespace WinHue3.Addons.ViewModel
 
         private void SelectAction()
         {
-            Form_ActionPicker fap = new Form_ActionPicker(_bridge);
+            RssFeedMonitor.Form_ActionPicker fap = new RssFeedMonitor.Form_ActionPicker(_bridge);
             if((bool)fap.ShowDialog())
             {
                 //TODO : Set Action

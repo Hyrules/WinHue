@@ -1,82 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
-using HueLib2;
-using HueLib2.Objects.HueObject;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
 using WinHue3.Utils;
+using WinHue3.Views;
 
-namespace WinHue3.ViewModels
+
+namespace WinHue3.ViewModels.MainFormViewModels
 {
-    public partial class MainFormViewModel
+    public partial class MainFormViewModel : ValidatableBindableBase
     {
         private Form_EventLog _eventlogform;
         private ObservableCollection<Bridge> _listBridges;
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
+        private bool _editName;
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
         {
-            get { return _selectedBridge; }
-            set
-            {
-                SetProperty(ref _selectedBridge,value);
-                RefreshView();     
-                RaisePropertyChanged("UpdateAvailable");         
-            }
+            get => _selectedBridge;
+            set => SetProperty(ref _selectedBridge,value);
         }
 
-        public bool CanRunTempPlugin => UacHelper.IsProcessElevated;
+        private bool CanRunTempPlugin => UacHelper.IsProcessElevated;
 
         public ObservableCollection<IHueObject> ListBridgeObjects
         {
-            get { return _listBridgeObjects; }
+            get => _listBridgeObjects;
             set { SetProperty(ref _listBridgeObjects, value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
         public string Lastmessage
         {
-            get { return _lastmessage; }
-            set { SetProperty(ref _lastmessage,value); }
+            get => _lastmessage;
+            set => SetProperty(ref _lastmessage,value);
         }
 
         public ObservableCollection<Bridge> ListBridges
         {
-            get { return _listBridges; }
+            get => _listBridges;
             set { SetProperty(ref _listBridges,value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
         public IHueObject SelectedObject
         {
-            get { return _selectedObject; }
-            set
-            {
-                SetProperty(ref _selectedObject,value);
-                if (value != null)
-                {
-                    MethodInfo mi = typeof(HueObjectHelper).GetMethod("GetObject");
-                    MethodInfo generic = mi.MakeGenericMethod(value.GetType());
-                    IHueObject hr = (IHueObject)generic.Invoke(SelectedBridge, new object[] {SelectedBridge, value.Id});
-                    if (hr != null) return;
-                    _selectedObject = hr;
-                }
-                SetMainFormModel();
-            }
+            get => _selectedObject;
+            set => SetProperty(ref _selectedObject,value);
         }
 
-        public Form_EventLog Eventlogform
+        public Views.Form_EventLog Eventlogform
         {
-            get { return _eventlogform; }
-            set { SetProperty(ref _eventlogform,value); }
+            get => _eventlogform;
+            set => SetProperty(ref _eventlogform,value);
         }
 
         public string TransitionTimeTooltip
@@ -112,7 +92,7 @@ namespace WinHue3.ViewModels
 
         public ushort? SliderTt
         {
-            get { return _sliderTT; }
+            get => _sliderTT;
             set
             {
                 SetProperty(ref _sliderTT, value); 
@@ -120,21 +100,15 @@ namespace WinHue3.ViewModels
             }
         }
 
-        public Visibility MultiBridgeCB
-        {
-            get { return ListBridges?.Count > 1 ? Visibility.Visible : Visibility.Collapsed; }
-        }
+        public bool MultiBridgeCB => ListBridges?.Count > 1;
 
         public Visibility UpdateAvailable
         {
             get
             {
-                if(SelectedBridge == null) return Visibility.Collapsed;
-               
-                CommandResult<BridgeSettings> cr = SelectedBridge.GetBridgeSettings();
-                if (!cr.Success) return Visibility.Collapsed;
-                BridgeSettings brs = cr.Data;
-                return brs.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
+                BridgeSettings cr = SelectedBridge?.GetBridgeSettings();
+                if (cr == null) return Visibility.Collapsed;
+                return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
     }

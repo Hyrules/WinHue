@@ -4,11 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
-        xmlns:huelib="clr-namespace:HueLib2;assembly=HueLib2"
+
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resources="clr-namespace:WinHue3.Resources"
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
-        x:Class="WinHue3.Form_HotKeyCreator"
+        xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
+        xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
+        xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        x:Class="WinHue3.Views.Form_HotKeyCreator"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/1465102684_preferences-desktop-keyboard-shortcuts.png" PreviewKeyUp="Window_PreviewKeyUp">
     <Window.DataContext>
@@ -31,9 +35,14 @@
         <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
         <Button x:Name="btnAdd" Style="{StaticResource btnSave}"  Content="Add Hotkey" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
         <ComboBox x:Name="cbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,108,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}">
-            <ComboBoxItem x:Name="cbOTLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}" Tag="{x:Type huelib:Light}"/>
-            <ComboBoxItem x:Name="cbOTGroup" Content="{x:Static resources:GUI.Form_HotKeyCreator_Groups}" Tag="{x:Type huelib:Group}"/>
-            <ComboBoxItem x:Name="cbOTScene" Content="{x:Static resources:GUI.Form_HotKeyCreator_Scenes}" Tag="{x:Type huelib:Scene}"/>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ChangeObjectTypeCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ComboBoxItem x:Name="cbOTLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}" Tag="{x:Type lightObject:Light}"/>
+            <ComboBoxItem x:Name="cbOTGroup" Content="{x:Static resources:GUI.Form_HotKeyCreator_Groups}" Tag="{x:Type groupObject:Group}"/>
+            <ComboBoxItem x:Name="cbOTScene" Content="{x:Static resources:GUI.Form_HotKeyCreator_Scenes}" Tag="{x:Type sceneObject:Scene}"/>
         </ComboBox>
         <ComboBox x:Name="cbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}"/>
         <Label x:Name="label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="5,81,0,0" VerticalAlignment="Top" Width="301"/>

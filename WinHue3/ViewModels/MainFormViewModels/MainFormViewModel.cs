@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Threading;
-using HueLib2;
-using HueLib2.Objects.HueObject;
+using WinHue3.Addons.CpuTempMon;
+using WinHue3.Hotkeys;
 using WinHue3.Models;
-using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
+using WinHue3.Philips_Hue;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Settings;
 
-namespace WinHue3.ViewModels
+
+namespace WinHue3.ViewModels.MainFormViewModels
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
@@ -52,7 +51,7 @@ namespace WinHue3.ViewModels
             _mainFormModel = new MainFormModel();
             SliderTt = WinHueSettings.settings.DefaultTT;
 
-            Communication.Timeout = WinHueSettings.settings.Timeout;
+            Comm.Timeout = WinHueSettings.settings.Timeout;
             MainFormModel.Sort = WinHueSettings.settings.Sort;
             MainFormModel.ShowId = WinHueSettings.settings.ShowID;
             MainFormModel.WrapText = WinHueSettings.settings.WrapText;
@@ -67,14 +66,14 @@ namespace WinHue3.ViewModels
 
         public MainFormModel MainFormModel
         {
-            get { return _mainFormModel; }
-            set { SetProperty(ref _mainFormModel,value); }
+            get => _mainFormModel;
+            set => SetProperty(ref _mainFormModel,value);
         }
 
         public bool HotkeyDetected
         {
-            get { return _hotkeyDetected; }
-            set { SetProperty(ref _hotkeyDetected,value); }
+            get => _hotkeyDetected;
+            set => SetProperty(ref _hotkeyDetected,value);
         }
 
         private bool CheckBridge(Bridge bridge)
@@ -144,13 +143,14 @@ namespace WinHue3.ViewModels
                         ApiKey = b.Value.apikey,
                         ApiVersion = b.Value.apiversion,
                         IpAddress = IPAddress.Parse(b.Value.ip),
-                        Name = b.Value.name,
+                        name = b.Value.name,
                         IsDefault = b.Key == WinHueSettings.settings.DefaultBridge,
                         SwVersion = b.Value.swversion,
                         Mac = b.Key
                     };
+                    if (b.Value.apikey == string.Empty) continue;
                     bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
-                    bridge.OnMessageAdded += Bridge_OnMessageAdded;
+                    bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
                     log.Info($"Bridge OK. Checking if bridge already in the bridge list...");
                     if (ListBridges.All(x => x.Mac != bridge.Mac))
                     {
@@ -176,7 +176,7 @@ namespace WinHue3.ViewModels
                             if (br.IsDefault)
                             {
                                 SelectedBridge = br;
-                                SelectedBridge.ForceCheckForUpdate();
+                                SelectedBridge.CheckOnlineForUpdate();
                             }
                         }
                         else
@@ -189,7 +189,7 @@ namespace WinHue3.ViewModels
                         if (br.IsDefault)
                         {
                             SelectedBridge = br;
-                            SelectedBridge.ForceCheckForUpdate();
+                            SelectedBridge.CheckOnlineForUpdate();
                         }
                             
                     }
@@ -206,9 +206,6 @@ namespace WinHue3.ViewModels
             }
 
         }
-
-
-
 
     }
 }

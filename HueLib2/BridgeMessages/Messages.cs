@@ -1,49 +1,24 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace HueLib2.BridgeMessages
 {
-    [JsonConverter(typeof(MessagesConverter))]
     public class Messages
     {
-        private List<Success> _success;
-        private List<Error> _errors;
-
-        public Messages()
+        public Messages(List<IMessage> msg)
         {
-            _success = new List<Success>();
-            _errors = new List<Error>();
+            ListMessages = msg;
         }
 
-        public Error LastError => _errors.Count > 0 ? _errors[_errors.Count - 1] : null;
-        public Success LastSucccess => _success.Count > 0 ? _success[_success.Count - 1] : null;
-    
-        public List<Success> SuccessMessages
-        {
-            get { return _success; }
-            internal set { _success = value; }
-        }
-
-        public List<Error> ErrorMessages
-        {
-            get { return _errors; }
-            internal set { _errors = value; }
-        }
-
-        public bool AnyErrors => _errors.Count > 0;
-        public bool AnySuccess => _success.Count > 0;
-
-        public bool AllErrors => _errors.Count > 0 && _success.Count == 0;
-        public bool AllSuccess => _errors.Count == 0 && _success.Count > 0;
-
-        public int Count => SuccessMessages.Count + ErrorMessages.Count;
-
-
+        public Messages() { ListMessages = new List<IMessage>(); }
+            
+        public List<IMessage> ListMessages { get; internal set; }
+        public bool Success => ListMessages.TrueForAll(x => x.GetType() == typeof(Success));
+        public bool Error => ListMessages.TrueForAll(x => x.GetType() == typeof(Error));
+        public Error LastError => ListMessages.LastOrDefault(x => x.GetType() == typeof(Error)) as Error;
+        public Success LastSuccess => ListMessages.LastOrDefault(x => x.GetType() == typeof(Success)) as Success;
     }
 }

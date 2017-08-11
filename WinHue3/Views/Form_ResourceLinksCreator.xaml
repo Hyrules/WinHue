@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:viewmodel="clr-namespace:WinHue3.ViewModels"
-        xmlns:CustomControls="clr-namespace:WinHue3.Controls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="Form_ResourceLink" x:Class="WinHue3.Form_ResourceLinksCreator"
+        xmlns:CustomControls="clr-namespace:WinHue3.Controls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="Form_ResourceLink" x:Class="WinHue3.Views.Form_ResourceLinksCreator"
         xmlns:converter="clr-namespace:WinHue3.Converters"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="352.861" Width="599.472" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/resource.png" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800">
@@ -80,7 +80,7 @@
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                         <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                        <TextBlock x:Name="tblName" Text="{Binding Name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
                         <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tblID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                     </WrapPanel>
                 </DataTemplate>

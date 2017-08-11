@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using HueLib2;
-using Microsoft.Build.Framework;
+using WinHue3.Interface;
 using WinHue3.Models;
+using WinHue3.Philips_Hue;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Resources;
-using System.ComponentModel.DataAnnotations;
+using WinHue3.Utils;
 using WinHue3.Validation;
+
 
 namespace WinHue3.ViewModels
 {
@@ -41,7 +42,7 @@ namespace WinHue3.ViewModels
 
         public ObservableCollection<Bridge> ListBridges
         {
-            get{return _listBridges;}
+            get => _listBridges;
             set
             {
                 SetProperty(ref _listBridges, value);
@@ -107,11 +108,11 @@ namespace WinHue3.ViewModels
             }
             else
             {
-                CommandResult<string> bresult = _selectedBridge.CreateUser("WinHue");
-                if (!bresult.Success) return;
+                string bresult = _selectedBridge.CreateUser("WinHue");
+                if (bresult == null) return;
                 
                 log.Info("Bridge Pairing complete.");
-                SelectedBridge.ApiKey = bresult.Data;
+                SelectedBridge.ApiKey = bresult;
                 BridgePairModel.UserMessage = GlobalStrings.BridgeDetectionPairing_PairingDone;
                 StopPairTimer();
                 RaisePropertyChanged("AnyPaired");
@@ -120,20 +121,20 @@ namespace WinHue3.ViewModels
 
         public BridgePairingModel BridgePairModel
         {
-            get { return _bridgePairModel; }
-            set { SetProperty(ref _bridgePairModel,value); }
+            get => _bridgePairModel;
+            set => SetProperty(ref _bridgePairModel,value);
         }
 
         public Bridge SelectedBridge
         {
-            get { return _selectedBridge; }
-            set { SetProperty(ref _selectedBridge, value); }
+            get => _selectedBridge;
+            set => SetProperty(ref _selectedBridge, value);
         }
 
         public string ScanButtonText
         {
-            get { return _scanButtonText; }
-            set { SetProperty(ref _scanButtonText, value); }
+            get => _scanButtonText;
+            set => SetProperty(ref _scanButtonText, value);
         }
 
         private void PairBridge()
@@ -211,7 +212,7 @@ namespace WinHue3.ViewModels
                     Bridge firstOrDefault = ListBridges.FirstOrDefault(x => x.Mac == kvp.Value.Mac);
                     if (
                         firstOrDefault != null &&
-                        MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.Name),
+                        MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.name),
                             GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                         MessageBoxResult.Yes)
                     {
@@ -235,10 +236,11 @@ namespace WinHue3.ViewModels
 
         public void AddManualIp()
         {
-            Form_AddManualIp fip = new Form_AddManualIp();
+            Views.Form_AddManualIp fip = new Views.Form_AddManualIp();
             if (fip.ShowDialog() == true)
             {
-                switch (AddManualBridge(IPAddress.Parse(fip.GetIPAddress())))
+                Bridge bridge = new Bridge(){IpAddress = IPAddress.Parse(fip.GetIPAddress()) };
+                switch (AddManualBridge(bridge))
                 {
                     case AddManualBridgeResult.Success:
                         log.Info($"Adding manual ip {fip.tbIPAddress}");
@@ -271,32 +273,27 @@ namespace WinHue3.ViewModels
         /// <summary>
         /// Add a bridge manually.
         /// </summary>
-        /// <param name="bridgeaddress">IP address of the bridge.</param>
+        /// <param name="bridge">Nwew bridge to add.</param>
         /// <returns>AddManualBridgeResult</returns>
-        public AddManualBridgeResult AddManualBridge(IPAddress bridgeaddress)
+        private AddManualBridgeResult AddManualBridge(Bridge bridge)
         {
-            CommandResult<BasicConfig> bresult = Hue.GetBridgeBasicConfig(bridgeaddress);
-            if (!bresult.Success)
+            Bridge newBridge = bridge;
+            BasicConfig bresult = newBridge.GetBridgeBasicConfig();
+            if (bresult == null)
             {
-                Exception webex = bresult.Exception;
-                return webex is TimeoutException ? AddManualBridgeResult.NotResponding : AddManualBridgeResult.UnknownError;
+                return newBridge.LastCommandMessages.LastError.type == -1 ? AddManualBridgeResult.NotResponding : AddManualBridgeResult.UnknownError;
             }
-            BasicConfig bconfig = (BasicConfig)bresult.Data;
-            Bridge newbridge = new Bridge()
-            {
-                IpAddress = bridgeaddress,
-                Mac = bconfig.mac,
-                SwVersion = bconfig.swversion,
-                ApiVersion = bconfig.apiversion,
-            };
 
+            newBridge.Mac = bresult.mac;
+            newBridge.SwVersion = bresult.swversion;
+            newBridge.ApiVersion = bresult.apiversion;
 
-            if (ListBridges.Any(x => x.Mac == newbridge.Mac))
+            if (ListBridges.Any(x => x.Mac == newBridge.Mac))
             {
                 return AddManualBridgeResult.Alreadyexists;
             }
 
-            ListBridges.Add(newbridge);
+            ListBridges.Add(newBridge);
 
             return AddManualBridgeResult.Success;
 

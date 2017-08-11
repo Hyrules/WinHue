@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WinHue3.SupportedLights
 {
@@ -63,15 +59,9 @@ namespace WinHue3.SupportedLights
 
         public static Dictionary<string, LightDevice> DeviceType
         {
-            get
-            {
-                return _deviceType;
-            }
+            get => _deviceType;
 
-            internal set
-            {
-                _deviceType = value;
-            }
+            internal set => _deviceType = value;
         }
     }
 

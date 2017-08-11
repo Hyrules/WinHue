@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using HueLib2;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Utils;
 
-namespace WinHue3
+
+namespace WinHue3.Addons.RssFeedMonitor
 {
-    public class RssFeedMonitorSettingsView : View
+    public class RssFeedMonitorSettingsView : WinHue3.View
     {
         private ObservableCollection<Alert> _listalerts;
         private Alert _selectedAlert;
@@ -24,11 +21,7 @@ namespace WinHue3
 
         public ObservableCollection<Alert> ListAlerts
         {
-            get
-            {
-                return _listalerts;
-                
-            }
+            get => _listalerts;
             set
             {
                 _listalerts = value;
@@ -47,11 +40,7 @@ namespace WinHue3
 
         public Alert SelectedAlert
         {
-            get
-            {
-                return _selectedAlert;
-                
-            }
+            get => _selectedAlert;
             set
             {
                 _selectedAlert = value;
@@ -62,10 +51,7 @@ namespace WinHue3
 
         public double AlertCheckDelay
         {
-            get
-            {
-                return _checkdelay;
-            }
+            get => _checkdelay;
             set
             {
                 _checkdelay = value;
@@ -85,7 +71,7 @@ namespace WinHue3
         private void EditAlert()
         {
             if (_selectedAlert == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator(_bridge,_selectedAlert) { Owner = Application.Current.MainWindow };
+            View.Form_AlertCreator fac = new View.Form_AlertCreator(_bridge,_selectedAlert) { Owner = Application.Current.MainWindow };
             if (fac.ShowDialog() == true)
             {
                 
@@ -103,7 +89,7 @@ namespace WinHue3
         public void DoubleClickObject()
         {
             if (_selectedAlert == null) return;
-            Form_AlertCreator fac = new Form_AlertCreator(_bridge,_selectedAlert) {Owner = Application.Current.MainWindow};
+            View.Form_AlertCreator fac = new View.Form_AlertCreator(_bridge,_selectedAlert) {Owner = Application.Current.MainWindow};
             fac.Show();
         }
 

@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
-using HueLib2;
-using HueLib2.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
 using WinHue3.ViewModels;
-using Group = HueLib2.Group;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for GroupCreator.xaml
@@ -22,45 +26,46 @@ namespace WinHue3
         /// </summary>
         private string _id;
 
-        private readonly Bridge _bridge;
+        private Bridge _bridge;
         private GroupCreatorViewModel gcvm;
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="bridge">Actual Bridge.</param>
-        public Form_GroupCreator(Bridge bridge)
+        public Form_GroupCreator()
         {
-            _bridge = bridge;
             InitializeComponent();
             gcvm = this.DataContext as GroupCreatorViewModel;
-            List<Light> hr = HueObjectHelper.GetBridgeLights(bridge);
-            if(hr != null)
-                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
         }
 
-        public Form_GroupCreator(Group selectedGroup,Bridge bridge)
+        public async Task Initialize(Bridge bridge, Group selectedGroup = null)
         {
-            InitializeComponent();
             _bridge = bridge;
-            gcvm = this.DataContext as GroupCreatorViewModel;
-            
-            List<Light> hr = HueObjectHelper.GetBridgeLights(bridge);
-            if (hr != null)
-            {
-                gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                Group hr2 = HueObjectHelper.GetObject<Group>(bridge,selectedGroup.Id);
-                if (hr2 != null)
-                    gcvm.Group = hr2;
+            if (selectedGroup == null)
+            {
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                if (hr != null)
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(_bridge);
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                if (hr != null)
+                {
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+
+                    Group hr2 = (Group)await HueObjectHelper.GetObjectAsyncTask(bridge, selectedGroup.Id, typeof(Group));
+                    if (hr2 != null)
+                        gcvm.Group = hr2;
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                }
+                btnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
-
-            btnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
         }
-
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -72,12 +77,12 @@ namespace WinHue3
         {
             if (gcvm.Group.Id == null)
             {
-                CommandResult<Messages> bresult = _bridge.CreateObject<Group>(gcvm.Group);
-                if (bresult.Success)
+                bool result = _bridge.CreateObject(gcvm.Group);
+                if (result)
                 {
                     DialogResult = true;
-                    log.Info(bresult.Data);
-                    _id = bresult.Data.SuccessMessages[0].value;
+                    log.Info("Group creation success");
+                    _id = _bridge.LastCommandMessages.LastSuccess.value;
                     Close();
                 }
                 else
@@ -88,9 +93,8 @@ namespace WinHue3
             }
             else
             {
-
-                CommandResult<Messages> bresult = _bridge.ModifyObject<Group>(gcvm.Group, gcvm.Group.Id);
-                if (bresult.Success)
+                bool result = _bridge.ModifyObject(gcvm.Group);
+                if (result)
                 {
                     DialogResult = true;
                     _id = gcvm.Group.Id;

@@ -23,6 +23,7 @@ namespace WinHue3.Utils
                 if (execute == null) throw new ArgumentNullException("execute");
                 _execute = execute; _canExecute = canExecute;
             }
+
             #endregion
             // Constructors 
             #region ICommand Members 

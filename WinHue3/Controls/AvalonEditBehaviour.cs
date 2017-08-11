@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
 using ICSharpCode.AvalonEdit;
-using ICSharpCode;
 
 namespace WinHue3.Controls
 {
@@ -18,8 +13,8 @@ namespace WinHue3.Controls
 
         public string EditorText
         {
-            get { return (string)GetValue(EditorTextProperty); }
-            set { SetValue(EditorTextProperty, value); }
+            get => (string)GetValue(EditorTextProperty);
+            set => SetValue(EditorTextProperty, value);
         }
 
         protected override void OnAttached()

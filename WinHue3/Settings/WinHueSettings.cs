@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using System.IO;
-using System.Runtime.Serialization;
-using WinHue3.Settings;
+using Newtonsoft.Json;
 
-namespace WinHue3
+namespace WinHue3.Settings
 {
     public static class WinHueSettings
     {
@@ -15,7 +12,6 @@ namespace WinHue3
 
         static WinHueSettings()
         {
-
             Reload(); 
                        
         }

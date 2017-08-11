@@ -6,9 +6,12 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using HueLib2;
+using WinHue3.Colors;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
@@ -34,8 +37,8 @@ namespace WinHue3.ViewModels
 
         public SceneCreatorModel SceneCreatorModel
         {
-            get { return _sceneCreatorModel; }
-            set { SetProperty(ref _sceneCreatorModel,value); }
+            get => _sceneCreatorModel;
+            set => SetProperty(ref _sceneCreatorModel,value);
         }
 
         public void Initialize(List<Light> listlights, Bridge bridge)
@@ -53,13 +56,13 @@ namespace WinHue3.ViewModels
 
         public ObservableCollection<Light> ListSceneLights
         {
-            get { return _listSceneLights; }
-            set { SetProperty(ref _listSceneLights, value); }
+            get => _listSceneLights;
+            set => SetProperty(ref _listSceneLights, value);
         }
 
         public ObservableCollection<Light> ListAvailableLights
         {
-            get { return _listAvailableLights; }
+            get => _listAvailableLights;
             set
             {
                 SetProperty(ref _listAvailableLights, value);
@@ -73,16 +76,13 @@ namespace WinHue3.ViewModels
 
         public ObservableCollection<Light> SelectedAvailableLights
         {
-            get { return _selectedLight; }
-            set { SetProperty(ref _selectedLight, value); }
+            get => _selectedLight;
+            set => SetProperty(ref _selectedLight, value);
         }
 
         public State ObjectState
         {
-            get
-            {
-                return SelectedSceneLight != null ? SelectedSceneLight.state : SceneCreatorModel.State;
-            }
+            get => SelectedSceneLight != null ? SelectedSceneLight.state : SceneCreatorModel.State;
             set
             {
 
@@ -105,7 +105,7 @@ namespace WinHue3.ViewModels
             {
                 Scene scene = new Scene
                 {
-                    Name = SceneCreatorModel.Name,
+                    name = SceneCreatorModel.Name,
                     lights = ListSceneLights.Select(x => x.Id).ToList(),
                     lightstates = new Dictionary<string, State>(),
                     recycle = SceneCreatorModel.Recycle
@@ -120,7 +120,7 @@ namespace WinHue3.ViewModels
             }
             set
             {
-                SceneCreatorModel.Name = value.Name;
+                SceneCreatorModel.Name = value.name;
                 ListSceneLights = new ObservableCollection<Light>(ListAvailableLights.Where(x => value.lights.Contains(x.Id)));
                 foreach (Light h in ListSceneLights)
                 {
@@ -131,9 +131,9 @@ namespace WinHue3.ViewModels
 
         public void GetColorFromImage()
         {
-            Form_SelectColorFromImage fsci = new Form_SelectColorFromImage { Owner = Application.Current.MainWindow };
+            Views.Form_SelectColorFromImage fsci = new Views.Form_SelectColorFromImage { Owner = Application.Current.MainWindow };
             if (fsci.ShowDialog() != true) return;
-            Color c = fsci.GetSelectedColor();
+            System.Windows.Media.Color c = fsci.GetSelectedColor();
             CGPoint color = HueColorConverter.CalculateXY(c, "");
             SceneCreatorModel.Sat = 255;
             SceneCreatorModel.X = Convert.ToDecimal(color.x);
@@ -148,7 +148,7 @@ namespace WinHue3.ViewModels
 
         public Light SelectedSceneLight
         {
-            get { return _selectedSceneLight; }
+            get => _selectedSceneLight;
             set
             {
                 SetProperty(ref _selectedSceneLight, value);
@@ -161,8 +161,8 @@ namespace WinHue3.ViewModels
                     SceneCreatorModel.On = (bool)value.state.on;
                 if (value.state.xy != null)
                 {
-                    SceneCreatorModel.X = value.state.xy.x;
-                    SceneCreatorModel.Y = value.state.xy.y;
+                    SceneCreatorModel.X = value.state.xy[0];
+                    SceneCreatorModel.Y = value.state.xy[1];
                 }
                 SceneCreatorModel.TT = value.state.transitiontime;
             }
@@ -206,14 +206,14 @@ namespace WinHue3.ViewModels
             foreach (Light obj in li)
             {
                 State state = obj.state;
-                _bridge.SetState<Light>(state, obj.Id);
+                _bridge.SetState(state, obj.Id);
             }
 
             Thread.Sleep(5000);
 
             foreach (Light obj in liOriginalState)
             {
-                _bridge.SetState<Light>(obj.state, obj.Id);
+                _bridge.SetState(obj.state, obj.Id);
             }
 
             Thread.Sleep(2000);
@@ -235,7 +235,11 @@ namespace WinHue3.ViewModels
                 obj.state = new State { hue = SceneCreatorModel.Hue, bri = SceneCreatorModel.Bri, sat = SceneCreatorModel.Sat, ct = SceneCreatorModel.Ct, on = SceneCreatorModel.On };
                 if (SceneCreatorModel.X != null && SceneCreatorModel.Y != null)
                 {
-                    obj.state.xy = new XY(Convert.ToDecimal(SceneCreatorModel.X), Convert.ToDecimal(SceneCreatorModel.Y));
+                    obj.state.xy = new decimal[]
+                    {
+                        Convert.ToDecimal(SceneCreatorModel.X),
+                        Convert.ToDecimal(SceneCreatorModel.Y)
+                    };
                 }
 
                 if (SceneCreatorModel.TT != null)
@@ -262,7 +266,11 @@ namespace WinHue3.ViewModels
 
             if (SceneCreatorModel.X != null && SceneCreatorModel.Y != null)
             {
-                SelectedSceneLight.state.xy = new XY(Convert.ToDecimal(SceneCreatorModel.X), Convert.ToDecimal(SceneCreatorModel.Y));
+                SelectedSceneLight.state.xy = new decimal[]
+                {
+                    Convert.ToDecimal(SceneCreatorModel.X),
+                    Convert.ToDecimal(SceneCreatorModel.Y)
+                };
             }
 
             SelectedSceneLight = null;

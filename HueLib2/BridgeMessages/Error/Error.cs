@@ -9,7 +9,7 @@ namespace HueLib2
     /// <summary>
     /// Error class
     /// </summary>
-    public class Error
+    public class Error : IMessage
     {
         /// <summary>
         /// Type of error.

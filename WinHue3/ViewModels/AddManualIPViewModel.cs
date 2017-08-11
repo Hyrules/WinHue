@@ -1,5 +1,4 @@
-﻿using System.Net;
-using WinHue3.Validation;
+﻿using WinHue3.Validation;
 
 namespace WinHue3.ViewModels
 {
@@ -17,14 +16,8 @@ namespace WinHue3.ViewModels
         [IpValidation(ErrorMessageResourceType = typeof(GlobalStrings), ErrorMessageResourceName ="Invalid_IP")]
         public string BridgeIPAddress
         {
-            get
-            {
-                return ip;
-            }
-            set
-            {
-                SetProperty(ref ip,value);
-            }
+            get => ip;
+            set => SetProperty(ref ip,value);
         }
 
 

@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using System.Threading;
-using System.ComponentModel.Composition;
-
-using System.Drawing;
-using System.Windows;
 using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
 using System.ServiceModel.Syndication;
+using System.Windows;
 using System.Windows.Threading;
-
 using System.Xml;
 
-namespace WinHue3
+namespace WinHue3.Addons.RssFeedMonitor
 {
 
-    public class RssFeedMonitor : View
+    public class RssFeedMonitor : WinHue3.View
     {
         private readonly BackgroundWorker _bgw;
         private readonly DispatcherTimer _rsstimer;
@@ -41,7 +34,7 @@ namespace WinHue3
 
         public bool? ShowSettingsForm()
         {
-            RssFeedMonitorSettingsForm sf = new RssFeedMonitorSettingsForm() {Owner = Application.Current.MainWindow};
+            View.RssFeedMonitorSettingsForm sf = new View.RssFeedMonitorSettingsForm() {Owner = Application.Current.MainWindow};
             sf.ShowDialog();
             return true;
         }
@@ -65,7 +58,7 @@ namespace WinHue3
 
         public bool IsRunning
         {
-            get { return _isrunning; }
+            get => _isrunning;
             private set { _isrunning = true; RaisePropertyChanged(); }
         }
 

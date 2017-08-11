@@ -5,7 +5,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
         xmlns:converter="clr-namespace:WinHue3.Converters"
-        x:Name="Form_SensorCreator1" x:Class="WinHue3.Form_SensorCreator"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        x:Name="Form_SensorCreator1" x:Class="WinHue3.Views.Form_SensorCreator"
     
         Title="{x:Static resx:GUI.SensorCreatorForm_Title}" Height="280.889" Width="650.263" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png">
     <Window.DataContext>
@@ -68,6 +69,11 @@
                 <Label Content="{x:Static resx:GUI.SensorCreatorForm_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                 <Label Content="{x:Static resx:GUI.SensorCreatorForm_SensorType}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="cbSensorType" HorizontalAlignment="Left" Margin="97,41,0,0" VerticalAlignment="Top" Width="174" SelectedValue="{Binding SensorModel.Type}" SelectedValuePath="Tag" TabIndex="1" IsEnabled="{Binding NotEditing}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeSensorTypeCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ComboBoxItem Content="CLIPGenericFlag" Tag="CLIPGenericFlag"/>
                     <ComboBoxItem Content="CLIPGenericStatus" Tag="CLIPGenericStatus"/>
                     <ComboBoxItem Content="CLIPHumidity" Tag="CLIPHumidity"/>

@@ -1,16 +1,17 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Windows;
-using HueLib2;
-using HueLib2.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 
-namespace WinHue3
+namespace WinHue3.Utils
 {
     public static class MessageBoxError
     {
         public static void ShowLastErrorMessages(Bridge bridge)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (Error m in bridge.lastMessages.ErrorMessages)
+            foreach (Error m in bridge.LastCommandMessages.ListMessages.OfType<Error>())
             {
                 sb.AppendLine(m.ToString());
             }

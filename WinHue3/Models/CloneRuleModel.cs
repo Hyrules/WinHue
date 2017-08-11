@@ -1,10 +1,4 @@
-﻿using HueLib2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HueLib2.Objects.HueObject;
+﻿using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3.Models
 {

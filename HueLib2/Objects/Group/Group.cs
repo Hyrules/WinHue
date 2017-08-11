@@ -9,6 +9,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using HueLib2.Objects.Group;
 using HueLib2.Objects.HueObject;
+using HueLib2.Objects.Interfaces;
 using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -17,7 +18,7 @@ namespace HueLib2
     /// <summary>
     /// Group Class.
     /// </summary>
-    [DataContract, DefaultProperty("Group")]
+    [DataContract, DefaultProperty("Group"), HueType("groups")]
     public class Group : IHueObject
     {
         private string _name;
@@ -105,7 +106,7 @@ namespace HueLib2
         /// Event that happen when property has change.
         /// </summary>
         /// <param name="propertyName"></param>
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -119,6 +120,7 @@ namespace HueLib2
         {
             return MemberwiseClone();
         }
+
     }
 
 

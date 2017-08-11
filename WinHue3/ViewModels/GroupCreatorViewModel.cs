@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HueLib2;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Utils;
 
 namespace WinHue3.ViewModels
 {
@@ -29,7 +25,7 @@ namespace WinHue3.ViewModels
             set
             {
                 Group gr = value;
-                GroupCreator.Name = gr.Name;
+                GroupCreator.Name = gr.name;
                 GroupCreator.Type = gr.type;
                 _id = gr.Id;
                 RaisePropertyChanged("CanChangeType");
@@ -47,7 +43,7 @@ namespace WinHue3.ViewModels
             }
             get
             {
-                Group gr = new Group {Name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
+                Group gr = new Group {name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
                 if (_id != string.Empty)
                     gr.Id = _id;
                 if (GroupCreator.Type == "Room")
@@ -58,11 +54,10 @@ namespace WinHue3.ViewModels
 
         public bool CanChangeType =>_id == string.Empty;
         
-
         public GroupCreatorModel GroupCreator
         {
-            get { return _groupCreator; }
-            set { SetProperty(ref _groupCreator, value); }
+            get => _groupCreator;
+            set => SetProperty(ref _groupCreator, value);
         }
 
         private void ClearFields()

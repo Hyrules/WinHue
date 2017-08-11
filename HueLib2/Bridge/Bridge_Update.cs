@@ -52,19 +52,21 @@ namespace HueLib2
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    Messages msg = Serializer.DeserializeToObject<Messages>(comres.data);
-                    lastMessages = new Messages();
-                    if (lastMessages.AllSuccess)
+                    lastMessages = new Messages(Serializer.DeserializeToObject<List<IMessage>>(comres.data)) ;
+                    bresult.Data = lastMessages;
+                    if (lastMessages.Success)
                     {
                         bresult.Success = true;
                     }
                     break;
                 case WebExceptionStatus.Timeout:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error(){address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535});
                     BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + "/config", description = "An unknown error occured.", type = 65535 });
                     break;
             }
             bresult.Data = lastMessages;
@@ -104,11 +106,13 @@ namespace HueLib2
                     }
                     break;
                 case WebExceptionStatus.Timeout:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
                     BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
                     break;
             }
 
@@ -128,18 +132,20 @@ namespace HueLib2
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    lastMessages = Serializer.DeserializeToObject<Messages>(comres.data);
-                    if (lastMessages.AllSuccess)
+                    lastMessages = new Messages(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
+                    if (lastMessages.Success)
                     {
                         bresult.Success = true;
                     }
                     break;
                 case WebExceptionStatus.Timeout:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages(); 
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
                     BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
                     break;
             }
             bresult.Data = lastMessages;
@@ -159,16 +165,18 @@ namespace HueLib2
             switch (comres.status)
             {
                 case WebExceptionStatus.Success:
-                    lastMessages = Serializer.DeserializeToObject<Messages>(comres.data);
-                    if (lastMessages.AllSuccess)
+                    lastMessages = new Messages(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
+                    if (lastMessages.Success)
                         bresult.Success = true;
                     break;
                 case WebExceptionStatus.Timeout:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
                     BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
-                    lastMessages = new Messages(); //TODO : Add message
+                    lastMessages = new Messages();
+                    lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
                     break;
             }
             bresult.Data = lastMessages;

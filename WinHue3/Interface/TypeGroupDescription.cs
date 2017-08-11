@@ -1,10 +1,12 @@
 ﻿using System.Globalization;
+using System.Reflection;
 using System.Windows.Data;
-using HueLib2;
-using HueLib2.Objects.HueObject;
+using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
+using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
-namespace WinHue3
+namespace WinHue3.Interface
 {
     /// <summary>
     /// Bridge object Type description.
@@ -20,9 +22,9 @@ namespace WinHue3
         /// <returns></returns>
         public override object GroupNameFromItem(object item, int level, CultureInfo culture)
         {
-            if (item == null) return GUI.ListView_Other;
-            if(item.GetType() == typeof(IHueObject)) return GUI.ResourceManager.GetString("ListView_" + item.GetType().Name);
-            return GUI.ResourceManager.GetString("ListView_" + item.GetType().Name);
+            if (item == null) return GUI.ListView_others;
+            string type = item.GetHueType();
+            return GUI.ResourceManager.GetString("ListView_" + type);
 
         }
     }

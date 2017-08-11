@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WinHue3.ViewModels
+﻿namespace WinHue3.ViewModels.MainFormViewModels
 {
     public partial class MainFormViewModel
     {

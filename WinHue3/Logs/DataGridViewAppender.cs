@@ -4,7 +4,7 @@ using System.Windows;
 using log4net.Appender;
 using log4net.Core;
 
-namespace WinHue3
+namespace WinHue3.Logs
 {
     public class DataGridViewAppender : AppenderSkeleton
     {
@@ -12,15 +12,17 @@ namespace WinHue3
 
         protected override void Append(LoggingEvent loggingEvent)
         {
-            DgLogEntry newLogEntry = new DgLogEntry();
-            newLogEntry.evdatetime = loggingEvent.TimeStamp;
-            newLogEntry.level = loggingEvent.Level.ToString();
-            newLogEntry.logger = loggingEvent.LoggerName;
-            newLogEntry.message = loggingEvent.MessageObject.ToString();
-            newLogEntry.method = loggingEvent.LocationInformation.MethodName;
-            newLogEntry.line = loggingEvent.LocationInformation.LineNumber;
-            newLogEntry.classname = loggingEvent.LocationInformation.ClassName;
-            newLogEntry.thread = loggingEvent.ThreadName;
+            DgLogEntry newLogEntry = new DgLogEntry
+            {
+                evdatetime = loggingEvent.TimeStamp,
+                level = loggingEvent.Level.ToString(),
+                logger = loggingEvent.LoggerName,
+                message = loggingEvent.MessageObject?.ToString(),
+                method = loggingEvent.LocationInformation.MethodName,
+                line = loggingEvent.LocationInformation.LineNumber,
+                classname = loggingEvent.LocationInformation.ClassName,
+                thread = loggingEvent.ThreadName
+            };
 
             Application.Current?.Dispatcher?.BeginInvoke(new Action(() => this.DgEventLog.Add(newLogEntry)));
 

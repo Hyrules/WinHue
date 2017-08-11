@@ -8,13 +8,14 @@ namespace HueLib2
     /// Sensor for the daylight saving time.
     /// </summary>
     [DataContract]
-    public class DaylightSensorState : SensorState
+    public class DaylightSensorState : ISensorState, IRuleBody
     {
         /// <summary>
         /// daylight saving time or not.
         /// </summary>
         [DataMember, ReadOnly(true)]
         public bool? daylight { get; set; }
-
+        [DataMember]
+        public string lastupdated { get; set; }
     }
 }

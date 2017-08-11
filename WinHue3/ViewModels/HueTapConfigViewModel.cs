@@ -1,23 +1,26 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using HueLib2;
-using HueLib2.BridgeMessages;
-using HueLib2.Objects.Rules;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WinHue3.Models;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.RuleObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Utils;
 using WinHue3.Validation;
+
 
 
 namespace WinHue3.ViewModels
 {
     public class HueTapConfigViewModel : ValidatableBindableBase
     {
-        private readonly Color _selectedColor = Color.FromArgb(128, 255, 0, 0);
-        private readonly Color _deselectedColor = Color.FromArgb(0, 0, 0, 0);
+        private readonly System.Windows.Media.Color _selectedColor = System.Windows.Media.Color.FromArgb(128, 255, 0, 0);
+        private readonly System.Windows.Media.Color _deselectedColor = System.Windows.Media.Color.FromArgb(0, 0, 0, 0);
         private Scene _selectedScene;
         private Bridge _bridge;
 
@@ -73,13 +76,13 @@ namespace WinHue3.ViewModels
 
             Rule newRule = new Rule
             {
-                Name = $"TAP {HueTapModel.Buttonid}",
+                name = $"TAP {HueTapModel.Buttonid}",
                 actions = new List<RuleAction>
                 {
                     new RuleAction()
                     {
-                        address = new RuleAddress() {objecttype = "groups", id = "0", property = "action"},
-                        body = new SceneBody() {scene = SelectedScene.Id},
+                        address = new HueAddress() {objecttype = "groups", id = "0", property = "action"},
+                        body = $"{{\"scene\":\"{_selectedScene.Id}\"}}",
                         method = "PUT"
                     }
                 },
@@ -87,20 +90,20 @@ namespace WinHue3.ViewModels
                 {
                     new RuleCondition()
                     {
-                        address = new RuleAddress() { objecttype = "sensors", id = HueTapModel.Id, property = "state", subprop = "buttonevent"},
+                        address = new HueAddress() { objecttype = "sensors", id = HueTapModel.Id, property = "state", subprop = "buttonevent"},
                         @operator = "eq",
                         value = HueTapModel.Buttonid
                     },
                     new RuleCondition()
                     {
-                        address = new RuleAddress() {objecttype = "sensors", id = HueTapModel.Id, property = "state", subprop = "lastupdated"},
+                        address = new HueAddress() {objecttype = "sensors", id = HueTapModel.Id, property = "state", subprop = "lastupdated"},
                         @operator = "dx"
                     }
                 }
             };
 
-            CommandResult<Messages> comres = _bridge.CreateObject<Rule>(newRule);
-            if (comres.Success)
+            bool result = _bridge.CreateObject(newRule);
+            if (result)
             {
                 HueTapModel.BtnOneBG = new SolidColorBrush(_deselectedColor);
                 HueTapModel.BtnTwoBG = new SolidColorBrush(_deselectedColor);
@@ -126,21 +129,21 @@ namespace WinHue3.ViewModels
 
         public HueTapModel HueTapModel
         {
-            get { return _huetapmodel; }
-            set { SetProperty(ref _huetapmodel,value); }
+            get => _huetapmodel;
+            set => SetProperty(ref _huetapmodel,value);
         }
 
         [NotNullValidation(ErrorMessageResourceType= typeof(GlobalStrings), ErrorMessageResourceName = "HueTap_SelectAScene")]     
         public Scene SelectedScene
         {
-            get { return _selectedScene; }
+            get => _selectedScene;
             set { SetProperty(ref _selectedScene,value); RaisePropertyChanged("CanSave"); }
         }
 
         public Bridge Bridge
         {
-            get { return _bridge; }
-            set { SetProperty(ref _bridge,value); }
+            get => _bridge;
+            set => SetProperty(ref _bridge,value);
         }
     }
 }

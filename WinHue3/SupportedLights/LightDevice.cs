@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WinHue3.SupportedLights
+﻿namespace WinHue3.SupportedLights
 {
     public class LightDevice
     {
@@ -29,93 +23,51 @@ namespace WinHue3.SupportedLights
 
         public bool Canhue
         {
-            get
-            {
-                return _canhue;
-            }
+            get => _canhue;
 
-            set
-            {
-                _canhue = value;
-            }
+            set => _canhue = value;
         }
 
         public bool Canbri
         {
-            get
-            {
-                return _canbri;
-            }
+            get => _canbri;
 
-            set
-            {
-                _canbri = value;
-            }
+            set => _canbri = value;
         }
 
         public bool Cansat
         {
-            get
-            {
-                return _cansat;
-            }
+            get => _cansat;
 
-            set
-            {
-                _cansat = value;
-            }
+            set => _cansat = value;
         }
 
         public bool Canxy
         {
-            get
-            {
-                return _canxy;
-            }
+            get => _canxy;
 
-            set
-            {
-                _canxy = value;
-            }
+            set => _canxy = value;
         }
 
         public bool Canct
         {
-            get
-            {
-                return _canct;
-            }
+            get => _canct;
 
-            set
-            {
-                _canct = value;
-            }
+            set => _canct = value;
         }
 
         public bool Caneffect
         {
-            get
-            {
-                return _caneffect;
-            }
+            get => _caneffect;
 
-            set
-            {
-                _caneffect = value;
-            }
+            set => _caneffect = value;
         }
 
         public bool Canalert
         {
-            get
-            {
-                return _canalert;
-            }
+            get => _canalert;
 
-            set
-            {
-                _canalert = value;
-            }
+            set => _canalert = value;
         }
     }
 }

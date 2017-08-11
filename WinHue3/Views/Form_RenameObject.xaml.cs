@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 using System.Windows;
-using System.Windows.Forms;
-using HueLib2;
-using HueLib2.BridgeMessages;
-using HueLib2.Objects.HueObject;
-using MessageBox = System.Windows.MessageBox;
+using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Utils;
 
-namespace WinHue3
+
+namespace WinHue3.Views
 {
   
     
@@ -23,19 +24,17 @@ namespace WinHue3
             InitializeComponent();
             _bridge = bridge;
             _obj = obj;
-            Title = string.Format(Title,  obj.Name);
-            tbNewName.Text = obj.Name;
+            Title = string.Format(Title,  obj.name);
+            tbNewName.Text = obj.name;
 
         }
 
         private void btnRename_Click(object sender, RoutedEventArgs e)
         {
-
-            MethodInfo mi = typeof(Bridge).GetMethod("RenameObject");
-            MethodInfo generic = mi.MakeGenericMethod(_obj.GetType());
-            CommandResult<Messages> comres = (CommandResult<Messages>)generic.Invoke(_bridge, new object[] {_obj.Id, tbNewName.Text});
-
-            if (comres.Success)
+            _obj.name = tbNewName.Text;
+            bool result = _bridge.RenameObject(_obj);
+            
+            if (result)
             {
                 DialogResult = true;
                 Close();

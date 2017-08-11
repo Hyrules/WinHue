@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class HueTapSensorConfig : SensorConfig
+    public class HueTapSensorConfig : ISensorConfig
     {
 
 

@@ -63,7 +63,6 @@ namespace HueLib2
         /// </summary>
         [DataMember]
         public string localtime { get; set; }
-        //       public Whitelist whitelist { get; set; } // An array of whitelisted user IDs.
         /// <summary>
         /// Software version of the Bridge ( Firmware version )
         /// </summary>
@@ -115,6 +114,18 @@ namespace HueLib2
         /// </summary>
         [DataMember]
         public string bridgeid { get; set; }
+
+        /// <summary>
+        /// Factory new.
+        /// </summary>
+        [DataMember]
+        public bool factorynew { get; set; }
+
+        /// <summary>
+        /// Backup.
+        /// </summary>
+        [DataMember]
+        public Backup backup { get; set; }
 
         /// <summary>
         /// Model id of the bridge.

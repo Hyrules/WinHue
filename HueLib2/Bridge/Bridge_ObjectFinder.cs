@@ -23,17 +23,19 @@ namespace HueLib2
                 switch (comres.status)
                 {
                     case WebExceptionStatus.Success:
-                        lastMessages = Serializer.DeserializeToObject<Messages>(comres.data);
-                        bresult.Success = lastMessages.AllSuccess;
+                        lastMessages = new Messages(Serializer.DeserializeToObject<List<IMessage>>(comres.data));
+                        bresult.Success = lastMessages.Success;
                         bresult.Data = lastMessages;
                         break;
                     case WebExceptionStatus.Timeout:
                         lastMessages = new Messages();
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}", description = "A Timeout occured.", type = 65535 });
                         BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs() { ex = comres });
                         bresult.Exception = comres.ex;
                         break;
                     default:
                         lastMessages = new Messages();
+                        lastMessages.ListMessages.Add(new Error() { address = BridgeUrl + $"/{typename}", description = "An unkown error occured.", type = 65535 });
                         bresult.Exception = comres.ex;
                         break;
                 }

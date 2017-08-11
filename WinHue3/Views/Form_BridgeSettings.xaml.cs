@@ -1,9 +1,10 @@
-﻿using System.Windows;
-using Xceed.Wpf.Toolkit;
-using HueLib2;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.ViewModels;
+using Xceed.Wpf.Toolkit;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for BridgeSettings.xaml
@@ -14,15 +15,18 @@ namespace WinHue3
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         BridgeSettingsViewModel _bsvm;
-        private readonly Bridge _bridge;
+        private Bridge _bridge;
 
-        public Form_BridgeSettings(Bridge bridge)
+        public Form_BridgeSettings()
         {
-            _bridge = bridge;
             InitializeComponent();
             _bsvm = DataContext as BridgeSettingsViewModel;
-            _bsvm.Bridge = _bridge;
+        }
 
+        public async Task Initialize(Bridge bridge)
+        {
+            _bridge = bridge;
+            await _bsvm.Initialize(bridge);
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)

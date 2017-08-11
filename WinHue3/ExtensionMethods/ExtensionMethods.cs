@@ -1,15 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using HueLib2;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using HueLib2.BridgeMessages;
-using HueLib2.Objects.HueObject;
+using System.Reflection;
+using System.Text;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
-namespace WinHue3
+namespace WinHue3.ExtensionMethods
 {
+    public static class ArrayExtensionMethod
+    {
+        public static string ArrayToString(this Array arr)
+        {
+            StringBuilder sb = new StringBuilder();
+            int length = arr.Length;
+            int i = 0;
+            foreach (var v in arr)
+            {
+                sb.Append($"{v}");
+                if (i != length - 1)
+                {
+                    sb.Append(",");
+                }
+                i++;
+            }
+            return sb.ToString();
+        }
+
+    }
+
 
     public static class StringExtensionMethods
     {
@@ -75,21 +95,100 @@ namespace WinHue3
         {
             return Nullable.GetUnderlyingType(n.GetType()) != null;
         }
+
+        public static string GetHueType(this object obj)
+        {
+            HueType ht = obj.GetType().GetCustomAttribute<HueType>();
+            return ht?.HueObjectType;
+        }
+
+      /*  public static List<PropertyInfo> GetListHueProperties(this  obj)
+        {
+            if (obj is Type) return ((Type) obj).GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
+            return obj?.GetType().GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
+        }*/
+
+        public static PropertyInfo[] GetArrayHueProperties(this object obj)
+        {
+            if (obj is Type) return ((Type)obj).GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
+            return obj?.GetType().GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
+        }
+
     }
 
-    public static class BridgeExtensionMethods
+    public static class StackHelper
     {
-        public static void ShowErrorMessages(this Bridge bridge)
+
+        public static PropertyInfo PeekOrDefault(this Stack<PropertyInfo> s)
         {
-            StringBuilder errors = new StringBuilder();
-            errors.AppendLine(GlobalStrings.Error_WhileCreatingObject);
-            foreach (Error error in bridge.lastMessages.ErrorMessages)
+            return s.Count == 0 ? null : s.Peek();
+        }
+
+        public static void PushReverse(this Stack<PropertyInfo> s, List<PropertyInfo> list)
+        {
+            foreach (var l in list.ToArray().Reverse())
             {
-                errors.AppendLine("");
-                errors.AppendLine(error.ToString());
+                s.Push(l);
+            }
+        }
+    }
+
+    public static class TypeExtensionMethods
+    {
+        public static string GetHueType(this Type type)
+        {
+            HueType ht = type.GetCustomAttribute<HueType>();
+            return ht?.HueObjectType;
+        }
+
+        public static PropertyInfo[] GetHueProperties(this Type type)
+        {
+
+            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
+        }
+
+        public static List<PropertyInfo> GetListHueProperties(this Type type)
+        {
+            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
+        }
+
+        public static PropertyInfo[] GetPublicProperties(this Type type)
+        {
+            if (type.IsInterface)
+            {
+                var propertyInfos = new List<PropertyInfo>();
+
+                var considered = new List<Type>();
+                var queue = new Queue<Type>();
+                considered.Add(type);
+                queue.Enqueue(type);
+                while (queue.Count > 0)
+                {
+                    var subType = queue.Dequeue();
+                    foreach (var subInterface in subType.GetInterfaces())
+                    {
+                        if (considered.Contains(subInterface)) continue;
+
+                        considered.Add(subInterface);
+                        queue.Enqueue(subInterface);
+                    }
+
+                    var typeProperties = subType.GetProperties(
+                        BindingFlags.FlattenHierarchy
+                        | BindingFlags.Public
+                        | BindingFlags.Instance);
+
+                    var newPropertyInfos = typeProperties
+                        .Where(x => !propertyInfos.Contains(x));
+
+                    propertyInfos.InsertRange(0, newPropertyInfos);
+                }
+
+                return propertyInfos.ToArray();
             }
 
-            MessageBox.Show(errors.ToString(), GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            return type.GetProperties(BindingFlags.FlattenHierarchy
+                                      | BindingFlags.Public | BindingFlags.Instance);
         }
     }
 
@@ -124,7 +223,7 @@ namespace WinHue3
         {
             if (collection == null)
             {
-                throw new ArgumentNullException("collection");
+                return;
             }
             foreach (var item in collection)
             {

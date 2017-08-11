@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WinHue3
+namespace WinHue3.Logs
 {
     public class DgLogEntry
     {

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics;
 using HueLib2.BridgeMessages;
 using Newtonsoft.Json;
 
@@ -43,27 +45,45 @@ namespace HueLib2
         /// <typeparam name="T">Type of object you want the string deserialize into</typeparam>
         /// <param name="json">JSON string to deserialize</param>
         /// <returns>The object result of the deserialized string</returns>
-        public static T DeserializeToObject<T>(string json) where T : new()
-        {
-            T NewObject = new T();
 
+
+        public static T DeserializeToObject<T>(string json)
+        {
+            T newObject;
             try
             {
-                if (!string.IsNullOrEmpty(json))
+
+                if (!json.Equals("{}") && !string.IsNullOrEmpty(json))
                 {
-                    if (!json.Equals("{}"))
-                        NewObject = JsonConvert.DeserializeObject<T>(json, jss);
+                    newObject = JsonConvert.DeserializeObject<T>(json, jss);
                 }
                 else
                 {
-                    NewObject = default(T);
+                    newObject = default(T);
                 }
+
             }
             catch (Exception ex)
             {
-                NewObject = default(T);
+                newObject = default(T);
             }
-            return NewObject;
+            return newObject;
+        }
+
+        public static object DeserializeMessage(string json)
+        {
+            object obj = new object();
+
+
+            try
+            {
+                obj = JsonConvert.DeserializeObject(json);
+            }
+            catch (Exception)
+            {
+                obj = null;
+            }
+            return obj;
         }
 
         public static SearchResult DeserializeSearchResult(string json)

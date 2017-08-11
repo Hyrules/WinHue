@@ -20,7 +20,7 @@ namespace HueLib2
         public static CommResult SendRequest(Uri url, WebRequestType type, string data = "")
         {
             CommResult result = new CommResult();
-
+            result.url = url;
             try
             {
                 WebClientTimeout wc = new WebClientTimeout {Proxy = null, Timeout = _timeout};
@@ -79,5 +79,6 @@ namespace HueLib2
         public WebExceptionStatus status ;
         public string data;
         public Exception ex;
+        public Uri url;
     }
 }

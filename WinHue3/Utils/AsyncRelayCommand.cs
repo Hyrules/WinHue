@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,6 +31,7 @@ namespace WinHue3.Utils
             CommandManager.InvalidateRequerySuggested();
         }
 
+        [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
             if (Interlocked.Read(ref isExecuting) != 0)
@@ -38,6 +40,7 @@ namespace WinHue3.Utils
             return canExecute(parameter);
         }
 
+        [DebuggerStepThrough]
         public async void Execute(object parameter)
         {
             Interlocked.Exchange(ref isExecuting, 1);

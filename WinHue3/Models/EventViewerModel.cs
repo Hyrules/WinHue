@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using WinHue3.Logs;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Models
 {
@@ -18,11 +15,8 @@ namespace WinHue3.Models
 
         public ObservableCollection<DgLogEntry> ListLogEntries
         {
-            get
-            {
-                return _listlogs;
-            }
-            set { SetProperty(ref _listlogs,value); }
+            get => _listlogs;
+            set => SetProperty(ref _listlogs,value);
         }
 
     }

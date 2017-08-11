@@ -16,8 +16,8 @@ namespace HueLib2
     /// Sensor Class.
     /// </summary>
     [DataContract,ExpandableObject,JsonConverter(typeof(SensorJsonConverter))]
-    public class Sensor : IHueObject
-    {
+    public class Sensor: IHueObject
+    { 
         private string _name;
         private ImageSource _image;
 
@@ -29,7 +29,7 @@ namespace HueLib2
         /// <summary>
         /// Image of the rule.
         /// </summary>
-        [DataMember, Category("Sensor Properties"), Description("Image of the Sensor"), ExpandableObject, ReadOnly(true)]
+        [DataMember, Category("Sensor Properties"), Description("Image of the Sensor"), ReadOnly(true), Browsable(false)]
         public ImageSource Image
         {
             get { return _image; }
@@ -86,13 +86,13 @@ namespace HueLib2
         /// Sensor config.
         /// </summary>
         [DataMember,ExpandableObject, Category("Configuration"), Description("Configuration of the sensor"), CreateOnly]
-        public SensorConfig config { set; get; }
+        public ISensorConfig config { set; get; }
 
         /// <summary>
         /// Sensor state.
         /// </summary>
         [DataMember,ExpandableObject, Category("State"), Description("State of the sensor"),CreateOnly]
-        public SensorState state { set; get; }
+        public ISensorState state { set; get; }
 
         [JsonIgnore]
         [DataMember]
@@ -119,6 +119,11 @@ namespace HueLib2
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        void IHueObject.OnPropertyChanged(string propertyName)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -306,7 +311,7 @@ namespace HueLib2
                     if (config != null)
                     {
         
-                        sensor.config = JsonConvert.DeserializeObject<SensorConfig>(config.ToString(),jss);
+                        sensor.config = JsonConvert.DeserializeObject<ISensorConfig>(config.ToString(),jss);
                     }
                     break;
 
@@ -397,7 +402,7 @@ namespace HueLib2
                 default:
                     if (state != null)
                     {
-                        sensor.state = JsonConvert.DeserializeObject<SensorState>(state.ToString(), jss);
+                        sensor.state = JsonConvert.DeserializeObject<ISensorState>(state.ToString(), jss);
                     }
                     break;
 

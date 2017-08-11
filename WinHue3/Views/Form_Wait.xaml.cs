@@ -2,7 +2,7 @@
 using System.Windows;
 using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Views
 {
     /// <summary>
     /// Interaction logic for Form_Wait.xaml

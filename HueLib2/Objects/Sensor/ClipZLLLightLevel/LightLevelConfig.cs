@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace HueLib2
 {
     [DataContract]
-    public class LightLevelConfig : SensorConfig
+    public class LightLevelConfig : ISensorConfig
     {
         /// <summary>
         /// Threshold for insufficient light level.
