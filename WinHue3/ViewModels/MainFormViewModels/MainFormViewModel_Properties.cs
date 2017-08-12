@@ -29,6 +29,8 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated;
 
+        public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
+
         public ObservableCollection<IHueObject> ListBridgeObjects
         {
             get => _listBridgeObjects;

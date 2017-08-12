@@ -105,10 +105,10 @@
                     <RibbonSplitButton x:Name="btnCpuTempMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeImageSource="Resources/cputemp.png" ToolTipTitle="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon_Tooltip}" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                     </RibbonSplitButton>
-                    <!--<RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"  Command="{Binding RssFeedMonCommand}" LargeImageSource="Resources/rss.png" >
+                    <RibbonSplitButton x:Name="btnRssFeedMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"  Command="{Binding RssFeedMonCommand}" LargeImageSource="Resources/rss.png" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>
-                    <RibbonSplitButton x:Name="btnClapperMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_Clapper}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding ClapperCommand}"  LargeImageSource="Resources/rss.png" IsEnabled="False" >
+                    <!--<RibbonSplitButton x:Name="btnClapperMon" Label="{x:Static resx:GUI.MainForm_ToolsTab_Clapper}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding ClapperCommand}"  LargeImageSource="Resources/rss.png" IsEnabled="False" >
                         <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
                     </RibbonSplitButton>-->
                 </RibbonGroup>
@@ -178,6 +178,8 @@
                         <ColumnDefinition Width="18"/>
                         <ColumnDefinition Width="3"/>
                         <ColumnDefinition Width="18"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="18"/>
                     </Grid.ColumnDefinitions>
                     <Border Width="16" Height="16" Grid.Column="0" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_HotKey}" CornerRadius="8">
                         <Border.Style>
@@ -197,8 +199,26 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SearchingLights}" th:TriggerTracing.TriggerName="Searchlights" th:TriggerTracing.TraceEnabled="True" Value="True">
+                                    <DataTrigger Binding="{Binding SearchingLights}" Value="True">
                                         <Setter Property="Source" Value="Resources/magnifier.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image >
+
+                    <Image Width="16" Height="16" Grid.Column="4" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_UpdateAvailable}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <i:InvokeCommandAction Command="{Binding DoAppUpdateCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{x:Null}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AppUpdateAvailable}" Value="True">
+                                        <Setter Property="Source" Value="Resources/1417332335_Warning.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

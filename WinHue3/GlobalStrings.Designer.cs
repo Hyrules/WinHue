@@ -1087,6 +1087,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A new update has been downloaded. Do you want to update now ?.
+        /// </summary>
+        public static string NewUpdateDownloaded {
+            get {
+                return ResourceManager.GetString("NewUpdateDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No light selected. Please chose a light for this marker..
         /// </summary>
         public static string No_Light_Selected {
@@ -1839,6 +1848,15 @@ namespace WinHue3 {
         public static string UpdateAvailable {
             get {
                 return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An Update is available. Do you want to download it ?.
+        /// </summary>
+        public static string UpdateAvailableDownload {
+            get {
+                return ResourceManager.GetString("UpdateAvailableDownload", resourceCulture);
             }
         }
         

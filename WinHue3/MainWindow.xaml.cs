@@ -12,6 +12,7 @@ using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Settings;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 using WinHue3.ViewModels.MainFormViewModels;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
@@ -25,7 +26,6 @@ namespace WinHue3
     {
         private static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);     
-        public string Version { get; set; }
         public Views.Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
@@ -44,10 +44,10 @@ namespace WinHue3
             InitializeComponent();
             _mfvm = DataContext as MainFormViewModel;
             _mfvm.Eventlogform = _fel;
-            Title += " " + Version;
+            Title += " " + WinHue3.Properties.Resources.Version; 
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              trayicon.Icon = Properties.Resources.icon;
-           
+
         }
 
         private void lvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
@@ -137,5 +137,9 @@ namespace WinHue3
             this.Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
         }
 
+        private void MainForm_ContentRendered(object sender, EventArgs e)
+        {
+
+        }
     }
 }

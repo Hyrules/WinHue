@@ -10,7 +10,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
-using WinHue3.Addons.View;
 using WinHue3.ExtensionMethods;
 using WinHue3.Hotkeys;
 using WinHue3.Interface;
@@ -1033,16 +1032,12 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         private void RssFeedMon()
         {
-          //  throw new NotImplementedException();
+          
         }
 
         private void RssFeedMonSettings()
         {
-            RssFeedMonitorSettingsForm rssfeedsettings = new RssFeedMonitorSettingsForm
-            {
-                Owner = Application.Current.MainWindow
-            };
-            rssfeedsettings.ShowDialog();
+
         }
 
         private async Task Colorloop()
@@ -1072,5 +1067,10 @@ namespace WinHue3.ViewModels.MainFormViewModels
             SetMainFormModel();
         }
 
+        private void DoAppUpdate()
+        {
+            if(MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                UpdateManager.DownloadUpdate();
+        }
     }
 }

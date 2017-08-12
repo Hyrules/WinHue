@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using Newtonsoft.Json;
+using WinHue3.Addons;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
@@ -20,11 +21,21 @@ namespace HueLib2Test
     public class UnitTest1
     {
         [TestMethod]
+        public void FeedTest()
+        {
+            RssFeedMonitor fm = new RssFeedMonitor();
+            Monitor mon = new Monitor(){Name="Severe Weather", url = "http://meteo.gc.ca/rss/battleboard/qc68_f.xml", Interval = 60};
+            fm.AddMonitor(mon);
+            fm.StartMonitor("Severe Weather");
+
+        }
+
+        [TestMethod]
         public void TestDecimalArray()
         {
             State s = new State();
             s.xy = new decimal[] {0.987m, 0.324m};
-            object obj = s.xy;
+            object obj = Serializer.SerializeToJson(s.xy);
             bool test = obj is Array;
             string xy = string.Join(",", s.xy);
 

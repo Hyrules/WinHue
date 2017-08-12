@@ -13,6 +13,7 @@ using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Settings;
+using WinHue3.Utils;
 
 
 namespace WinHue3.ViewModels.MainFormViewModels
@@ -92,6 +93,22 @@ namespace WinHue3.ViewModels.MainFormViewModels
         private void Initialize()
         {
             _eventlogform.Owner = Application.Current.MainWindow;
+
+            UpdateManager.CheckForWinHueUpdate();
+
+            if (UpdateManager.UpdateAvailable)
+            {
+                RaisePropertyChanged("AppUpdateAvailable");
+                if (WinHueSettings.settings.CheckForUpdate)
+                {
+
+                    if (MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        UpdateManager.DownloadUpdate();
+                    }
+
+                }
+            }
             LoadBridges();
         }
 

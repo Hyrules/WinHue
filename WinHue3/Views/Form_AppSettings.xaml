@@ -37,6 +37,7 @@
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Tray}" Tag="2"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Normally}" Tag="3"/>
                     </ComboBox>
+                    <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Check_Update}" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Width="180" IsChecked="{Binding MainSettingsModel.CheckUpdate}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="92" Margin="-1.667,-2,-36.333,0">

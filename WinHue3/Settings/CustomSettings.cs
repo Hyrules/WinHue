@@ -28,6 +28,7 @@ namespace WinHue3.Settings
             DefaultTT = null;
             DefaultBriGroup = 255;
             DefaultBriLight = 255;
+            CheckForUpdate = true;
         }
 
         [DataMember]
@@ -66,7 +67,8 @@ namespace WinHue3.Settings
         public byte DefaultBriLight { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public byte DefaultBriGroup { get; set; }
-
+        [DataMember(EmitDefaultValue = true)]
+        public bool CheckForUpdate { get; set; }
 
         public override string ToString()
         {

@@ -1,0 +1,27 @@
+﻿<Window x:Class="WinHue3.Views.Form_RssFeedMonitor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Views"
+        mc:Ignorable="d"
+        Title="Form_RssFeedMonitor" Height="325.333" Width="524.534">
+    <Grid>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="433,267,0,0" VerticalAlignment="Top" Width="75"/>
+        <ListBox HorizontalAlignment="Left" Height="281" Margin="5,5,0,0" VerticalAlignment="Top" Width="158"/>
+        <GroupBox Header="Rss Feed" HorizontalAlignment="Left" Height="266" Margin="168,-4,0,0" VerticalAlignment="Top" Width="340">
+            <Grid Margin="0,0,-0.333,-0.333">
+                <Button Content="Modify" HorizontalAlignment="Left" Margin="155,213,0,0" VerticalAlignment="Top" Width="75"/>
+                <Label Content="Name : " HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="85,5,0,0" VerticalAlignment="Top" Width="233"/>
+                <ListBox HorizontalAlignment="Left" Height="138" Margin="10,70,0,0" VerticalAlignment="Top" Width="308"/>
+                <Label Content="Description" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="85,35,0,0" VerticalAlignment="Top" Width="233"/>
+                <Button Content="Add" HorizontalAlignment="Left" Margin="243,213,0,0" VerticalAlignment="Top" Width="75"/>
+
+            </Grid>
+        </GroupBox>
+
+
+    </Grid>
+</Window>

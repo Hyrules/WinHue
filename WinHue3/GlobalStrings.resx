@@ -729,4 +729,10 @@
   <data name="AdvancedCreator_WarningDelete" xml:space="preserve">
     <value>Sending a delete request will mostlikely delete the specified object. Delete ?</value>
   </data>
+  <data name="NewUpdateDownloaded" xml:space="preserve">
+    <value>A new update has been downloaded. Do you want to update now ?</value>
+  </data>
+  <data name="UpdateAvailableDownload" xml:space="preserve">
+    <value>An Update is available. Do you want to download it ?</value>
+  </data>
 </root>

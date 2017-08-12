@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Resources;
 using System.Windows;
 using log4net.Repository.Hierarchy;
 using WinHue3.Logs;
@@ -9,6 +10,7 @@ using WinHue3.Utils;
 using WinHue3.Views;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
+using WinHue3.Resources;
 
 namespace WinHue3
 {
@@ -17,7 +19,6 @@ namespace WinHue3
     /// </summary>
     public partial class App : Application
     {
-        private string ver = "RC1";
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Form_EventLog _fel = new Form_EventLog();
 
@@ -36,10 +37,10 @@ namespace WinHue3
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Log.Info($@"WinHue {ver} started");
+            Log.Info($@"WinHue {WinHue3.Properties.Resources.Version} started");
             Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated}");
-            MainWindow wnd = new MainWindow(_fel) { Version = ver};
-            MainWindow.Title = "WinHue 3 " + ver;
+            MainWindow wnd = new MainWindow(_fel);
+            MainWindow.Title = "WinHue 3 " + WinHue3.Properties.Resources.Version;
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
                 ? SystemParameters.WorkArea.Height*0.75
                 : MainWindow.MinHeight;

@@ -117,7 +117,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -169,35 +168,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Addons\Clapper\Clapper.cs" />
-    <Compile Include="Addons\Converter\RssElementConverter.cs" />
-    <Compile Include="Addons\Converter\RssOperatorConverter.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTemp.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTempMonitor.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTempViewModel.cs" />
     <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Addons\Model\AlertCreatorModel.cs" />
-    <Compile Include="Addons\RssFeedMonitor\Alert.cs" />
-    <Compile Include="Addons\RssFeedMonitor\Criteria.cs" />
-    <Compile Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml.cs">
-      <DependentUpon>Form_ActionPicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Addons\ViewModel\AlertCreatorViewModel.cs" />
-    <Compile Include="Addons\ViewModel\RssFeedSettingsViewModel.cs" />
-    <Compile Include="Addons\View\Form_AlertCreator.xaml.cs">
-      <DependentUpon>Form_AlertCreator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Addons\RssFeedMonitor\RssFeedAlertHandler.cs" />
-    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitor.cs" />
-    <Compile Include="Addons\View\RssFeedMonitorSettingsForm.xaml.cs">
-      <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
+    <Compile Include="Addons\RssFeedMonitor.cs" />
     <Compile Include="Colors\Q42ColorConversion.cs" />
     <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Controls\XYEditor.xaml.cs">
+      <DependentUpon>XYEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
@@ -285,6 +269,7 @@
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
+    <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
@@ -328,6 +313,7 @@
     <Compile Include="Settings\CustomSettings.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
+    <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Validation\RuleValueValidation.cs" />
     <Compile Include="Validation\UIntValidation.cs" />
     <Compile Include="View.cs" />
@@ -412,6 +398,9 @@
     <Compile Include="Views\Form_BulbsView.xaml.cs">
       <DependentUpon>Form_BulbsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Form_RssFeedMonitor.xaml.cs">
+      <DependentUpon>Form_RssFeedMonitor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form_RuleCreator.xaml.cs">
       <DependentUpon>Form_RuleCreator.xaml</DependentUpon>
     </Compile>
@@ -463,17 +452,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Controls\XYEditor.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Addons\View\Form_AlertCreator.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Addons\View\RssFeedMonitorSettingsForm.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\XYSliders.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -512,6 +493,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form_Daylight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Form_RssFeedMonitor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

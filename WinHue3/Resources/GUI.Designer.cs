@@ -1771,6 +1771,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WinHue update available. Click here to update..
+        /// </summary>
+        public static string MainForm_StatusBar_ToolTip_UpdateAvailable {
+            get {
+                return ResourceManager.GetString("MainForm_StatusBar_ToolTip_UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string MainForm_Tab_Help {
@@ -3657,6 +3666,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_CancelButton {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for update at startup.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_Check_Update {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Check_Update", resourceCulture);
             }
         }
         

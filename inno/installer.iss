@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinHue 3"
-#define MyAppVersion "RC 1"
+#define MyAppVersion "RC 2"
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
 #define MyAppExeName "WinHue3.exe"
@@ -42,7 +42,6 @@ Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\*.pd
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\whc.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.DataGrid.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\WinHue3.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\HueLib2.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\ManagedUPnP.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\OpenHardwareMonitorLib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\NDesk.Options.dll"; DestDir: "{app}"; Flags: ignoreversion

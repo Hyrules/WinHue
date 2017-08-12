@@ -259,7 +259,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         //*************** StatusBar Commands ************************
         public ICommand ChangeBridgeCommand => new AsyncRelayCommand(param => ChangeBridge());
-
+        public ICommand DoAppUpdateCommand=> new RelayCommand(param => DoAppUpdate());
         //*************** Toolbar ******************************
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons() && CanRunTempPlugin);
         public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons() && CanRunTempPlugin);

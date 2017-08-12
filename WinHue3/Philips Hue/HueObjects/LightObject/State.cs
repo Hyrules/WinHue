@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using WinHue3.Controls;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.ViewModels;
+using WinHue3.Views;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
@@ -84,7 +87,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Float color of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false),Description("Color coordinates in CIE color space. ( float value between 0.000 and 1.000)"), Category("Properties")]
+        [HueProperty, DataMember(IsRequired = false),Description("Color coordinates in CIE color space. ( float value between 0.000 and 1.000)"), Category("Properties"), Editor(typeof(XYEditor),typeof(XYEditor))]
         public decimal[] xy
         {
             get => _xy;
@@ -197,7 +200,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
+            return Serializer.SerializeToJson(this);
         }
     }
 }

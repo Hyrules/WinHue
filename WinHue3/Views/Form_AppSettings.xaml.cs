@@ -40,6 +40,7 @@ namespace WinHue3.Views
             WinHueSettings.settings.DefaultBriLight = _appSettingsViewModel.DefaultModel.DefaultLightBri;
             WinHueSettings.settings.Language = _appSettingsViewModel.MainSettingsModel.Language;
             WinHueSettings.settings.StartMode = _appSettingsViewModel.MainSettingsModel.StartMode;
+            WinHueSettings.settings.CheckForUpdate = _appSettingsViewModel.MainSettingsModel.CheckUpdate;
 
             RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
@@ -76,6 +77,7 @@ namespace WinHue3.Views
             _appSettingsViewModel.MainSettingsModel.UpnpTimeout = WinHueSettings.settings.UpnpTimeout;
             _appSettingsViewModel.MainSettingsModel.Language = WinHueSettings.settings.Language;
             _appSettingsViewModel.MainSettingsModel.StartMode = WinHueSettings.settings.StartMode;
+            _appSettingsViewModel.MainSettingsModel.CheckUpdate = WinHueSettings.settings.CheckForUpdate;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
