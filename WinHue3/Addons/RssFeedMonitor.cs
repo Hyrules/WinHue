@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,44 +12,52 @@ using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using WinHue3.Philips_Hue;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Addons
 {
     public class RssFeedMonitor
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private List<Monitor> monitors;
-        private readonly string path;
+        private List<Monitor> _monitors;
+        private readonly string _path;
+        private readonly Bridge _bridge;
 
-        public RssFeedMonitor()
+        public RssFeedMonitor(Bridge bridge)
         {
-            path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + "feeds.json";
-            monitors = new List<Monitor>();
+            _path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + "feeds.json";
+            _monitors = new List<Monitor>();
+            _bridge = bridge;
         }
 
         public void AddMonitor(Monitor monitor)
         {
-            if (monitors.Contains(monitor)) return;
-            monitors.Add(monitor);
+            if (_monitors.Contains(monitor)) return;
+            _monitors.Add(monitor);
         }
 
         public void RemoveMonitor(Monitor monitor)
         {
-            if (monitors.Contains(monitor))
-                monitors.Remove(monitor);
+            if (_monitors.Contains(monitor))
+                _monitors.Remove(monitor);
         }
 
         public void RemoveMonitor(string name)
         {
-            monitors.RemoveAll(x => x.Name == name);
+            _monitors.RemoveAll(x => x.Name == name);
         }
 
         public void LoadMonitorsFromFile()
         {
             try
             {
-                string json = File.ReadAllText(path);
-                monitors = JsonConvert.DeserializeObject<List<Monitor>>(json);
+                string json = File.ReadAllText(_path);
+                _monitors = JsonConvert.DeserializeObject<List<Monitor>>(json);
+                foreach (var m in _monitors)
+                {
+                    m.OnConditionMet += M_OnConditionMet;
+                }
             }
             catch (Exception ex)
             {
@@ -57,12 +66,17 @@ namespace WinHue3.Addons
             }
         }
 
+        private async void M_OnConditionMet(object sender, ConditionMetEventArgs e)
+        {
+            await _bridge.SetStateAsyncTask(e.Action.Action, e.Action.Id);
+        }
+
         public void SaveMonitorsToFile()
         {
             try
             {
-                string json = JsonConvert.SerializeObject(monitors);
-                File.WriteAllText(path,json);
+                string json = JsonConvert.SerializeObject(_monitors);
+                File.WriteAllText(_path,json);
             }
             catch (Exception ex)
             {
@@ -76,15 +90,15 @@ namespace WinHue3.Addons
 
             if (name != null)
             {
-                if (monitors.All(x => x.Name != name)) return;
+                if (_monitors.All(x => x.Name != name)) return;
                 {
-                    Monitor m = monitors.Find(x => x.Name == name);
+                    Monitor m = _monitors.Find(x => x.Name == name);
                     m.StartMonitor();
                 }
             }
             else
             {
-                foreach (Monitor m in monitors)
+                foreach (Monitor m in _monitors)
                 {
                     m.StartMonitor();
                 }
@@ -97,15 +111,15 @@ namespace WinHue3.Addons
         {
             if (name != null)
             {
-                if (monitors.All(x => x.Name != name)) return;
+                if (_monitors.All(x => x.Name != name)) return;
                 {
-                    Monitor m = monitors.Find(x => x.Name == name);
+                    Monitor m = _monitors.Find(x => x.Name == name);
                     m.StopMonitor();
                 }
             }
             else
             {
-                foreach (Monitor m in monitors)
+                foreach (Monitor m in _monitors)
                 {
                     m.StopMonitor();
                 }
@@ -120,8 +134,7 @@ namespace WinHue3.Addons
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        [JsonIgnore]
-        private DispatcherTimer timer;
+        [JsonIgnore] private DispatcherTimer timer;
         private WebClient wc;
         private bool silent;
 
@@ -132,7 +145,7 @@ namespace WinHue3.Addons
         {
             timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
-            timer.Interval = new TimeSpan(0,0,0,300);
+            timer.Interval = new TimeSpan(0, 0, 0, 300);
             conditions = new List<MonitorCondition>();
             wc = new WebClient();
             wc.DownloadStringCompleted += Wc_DownloadStringCompleted;
@@ -145,7 +158,7 @@ namespace WinHue3.Addons
         public int Interval
         {
             get => timer.Interval.Seconds;
-            set => timer.Interval = new TimeSpan(0,0,0,value);
+            set => timer.Interval = new TimeSpan(0, 0, 0, value);
         }
 
         public bool Running => timer.IsEnabled;
@@ -154,7 +167,7 @@ namespace WinHue3.Addons
         public List<MonitorCondition> conditions { get; set; }
 
         [DataMember]
-        public IBaseProperties action { get; set; }
+        public MonitorAction action { get; set; }
 
 
         public bool Silent
@@ -177,31 +190,27 @@ namespace WinHue3.Addons
         {
             timer.Stop();
             wc.DownloadStringAsync(new Uri(url));
-            
+
         }
+
 
         private void Wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Cancelled || e.Error != null)
             {
-                
+                log.Error("An error occured while downloading the feed.");
+                log.Error(e.Error.Message);
             }
             else
             {
                 XmlReader reader = new XmlTextReader(e.Result);
                 SyndicationFeed sf = SyndicationFeed.Load(reader);
                 if (sf != null)
-                {
+                {    
                     foreach (var si in sf.Items)
                     {
-                        //TODO : Check conditions are met
-                        if (!silent)
-                        {
-                            //TODO : do action    
-                        }
-
+                        CheckConditions(si);
                     }
-
                     timer.Start();
                 }
                 else
@@ -212,7 +221,49 @@ namespace WinHue3.Addons
             }
         }
 
-        
+        public void CheckConditions(SyndicationItem si)
+        {
+            bool conditionmet = false;
+
+            foreach (var c in conditions)
+            {
+                PropertyInfo pi = si.GetType().GetProperty(c.element);
+
+                switch (c.op)
+                {
+                    case MonitorCondition.OpType.Greater:
+                        
+                        
+                        break;
+                    case MonitorCondition.OpType.Lower:
+                        break;
+                    case MonitorCondition.OpType.Equal:
+                        break;
+                    case MonitorCondition.OpType.Contain:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            if(conditionmet)
+                OnConditionMet?.Invoke(this, new ConditionMetEventArgs(action));
+            
+        }
+
+        public static bool FindConditionGreater()
+
+        public delegate void ConditionMetHandler(object sender, ConditionMetEventArgs e);
+        public event ConditionMetHandler OnConditionMet;
+
+    }
+
+
+    public class MonitorAction
+    {
+        public string Id { get; set; }
+        public HueObjectType Type { get; set; }
+        public IBaseProperties Action { get; set; }
     }
 
     [DataContract]
@@ -236,6 +287,15 @@ namespace WinHue3.Addons
         public string value { get; set; }
     }
 
+    public class ConditionMetEventArgs : EventArgs
+    {
+        public MonitorAction Action { get; private set; }
 
-    
+        public ConditionMetEventArgs(MonitorAction action)
+        {
+            Action = action;
+        }
+    }
+
+
 }

@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using Newtonsoft.Json;
 using WinHue3.Addons;
 using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -24,7 +25,8 @@ namespace HueLib2Test
         public void FeedTest()
         {
             RssFeedMonitor fm = new RssFeedMonitor();
-            Monitor mon = new Monitor(){Name="Severe Weather", url = "http://meteo.gc.ca/rss/battleboard/qc68_f.xml", Interval = 60};
+            Monitor mon = new Monitor(){Name="Severe Weather", url = "http://meteo.gc.ca/rss/battleboard/qc68_f.xml", Interval = 60 };
+            mon.action = new MonitorAction(){Id = "2",Action = new State() {alert = "lselect", on = true}, Type = HueObjectType.lights};
             fm.AddMonitor(mon);
             fm.StartMonitor("Severe Weather");
 
