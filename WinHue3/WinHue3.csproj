@@ -269,6 +269,7 @@
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\UnknownSensorObject\UnknownSensor.cs" />
     <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Utils\ListExpandableObjectConverter.cs" />
@@ -698,9 +699,15 @@
     <Resource Include="Resources\1493782199_draft.png" />
     <Resource Include="Resources\advanced.png" />
     <Resource Include="Resources\resettt.png" />
-    <Resource Include="lights\LLC011_off.png" />
-    <Resource Include="lights\LLC011_on.png" />
-    <Resource Include="lights\LLC011_unr.png" />
+    <Content Include="lights\LLC011_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\LLC011_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\LLC011_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lights\LLC012_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -746,9 +753,15 @@
     <Content Include="lights\LLC010_unr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="lights\LST002_off.png" />
-    <Resource Include="lights\LST002_on.png" />
-    <Resource Include="lights\LST002_unr.png" />
+    <Content Include="lights\LST002_off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\LST002_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lights\LST002_unr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lights\LWB001_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -18,6 +18,7 @@ using WinHue3.Philips_Hue.HueObjects.SensorObject.Daylight;
 using WinHue3.Philips_Hue.HueObjects.SensorObject.HueDimmer;
 using WinHue3.Philips_Hue.HueObjects.SensorObject.HueMotion;
 using WinHue3.Philips_Hue.HueObjects.SensorObject.HueTap;
+using WinHue3.Philips_Hue.HueObjects.SensorObject.UnknownSensorObject;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.SensorObject
@@ -97,7 +98,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject
                     sensor =  serializer.Deserialize<ClipZllLightLevelSensor>(new JTokenReader(obj));
                     break;
                 default:
-                    sensor =  null;
+                    sensor =  serializer.Deserialize<UnknownSensor>(new JTokenReader(obj));
                     break;
             }
             serializer.ContractResolver = cr;
