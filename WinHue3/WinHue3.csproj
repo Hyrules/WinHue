@@ -271,6 +271,7 @@
     <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\UnknownSensorObject\UnknownSensor.cs" />
     <Compile Include="Properties\Annotations1.cs" />
+    <Compile Include="Properties\Annotations2.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
