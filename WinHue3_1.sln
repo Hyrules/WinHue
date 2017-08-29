@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinHue3", "WinHue3\WinHue3.csproj", "{E08F8332-0232-47BC-A7D7-212F49296577}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "whc", "whc\whc.csproj", "{5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestUnit", "TestUnit", "{383AF157-5558-4EE8-8B8D-9A904C4F5FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinHue3", "HueLib2Test\WinHue3.csproj", "{5FC27AAC-E748-41BE-81F0-D2842D9925B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueLib2Test", "HueLib2Test\HueLib2Test.csproj", "{5FC27AAC-E748-41BE-81F0-D2842D9925B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20692C04-4AA2-44E3-8E3E-78F30C5F58E8}"
 	ProjectSection(SolutionItems) = preProject
@@ -42,5 +42,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {F7AF3748-36F5-46A1-AFE9-F9272BC23765}
 	EndGlobalSection
 EndGlobal
