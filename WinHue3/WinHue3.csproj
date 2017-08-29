@@ -270,8 +270,6 @@
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\UnknownSensorObject\UnknownSensor.cs" />
-    <Compile Include="Properties\Annotations1.cs" />
-    <Compile Include="Properties\Annotations2.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
@@ -808,7 +806,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)lights" "$(TargetDir)lights" /E</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(SolutionDir)lights" "$(TargetDir)lights" /e /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
