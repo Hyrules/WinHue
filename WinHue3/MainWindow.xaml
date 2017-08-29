@@ -12,7 +12,7 @@
         xmlns:models="clr-namespace:WinHue3.Models"
         xmlns:mainFormViewModels="clr-namespace:WinHue3.ViewModels.MainFormViewModels"
         x:Class="WinHue3.MainWindow"
-        Title="WinHue 3" Height="768" Width="1171.022" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
+    Title="WinHue 3" Height="768" Width="1171.022" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
     <Window.DataContext>
         <mainFormViewModels:MainFormViewModel/>
     </Window.DataContext>
@@ -227,7 +227,7 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Width="{Binding Parent.ActualWidth, RelativeSource={RelativeSource Mode=Self}}">
+        <Grid Width="{Binding ElementName=MainForm, Path=ActualWidth}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
