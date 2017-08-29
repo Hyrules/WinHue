@@ -162,7 +162,6 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
             }
 
             hueAddress.objecttype = str[0];
-
             if (str.Count == 4)
             {
                 hueAddress.id = str[1];
@@ -176,7 +175,7 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
                 hueAddress.property = str[2];
 
             }
-            else if(str.Count == 2)
+            else
             {
                 hueAddress.property = str[1];
             }

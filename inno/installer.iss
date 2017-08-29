@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinHue 3"
-#define MyAppVersion "RC 3"
+#define MyAppVersion "RC 2"
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
 #define MyAppExeName "WinHue3.exe"
@@ -59,7 +59,6 @@ Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\pris
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\prism.wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\procdump.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

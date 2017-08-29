@@ -53,15 +53,7 @@ namespace WinHue3.Controls
                 {
                     var caretOffset = editor.CaretOffset;
                     editor.Document.Text = dependencyPropertyChangedEventArgs.NewValue.ToString();
-                    if (editor.Document.Text == string.Empty || editor.Document.Text == "")
-                    {
-                        editor.CaretOffset = 0;
-                    }
-                    else
-                    {
-                        editor.CaretOffset = caretOffset;
-                    }
-                    
+                    editor.CaretOffset = caretOffset;
                 }
             }
         }

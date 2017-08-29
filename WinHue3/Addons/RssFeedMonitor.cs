@@ -251,7 +251,7 @@ namespace WinHue3.Addons
             
         }
 
-      //  public static bool FindConditionGreater()
+        public static bool FindConditionGreater()
 
         public delegate void ConditionMetHandler(object sender, ConditionMetEventArgs e);
         public event ConditionMetHandler OnConditionMet;
