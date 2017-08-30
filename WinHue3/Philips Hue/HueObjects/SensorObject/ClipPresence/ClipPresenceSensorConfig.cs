@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence
@@ -16,7 +17,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence
         /// <summary>
         /// url.
         /// </summary>
-        [DataMember]
+        [HueProperty, DataMember]
         public string url
         {
             get => _url;
@@ -26,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence
         /// <summary>
         /// On off state.
         /// </summary>
-        [DataMember]
+        [HueProperty,DataMember]
         public bool? on
         {
             get => _on;
@@ -36,7 +37,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [DataMember, ReadOnly(true)]
+        [HueProperty, DataMember, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
@@ -46,7 +47,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence
         /// <summary>
         /// Battery state.
         /// </summary>
-        [DataMember]
+        [HueProperty, DataMember]
         public byte? battery
         {
             get => _battery;

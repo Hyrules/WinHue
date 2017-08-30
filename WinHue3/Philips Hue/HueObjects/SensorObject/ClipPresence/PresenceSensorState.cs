@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence
@@ -16,14 +17,14 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence
         /// <summary>
         /// Presense detected.
         /// </summary>
-        [DataMember]
+        [HueProperty, DataMember]
         public bool? presence
         {
             get => _presence;
             set => SetProperty(ref _presence, value);
         }
 
-        [DataMember]
+        [HueProperty, DataMember]
         public string lastupdated
         {
             get => _lastupdated;

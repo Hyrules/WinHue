@@ -52,7 +52,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <DockPanel LastChildFill="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
        
         <Ribbon x:Name="rbnMainRibbon" VerticalAlignment="Top" DockPanel.Dock="Top" >
             <Ribbon.ApplicationMenu>
@@ -227,12 +227,12 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Width="{Binding ElementName=MainForm, Path=ActualWidth}">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" VerticalContentAlignment="Stretch">
+            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" VerticalContentAlignment="Stretch" Grid.Column="0">
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -338,7 +338,7 @@
                     </GroupStyle>
                 </ListView.GroupStyle>
             </ListView>
-            <Grid Grid.Column="1" Width="350">
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" MinHeight="403"/>
                     <RowDefinition/>

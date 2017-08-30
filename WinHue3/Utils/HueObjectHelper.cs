@@ -1061,6 +1061,7 @@ namespace WinHue3.Utils
         {
             IHueObject bresult = await bridge.GetObjectAsyncTask(id,objecttype);
             IHueObject Object = bresult;
+            if (Object == null) return null;
             Object.Id = id;
 
 
