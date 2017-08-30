@@ -803,10 +803,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\grp_off.png" />
+    <Resource Include="Resources\grp_off.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\grp_on.png" />
+    <Resource Include="Resources\grp_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sensor2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
