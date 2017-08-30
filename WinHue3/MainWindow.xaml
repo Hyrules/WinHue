@@ -52,9 +52,14 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-       
-        <Ribbon x:Name="rbnMainRibbon" VerticalAlignment="Top" DockPanel.Dock="Top" >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="137" />
+            <RowDefinition Height="573*"/>
+            <RowDefinition Height="28"/>
+        </Grid.RowDefinitions>
+        <Ribbon x:Name="rbnMainRibbon" VerticalAlignment="Top" DockPanel.Dock="Top" Grid.Row="0" Height="137">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu SmallImageSource="icon.ico">
                     <RibbonApplicationMenuItem x:Name="mnuAppSettings" Header="{x:Static resx:GUI.MainForm_Menu_Settings}" ImageSource="Resources/gear_in.png" Command="{Binding OpenSettingsWindowCommand}" />
@@ -138,7 +143,7 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <StatusBar x:Name="sbStatusBar" Height="28" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        <StatusBar x:Name="sbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -227,7 +232,7 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
@@ -407,7 +412,7 @@
             </Grid>
         </Grid>
 
-        <tb:TaskbarIcon x:Name="trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="trayicon_TrayMouseDoubleClick">
+        <tb:TaskbarIcon x:Name="trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="trayicon_TrayMouseDoubleClick" Grid.RowSpan="2">
             <!--<tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Lights" x:Name="mnuLights"/>
@@ -417,7 +422,7 @@
                 </tb:TaskbarIcon.ContextMenu>-->
         </tb:TaskbarIcon>
 
-    </DockPanel>
+    </Grid>
 
 </Window>
 
