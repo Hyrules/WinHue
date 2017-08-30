@@ -39,8 +39,6 @@ namespace WinHue3
             }
         }
 
-        public string AssemblyVersion { get; private set; }
-
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");

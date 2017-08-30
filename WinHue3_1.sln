@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinHue3", "WinHue3\WinHue3.csproj", "{E08F8332-0232-47BC-A7D7-212F49296577}"
 EndProject
@@ -41,7 +41,8 @@ Global
 		{5FC27AAC-E748-41BE-81F0-D2842D9925B4} = {383AF157-5558-4EE8-8B8D-9A904C4F5FB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
+		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {F7AF3748-36F5-46A1-AFE9-F9272BC23765}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
