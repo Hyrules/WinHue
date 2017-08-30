@@ -14,6 +14,7 @@ using WinHue3.Views;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinHue3.Resources;
+using System.Reflection;
 
 namespace WinHue3
 {
@@ -38,12 +39,14 @@ namespace WinHue3
             }
         }
 
+        public string AssemblyVersion { get; private set; }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Log.Info($@"WinHue {WinHue3.Properties.Resources.Version} started");
+            Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");
             Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated}");
             MainWindow wnd = new MainWindow(_fel);
-            MainWindow.Title = "WinHue 3 " + WinHue3.Properties.Resources.Version;
+            MainWindow.Title = "WinHue " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
                 ? SystemParameters.WorkArea.Height*0.75
                 : MainWindow.MinHeight;
