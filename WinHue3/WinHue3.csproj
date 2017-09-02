@@ -756,12 +756,6 @@
     <Resource Include="Resources\SchedulesSmall.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\HueGroupOn-Large.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\HueGroupOff-Large.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\pair-bridge.png" />
   </ItemGroup>
   <ItemGroup>
@@ -803,13 +797,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\grp_off.png" />
+    <Resource Include="Resources\HueGroupOff-Large.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\grp_on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\sensor2.png" />
+    <Resource Include="Resources\HueGroupOn-Large.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />

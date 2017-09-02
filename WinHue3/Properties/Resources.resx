@@ -395,12 +395,9 @@
     <value>RC2</value>
   </data>
   <data name="HueGroupOff_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grp_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\HueGroupOff-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HueGroupOn_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grp_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sensor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sensor2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\HueGroupOn-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
