@@ -157,16 +157,16 @@
     <value>SSDP and UPNP are not activated. Please activate them in order to get better detection of the bridge.</value>
   </data>
   <data name="BridgeDisconnect" xml:space="preserve">
-    <value>Are you sure you want to disconnect from the bridge ?</value>
+    <value>Are you sure you want to disconnect from the bridge?</value>
   </data>
   <data name="BridgeSetupNotCompleted" xml:space="preserve">
-    <value>Bridge not paired or authorized. Do you want to proceed with the pairing procedure ?</value>
+    <value>Bridge not paired or authorized. Do you want to proceed with the pairing procedure?</value>
   </data>
   <data name="BridgeUnableToConnect" xml:space="preserve">
     <value>Unable to connect to bridge {0} . Please make sure that it is properly connected to the network.</value>
   </data>
   <data name="Bridge_Already_Detected" xml:space="preserve">
-    <value>This bridge is already present in the list of bridges. Please enter another ip address.</value>
+    <value>This bridge is already present in the list of bridges. Please enter another IP address.</value>
   </data>
   <data name="Bridge_ApplyingUpdate" xml:space="preserve">
     <value>Applying bridge update... The bridge might become unresponsive for a minute or two.</value>
@@ -175,10 +175,10 @@
     <value>Disconnected from bridge.</value>
   </data>
   <data name="Bridge_IP_Different" xml:space="preserve">
-    <value>Your bridge {0} seems to have changed ip. Do you want to replace the current IP Address ?</value>
+    <value>Your bridge {0} seems to have changed IP. Do you want to replace the current IP Address?</value>
   </data>
   <data name="Bridge_LightSearch" xml:space="preserve">
-    <value>Searching for new light for 1 minute.</value>
+    <value>Searching for new lights for 1 minute.</value>
   </data>
   <data name="Bridge_Menu_Connect" xml:space="preserve">
     <value>Connect...</value>
@@ -205,10 +205,10 @@
     <value>Color temperature cannot be selected at the same time as Hue or Saturation. </value>
   </data>
   <data name="Confirm_Delete_Object" xml:space="preserve">
-    <value>Are you sure you want to delete {0} ?</value>
+    <value>Are you sure you want to delete {0}?</value>
   </data>
   <data name="Connected" xml:space="preserve">
-    <value>CONNECTED !</value>
+    <value>CONNECTED!</value>
   </data>
   <data name="Create_User_Press_Link" xml:space="preserve">
     <value>Please press the LINK button now and press OK to continue.</value>
@@ -331,10 +331,10 @@
     <value>Group {0} created sucessfully.</value>
   </data>
   <data name="Group_Creation_Error" xml:space="preserve">
-    <value>There was an error while creating group {0} .</value>
+    <value>There was an error while creating group {0}.</value>
   </data>
   <data name="Group_Delete" xml:space="preserve">
-    <value>Are you sure you want to delete this group ?</value>
+    <value>Are you sure you want to delete this group?</value>
   </data>
   <data name="Group_Group" xml:space="preserve">
     <value>Group</value>
@@ -355,7 +355,7 @@
     <value>Enabling tablet mode will make the toolbar icons, trackbar thumbs as well as the hue picker thumb bigger for better control on a tablet.</value>
   </data>
   <data name="HotKey_Already_Exists" xml:space="preserve">
-    <value>Hotkey already exists. Replace ?</value>
+    <value>Hotkey already exists. Replace?</value>
   </data>
   <data name="Hotkey_FillOneProperty" xml:space="preserve">
     <value>Please fill at least one property.</value>
@@ -406,7 +406,7 @@
     <value>The lights directory has not been found. Creating it...</value>
   </data>
   <data name="Light_Delete" xml:space="preserve">
-    <value>Are you sure you want to delete this light ?</value>
+    <value>Are you sure you want to delete this light?</value>
   </data>
   <data name="Light_Type_Lights" xml:space="preserve">
     <value>Light</value>
@@ -427,10 +427,10 @@
     <value>No bridge found at this IP address.</value>
   </data>
   <data name="Moods_AlreadyExists" xml:space="preserve">
-    <value>A Mood with this name already exists. Overwrite ?</value>
+    <value>A Mood with this name already exists. Overwrite?</value>
   </data>
   <data name="Moods_Delete" xml:space="preserve">
-    <value>Are you sure you want to delete this mood ?</value>
+    <value>Are you sure you want to delete this mood?</value>
   </data>
   <data name="Moods_Missing_Name" xml:space="preserve">
     <value>No name entered for the mood. Please enter a name.</value>
@@ -457,7 +457,7 @@
     <value>No new messages.</value>
   </data>
   <data name="Plugins_Error" xml:space="preserve">
-    <value>Plugin {0} has caused an exception. The plugin will be disabled in order to prevent a crash. An plugin exception file will be generated in WinHue folder.</value>
+    <value>Plugin {0} has caused an exception. The plugin will be disabled in order to prevent a crash. A plugin exception file will be generated in WinHue folder.</value>
   </data>
   <data name="Plugins_NoDirectory" xml:space="preserve">
     <value>No plugins directory found. Creating a new one.</value>
@@ -484,28 +484,28 @@
     <value>Rule</value>
   </data>
   <data name="Rule_ActionAlreadyExists" xml:space="preserve">
-    <value>Do you want to replace the selected action ?</value>
+    <value>Do you want to replace the selected action?</value>
   </data>
   <data name="Rule_ConditionAlreadyExists" xml:space="preserve">
-    <value>A similar condition already exists. Do you want to replace it ?</value>
+    <value>A similar condition already exists. Do you want to replace it?</value>
   </data>
   <data name="Rule_Delete" xml:space="preserve">
-    <value>Are you sure you want to delete this rule ?</value>
+    <value>Are you sure you want to delete this rule?</value>
   </data>
   <data name="Rule_EmptyBody" xml:space="preserve">
     <value>The body field cannot be empty.</value>
   </data>
   <data name="Rule_ErrorCreating" xml:space="preserve">
-    <value>An error occur while creating the rule :</value>
+    <value>An error occur while creating the rule:</value>
   </data>
   <data name="Rule_InvalidJson" xml:space="preserve">
     <value>The json string entered in the body field is invalid.</value>
   </data>
   <data name="Rule_MaxAction" xml:space="preserve">
-    <value>Maximum number of action reached. Please delete an action in order to add a new one.</value>
+    <value>Maximum number of actions reached. Please delete an action in order to add a new one.</value>
   </data>
   <data name="Rule_MaxConditions" xml:space="preserve">
-    <value>The maximum amout of condition has been reached. Remove an existing condition in order to add a new one.</value>
+    <value>The maximum amout of conditions has been reached. Remove an existing condition in order to add a new one.</value>
   </data>
   <data name="Rule_NameError" xml:space="preserve">
     <value>Please enter a valid rule name.</value>
@@ -535,13 +535,13 @@
     <value>The original object of this rule was not found. Please make sure the object still exists in the bridge and try again.</value>
   </data>
   <data name="Rule_PropertyAlreadyExists" xml:space="preserve">
-    <value>The property {0} has already been set. Replace it ?</value>
+    <value>The property {0} has already been set. Replace it?</value>
   </data>
   <data name="Rule_ReplaceAction" xml:space="preserve">
-    <value>Are you sure you want to replace the selected action ?</value>
+    <value>Are you sure you want to replace the selected action?</value>
   </data>
   <data name="Rule_ReplaceCondition" xml:space="preserve">
-    <value>Are you sure you want to replace this condition ?</value>
+    <value>Are you sure you want to replace this condition?</value>
   </data>
   <data name="Rule_SelectSensor" xml:space="preserve">
     <value>Please select a sensor in order to create a condition.</value>
@@ -553,7 +553,7 @@
     <value>The Value field cannot be empty.</value>
   </data>
   <data name="Rule_ValueNotInRange" xml:space="preserve">
-    <value>The value is not within the max and min for the type :</value>
+    <value>The value is not within the max and min for the type:</value>
   </data>
   <data name="Rule_XYError" xml:space="preserve">
     <value>Please make sure that both X and Y are correctly filled.</value>
@@ -562,16 +562,16 @@
     <value>An error occurred while saving the settings.</value>
   </data>
   <data name="Scene_AlreadyExists" xml:space="preserve">
-    <value>A Scene with this name already exists. Overwrite ?</value>
+    <value>A Scene with this name already exists. Overwrite?</value>
   </data>
   <data name="Scene_Clear_Warning" xml:space="preserve">
-    <value>Are you sure you want to clear the current scene ?</value>
+    <value>Are you sure you want to clear the current scene?</value>
   </data>
   <data name="Scene_Delete" xml:space="preserve">
-    <value>Are you sure you want to delete that scene ?</value>
+    <value>Are you sure you want to delete that scene?</value>
   </data>
   <data name="Scene_Load_RGB" xml:space="preserve">
-    <value>Are you sure you want to load the RGB Image ?</value>
+    <value>Are you sure you want to load the RGB Image?</value>
   </data>
   <data name="Scene_MissingFolder" xml:space="preserve">
     <value>The scene folder is missing... recreating it.</value>
@@ -583,7 +583,7 @@
     <value>The scene in this rule does not exist anymore.</value>
   </data>
   <data name="Scene_Replace_Current_States" xml:space="preserve">
-    <value>Replace scene light state with current state ?</value>
+    <value>Replace scene light state with current state?</value>
   </data>
   <data name="Scene_Scene" xml:space="preserve">
     <value>Scene</value>
@@ -598,7 +598,7 @@
     <value>Alarm</value>
   </data>
   <data name="Schedule_Delete" xml:space="preserve">
-    <value>Are you sure you want to delete this Schedule ?</value>
+    <value>Are you sure you want to delete this Schedule?</value>
   </data>
   <data name="Schedule_Schedule" xml:space="preserve">
     <value>Schedule</value>
@@ -634,7 +634,7 @@
     <value>Sensor</value>
   </data>
   <data name="Sensor_Delete" xml:space="preserve">
-    <value>Are you sure you want to delete this sensor ?</value>
+    <value>Are you sure you want to delete this sensor?</value>
   </data>
   <data name="Sensor_EmptyField_Error" xml:space="preserve">
     <value>This field cannot be empty.</value>
@@ -643,13 +643,13 @@
     <value>An error occured during communication.</value>
   </data>
   <data name="Sensor_FieldTooShort" xml:space="preserve">
-    <value>Field must be at leat 6 characters long.</value>
+    <value>Field must be at least 6 characters long.</value>
   </data>
   <data name="Sensor_InvalidFields" xml:space="preserve">
-    <value>Please make sure that all textbox are filled with required information and that the url is valid.</value>
+    <value>Please make sure that all textboxes are filled with required information and that the URL is valid.</value>
   </data>
   <data name="Sensor_InvalidURL" xml:space="preserve">
-    <value>The specified url is invalid. A valid url begins with http:// .</value>
+    <value>The specified URL is invalid. A valid URL begins with http:// .</value>
   </data>
   <data name="Sensor_TestUrl" xml:space="preserve">
     <value>Received Value</value>
@@ -658,13 +658,13 @@
     <value>Unable to contact sensor. Please make sure that the sensor url is valid.</value>
   </data>
   <data name="Settings_ChangeIp" xml:space="preserve">
-    <value>IP Address set to : </value>
+    <value>IP Address set to:: </value>
   </data>
   <data name="Settings_CPU_Temp_NoValue" xml:space="preserve">
     <value>Unable to test gradient. Please make sure that you have a value for the start and stop temperature as well as a light selected to test on.</value>
   </data>
   <data name="Settings_DisableAllTools" xml:space="preserve">
-    <value>Warning : Entering the settings will disable all plugins. Are you sure you want to modify the settings ?</value>
+    <value>Warning: Entering the settings will disable all plugins. Are you sure you want to modify the settings?</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>
@@ -682,7 +682,7 @@
     <value>A new bridge firmware is available.</value>
   </data>
   <data name="Update_Confirmation" xml:space="preserve">
-    <value>Are you sure you want to apply the update ?</value>
+    <value>Are you sure you want to apply the update?</value>
   </data>
   <data name="Update_Delay_String" xml:space="preserve">
     <value>Check every # minute(s)</value>
@@ -691,22 +691,22 @@
     <value>Error reading update status.</value>
   </data>
   <data name="UserManager_RemoveUser" xml:space="preserve">
-    <value>Are you sure you want to remove this user ?</value>
+    <value>Are you sure you want to remove this user?</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
   <data name="Warning_Bridge_Not_Updated" xml:space="preserve">
-    <value>Warning your bridge API version is not up to date. WinHue will not work properly unless you have the latest version of the bridge API. Please Update your bridge API to the latest version.</value>
+    <value>Warning: Your bridge API version is not up to date. WinHue will not work properly unless you have the latest version of the bridge API. Please update your bridge API to the latest version.</value>
   </data>
   <data name="Warning_ChangeLanguage" xml:space="preserve">
     <value>You must restart the application to apply the new language.</value>
   </data>
   <data name="Warning_Delete_Effect" xml:space="preserve">
-    <value>Are you sure you want to delete this mood ?</value>
+    <value>Are you sure you want to delete this mood?</value>
   </data>
   <data name="Warning_TransitionTime" xml:space="preserve">
-    <value>Warning Transition Time is longer than 3 seconds ! You will not be able see your preview properly and the light will revert to their previous state after 3 seconds.</value>
+    <value>Warning: Transition Time is longer than 3 seconds! You will not be able see your preview properly and the light will revert to their previous state after 3 seconds.</value>
   </data>
   <data name="Error_While_Cloning" xml:space="preserve">
     <value>Cloned Object not found in the list. Please edit the object manually.</value>
@@ -715,24 +715,24 @@
     <value>Time must be a valid HH:mm:ss value.</value>
   </data>
   <data name="Error_ScheduleInvalidTT" xml:space="preserve">
-    <value>Transition time must be a valud between 0 and 65535</value>
+    <value>Transition time must be a value between 0 and 65535</value>
   </data>
   <data name="RssFeedMonitor_CriteriaAlreadyExists" xml:space="preserve">
-    <value>This criteria already exists. Replace ?</value>
+    <value>This criteria already exists. Replace?</value>
   </data>
   <data name="InvalidString" xml:space="preserve">
     <value>Entered string is not valid</value>
   </data>
   <data name="AdvancedCreator_ObjectCreated" xml:space="preserve">
-    <value>Object created successfully !</value>
+    <value>Object created successfully!</value>
   </data>
   <data name="AdvancedCreator_WarningDelete" xml:space="preserve">
-    <value>Sending a delete request will mostlikely delete the specified object. Delete ?</value>
+    <value>Sending a delete request will most likely delete the specified object. Delete?</value>
   </data>
   <data name="NewUpdateDownloaded" xml:space="preserve">
-    <value>A new update has been downloaded. Do you want to update now ?</value>
+    <value>A new update has been downloaded. Do you want to update now?</value>
   </data>
   <data name="UpdateAvailableDownload" xml:space="preserve">
-    <value>An Update is available. Do you want to download it ?</value>
+    <value>An update is available. Do you want to download it?</value>
   </data>
 </root>
