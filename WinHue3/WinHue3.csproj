@@ -787,12 +787,6 @@
     <Resource Include="Resources\SchedulesSmall.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\HueGroupOn-Large.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\HueGroupOff-Large.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\pair-bridge.png" />
   </ItemGroup>
   <ItemGroup>
@@ -832,6 +826,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupOff-Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupOn-Large.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Philips Hue\HueObjects\NewSensorsObject\GeoFence\" />

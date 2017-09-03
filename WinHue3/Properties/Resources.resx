@@ -191,12 +191,6 @@
   <data name="hotkey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1465102684_preferences-desktop-keyboard-shortcuts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HueGroupOff_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueGroupOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HueGroupOn_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HueGroupOn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="HueLightSearch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HueLightSearch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -399,5 +393,11 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>RC2</value>
+  </data>
+  <data name="HueGroupOff_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HueGroupOff-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HueGroupOn_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HueGroupOn-Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
