@@ -14,6 +14,7 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -130,9 +131,9 @@ namespace WinHue3.Utils
             {
                 foreach (KeyValuePair<string, string> kvp in results.listnewobjects)
                 {
-                    ISensor bresult = bridge.GetObject<ISensor>(kvp.Key);
+                    Sensor bresult = bridge.GetObject<Sensor>(kvp.Key);
                     if (bresult == null) continue;
-                    ISensor newSensor = bresult;
+                    Sensor newSensor = bresult;
                     newSensor.Id = kvp.Key;
                     switch (newSensor.type)
                     {
@@ -412,12 +413,12 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the sensors from.</param>
         /// <returns>A List of sensors.</returns>
-        public static List<ISensor> GetBridgeSensors(Bridge bridge)
+        public static List<Sensor> GetBridgeSensors(Bridge bridge)
         {
             log.Debug($@"Getting all sensors from bridge {bridge.IpAddress}");
-            Dictionary<string,ISensor> bresult = bridge.GetListObjects<ISensor>();
+            Dictionary<string,Sensor> bresult = bridge.GetListObjects<Sensor>();
             if (bresult == null) return null;
-            List<ISensor> hr = ProcessSensors(bresult);
+            List<Sensor> hr = ProcessSensors(bresult);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -427,12 +428,12 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the sensors from.</param>
         /// <returns>A List of sensors.</returns>
-        public static async Task<List<ISensor>> GetBridgeSensorsAsyncTask(Bridge bridge)
+        public static async Task<List<Sensor>> GetBridgeSensorsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all sensors from bridge {bridge.IpAddress}");
-            Dictionary<string, ISensor> bresult = await bridge.GetListObjectsAsyncTask<ISensor>();
+            Dictionary<string, Sensor> bresult = await bridge.GetListObjectsAsyncTask<Sensor>();
             if (bresult == null) return null;
-            List<ISensor> hr = ProcessSensors(bresult);
+            List<Sensor> hr = ProcessSensors(bresult);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -445,7 +446,7 @@ namespace WinHue3.Utils
         public static List<IHueObject> GetBridgeNewSensors(Bridge bridge)
         {
             log.Debug($@"Getting new sensors from bridge : {bridge.IpAddress}");
-            SearchResult bresult = bridge.GetNewObjects<ISensor>();
+            SearchResult bresult = bridge.GetNewObjects<Sensor>();
             List<IHueObject> hr = ProcessSearchResult(bridge, bresult, false);
             log.Debug("Search Result : " + Serializer.SerializeToJson(hr));
             return hr;
@@ -459,7 +460,7 @@ namespace WinHue3.Utils
         public static async Task<List<IHueObject>> GetBridgeNewSensorsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting new sensors from bridge : {bridge.IpAddress}");
-            SearchResult bresult = await bridge.GetNewObjectsAsyncTask<ISensor>();
+            SearchResult bresult = await bridge.GetNewObjectsAsyncTask<Sensor>();
             List<IHueObject> hr = ProcessSearchResult(bridge, bresult, false);
             log.Debug("Search Result : " + Serializer.SerializeToJson(hr));
             return hr;
@@ -470,11 +471,11 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="listsensors">List of sensors to process.</param>
         /// <returns>A list of processed sensors.</returns>
-        private static List<ISensor> ProcessSensors(Dictionary<string, ISensor> listsensors)
+        private static List<Sensor> ProcessSensors(Dictionary<string, Sensor> listsensors)
         {
-            List<ISensor> newlist = new List<ISensor>();
+            List<Sensor> newlist = new List<Sensor>();
 
-            foreach (KeyValuePair<string, ISensor> kvp in listsensors)
+            foreach (KeyValuePair<string, Sensor> kvp in listsensors)
             {
                 kvp.Value.Id = kvp.Key;
                 log.Debug("Processing Sensor : " + kvp.Value);
@@ -935,9 +936,9 @@ namespace WinHue3.Utils
                 if (res != null)
                     hr = ProcessSchedules(res) as List<T>;
             }
-            else if (typeof(T) == typeof(ISensor))
+            else if (typeof(T) == typeof(Sensor))
             {
-                Dictionary<string, ISensor> res = bridge.GetListObjects<ISensor>();
+                Dictionary<string, Sensor> res = bridge.GetListObjects<Sensor>();
                 if (res != null)
                     hr = ProcessSensors(res) as List<T>;
 

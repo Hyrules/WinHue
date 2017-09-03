@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence;
 using WinHue3.Philips_Hue.HueObjects.SensorObject.HueDimmer;
 using WinHue3.Philips_Hue.HueObjects.SensorObject.HueTap;
 using WinHue3.ViewModels;
@@ -15,7 +16,7 @@ using WinHue3.ViewModels;
 namespace WinHue3.Philips_Hue.HueObjects.SensorObject.UnknownSensorObject
 {
     [HueType("sensors")]
-    public class UnknownSensor : ValidatableBindableBase, ISensor
+    public class Geofence : ValidatableBindableBase, ISensor
     {
         private string _name;
         private string _id;
@@ -136,7 +137,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject.UnknownSensorObject
         }
 
         public string config;
-        public string state;
+        public PresenceSensorState state;
 
         public ISensorConfig GetConfig()
         {

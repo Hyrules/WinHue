@@ -259,6 +259,31 @@
     <Compile Include="Philips Hue\HueObjects\GroupObject\GroupState.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\HueTypeAttribute.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\IHueObject.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipGenericStatus\ClipGenericStatusSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipHumidity\ClipHumiditySensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipHumidity\ClipHumiditySensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipOpenClose\ClipOpenCloseSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipOpenClose\ClipOpenCloseSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipPresence\ClipPresenceSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipPresence\PresenceSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllLightLevel\LightLevelConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllLightLevel\LightLevelState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TemperatureSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TempreatureSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueDimmer\ButtonSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueDimmer\HueDimmerSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueMotion\HueMotionSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueTap\HueTapSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Sensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorConfigBase.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorStateBase.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericFlag\ClipGenericFlagSensor.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericStatus\ClipGenericStatusSensor.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\ClipHumidity\ClipHumiditySensor.cs" />
@@ -275,7 +300,7 @@
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\UnknownSensorObject\UnknownSensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorObject\GeoFence\GeoFence.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
@@ -808,7 +833,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Philips Hue\HueObjects\NewSensorsObject\GeoFence\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

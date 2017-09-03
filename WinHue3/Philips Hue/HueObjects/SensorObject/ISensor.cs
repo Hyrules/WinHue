@@ -98,7 +98,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SensorObject
                     sensor =  serializer.Deserialize<ClipZllLightLevelSensor>(new JTokenReader(obj));
                     break;
                 default:
-                    sensor =  serializer.Deserialize<UnknownSensor>(new JTokenReader(obj));
+                    sensor = null;
                     break;
             }
             serializer.ContractResolver = cr;
