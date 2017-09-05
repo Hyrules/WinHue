@@ -35,6 +35,13 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
             set => SetProperty(ref _daylight,value);
         }
 
+        private string _lastupdated;
 
+        [HueProperty, DataMember]
+        public string lastupdated
+        {
+            get => _lastupdated;
+            set => SetProperty(ref _lastupdated, value);
+        }
     }
 }

@@ -23,6 +23,14 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
             set => SetProperty(ref _buttonevent,value);
         }
 
+        private string _lastupdated;
+
+        [HueProperty, DataMember]
+        public string lastupdated
+        {
+            get => _lastupdated;
+            set => SetProperty(ref _lastupdated, value);
+        }
 
     }
 }

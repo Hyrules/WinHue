@@ -24,5 +24,13 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
             set => SetProperty(ref _humidity,value);
         }
 
+        private string _lastupdated;
+
+        [HueProperty, DataMember]
+        public string lastupdated
+        {
+            get => _lastupdated;
+            set => SetProperty(ref _lastupdated, value);
+        }
     }
 }

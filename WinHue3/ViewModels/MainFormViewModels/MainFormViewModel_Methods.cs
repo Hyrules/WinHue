@@ -20,6 +20,7 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -763,18 +764,17 @@ namespace WinHue3.ViewModels.MainFormViewModels
                     await RefreshObject(_selectedObject);
                 }
             }
-            else if (_selectedObject is ISensor)
+            else if (_selectedObject is Sensor)
             {
-                ISensor obj = (ISensor)_selectedObject;
+                Sensor obj = (Sensor)_selectedObject;
                 switch (obj.modelid)
                 {
                     case "PHDL00":
-                        DaylightSensor cr = (DaylightSensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, obj.Id, typeof(ISensor));
+                        Sensor cr = (Sensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, obj.Id, typeof(Sensor));
                         if (cr != null)
-                        {
-                            DaylightSensor daylight = cr;
-                            daylight.Id = obj.Id;
-                            Form_Daylight dl = new Form_Daylight(daylight, SelectedBridge) { Owner = Application.Current.MainWindow };
+                        { 
+                            cr.Id = obj.Id;
+                            Form_Daylight dl = new Form_Daylight(cr, SelectedBridge) { Owner = Application.Current.MainWindow };
                             if (dl.ShowDialog() == true)
                             {
                                 await RefreshObject(_selectedObject);
@@ -795,7 +795,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         }
                         break;
                     default:
-                        ISensor crs = (ISensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge,obj.Id, typeof(ISensor));
+                        Sensor crs = (Sensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge,obj.Id, typeof(Sensor));
                         if (crs != null)
                         {
                             Form_SensorCreator fsc = new Form_SensorCreator(SelectedBridge, crs)

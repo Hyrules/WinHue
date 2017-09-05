@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WinHue3.Models;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
 
@@ -18,18 +18,18 @@ namespace WinHue3.ViewModels
             _sensorModel = new SensorCreatorModel();
         }
 
-        public ISensor Sensor
+        public Sensor Sensor
         {
             get
             {
-                ISensor sensor = SensorFactory.CreateSensor(SensorModel.Type);
+                Sensor sensor = new Sensor();
                 sensor.name = SensorModel.Name;
                 sensor.manufacturername = SensorModel.Mfgname;
                 sensor.modelid = SensorModel.ModelId;
                 sensor.swversion = SensorModel.Swversion;
                 sensor.uniqueid = SensorModel.Uniqueid;
                 sensor.type = SensorModel.Type;
-                sensor.SetConfig(SensorModel.Config);     
+                sensor.config = SensorModel.Config;     
                 return sensor;
             }
             set
@@ -41,7 +41,7 @@ namespace WinHue3.ViewModels
                 SensorModel.ModelId = value.modelid;
                 SensorModel.Swversion = value.swversion;
                 SensorModel.Uniqueid = value.uniqueid;
-                SensorModel.Config = value.GetConfig(); 
+                SensorModel.Config = value.config; 
               
             }
         }

@@ -23,5 +23,14 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
             get => _flag;
             set => SetProperty(ref _flag,value);
         }
+
+        private string _lastupdated;
+
+        [HueProperty, DataMember]
+        public string lastupdated
+        {
+            get => _lastupdated;
+            set => SetProperty(ref _lastupdated, value);
+        }
     }
 }

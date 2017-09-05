@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.Daylight;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
 using WinHue3.Utils;
 using WinHue3.ViewModels;
 
@@ -20,7 +20,7 @@ namespace WinHue3.Views
         private DaylightViewModel _dvm => this.DataContext as DaylightViewModel;
         private readonly Bridge _bridge;
 
-        public Form_Daylight(DaylightSensor obj,Bridge bridge)
+        public Form_Daylight(Sensor obj,Bridge bridge)
         {
             _bridge = bridge;
             InitializeComponent();

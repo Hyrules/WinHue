@@ -278,11 +278,14 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TempreatureSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\GeoFence\GeofenceConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueDimmer\ButtonSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueDimmer\HueDimmerSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueMotion\HueMotionSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueSensorConfigFactory.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueTap\HueTapSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Sensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorConfigBase.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorStateBase.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorConfig.cs" />
@@ -304,6 +307,7 @@
     <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorObject\GeoFence\GeoFence.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
@@ -836,9 +840,7 @@
   <ItemGroup>
     <Resource Include="Resources\HueGroupOn-Large.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Philips Hue\HueObjects\NewSensorsObject\GeoFence\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;
@@ -18,10 +13,10 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.GeoFence;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueTap;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
 using WinHue3.ViewModels;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -210,202 +205,81 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             sensor.modelid = obj["modelid"]?.Value<string>();
             sensor.swconfigid = obj["swconfigid"]?.Value<string>();
             sensor.swversion = obj["swversion"]?.Value<string>();
-            sensor.config = TryConvertConfig(obj["config"]);
-            sensor.state = TryConvertState(obj["state"]);
+            sensor.config = TryConvertConfig(obj["config"],sensor.type);
+            sensor.state = TryConvertState(obj["state"],sensor.type);
             return sensor;
         }
 
-        private SensorConfigBase TryConvertConfig(JToken config)
+        private SensorConfigBase TryConvertConfig(JToken config, string type)
         {
-
-
-
-            try
+            
+            switch (type)
             {
-                return config.ToObject<ClipGenericFlagSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<ClipGenericStatusSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<ClipHumiditySensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<ClipOpenCloseSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
+                case "CLIPGenericFlag":
+                    return config.ToObject<ClipGenericFlagSensorConfig>();
+                case "CLIPGenericStatus":
+                    return config.ToObject<ClipGenericStatusSensorConfig>();
+                case "CLIPHumidity":
+                    return config.ToObject<ClipHumiditySensorConfig>();
+                case "CLIPOpenClose":
+                    return config.ToObject<ClipOpenCloseSensorConfig>();
+                case "CLIPPresence":
+                    return config.ToObject<ClipPresenceSensorConfig>();
+                case "ZLLTemperature":
+                case "CLIPTemperature":
+                    return config.ToObject<TemperatureSensorConfig>();
+                case "CLIPLightLevel":
+                case "ZLLLightLevel":
+                    return config.ToObject<LightLevelConfig>();
+                case "CLIPSwitch":
+                case "ZGPSwitch":
+                    return config.ToObject<HueTapSensorConfig>();
+                case "ZLLSwitch":
+                    return config.ToObject<HueDimmerSensorConfig>();
+                case "ZLLPresence":
+                    return config.ToObject<HueMotionSensorConfig>();
+                case "Daylight":
+                    return config.ToObject<DaylightSensorConfig>();
+                case "Geofence":
+                    return config.ToObject<GeofenceConfig>();
+                default:
+                    return new UnknownSensorConfig() { value = config.ToString() };
             }
 
-            try
-            {
-                return config.ToObject<ClipPresenceSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<LightLevelConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<TemperatureSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<DaylightSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<HueDimmerSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<HueMotionSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return config.ToObject<HueTapSensorConfig>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            return new UnknownSensorConfig() {value = config.Value<string>()};
         }
 
-        private SensorStateBase TryConvertState(JToken state)
+        private SensorStateBase TryConvertState(JToken state,string type)
         {
-            try
+            switch (type)
             {
-                return state.ToObject<ClipGenericFlagSensorState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
+                case "CLIPGenericFlag":
+                    return state.ToObject<ClipGenericFlagSensorState>();
+                case "CLIPGenericStatus":
+                    return state.ToObject<ClipGenericStatusSensorState>();
+                case "CLIPHumidity":
+                    return state.ToObject<ClipHumiditySensorState>();
+                case "CLIPOpenClose":
+                    return state.ToObject<ClipOpenCloseSensorState>();
+                case "CLIPPresence":
+                case "Geofence":
+                case "ZLLPresence":
+                    return state.ToObject<PresenceSensorState>();
+                case "ZLLTemperature":
+                case "CLIPTemperature":
+                    return state.ToObject<TemperatureSensorState>();
+                case "CLIPLightLevel":
+                case "ZLLLightLevel":
+                    return state.ToObject<LightLevelState>();
+                case "CLIPSwitch":
+                case "ZGPSwitch":
+                case "ZLLSwitch":
+                    return state.ToObject<ButtonSensorState>();               
+                case "Daylight":
+                    return state.ToObject<DaylightSensorState>();
 
-            try
-            {
-                return state.ToObject<ClipGenericStatusSensorState>();
+                default:
+                    return new UnknownSensorState() { value = state.ToString()};
             }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return state.ToObject<ClipHumiditySensorState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return state.ToObject<ClipOpenCloseSensorState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return state.ToObject<PresenceSensorState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return state.ToObject<LightLevelState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return state.ToObject<TemperatureSensorState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return state.ToObject<DaylightSensorState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            try
-            {
-                return state.ToObject<ButtonSensorState>();
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            return new UnknownSensorState(){value = state.Value<string>()};
         }
 
         public override bool CanConvert(Type objectType)

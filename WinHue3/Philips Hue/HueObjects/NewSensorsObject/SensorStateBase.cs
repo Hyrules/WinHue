@@ -12,14 +12,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
     public abstract class SensorStateBase : ValidatableBindableBase
     {
-        private string _lastupdated;
-
-        [HueProperty, DataMember]
-        public string lastupdated
-        {
-            get => _lastupdated;
-            set => SetProperty(ref _lastupdated, value);
-        }
 
       /*  public override string ToString()
         {

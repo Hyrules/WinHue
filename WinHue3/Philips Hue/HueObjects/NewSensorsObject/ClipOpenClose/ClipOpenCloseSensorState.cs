@@ -25,5 +25,13 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
             set => SetProperty(ref _open,value);
         }
 
+        private string _lastupdated;
+
+        [HueProperty, DataMember]
+        public string lastupdated
+        {
+            get => _lastupdated;
+            set => SetProperty(ref _lastupdated, value);
+        }
     }
 }
