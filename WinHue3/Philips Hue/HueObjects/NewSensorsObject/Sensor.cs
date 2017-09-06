@@ -22,7 +22,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
-    [DataContract, JsonConverter(typeof(SensorJsonConverter))]
+    [DataContract, JsonConverter(typeof(SensorJsonConverter)), HueType("sensors")]
     public class Sensor : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -151,8 +151,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// Config of the sensor.
         /// </summary>
-        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),
-         ExpandableObject, CreateOnly]
+        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject]
         public SensorConfigBase config
         {
             get => _config;
@@ -167,8 +166,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// State of the sensor.
         /// </summary>
-        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),
-         ExpandableObject, ReadOnly(true)]
+        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject, ReadOnly(true)]
         public SensorStateBase state
         {
             get => _state;
