@@ -764,9 +764,6 @@
     <Resource Include="Resources\effects.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\SceneLarge.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\timer_clock.png" />
   </ItemGroup>
   <ItemGroup>
