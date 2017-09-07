@@ -1,10 +1,10 @@
 ﻿using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
 
 namespace WinHue3.Philips_Hue.HueObjects.Common
 {
@@ -31,7 +31,7 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
                     return new Resourcelink();
                 case "sensors":
                 case "sensor":
-                    return SensorFactory.CreateSensor(huetype);
+                    return new Sensor();
                 case "scenes":
                 case "scene":
                     return new Scene();

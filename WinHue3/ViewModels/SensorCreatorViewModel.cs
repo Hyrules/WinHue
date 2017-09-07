@@ -22,14 +22,17 @@ namespace WinHue3.ViewModels
         {
             get
             {
-                Sensor sensor = new Sensor();
-                sensor.name = SensorModel.Name;
-                sensor.manufacturername = SensorModel.Mfgname;
-                sensor.modelid = SensorModel.ModelId;
-                sensor.swversion = SensorModel.Swversion;
-                sensor.uniqueid = SensorModel.Uniqueid;
-                sensor.type = SensorModel.Type;
-                sensor.config = SensorModel.Config;     
+                Sensor sensor = new Sensor
+                {
+                    name = SensorModel.Name,
+                    manufacturername = SensorModel.Mfgname,
+                    modelid = SensorModel.ModelId,
+                    swversion = SensorModel.Swversion,
+                    uniqueid = SensorModel.Uniqueid,
+                    type = SensorModel.Type,
+                    config = SensorModel.Config
+                };
+
                 return sensor;
             }
             set

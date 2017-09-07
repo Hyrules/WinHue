@@ -1,9 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.Serialization;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;
@@ -188,7 +191,32 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            serializer.Serialize(writer, value);
+            PropertyInfo[] pi = ((Sensor) value).GetArrayHueProperties();
+            writer.WriteStartObject();
+            foreach (PropertyInfo p in pi)
+            {
+                object val = p.GetValue(value);
+                if (val == null) continue;
+                writer.WritePropertyName(p.Name);
+                if (p.Name == "config" || p.Name == "state")
+                {
+                    writer.WriteStartObject();
+                    PropertyInfo[] cs = val.GetArrayHueProperties();
+                    foreach (PropertyInfo cspi in cs)
+                    {
+                        object cspival = cspi.GetValue(val);
+                        if (cspival == null) continue;
+                        writer.WritePropertyName(cspi.Name);
+                        writer.WriteValue(cspival);
+                    }
+                    writer.WriteEndObject();
+                }
+                else
+                {
+                    writer.WriteValue(p.GetValue(value));
+                }
+            }
+            writer.WriteEndObject();
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,

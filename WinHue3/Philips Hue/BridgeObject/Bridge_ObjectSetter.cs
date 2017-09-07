@@ -6,13 +6,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Philips_Hue.BridgeObject

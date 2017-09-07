@@ -10,9 +10,7 @@ using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.Daylight;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.UnknownSensorObject;
+
 
 namespace HueLib2Test
 {
@@ -64,7 +62,7 @@ namespace HueLib2Test
             string ssensor =
                 "{\n    \"state\": {\n        \"daylight\": true,\n        \"lastupdated\": \"2017-08-09T09:56:00\"\n    },\n    \"config\": {\n        \"on\": true,\n        \"configured\": true,\n        \"sunriseoffset\": 0,\n        \"sunsetoffset\": 0\n    },\n    \"name\": \"Daylight\",\n    \"type\": \"Daylight\",\n    \"modelid\": \"PHDL00\",\n    \"manufacturername\": \"Philips\",\n    \"swversion\": \"1.0\"\n}";
            // ISensor obj = JsonConvert.DeserializeObject<ISensor>(ssensor);
-            DaylightSensor ds = new DaylightSensor();
+            Sensor ds = new Sensor();
             PropertyInfo[] props = ds.GetType().GetHueProperties();
 
             //string json = JsonConvert.SerializeObject(obj);

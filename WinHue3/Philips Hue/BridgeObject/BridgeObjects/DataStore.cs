@@ -9,7 +9,6 @@ using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
 
 namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 {

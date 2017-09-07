@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Models;
 using WinHue3.Philips_Hue.Communication;
@@ -74,6 +75,7 @@ namespace WinHue3.ViewModels
                     ((Action)Body).scene = ((Action)Body).scene;
                 ScheduleModel.Autodelete = schedule.autodelete;
                 ScheduleModel.Transitiontime = Body.transitiontime.ToString();
+                
                 _targetobject = schedule.command.address;
 
                 SelectedObject = ListTarget.FirstOrDefault(x => x.Id == _targetobject.id && x.GetType() == (HueObjectCreator.CreateHueObject(_targetobject.objecttype)).GetType());
@@ -83,9 +85,11 @@ namespace WinHue3.ViewModels
                     Body.xy[0] = Body.xy[0];
                     Body.xy[1] = Body.xy[1];
                 }
-                Body.on = Body.on ?? (((Action)Body).scene == null);
+
+                Body.on = Body.on ?? (((Action)Body).scene != null);
+
                 SelectedType = GetScheduleTypeFromTime(schedule.localtime);
-                Body.hue = 65535;
+   
                 if (schedule.localtime.Contains("A"))
                 {
                     int indexA = schedule.localtime.IndexOf("A", StringComparison.Ordinal);

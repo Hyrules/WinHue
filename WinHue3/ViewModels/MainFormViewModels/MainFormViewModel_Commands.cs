@@ -1,11 +1,11 @@
 ﻿using System.Windows.Input;
+using OpenHardwareMonitor.Hardware;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.HueMotion;
 using WinHue3.SupportedLights;
 using WinHue3.Utils;
 
@@ -147,9 +147,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         public bool CanSetSensivity()
         {
-            if (!(SelectedObject is HueMotionSensor)) return false;
+            if (!(SelectedObject is Sensor)) return false;
 
-            return ((HueMotionSensor) SelectedObject).type == "ZLLPresence";
+            return ((Sensor) SelectedObject).type == "ZLLPresence";
         }
 
         private bool CanReplaceState()
@@ -160,9 +160,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         private bool CanCloneSensor()
         {
-            if (SelectedObject is ISensor)
+            if (SelectedObject is Sensor)
             {
-                return ((ISensor) SelectedObject).type.Contains("CLIP");
+                return ((Sensor) SelectedObject).type.Contains("CLIP");
             }
             return false;
         }

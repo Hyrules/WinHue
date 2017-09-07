@@ -1,8 +1,6 @@
 ﻿using System.Runtime.Serialization;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.ViewModels;
+
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
 {

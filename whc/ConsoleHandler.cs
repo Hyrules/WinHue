@@ -7,16 +7,16 @@ using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipGenericFlag;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipGenericStatus;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipHumidity;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipOpenClose;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipZllTemperature;
 using WinHue3.Settings;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
@@ -284,12 +284,12 @@ namespace whc
                 }},
                 {"lo", "List the sensors available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,ISensor> bresult = bridge.GetListObjects<ISensor>();
+                    Dictionary<string,Sensor> bresult = bridge.GetListObjects<Sensor>();
                     
                     if(bresult != null)
                     {
                         
-                        foreach(KeyValuePair<string,ISensor> kvp in bresult)
+                        foreach(KeyValuePair<string,Sensor> kvp in bresult)
                         {
                             WriteMessageToConsole(
                                 $"[ID]={kvp.Key}, Name={kvp.Value.name}, Type={kvp.Value.type}, Model={kvp.Value.modelid}, SwVersion={kvp.Value.swversion}, Manufacturer={kvp.Value.manufacturername}");

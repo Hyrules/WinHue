@@ -19,7 +19,7 @@ using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
+
 using WinHue3.Settings;
 using WinHue3.SupportedLights;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
@@ -987,9 +987,9 @@ namespace WinHue3.Utils
                     group.Image = GDIManager.CreateImageSourceFromImage(group.action.on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
                     Object = (T)Convert.ChangeType(group, typeof(T));
                 }
-                else if (typeof(T) == typeof(ISensor))
+                else if (typeof(T) == typeof(Sensor))
                 {
-                    ISensor sensor = bresult as ISensor;
+                    Sensor sensor = bresult as Sensor;
                     sensor.Id = id;
                     sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
                     Object = (T)Convert.ChangeType(sensor, typeof(T));
@@ -1088,9 +1088,9 @@ namespace WinHue3.Utils
                 @group.Image = GDIManager.CreateImageSourceFromImage(@group.action.@on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
                 Object = @group;
             }
-            else if (typeof(ISensor).IsAssignableFrom(objecttype))
+            else if (typeof(Sensor).IsAssignableFrom(objecttype))
             {
-                ISensor sensor = bresult as ISensor;
+                Sensor sensor = bresult as Sensor;
                 sensor.Id = id;
                 sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
                 Object = sensor;

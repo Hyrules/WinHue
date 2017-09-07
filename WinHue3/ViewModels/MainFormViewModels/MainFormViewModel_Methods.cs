@@ -21,13 +21,11 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.Daylight;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.HueMotion;
 using WinHue3.Settings;
 using WinHue3.Utils;
 using WinHue3.Views;
@@ -137,7 +135,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         newlist.AddRange(from item in listobj where item is Group orderby item.name select item);
                         newlist.AddRange(from item in listobj where item is Schedule orderby item.name select item);
                         newlist.AddRange(from item in listobj where item is Scene orderby item.name select item);
-                        newlist.AddRange(from item in listobj where item is ISensor orderby item.name select item);
+                        newlist.AddRange(from item in listobj where item is Sensor orderby item.name select item);
                         newlist.AddRange(from item in listobj where item is Rule orderby item.name select item);
                         newlist.AddRange(from item in listobj where item is Resourcelink orderby item.name select item);
                         ListBridgeObjects = new ObservableCollection<IHueObject>(newlist);
@@ -147,7 +145,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         newlist.AddRange(from item in listobj where item is Group orderby item.name descending select item);
                         newlist.AddRange(from item in listobj where item is Schedule orderby item.name descending select item);
                         newlist.AddRange(from item in listobj where item is Scene orderby item.name descending select item);
-                        newlist.AddRange(from item in listobj where item is ISensor orderby item.name descending select item);
+                        newlist.AddRange(from item in listobj where item is Sensor orderby item.name descending select item);
                         newlist.AddRange(from item in listobj where item is Rule orderby item.name descending select item);
                         newlist.AddRange(from item in listobj where item is Resourcelink orderby item.name descending select item);
                         ListBridgeObjects = new ObservableCollection<IHueObject>(newlist);
@@ -360,7 +358,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
             log.Debug($@"Opening the sensor creator window passing bridge {SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created sensor ID {fsc.GetCreatedOrModifiedID()} from bridge {SelectedBridge.IpAddress}");
-            ISensor hr = HueObjectHelper.GetObject<ISensor>(SelectedBridge, fsc.GetCreatedOrModifiedID());
+            Sensor hr = HueObjectHelper.GetObject<Sensor>(SelectedBridge, fsc.GetCreatedOrModifiedID());
             if (hr != null)
             {
 
@@ -374,7 +372,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         private async Task SearchNewSensors()
         {
-            bool bresult = await SelectedBridge.StartNewObjectsSearchAsyncTask(typeof(ISensor));
+            bool bresult = await SelectedBridge.StartNewObjectsSearchAsyncTask(typeof(Sensor));
             if (bresult)
             {
                 log.Info("Looking for new sensors for 1 minute.");
