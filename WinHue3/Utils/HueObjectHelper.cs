@@ -212,7 +212,7 @@ namespace WinHue3.Utils
             {
                 log.Debug("Processing group : " + kvp.Value);
                 kvp.Value.Id = kvp.Key;
-                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(kvp.Value.action.on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
+                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(kvp.Value.state.any_on.GetValueOrDefault() ? (kvp.Value.state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
                 newlist.Add(kvp.Value);
             }
 

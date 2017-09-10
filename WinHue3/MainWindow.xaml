@@ -85,7 +85,7 @@
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}">
                     <RibbonButton x:Name="btnCreateGroup" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" LargeImageSource="Resources/HueGroupOn-Large.png" SmallImageSource="Resources/HueGroupOn.png" Command="{Binding CreateGroupCommand}"/>
-                    <RibbonButton x:Name="btnScene" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}"  LargeImageSource="Resources/1486263478_movie-01.png" SmallImageSource="Resources/SceneLarge.png" Command="{Binding CreateSceneCommand}"/>
+                    <RibbonButton x:Name="btnScene" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}"  LargeImageSource="Resources/1486263478_movie-01.png" SmallImageSource="Resources/1486263478_movie-01.png" Command="{Binding CreateSceneCommand}"/>
                     <RibbonButton x:Name="btnCreateSchedule" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" LargeImageSource="Resources/SchedulesLarge.png" SmallImageSource="Resources/SchedulesSmall.png" Command="{Binding CreateScheduleCommand}"/>
                     <RibbonButton x:Name="btnCreateRule" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" LargeImageSource="Resources/rules.png" SmallImageSource="Resources/rules.png" Command="{Binding CreateRuleCommand}"/>
                     <RibbonButton x:Name="btnCreateSensor" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}" LargeImageSource="Resources/sensor.png" SmallImageSource="Resources/sensor.png" Command="{Binding CreateSensorCommand}"/>
