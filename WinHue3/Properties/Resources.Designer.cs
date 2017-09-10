@@ -263,6 +263,16 @@ namespace WinHue3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap HueGroupSome_Large {
+            get {
+                object obj = ResourceManager.GetObject("HueGroupSome_Large", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap HueLightSearch {
             get {
                 object obj = ResourceManager.GetObject("HueLightSearch", resourceCulture);
