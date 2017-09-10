@@ -199,6 +199,7 @@
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
     <Compile Include="Converters\DoubleToDecimalConverter.cs" />
     <Compile Include="Converters\IntToUshortConverter.cs" />
+    <Compile Include="Converters\ListStringTypeConverter.cs" />
     <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
     <Compile Include="Converters\RuleEnabledConverter.cs" />
     <Compile Include="Converters\RuleOperatorConverter.cs" />

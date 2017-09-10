@@ -13,9 +13,9 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
     public abstract class SensorStateBase : ValidatableBindableBase
     {
 
-      /*  public override string ToString()
+        public override string ToString()
         {
             return Serializer.SerializeToJson(this);
-        }*/
+        }
     }
 }
