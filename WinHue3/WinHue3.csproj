@@ -317,6 +317,7 @@
     <Compile Include="Validation\RuleValueValidation.cs" />
     <Compile Include="Validation\UIntValidation.cs" />
     <Compile Include="View.cs" />
+    <Compile Include="ViewModels\AddLightSerialViewModel.cs" />
     <Compile Include="ViewModels\AdvancedCreatorViewModel.cs" />
     <Compile Include="ViewModels\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
@@ -340,6 +341,9 @@
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorConditionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
+    <Compile Include="Views\Form_AddLightSerial.xaml.cs">
+      <DependentUpon>Form_AddLightSerial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form_AdvancedCreator.xaml.cs">
       <DependentUpon>Form_AdvancedCreator.xaml</DependentUpon>
     </Compile>
@@ -459,6 +463,10 @@
     <Page Include="Controls\XYSliders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Form_AddLightSerial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form_AdvancedCreator.xaml">
       <SubType>Designer</SubType>
@@ -804,7 +812,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
