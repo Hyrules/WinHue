@@ -38,5 +38,26 @@ namespace WinHue3.Philips_Hue.BridgeObject
             ProcessCommandFailure(BridgeUrl + "/config", comres.Status);
             return false;
         }
+
+        public async Task<bool> FindNewLights(string serials = null)
+        {
+            string data = null;
+
+            if (serials == null)
+            {
+
+                data = "{\"deviceid\":[]}";
+            }
+
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + $"/lights"), WebRequestType.POST, data);
+
+            if (comres.Status == WebExceptionStatus.Success)
+            {
+                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                return true;
+            }
+            ProcessCommandFailure(BridgeUrl + $"/lights", comres.Status);
+            return false;
+        }
     }
 }

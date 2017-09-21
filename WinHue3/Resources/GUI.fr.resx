@@ -1413,4 +1413,16 @@
   <data name="MainForm_StatusBar_ToolTip_UpdateAvailable" xml:space="preserve">
     <value>Mise à jour de WinHue disponible. Cliquez ici pour faire la maj.</value>
   </data>
+  <data name="AddLightSerialForm_Title" xml:space="preserve">
+    <value>Ajouter des ampoules par numéro de série</value>
+  </data>
+  <data name="AddLightSerialForm_Message" xml:space="preserve">
+    <value>Ajoutez des numéros de série séparés par des virgules</value>
+  </data>
+  <data name="AddLightSerialForm_Seach" xml:space="preserve">
+    <value>Trouver</value>
+  </data>
+  <data name="AddLightSerialForm_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
 </root>

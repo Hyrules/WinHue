@@ -1413,4 +1413,16 @@
   <data name="MainForm_StatusBar_ToolTip_UpdateAvailable" xml:space="preserve">
     <value>WinHue update available. Click here to update.</value>
   </data>
+  <data name="AddLightSerialForm_Title" xml:space="preserve">
+    <value>Add Light by serial number</value>
+  </data>
+  <data name="AddLightSerialForm_Message" xml:space="preserve">
+    <value>Add serial to the box below separated by commas</value>
+  </data>
+  <data name="AddLightSerialForm_Seach" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="AddLightSerialForm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>
