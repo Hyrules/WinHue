@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -191,7 +192,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         ((Group)_selectedObject).action.on = !((Group)_selectedObject).action.on;
                         ((Group)ListBridgeObjects[index]).action.on = !((Group)ListBridgeObjects[index]).action.on;
                     }
-
+                    
                     ListBridgeObjects[index].Image = newimg;
 
                 }
@@ -203,6 +204,17 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
             }
 
+        }
+
+        private async Task Strobe()
+        {
+            for (int i = 0; i <= 20; i++)
+            {
+                await _selectedBridge.SetStateAsyncTask(new Action() {on = true, transitiontime = 0}, "2");
+                Thread.Sleep(100);
+                await _selectedBridge.SetStateAsyncTask(new Action() {on = false, transitiontime = 0}, "2");
+                Thread.Sleep(100);
+            }
         }
 
         private void ResetTransitionTime()
@@ -1069,6 +1081,13 @@ namespace WinHue3.ViewModels.MainFormViewModels
         {
             if(MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 UpdateManager.DownloadUpdate();
+        }
+
+        private async Task DoTouchLink()
+        {
+            await _selectedBridge.TouchLink();
+            Thread.Sleep(3000);
+            await CheckForNewBulb();
         }
     }
 }

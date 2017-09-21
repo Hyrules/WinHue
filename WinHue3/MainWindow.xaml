@@ -73,7 +73,10 @@
             </Ribbon.QuickAccessToolBar>
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Home}" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" LargeImageSource="Resources/UpdateSearch.png">
-                    <RibbonButton x:Name="btnSearchLights" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" LargeImageSource="Resources/HueLightSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" SmallImageSource="Resources/HueLightSearch.png" Command="{Binding SearchNewLightsCommand}"/>
+                    <RibbonSplitButton x:Name="btnSearchLights" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" LargeImageSource="Resources/HueLightSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" SmallImageSource="Resources/HueLightSearch.png" Command="{Binding SearchNewLightsCommand}">
+                        <RibbonButton Label="Touchlink" Command="{Binding TouchLinkCommand}"/>
+                        <RibbonButton Label="Find Lights by serial" Command="{Binding FindLightSerialCommand}"/>
+                    </RibbonSplitButton>
                     <RibbonButton x:Name="btnSearchSensors" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" LargeImageSource="Resources/SensorSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" SmallImageSource="Resources/SensorSearch.png" Command="{Binding SearchNewSensorsCommand}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}">
@@ -276,6 +279,7 @@
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Colorloop}" x:Name="mnuColorloop" Command="{Binding ColorloopCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" x:Name="mnuEffectNone" Command="{Binding NoEffectCommand}"/>
                         </MenuItem>
+                        <!--<MenuItem Header="Strobe" Command="{Binding StrobeCommand}"/>-->
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}" x:Name="mnuSensitivity">
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" x:Name="mnuSensivityHigh" Command="{Binding SensitivityHighCommand}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" x:Name="mnuSensivityMed" Command="{Binding SensitivityMediumCommand}"/>

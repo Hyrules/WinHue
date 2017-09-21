@@ -136,9 +136,6 @@ namespace WinHue3
             this.Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
         }
 
-        private void MainForm_ContentRendered(object sender, EventArgs e)
-        {
 
-        }
     }
 }

@@ -190,6 +190,12 @@ namespace WinHue3.ViewModels.MainFormViewModels
             return SelectedObject is Group && SelectedObject.Id == "0";
         }
 
+
+        private bool CanStrobe()
+        {
+            return SelectedObject is Light || SelectedObject is Group;
+        }
+
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new AsyncRelayCommand(param => OpenSettingsWindow());
@@ -213,6 +219,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
         public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(), (param) => EnableButtons());
 
         //  public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
+        public ICommand TouchLinkCommand => new AsyncRelayCommand(param => DoTouchLink(), (param) => EnableButtons());
         public ICommand CreateHotKeyCommand => new AsyncRelayCommand(param => CreateHotKey(), (param) => EnableButtons());
         public ICommand CreateResourceLinkCommand => new AsyncRelayCommand(param => CreateResourceLink(), (param) => EnableButtons());
         public ICommand AllOnCommand => new AsyncRelayCommand(param => AllOn(), (param) => EnableButtons());
@@ -248,6 +255,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
         public ICommand CopyToJsonRawCommand => new RelayCommand(param => CopyToJson(true), (param) => IsObjectSelected());
         public ICommand ColorloopCommand => new AsyncRelayCommand(param => Colorloop(), (param) => CanIdentify());
         public ICommand NoEffectCommand => new AsyncRelayCommand(param => NoEffect(), (param) => CanIdentify());
+        public ICommand StrobeCommand => new AsyncRelayCommand(param =>Strobe(),(param) => CanStrobe());
+
+
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new AsyncRelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());
         public ICommand ClickObjectCommand => new AsyncRelayCommand(param => ClickObject());
