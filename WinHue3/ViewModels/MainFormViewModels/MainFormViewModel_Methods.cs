@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
@@ -31,6 +32,9 @@ using WinHue3.Settings;
 using WinHue3.Utils;
 using WinHue3.Views;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
+using Application = System.Windows.Application;
+using Clipboard = System.Windows.Clipboard;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WinHue3.ViewModels.MainFormViewModels
 {
@@ -1088,6 +1092,15 @@ namespace WinHue3.ViewModels.MainFormViewModels
             await _selectedBridge.TouchLink();
             Thread.Sleep(3000);
             await CheckForNewBulb();
+        }
+
+        private async Task FindLightSerial()
+        {
+            Form_AddLightSerial fas = new Form_AddLightSerial(_selectedBridge) {Owner = Application.Current.MainWindow};
+            if (fas.ShowDialog() == true)
+            {
+                
+            }
         }
     }
 }

@@ -735,4 +735,7 @@
   <data name="UpdateAvailableDownload" xml:space="preserve">
     <value>An update is available. Do you want to download it?</value>
   </data>
+  <data name="SerialCannotBeEmpty_Error" xml:space="preserve">
+    <value>Please enter at least one serial number.</value>
+  </data>
 </root>

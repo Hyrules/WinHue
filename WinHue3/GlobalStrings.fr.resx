@@ -744,4 +744,7 @@
   <data name="UpdateAvailableDownload" xml:space="preserve">
     <value>Une mise à jour est disponible. Télécharger ?</value>
   </data>
+  <data name="SerialCannotBeEmpty_Error" xml:space="preserve">
+    <value>Veuillez svp saisir au moins un numéro de série.</value>
+  </data>
 </root>

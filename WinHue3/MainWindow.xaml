@@ -74,8 +74,8 @@
             <RibbonTab Header="{x:Static resx:GUI.MainForm_Tab_Home}" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" LargeImageSource="Resources/UpdateSearch.png">
                     <RibbonSplitButton x:Name="btnSearchLights" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" LargeImageSource="Resources/HueLightSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" SmallImageSource="Resources/HueLightSearch.png" Command="{Binding SearchNewLightsCommand}">
-                        <RibbonButton Label="Touchlink" Command="{Binding TouchLinkCommand}"/>
-                        <RibbonButton Label="Find Lights by serial" Command="{Binding FindLightSerialCommand}"/>
+                        <RibbonButton Label="Touchlink" Command="{Binding TouchLinkCommand}" HorizontalAlignment="Left"/>
+                        <RibbonButton Label="Find Lights by serial" Command="{Binding FindLightSerialCommand}" HorizontalAlignment="Left"/>
                     </RibbonSplitButton>
                     <RibbonButton x:Name="btnSearchSensors" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" LargeImageSource="Resources/SensorSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" SmallImageSource="Resources/SensorSearch.png" Command="{Binding SearchNewSensorsCommand}"/>
                 </RibbonGroup>

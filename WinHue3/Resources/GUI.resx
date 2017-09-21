@@ -1417,7 +1417,7 @@
     <value>Add Light by serial number</value>
   </data>
   <data name="AddLightSerialForm_Message" xml:space="preserve">
-    <value>Add serial to the box below separated by commas</value>
+    <value>Add one ore more serials to the box below separated by commas (eg: 45AF34,543636,34AFBE)</value>
   </data>
   <data name="AddLightSerialForm_Seach" xml:space="preserve">
     <value>Search</value>

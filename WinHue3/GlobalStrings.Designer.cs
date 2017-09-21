@@ -1753,6 +1753,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter at least one serial number..
+        /// </summary>
+        public static string SerialCannotBeEmpty_Error {
+            get {
+                return ResourceManager.GetString("SerialCannotBeEmpty_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IP Address set to:: .
         /// </summary>
         public static string Settings_ChangeIp {

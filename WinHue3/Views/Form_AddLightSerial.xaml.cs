@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.ViewModels;
 
@@ -34,7 +35,15 @@ namespace WinHue3.Views
 
         private async void btnFind_Click(object sender, RoutedEventArgs e)
         {
-            _bridge.StartNewObjectsSearchAsyncTask()
+            if (_asf.ListSerials.IsValid())
+            {
+                DialogResult = await _bridge.FindNewLightsAsync(_asf.ListSerials);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show(GlobalStrings.SerialCannotBeEmpty_Error,GlobalStrings.Warning,MessageBoxButton.OK,MessageBoxImage.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

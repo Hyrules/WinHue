@@ -1417,7 +1417,7 @@
     <value>Ajouter des ampoules par numéro de série</value>
   </data>
   <data name="AddLightSerialForm_Message" xml:space="preserve">
-    <value>Ajoutez des numéros de série séparés par des virgules</value>
+    <value>Ajoutez un ou des numéros de série séparés par des virgules (ex: 45AF34,543636,34AFBE)</value>
   </data>
   <data name="AddLightSerialForm_Seach" xml:space="preserve">
     <value>Trouver</value>

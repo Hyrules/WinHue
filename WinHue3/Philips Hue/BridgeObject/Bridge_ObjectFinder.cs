@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Philips_Hue.BridgeObject
@@ -39,17 +40,22 @@ namespace WinHue3.Philips_Hue.BridgeObject
             return false;
         }
 
-        public async Task<bool> FindNewLights(string serials = null)
+        public async Task<bool> FindNewLightsAsync(string serialslist = null)
         {
-            string data = null;
+            LightSearchSerial lsl = new LightSearchSerial();
 
-            if (serials == null)
+            if (serialslist != null)
             {
+                string[] serials = serialslist.Split(',');
 
-                data = "{\"deviceid\":[]}";
+                foreach (string s in serials)
+                {
+                    lsl.deviceid.Add(s);
+                }
+
             }
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + $"/lights"), WebRequestType.POST, data);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + $"/lights"), WebRequestType.POST, lsl.deviceid.Count == 0 ? "" : Serializer.SerializeToJson(lsl));
 
             if (comres.Status == WebExceptionStatus.Success)
             {
