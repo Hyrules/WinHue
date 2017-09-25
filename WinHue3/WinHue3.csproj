@@ -277,7 +277,7 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllLightLevel\LightLevelConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllLightLevel\LightLevelState.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TemperatureSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TempreatureSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TemperatureSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\GeoFence\GeofenceConfig.cs" />
@@ -290,10 +290,12 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorConfigBase.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorStateBase.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SwUpdate.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
+    <Compile Include="Utils\ExpandoTypeDescriptor.cs" />
     <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />

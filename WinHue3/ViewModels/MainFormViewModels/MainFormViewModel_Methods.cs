@@ -294,6 +294,24 @@ namespace WinHue3.ViewModels.MainFormViewModels
             }
         }
 
+        private async Task DoTouchLink()
+        {
+            await _selectedBridge.TouchLink();
+            Thread.Sleep(3000);
+            await CheckForNewBulb();
+        }
+
+        private void FindLightSerial()
+        {
+            Form_AddLightSerial fas = new Form_AddLightSerial(_selectedBridge) { Owner = Application.Current.MainWindow };
+            if (fas.ShowDialog() == true)
+            {
+                Thread.Sleep(60000);
+                _findlighttimer.Start();
+                RaisePropertyChanged("SearchingLights");
+            }
+        }
+
         private async Task CreateGroup()
         {
             Form_GroupCreator fgc = new Form_GroupCreator() { Owner = Application.Current.MainWindow };
@@ -410,6 +428,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
             _listHotKeys = fhkc.GetHotKeys();
             LoadHotkeys();
         }
+
 
 
         private async Task CreateResourceLink()
@@ -1087,20 +1106,6 @@ namespace WinHue3.ViewModels.MainFormViewModels
                 UpdateManager.DownloadUpdate();
         }
 
-        private async Task DoTouchLink()
-        {
-            await _selectedBridge.TouchLink();
-            Thread.Sleep(3000);
-            await CheckForNewBulb();
-        }
 
-        private async Task FindLightSerial()
-        {
-            Form_AddLightSerial fas = new Form_AddLightSerial(_selectedBridge) {Owner = Application.Current.MainWindow};
-            if (fas.ShowDialog() == true)
-            {
-                
-            }
-        }
     }
 }

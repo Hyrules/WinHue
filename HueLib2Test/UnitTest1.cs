@@ -1,15 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Utils;
 
 
 namespace HueLib2Test
@@ -60,11 +65,15 @@ namespace HueLib2Test
         {
 
             string ssensor =
-                "{\n    \"state\": {\n        \"daylight\": true,\n        \"lastupdated\": \"2017-08-09T09:56:00\"\n    },\n    \"config\": {\n        \"on\": true,\n        \"configured\": true,\n        \"sunriseoffset\": 0,\n        \"sunsetoffset\": 0\n    },\n    \"name\": \"Daylight\",\n    \"type\": \"Daylight\",\n    \"modelid\": \"PHDL00\",\n    \"manufacturername\": \"Philips\",\n    \"swversion\": \"1.0\"\n}";
-           // ISensor obj = JsonConvert.DeserializeObject<ISensor>(ssensor);
-            Sensor ds = new Sensor();
-            PropertyInfo[] props = ds.GetType().GetHueProperties();
-
+                "{\r\n\t\t\t\"state\": {\r\n\t\t\t\t\"presence\": false,\r\n\t\t\t\t\"lastupdated\": \"none\"\r\n\t\t\t},\r\n\t\t\t\"config\": {\r\n\t\t\t\t\"on\": true,\r\n\t\t\t\t\"reachable\": true\r\n\t\t\t},\r\n\t\t\t\"name\": \"Jørgen - iPhone SE\",\r\n\t\t\t\"type\": \"Geofence\",\r\n\t\t\t\"modelid\": \"HA_GEOFENCE\",\r\n\t\t\t\"manufacturername\": \"Philips\",\r\n\t\t\t\"swversion\": \"A_1\",\r\n\t\t\t\"uniqueid\": \"L_02_W4Lps\",\r\n\t\t\t\"recycle\": false\r\n\t\t}";
+            Sensor s = JsonConvert.DeserializeObject<Sensor>(ssensor);
+           
+            dynamic obj = JsonConvert.DeserializeObject<ExpandoObject>(ssensor);
+            
+            
+            TypeDescriptor.AddProvider(new ExpandoObjectTypeDescriptionProvider(), obj);
+            TypeDescriptor.GetProperties(obj);
+            PropertyInfo[] pi = obj.state.GetType().GetProperties();
             //string json = JsonConvert.SerializeObject(obj);
         }
 

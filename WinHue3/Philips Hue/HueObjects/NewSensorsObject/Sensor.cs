@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -20,12 +22,13 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.GeoFence;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueTap;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
-    [DataContract, JsonConverter(typeof(SensorJsonConverter)), HueType("sensors")]
+   // [DataContract, JsonConverter(typeof(SensorJsonConverter)), HueType("sensors")]
     public class Sensor : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -38,8 +41,9 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         private string _uniqueid;
         private string _productid;
         private string _swconfigid;
-        private SensorConfigBase _config;
-        private SensorStateBase _state;
+        private dynamic _config;
+        private dynamic _state;
+        public SwUpdate _swupdate;
 
         /// <summary>
         /// ID of the rule.
@@ -154,8 +158,8 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// Config of the sensor.
         /// </summary>
-        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject]
-        public SensorConfigBase config
+        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject, JsonConverter(typeof(ExpandoObjectConverter))]
+        public dynamic config
         {
             get => _config;
             set => SetProperty(ref _config, value);
@@ -169,11 +173,18 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// State of the sensor.
         /// </summary>
-        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject, ReadOnly(true)]
-        public SensorStateBase state
+        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject, ReadOnly(true), JsonConverter(typeof(ExpandoObjectConverter))]
+        public dynamic state
         {
             get => _state;
             set => SetProperty(ref _state, value);
+        }
+
+        [HueProperty,DataMember, Category("Sensor Properties"), Description("Sensor Update"),ExpandableObject, ReadOnly(true)]
+        public SwUpdate swupdate
+        {
+            get => _swupdate;
+            set => SetProperty(ref _swupdate, value);
         }
 
         public T GetState<T>() where T : SensorStateBase
@@ -222,6 +233,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
+            ExpandoObjectConverter eoc = new ExpandoObjectConverter();
             Sensor sensor = new Sensor();
             JObject obj = serializer.Deserialize<JObject>(reader);
 
@@ -231,8 +243,10 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             sensor.modelid = obj["modelid"]?.Value<string>();
             sensor.swconfigid = obj["swconfigid"]?.Value<string>();
             sensor.swversion = obj["swversion"]?.Value<string>();
-            sensor.config = TryConvertConfig(obj["config"],sensor.type);
-            sensor.state = TryConvertState(obj["state"],sensor.type);
+            //sensor.config = TryConvertConfig(obj["config"],sensor.type);
+          //  sensor.config = obj["config"].ToObject<ExpandoObject>(eoc);
+        //    sensor.state = obj["state"].ToObject<ExpandoObject>(eoc);
+            //sensor.state = TryConvertState(obj["state"],sensor.type);
             return sensor;
         }
 
@@ -269,7 +283,8 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
                 case "Geofence":
                     return config.ToObject<GeofenceConfig>();
                 default:
-                    return new UnknownSensorConfig() { value = config.ToString() };
+                    ExpandoObjectConverter eoc = new ExpandoObjectConverter();
+                    return new UnknownSensorConfig() { value = config.ToObject<ExpandoObject>() };
             }
 
         }
@@ -287,7 +302,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
                 case "CLIPOpenClose":
                     return state.ToObject<ClipOpenCloseSensorState>();
                 case "CLIPPresence":
-                case "Geofence":
+ //               case "Geofence":
                 case "ZLLPresence":
                     return state.ToObject<PresenceSensorState>();
                 case "ZLLTemperature":
@@ -304,7 +319,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
                     return state.ToObject<DaylightSensorState>();
 
                 default:
-                    return new UnknownSensorState() { value = state.ToString()};
+                    return new UnknownSensorState() { value = state.ToObject<ExpandoObjectConverter>() };
             }
         }
 

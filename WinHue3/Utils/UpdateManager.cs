@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Windows;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
@@ -41,7 +42,18 @@ namespace WinHue3.Utils
                 _update = JsonConvert.DeserializeObject<Update>(data.Data);
             }
             if (_update == null) return false;
-            UpdateAvailable = WinHue3.Properties.Resources.Version != _update.Version;
+            try
+            {
+                Version WinHueVer = Assembly.GetExecutingAssembly().GetName().Version;
+                Version AvailableVer = new Version(_update.Version);
+                UpdateAvailable = WinHueVer < AvailableVer;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Unable to parse new version. Please try again later.");
+                UpdateAvailable = false;
+            }
+            
             return UpdateAvailable;
         }
 

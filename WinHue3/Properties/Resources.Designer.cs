@@ -581,15 +581,6 @@ namespace WinHue3.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RC2.
-        /// </summary>
-        public static string Version {
-            get {
-                return ResourceManager.GetString("Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap warning {

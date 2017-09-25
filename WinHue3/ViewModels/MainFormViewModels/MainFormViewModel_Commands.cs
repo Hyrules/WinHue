@@ -220,7 +220,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         //  public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
         public ICommand TouchLinkCommand => new AsyncRelayCommand(param => DoTouchLink(), (param) => EnableButtons());
-        public ICommand FindLightSerialCommand => new AsyncRelayCommand(param => FindLightSerial(), (param) => EnableButtons());
+        public ICommand FindLightSerialCommand => new RelayCommand(param => FindLightSerial(), (param) => EnableButtons());
         public ICommand CreateHotKeyCommand => new AsyncRelayCommand(param => CreateHotKey(), (param) => EnableButtons());
         public ICommand CreateResourceLinkCommand => new AsyncRelayCommand(param => CreateResourceLink(), (param) => EnableButtons());
         public ICommand AllOnCommand => new AsyncRelayCommand(param => AllOn(), (param) => EnableButtons());

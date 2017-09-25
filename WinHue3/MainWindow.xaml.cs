@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Media;
 using WinHue3.ExtensionMethods;
@@ -43,7 +44,7 @@ namespace WinHue3
             InitializeComponent();
             _mfvm = DataContext as MainFormViewModel;
             _mfvm.Eventlogform = _fel;
-            Title += " " + WinHue3.Properties.Resources.Version; 
+            Title += " " + Assembly.GetExecutingAssembly().GetName().Version; 
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              trayicon.Icon = Properties.Resources.icon;
 
