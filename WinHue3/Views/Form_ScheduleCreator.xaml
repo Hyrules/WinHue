@@ -256,6 +256,12 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <ComboBox HorizontalAlignment="Left" Margin="475,223,0,0" VerticalAlignment="Top" Width="170" SelectedValuePath="Tag" SelectedValue="{Binding Effect}">
+                    <ComboBoxItem Content="None" Tag="1"/>
+                    <ComboBoxItem Content="Identify Long" Tag="2"/>
+                    <ComboBoxItem Content="Identify Short" Tag="3"/>
+                    <ComboBoxItem Content="Color loop" Tag="4"/>
+                </ComboBox>
             </Grid>
         </GroupBox>
         <Button x:Name="btnClear" Content="{x:Static resx:GUI.ScheduleCreatorForm_ClearButton}" IsEnabled="{Binding IsEditing}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="457,611,0,0" VerticalAlignment="Top" Width="75"/>

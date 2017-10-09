@@ -37,6 +37,7 @@ namespace WinHue3.ViewModels
         private Bridge _bridge;
         private IHueObject _selectedObject;
         private IBaseProperties _body;
+        private int _effect;
 
         public ScheduleCreatorViewModel()
         {
@@ -44,6 +45,17 @@ namespace WinHue3.ViewModels
             _selectedType = "T";
             _smask = 0;
             _randomizetime = string.Empty;
+            _effect = 1;
+        }
+
+        public int Effect
+        {
+            get => _effect;
+            set
+            {
+                SetProperty(ref _effect, value);
+              
+            } 
         }
 
         public async Task Initialize(Bridge bridge, IHueObject obj)
