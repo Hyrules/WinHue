@@ -12,7 +12,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("whc")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("Pascal Pharand")]
-[assembly: AssemblyCulture("en")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
