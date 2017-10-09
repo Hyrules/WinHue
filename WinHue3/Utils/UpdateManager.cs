@@ -44,9 +44,9 @@ namespace WinHue3.Utils
             if (_update == null) return false;
             try
             {
-                Version WinHueVer = Assembly.GetExecutingAssembly().GetName().Version;
-                Version AvailableVer = new Version(_update.Version);
-                UpdateAvailable = WinHueVer < AvailableVer;
+                Version winHueVer = Assembly.GetExecutingAssembly().GetName().Version;
+                Version availableVer = new Version(_update.Version);
+                UpdateAvailable = winHueVer < availableVer;
             }
             catch (Exception)
             {

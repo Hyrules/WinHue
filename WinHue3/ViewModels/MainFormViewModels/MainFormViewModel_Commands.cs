@@ -222,8 +222,8 @@ namespace WinHue3.ViewModels.MainFormViewModels
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());
 
         //*************** Toolbar Commands ********************        
-        public ICommand CheckForUpdateCommand => new AsyncRelayCommand(param => CheckForBridgeUpdate());
-        public ICommand UpdateBridgeCommand => new AsyncRelayCommand(param => DoBridgeUpdate(), (param) => CanUpdateBridge());
+        public ICommand CheckForUpdateCommand => new AsyncRelayCommand(param => CheckForBridgeUpdate(), (param) => EnableButtons());
+        public ICommand UpdateBridgeCommand => new AsyncRelayCommand(param => DoBridgeUpdate(), (param) => EnableButtons() && CanUpdateBridge());
         public ICommand ManageUsersCommand => new AsyncRelayCommand(param => ManageUsers(), (param) => EnableButtons());
         public ICommand ChangeBridgeSettingsCommand => new AsyncRelayCommand(param => ChangeBridgeSettings(), (param) => EnableButtons());
         public ICommand RefreshViewCommand => new AsyncRelayCommand(param => RefreshView(), (param) => EnableButtons());
