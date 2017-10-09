@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Media;
 using log4net;
 using WinHue3.ExtensionMethods;
@@ -92,6 +93,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed lights.</returns>
         private static List<Light> ProcessLights(Dictionary<string, Light> listlights)
         {
+            if(listlights == null) return new List<Light>();
             List<Light> newlist = new List<Light>();
 
             foreach (KeyValuePair<string, Light> kvp in listlights)
@@ -208,6 +210,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed group with image and id.</returns>
         private static List<Group> ProcessGroups(Dictionary<string, Group> listgroups)
         {
+            if(listgroups == null) return new List<Group>();
             List<Group> newlist = new List<Group>();
             foreach (KeyValuePair<string, Group> kvp in listgroups)
             {
@@ -258,6 +261,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed scenes.</returns>
         private static List<Scene> ProcessScenes(Dictionary<string, Scene> listscenes)
         {
+            if (listscenes == null) return new List<Scene>();
             List<Scene> newlist = new List<Scene>();
 
             foreach (KeyValuePair<string, Scene> kvp in listscenes)
@@ -309,6 +313,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed schedules.</returns>
         public static List<Schedule> ProcessSchedules(Dictionary<string, Schedule> listschedules)
         {
+            if(listschedules == null) return new List<Schedule>();
             List<Schedule> newlist = new List<Schedule>();
 
             foreach (KeyValuePair<string, Schedule> kvp in listschedules)
@@ -396,6 +401,7 @@ namespace WinHue3.Utils
         /// <returns>A processed list of rules.</returns>
         private static List<Rule> ProcessRules(Dictionary<string, Rule> listrules)
         {
+            if(listrules == null) return new List<Rule>();
             List<Rule> newlist = new List<Rule>();
 
             foreach (KeyValuePair<string, Rule> kvp in listrules)
@@ -474,6 +480,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed sensors.</returns>
         private static List<Sensor> ProcessSensors(Dictionary<string, Sensor> listsensors)
         {
+            if(listsensors == null) return new List<Sensor>();
             List<Sensor> newlist = new List<Sensor>();
 
             foreach (KeyValuePair<string, Sensor> kvp in listsensors)
@@ -517,7 +524,7 @@ namespace WinHue3.Utils
             log.Info($@"Fetching Resource links from bridge : {bridge.IpAddress}");
             Dictionary<string, Resourcelink> bresult = bridge.GetListObjects<Resourcelink>();
             if (bresult == null) return null;
-            List<Resourcelink> rl =  ProcessRessourceLinks(bresult);
+            List<Resourcelink> rl =  ProcessResourceLinks(bresult);
             return rl;
         }
 
@@ -531,7 +538,7 @@ namespace WinHue3.Utils
             log.Info($@"Fetching Resource links from bridge : {bridge.IpAddress}");
             Dictionary<string, Resourcelink> bresult = await bridge.GetListObjectsAsyncTask<Resourcelink>();
             if (bresult == null) return null;
-            List<Resourcelink> rl = ProcessRessourceLinks(bresult);
+            List<Resourcelink> rl = ProcessResourceLinks(bresult);
             return rl;
         }
 
@@ -608,7 +615,7 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="datastore">Datastore to process.</param>
         /// <returns>A list of object processed.</returns>
-        private static List<IHueObject> ProcessDataStore(DataStore datastore)
+        public static List<IHueObject> ProcessDataStore(DataStore datastore)
         {
             List<IHueObject> newlist = new List<IHueObject>();
             log.Debug("Processing datastore...");
@@ -618,12 +625,12 @@ namespace WinHue3.Utils
             newlist.AddRange(ProcessScenes(datastore.scenes));
             newlist.AddRange(ProcessSensors(datastore.sensors));
             newlist.AddRange(ProcessRules(datastore.rules));
-            newlist.AddRange(ProcessRessourceLinks(datastore.resourcelinks));
+            newlist.AddRange(ProcessResourceLinks(datastore.resourcelinks));
             log.Debug("Processing complete.");
             return newlist;
         }
 
-        private static List<Resourcelink> ProcessRessourceLinks(Dictionary<string, Resourcelink> listrl)
+        private static List<Resourcelink> ProcessResourceLinks(Dictionary<string, Resourcelink> listrl)
         {
             if(listrl == null) return new List<Resourcelink>();
             List<Resourcelink> newlist = new List<Resourcelink>();
@@ -949,7 +956,7 @@ namespace WinHue3.Utils
             {
                 Dictionary<string, Resourcelink> res = bridge.GetListObjects<Resourcelink>();
                 if (res != null)
-                    hr = ProcessRessourceLinks(res) as List<T>;
+                    hr = ProcessResourceLinks(res) as List<T>;
             }
 
             return hr;

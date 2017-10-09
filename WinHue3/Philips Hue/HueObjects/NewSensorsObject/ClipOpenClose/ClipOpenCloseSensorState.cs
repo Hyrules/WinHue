@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
 
@@ -25,7 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
 
         private string _lastupdated;
 
-        [HueProperty, DataMember]
+        [HueProperty, DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

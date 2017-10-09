@@ -41,7 +41,7 @@ namespace WinHue3.Views
             WinHueSettings.settings.Language = _appSettingsViewModel.MainSettingsModel.Language;
             WinHueSettings.settings.StartMode = _appSettingsViewModel.MainSettingsModel.StartMode;
             WinHueSettings.settings.CheckForUpdate = _appSettingsViewModel.MainSettingsModel.CheckUpdate;
-
+            WinHueSettings.settings.CheckForBridgeUpdate = _appSettingsViewModel.MainSettingsModel.CheckForBridgeUpdate;
             RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
             if (WinHueSettings.settings.StartMode > 0)
@@ -55,7 +55,7 @@ namespace WinHue3.Views
             }
             registryKey.Close();
     
-            WinHueSettings.Save();
+            WinHueSettings.SaveSettings();
             DialogResult = true;
             Close();
         }
@@ -78,6 +78,7 @@ namespace WinHue3.Views
             _appSettingsViewModel.MainSettingsModel.Language = WinHueSettings.settings.Language;
             _appSettingsViewModel.MainSettingsModel.StartMode = WinHueSettings.settings.StartMode;
             _appSettingsViewModel.MainSettingsModel.CheckUpdate = WinHueSettings.settings.CheckForUpdate;
+            _appSettingsViewModel.MainSettingsModel.CheckForBridgeUpdate = WinHueSettings.settings.CheckForBridgeUpdate;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

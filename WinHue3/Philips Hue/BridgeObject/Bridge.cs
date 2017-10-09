@@ -21,6 +21,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
         private bool _isdefault;
         private IPAddress _ipAddress;
         private string _name;
+        private bool? _requiredUpdate;
+        private bool _updateAvailable;
+        private bool _virtual;
 
         /// <summary>
         /// Api Key to access the bridge. If the application is not autorized the api key will not be set.
@@ -95,6 +98,24 @@ namespace WinHue3.Philips_Hue.BridgeObject
             set => SetProperty(ref _lastCommandMessages,value);
         }
 
+        public bool? RequiredUpdate
+        {
+            get { return _requiredUpdate; }
+            set { SetProperty(ref _requiredUpdate,value); }
+        }
+
+        public bool UpdateAvailable
+        {
+            get { return _updateAvailable; }
+            set { SetProperty(ref _updateAvailable,value); }
+        }
+
+        public bool Virtual
+        {
+            get { return _virtual; }
+            set { SetProperty(ref _virtual,value); }
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -103,6 +124,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             IpAddress = IPAddress.None;
             ApiKey = String.Empty;
             LastCommandMessages = new Messages();
+            UpdateAvailable = false;
         }
 
         /// <summary>
@@ -122,6 +144,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             SwVersion = swversion;
             name = newname;
             LastCommandMessages = new Messages();
+            UpdateAvailable = false;
         }
 
     }

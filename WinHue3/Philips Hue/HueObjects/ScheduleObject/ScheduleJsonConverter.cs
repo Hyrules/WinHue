@@ -72,7 +72,10 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 newSchedule.description = obj["description"].Value<string>();
             if (obj["localtime"] != null)
                 newSchedule.localtime = obj["localtime"].Value<string>();
-            if (newSchedule.localtime.Contains(" ")) newSchedule.localtime = newSchedule.localtime.Replace(" ", "T"); // Bypass a stupid function of JSON.Net that parses dates
+            if (newSchedule.localtime == null)
+                newSchedule.localtime = obj["time"].Value<string>();
+            if (newSchedule.localtime.Contains(" ")) newSchedule.localtime = newSchedule.localtime.Replace(" ","T"); // Bypass a stupid function of JSON.Net that parses dates
+               
             if (obj["recycle"] != null)
                 newSchedule.recycle = obj["recycle"].Value<bool>();
             if (obj["starttime"] != null)

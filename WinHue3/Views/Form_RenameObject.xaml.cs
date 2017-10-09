@@ -32,7 +32,7 @@ namespace WinHue3.Views
         private void btnRename_Click(object sender, RoutedEventArgs e)
         {
             _obj.name = tbNewName.Text;
-            bool result = _bridge.RenameObject(_obj);
+            bool result = !_bridge.Virtual ? _bridge.RenameObject(_obj) : true;
             
             if (result)
             {

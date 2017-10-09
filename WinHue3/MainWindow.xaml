@@ -12,12 +12,12 @@
         xmlns:models="clr-namespace:WinHue3.Models"
         xmlns:mainFormViewModels="clr-namespace:WinHue3.ViewModels.MainFormViewModels"
         x:Class="WinHue3.MainWindow"
-    Title="WinHue 3" Height="768" Width="1171.022" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
+    Title="WinHue 3" Height="824.356" Width="1349.484" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
     <Window.DataContext>
         <mainFormViewModels:MainFormViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
         <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
@@ -64,6 +64,7 @@
                 <RibbonApplicationMenu SmallImageSource="icon.ico">
                     <RibbonApplicationMenuItem x:Name="mnuAppSettings" Header="{x:Static resx:GUI.MainForm_Menu_Settings}" ImageSource="Resources/gear_in.png" Command="{Binding OpenSettingsWindowCommand}" />
                     <RibbonApplicationMenuItem x:Name="mnuAppBridgePairing" Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" ImageSource="Resources/bridgeAdd.png" Command="{Binding DoBridgePairingCommand}" />
+                    <RibbonApplicationMenuItem x:Name="mnuLoadVirtualBridge" Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" ImageSource="Resources/load.png" Command="{Binding LoadVirtualBridgeCommand}" Visibility="{Binding IsMasterDebugger, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <RibbonSeparator/>
                     <RibbonApplicationMenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" ImageSource="Resources/door_open.png" Command="{Binding QuitApplicationCommand}"/>
                 </RibbonApplicationMenu>
@@ -99,7 +100,9 @@
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}">
                     <RibbonButton x:Name="btnBridgeSettings" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeImageSource="Resources/1417331999_Gear.png" SmallImageSource="Resources/1417331999_Gear.png" Command="{Binding ChangeBridgeSettingsCommand}"/>
-                    <RibbonButton x:Name="btnUpdate" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Visibility="{Binding UpdateAvailable, FallbackValue=Collapsed}" LargeImageSource="Resources/1417332335_Warning.png" Command="{Binding UpdateBridgeCommand}"/>
+                    <RibbonSplitButton x:Name="btnUpdate" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" LargeImageSource="Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" >
+                        <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" SmallImageSource="Resources/1417332335_Warning.png" Command="{Binding UpdateBridgeCommand}"/> 
+                    </RibbonSplitButton>
                     <RibbonButton x:Name="btnUser" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" LargeImageSource="Resources/user.png" Command="{Binding ManageUsersCommand}" />
                     <RibbonButton x:Name="btnResetTT" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" LargeImageSource="Resources/resettt.png" Command="{Binding ResetTransitionTimeCommand}"/>
                 </RibbonGroup>
@@ -240,7 +243,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" VerticalContentAlignment="Stretch" Grid.Column="0">
+            
+            <ListView x:Name="lvMainObjects" HorizontalAlignment="Stretch" ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedObject}" ContextMenuOpening="lvMainObjects_ContextMenuOpening" SelectionChanged="lvMainObjects_SelectionChanged" SelectionMode="Single" VerticalContentAlignment="Stretch" Grid.Column="0" IsEnabled="{Binding EnableListView}">
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -347,6 +351,7 @@
                     </GroupStyle>
                 </ListView.GroupStyle>
             </ListView>
+            <TextBlock Text="{x:Static resx:GUI.BridgeUpdateRequired}" Visibility="{Binding EnableListView, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='reverse', FallbackValue=false}" FontSize="40" Margin="5,181,9.667,0"  Height="198" VerticalAlignment="Top" TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="#FF7D7D7D"/>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" MinHeight="403"/>
@@ -407,7 +412,7 @@
                         <xcad:LayoutPanel>
                             <xcad:LayoutAnchorablePane>
                                 <xcad:LayoutAnchorable Title="Properties" CanClose="False" CanHide="False" CanAutoHide="False">
-                                    <xctk:PropertyGrid x:Name="pgObject" IsReadOnly="True" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,2" VerticalContentAlignment="Stretch"  />
+                                    <xctk:PropertyGrid x:Name="pgObject" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,2" VerticalContentAlignment="Stretch"  />
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutPanel>
@@ -429,4 +434,3 @@
     </Grid>
 
 </Window>
-

@@ -48,7 +48,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
             _findlighttimer.Tick += _findlighttimer_Tick;
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
-            _listHotKeys = WinHueSettings.settings.listHotKeys;
+            _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
             SliderTt = WinHueSettings.settings.DefaultTT;
 
@@ -118,9 +118,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
             {
                 log.Info("Loading bridge(s)...");
 
-                log.Info($"Checking if any bridge already present in settings... found {WinHueSettings.settings.BridgeInfo.Count}");
+                log.Info($"Checking if any bridge already present in settings... found {WinHueSettings.bridges.BridgeInfo.Count}");
 
-                if (WinHueSettings.settings.BridgeInfo.Count == 0)
+                if (WinHueSettings.bridges.BridgeInfo.Count == 0)
                 {   // No bridge found in the list of bridge.
                     log.Info("No bridge found in settings. Pairing needed.");
                     if (DoBridgePairing())
@@ -130,7 +130,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                 }
 
                 log.Info($"Checking if there is a defaut bridge set...");
-                if (WinHueSettings.settings.DefaultBridge == string.Empty)
+                if (WinHueSettings.bridges.DefaultBridge == string.Empty)
                 {   // Default not set
 
                     log.Info("Default bridge not set. Pairing needed.");
@@ -141,7 +141,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                 }
                 else
                 {   // Default set
-                    if (!WinHueSettings.settings.BridgeInfo.ContainsKey(WinHueSettings.settings.DefaultBridge))
+                    if (!WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                     {
                         // Default Bridge Exists
                         log.Info("Default Bridge does not seem to exist in the list of bridge. Pairing needed.");
@@ -153,7 +153,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
                 }
 
-                foreach (KeyValuePair<string, BridgeSaveSettings> b in WinHueSettings.settings.BridgeInfo)
+                foreach (KeyValuePair<string, BridgeSaveSettings> b in WinHueSettings.bridges.BridgeInfo)
                 {
                     Bridge bridge = new Bridge()
                     {
@@ -161,13 +161,17 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         ApiVersion = b.Value.apiversion,
                         IpAddress = IPAddress.Parse(b.Value.ip),
                         name = b.Value.name,
-                        IsDefault = b.Key == WinHueSettings.settings.DefaultBridge,
+                        IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
                         SwVersion = b.Value.swversion,
                         Mac = b.Key
                     };
                     if (b.Value.apikey == string.Empty) continue;
                     bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
                     bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
+                    if (WinHueSettings.settings.CheckForBridgeUpdate)
+                        bridge.RequiredUpdate = UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
+                    else
+                        bridge.RequiredUpdate = false;
                     log.Info($"Bridge OK. Checking if bridge already in the bridge list...");
                     if (ListBridges.All(x => x.Mac != bridge.Mac))
                     {

@@ -125,6 +125,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
@@ -188,12 +189,14 @@
     <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Controls\ListStringEditor\ListStringEditor.cs" />
     <Compile Include="Controls\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToWrappingConverter.cs" />
     <Compile Include="Converters\DateFormatConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
@@ -294,9 +297,9 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
+    <Compile Include="Settings\CustomBridges.cs" />
+    <Compile Include="Settings\CustomHotkeys.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
-    <Compile Include="Utils\ExpandoTypeDescriptor.cs" />
-    <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
     <Compile Include="Philips Hue\HueObjects\ResourceLinkObject\ResourceLink.cs" />
@@ -314,8 +317,10 @@
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\ScheduleJsonConverter.cs" />
     <Compile Include="Settings\BridgeSaveSettings.cs" />
     <Compile Include="Settings\CustomSettings.cs" />
+    <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
+    <Compile Include="Utils\UnknownObject.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Validation\RuleValueValidation.cs" />
     <Compile Include="Validation\UIntValidation.cs" />
@@ -811,6 +816,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\HueGroupSome_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\load.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

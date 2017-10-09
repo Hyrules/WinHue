@@ -13,6 +13,7 @@ namespace WinHue3.Models.AppSettings
         private string language;
         private int startMode;
         private bool checkupdate;
+        private bool checkforbridgeupdate;
 
         public AppMainSettingsModel()
         {
@@ -25,6 +26,12 @@ namespace WinHue3.Models.AppSettings
             StartMode = 0;
             CheckUpdate = true;
 
+        }
+
+        public bool CheckForBridgeUpdate
+        {
+            get => checkforbridgeupdate;
+            set => SetProperty(ref checkforbridgeupdate, value);
         }
 
         public bool DetectProxy

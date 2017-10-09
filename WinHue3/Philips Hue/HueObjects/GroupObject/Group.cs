@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using WinHue3.Converters;
@@ -69,7 +72,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// List of lights in the group.
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("Lights in the group")]
+        [HueProperty, DataMember, Category("Group Properties"), Description("Lights in the group"), ExpandableObject]
         public List<string> lights
         {
             get => _lights;
@@ -138,6 +141,28 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+    }
+
+    public class ListStringConverter : TypeConverter
+    {
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            List<string> obj = (List<string>)value;
+            return string.Join(",", obj);
+
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            string str = value.ToString();
+            return str.Split(',').ToList();
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(List<string>);
         }
 
     }

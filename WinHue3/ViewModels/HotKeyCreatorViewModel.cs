@@ -48,7 +48,7 @@ namespace WinHue3.ViewModels
             ListHotKeys = new ObservableCollection<HotKey>();
             _hotkeyrecordTimer.Interval = new TimeSpan(0, 0, 0, 10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
-            ListHotKeys = new ObservableCollection<HotKey>(WinHueSettings.settings.listHotKeys);
+            ListHotKeys = new ObservableCollection<HotKey>(WinHueSettings.hotkeys.listHotKeys);
             ObjectType = typeof(Light);
         }
 
@@ -158,8 +158,8 @@ namespace WinHue3.ViewModels
 
         public void SaveHotKeys()
         {
-            WinHueSettings.settings.listHotKeys = _listHotKeys.ToList();
-            WinHueSettings.Save();
+            WinHueSettings.hotkeys.listHotKeys = _listHotKeys.ToList();
+            WinHueSettings.SaveHotkeys();
         }
 
         public void CaptureHotkey(KeyEventArgs e)

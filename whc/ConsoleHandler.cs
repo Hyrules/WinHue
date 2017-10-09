@@ -822,12 +822,12 @@ namespace whc
                 {
                     List<string> extra = mainOpts.Parse(args);
 
-                    if (!string.IsNullOrEmpty(WinHueSettings.settings.DefaultBridge) && !string.IsNullOrWhiteSpace(WinHueSettings.settings.DefaultBridge))
+                    if (!string.IsNullOrEmpty(WinHueSettings.bridges.DefaultBridge) && !string.IsNullOrWhiteSpace(WinHueSettings.bridges.DefaultBridge))
                     {
-                        if(WinHueSettings.settings.BridgeInfo.ContainsKey(WinHueSettings.settings.DefaultBridge))
+                        if(WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                         {
-                            string ip = WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].ip;
-                            bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.settings.DefaultBridge, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].apiversion, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].apiversion, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].swversion, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].apikey);
+                            string ip = WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].ip;
+                            bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.bridges.DefaultBridge, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].swversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apikey);
                             if (bridge != null && error == false)
                             {
                                 extra = objOpts.Parse(extra);

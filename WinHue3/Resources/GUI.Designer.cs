@@ -619,6 +619,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bridge update required. Please update the bridge in order to use WinHue with this bridge..
+        /// </summary>
+        public static string BridgeUpdateRequired {
+            get {
+                return ResourceManager.GetString("BridgeUpdateRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string DaylightForm_CancelButton {
@@ -1681,6 +1690,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load a bridge datastore from file.....
+        /// </summary>
+        public static string MainForm_Menu_VirtualBridge {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_VirtualBridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string MainForm_Sliders_Brightness {
@@ -2082,6 +2100,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Home_Group_SettingsUpdateButton {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Home_Group_SettingsUpdateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for bridge update.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate", resourceCulture);
             }
         }
         
@@ -3706,7 +3733,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for update at startup.
+        ///   Looks up a localized string similar to Check for WinHue update at startup.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Check_Update {
             get {
@@ -3855,6 +3882,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for Bridge version. (You might encounter crashes that the dev will not fix if you choose not to).
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_NoCheckBridgeVersion {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_NoCheckBridgeVersion", resourceCulture);
             }
         }
         

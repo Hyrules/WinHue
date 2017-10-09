@@ -57,6 +57,22 @@ namespace WinHue3.Utils
             return UpdateAvailable;
         }
 
+        public static bool CheckBridgeNeedUpdate(string actualversion)
+        {
+            try
+            {
+                Version bridgever = new Version(actualversion);
+                Version requiredver = new Version(_update.BridgeVersion);
+                return requiredver > bridgever;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            
+        }
+
         public static void DownloadUpdate()
         {
             if (UpdateAvailable)
@@ -120,7 +136,8 @@ namespace WinHue3.Utils
     {
         private string _version;
         private string _URL;
-  
+        private string _bridgeversion;
+
         public Update()
         {
             
@@ -136,6 +153,12 @@ namespace WinHue3.Utils
         {
             get { return _version; }
             set { SetProperty(ref _version,value); }
+        }
+
+        public string BridgeVersion
+        {
+            get { return _bridgeversion; }
+            set { SetProperty(ref _bridgeversion, value); }
         }
 
         public string Filename => !string.IsNullOrEmpty(_URL) ? Path.GetFileName(new Uri(_URL).LocalPath) : string.Empty;

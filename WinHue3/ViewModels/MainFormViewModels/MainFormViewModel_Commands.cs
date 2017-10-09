@@ -15,7 +15,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
     {
         public bool EnableButtons()
         {
-            return SelectedBridge != null;
+            return SelectedBridge != null && EnableListView.GetValueOrDefault(false);
         }
 
         private bool IsObjectSelected()
@@ -33,20 +33,30 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         private bool CanSchedule()
         {
-            if (!IsObjectSelected()) return false;
+            if (!IsObjectSelected() ) return false;
             return SelectedObject is Light || SelectedObject is Group || SelectedObject is Scene ;
+        }
+
+        public bool? EnableListView
+        {
+            get
+            {
+                if (_selectedBridge == null) return null;
+                if (_selectedBridge.RequiredUpdate == null) return null;
+                return !_selectedBridge.RequiredUpdate;
+            }
         }
 
         public bool SearchingLights => _findlighttimer.IsEnabled;
 
         public bool CanSearchNewLights()
         {
-            return !_findlighttimer.IsEnabled;
+            return !_findlighttimer.IsEnabled ;
         }
 
         private bool CanSearchNewSensor()
         {
-            return !_findsensortimer.IsEnabled;
+            return !_findsensortimer.IsEnabled ;
         }
 
         private bool CanHue()
@@ -190,6 +200,11 @@ namespace WinHue3.ViewModels.MainFormViewModels
             return SelectedObject is Group && SelectedObject.Id == "0";
         }
 
+        private bool CanUpdateBridge()
+        {
+            if (_selectedBridge == null) return false;
+            return SelectedBridge.UpdateAvailable;
+        }
 
         private bool CanStrobe()
         {
@@ -207,7 +222,8 @@ namespace WinHue3.ViewModels.MainFormViewModels
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());
 
         //*************** Toolbar Commands ********************        
-        public ICommand UpdateBridgeCommand => new AsyncRelayCommand(param => DoBridgeUpdate());
+        public ICommand CheckForUpdateCommand => new AsyncRelayCommand(param => CheckForBridgeUpdate());
+        public ICommand UpdateBridgeCommand => new AsyncRelayCommand(param => DoBridgeUpdate(), (param) => CanUpdateBridge());
         public ICommand ManageUsersCommand => new AsyncRelayCommand(param => ManageUsers(), (param) => EnableButtons());
         public ICommand ChangeBridgeSettingsCommand => new AsyncRelayCommand(param => ChangeBridgeSettings(), (param) => EnableButtons());
         public ICommand RefreshViewCommand => new AsyncRelayCommand(param => RefreshView(), (param) => EnableButtons());
@@ -281,6 +297,8 @@ namespace WinHue3.ViewModels.MainFormViewModels
         public ICommand OpenWinHueSupportCommand => new RelayCommand(param => OpenWinHueSupport());
         public ICommand OpenAboutWindowCommand => new RelayCommand(param => OpenAboutWindow());
 
+        public ICommand LoadVirtualBridgeCommand => new RelayCommand(param => LoadVirtualBridge());
+        
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
         //      
         //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());

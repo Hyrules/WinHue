@@ -25,7 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature
 
         private string _lastupdated;
 
-        [HueProperty, DataMember]
+        [HueProperty, DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

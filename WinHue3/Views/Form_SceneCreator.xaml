@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converter="clr-namespace:WinHue3.Converters"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-        x:Name="FormSceneCreator" x:Class="WinHue3.Views.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/SceneLarge.png">
+        x:Name="FormSceneCreator" x:Class="WinHue3.Views.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/1486263478_movie-01.png">
     <Window.DataContext>
         <viewmodels:SceneCreatorViewModel/>
     </Window.DataContext>

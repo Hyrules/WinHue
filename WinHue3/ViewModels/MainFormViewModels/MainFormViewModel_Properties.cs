@@ -27,6 +27,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
             set => SetProperty(ref _selectedBridge,value);
         }
 
+        public object IsMasterDebugger => System.Diagnostics.Debugger.IsAttached;
+
+
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated;
 
         public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
