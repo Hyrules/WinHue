@@ -9,6 +9,7 @@ skip_non_tags: true
 image: Visual Studio 2017
 platform: x86
 build:
+  project: c:\porject\winhue3\WinHue3\WinHue3_1.sln
   verbosity: normal
 after_build:
 - cmd: xcopy "C:\projects\winhue3\lights" "C:\projects\winhue3\WinHue3\bin\Debug\lights" /e /y
