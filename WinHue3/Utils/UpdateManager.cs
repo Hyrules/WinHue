@@ -48,7 +48,7 @@ namespace WinHue3.Utils
                 Version AvailableVer = new Version(_update.Version);
                 UpdateAvailable = WinHueVer < AvailableVer;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 log.Error("Unable to parse new version. Please try again later.");
                 UpdateAvailable = false;

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;
@@ -192,10 +193,10 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             return (T) _state;
         }
 
-        /*public override string ToString()
+        public override string ToString()
         {
             return Serializer.SerializeToJson(this);
-        }*/
+        }
     }
 
     public class SensorJsonConverter : JsonConverter

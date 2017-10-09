@@ -18,7 +18,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
-        private bool _editName;
+        //private bool _editName;
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge

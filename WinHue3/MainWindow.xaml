@@ -412,7 +412,7 @@
                         <xcad:LayoutPanel>
                             <xcad:LayoutAnchorablePane>
                                 <xcad:LayoutAnchorable Title="Properties" CanClose="False" CanHide="False" CanAutoHide="False">
-                                    <xctk:PropertyGrid x:Name="pgObject" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,2" VerticalContentAlignment="Stretch"  />
+                                    <xctk:PropertyGrid x:Name="pgObject" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,2" VerticalContentAlignment="Stretch" IsReadOnly="True"  />
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutPanel>

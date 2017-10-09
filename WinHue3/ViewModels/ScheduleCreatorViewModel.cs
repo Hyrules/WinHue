@@ -29,7 +29,7 @@ namespace WinHue3.ViewModels
         private string  _selectedType;
         private HueAddress _targetobject;
         private byte _smask;
-        private string _timeformat;
+        //private string _timeformat;
         private string _randomizetime;
         private bool _isedit;
         private bool _cansetsettings = true;

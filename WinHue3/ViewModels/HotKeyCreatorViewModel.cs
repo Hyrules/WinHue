@@ -118,7 +118,7 @@ namespace WinHue3.ViewModels
             set
             {
                 SetProperty(ref _selectedHueObject, value);
-                PropertyGridObject = _selectedHueObject != null ? BasePropertiesCreator.CreateBaseProperties(_objectype) : null;
+                PropertyGridObject = _selectedHueObject != null && !(_objectype ==  typeof(Scene) )  ? BasePropertiesCreator.CreateBaseProperties(_objectype) : null;
             }
         }
 

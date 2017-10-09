@@ -115,8 +115,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// </summary>
         [HueProperty, 
          DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),
-         Description("List of resource links"),
-         Editor(typeof(ListStringEditor), typeof(UITypeEditor)),ExpandableObject]
+         Description("List of resource links")]
         public StringCollection links
         {
             get => _links;

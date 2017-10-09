@@ -28,6 +28,12 @@ namespace WinHue3.Models.AppSettings
 
         }
 
+        public bool StartWindows
+        {
+            get => startWindows;
+            set => SetProperty(ref startWindows, value);
+        }
+
         public bool CheckForBridgeUpdate
         {
             get => checkforbridgeupdate;

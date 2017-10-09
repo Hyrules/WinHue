@@ -125,8 +125,8 @@ namespace WinHue3
             }
 
             if (!lvMainObjects.SelectedItem.HasProperty("lights")) return;
-            List<string> list =
-                (List<string>)
+            StringCollection list =
+                (StringCollection)
                     lvMainObjects.SelectedItem.GetType().GetProperty("lights").GetValue(lvMainObjects.SelectedItem);
             log.Debug("Settings light BG color for lights : " + string.Join(",",list));
             SetLightBackground(list);

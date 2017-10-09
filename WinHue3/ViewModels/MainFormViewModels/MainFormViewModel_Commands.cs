@@ -13,7 +13,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
-        public bool EnableButtons()
+        private bool EnableButtons()
         {
             return SelectedBridge != null && EnableListView.GetValueOrDefault(false);
         }
@@ -155,7 +155,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
             return false;
         }
 
-        public bool CanSetSensivity()
+        private bool CanSetSensivity()
         {
             if (!(SelectedObject is Sensor)) return false;
 

@@ -74,7 +74,7 @@ namespace WinHue3.Philips_Hue.Communication
                 }
                 return default(T);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default(T);
             }
