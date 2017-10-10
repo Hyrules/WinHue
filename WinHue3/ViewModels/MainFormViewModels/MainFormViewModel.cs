@@ -120,37 +120,13 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
                 log.Info($"Checking if any bridge already present in settings... found {WinHueSettings.bridges.BridgeInfo.Count}");
 
-                if (WinHueSettings.bridges.BridgeInfo.Count == 0)
+                if (WinHueSettings.bridges.BridgeInfo.Count == 0 || WinHueSettings.bridges.DefaultBridge == string.Empty || !WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                 {   // No bridge found in the list of bridge.
-                    log.Info("No bridge found in settings. Pairing needed.");
+                    log.Info("Either no bridge found in settings or no default bridge. Pairing needed.");
                     if (DoBridgePairing())
                         continue;
                     else
                         break;
-                }
-
-                log.Info($"Checking if there is a defaut bridge set...");
-                if (WinHueSettings.bridges.DefaultBridge == string.Empty)
-                {   // Default not set
-
-                    log.Info("Default bridge not set. Pairing needed.");
-                    if (DoBridgePairing())
-                        continue;
-                    else
-                        break;
-                }
-                else
-                {   // Default set
-                    if (!WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
-                    {
-                        // Default Bridge Exists
-                        log.Info("Default Bridge does not seem to exist in the list of bridge. Pairing needed.");
-                        if (DoBridgePairing())
-                            continue;
-                        else
-                            break;
-                    }
-
                 }
 
                 foreach (KeyValuePair<string, BridgeSaveSettings> b in WinHueSettings.bridges.BridgeInfo)
@@ -192,11 +168,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
                         if (DoBridgePairing(ListBridges))
                         {
-                            if (br.IsDefault)
-                            {
-                                SelectedBridge = br;
-                                SelectedBridge.CheckOnlineForUpdate();
-                            }
+                            if (!br.IsDefault) continue;
+                            SelectedBridge = br;
+                            SelectedBridge.CheckOnlineForUpdate();
                         }
                         else
                         {
@@ -205,12 +179,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
                     }
                     else
                     {
-                        if (br.IsDefault)
-                        {
-                            SelectedBridge = br;
-                            SelectedBridge.CheckOnlineForUpdate();
-                        }
-                            
+                        if (!br.IsDefault) continue;
+                        SelectedBridge = br;
+                        SelectedBridge.CheckOnlineForUpdate();
                     }
                 }
 
