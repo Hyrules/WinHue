@@ -139,8 +139,13 @@ namespace WinHue3.ViewModels
                     CanSetSettings = false;
                     IsEditing = true;
                     Body = BasePropertiesCreator.CreateBaseProperties("action");
-                    ((Action)Body).scene = ((Scene)obj).Id;
+                    ((Action) Body).scene = ((Scene) obj).Id;
                 }
+                else
+                {
+                    Body = BasePropertiesCreator.CreateBaseProperties(obj.GetType());
+                }
+
                 TargetObject = new HueAddress($@"/{(obj is Light ? "lights" : "groups")}/{(obj is Scene ? "0" : obj.Id)}/{(obj is Light ? "state" : "action")}");
                 SelectedObject = ListTarget.FirstOrDefault(x => x.Id == obj.Id && x.GetType() == obj.GetType());
             }

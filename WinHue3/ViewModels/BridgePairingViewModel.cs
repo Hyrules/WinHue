@@ -12,6 +12,7 @@ using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Resources;
+using WinHue3.Settings;
 using WinHue3.Utils;
 using WinHue3.Validation;
 
@@ -204,22 +205,24 @@ namespace WinHue3.ViewModels
         {
             foreach (KeyValuePair<string, Bridge> kvp in brlist)
             {
+                if (WinHueSettings.settings.CheckForBridgeUpdate)
+                {
+                    kvp.Value.RequiredUpdate = UpdateManager.CheckBridgeNeedUpdate(kvp.Value.ApiVersion);
+                }
+                else
+                {
+                    kvp.Value.RequiredUpdate = false;
+                }
+
                 if (ListBridges.Any(x => (x.Mac == kvp.Value.Mac) && (Equals(x.IpAddress, kvp.Value.IpAddress)))) continue;
-                if (
-                    ListBridges.Any(
-                        x => (x.Mac == kvp.Value.Mac) && !(Equals(x.IpAddress, kvp.Value.IpAddress))))
+                if (ListBridges.Any(x => (x.Mac == kvp.Value.Mac) && !(Equals(x.IpAddress, kvp.Value.IpAddress))))
                 {
                     Bridge firstOrDefault = ListBridges.FirstOrDefault(x => x.Mac == kvp.Value.Mac);
-                    if (
-                        firstOrDefault != null &&
-                        MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.name),
-                            GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
-                        MessageBoxResult.Yes)
+                    if (firstOrDefault != null && MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.name),GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         int index = ListBridges.IndexOf(firstOrDefault);
                         ListBridges[index].IpAddress = kvp.Value.IpAddress;
                     }
-                    continue;
                 }
                 else
                 {
@@ -287,6 +290,15 @@ namespace WinHue3.ViewModels
             newBridge.Mac = bresult.mac;
             newBridge.SwVersion = bresult.swversion;
             newBridge.ApiVersion = bresult.apiversion;
+
+            if (WinHueSettings.settings.CheckForBridgeUpdate)
+            {
+                newBridge.RequiredUpdate = UpdateManager.CheckBridgeNeedUpdate(newBridge.ApiVersion);
+            }
+            else
+            {
+                newBridge.RequiredUpdate = false;
+            }
 
             if (ListBridges.Any(x => x.Mac == newBridge.Mac))
             {
