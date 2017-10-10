@@ -295,6 +295,8 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SwUpdate.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleConditionCollection.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionCollection.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
     <Compile Include="Settings\CustomBridges.cs" />
     <Compile Include="Settings\CustomHotkeys.cs" />

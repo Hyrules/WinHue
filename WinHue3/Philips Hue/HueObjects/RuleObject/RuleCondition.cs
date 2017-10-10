@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.ViewModels;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 {
     /// <summary>
     /// Rules condition.
     /// </summary>
-    [DataContract]
+    [DataContract,ExpandableObject]
     public class RuleCondition : ValidatableBindableBase
     {
         private HueAddress _address;

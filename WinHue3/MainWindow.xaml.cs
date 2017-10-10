@@ -25,8 +25,8 @@ namespace WinHue3
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);     
-        public Views.Form_EventLog _fel;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private Views.Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
         /// <summary>

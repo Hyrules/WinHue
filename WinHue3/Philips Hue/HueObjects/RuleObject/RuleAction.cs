@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 {
     /// <summary>
     /// Actions.
     /// </summary>
-    [DataContract,JsonConverter(typeof(RuleActionJsonConverter))]
+    [DataContract,JsonConverter(typeof(RuleActionJsonConverter)),ExpandableObject]
     public class RuleAction
     {
         /// <summary>

@@ -83,6 +83,7 @@ namespace WinHue3.Models
             set => SetProperty(ref _date,value);
         }
 
+
     }
 }
 

@@ -19,8 +19,8 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         private string _name;
         private ImageSource _image;
         private string _id;
-        private List<RuleCondition> _conditions;
-        private List<RuleAction> _actions;
+        private RuleConditionCollection _conditions;
+        private RuleActionCollection _actions;
         private string _owner;
         private int? _timestriggered;
         private string _lasttriggered;
@@ -61,7 +61,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// Conditions.
         /// </summary>
         [HueProperty, DataMember, Category("Conditions"), Description("Conditions of the rule"), ExpandableObject]
-        public List<RuleCondition> conditions
+        public RuleConditionCollection conditions
         {
             get => _conditions;
             set => SetProperty(ref _conditions,value);
@@ -71,7 +71,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// actions.
         /// </summary>
         [HueProperty, DataMember, Category("Actions"), Description("Actions of the rule"), ExpandableObject]
-        public List<RuleAction> actions
+        public RuleActionCollection actions
         {
             get => _actions;
             set => SetProperty(ref _actions,value);
