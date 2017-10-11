@@ -103,7 +103,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         apikey = br.ApiKey,
                         apiversion = br.ApiVersion,
                         swversion = br.SwVersion,
-                        name = br.name
+                        name = br.name,
                     };
                 else
                     WinHueSettings.bridges.BridgeInfo.Add(br.Mac,

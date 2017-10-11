@@ -116,6 +116,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             set { SetProperty(ref _virtual,value); }
         }
 
+
         /// <summary>
         /// Constructor
         /// </summary>
