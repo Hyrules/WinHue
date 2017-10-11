@@ -1,11 +1,12 @@
 ﻿using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueTap
 {
     [DataContract]
-    public class HueTapSensorConfig : SensorConfigBase
+    public class HueTapSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private bool? _on;
 

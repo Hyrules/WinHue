@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
 {
@@ -9,7 +10,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
     /// Sensor for detecting presence.
     /// </summary>
     [DataContract]
-    public class PresenceSensorState : SensorStateBase
+    public class PresenceSensorState : ValidatableBindableBase, ISensorStateBase
     {
         private bool? _presence;
 

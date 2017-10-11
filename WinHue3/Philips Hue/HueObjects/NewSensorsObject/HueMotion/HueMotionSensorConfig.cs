@@ -3,12 +3,13 @@ using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
 {
-    [DataContract]
-    public class HueMotionSensorConfig : SensorConfigBase
+    [DataContract, ExpandableObject]
+    public class HueMotionSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private byte? _battery;
         private bool? _reachable;

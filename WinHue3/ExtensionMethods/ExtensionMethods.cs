@@ -143,7 +143,6 @@ namespace WinHue3.ExtensionMethods
 
         public static PropertyInfo[] GetHueProperties(this Type type)
         {
-
             return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
         }
 

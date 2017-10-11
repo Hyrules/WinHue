@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
 {
     [DataContract]
-    public class LightLevelState : SensorStateBase
+    public class LightLevelState : ValidatableBindableBase, ISensorStateBase
     {
         private ushort? _lightlevel;
         private bool? _dark;

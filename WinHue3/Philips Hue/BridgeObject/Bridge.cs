@@ -132,7 +132,11 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// Constructor
         /// </summary>
         /// <param name="ip">IP Address of the bridge</param>
+        /// <param name="newname"></param>
         /// <param name="apiKey">[Optional] The Api to access the bridge.</param>
+        /// <param name="mac"></param>
+        /// <param name="apiversion"></param>
+        /// <param name="swversion"></param>
         public Bridge(IPAddress ip, string mac, string apiversion, string swversion,string newname, string apiKey = null)
         {
             IpAddress = ip;

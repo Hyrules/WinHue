@@ -103,21 +103,25 @@ namespace HueLib2Test
         //    SwUpdate sw = new SwUpdate();
         //    IHueObject obj = new Light();
          //   Sensor ts = new Sensor(){config = new ClipGenericFlagSensorConfig(), state = new ClipGenericFlagSensorState()};
-            PropertyInfo[] props = bs.GetType().GetHueProperties();
+         //   PropertyInfo[] props = bs.GetType().GetHueProperties();
              //BuildTree(l.GetType(), "/lights/1", "");
 
-           /* string ssensor =
+            string ssensor =
                 "{\n    \"state\": {\n        \"daylight\": true,\n        \"lastupdated\": \"2017-08-09T09:56:00\"\n    },\n    \"config\": {\n        \"on\": true,\n        \"configured\": true,\n        \"sunriseoffset\": 0,\n        \"sunsetoffset\": 0\n    },\n    \"name\": \"Daylight\",\n    \"type\": \"Daylight\",\n    \"modelid\": \"PHDL00\",\n    \"manufacturername\": \"Philips\",\n    \"swversion\": \"1.0\"\n}";
-            Sensor obj = Serializer.DeserializeToObject<Sensor>(ssensor);*/
-           /* PropertyInfo[] props = obj.GetType().GetHueProperties();
-           */
-            
+            Sensor obj = Serializer.DeserializeToObject<Sensor>(ssensor);
+            PropertyInfo[] props = obj.GetType().GetHueProperties();
+            ISensorConfigBase cfg = (ISensorConfigBase)props[8].GetValue(obj);
+          //  ISensorConfigBase cfg = props["config"].GetValue(obj);
+            string path = "/sensors";
+            List<TreeViewItem> lrtvi = new List<TreeViewItem>();
+
             foreach (PropertyInfo pi in props)
             {
+                lrtvi.Add(BuildTree(pi, path, null));
 
-           //     rtvi.Add(BuildTree(pi,"/config"));
+
             }
-            
+
         }
 
         private static TreeViewItem BuildTree(PropertyInfo root, string currentpath, string selectedpath = null)

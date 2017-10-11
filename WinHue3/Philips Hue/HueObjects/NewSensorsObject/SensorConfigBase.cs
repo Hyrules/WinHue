@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.ViewModels;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
-    
-    public abstract class SensorConfigBase : ValidatableBindableBase
+
+    public interface ISensorConfigBase
     {
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
     }
 }

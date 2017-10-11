@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
 {
     [DataContract]
-    public class ClipHumiditySensorConfig : SensorConfigBase
+    public class ClipHumiditySensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private string _url;
         private bool? _on;

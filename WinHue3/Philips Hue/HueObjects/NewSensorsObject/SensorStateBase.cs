@@ -10,12 +10,7 @@ using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
-    public abstract class SensorStateBase : ValidatableBindableBase
+    public interface ISensorStateBase
     {
-
-        public override string ToString()
-        {
-            return Serializer.SerializeToJson(this);
-        }
     }
 }

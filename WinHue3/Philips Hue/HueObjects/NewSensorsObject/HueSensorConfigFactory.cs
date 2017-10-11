@@ -17,7 +17,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
     public static class HueSensorConfigFactory
     {
-        public static SensorConfigBase CreateSensorConfigFromSensorType(string type)
+        public static ISensorConfigBase CreateSensorConfigFromSensorType(string type)
         {
 
             switch (type)

@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
 {
     [DataContract]
-    public class HueDimmerSensorConfig : SensorConfigBase
+    public class HueDimmerSensorConfig : ValidatableBindableBase, ISensorConfigBase
     { 
         private string _alert;
         private bool? _on;

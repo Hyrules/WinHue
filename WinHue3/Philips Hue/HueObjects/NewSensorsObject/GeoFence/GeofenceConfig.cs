@@ -9,7 +9,7 @@ using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.GeoFence
 {
-    public class GeofenceConfig : SensorConfigBase
+    public class GeofenceConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private bool _on;
         private bool _reachable;

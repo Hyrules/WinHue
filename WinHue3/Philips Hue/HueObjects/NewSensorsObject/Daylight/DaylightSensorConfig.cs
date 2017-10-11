@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
 {
     [DataContract]
-    public class DaylightSensorConfig : SensorConfigBase
+    public class DaylightSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private string _l;
         private string _lat;

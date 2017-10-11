@@ -2,11 +2,13 @@
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
 {
-    [DataContract]
-    public class ClipGenericFlagSensorConfig : SensorConfigBase
+    [DataContract,ExpandableObject]
+    public class ClipGenericFlagSensorConfig : ValidatableBindableBase,ISensorConfigBase
     {
         private string _url;
         private bool? _on;

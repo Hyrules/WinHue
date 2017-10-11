@@ -18,7 +18,7 @@ namespace WinHue3.Models
         private string _mfgname;
         private string _uniqueid;
         private string _type;
-        private SensorConfigBase _config;
+        private ISensorConfigBase _config;
 
         public SensorCreatorModel()
         {
@@ -102,7 +102,7 @@ namespace WinHue3.Models
             }
         }
 
-        public SensorConfigBase Config
+        public ISensorConfigBase Config
         {
             get => _config;
             set => SetProperty(ref _config,value);
