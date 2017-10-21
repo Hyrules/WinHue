@@ -12,6 +12,8 @@ namespace WinHue3.Models.AppSettings
         private bool startWindows;
         private string language;
         private int startMode;
+        private bool checkupdate;
+        private bool checkforbridgeupdate;
 
         public AppMainSettingsModel()
         {
@@ -22,6 +24,20 @@ namespace WinHue3.Models.AppSettings
             Timeout = 3000;
             Language = "en-US";
             StartMode = 0;
+            CheckUpdate = true;
+
+        }
+
+        public bool StartWindows
+        {
+            get => startWindows;
+            set => SetProperty(ref startWindows, value);
+        }
+
+        public bool CheckForBridgeUpdate
+        {
+            get => checkforbridgeupdate;
+            set => SetProperty(ref checkforbridgeupdate, value);
         }
 
         public bool DetectProxy
@@ -64,6 +80,12 @@ namespace WinHue3.Models.AppSettings
         {
             get => startMode;
             set => SetProperty(ref startMode,value);
+        }
+
+        public bool CheckUpdate
+        {
+            get => checkupdate;
+            set => SetProperty(ref checkupdate,value);
         }
     }
 }

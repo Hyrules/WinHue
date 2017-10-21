@@ -77,7 +77,7 @@ namespace WinHue3.ViewModels
             Rule newRule = new Rule
             {
                 name = $"TAP {HueTapModel.Buttonid}",
-                actions = new List<RuleAction>
+                actions = new RuleActionCollection()
                 {
                     new RuleAction()
                     {

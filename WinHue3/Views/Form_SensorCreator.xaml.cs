@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
 using WinHue3.ViewModels;
@@ -17,7 +17,7 @@ namespace WinHue3.Views
         private string _sensorId;
         private bool _editing;
 
-        public Form_SensorCreator(Bridge bridge, ISensor obj = null)
+        public Form_SensorCreator(Bridge bridge, Sensor obj = null)
         {
             _bridge = bridge;
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace WinHue3.Views
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            ISensor sensor = _scvm.Sensor;
+            Sensor sensor = _scvm.Sensor;
             bool result;
             if (!_editing)
             {
@@ -47,7 +47,7 @@ namespace WinHue3.Views
                 result = _bridge.ModifyObject(sensor);
                 if (result)
                 {
-                    _bridge.ChangeSensorConfig(sensor.Id,sensor.GetConfig());
+                    _bridge.ChangeSensorConfig(sensor.Id,sensor.config);
                 }
 
             }

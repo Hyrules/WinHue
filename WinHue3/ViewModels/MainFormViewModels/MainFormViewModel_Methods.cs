@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
-using WinHue3.Addons.View;
 using WinHue3.ExtensionMethods;
 using WinHue3.Hotkeys;
 using WinHue3.Interface;
@@ -21,17 +23,19 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.Daylight;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.HueMotion;
 using WinHue3.Settings;
 using WinHue3.Utils;
 using WinHue3.Views;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
+using Application = System.Windows.Application;
+using Clipboard = System.Windows.Clipboard;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WinHue3.ViewModels.MainFormViewModels
 {
@@ -66,6 +70,18 @@ namespace WinHue3.ViewModels.MainFormViewModels
         {
             await RefreshView();
             RaisePropertyChanged("UpdateAvailable");
+            RaisePropertyChanged("EnableListView");
+        }
+
+        private async Task CheckForBridgeUpdate()
+        {
+            log.Info("Checking for a bridge update.");
+            if (! await _selectedBridge.CheckUpdateAvailableAsyncTask())
+            {
+                log.Info("No update found on the bridge. Forcing the bridge to check online.");
+                await _selectedBridge.CheckOnlineForUpdateAsyncTask();
+            }
+                      
         }
 
         private async Task ManageUsers()
@@ -80,23 +96,23 @@ namespace WinHue3.ViewModels.MainFormViewModels
             foreach (Bridge br in ListBridges)
             {
                 if (br.Mac == string.Empty) continue;
-                if (WinHueSettings.settings.BridgeInfo.ContainsKey(br.Mac))
-                    WinHueSettings.settings.BridgeInfo[br.Mac] = new BridgeSaveSettings
+                if (WinHueSettings.bridges.BridgeInfo.ContainsKey(br.Mac))
+                    WinHueSettings.bridges.BridgeInfo[br.Mac] = new BridgeSaveSettings
                     {
                         ip = br.IpAddress.ToString(),
                         apikey = br.ApiKey,
                         apiversion = br.ApiVersion,
                         swversion = br.SwVersion,
-                        name = br.name
+                        name = br.name,
                     };
                 else
-                    WinHueSettings.settings.BridgeInfo.Add(br.Mac,
+                    WinHueSettings.bridges.BridgeInfo.Add(br.Mac,
                         new BridgeSaveSettings { ip = br.IpAddress.ToString(), apikey = br.ApiKey, apiversion = br.ApiVersion, swversion = br.SwVersion, name = br.name });
 
-                if (br.IsDefault) WinHueSettings.settings.DefaultBridge = br.Mac;
+                if (br.IsDefault) WinHueSettings.bridges.DefaultBridge = br.Mac;
             }
 
-            return WinHueSettings.Save();
+            return WinHueSettings.SaveBridges();
         }
         #endregion
 
@@ -120,56 +136,114 @@ namespace WinHue3.ViewModels.MainFormViewModels
             if (SelectedBridge == null) return;
             Cursor_Tools.ShowWaitCursor();
             SelectedObject = null;
-            log.Info($"Getting list of objects from bridge at {SelectedBridge.IpAddress}.");
-            List<IHueObject> hr = await HueObjectHelper.GetBridgeDataStoreAsyncTask(SelectedBridge);
-            if (hr != null)
+            if (!_selectedBridge.Virtual)
             {
-                List<IHueObject> listobj = hr;
-                ObservableCollection<IHueObject> newlist = new ObservableCollection<IHueObject>();
-
-                switch (MainFormModel.Sort)
+                if (EnableListView.GetValueOrDefault(false))
                 {
-                    case WinHueSortOrder.Default:
-                        ListBridgeObjects = new ObservableCollection<IHueObject>(hr);
-                        break;
-                    case WinHueSortOrder.Ascending:
-                        newlist.AddRange(from item in listobj where item is Light orderby item.name select item);
-                        newlist.AddRange(from item in listobj where item is Group orderby item.name select item);
-                        newlist.AddRange(from item in listobj where item is Schedule orderby item.name select item);
-                        newlist.AddRange(from item in listobj where item is Scene orderby item.name select item);
-                        newlist.AddRange(from item in listobj where item is ISensor orderby item.name select item);
-                        newlist.AddRange(from item in listobj where item is Rule orderby item.name select item);
-                        newlist.AddRange(from item in listobj where item is Resourcelink orderby item.name select item);
-                        ListBridgeObjects = new ObservableCollection<IHueObject>(newlist);
-                        break;
-                    case WinHueSortOrder.Descending:
-                        newlist.AddRange(from item in listobj where item is Light orderby item.name descending select item);
-                        newlist.AddRange(from item in listobj where item is Group orderby item.name descending select item);
-                        newlist.AddRange(from item in listobj where item is Schedule orderby item.name descending select item);
-                        newlist.AddRange(from item in listobj where item is Scene orderby item.name descending select item);
-                        newlist.AddRange(from item in listobj where item is ISensor orderby item.name descending select item);
-                        newlist.AddRange(from item in listobj where item is Rule orderby item.name descending select item);
-                        newlist.AddRange(from item in listobj where item is Resourcelink orderby item.name descending select item);
-                        ListBridgeObjects = new ObservableCollection<IHueObject>(newlist);
-                        break;
-                    default:
-                        goto case WinHueSortOrder.Default;
-                }
+                    log.Info($"Getting list of objects from bridge at {SelectedBridge.IpAddress}.");
+                    List<IHueObject> hr = await HueObjectHelper.GetBridgeDataStoreAsyncTask(SelectedBridge);
+                    if (hr != null)
+                    {
+                        List<IHueObject> listobj = hr;
+                        ObservableCollection<IHueObject> newlist = new ObservableCollection<IHueObject>();
 
-                log.Info($"Found {ListBridgeObjects.Count} objects in the bridge.");
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBridgeObjects);
-                view.GroupDescriptions?.Clear();
-                PropertyGroupDescription groupDesc = new TypeGroupDescription();
-                view.GroupDescriptions?.Add(groupDesc);
-                log.Info($"Finished refreshing view.");
+                        switch (MainFormModel.Sort)
+                        {
+                            case WinHueSortOrder.Default:
+                                ListBridgeObjects = new ObservableCollection<IHueObject>(hr);
+                                break;
+                            case WinHueSortOrder.Ascending:
+                                newlist.AddRange(from item in listobj
+                                    where item is Light
+                                    orderby item.name
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Group
+                                    orderby item.name
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Schedule
+                                    orderby item.name
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Scene
+                                    orderby item.name
+                                    select item);
+                                newlist.AddRange(
+                                    from item in listobj where item is Sensor orderby item.name select item);
+                                newlist.AddRange(from item in listobj where item is Rule orderby item.name select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Resourcelink
+                                    orderby item.name
+                                    select item);
+                                ListBridgeObjects = new ObservableCollection<IHueObject>(newlist);
+                                break;
+                            case WinHueSortOrder.Descending:
+                                newlist.AddRange(from item in listobj
+                                    where item is Light
+                                    orderby item.name descending
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Group
+                                    orderby item.name descending
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Schedule
+                                    orderby item.name descending
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Scene
+                                    orderby item.name descending
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Sensor
+                                    orderby item.name descending
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Rule
+                                    orderby item.name descending
+                                    select item);
+                                newlist.AddRange(from item in listobj
+                                    where item is Resourcelink
+                                    orderby item.name descending
+                                    select item);
+                                ListBridgeObjects = new ObservableCollection<IHueObject>(newlist);
+                                break;
+                            default:
+                                goto case WinHueSortOrder.Default;
+                        }
+                        CreateExpanders();
+
+                    }
+                    else
+                    {
+                        ListBridgeObjects = null;
+                        log.Error(hr);
+                    }
+                }
+                else
+                {
+                    ListBridgeObjects = new ObservableCollection<IHueObject>();
+                    log.Info("Bridge update required. Please update the bridge to use WinHue with this bridge.");
+                }
             }
             else
             {
-                ListBridgeObjects = null;
-                log.Error(hr);
+                log.Info("Virtual Bridge detected. Will skip refresh.");
             }
             Cursor_Tools.ShowNormalCursor();
         }
+
+        private void CreateExpanders()
+        {
+            log.Info($"Found {ListBridgeObjects.Count} objects in the bridge.");
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBridgeObjects);
+            view.GroupDescriptions?.Clear();
+            PropertyGroupDescription groupDesc = new TypeGroupDescription();
+            view.GroupDescriptions?.Add(groupDesc);
+            log.Info($"Finished refreshing view.");
+        }
+
 
         private async Task DoubleClickObject()
         {
@@ -193,7 +267,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         ((Group)_selectedObject).action.on = !((Group)_selectedObject).action.on;
                         ((Group)ListBridgeObjects[index]).action.on = !((Group)ListBridgeObjects[index]).action.on;
                     }
-
+                    
                     ListBridgeObjects[index].Image = newimg;
 
                 }
@@ -205,6 +279,17 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
             }
 
+        }
+
+        private async Task Strobe()
+        {
+            for (int i = 0; i <= 20; i++)
+            {
+                await _selectedBridge.SetStateAsyncTask(new Action() {on = true, transitiontime = 0}, "2");
+                Thread.Sleep(100);
+                await _selectedBridge.SetStateAsyncTask(new Action() {on = false, transitiontime = 0}, "2");
+                Thread.Sleep(100);
+            }
         }
 
         private void ResetTransitionTime()
@@ -277,6 +362,24 @@ namespace WinHue3.ViewModels.MainFormViewModels
             {
                 MessageBox.Show(GlobalStrings.Error_Getting_NewLights, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 log.Error("There was an error while looking for new lights.");
+            }
+        }
+
+        private async Task DoTouchLink()
+        {
+            await _selectedBridge.TouchLink();
+            Thread.Sleep(3000);
+            await CheckForNewBulb();
+        }
+
+        private void FindLightSerial()
+        {
+            Form_AddLightSerial fas = new Form_AddLightSerial(_selectedBridge) { Owner = Application.Current.MainWindow };
+            if (fas.ShowDialog() == true)
+            {
+                Thread.Sleep(60000);
+                _findlighttimer.Start();
+                RaisePropertyChanged("SearchingLights");
             }
         }
 
@@ -360,7 +463,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
             log.Debug($@"Opening the sensor creator window passing bridge {SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created sensor ID {fsc.GetCreatedOrModifiedID()} from bridge {SelectedBridge.IpAddress}");
-            ISensor hr = HueObjectHelper.GetObject<ISensor>(SelectedBridge, fsc.GetCreatedOrModifiedID());
+            Sensor hr = HueObjectHelper.GetObject<Sensor>(SelectedBridge, fsc.GetCreatedOrModifiedID());
             if (hr != null)
             {
 
@@ -374,7 +477,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         private async Task SearchNewSensors()
         {
-            bool bresult = await SelectedBridge.StartNewObjectsSearchAsyncTask(typeof(ISensor));
+            bool bresult = await SelectedBridge.StartNewObjectsSearchAsyncTask(typeof(Sensor));
             if (bresult)
             {
                 log.Info("Looking for new sensors for 1 minute.");
@@ -396,6 +499,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
             _listHotKeys = fhkc.GetHotKeys();
             LoadHotkeys();
         }
+
 
 
         private async Task CreateResourceLink()
@@ -764,18 +868,17 @@ namespace WinHue3.ViewModels.MainFormViewModels
                     await RefreshObject(_selectedObject);
                 }
             }
-            else if (_selectedObject is ISensor)
+            else if (_selectedObject is Sensor)
             {
-                ISensor obj = (ISensor)_selectedObject;
+                Sensor obj = (Sensor)_selectedObject;
                 switch (obj.modelid)
                 {
                     case "PHDL00":
-                        DaylightSensor cr = (DaylightSensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, obj.Id, typeof(ISensor));
+                        Sensor cr = (Sensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, obj.Id, typeof(Sensor));
                         if (cr != null)
-                        {
-                            DaylightSensor daylight = cr;
-                            daylight.Id = obj.Id;
-                            Form_Daylight dl = new Form_Daylight(daylight, SelectedBridge) { Owner = Application.Current.MainWindow };
+                        { 
+                            cr.Id = obj.Id;
+                            Form_Daylight dl = new Form_Daylight(cr, SelectedBridge) { Owner = Application.Current.MainWindow };
                             if (dl.ShowDialog() == true)
                             {
                                 await RefreshObject(_selectedObject);
@@ -796,7 +899,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
                         }
                         break;
                     default:
-                        ISensor crs = (ISensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge,obj.Id, typeof(ISensor));
+                        Sensor crs = (Sensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge,obj.Id, typeof(Sensor));
                         if (crs != null)
                         {
                             Form_SensorCreator fsc = new Form_SensorCreator(SelectedBridge, crs)
@@ -845,7 +948,6 @@ namespace WinHue3.ViewModels.MainFormViewModels
         {
             IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
             bp.alert = type;
-
             await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
         }
 
@@ -1033,16 +1135,12 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
         private void RssFeedMon()
         {
-          //  throw new NotImplementedException();
+          
         }
 
         private void RssFeedMonSettings()
         {
-            RssFeedMonitorSettingsForm rssfeedsettings = new RssFeedMonitorSettingsForm
-            {
-                Owner = Application.Current.MainWindow
-            };
-            rssfeedsettings.ShowDialog();
+
         }
 
         private async Task Colorloop()
@@ -1065,11 +1163,40 @@ namespace WinHue3.ViewModels.MainFormViewModels
         {
             if (SelectedObject != null)
             {
-                IHueObject hr = await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, SelectedObject.Id, SelectedObject.GetType());
-                if (hr == null) return;
-                _selectedObject = hr;
+                if (!SelectedBridge.Virtual)
+                {
+                    IHueObject hr = await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, SelectedObject.Id,
+                        SelectedObject.GetType());
+                    if (hr == null) return;
+                    _selectedObject = hr;
+                }
             }
             SetMainFormModel();
+        }
+
+        private void DoAppUpdate()
+        {
+            if(MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                UpdateManager.DownloadUpdate();
+        }
+
+
+        private void LoadVirtualBridge()
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "Text files (*.txt)|*.txt";
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                string file = File.ReadAllText(fd.FileName);
+                DataStore ds = JsonConvert.DeserializeObject<DataStore>(file);
+                List<IHueObject> hueobjects = HueObjectHelper.ProcessDataStore(ds);
+                Bridge vbridge = new Bridge() {Virtual = true, name = "Virtual Bridge", RequiredUpdate = false};
+                ListBridges.Add(vbridge);
+                SelectedBridge = vbridge;
+                ListBridgeObjects = new ObservableCollection<IHueObject>(hueobjects);
+                CreateExpanders();
+            }
+                
         }
 
     }

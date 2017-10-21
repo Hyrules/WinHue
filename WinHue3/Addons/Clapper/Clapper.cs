@@ -52,6 +52,17 @@ namespace WinHue3.Addons.Clapper
             isrunning = true;
         }
 
+        public void Stop()
+        {
+            if (isrunning)
+            {
+                dt.Stop();
+                waveIn.StopRecording();
+                isrunning = false;
+            }
+
+        }
+
         void waveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
             float sample32 = 0;

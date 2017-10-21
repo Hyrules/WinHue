@@ -12,15 +12,12 @@ namespace WinHue3.Settings
     {
         public CustomSettings()
         {
-            BridgeInfo = new Dictionary<string, BridgeSaveSettings>();
-            DefaultBridge = string.Empty;
             ShowHiddenScenes = false;
             Language = "en-US";
             DetectProxy = false;
             EnableDebug = true;
             UpnpTimeout = 5000;
             StartMode = 0;
-            listHotKeys = new List<HotKey>();
             Timeout = 3000;
             ShowID = false;
             Sort = 0;
@@ -28,12 +25,10 @@ namespace WinHue3.Settings
             DefaultTT = null;
             DefaultBriGroup = 255;
             DefaultBriLight = 255;
+            CheckForUpdate = true;
+            CheckForBridgeUpdate = true;
         }
 
-        [DataMember]
-        public Dictionary<string, BridgeSaveSettings> BridgeInfo { get; set; }
-        [DataMember(EmitDefaultValue = true)]
-        public string DefaultBridge { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public bool ShowHiddenScenes { get; set; }
         [DataMember(EmitDefaultValue = true)]
@@ -46,8 +41,6 @@ namespace WinHue3.Settings
         public int UpnpTimeout { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public int StartMode { get; set; }
-        [DataMember(EmitDefaultValue = true)]
-        public List<HotKey> listHotKeys { get; set; }
         [DataMember(EmitDefaultValue = false)]
         public ushort? AllOnTT { get; set; }
         [DataMember(EmitDefaultValue = false)]
@@ -66,7 +59,10 @@ namespace WinHue3.Settings
         public byte DefaultBriLight { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public byte DefaultBriGroup { get; set; }
-
+        [DataMember(EmitDefaultValue = true)]
+        public bool CheckForUpdate { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public bool CheckForBridgeUpdate { get; set; }
 
         public override string ToString()
         {

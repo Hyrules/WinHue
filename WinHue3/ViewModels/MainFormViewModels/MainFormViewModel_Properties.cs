@@ -18,7 +18,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
-        private bool _editName;
+        //private bool _editName;
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
@@ -27,7 +27,12 @@ namespace WinHue3.ViewModels.MainFormViewModels
             set => SetProperty(ref _selectedBridge,value);
         }
 
+        public object IsMasterDebugger => System.Diagnostics.Debugger.IsAttached;
+
+
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated;
+
+        public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
 
         public ObservableCollection<IHueObject> ListBridgeObjects
         {

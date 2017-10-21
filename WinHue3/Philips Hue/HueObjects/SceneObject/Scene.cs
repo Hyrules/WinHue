@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -20,7 +21,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         private string _name;
         private ImageSource _image;
         private string _id;
-        private List<string> _lights;
+        private StringCollection _lights;
         private string _owner;
         private AppData _appdata;
         private bool? _recycle;
@@ -65,8 +66,8 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// List of the light in the scene. 
         /// </summary>
-        [HueProperty, DataMember, Category("Scene Properties"), Description("Lights of the scene"), Browsable(false)]
-        public List<string> lights
+        [HueProperty, DataMember, Category("Scene Properties"), Description("Lights of the scene")]
+        public StringCollection lights
         {
             get => _lights;
             set => SetProperty(ref _lights, value);

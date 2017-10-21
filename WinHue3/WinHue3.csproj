@@ -26,9 +26,15 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.Increment.None</AssemblyVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -64,6 +70,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>WinHue.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>WinHue3.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
@@ -91,9 +100,8 @@
       <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.Desktop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NAudio, Version=1.8.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.3\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="NDesk.Options, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,8 +124,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -144,23 +152,23 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -169,43 +177,31 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Addons\Clapper\Clapper.cs" />
-    <Compile Include="Addons\Converter\RssElementConverter.cs" />
-    <Compile Include="Addons\Converter\RssOperatorConverter.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTemp.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTempMonitor.cs" />
     <Compile Include="Addons\CpuTempMon\CpuTempViewModel.cs" />
     <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Addons\Model\AlertCreatorModel.cs" />
-    <Compile Include="Addons\RssFeedMonitor\Alert.cs" />
-    <Compile Include="Addons\RssFeedMonitor\Criteria.cs" />
-    <Compile Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml.cs">
-      <DependentUpon>Form_ActionPicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Addons\ViewModel\AlertCreatorViewModel.cs" />
-    <Compile Include="Addons\ViewModel\RssFeedSettingsViewModel.cs" />
-    <Compile Include="Addons\View\Form_AlertCreator.xaml.cs">
-      <DependentUpon>Form_AlertCreator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Addons\RssFeedMonitor\RssFeedAlertHandler.cs" />
-    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitor.cs" />
-    <Compile Include="Addons\View\RssFeedMonitorSettingsForm.xaml.cs">
-      <DependentUpon>RssFeedMonitorSettingsForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitorSettingsView.cs" />
+    <Compile Include="Addons\RssFeedMonitor.cs" />
     <Compile Include="Colors\Q42ColorConversion.cs" />
     <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Controls\ListStringEditor\ListStringEditor.cs" />
+    <Compile Include="Controls\XYEditor.xaml.cs">
+      <DependentUpon>XYEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToWrappingConverter.cs" />
     <Compile Include="Converters\DateFormatConverter.cs" />
     <Compile Include="Converters\DateTimeToScheduleTime.cs" />
     <Compile Include="Converters\DoubleToDecimalConverter.cs" />
     <Compile Include="Converters\IntToUshortConverter.cs" />
+    <Compile Include="Converters\ListStringTypeConverter.cs" />
     <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
     <Compile Include="Converters\RuleEnabledConverter.cs" />
     <Compile Include="Converters\RuleOperatorConverter.cs" />
@@ -269,24 +265,41 @@
     <Compile Include="Philips Hue\HueObjects\GroupObject\GroupState.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\HueTypeAttribute.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\IHueObject.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericFlag\ClipGenericFlagSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericStatus\ClipGenericStatusSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipHumidity\ClipHumiditySensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipOpenClose\ClipOpenCloseSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipPresence\ClipPresenceSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllLightLevel\ClipZllLightLevelSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllTemperature\ClipZllTemperatureSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\Daylight\DaylightSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueDimmer\HueDimmerSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueMotion\HueMotionSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueSensorConfigFactory.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueTap\HueTapSensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ISensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ISensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\SensorFactory.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightSearchSerial.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipGenericStatus\ClipGenericStatusSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipHumidity\ClipHumiditySensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipHumidity\ClipHumiditySensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipOpenClose\ClipOpenCloseSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipOpenClose\ClipOpenCloseSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipPresence\ClipPresenceSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipPresence\PresenceSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllLightLevel\LightLevelConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllLightLevel\LightLevelState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TemperatureSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\ClipZllTemperature\TemperatureSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Daylight\DaylightSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\GeoFence\GeofenceConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueDimmer\ButtonSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueDimmer\HueDimmerSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueMotion\HueMotionSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueSensorConfigFactory.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueTap\HueTapSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Sensor.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorConfigBase.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorStateBase.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SwUpdate.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleConditionCollection.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionCollection.cs" />
+    <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
+    <Compile Include="Settings\CustomBridges.cs" />
+    <Compile Include="Settings\CustomHotkeys.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
-    <Compile Include="Utils\ListExpandableObjectConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
     <Compile Include="Philips Hue\HueObjects\ResourceLinkObject\ResourceLink.cs" />
@@ -302,35 +315,17 @@
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\Command.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\Schedule.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\ScheduleJsonConverter.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericStatus\ClipGenericStatusSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericStatus\ClipGenericStatusSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipHumidity\ClipHumiditySensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipHumidity\ClipHumiditySensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipOpenClose\ClipOpenCloseSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipOpenClose\ClipOpenCloseSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipPresence\ClipPresenceSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipPresence\PresenceSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllLightLevel\LightLevelConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllLightLevel\LightLevelState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllTemperature\TemperatureSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipZllTemperature\TempreatureSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\Daylight\DaylightSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\Daylight\DaylightSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueDimmer\ButtonSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueDimmer\HueDimmerSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueMotion\HueMotionSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\HueTap\HueTapSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\OldSensor\Sensor.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericFlag\ClipGenericFlagSensorConfig.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\ClipGenericFlag\ClipGenericFlagSensorState.cs" />
-    <Compile Include="Philips Hue\HueObjects\SensorObject\OldSensor\SensorJsonConverter.cs" />
     <Compile Include="Settings\BridgeSaveSettings.cs" />
     <Compile Include="Settings\CustomSettings.cs" />
+    <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
+    <Compile Include="Utils\UnknownObject.cs" />
+    <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Validation\RuleValueValidation.cs" />
     <Compile Include="Validation\UIntValidation.cs" />
     <Compile Include="View.cs" />
+    <Compile Include="ViewModels\AddLightSerialViewModel.cs" />
     <Compile Include="ViewModels\AdvancedCreatorViewModel.cs" />
     <Compile Include="ViewModels\AppSettingsViewModel.cs" />
     <Compile Include="ViewModels\CloneRuleViewModel.cs" />
@@ -354,6 +349,9 @@
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorConditionViewModel.cs" />
     <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
     <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
+    <Compile Include="Views\Form_AddLightSerial.xaml.cs">
+      <DependentUpon>Form_AddLightSerial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form_AdvancedCreator.xaml.cs">
       <DependentUpon>Form_AdvancedCreator.xaml</DependentUpon>
     </Compile>
@@ -412,6 +410,9 @@
     <Compile Include="Views\Form_BulbsView.xaml.cs">
       <DependentUpon>Form_BulbsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Form_RssFeedMonitor.xaml.cs">
+      <DependentUpon>Form_RssFeedMonitor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form_RuleCreator.xaml.cs">
       <DependentUpon>Form_RuleCreator.xaml</DependentUpon>
     </Compile>
@@ -463,21 +464,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Addons\RssFeedMonitor\Form_ActionPicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Controls\XYEditor.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Addons\View\Form_AlertCreator.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Addons\View\RssFeedMonitorSettingsForm.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\XYSliders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Form_AddLightSerial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form_AdvancedCreator.xaml">
       <SubType>Designer</SubType>
@@ -512,6 +509,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form_Daylight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Form_RssFeedMonitor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -647,166 +648,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="lights\Classic A60 TW_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\Classic A60 TW_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\Classic A60 TW_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\HML006_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\HML006_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\HML006_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT001_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT001_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT001_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT002_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT002_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT002_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT003_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT003_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LCT003_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC001_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC001_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC001_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC007_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC007_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC007_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\1493782199_draft.png" />
     <Resource Include="Resources\advanced.png" />
     <Resource Include="Resources\resettt.png" />
-    <Resource Include="lights\LLC011_off.png" />
-    <Resource Include="lights\LLC011_on.png" />
-    <Resource Include="lights\LLC011_unr.png" />
-    <Content Include="lights\LLC012_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC012_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC012_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC013_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC013_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC013_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC020_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC020_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC020_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LST001_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LST001_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LST001_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC010_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC010_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LLC010_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="lights\LST002_off.png" />
-    <Resource Include="lights\LST002_on.png" />
-    <Resource Include="lights\LST002_unr.png" />
-    <Content Include="lights\LWB001_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWB001_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWB001_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWL001_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWL001_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWL001_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWB004_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWB004_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\LWB004_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\ZLL Light_off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\ZLL Light_on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lights\ZLL Light_unr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\1486263478_movie-01.png" />
     <Resource Include="Resources\user.png" />
     <Resource Include="Resources\resource.png" />
     <Resource Include="Resources\Motion.png" />
     <Resource Include="Resources\rules.png" />
     <Resource Include="Resources\HueTap.png" />
-    <None Include="Resources\LCT001_unr.png" />
     <None Include="Resources\LCT001_on.png" />
     <None Include="Resources\LCT001_off.png" />
     <Resource Include="Resources\HueLight_unr.png" />
@@ -921,12 +771,6 @@
     <Resource Include="Resources\SchedulesSmall.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\HueGroupOn-Large.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\HueGroupOff-Large.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\pair-bridge.png" />
   </ItemGroup>
   <ItemGroup>
@@ -934,9 +778,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\effects.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\SceneLarge.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\timer_clock.png" />
@@ -967,9 +808,27 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupOff-Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupOn-Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HueGroupSome_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\load.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ProjectExtensions />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(SolutionDir)lights" "$(TargetDir)lights" /e /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

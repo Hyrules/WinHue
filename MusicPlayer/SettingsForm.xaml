@@ -1,8 +1,0 @@
-﻿<Window x:Class="MusicPlayer.SettingsForm"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SettingsForm" Height="300" Width="300" WindowStartupLocation="CenterOwner">
-    <Grid>
-        
-    </Grid>
-</Window>

@@ -9,11 +9,12 @@ namespace WinHue3.Philips_Hue.Communication
     /// </summary>
     public static class Serializer
     {
-
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly JsonSerializerSettings jss = new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default};
 
         public static object DeserializeToObject(string json, Type objecttype)
         {
+            log.Debug(json);
             try
             {
                 if (!json.Equals("{}") && !string.IsNullOrEmpty(json))
@@ -39,7 +40,7 @@ namespace WinHue3.Philips_Hue.Communication
         /// <returns>JSON String</returns>
         public static string SerializeToJson(object obj)
         {
-           
+            
             try
             {
                 if (obj != null)
@@ -63,6 +64,7 @@ namespace WinHue3.Philips_Hue.Communication
 
         public static T DeserializeToObject<T>(string json)
         {
+            log.Debug(json);
             try
             {
 
@@ -72,7 +74,7 @@ namespace WinHue3.Philips_Hue.Communication
                 }
                 return default(T);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default(T);
             }

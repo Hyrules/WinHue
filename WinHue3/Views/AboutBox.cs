@@ -11,7 +11,7 @@ namespace WinHue3.Views
             InitializeComponent();
             this.Text = $"About {AssemblyTitle}";
             this.labelProductName.Text = AssemblyProduct;
-            //this.labelVersion.Text = Ap
+            this.labelVersion.Text = AssemblyVersion;
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;

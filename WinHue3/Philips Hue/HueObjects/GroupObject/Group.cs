@@ -1,8 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Media;
+using WinHue3.Converters;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -22,7 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         private string _id;
         private Action _action;
         private GroupState _state;
-        private List<string> _lights;
+        private StringCollection _lights;
         private string _type;
         private string _modelid;
         private string _uniqueid;
@@ -68,8 +72,8 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// List of lights in the group.
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("Lights in the group")]
-        public List<string> lights
+        [HueProperty, DataMember, Category("Group Properties"), Description("Lights in the group"), ExpandableObject]
+        public StringCollection lights
         {
             get => _lights;
             set => SetProperty(ref _lights,value);

@@ -7,16 +7,16 @@ using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipGenericFlag;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipGenericStatus;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipHumidity;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipOpenClose;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipZllTemperature;
 using WinHue3.Settings;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
@@ -284,12 +284,12 @@ namespace whc
                 }},
                 {"lo", "List the sensors available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,ISensor> bresult = bridge.GetListObjects<ISensor>();
+                    Dictionary<string,Sensor> bresult = bridge.GetListObjects<Sensor>();
                     
                     if(bresult != null)
                     {
                         
-                        foreach(KeyValuePair<string,ISensor> kvp in bresult)
+                        foreach(KeyValuePair<string,Sensor> kvp in bresult)
                         {
                             WriteMessageToConsole(
                                 $"[ID]={kvp.Key}, Name={kvp.Value.name}, Type={kvp.Value.type}, Model={kvp.Value.modelid}, SwVersion={kvp.Value.swversion}, Manufacturer={kvp.Value.manufacturername}");
@@ -822,12 +822,12 @@ namespace whc
                 {
                     List<string> extra = mainOpts.Parse(args);
 
-                    if (!string.IsNullOrEmpty(WinHueSettings.settings.DefaultBridge) && !string.IsNullOrWhiteSpace(WinHueSettings.settings.DefaultBridge))
+                    if (!string.IsNullOrEmpty(WinHueSettings.bridges.DefaultBridge) && !string.IsNullOrWhiteSpace(WinHueSettings.bridges.DefaultBridge))
                     {
-                        if(WinHueSettings.settings.BridgeInfo.ContainsKey(WinHueSettings.settings.DefaultBridge))
+                        if(WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                         {
-                            string ip = WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].ip;
-                            bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.settings.DefaultBridge, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].apiversion, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].apiversion, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].swversion, WinHueSettings.settings.BridgeInfo[WinHueSettings.settings.DefaultBridge].apikey);
+                            string ip = WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].ip;
+                            bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.bridges.DefaultBridge, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].swversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apikey);
                             if (bridge != null && error == false)
                             {
                                 extra = objOpts.Parse(extra);

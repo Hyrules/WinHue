@@ -13,9 +13,9 @@ namespace WinHue3.Colors
         private static CGPoint Red = new CGPoint(0.675F, 0.322F);
         private static CGPoint Lime = new CGPoint(0.4091F, 0.518F);
         private static CGPoint Blue = new CGPoint(0.167F, 0.04F);
-        private static float factor = 10000.0f;
-        private static int maxX = 452;
-        private static int maxY = 302;
+    //    private static float factor = 10000.0f;
+    //    private static int maxX = 452;
+    //    private static int maxY = 302;
 
         /// <summary>
         /// Get XY from red,green,blue strings / ints

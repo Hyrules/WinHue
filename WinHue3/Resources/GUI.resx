@@ -1407,4 +1407,34 @@
   <data name="MainForm_ToolsTab_CpuTempMon_Tooltip" xml:space="preserve">
     <value>WinHue must be run as administrator in order to run the CPU Temp Monitor</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_Check_Update" xml:space="preserve">
+    <value>Check for WinHue update at startup</value>
+  </data>
+  <data name="MainForm_StatusBar_ToolTip_UpdateAvailable" xml:space="preserve">
+    <value>WinHue update available. Click here to update.</value>
+  </data>
+  <data name="AddLightSerialForm_Title" xml:space="preserve">
+    <value>Add Light by serial number</value>
+  </data>
+  <data name="AddLightSerialForm_Message" xml:space="preserve">
+    <value>Add one ore more serials to the box below separated by commas (eg: 45AF34,543636,34AFBE)</value>
+  </data>
+  <data name="AddLightSerialForm_Seach" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="AddLightSerialForm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BridgeUpdateRequired" xml:space="preserve">
+    <value>Bridge update required. Please update the bridge in order to use WinHue with this bridge.</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate" xml:space="preserve">
+    <value>Check for bridge update</value>
+  </data>
+  <data name="MainForm_Menu_VirtualBridge" xml:space="preserve">
+    <value>Load a bridge datastore from file....</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_NoCheckBridgeVersion" xml:space="preserve">
+    <value>Check for Bridge version. (You might encounter crashes that the dev will not fix if you choose not to)</value>
+  </data>
 </root>

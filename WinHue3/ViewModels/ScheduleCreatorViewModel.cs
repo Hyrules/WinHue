@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Models;
 using WinHue3.Philips_Hue.Communication;
@@ -28,7 +29,7 @@ namespace WinHue3.ViewModels
         private string  _selectedType;
         private HueAddress _targetobject;
         private byte _smask;
-        private string _timeformat;
+        //private string _timeformat;
         private string _randomizetime;
         private bool _isedit;
         private bool _cansetsettings = true;
@@ -36,6 +37,7 @@ namespace WinHue3.ViewModels
         private Bridge _bridge;
         private IHueObject _selectedObject;
         private IBaseProperties _body;
+        private int _effect;
 
         public ScheduleCreatorViewModel()
         {
@@ -43,6 +45,17 @@ namespace WinHue3.ViewModels
             _selectedType = "T";
             _smask = 0;
             _randomizetime = string.Empty;
+            _effect = 1;
+        }
+
+        public int Effect
+        {
+            get => _effect;
+            set
+            {
+                SetProperty(ref _effect, value);
+              
+            } 
         }
 
         public async Task Initialize(Bridge bridge, IHueObject obj)
@@ -74,6 +87,7 @@ namespace WinHue3.ViewModels
                     ((Action)Body).scene = ((Action)Body).scene;
                 ScheduleModel.Autodelete = schedule.autodelete;
                 ScheduleModel.Transitiontime = Body.transitiontime.ToString();
+                
                 _targetobject = schedule.command.address;
 
                 SelectedObject = ListTarget.FirstOrDefault(x => x.Id == _targetobject.id && x.GetType() == (HueObjectCreator.CreateHueObject(_targetobject.objecttype)).GetType());
@@ -83,9 +97,11 @@ namespace WinHue3.ViewModels
                     Body.xy[0] = Body.xy[0];
                     Body.xy[1] = Body.xy[1];
                 }
-                Body.on = Body.on ?? (((Action)Body).scene == null);
+
+                Body.on = Body.on ?? (((Action)Body).scene != null);
+
                 SelectedType = GetScheduleTypeFromTime(schedule.localtime);
-                Body.hue = 65535;
+   
                 if (schedule.localtime.Contains("A"))
                 {
                     int indexA = schedule.localtime.IndexOf("A", StringComparison.Ordinal);
@@ -123,8 +139,13 @@ namespace WinHue3.ViewModels
                     CanSetSettings = false;
                     IsEditing = true;
                     Body = BasePropertiesCreator.CreateBaseProperties("action");
-                    ((Action)Body).scene = ((Scene)obj).Id;
+                    ((Action) Body).scene = ((Scene) obj).Id;
                 }
+                else
+                {
+                    Body = BasePropertiesCreator.CreateBaseProperties(obj.GetType());
+                }
+
                 TargetObject = new HueAddress($@"/{(obj is Light ? "lights" : "groups")}/{(obj is Scene ? "0" : obj.Id)}/{(obj is Light ? "state" : "action")}");
                 SelectedObject = ListTarget.FirstOrDefault(x => x.Id == obj.Id && x.GetType() == obj.GetType());
             }

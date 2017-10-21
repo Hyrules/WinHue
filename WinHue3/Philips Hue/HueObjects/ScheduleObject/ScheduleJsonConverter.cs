@@ -58,6 +58,8 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            serializer.DateParseHandling = DateParseHandling.None;
+            serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
             JObject obj = serializer.Deserialize<JObject>(reader);
             Schedule newSchedule = new Schedule();
             if(obj["name"] != null)
@@ -70,6 +72,10 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 newSchedule.description = obj["description"].Value<string>();
             if (obj["localtime"] != null)
                 newSchedule.localtime = obj["localtime"].Value<string>();
+            if (newSchedule.localtime == null)
+                newSchedule.localtime = obj["time"].Value<string>();
+            if (newSchedule.localtime.Contains(" ")) newSchedule.localtime = newSchedule.localtime.Replace(" ","T"); // Bypass a stupid function of JSON.Net that parses dates
+               
             if (obj["recycle"] != null)
                 newSchedule.recycle = obj["recycle"].Value<bool>();
             if (obj["starttime"] != null)
@@ -77,7 +83,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
             if (obj["status"] != null)
                 newSchedule.status = obj["status"].Value<string>();
             if (obj["command"] == null) return newSchedule;
-            newSchedule.command = new Command();
+                newSchedule.command = new Command();
             if (obj["command"]["address"] != null)
                 newSchedule.command.address = obj["command"]["address"].ToObject<HueAddress>();
             if (obj["command"]["body"] != null)

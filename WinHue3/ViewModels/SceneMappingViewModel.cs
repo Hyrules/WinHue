@@ -16,7 +16,6 @@ namespace WinHue3.ViewModels
     {
         private DataTable _dt;
         private string _filter;
-        private object _selectedcell;
         private object _row;
         private Dictionary<string, Scene> _listscenes;
         private Dictionary<string, Light> _listlights;

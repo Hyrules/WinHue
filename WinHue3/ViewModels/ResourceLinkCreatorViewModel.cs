@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using WinHue3.Models;
@@ -9,6 +10,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Resources;
+using WinHue3.Utils;
 using WinHue3.Validation;
 
 
@@ -35,7 +37,7 @@ namespace WinHue3.ViewModels
         {
             get
             {
-                Resourcelink rl = new Resourcelink {name = LinkCreatorModel.Name, links = new List<string>(),description = LinkCreatorModel.Description,classid = LinkCreatorModel.ClassId, recycle = LinkCreatorModel.Recycle,Id = _id};
+                Resourcelink rl = new Resourcelink {name = LinkCreatorModel.Name, links = new StringCollection(),description = LinkCreatorModel.Description,classid = LinkCreatorModel.ClassId, recycle = LinkCreatorModel.Recycle,Id = _id};
                 foreach (IHueObject obj in _selectedLinkObjects)
                 {
                     HueType ht = obj.GetType().GetCustomAttribute<HueType>();

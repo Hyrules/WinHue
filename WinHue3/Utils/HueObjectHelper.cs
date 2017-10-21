@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Media;
 using log4net;
 using WinHue3.ExtensionMethods;
@@ -14,11 +16,12 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
+
 using WinHue3.Settings;
 using WinHue3.SupportedLights;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
@@ -90,6 +93,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed lights.</returns>
         private static List<Light> ProcessLights(Dictionary<string, Light> listlights)
         {
+            if(listlights == null) return new List<Light>();
             List<Light> newlist = new List<Light>();
 
             foreach (KeyValuePair<string, Light> kvp in listlights)
@@ -130,9 +134,9 @@ namespace WinHue3.Utils
             {
                 foreach (KeyValuePair<string, string> kvp in results.listnewobjects)
                 {
-                    ISensor bresult = bridge.GetObject<ISensor>(kvp.Key);
+                    Sensor bresult = bridge.GetObject<Sensor>(kvp.Key);
                     if (bresult == null) continue;
-                    ISensor newSensor = bresult;
+                    Sensor newSensor = bresult;
                     newSensor.Id = kvp.Key;
                     switch (newSensor.type)
                     {
@@ -206,12 +210,13 @@ namespace WinHue3.Utils
         /// <returns>A list of processed group with image and id.</returns>
         private static List<Group> ProcessGroups(Dictionary<string, Group> listgroups)
         {
+            if(listgroups == null) return new List<Group>();
             List<Group> newlist = new List<Group>();
             foreach (KeyValuePair<string, Group> kvp in listgroups)
             {
                 log.Debug("Processing group : " + kvp.Value);
                 kvp.Value.Id = kvp.Key;
-                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(kvp.Value.action.on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
+                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(kvp.Value.state.any_on.GetValueOrDefault() ? (kvp.Value.state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
                 newlist.Add(kvp.Value);
             }
 
@@ -256,6 +261,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed scenes.</returns>
         private static List<Scene> ProcessScenes(Dictionary<string, Scene> listscenes)
         {
+            if (listscenes == null) return new List<Scene>();
             List<Scene> newlist = new List<Scene>();
 
             foreach (KeyValuePair<string, Scene> kvp in listscenes)
@@ -307,6 +313,7 @@ namespace WinHue3.Utils
         /// <returns>A list of processed schedules.</returns>
         public static List<Schedule> ProcessSchedules(Dictionary<string, Schedule> listschedules)
         {
+            if(listschedules == null) return new List<Schedule>();
             List<Schedule> newlist = new List<Schedule>();
 
             foreach (KeyValuePair<string, Schedule> kvp in listschedules)
@@ -394,6 +401,7 @@ namespace WinHue3.Utils
         /// <returns>A processed list of rules.</returns>
         private static List<Rule> ProcessRules(Dictionary<string, Rule> listrules)
         {
+            if(listrules == null) return new List<Rule>();
             List<Rule> newlist = new List<Rule>();
 
             foreach (KeyValuePair<string, Rule> kvp in listrules)
@@ -412,12 +420,12 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the sensors from.</param>
         /// <returns>A List of sensors.</returns>
-        public static List<ISensor> GetBridgeSensors(Bridge bridge)
+        public static List<Sensor> GetBridgeSensors(Bridge bridge)
         {
             log.Debug($@"Getting all sensors from bridge {bridge.IpAddress}");
-            Dictionary<string,ISensor> bresult = bridge.GetListObjects<ISensor>();
+            Dictionary<string,Sensor> bresult = bridge.GetListObjects<Sensor>();
             if (bresult == null) return null;
-            List<ISensor> hr = ProcessSensors(bresult);
+            List<Sensor> hr = ProcessSensors(bresult);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -427,12 +435,12 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the sensors from.</param>
         /// <returns>A List of sensors.</returns>
-        public static async Task<List<ISensor>> GetBridgeSensorsAsyncTask(Bridge bridge)
+        public static async Task<List<Sensor>> GetBridgeSensorsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all sensors from bridge {bridge.IpAddress}");
-            Dictionary<string, ISensor> bresult = await bridge.GetListObjectsAsyncTask<ISensor>();
+            Dictionary<string, Sensor> bresult = await bridge.GetListObjectsAsyncTask<Sensor>();
             if (bresult == null) return null;
-            List<ISensor> hr = ProcessSensors(bresult);
+            List<Sensor> hr = ProcessSensors(bresult);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -445,7 +453,7 @@ namespace WinHue3.Utils
         public static List<IHueObject> GetBridgeNewSensors(Bridge bridge)
         {
             log.Debug($@"Getting new sensors from bridge : {bridge.IpAddress}");
-            SearchResult bresult = bridge.GetNewObjects<ISensor>();
+            SearchResult bresult = bridge.GetNewObjects<Sensor>();
             List<IHueObject> hr = ProcessSearchResult(bridge, bresult, false);
             log.Debug("Search Result : " + Serializer.SerializeToJson(hr));
             return hr;
@@ -459,7 +467,7 @@ namespace WinHue3.Utils
         public static async Task<List<IHueObject>> GetBridgeNewSensorsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting new sensors from bridge : {bridge.IpAddress}");
-            SearchResult bresult = await bridge.GetNewObjectsAsyncTask<ISensor>();
+            SearchResult bresult = await bridge.GetNewObjectsAsyncTask<Sensor>();
             List<IHueObject> hr = ProcessSearchResult(bridge, bresult, false);
             log.Debug("Search Result : " + Serializer.SerializeToJson(hr));
             return hr;
@@ -470,11 +478,12 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="listsensors">List of sensors to process.</param>
         /// <returns>A list of processed sensors.</returns>
-        private static List<ISensor> ProcessSensors(Dictionary<string, ISensor> listsensors)
+        private static List<Sensor> ProcessSensors(Dictionary<string, Sensor> listsensors)
         {
-            List<ISensor> newlist = new List<ISensor>();
+            if(listsensors == null) return new List<Sensor>();
+            List<Sensor> newlist = new List<Sensor>();
 
-            foreach (KeyValuePair<string, ISensor> kvp in listsensors)
+            foreach (KeyValuePair<string, Sensor> kvp in listsensors)
             {
                 kvp.Value.Id = kvp.Key;
                 log.Debug("Processing Sensor : " + kvp.Value);
@@ -498,6 +507,7 @@ namespace WinHue3.Utils
                         break;
 
                 }
+
                 newlist.Add(kvp.Value);
             }
 
@@ -514,7 +524,7 @@ namespace WinHue3.Utils
             log.Info($@"Fetching Resource links from bridge : {bridge.IpAddress}");
             Dictionary<string, Resourcelink> bresult = bridge.GetListObjects<Resourcelink>();
             if (bresult == null) return null;
-            List<Resourcelink> rl =  ProcessRessourceLinks(bresult);
+            List<Resourcelink> rl =  ProcessResourceLinks(bresult);
             return rl;
         }
 
@@ -528,7 +538,7 @@ namespace WinHue3.Utils
             log.Info($@"Fetching Resource links from bridge : {bridge.IpAddress}");
             Dictionary<string, Resourcelink> bresult = await bridge.GetListObjectsAsyncTask<Resourcelink>();
             if (bresult == null) return null;
-            List<Resourcelink> rl = ProcessRessourceLinks(bresult);
+            List<Resourcelink> rl = ProcessResourceLinks(bresult);
             return rl;
         }
 
@@ -605,7 +615,7 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="datastore">Datastore to process.</param>
         /// <returns>A list of object processed.</returns>
-        private static List<IHueObject> ProcessDataStore(DataStore datastore)
+        public static List<IHueObject> ProcessDataStore(DataStore datastore)
         {
             List<IHueObject> newlist = new List<IHueObject>();
             log.Debug("Processing datastore...");
@@ -615,12 +625,12 @@ namespace WinHue3.Utils
             newlist.AddRange(ProcessScenes(datastore.scenes));
             newlist.AddRange(ProcessSensors(datastore.sensors));
             newlist.AddRange(ProcessRules(datastore.rules));
-            newlist.AddRange(ProcessRessourceLinks(datastore.resourcelinks));
+            newlist.AddRange(ProcessResourceLinks(datastore.resourcelinks));
             log.Debug("Processing complete.");
             return newlist;
         }
 
-        private static List<Resourcelink> ProcessRessourceLinks(Dictionary<string, Resourcelink> listrl)
+        private static List<Resourcelink> ProcessResourceLinks(Dictionary<string, Resourcelink> listrl)
         {
             if(listrl == null) return new List<Resourcelink>();
             List<Resourcelink> newlist = new List<Resourcelink>();
@@ -935,9 +945,9 @@ namespace WinHue3.Utils
                 if (res != null)
                     hr = ProcessSchedules(res) as List<T>;
             }
-            else if (typeof(T) == typeof(ISensor))
+            else if (typeof(T) == typeof(Sensor))
             {
-                Dictionary<string, ISensor> res = bridge.GetListObjects<ISensor>();
+                Dictionary<string, Sensor> res = bridge.GetListObjects<Sensor>();
                 if (res != null)
                     hr = ProcessSensors(res) as List<T>;
 
@@ -946,7 +956,7 @@ namespace WinHue3.Utils
             {
                 Dictionary<string, Resourcelink> res = bridge.GetListObjects<Resourcelink>();
                 if (res != null)
-                    hr = ProcessRessourceLinks(res) as List<T>;
+                    hr = ProcessResourceLinks(res) as List<T>;
             }
 
             return hr;
@@ -986,9 +996,9 @@ namespace WinHue3.Utils
                     group.Image = GDIManager.CreateImageSourceFromImage(group.action.on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
                     Object = (T)Convert.ChangeType(group, typeof(T));
                 }
-                else if (typeof(T) == typeof(ISensor))
+                else if (typeof(T) == typeof(Sensor))
                 {
-                    ISensor sensor = bresult as ISensor;
+                    Sensor sensor = bresult as Sensor;
                     sensor.Id = id;
                     sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
                     Object = (T)Convert.ChangeType(sensor, typeof(T));
@@ -1061,6 +1071,7 @@ namespace WinHue3.Utils
         {
             IHueObject bresult = await bridge.GetObjectAsyncTask(id,objecttype);
             IHueObject Object = bresult;
+            if (Object == null) return null;
             Object.Id = id;
 
 
@@ -1086,9 +1097,9 @@ namespace WinHue3.Utils
                 @group.Image = GDIManager.CreateImageSourceFromImage(@group.action.@on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
                 Object = @group;
             }
-            else if (typeof(ISensor).IsAssignableFrom(objecttype))
+            else if (typeof(Sensor).IsAssignableFrom(objecttype))
             {
-                ISensor sensor = bresult as ISensor;
+                Sensor sensor = bresult as Sensor;
                 sensor.Id = id;
                 sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
                 Object = sensor;

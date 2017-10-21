@@ -738,4 +738,13 @@
   <data name="AdvancedCreator_WarningDelete" xml:space="preserve">
     <value>Envoyer une requête de type DELETE résultera en la suppression de ce objet. Supprimer ?</value>
   </data>
+  <data name="NewUpdateDownloaded" xml:space="preserve">
+    <value>Une nouvelle mise à jour est disponible. Mettre à jour maintenant ?</value>
+  </data>
+  <data name="UpdateAvailableDownload" xml:space="preserve">
+    <value>Une mise à jour est disponible. Télécharger ?</value>
+  </data>
+  <data name="SerialCannotBeEmpty_Error" xml:space="preserve">
+    <value>Veuillez svp saisir au moins un numéro de série.</value>
+  </data>
 </root>

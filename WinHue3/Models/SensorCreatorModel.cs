@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipGenericFlag;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipGenericStatus;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipHumidity;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipOpenClose;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipPresence;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.ClipZllTemperature;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.ViewModels;
 
 namespace WinHue3.Models
@@ -18,7 +18,7 @@ namespace WinHue3.Models
         private string _mfgname;
         private string _uniqueid;
         private string _type;
-        private ISensorConfig _config;
+        private ISensorConfigBase _config;
 
         public SensorCreatorModel()
         {
@@ -102,7 +102,7 @@ namespace WinHue3.Models
             }
         }
 
-        public ISensorConfig Config
+        public ISensorConfigBase Config
         {
             get => _config;
             set => SetProperty(ref _config,value);

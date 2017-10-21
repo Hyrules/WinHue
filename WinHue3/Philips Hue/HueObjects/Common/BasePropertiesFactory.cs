@@ -22,6 +22,8 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
                 case "light":
                 case "state":
                     return new State();
+               /* case "scene":
+                    return new Scene();*/
                 default:
                     throw new NotSupportedException($"{proptype} not supported.");
             }
@@ -34,9 +36,9 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
                 {typeof(Light), new State() },
                 {typeof(Group), new Action()},
                 {typeof(State), new State() },
-                {typeof(Action),new Action() }
+                {typeof(Action),new Action()},
             };
-            if(proptype != typeof(Light) && proptype != typeof(Group)) throw new NotSupportedException($"{proptype} not supported.");
+            //if(proptype != typeof(Light) && proptype != typeof(Group)) throw new NotSupportedException($"{proptype} not supported.");
             return def[proptype];
         }
     }

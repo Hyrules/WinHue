@@ -1,7 +1,7 @@
 ﻿using Prism.Mvvm;
 using WinHue3.Models;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject.Daylight;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
 
 
 namespace WinHue3.ViewModels
@@ -22,9 +22,9 @@ namespace WinHue3.ViewModels
             set => SetProperty(ref _daylight, value);
         }
 
-        public void SetDaylight(DaylightSensor sensor)
+        public void SetDaylight(Sensor sensor)
         {
-            DaylightSensorConfig config = sensor.config;
+            DaylightSensorConfig config = (DaylightSensorConfig)sensor.config;
             Daylight.SunriseOffset = (sbyte)config.sunriseoffset;
             Daylight.SunsetOffset = (sbyte)config.sunsetoffset;
             

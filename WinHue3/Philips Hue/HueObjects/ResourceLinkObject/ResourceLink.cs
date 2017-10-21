@@ -1,11 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Design;
+using System.Globalization;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.ViewModels;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using System.Windows.Forms.Design;
+using WinHue3.Controls.ListStringEditor;
+using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
 {
@@ -20,12 +28,12 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         private ushort _classid;
         private string _owner;
         private bool? _recycle;
-        private List<string> _links;
+        private StringCollection _links;
 
         /// <summary>
         /// ID of the ResourceLink
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("ID of the resource link"), JsonIgnore]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("ID of the resource link"), JsonIgnore, ReadOnly(true)]
         public string Id
         {
             get => _id;
@@ -105,8 +113,10 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// List of resource links
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("List of resource links"), Browsable(false)]
-        public List<string> links
+        [HueProperty, 
+         DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),
+         Description("List of resource links")]
+        public StringCollection links
         {
             get => _links;
             set => SetProperty(ref _links,value);
@@ -121,6 +131,21 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         {
             return Serializer.SerializeToJson(this);
             
+        }
+    }
+
+    public class CsvConverter : TypeConverter
+    {
+        // Overrides the ConvertTo method of TypeConverter.
+        public override object ConvertTo(ITypeDescriptorContext context,
+            CultureInfo culture, object value, Type destinationType)
+        {
+            List<String> v = value as List<String>;
+            if (destinationType == typeof(string))
+            {
+                return String.Join(",", v.ToArray());
+            }
+            return base.ConvertTo(context, culture, value, destinationType);
         }
     }
 }

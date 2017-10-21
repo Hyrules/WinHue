@@ -19,7 +19,7 @@ namespace WinHue3 {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class GlobalStrings {
@@ -61,7 +61,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Object created successfully !.
+        ///   Looks up a localized string similar to Object created successfully!.
         /// </summary>
         public static string AdvancedCreator_ObjectCreated {
             get {
@@ -70,7 +70,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sending a delete request will mostlikely delete the specified object. Delete ?.
+        ///   Looks up a localized string similar to Sending a delete request will most likely delete the specified object. Delete?.
         /// </summary>
         public static string AdvancedCreator_WarningDelete {
             get {
@@ -97,7 +97,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This bridge is already present in the list of bridges. Please enter another ip address..
+        ///   Looks up a localized string similar to This bridge is already present in the list of bridges. Please enter another IP address..
         /// </summary>
         public static string Bridge_Already_Detected {
             get {
@@ -124,7 +124,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your bridge {0} seems to have changed ip. Do you want to replace the current IP Address ?.
+        ///   Looks up a localized string similar to Your bridge {0} seems to have changed IP. Do you want to replace the current IP Address?.
         /// </summary>
         public static string Bridge_IP_Different {
             get {
@@ -133,7 +133,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Searching for new light for 1 minute..
+        ///   Looks up a localized string similar to Searching for new lights for 1 minute..
         /// </summary>
         public static string Bridge_LightSearch {
             get {
@@ -304,7 +304,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to disconnect from the bridge ?.
+        ///   Looks up a localized string similar to Are you sure you want to disconnect from the bridge?.
         /// </summary>
         public static string BridgeDisconnect {
             get {
@@ -313,7 +313,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bridge not paired or authorized. Do you want to proceed with the pairing procedure ?.
+        ///   Looks up a localized string similar to Bridge not paired or authorized. Do you want to proceed with the pairing procedure?.
         /// </summary>
         public static string BridgeSetupNotCompleted {
             get {
@@ -340,7 +340,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete {0} ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete {0}?.
         /// </summary>
         public static string Confirm_Delete_Object {
             get {
@@ -349,7 +349,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CONNECTED !.
+        ///   Looks up a localized string similar to CONNECTED!.
         /// </summary>
         public static string Connected {
             get {
@@ -628,7 +628,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transition time must be a valud between 0 and 65535.
+        ///   Looks up a localized string similar to Transition time must be a value between 0 and 65535.
         /// </summary>
         public static string Error_ScheduleInvalidTT {
             get {
@@ -745,7 +745,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error while creating group {0} ..
+        ///   Looks up a localized string similar to There was an error while creating group {0}..
         /// </summary>
         public static string Group_Creation_Error {
             get {
@@ -754,7 +754,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this group ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this group?.
         /// </summary>
         public static string Group_Delete {
             get {
@@ -817,7 +817,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hotkey already exists. Replace ?.
+        ///   Looks up a localized string similar to Hotkey already exists. Replace?.
         /// </summary>
         public static string HotKey_Already_Exists {
             get {
@@ -970,7 +970,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this light ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this light?.
         /// </summary>
         public static string Light_Delete {
             get {
@@ -1051,7 +1051,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A Mood with this name already exists. Overwrite ?.
+        ///   Looks up a localized string similar to A Mood with this name already exists. Overwrite?.
         /// </summary>
         public static string Moods_AlreadyExists {
             get {
@@ -1060,7 +1060,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this mood ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this mood?.
         /// </summary>
         public static string Moods_Delete {
             get {
@@ -1083,6 +1083,15 @@ namespace WinHue3 {
         public static string Moods_NotValidValues {
             get {
                 return ResourceManager.GetString("Moods_NotValidValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new update has been downloaded. Do you want to update now?.
+        /// </summary>
+        public static string NewUpdateDownloaded {
+            get {
+                return ResourceManager.GetString("NewUpdateDownloaded", resourceCulture);
             }
         }
         
@@ -1141,7 +1150,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plugin {0} has caused an exception. The plugin will be disabled in order to prevent a crash. An plugin exception file will be generated in WinHue folder..
+        ///   Looks up a localized string similar to Plugin {0} has caused an exception. The plugin will be disabled in order to prevent a crash. A plugin exception file will be generated in WinHue folder..
         /// </summary>
         public static string Plugins_Error {
             get {
@@ -1204,7 +1213,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This criteria already exists. Replace ?.
+        ///   Looks up a localized string similar to This criteria already exists. Replace?.
         /// </summary>
         public static string RssFeedMonitor_CriteriaAlreadyExists {
             get {
@@ -1222,7 +1231,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to replace the selected action ?.
+        ///   Looks up a localized string similar to Do you want to replace the selected action?.
         /// </summary>
         public static string Rule_ActionAlreadyExists {
             get {
@@ -1231,7 +1240,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A similar condition already exists. Do you want to replace it ?.
+        ///   Looks up a localized string similar to A similar condition already exists. Do you want to replace it?.
         /// </summary>
         public static string Rule_ConditionAlreadyExists {
             get {
@@ -1240,7 +1249,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this rule ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this rule?.
         /// </summary>
         public static string Rule_Delete {
             get {
@@ -1258,7 +1267,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occur while creating the rule :.
+        ///   Looks up a localized string similar to An error occur while creating the rule:.
         /// </summary>
         public static string Rule_ErrorCreating {
             get {
@@ -1276,7 +1285,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum number of action reached. Please delete an action in order to add a new one..
+        ///   Looks up a localized string similar to Maximum number of actions reached. Please delete an action in order to add a new one..
         /// </summary>
         public static string Rule_MaxAction {
             get {
@@ -1285,7 +1294,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum amout of condition has been reached. Remove an existing condition in order to add a new one..
+        ///   Looks up a localized string similar to The maximum amout of conditions has been reached. Remove an existing condition in order to add a new one..
         /// </summary>
         public static string Rule_MaxConditions {
             get {
@@ -1375,7 +1384,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The property {0} has already been set. Replace it ?.
+        ///   Looks up a localized string similar to The property {0} has already been set. Replace it?.
         /// </summary>
         public static string Rule_PropertyAlreadyExists {
             get {
@@ -1384,7 +1393,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to replace the selected action ?.
+        ///   Looks up a localized string similar to Are you sure you want to replace the selected action?.
         /// </summary>
         public static string Rule_ReplaceAction {
             get {
@@ -1393,7 +1402,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to replace this condition ?.
+        ///   Looks up a localized string similar to Are you sure you want to replace this condition?.
         /// </summary>
         public static string Rule_ReplaceCondition {
             get {
@@ -1429,7 +1438,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value is not within the max and min for the type :.
+        ///   Looks up a localized string similar to The value is not within the max and min for the type:.
         /// </summary>
         public static string Rule_ValueNotInRange {
             get {
@@ -1456,7 +1465,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A Scene with this name already exists. Overwrite ?.
+        ///   Looks up a localized string similar to A Scene with this name already exists. Overwrite?.
         /// </summary>
         public static string Scene_AlreadyExists {
             get {
@@ -1465,7 +1474,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to clear the current scene ?.
+        ///   Looks up a localized string similar to Are you sure you want to clear the current scene?.
         /// </summary>
         public static string Scene_Clear_Warning {
             get {
@@ -1474,7 +1483,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete that scene ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete that scene?.
         /// </summary>
         public static string Scene_Delete {
             get {
@@ -1483,7 +1492,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to load the RGB Image ?.
+        ///   Looks up a localized string similar to Are you sure you want to load the RGB Image?.
         /// </summary>
         public static string Scene_Load_RGB {
             get {
@@ -1519,7 +1528,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace scene light state with current state ?.
+        ///   Looks up a localized string similar to Replace scene light state with current state?.
         /// </summary>
         public static string Scene_Replace_Current_States {
             get {
@@ -1564,7 +1573,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this Schedule ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this Schedule?.
         /// </summary>
         public static string Schedule_Delete {
             get {
@@ -1672,7 +1681,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this sensor ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this sensor?.
         /// </summary>
         public static string Sensor_Delete {
             get {
@@ -1699,7 +1708,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Field must be at leat 6 characters long..
+        ///   Looks up a localized string similar to Field must be at least 6 characters long..
         /// </summary>
         public static string Sensor_FieldTooShort {
             get {
@@ -1708,7 +1717,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please make sure that all textbox are filled with required information and that the url is valid..
+        ///   Looks up a localized string similar to Please make sure that all textboxes are filled with required information and that the URL is valid..
         /// </summary>
         public static string Sensor_InvalidFields {
             get {
@@ -1717,7 +1726,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified url is invalid. A valid url begins with http:// ..
+        ///   Looks up a localized string similar to The specified URL is invalid. A valid URL begins with http:// ..
         /// </summary>
         public static string Sensor_InvalidURL {
             get {
@@ -1744,7 +1753,16 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IP Address set to : .
+        ///   Looks up a localized string similar to Please enter at least one serial number..
+        /// </summary>
+        public static string SerialCannotBeEmpty_Error {
+            get {
+                return ResourceManager.GetString("SerialCannotBeEmpty_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Address set to:: .
         /// </summary>
         public static string Settings_ChangeIp {
             get {
@@ -1762,7 +1780,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning : Entering the settings will disable all plugins. Are you sure you want to modify the settings ?.
+        ///   Looks up a localized string similar to Warning: Entering the settings will disable all plugins. Are you sure you want to modify the settings?.
         /// </summary>
         public static string Settings_DisableAllTools {
             get {
@@ -1807,7 +1825,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to apply the update ?.
+        ///   Looks up a localized string similar to Are you sure you want to apply the update?.
         /// </summary>
         public static string Update_Confirmation {
             get {
@@ -1843,7 +1861,16 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove this user ?.
+        ///   Looks up a localized string similar to An update is available. Do you want to download it?.
+        /// </summary>
+        public static string UpdateAvailableDownload {
+            get {
+                return ResourceManager.GetString("UpdateAvailableDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this user?.
         /// </summary>
         public static string UserManager_RemoveUser {
             get {
@@ -1861,7 +1888,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning your bridge API version is not up to date. WinHue will not work properly unless you have the latest version of the bridge API. Please Update your bridge API to the latest version..
+        ///   Looks up a localized string similar to Warning: Your bridge API version is not up to date. WinHue will not work properly unless you have the latest version of the bridge API. Please update your bridge API to the latest version..
         /// </summary>
         public static string Warning_Bridge_Not_Updated {
             get {
@@ -1879,7 +1906,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this mood ?.
+        ///   Looks up a localized string similar to Are you sure you want to delete this mood?.
         /// </summary>
         public static string Warning_Delete_Effect {
             get {
@@ -1888,7 +1915,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning Transition Time is longer than 3 seconds ! You will not be able see your preview properly and the light will revert to their previous state after 3 seconds..
+        ///   Looks up a localized string similar to Warning: Transition Time is longer than 3 seconds! You will not be able see your preview properly and the light will revert to their previous state after 3 seconds..
         /// </summary>
         public static string Warning_TransitionTime {
             get {

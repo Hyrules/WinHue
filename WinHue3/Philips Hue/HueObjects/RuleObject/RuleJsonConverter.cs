@@ -58,9 +58,9 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
                 newRule.timestriggered = obj["timestriggered"].Value<int>();
 
             if (obj["actions"] != null)
-                newRule.actions = obj["actions"].ToObject<List<RuleAction>>();
+                newRule.actions = obj["actions"].ToObject<RuleActionCollection>();
             if (obj["conditions"] != null)
-                newRule.conditions = obj["conditions"].ToObject<List<RuleCondition>>();
+                newRule.conditions = obj["conditions"].ToObject<RuleConditionCollection>();
             return newRule;
         }
 

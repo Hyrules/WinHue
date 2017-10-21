@@ -104,7 +104,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     BridgeSettings brs = Serializer.DeserializeToObject<BridgeSettings>(comres.Data);
                     if (brs != null)
                     {
-                        return brs.swupdate.updatestate == 2;
+                        if (brs.swupdate.updatestate == 2)
+                        {
+                            UpdateAvailable = true;
+                            return true;
+                        }
+                        return false;
                     }
                     else
                     {

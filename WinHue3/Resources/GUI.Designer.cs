@@ -19,7 +19,7 @@ namespace WinHue3.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class GUI {
@@ -57,6 +57,42 @@ namespace WinHue3.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string AddLightSerialForm_Cancel {
+            get {
+                return ResourceManager.GetString("AddLightSerialForm_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add one ore more serials to the box below separated by commas (eg: 45AF34,543636,34AFBE).
+        /// </summary>
+        public static string AddLightSerialForm_Message {
+            get {
+                return ResourceManager.GetString("AddLightSerialForm_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string AddLightSerialForm_Seach {
+            get {
+                return ResourceManager.GetString("AddLightSerialForm_Seach", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Light by serial number.
+        /// </summary>
+        public static string AddLightSerialForm_Title {
+            get {
+                return ResourceManager.GetString("AddLightSerialForm_Title", resourceCulture);
             }
         }
         
@@ -579,6 +615,15 @@ namespace WinHue3.Resources {
         public static string BridgeSettingsForm_Title {
             get {
                 return ResourceManager.GetString("BridgeSettingsForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bridge update required. Please update the bridge in order to use WinHue with this bridge..
+        /// </summary>
+        public static string BridgeUpdateRequired {
+            get {
+                return ResourceManager.GetString("BridgeUpdateRequired", resourceCulture);
             }
         }
         
@@ -1645,6 +1690,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load a bridge datastore from file.....
+        /// </summary>
+        public static string MainForm_Menu_VirtualBridge {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_VirtualBridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string MainForm_Sliders_Brightness {
@@ -1767,6 +1821,15 @@ namespace WinHue3.Resources {
         public static string MainForm_StatusBar_ToolTip_Search {
             get {
                 return ResourceManager.GetString("MainForm_StatusBar_ToolTip_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WinHue update available. Click here to update..
+        /// </summary>
+        public static string MainForm_StatusBar_ToolTip_UpdateAvailable {
+            get {
+                return ResourceManager.GetString("MainForm_StatusBar_ToolTip_UpdateAvailable", resourceCulture);
             }
         }
         
@@ -2037,6 +2100,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Home_Group_SettingsUpdateButton {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Home_Group_SettingsUpdateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for bridge update.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate", resourceCulture);
             }
         }
         
@@ -3661,6 +3733,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for WinHue update at startup.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_Check_Update {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Check_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Controls.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Controls {
@@ -3801,6 +3882,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for Bridge version. (You might encounter crashes that the dev will not fix if you choose not to).
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_NoCheckBridgeVersion {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_NoCheckBridgeVersion", resourceCulture);
             }
         }
         

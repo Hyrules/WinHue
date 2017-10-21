@@ -6,13 +6,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Philips_Hue.HueObjects.SensorObject;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Philips_Hue.BridgeObject
@@ -43,13 +40,24 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (typename == null) return false;
             string url = BridgeUrl + $@"/{typename}/{id}/{type}";
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
-
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success(){Address = url, value = state.ToString()});
                 return LastCommandMessages.Success;
             }
+
+
             ProcessCommandFailure(url, comres.Status);
             return false;
         }
@@ -63,6 +71,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public bool SetState(IBaseProperties state, string id)
         {
+
             string typename = null;
             string type = null;
             if (state is State)
@@ -78,13 +87,24 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (typename == null) return false;
             string url = BridgeUrl + $@"/{typename}/{id}/{type}";
 
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
-
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = state.ToString() });
                 return LastCommandMessages.Success;
             }
+
+
             ProcessCommandFailure(url, comres.Status);
             return false;
         }
@@ -97,11 +117,20 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public bool ActivateScene(string id)
         {
             string url = BridgeUrl + "/groups/0/action";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, "{\"scene\":\"" + id + "\"}");
+            CommResult comres;
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, "{\"scene\":\"" + id + "\"}");
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Set Virtual scene : {id}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -116,15 +145,25 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> ActivateSceneAsyncTask(string id)
         {
             string url = BridgeUrl + "/groups/0/action";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, "{\"scene\":\"" + id + "\"}");
+            CommResult comres;
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, "{\"scene\":\"" + id + "\"}");
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Set Virtual scene : {id}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
             return false;
+
         }
 
         /// <summary>
@@ -155,17 +194,26 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BrideCommResult</returns>
         public bool SetSceneLightState(string sceneid, string lightid, IBaseProperties state)
         {
-            string url = BridgeUrl + $"/scenes/{sceneid}/lightstates/{lightid}";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
 
-            if (comres.Status == WebExceptionStatus.Success)
+            string url = BridgeUrl + $"/scenes/{sceneid}/lightstates/{lightid}";
+            CommResult comres;
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
+
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Set Virtual scene state : {sceneid}, {lightid}, {state.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
             return false;
-
         }
 
         /// <summary>
@@ -178,11 +226,21 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> SetSceneLightStateAsyncTask(string sceneid, string lightid, IBaseProperties state)
         {
             string url = BridgeUrl + $"/scenes/{sceneid}/lightstates/{lightid}";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
-
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(state));
+
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Set Virtual scene state : {sceneid}, {lightid}, {state.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -201,11 +259,21 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = hueobj.GetHueType();
             string url = BridgeUrl + $@"/{typename}/{hueobj.Id}";
 
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, $@"{{""name"":""{hueobj.name}""}}");
+            CommResult comres;
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, $@"{{""name"":""{hueobj.name}""}}");
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Rename object : {hueobj.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -224,11 +292,21 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = hueobj.GetHueType();
             string url = BridgeUrl + $@"/{typename}/{hueobj.Id}";
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(hueobj));
+            CommResult comres;
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(hueobj));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Rename Virtual object : {hueobj.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -248,12 +326,24 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string url = BridgeUrl + $@"/{typename}";
             if (typename == null) return false;
 
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.POST, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(clone)));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.POST, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(clone)));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Created Virtual object : {newobject.ToString()}" });
                 return LastCommandMessages.Success;
             }
+            
             ProcessCommandFailure(url, comres.Status);
             return false;
         }
@@ -267,17 +357,31 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> CreateObjectAsyncTask(IHueObject newobject)
         {
             string typename = newobject.GetHueType();
+            IHueObject clone = (IHueObject)newobject.Clone();
             string url = BridgeUrl + $@"/{typename}";
             if (typename == null) return false;
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.POST, Serializer.SerializeToJson(newobject));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.POST, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(clone)));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Created Virtual object : {newobject.ToString()}" });
                 return LastCommandMessages.Success;
             }
+
             ProcessCommandFailure(url, comres.Status);
             return false;
+
         }
 
         /// <summary>
@@ -290,9 +394,20 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
             string typename = obj.GetHueType();
             string url = BridgeUrl + $@"/{typename}/{obj.Id}";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.DELETE);
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.DELETE);
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Deleted Virtual object : {obj.ToString()}" });
                 return LastCommandMessages.Success;
             }
 
@@ -310,14 +425,27 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
             string typename = type.ToString();
             string url = BridgeUrl + $@"/{typename}/{Id}";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.DELETE);
-            if (comres.Status == WebExceptionStatus.Success)
+
+            CommResult comres;
+
+            if (!Virtual)
             {
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.DELETE);
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Deleted Virtual object : {Id},{type.ToString()}" });
                 return LastCommandMessages.Success;
             }
 
             ProcessCommandFailure(url, comres.Status);
             return false;
+
         }
 
         /// <summary>
@@ -330,9 +458,19 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
             string typename = obj.GetHueType();
             string url = BridgeUrl + $@"/{typename}/{obj.Id}";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.DELETE);
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.DELETE);
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    return LastCommandMessages.Success;
+                }
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Deleted Virtual object : {obj.ToString()}" });
                 return LastCommandMessages.Success;
             }
 
@@ -354,10 +492,20 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string url = BridgeUrl + $@"/{typename}/{modifiedobject.Id}";
             if (typename == null) return false;
 
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(clone)));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(clone)));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Modified Virtual object : {modifiedobject.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -375,13 +523,24 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> ModifyObjectAsyncTask(IHueObject modifiedobject)
         {
             string typename = modifiedobject.GetHueType();
+            IHueObject clone = (IHueObject)modifiedobject.Clone();
             string url = BridgeUrl + $@"/{typename}/{modifiedobject.Id}";
             if (typename == null) return false;
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(modifiedobject));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(modifiedobject));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Modified Virtual object : {modifiedobject.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -397,12 +556,24 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public bool ChangeSensorConfig(string id, object newconfig)
         {
             string url = BridgeUrl + $@"/sensors/{id}/config";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(newconfig)));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(newconfig)));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Modified Virtual sensor config : {id},{newconfig.ToString()}" });
                 return LastCommandMessages.Success;
             }
+
             ProcessCommandFailure(url, comres.Status);
             return false;
         }
@@ -416,12 +587,24 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> ChangeSensorConfigAsyncTask(string id, object newconfig)
         {
             string url = BridgeUrl + $@"/sensors/{id}/config";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(newconfig));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(newconfig));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Modified Virtual sensor config : {id},{newconfig.ToString()}" });
                 return LastCommandMessages.Success;
             }
+
             ProcessCommandFailure(url, comres.Status);
             return false;
         }
@@ -436,10 +619,20 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public bool ChangeSensorState(string id, object newstate)
         {
             string url = BridgeUrl + $@"/sensors/{id}/state";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newstate)));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newstate)));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Modified Virtual sensor state : {id},{newstate.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -454,11 +647,22 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public async Task<bool> ChangeSensorStateAsyncTask(string id, object newstate)
         {
+
             string url = BridgeUrl + $@"/sensors/{id}/state";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newstate)));
-            if (comres.Status == WebExceptionStatus.Success)
+            CommResult comres;
+            if (!Virtual)
             {
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.PUT, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newstate)));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Modified Virtual sensor state : {id},{newstate.ToString()}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);

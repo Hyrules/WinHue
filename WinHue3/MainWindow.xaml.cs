@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Globalization;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Media;
 using WinHue3.ExtensionMethods;
@@ -12,6 +13,7 @@ using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Settings;
+using WinHue3.Utils;
 using WinHue3.ViewModels;
 using WinHue3.ViewModels.MainFormViewModels;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
@@ -23,10 +25,8 @@ namespace WinHue3
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly log4net.ILog log =
-            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);     
-        public string Version { get; set; }
-        public Views.Form_EventLog _fel;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private Views.Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
         /// <summary>
@@ -44,10 +44,10 @@ namespace WinHue3
             InitializeComponent();
             _mfvm = DataContext as MainFormViewModel;
             _mfvm.Eventlogform = _fel;
-            Title += " " + Version;
+            Title += " " + Assembly.GetExecutingAssembly().GetName().Version; 
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              trayicon.Icon = Properties.Resources.icon;
-           
+
         }
 
         private void lvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
@@ -125,8 +125,8 @@ namespace WinHue3
             }
 
             if (!lvMainObjects.SelectedItem.HasProperty("lights")) return;
-            List<string> list =
-                (List<string>)
+            StringCollection list =
+                (StringCollection)
                     lvMainObjects.SelectedItem.GetType().GetProperty("lights").GetValue(lvMainObjects.SelectedItem);
             log.Debug("Settings light BG color for lights : " + string.Join(",",list));
             SetLightBackground(list);
@@ -136,6 +136,7 @@ namespace WinHue3
         {
             this.Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
         }
+
 
     }
 }
