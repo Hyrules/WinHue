@@ -159,14 +159,14 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// Config of the sensor.
         /// </summary>
-        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject, JsonConverter(typeof(ExpandoObjectConverter))]
-        public SensorConfigBase config
+        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject]
+        public ISensorConfigBase config
         {
             get => _config;
             set => SetProperty(ref _config, value);
         }
 
-        public T GetConfig<T>() where T : SensorConfigBase
+        public T GetConfig<T>() where T : ISensorConfigBase
         {
             return (T) _config;
         }
@@ -174,8 +174,8 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// State of the sensor.
         /// </summary>
-        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject, ReadOnly(true), JsonConverter(typeof(ExpandoObjectConverter))]
-        public SensorStateBase state
+        [HueProperty, DataMember, Category("Sensor Properties"), Description("Configuration of the sensor"),ExpandableObject, ReadOnly(true)]
+        public ISensorStateBase state
         {
             get => _state;
             set => SetProperty(ref _state, value);
@@ -188,7 +188,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             set => SetProperty(ref _swupdate, value);
         }
 
-        public T GetState<T>() where T : SensorStateBase
+        public T GetState<T>() where T : ISensorStateBase
         {
             return (T) _state;
         }
@@ -248,7 +248,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             return sensor;
         }
 
-        private SensorConfigBase TryConvertConfig(JToken config, string type)
+        private ISensorConfigBase TryConvertConfig(JToken config, string type)
         {
             
             switch (type)
@@ -286,7 +286,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 
         }
 
-        private SensorStateBase TryConvertState(JToken state,string type)
+        private ISensorStateBase TryConvertState(JToken state,string type)
         {
             switch (type)
             {

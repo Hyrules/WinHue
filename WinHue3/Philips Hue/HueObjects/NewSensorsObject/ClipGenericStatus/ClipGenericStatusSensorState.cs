@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
 {
@@ -8,7 +9,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
     /// Sensor State.
     /// </summary>
     [DataContract]
-    public class ClipGenericStatusSensorState  : SensorStateBase
+    public class ClipGenericStatusSensorState  : ValidatableBindableBase, ISensorStateBase
     {
         private int _status;
 

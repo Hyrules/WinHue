@@ -120,61 +120,35 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
                 log.Info($"Checking if any bridge already present in settings... found {WinHueSettings.bridges.BridgeInfo.Count}");
 
-                if (WinHueSettings.bridges.BridgeInfo.Count == 0)
+                if (WinHueSettings.bridges.BridgeInfo.Count == 0 || WinHueSettings.bridges.DefaultBridge == string.Empty || !WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                 {   // No bridge found in the list of bridge.
-                    log.Info("No bridge found in settings. Pairing needed.");
+                    log.Info("Either no bridge found in settings or no default bridge. Pairing needed.");
                     if (DoBridgePairing())
                         continue;
                     else
                         break;
-                }
-
-                log.Info($"Checking if there is a defaut bridge set...");
-                if (WinHueSettings.bridges.DefaultBridge == string.Empty)
-                {   // Default not set
-
-                    log.Info("Default bridge not set. Pairing needed.");
-                    if (DoBridgePairing())
-                        continue;
-                    else
-                        break;
-                }
-                else
-                {   // Default set
-                    if (!WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
-                    {
-                        // Default Bridge Exists
-                        log.Info("Default Bridge does not seem to exist in the list of bridge. Pairing needed.");
-                        if (DoBridgePairing())
-                            continue;
-                        else
-                            break;
-                    }
-
                 }
 
                 foreach (KeyValuePair<string, BridgeSaveSettings> b in WinHueSettings.bridges.BridgeInfo)
                 {
-                    Bridge bridge = new Bridge()
-                    {
-                        ApiKey = b.Value.apikey,
-                        ApiVersion = b.Value.apiversion,
-                        IpAddress = IPAddress.Parse(b.Value.ip),
-                        name = b.Value.name,
-                        IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
-                        SwVersion = b.Value.swversion,
-                        Mac = b.Key
-                    };
-                    if (b.Value.apikey == string.Empty) continue;
-                    bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
-                    bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
-                    if (WinHueSettings.settings.CheckForBridgeUpdate)
-                        bridge.RequiredUpdate = UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
-                    else
-                        bridge.RequiredUpdate = false;
                     log.Info($"Bridge OK. Checking if bridge already in the bridge list...");
-                    if (ListBridges.All(x => x.Mac != bridge.Mac))
+                    if (ListBridges.All(x => x.Mac != b.Key))
                     {
+                        Bridge bridge = new Bridge()
+                        {
+                            ApiKey = b.Value.apikey,
+                            ApiVersion = b.Value.apiversion,
+                            IpAddress = IPAddress.Parse(b.Value.ip),
+                            name = b.Value.name,
+                            IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
+                            SwVersion = b.Value.swversion,
+                            Mac = b.Key
+                        };
+                        if (b.Value.apikey == string.Empty) continue;
+                        bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
+                        bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
+                        bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
+
                         log.Info("Bridge not in the list adding it...");
                         ListBridges.Add(bridge);
 
@@ -194,11 +168,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
 
                         if (DoBridgePairing(ListBridges))
                         {
-                            if (br.IsDefault)
-                            {
-                                SelectedBridge = br;
-                                SelectedBridge.CheckOnlineForUpdate();
-                            }
+                            if (!br.IsDefault) continue;
+                            SelectedBridge = br;
+                            SelectedBridge.CheckOnlineForUpdate();
                         }
                         else
                         {
@@ -207,12 +179,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
                     }
                     else
                     {
-                        if (br.IsDefault)
-                        {
-                            SelectedBridge = br;
-                            SelectedBridge.CheckOnlineForUpdate();
-                        }
-                            
+                        if (!br.IsDefault) continue;
+                        SelectedBridge = br;
+                        SelectedBridge.CheckOnlineForUpdate();
                     }
                 }
 

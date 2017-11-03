@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
@@ -9,7 +10,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
     /// Sensor State.
     /// </summary>
     [DataContract]
-    public class ClipGenericFlagSensorState : SensorStateBase
+    public class ClipGenericFlagSensorState : ValidatableBindableBase, ISensorStateBase
     {
         private bool _flag;
 

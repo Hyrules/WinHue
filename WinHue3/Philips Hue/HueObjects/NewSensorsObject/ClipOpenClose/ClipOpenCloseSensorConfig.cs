@@ -2,11 +2,12 @@
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
 {
     [DataContract]
-    public class ClipOpenCloseSensorConfig : SensorConfigBase
+    public class ClipOpenCloseSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private string _url;
         private bool? _on;

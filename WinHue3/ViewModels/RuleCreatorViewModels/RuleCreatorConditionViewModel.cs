@@ -197,7 +197,7 @@ namespace WinHue3.ViewModels.RuleCreatorViewModels
         private void PopulateConditionProperties(string selectedpath = null)
         {
             ListConditionProperties.Clear();
-            if (ObjectType == null) return;
+            if (ObjectType == null || SelectedConditionHueObject == null ) return;
             string path = SelectedConditionHueObject == null ? $"/config" : $"/{SelectedConditionHueObject.GetHueType()}/{SelectedConditionHueObject.Id}";
             List<TreeViewItem> lrtvi = new List<TreeViewItem>();
 
@@ -281,7 +281,8 @@ namespace WinHue3.ViewModels.RuleCreatorViewModels
             ListConditionHueObjects.Clear();
             ListConditionProperties.Clear();
             SelectedConditionProperty = null;
-            
+            SelectedConditionHueObject = null;
+
             switch (ObjectType)
             {
                 case "lights":

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
@@ -10,7 +11,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
     /// SensorState class.
     /// </summary>
     [DataContract]
-    public class ClipOpenCloseSensorState : SensorStateBase
+    public class ClipOpenCloseSensorState : ValidatableBindableBase, ISensorStateBase
     {
         private bool _open;
 

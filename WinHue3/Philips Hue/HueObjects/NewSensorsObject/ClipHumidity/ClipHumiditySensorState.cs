@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
@@ -9,8 +10,8 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
     /// Humidity Sensor State.
     /// </summary>
     [DataContract]
-    public class ClipHumiditySensorState : SensorStateBase
-    {
+    public class ClipHumiditySensorState : ValidatableBindableBase, ISensorStateBase
+    { 
         private int _humidity;
 
         /// <summary>

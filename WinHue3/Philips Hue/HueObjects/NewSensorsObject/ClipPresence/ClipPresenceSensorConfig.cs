@@ -2,11 +2,12 @@
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.ViewModels;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
 {
     [DataContract]
-    public class ClipPresenceSensorConfig : SensorConfigBase
+    public class ClipPresenceSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private string _url;
         private bool? _on;
