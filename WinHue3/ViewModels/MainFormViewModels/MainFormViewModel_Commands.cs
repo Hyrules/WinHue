@@ -6,6 +6,7 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.SupportedLights;
 using WinHue3.Utils;
 
@@ -28,6 +29,8 @@ namespace WinHue3.ViewModels.MainFormViewModels
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
             if (SelectedObject is Scene && ((Scene) SelectedObject).version == 1) return false;
+            if (SelectedObject is Schedule &&
+                ((Schedule) SelectedObject).command.address.objecttype == "sensors") return false;
             return !(SelectedObject is Light);
         }
 
