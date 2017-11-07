@@ -31,9 +31,9 @@
 
         int? hue_inc { get; set; }
 
-        ushort? ct_inc { get; set; }
+        short? ct_inc { get; set; }
 
-        float? xy_inc { get; set; }
+        decimal?[] xy_inc { get; set; }
 
         string ToString();
 

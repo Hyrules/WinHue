@@ -30,8 +30,8 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         private short? _briInc;
         private short? _satInc;
         private int? _hueInc;
-        private ushort? _ctInc;
-        private float? _xyInc;
+        private short? _ctInc;
+        private decimal?[] _xyInc;
         private ushort? _ct;
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// Color temperature increment.
         /// </summary>
         [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("Color temperature increment."),Category("Incrementors")]
-        public ushort? ct_inc
+        public short? ct_inc
         {
             get => _ctInc;
             set => SetProperty(ref _ctInc,value);
@@ -178,7 +178,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// XY increment.
         /// </summary>
         [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("XY increment."),Category("Incrementors")]
-        public float? xy_inc
+        public decimal?[] xy_inc
         {
             get => _xyInc;
             set => SetProperty(ref _xyInc,value);

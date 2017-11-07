@@ -1408,7 +1408,7 @@
     <value>WinHue doit être exécuté en tant qu'administrateur afin d'utiliser le moniteur de température de CPU.</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Check_Update" xml:space="preserve">
-    <value>Vérifier les maj de WinHue au démarrage.</value>
+    <value>Notifier si une mise à jour de WinHue est disponible au démarrage.</value>
   </data>
   <data name="MainForm_StatusBar_ToolTip_UpdateAvailable" xml:space="preserve">
     <value>Mise à jour de WinHue disponible. Cliquez ici pour faire la maj.</value>
