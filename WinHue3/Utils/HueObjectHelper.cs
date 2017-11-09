@@ -268,7 +268,7 @@ namespace WinHue3.Utils
             {
                 kvp.Value.Id = kvp.Key;
                 log.Debug("Processing scene : " + kvp.Value);
-                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.SceneLarge);
+                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
                 if (kvp.Value.name.Contains("HIDDEN") && !WinHueSettings.settings.ShowHiddenScenes) continue;
                 newlist.Add(kvp.Value);
             }
@@ -1016,7 +1016,7 @@ namespace WinHue3.Utils
                     Scene scene = Object as Scene;
                     log.Debug("Scene : " + scene);
                     scene.Id = id;
-                    scene.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.SceneLarge);
+                    scene.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
                     Object = (T)Convert.ChangeType(scene, typeof(T));
                 }
                 else if (typeof(T) == typeof(Schedule))
@@ -1115,7 +1115,7 @@ namespace WinHue3.Utils
             {
                 log.Debug("Scene : " + Object);
                 Object.Id = id;
-                Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.SceneLarge);
+                Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
             }
             else if (objecttype == typeof(Schedule))
             {

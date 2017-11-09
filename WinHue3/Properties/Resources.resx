@@ -127,9 +127,6 @@
   <data name="bridgeAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bridgeAdd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bridge_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1417331999_Gear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="BulbView" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BulbView.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -184,12 +181,6 @@
         eCKa80IAmAYgviCI2wSh/MECijQztCSNxdn39cFZYTP4FjypAYgvI3hluRudkb/JGamreWXsXt+YQT/C
         v1I/RH8ZZ2bX7B4b+0/0ZBlnZtd9bz5s2B8apIhreZx65QAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1416183787_Community Help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hotkey" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1465102684_preferences-desktop-keyboard-shortcuts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HueLightSearch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HueLightSearch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -285,9 +276,6 @@
         j4mlRDQhTO61vJz+O+YRC4h3iIUEhc+Z/w8Qjpvg63AYEQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1409707765_reload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="resource" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\resource.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -355,9 +343,6 @@
   <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="timer_clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1476661736_timer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -367,20 +352,8 @@
   <data name="user" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1417332335_Warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="weatheralert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\weatheralert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="website" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1416184952_Gnome-Web-Browser-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1416205084_Book_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1416205084_Book_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SceneLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1486263478_movie-01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="resettt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\resettt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -402,5 +375,17 @@
   </data>
   <data name="load" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\load.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eventlog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\eventlog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scenes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\scenes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="timer_clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\timer_clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpdateSearch1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\updatesearch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

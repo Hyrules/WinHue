@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         xmlns:converters="clr-namespace:WinHue3.Converters"
         x:Class="WinHue3.Views.Form_BridgeSettings"
-        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="502" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/1417331999_Gear.png" Loaded="Window_Loaded">
+        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="502" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded">
     <Window.DataContext>
         <viewmodels:BridgeSettingsViewModel/>
     </Window.DataContext>

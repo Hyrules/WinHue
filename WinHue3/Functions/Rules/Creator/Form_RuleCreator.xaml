@@ -11,7 +11,7 @@
         xmlns:utils="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.Views.Form_RuleCreator"
         mc:Ignorable="d"
-        Title="Rule Creator" Height="382.456" Width="641.281" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/sensor.png">
+        Title="Rule Creator" Height="382.456" Width="641.281" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/rules.png">
     <Window.DataContext>
         <ruleCreatorViewModels:RuleCreatorViewModel/>
     </Window.DataContext>

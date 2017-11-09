@@ -183,7 +183,7 @@
     <Compile Include="Addons\CpuTempMon\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Addons\RssFeedMonitor.cs" />
+    <Compile Include="Addons\RssFeedMonitor\RssFeedMonitor.cs" />
     <Compile Include="Colors\Q42ColorConversion.cs" />
     <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
@@ -195,33 +195,33 @@
     <Compile Include="Controls\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\BoolToWrappingConverter.cs" />
-    <Compile Include="Converters\DateFormatConverter.cs" />
-    <Compile Include="Converters\DateTimeToScheduleTime.cs" />
-    <Compile Include="Converters\DoubleToDecimalConverter.cs" />
-    <Compile Include="Converters\IntToUshortConverter.cs" />
-    <Compile Include="Converters\ListStringTypeConverter.cs" />
-    <Compile Include="Converters\NudToTransitionTimeConverter.cs" />
-    <Compile Include="Converters\RuleEnabledConverter.cs" />
-    <Compile Include="Converters\RuleOperatorConverter.cs" />
-    <Compile Include="Converters\ScheduleMaskConverter.cs" />
-    <Compile Include="Converters\SelectedActionTypeConverter.cs" />
-    <Compile Include="Converters\DoubleToByteConverter.cs" />
-    <Compile Include="Converters\DoubleToUshortConverter.cs" />
-    <Compile Include="Converters\SliderToXYConverter.cs" />
-    <Compile Include="Converters\VisibleToBoolConverter.cs" />
+    <Compile Include="Functions\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Functions\Converters\BoolToWrappingConverter.cs" />
+    <Compile Include="Functions\Converters\DateFormatConverter.cs" />
+    <Compile Include="Functions\Converters\DateTimeToScheduleTime.cs" />
+    <Compile Include="Functions\Converters\DoubleToDecimalConverter.cs" />
+    <Compile Include="Functions\Converters\IntToUshortConverter.cs" />
+    <Compile Include="Functions\Converters\ListStringTypeConverter.cs" />
+    <Compile Include="Functions\Converters\NudToTransitionTimeConverter.cs" />
+    <Compile Include="Functions\Converters\RuleEnabledConverter.cs" />
+    <Compile Include="Functions\Converters\RuleOperatorConverter.cs" />
+    <Compile Include="Functions\Converters\ScheduleMaskConverter.cs" />
+    <Compile Include="Functions\Converters\SelectedActionTypeConverter.cs" />
+    <Compile Include="Functions\Converters\DoubleToByteConverter.cs" />
+    <Compile Include="Functions\Converters\DoubleToUshortConverter.cs" />
+    <Compile Include="Functions\Converters\SliderToXYConverter.cs" />
+    <Compile Include="Functions\Converters\VisibleToBoolConverter.cs" />
     <Compile Include="Controls\BindableHueSlider.cs" />
     <Compile Include="Controls\BindableListView.cs" />
     <Compile Include="Controls\BindableSlider.cs" />
-    <Compile Include="Models\AppSettings\AppMainSettingsModel.cs" />
-    <Compile Include="Models\AppSettings\AppDefaultsModel.cs" />
-    <Compile Include="Models\AppSettings\AppViewSettingsModel.cs" />
-    <Compile Include="Models\CloneRuleModel.cs" />
-    <Compile Include="Models\EventViewerModel.cs" />
-    <Compile Include="Models\HotKeyCreatorModel.cs" />
-    <Compile Include="Models\ManageUsersModel.cs" />
-    <Compile Include="Models\SceneCreatorModel.cs" />
+    <Compile Include="Functions\Application Settings\AppMainSettingsModel.cs" />
+    <Compile Include="Functions\Application Settings\AppDefaultsModel.cs" />
+    <Compile Include="Functions\Application Settings\AppViewSettingsModel.cs" />
+    <Compile Include="Functions\Rules\Cloning\CloneRuleModel.cs" />
+    <Compile Include="Functions\EventViewer\EventViewerModel.cs" />
+    <Compile Include="Functions\HotKeys\Creator\HotKeyCreatorModel.cs" />
+    <Compile Include="Functions\User Management\ManageUsersModel.cs" />
+    <Compile Include="Functions\Scenes\Creator\SceneCreatorModel.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\AlertItemSource.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\Backup.cs" />
@@ -297,8 +297,8 @@
     <Compile Include="Philips Hue\HueObjects\RuleConditionCollection.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionCollection.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
-    <Compile Include="Settings\CustomBridges.cs" />
-    <Compile Include="Settings\CustomHotkeys.cs" />
+    <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
+    <Compile Include="Functions\Application Settings\Settings\CustomHotkeys.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
@@ -315,47 +315,47 @@
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\Command.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\Schedule.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\ScheduleJsonConverter.cs" />
-    <Compile Include="Settings\BridgeSaveSettings.cs" />
-    <Compile Include="Settings\CustomSettings.cs" />
+    <Compile Include="Functions\Application Settings\Settings\BridgeSaveSettings.cs" />
+    <Compile Include="Functions\Application Settings\Settings\CustomSettings.cs" />
     <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
     <Compile Include="Utils\UnknownObject.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
-    <Compile Include="Validation\RuleValueValidation.cs" />
-    <Compile Include="Validation\UIntValidation.cs" />
-    <Compile Include="View.cs" />
-    <Compile Include="ViewModels\AddLightSerialViewModel.cs" />
-    <Compile Include="ViewModels\AdvancedCreatorViewModel.cs" />
-    <Compile Include="ViewModels\AppSettingsViewModel.cs" />
-    <Compile Include="ViewModels\CloneRuleViewModel.cs" />
-    <Compile Include="Models\RuleCreatorModel.cs" />
+    <Compile Include="Functions\Rules\Validation\RuleValueValidation.cs" />
+    <Compile Include="Validations\UIntValidation.cs" />
+    <Compile Include="Utils\View.cs" />
+    <Compile Include="Functions\Lights\Finder\AddLightSerialViewModel.cs" />
+    <Compile Include="Functions\Advanced Creator\AdvancedCreatorViewModel.cs" />
+    <Compile Include="Functions\Application Settings\AppSettingsViewModel.cs" />
+    <Compile Include="Functions\Rules\Cloning\CloneRuleViewModel.cs" />
+    <Compile Include="Functions\Rules\Creator\RuleCreatorModel.cs" />
     <Compile Include="Resources\GUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GUI.resx</DependentUpon>
     </Compile>
-    <Compile Include="SupportedLights\LightImageLibrary.cs" />
-    <Compile Include="SupportedLights\SupportedDeviceType.cs" />
-    <Compile Include="SupportedLights\LightDevice.cs" />
-    <Compile Include="Validation\HotKeySelectedValidation.cs" />
-    <Compile Include="Validation\HotKeyValidation.cs" />
-    <Compile Include="Validation\IPValidation.cs" />
-    <Compile Include="Validation\RequireIPValidation.cs" />
-    <Compile Include="ViewModels\EventViewerViewModel.cs" />
-    <Compile Include="ViewModels\HotKeyCreatorViewModel.cs" />
-    <Compile Include="ViewModels\ManageUsersViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorActionViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorConditionViewModel.cs" />
-    <Compile Include="ViewModels\RuleCreatorViewModels\RuleCreatorViewModel.cs" />
-    <Compile Include="ViewModels\SceneCreatorViewModel.cs" />
-    <Compile Include="Views\Form_AddLightSerial.xaml.cs">
+    <Compile Include="Functions\Lights\SupportedDevices\LightImageLibrary.cs" />
+    <Compile Include="Functions\Lights\SupportedDevices\SupportedDeviceType.cs" />
+    <Compile Include="Functions\Lights\SupportedDevices\LightDevice.cs" />
+    <Compile Include="Functions\HotKeys\Validation\HotKeySelectedValidation.cs" />
+    <Compile Include="Functions\HotKeys\Validation\HotKeyValidation.cs" />
+    <Compile Include="Validations\IPValidation.cs" />
+    <Compile Include="Validations\RequireIPValidation.cs" />
+    <Compile Include="Functions\EventViewer\EventViewerViewModel.cs" />
+    <Compile Include="Functions\HotKeys\Creator\HotKeyCreatorViewModel.cs" />
+    <Compile Include="Functions\User Management\ManageUsersViewModel.cs" />
+    <Compile Include="Functions\Rules\Creator\RuleCreatorActionViewModel.cs" />
+    <Compile Include="Functions\Rules\Creator\RuleCreatorConditionViewModel.cs" />
+    <Compile Include="Functions\Rules\Creator\RuleCreatorViewModel.cs" />
+    <Compile Include="Functions\Scenes\Creator\SceneCreatorViewModel.cs" />
+    <Compile Include="Functions\Lights\Finder\Form_AddLightSerial.xaml.cs">
       <DependentUpon>Form_AddLightSerial.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_AdvancedCreator.xaml.cs">
+    <Compile Include="Functions\Advanced Creator\Form_AdvancedCreator.xaml.cs">
       <DependentUpon>Form_AdvancedCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_ManageUsers.xaml.cs">
+    <Compile Include="Functions\User Management\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalStrings.de.Designer.cs">
@@ -368,80 +368,80 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalStrings.fr.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\BridgePairingModel.cs" />
-    <Compile Include="Models\BridgeSettings\BridgeSettingsSoftwareModel.cs" />
-    <Compile Include="Models\BridgeSettings\BridgeSettingsGeneralModel.cs" />
-    <Compile Include="Models\BridgeSettings\BridgeSettingsNetworkModel.cs" />
-    <Compile Include="Models\BridgeSettings\BridgeSettingsPortalModel.cs" />
-    <Compile Include="Models\DaylightModel.cs" />
-    <Compile Include="Models\GroupCreatorModel.cs" />
-    <Compile Include="Models\HueTapModel.cs" />
-    <Compile Include="Models\MainFormModel.cs" />
-    <Compile Include="Models\ResourceLinkCreatorModel.cs" />
-    <Compile Include="Models\ScheduleCreatorModel.cs" />
-    <Compile Include="Models\SensorCreatorModel.cs" />
+    <Compile Include="Functions\BridgePairing\BridgePairingModel.cs" />
+    <Compile Include="Functions\BridgeSettings\BridgeSettingsSoftwareModel.cs" />
+    <Compile Include="Functions\BridgeSettings\BridgeSettingsGeneralModel.cs" />
+    <Compile Include="Functions\BridgeSettings\BridgeSettingsNetworkModel.cs" />
+    <Compile Include="Functions\BridgeSettings\BridgeSettingsPortalModel.cs" />
+    <Compile Include="Functions\Sensors\Daylight\DaylightModel.cs" />
+    <Compile Include="Functions\Groups\Creator\GroupCreatorModel.cs" />
+    <Compile Include="Functions\Sensors\HueTap\HueTapModel.cs" />
+    <Compile Include="MainForm\MainFormModel.cs" />
+    <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorModel.cs" />
+    <Compile Include="Functions\Schedules\ScheduleCreatorModel.cs" />
+    <Compile Include="Functions\Sensors\Creator\SensorCreatorModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModels\ValidateBindableBase.cs" />
-    <Compile Include="Validation\BoolValueValidation.cs" />
-    <Compile Include="Validation\HueTapButtonValidation.cs" />
-    <Compile Include="Validation\NotNullValidation.cs" />
-    <Compile Include="Validation\MinimumCountValidation.cs" />
-    <Compile Include="Validation\RequireMaskValidation.cs" />
-    <Compile Include="ViewModels\BridgePairingViewModel.cs" />
-    <Compile Include="ViewModels\BridgeSettingsViewModel.cs" />
-    <Compile Include="ViewModels\DaylightViewModel.cs" />
-    <Compile Include="ViewModels\GroupCreatorViewModel.cs" />
-    <Compile Include="ViewModels\HueTapConfigViewModel.cs" />
-    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel.cs" />
-    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Commands.cs" />
-    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Events.cs" />
-    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Methods.cs" />
-    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Plugins.cs" />
-    <Compile Include="ViewModels\MainFormViewModels\MainFormViewModel_Properties.cs" />
-    <Compile Include="ViewModels\ResourceLinkCreatorViewModel.cs" />
-    <Compile Include="ViewModels\ScheduleCreatorViewModel.cs" />
-    <Compile Include="ViewModels\SensorCreatorViewModel.cs" />
-    <Compile Include="Views\Form_AddManualIp.xaml.cs">
+    <Compile Include="Utils\ValidateBindableBase.cs" />
+    <Compile Include="Validations\BoolValueValidation.cs" />
+    <Compile Include="Functions\Sensors\HueTap\HueTapButtonValidation.cs" />
+    <Compile Include="Validations\NotNullValidation.cs" />
+    <Compile Include="Validations\MinimumCountValidation.cs" />
+    <Compile Include="Validations\RequireMaskValidation.cs" />
+    <Compile Include="Functions\BridgePairing\BridgePairingViewModel.cs" />
+    <Compile Include="Functions\BridgeSettings\BridgeSettingsViewModel.cs" />
+    <Compile Include="Functions\Sensors\Daylight\DaylightViewModel.cs" />
+    <Compile Include="Functions\Groups\Creator\GroupCreatorViewModel.cs" />
+    <Compile Include="Functions\Sensors\HueTap\HueTapConfigViewModel.cs" />
+    <Compile Include="MainForm\MainFormViewModel.cs" />
+    <Compile Include="MainForm\MainFormViewModel_Commands.cs" />
+    <Compile Include="MainForm\MainFormViewModel_Events.cs" />
+    <Compile Include="MainForm\MainFormViewModel_Methods.cs" />
+    <Compile Include="MainForm\MainFormViewModel_Plugins.cs" />
+    <Compile Include="MainForm\MainFormViewModel_Properties.cs" />
+    <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorViewModel.cs" />
+    <Compile Include="Functions\Schedules\ScheduleCreatorViewModel.cs" />
+    <Compile Include="Functions\Sensors\Creator\SensorCreatorViewModel.cs" />
+    <Compile Include="Functions\BridgePairing\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_GroupView.xaml.cs">
+    <Compile Include="Functions\Groups\View\Form_GroupView.xaml.cs">
       <DependentUpon>Form_GroupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_BulbsView.xaml.cs">
+    <Compile Include="Functions\Lights\View\Form_BulbsView.xaml.cs">
       <DependentUpon>Form_BulbsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_RssFeedMonitor.xaml.cs">
+    <Compile Include="Addons\RssFeedMonitor\Form_RssFeedMonitor.xaml.cs">
       <DependentUpon>Form_RssFeedMonitor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_RuleCreator.xaml.cs">
+    <Compile Include="Functions\Rules\Creator\Form_RuleCreator.xaml.cs">
       <DependentUpon>Form_RuleCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_SceneMapping.xaml.cs">
+    <Compile Include="Functions\Scenes\View\Form_SceneMapping.xaml.cs">
       <DependentUpon>Form_SceneMapping.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_Wait.xaml.cs">
+    <Compile Include="MainForm\Wait\Form_Wait.xaml.cs">
       <DependentUpon>Form_Wait.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_HotKeyCreator.xaml.cs">
+    <Compile Include="Functions\HotKeys\Creator\Form_HotKeyCreator.xaml.cs">
       <DependentUpon>Form_HotKeyCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_ResourceLinksCreator.xaml.cs">
+    <Compile Include="Functions\ResourceLinks\Form_ResourceLinksCreator.xaml.cs">
       <DependentUpon>Form_ResourceLinksCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Hotkeys\HotKey.cs" />
+    <Compile Include="Functions\HotKeys\HotKey.cs" />
     <Compile Include="Logs\DataGridViewAppender.cs" />
     <Compile Include="Logs\DgLogEntry.cs" />
-    <Compile Include="Hotkeys\HotKeyHandle.cs" />
+    <Compile Include="Functions\HotKeys\HotKeyHandle.cs" />
     <Compile Include="Utils\MessageBoxError.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
-    <Compile Include="Views\Form_BridgeDetectionPairing.xaml.cs">
+    <Compile Include="Functions\BridgePairing\Form_BridgeDetectionPairing.xaml.cs">
       <DependentUpon>Form_BridgeDetectionPairing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interface\GDIManager.cs" />
-    <Compile Include="Views\AboutBox.cs">
+    <Compile Include="Functions\About\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\AboutBox.Designer.cs">
+    <Compile Include="Functions\About\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\Marker.cs" />
@@ -449,15 +449,14 @@
     <Compile Include="Interface\ScreenPixelHandler.cs" />
     <Compile Include="Interface\TypeGroupDescription.cs" />
     <Compile Include="Utils\HueObjectHelper.cs" />
-    <Compile Include="ViewModels\AddManualIPViewModel.cs" />
-    <Compile Include="ViewModels\AnimatorView.cs" />
-    <Compile Include="ViewModels\GroupViewViewModel.cs" />
-    <Compile Include="ViewModels\BulbsViewViewModel.cs" />
-    <Compile Include="ViewModels\SceneMappingViewModel.cs" />
-    <Compile Include="ViewModels\WaitViewModel.cs" />
-    <Compile Include="ViewModels\ColorFromImageViewModel.cs" />
-    <Compile Include="Settings\WinHueSettings.cs" />
-    <Compile Include="Views\Form_CloneRule.xaml.cs">
+    <Compile Include="Functions\BridgePairing\AddManualIPViewModel.cs" />
+    <Compile Include="Functions\Groups\View\GroupViewViewModel.cs" />
+    <Compile Include="Functions\Lights\View\BulbsViewViewModel.cs" />
+    <Compile Include="Functions\Scenes\View\SceneMappingViewModel.cs" />
+    <Compile Include="MainForm\Wait\WaitViewModel.cs" />
+    <Compile Include="Functions\Scenes\Creator\ColorPicker\ColorFromImageViewModel.cs" />
+    <Compile Include="Functions\Application Settings\Settings\WinHueSettings.cs" />
+    <Compile Include="Functions\Rules\Cloning\Form_CloneRule.xaml.cs">
       <DependentUpon>Form_CloneRule.xaml</DependentUpon>
     </Compile>
     <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
@@ -472,103 +471,103 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Form_AddLightSerial.xaml">
+    <Page Include="Functions\Lights\Finder\Form_AddLightSerial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_AdvancedCreator.xaml">
+    <Page Include="Functions\Advanced Creator\Form_AdvancedCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_ManageUsers.xaml">
+    <Page Include="Functions\User Management\Form_ManageUsers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_BridgeSettings.xaml">
+    <Page Include="Functions\BridgeSettings\Form_BridgeSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_AppSettings.xaml">
+    <Page Include="Functions\Application Settings\Form_AppSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_GroupView.xaml">
+    <Page Include="Functions\Groups\View\Form_GroupView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Form_BulbsView.xaml">
+    <Page Include="Functions\Lights\View\Form_BulbsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_GroupCreator.xaml">
+    <Page Include="Functions\Groups\Creator\Form_GroupCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_HueTapConfig.xaml">
+    <Page Include="Functions\Sensors\HueTap\Form_HueTapConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_Daylight.xaml">
+    <Page Include="Functions\Sensors\Daylight\Form_Daylight.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_RssFeedMonitor.xaml">
+    <Page Include="Addons\RssFeedMonitor\Form_RssFeedMonitor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_RuleCreator.xaml">
+    <Page Include="Functions\Rules\Creator\Form_RuleCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_SceneCreator.xaml">
+    <Page Include="Functions\Scenes\Creator\Form_SceneCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_SceneMapping.xaml">
+    <Page Include="Functions\Scenes\View\Form_SceneMapping.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_ScheduleCreator.xaml">
+    <Page Include="Functions\Schedules\Form_ScheduleCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_EventLog.xaml">
+    <Page Include="Functions\EventViewer\Form_EventLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_SelectColorFromImage.xaml">
+    <Page Include="Functions\Scenes\Creator\ColorPicker\Form_SelectColorFromImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_SensorCreator.xaml">
+    <Page Include="Functions\Sensors\Creator\Form_SensorCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_RenameObject.xaml">
+    <Page Include="Functions\Renaming\Form_RenameObject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_BridgeDetectionPairing.xaml">
+    <Page Include="Functions\BridgePairing\Form_BridgeDetectionPairing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_AddManualIp.xaml">
+    <Page Include="Functions\BridgePairing\Form_AddManualIp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_Wait.xaml">
+    <Page Include="MainForm\Wait\Form_Wait.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_HotKeyCreator.xaml">
+    <Page Include="Functions\HotKeys\Creator\Form_HotKeyCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Form_ResourceLinksCreator.xaml">
+    <Page Include="Functions\ResourceLinks\Form_ResourceLinksCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="MainForm\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -578,37 +577,37 @@
     </Compile>
     <Compile Include="Colors\ColorPicker.cs" />
     <Compile Include="Interface\Cursor_Tools.cs" />
-    <Compile Include="Views\Form_BridgeSettings.xaml.cs">
+    <Compile Include="Functions\BridgeSettings\Form_BridgeSettings.xaml.cs">
       <DependentUpon>Form_BridgeSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_AppSettings.xaml.cs">
+    <Compile Include="Functions\Application Settings\Form_AppSettings.xaml.cs">
       <DependentUpon>Form_AppSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_GroupCreator.xaml.cs">
+    <Compile Include="Functions\Groups\Creator\Form_GroupCreator.xaml.cs">
       <DependentUpon>Form_GroupCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_HueTapConfig.xaml.cs">
+    <Compile Include="Functions\Sensors\HueTap\Form_HueTapConfig.xaml.cs">
       <DependentUpon>Form_HueTapConfig.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_Daylight.xaml.cs">
+    <Compile Include="Functions\Sensors\Daylight\Form_Daylight.xaml.cs">
       <DependentUpon>Form_Daylight.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_SceneCreator.xaml.cs">
+    <Compile Include="Functions\Scenes\Creator\Form_SceneCreator.xaml.cs">
       <DependentUpon>Form_SceneCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_ScheduleCreator.xaml.cs">
+    <Compile Include="Functions\Schedules\Form_ScheduleCreator.xaml.cs">
       <DependentUpon>Form_ScheduleCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_EventLog.xaml.cs">
+    <Compile Include="Functions\EventViewer\Form_EventLog.xaml.cs">
       <DependentUpon>Form_EventLog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_SelectColorFromImage.xaml.cs">
+    <Compile Include="Functions\Scenes\Creator\ColorPicker\Form_SelectColorFromImage.xaml.cs">
       <DependentUpon>Form_SelectColorFromImage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_SensorCreator.xaml.cs">
+    <Compile Include="Functions\Sensors\Creator\Form_SensorCreator.xaml.cs">
       <DependentUpon>Form_SensorCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Form_RenameObject.xaml.cs">
+    <Compile Include="Functions\Renaming\Form_RenameObject.xaml.cs">
       <DependentUpon>Form_RenameObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalStrings.Designer.cs">
@@ -617,17 +616,17 @@
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Colors\HueXYArray.cs" />
-    <Compile Include="Converters\HueColorConverter.cs" />
+    <Compile Include="Functions\Converters\HueColorConverter.cs" />
     <Compile Include="Resources\GUI.fr.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GUI.fr.resx</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="MainForm\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Form_CloneRule.xaml">
+    <Page Include="Functions\Rules\Cloning\Form_CloneRule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -651,7 +650,7 @@
     <Resource Include="Resources\1493782199_draft.png" />
     <Resource Include="Resources\advanced.png" />
     <Resource Include="Resources\resettt.png" />
-    <Resource Include="Resources\1486263478_movie-01.png" />
+    <Resource Include="Resources\scenes.png" />
     <Resource Include="Resources\user.png" />
     <Resource Include="Resources\resource.png" />
     <Resource Include="Resources\Motion.png" />
@@ -660,9 +659,8 @@
     <None Include="Resources\LCT001_on.png" />
     <None Include="Resources\LCT001_off.png" />
     <Resource Include="Resources\HueLight_unr.png" />
-    <Resource Include="Resources\1476661736_timer.png" />
+    <Resource Include="Resources\timer.png" />
     <Resource Include="Resources\stock_alarm.png" />
-    <None Include="Resources\scene.png" />
     <Resource Include="Resources\sensor.png" />
     <Resource Include="Resources\HueGroupOn.png" />
     <Resource Include="Resources\HueGroupOff.png" />
@@ -671,7 +669,7 @@
     <Resource Include="Resources\BulbView.png" />
     <Resource Include="Resources\GroupView.png" />
     <Resource Include="Resources\SceneMapping.png" />
-    <Resource Include="Resources\1465102684_preferences-desktop-keyboard-shortcuts.png" />
+    <Resource Include="Resources\hotkeys.png" />
     <Resource Include="Resources\close_delete.png" />
     <Resource Include="Resources\1464410361_check.png" />
     <Resource Include="Resources\1464410333_next.png" />
@@ -697,14 +695,14 @@
     <Resource Include="Resources\powerfailure.png" />
     <Resource Include="Resources\HueTapFull.jpg" />
     <Resource Include="Resources\UpdateSearch.png" />
-    <Resource Include="Resources\1417332335_Warning.png" />
-    <Resource Include="Resources\1417331999_Gear.png" />
+    <Resource Include="Resources\update.png" />
+    <Resource Include="Resources\settings.png" />
     <Resource Include="Resources\SensorSearch.png" />
     <Resource Include="Resources\HueLightSearch.png" />
-    <Resource Include="Resources\1416205084_Book_edit.png" />
-    <Resource Include="Resources\1416184952_Gnome-Web-Browser-32.png" />
-    <Resource Include="Resources\1416183787_Community Help.png" />
-    <EmbeddedResource Include="Views\AboutBox.resx">
+    <Resource Include="Resources\eventlog.png" />
+    <Resource Include="Resources\website.png" />
+    <Resource Include="Resources\Help.png" />
+    <EmbeddedResource Include="Functions\About\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -774,7 +772,7 @@
     <Resource Include="Resources\pair-bridge.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\1409707765_reload.png" />
+    <Resource Include="Resources\Reload.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\effects.png" />
@@ -820,6 +818,7 @@
   <ItemGroup>
     <Resource Include="Resources\load.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

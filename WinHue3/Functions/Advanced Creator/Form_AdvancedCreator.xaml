@@ -30,8 +30,8 @@
                     <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_ResourceLinkTemplate}" LargeImageSource="/WinHue3;component/Resources/resource.png" Command="{Binding CreateResourceLinkTemplateCommand }" />
                     <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_GroupTemplate}" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" Command="{Binding CreateGroupTemplateCommand}" />
                     <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_ScheduleTemplate}" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneTemplate}" LargeImageSource="/WinHue3;component/Resources/1486263478_movie-01.png" Command="{Binding CreateSceneTemplateCommand}" />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneLightTemplate}" LargeImageSource="/WinHue3;component/Resources/1486263478_movie-01.png" Command="{Binding CreateSceneStateCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneTemplate}" LargeImageSource="/WinHue3;component/Resources/scenes.png" Command="{Binding CreateSceneTemplateCommand}" />
+                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneLightTemplate}" LargeImageSource="/WinHue3;component/Resources/scenes.png" Command="{Binding CreateSceneStateCommand}" />
                 </RibbonGroup>
                 <RibbonGroup Header="{x:Static resx:GUI.Form_AdvancedCreator_Actions}">
                     <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_Clear}" LargeImageSource="/WinHue3;component/Resources/1493782199_draft.png" Command="{Binding ClearTemplateCommand}"/>

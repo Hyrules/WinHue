@@ -14,7 +14,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="WinHue3.Views.Form_HotKeyCreator"
         mc:Ignorable="d"
-        Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/1465102684_preferences-desktop-keyboard-shortcuts.png" PreviewKeyUp="Window_PreviewKeyUp">
+        Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/hotkeys.png" PreviewKeyUp="Window_PreviewKeyUp">
     <Window.DataContext>
         <viewmodels:HotKeyCreatorViewModel/>
     </Window.DataContext>

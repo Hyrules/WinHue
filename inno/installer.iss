@@ -5,7 +5,7 @@
 #define MyAppExeName "WinHue3.exe"
 #define MyVersion GetFileVersion("D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\WinHue3.exe")
 #define MyAppName "WinHue 3"
-#define MyAppVersion "RC 3 - " + Str(MyVersion)
+#define MyAppVersion "RC 4 - " + Str(MyVersion)
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
 
