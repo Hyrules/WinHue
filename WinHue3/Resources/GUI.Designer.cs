@@ -3733,7 +3733,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for WinHue update at startup.
+        ///   Looks up a localized string similar to Prompt if there is a WinHue update at startup.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Check_Update {
             get {

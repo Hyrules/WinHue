@@ -1408,7 +1408,7 @@
     <value>WinHue must be run as administrator in order to run the CPU Temp Monitor</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Check_Update" xml:space="preserve">
-    <value>Check for WinHue update at startup</value>
+    <value>Prompt if there is a WinHue update at startup</value>
   </data>
   <data name="MainForm_StatusBar_ToolTip_UpdateAvailable" xml:space="preserve">
     <value>WinHue update available. Click here to update.</value>
