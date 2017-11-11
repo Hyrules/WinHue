@@ -2,7 +2,7 @@ body{
     background-color: #000000
 }
 
-h1, p{
+h1, h2, h3, h4, h5, h6, p{
     color: #FFFFFF;
     font-family: 'Titillium Web', sans-serif;
     
@@ -67,4 +67,3 @@ h1, p{
     #title {
         font-size: 3.5rem; }
     }
-}

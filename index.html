@@ -11,17 +11,53 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
   </head>
   <body>
+    <!-- Heading: Jumbotron -->
     <div class="jumbotron jumbotron-fluid vertical-center" id="test1">
         <div class="container" id="jumboContent">
             <h1 class="display-3" id="title">WinHue 3</h1>
             <p>Controlling the Philips Hue lighting system from your Windows PC.</p>
             <p>
-              <a class="btn btn-light btn-lg" href="#" role="button">Download Installer</a>
+              <a class="btn btn-light btn-lg" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="WinHue 3 - RC3">Download Installer</a>
               <a class="btn btn-outline-light btn-lg rightmost" href="#" role="button">View on GitHub</a>
             </p>
         </div>
+    </div>
+    <!-- Main Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h2>Precise Control</h2>
+          <p>WinHue is an advanced Philips Hue control panel for Windows. It allows for intense micromanagement of your Hue hub and bulbs. If it can be changed, WinHue can do it!</p>
+        </div>
+        <div class="col-6">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" src="https://hyrules.github.io/WinHue3/img/Main%20Window.png" alt="First slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="https://hyrules.github.io/WinHue3/img/CreateSchedules.png" alt="Second slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="https://hyrules.github.io/WinHue3/img/CreateScenes.png" alt="Third slide">
+                  </div>
+                  <div class="carousel-item">
+                      <img class="d-block w-100" src="https://hyrules.github.io/WinHue3/img/RuleCreator.png" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="https://hyrules.github.io/WinHue3/img/GroupCreator.png" alt="Third slide">
+                      </div>
+                      <div class="carousel-item">
+                          <img class="d-block w-100" src="https://hyrules.github.io/WinHue3/img/Pairing.png" alt="Third slide">
+                        </div>
+                </div>
+              </div>
+      </div>
     </div>
 
     <!-- Optional JavaScript -->
@@ -29,5 +65,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+    <script src="scripts.js"></script>
   </body>
 </html>
