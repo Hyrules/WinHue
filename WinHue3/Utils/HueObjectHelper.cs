@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Media;
 using log4net;
-using WinHue3.ExtensionMethods;
+using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Interface;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -21,9 +19,6 @@ using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-
-using WinHue3.Settings;
-using WinHue3.SupportedLights;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Utils

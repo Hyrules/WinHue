@@ -6,8 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WinHue3.Interface;
 
-
-namespace WinHue3.SupportedLights
+namespace WinHue3.Functions.Lights.SupportedDevices
 {
     public static class LightImageLibrary
     {

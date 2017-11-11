@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        xmlns:viewmodel="clr-namespace:WinHue3.ViewModels"
-        xmlns:CustomControls="clr-namespace:WinHue3.Controls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Name="Form_ResourceLink" x:Class="WinHue3.Views.Form_ResourceLinksCreator"
-        xmlns:converter="clr-namespace:WinHue3.Converters"
-        mc:Ignorable="d"
+    xmlns:CustomControls="clr-namespace:WinHue3.Controls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:resourceLinks="clr-namespace:WinHue3.Functions.ResourceLinks"
+    xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+    x:Name="Form_ResourceLink" x:Class="WinHue3.Functions.ResourceLinks.Form_ResourceLinksCreator"
+    mc:Ignorable="d"
         Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="352.861" Width="599.472" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/resource.png" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800">
     <Window.DataContext>
-        <viewmodel:ResourceLinkCreatorViewModel/>
+        <resourceLinks:ResourceLinkCreatorViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
@@ -70,13 +71,13 @@
         <Button x:Name="btnCreateResourceLink" Style="{StaticResource btnSave}" Content="{Binding BtnSaveText}" Margin="0,0,100.333,17.667" Click="btnCreateResourceLink_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="102"/>
         <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" Margin="0,0,20.333,17.667" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
 
-        <CustomControls:BindableListView x:Name="bindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <CustomControls:BindableListView.ItemsPanel>
+        <sliders:BindableListView x:Name="bindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <sliders:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
                 </ItemsPanelTemplate>
-            </CustomControls:BindableListView.ItemsPanel>
-            <CustomControls:BindableListView.ItemTemplate>
+            </sliders:BindableListView.ItemsPanel>
+            <sliders:BindableListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                         <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
@@ -84,8 +85,8 @@
                         <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tblID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                     </WrapPanel>
                 </DataTemplate>
-            </CustomControls:BindableListView.ItemTemplate>
-            <CustomControls:BindableListView.GroupStyle>
+            </sliders:BindableListView.ItemTemplate>
+            <sliders:BindableListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
@@ -112,8 +113,8 @@
                         </Style>
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
-            </CustomControls:BindableListView.GroupStyle>
-        </CustomControls:BindableListView>
+            </sliders:BindableListView.GroupStyle>
+        </sliders:BindableListView>
         <Label x:Name="label1" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Description}" HorizontalAlignment="Left" Margin="11,67,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock" Margin="243,0,181.333,34.667" TextWrapping="Wrap" Text="{x:Static resx:GUI.ResourceLinkCreatorForm_HoldControl}" FontSize="10" Height="15" VerticalAlignment="Bottom"/>
         <Label x:Name="label2" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_ClassID}" HorizontalAlignment="Left" Margin="16,200,0,0" VerticalAlignment="Top"/>
@@ -125,3 +126,18 @@
 
     </Grid>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

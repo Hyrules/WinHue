@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using WinHue3.ViewModels;
 
-namespace WinHue3
+namespace WinHue3.Utils
 {
     public abstract class View : ValidatableBindableBase , INotifyDataErrorInfo
     {

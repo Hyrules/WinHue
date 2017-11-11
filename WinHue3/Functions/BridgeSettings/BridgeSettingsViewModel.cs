@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WinHue3.Models.BridgeSettings;
 using System.Windows.Input;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Utils;
 
-
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.BridgeSettings
 {
     public class BridgeSettingsViewModel : ValidatableBindableBase
     {
@@ -75,7 +72,7 @@ namespace WinHue3.ViewModels
 
         private async Task ApplyNetworkSettings()
         {
-            bool cr =  await _bridge.SetBridgeSettingsAsyncTask(new BridgeSettings()
+            bool cr =  await _bridge.SetBridgeSettingsAsyncTask(new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings()
             {
                 dhcp = NetworkModel.Dhcp,
                 ipaddress = NetworkModel.Ip,
@@ -101,7 +98,7 @@ namespace WinHue3.ViewModels
             if(!cr)
                 MessageBoxError.ShowLastErrorMessages(_bridge);
 
-            cr = await _bridge.SetBridgeSettingsAsyncTask(new BridgeSettings() { timezone = GeneralModel.Timezone });
+            cr = await _bridge.SetBridgeSettingsAsyncTask(new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings() { timezone = GeneralModel.Timezone });
             if (!cr)
                 MessageBoxError.ShowLastErrorMessages(_bridge);
         }
@@ -109,7 +106,7 @@ namespace WinHue3.ViewModels
         public async Task Initialize(Bridge bridge)
         {
             _bridge = bridge;
-            BridgeSettings cr = await _bridge.GetBridgeSettingsAsyncTask();
+            Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings cr = await _bridge.GetBridgeSettingsAsyncTask();
             if (cr != null)
             {
                 //****** General Pane **********

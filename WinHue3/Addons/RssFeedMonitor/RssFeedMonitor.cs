@@ -5,17 +5,15 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Threading;
-using Newtonsoft.Json;
-using WinHue3.Philips_Hue.HueObjects.Common;
 using System.ServiceModel.Syndication;
+using System.Windows.Threading;
 using System.Xml;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.Common;
 
-namespace WinHue3.Addons
+namespace WinHue3.Addons.RssFeedMonitor
 {
     public class RssFeedMonitor
     {

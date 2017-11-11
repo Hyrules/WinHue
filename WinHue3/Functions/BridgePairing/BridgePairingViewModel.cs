@@ -6,18 +6,16 @@ using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Interface;
-using WinHue3.Models;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Resources;
-using WinHue3.Settings;
 using WinHue3.Utils;
-using WinHue3.Validation;
+using WinHue3.Validations;
 
-
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.BridgePairing
 {
     public class BridgePairingViewModel : ValidatableBindableBase
     {
@@ -239,7 +237,7 @@ namespace WinHue3.ViewModels
 
         public void AddManualIp()
         {
-            Views.Form_AddManualIp fip = new Views.Form_AddManualIp();
+            Form_AddManualIp fip = new Form_AddManualIp();
             if (fip.ShowDialog() == true)
             {
                 Bridge bridge = new Bridge(){IpAddress = IPAddress.Parse(fip.GetIPAddress()) };

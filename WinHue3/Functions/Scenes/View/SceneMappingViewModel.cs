@@ -3,14 +3,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Settings;
 using WinHue3.Utils;
 
-
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Scenes.View
 {
     public class SceneMappingViewModel : ValidatableBindableBase
     {

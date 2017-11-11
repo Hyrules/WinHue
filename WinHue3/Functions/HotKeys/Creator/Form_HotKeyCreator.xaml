@@ -7,16 +7,16 @@
 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resources="clr-namespace:WinHue3.Resources"
-        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
-        xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
+    xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        x:Class="WinHue3.Views.Form_HotKeyCreator"
+        xmlns:creator="clr-namespace:WinHue3.Functions.HotKeys.Creator"
+        x:Class="WinHue3.Functions.HotKeys.Creator.Form_HotKeyCreator"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/hotkeys.png" PreviewKeyUp="Window_PreviewKeyUp">
     <Window.DataContext>
-        <viewmodels:HotKeyCreatorViewModel/>
+        <creator:HotKeyCreatorViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="btnSave">

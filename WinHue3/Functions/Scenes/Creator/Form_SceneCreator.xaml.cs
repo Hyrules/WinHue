@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
-using Messages = WinHue3.Philips_Hue.BridgeObject.BridgeMessages.Messages;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.Scenes.Creator
 {
     /// <summary>
     /// Interaction logic for SceneCreator.xaml

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using WinHue3.ViewModels.RuleCreatorViewModels;
+using WinHue3.Functions.Rules.Creator;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
-namespace WinHue3.Validation
+namespace WinHue3.Functions.Rules.Validation
 {
     public class RuleValueValidation : ValidationAttribute
     {

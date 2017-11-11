@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Lights.Finder
 {
     public class AddLightSerialViewModel : ValidatableBindableBase
     {

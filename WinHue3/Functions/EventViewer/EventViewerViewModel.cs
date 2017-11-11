@@ -1,6 +1,6 @@
-﻿using WinHue3.Models;
+﻿using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.EventViewer
 {
     public class EventViewerViewModel : ValidatableBindableBase
     {
@@ -8,7 +8,7 @@ namespace WinHue3.ViewModels
 
         public EventViewerViewModel()
         {
-            EventViewerModel = new EventViewerModel();
+            _eventViewerModel = new EventViewerModel();
         }
 
         public EventViewerModel EventViewerModel

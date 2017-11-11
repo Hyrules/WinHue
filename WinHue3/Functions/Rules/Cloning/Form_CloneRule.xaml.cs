@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.Rules.Cloning
 {
     /// <summary>
     /// Interaction logic for Window1.xaml

@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.GroupObject;
-using WinHue3.ViewModels;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
-using System.Windows.Forms.Design;
-using WinHue3.Controls.ListStringEditor;
 using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject

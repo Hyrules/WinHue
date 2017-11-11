@@ -1,4 +1,4 @@
-﻿<Window x:Class="WinHue3.Views.Window1"
+﻿<Window x:Class="WinHue3.Functions.Rules.Cloning.Window1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:cloning="clr-namespace:WinHue3.Functions.Rules.Cloning"
         mc:Ignorable="d"
-        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
         Title="{x:Static resx:GUI.Form_CloneRule_Title}" Height="224.266" Width="311.742" ResizeMode="NoResize">
     <Window.DataContext>
-        <viewmodels:CloneRuleViewModel/>
+        <cloning:CloneRuleViewModel/>
     </Window.DataContext>
     <Grid>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="120"/>

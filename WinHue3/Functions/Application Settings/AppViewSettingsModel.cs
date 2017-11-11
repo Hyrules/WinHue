@@ -1,6 +1,7 @@
-﻿using WinHue3.ViewModels;
+﻿using WinHue3.MainForm;
+using WinHue3.Utils;
 
-namespace WinHue3.Models.AppSettings
+namespace WinHue3.Functions.Application_Settings
 {
     public class AppViewSettingsModel : ValidatableBindableBase
     {
@@ -10,9 +11,9 @@ namespace WinHue3.Models.AppSettings
 
         public AppViewSettingsModel()
         {
-            Sort = WinHueSortOrder.Default;
-            ShowId = false;
-            Wrap = false;
+            _sort = WinHueSortOrder.Default;
+            _showId = false;
+            _wrap = false;
         }
 
 

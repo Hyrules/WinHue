@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.Annotations;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Utils
 {
     [Serializable,ExpandableObject]
-    public class StringCollection : BindingList<string>, ICustomTypeDescriptor
+    public sealed class StringCollection : BindingList<string>, ICustomTypeDescriptor
     {
         public StringCollection() : base(new BindingList<string>())
         {

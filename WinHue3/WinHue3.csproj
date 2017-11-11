@@ -79,7 +79,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
-      <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+      <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -89,17 +89,6 @@
       <HintPath>..\packages\ManagedUPnP\ManagedUPnP.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism.Mvvm, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism.Mvvm.Desktop, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.Desktop.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NAudio, Version=1.8.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.3\lib\net35\NAudio.dll</HintPath>
     </Reference>
@@ -112,12 +101,6 @@
     </Reference>
     <Reference Include="OpenHardwareMonitorLib">
       <HintPath>..\packages\OpenHardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -135,8 +118,8 @@
     <Reference Include="System.Windows" />
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml" />
@@ -188,11 +171,11 @@
     <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
-    <Compile Include="Controls\ListStringEditor\ListStringEditor.cs" />
-    <Compile Include="Controls\XYEditor.xaml.cs">
+    <Compile Include="Functions\PropertyGrid\ListStringEditor\ListStringEditor.cs" />
+    <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XYSliders.xaml.cs">
+    <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\Converters\BoolToVisibilityConverter.cs" />
@@ -211,15 +194,21 @@
     <Compile Include="Functions\Converters\DoubleToUshortConverter.cs" />
     <Compile Include="Functions\Converters\SliderToXYConverter.cs" />
     <Compile Include="Functions\Converters\VisibleToBoolConverter.cs" />
-    <Compile Include="Controls\BindableHueSlider.cs" />
-    <Compile Include="Controls\BindableListView.cs" />
-    <Compile Include="Controls\BindableSlider.cs" />
+    <Compile Include="MainForm\Sliders\BindableHueSlider.cs" />
+    <Compile Include="MainForm\Sliders\BindableListView.cs" />
+    <Compile Include="MainForm\Sliders\BindableSlider.cs" />
     <Compile Include="Functions\Application Settings\AppMainSettingsModel.cs" />
     <Compile Include="Functions\Application Settings\AppDefaultsModel.cs" />
     <Compile Include="Functions\Application Settings\AppViewSettingsModel.cs" />
     <Compile Include="Functions\Rules\Cloning\CloneRuleModel.cs" />
     <Compile Include="Functions\EventViewer\EventViewerModel.cs" />
     <Compile Include="Functions\HotKeys\Creator\HotKeyCreatorModel.cs" />
+    <Compile Include="Functions\Schedules\NewCreator\Form_ScheduleCreator2.xaml.cs">
+      <DependentUpon>Form_ScheduleCreator2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorSensorsViewModel.cs" />
+    <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorSlidersViewModel.cs" />
+    <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorViewModel.cs" />
     <Compile Include="Functions\User Management\ManageUsersModel.cs" />
     <Compile Include="Functions\Scenes\Creator\SceneCreatorModel.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge.cs" />
@@ -299,6 +288,7 @@
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomHotkeys.cs" />
+    <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
@@ -378,7 +368,7 @@
     <Compile Include="Functions\Sensors\HueTap\HueTapModel.cs" />
     <Compile Include="MainForm\MainFormModel.cs" />
     <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorModel.cs" />
-    <Compile Include="Functions\Schedules\ScheduleCreatorModel.cs" />
+    <Compile Include="Functions\Schedules\OldCreator\ScheduleCreatorModel.cs" />
     <Compile Include="Functions\Sensors\Creator\SensorCreatorModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\ValidateBindableBase.cs" />
@@ -399,7 +389,7 @@
     <Compile Include="MainForm\MainFormViewModel_Plugins.cs" />
     <Compile Include="MainForm\MainFormViewModel_Properties.cs" />
     <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorViewModel.cs" />
-    <Compile Include="Functions\Schedules\ScheduleCreatorViewModel.cs" />
+    <Compile Include="Functions\Schedules\OldCreator\ScheduleCreatorViewModel.cs" />
     <Compile Include="Functions\Sensors\Creator\SensorCreatorViewModel.cs" />
     <Compile Include="Functions\BridgePairing\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
@@ -463,11 +453,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\XYEditor.xaml">
+    <Page Include="Functions\PropertyGrid\XYEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\XYSliders.xaml">
+    <Page Include="MainForm\Sliders\XYSliders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -476,6 +466,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Advanced Creator\Form_AdvancedCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\Schedules\NewCreator\Form_ScheduleCreator2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -527,7 +521,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Functions\Schedules\Form_ScheduleCreator.xaml">
+    <Page Include="Functions\Schedules\OldCreator\Form_ScheduleCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -595,7 +589,7 @@
     <Compile Include="Functions\Scenes\Creator\Form_SceneCreator.xaml.cs">
       <DependentUpon>Form_SceneCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\Schedules\Form_ScheduleCreator.xaml.cs">
+    <Compile Include="Functions\Schedules\OldCreator\Form_ScheduleCreator.xaml.cs">
       <DependentUpon>Form_ScheduleCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\EventViewer\Form_EventLog.xaml.cs">

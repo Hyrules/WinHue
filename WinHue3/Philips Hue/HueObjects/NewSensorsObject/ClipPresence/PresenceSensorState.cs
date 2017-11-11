@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
 {

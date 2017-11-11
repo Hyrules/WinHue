@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Runtime.Serialization;
-using WinHue3.Hotkeys;
-using WinHue3.Models;
+using Newtonsoft.Json;
+using WinHue3.MainForm;
 
-namespace WinHue3.Settings
+namespace WinHue3.Functions.Application_Settings.Settings
 {
     [DataContract, Serializable]
     public class CustomSettings

@@ -1,6 +1,6 @@
-﻿using WinHue3.ViewModels;
+﻿using WinHue3.Utils;
 
-namespace WinHue3.Models.AppSettings
+namespace WinHue3.Functions.Application_Settings
 {
     public class AppMainSettingsModel : ValidatableBindableBase
     {
@@ -17,15 +17,15 @@ namespace WinHue3.Models.AppSettings
 
         public AppMainSettingsModel()
         {
-            DetectProxy = false;
-            Debug = true;
-            ShowHidden = false;
+            detectProxy = false;
+            debug = true;
+            showHidden = false;
             upnpTimeout = 5000;
-            Timeout = 3000;
-            Language = "en-US";
-            StartMode = 0;
-            CheckUpdate = true;
-
+            timeout = 3000;
+            language = "en-US";
+            startMode = 0;
+            checkupdate = true;
+            checkforbridgeupdate = true;
         }
 
         public bool StartWindows

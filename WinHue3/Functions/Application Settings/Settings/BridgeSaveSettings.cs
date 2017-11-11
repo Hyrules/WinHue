@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace WinHue3.Settings
+namespace WinHue3.Functions.Application_Settings.Settings
 {
 
     [DataContract, Serializable]

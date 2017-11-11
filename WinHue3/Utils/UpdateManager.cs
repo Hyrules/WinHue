@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Windows;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
-using WinHue3.ViewModels;
 
 
 namespace WinHue3.Utils
@@ -36,7 +35,7 @@ namespace WinHue3.Utils
         public static bool CheckForWinHueUpdate()
         {
             log.Info("Checking for WinHue 3 update...");
-            CommResult data = Comm.SendRequest(new Uri(UPDATE_URL), WebRequestType.GET);
+            CommResult data = Comm.SendRequest(new Uri(UPDATE_URL), WebRequestType.Get);
             if (data.Status == WebExceptionStatus.Success)
             {
                 _update = JsonConvert.DeserializeObject<Update>(data.Data);

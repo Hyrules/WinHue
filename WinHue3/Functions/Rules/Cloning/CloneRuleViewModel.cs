@@ -4,7 +4,7 @@ using System.Windows.Input;
 using WinHue3.Utils;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Rules.Cloning
 {
     public class CloneRuleViewModel : ValidatableBindableBase
     {

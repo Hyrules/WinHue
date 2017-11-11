@@ -1,10 +1,9 @@
 ﻿using System;
-using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Resources;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.Scenes.Creator
 {
     public class SceneCreatorModel : ValidatableBindableBase
     {
@@ -14,10 +13,10 @@ namespace WinHue3.Models
 
         public SceneCreatorModel()
         {
-            State = new State() { on = true };
-            On = true;
-            TT = null;
-            Recycle = false;
+            _state = new State() { @on = true };
+            _state.on = true;
+            _state.transitiontime = null;
+            _recycle = false;
         }
 
         public State State

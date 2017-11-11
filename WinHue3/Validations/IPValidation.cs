@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace WinHue3.Validation
+namespace WinHue3.Validations
 {
     public class IpValidation : ValidationAttribute
     {

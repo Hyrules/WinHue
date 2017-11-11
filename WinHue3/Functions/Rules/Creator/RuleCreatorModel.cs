@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorModel : ValidatableBindableBase
     {
@@ -11,8 +11,8 @@ namespace WinHue3.Models
 
         public RuleCreatorModel()
         {
-            RuleEnabled = "enabled";
-            Name = string.Empty;
+            _ruleEnabled = "enabled";
+            _name = string.Empty;
         }
 
 

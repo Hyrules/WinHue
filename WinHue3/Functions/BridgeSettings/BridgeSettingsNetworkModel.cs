@@ -1,7 +1,7 @@
-﻿using WinHue3.Validation;
-using WinHue3.ViewModels;
+﻿using WinHue3.Utils;
+using WinHue3.Validations;
 
-namespace WinHue3.Models.BridgeSettings
+namespace WinHue3.Functions.BridgeSettings
 {
     public class BridgeSettingsNetworkModel : ValidatableBindableBase
     {
@@ -16,7 +16,7 @@ namespace WinHue3.Models.BridgeSettings
 
         public BridgeSettingsNetworkModel()
         {
-            Dhcp = false;
+            _dhcp = false;
         }
 
         public string Mac

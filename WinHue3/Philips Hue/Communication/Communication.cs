@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace WinHue3.Philips_Hue.Communication
 {
-    public enum WebRequestType { PUT, GET, POST, DELETE };
+    public enum WebRequestType { Put, Get, Post, Delete };
+
     public static class Comm
     {
         private static int _timeout = 3000;
@@ -34,21 +35,21 @@ namespace WinHue3.Philips_Hue.Communication
                 string received = string.Empty;
                 switch (type)
                 {
-                    case WebRequestType.PUT:
+                    case WebRequestType.Put:
                         Method = "PUT";
                         received = wc.UploadString(url, Method, data);
                         break;
-                    case WebRequestType.GET:
+                    case WebRequestType.Get:
                         Method = "GET";
                         var bytes = wc.DownloadData(url);                       
                         UTF8Encoding utf8 = new UTF8Encoding();
                         received = utf8.GetString(bytes);
                         break;
-                    case WebRequestType.POST:
+                    case WebRequestType.Post:
                         Method = "POST";
                         received = wc.UploadString(url, Method, data);
                         break;
-                    case WebRequestType.DELETE:
+                    case WebRequestType.Delete:
                         Method = "DELETE";
                         received = wc.UploadString(url, Method, data);
                         break;
@@ -89,21 +90,21 @@ namespace WinHue3.Philips_Hue.Communication
                 string received = string.Empty;
                 switch (type)
                 {
-                    case WebRequestType.PUT:
+                    case WebRequestType.Put:
                         Method = "PUT";
                         received = await wc.UploadStringTaskAsync(url, Method, data);
                         break;
-                    case WebRequestType.GET:
+                    case WebRequestType.Get:
                         Method = "GET";
                         byte[] bytes = await wc.DownloadDataTaskAsync(url);
                         UTF8Encoding utf8 = new UTF8Encoding();
                         received = utf8.GetString(bytes);
                         break;
-                    case WebRequestType.POST:
+                    case WebRequestType.Post:
                         Method = "POST";
                         received = await wc.UploadStringTaskAsync(url, Method, data);
                         break;
-                    case WebRequestType.DELETE:
+                    case WebRequestType.Delete:
                         Method = "DELETE";
                         received = await wc.UploadStringTaskAsync(url, Method, data);
                         break;

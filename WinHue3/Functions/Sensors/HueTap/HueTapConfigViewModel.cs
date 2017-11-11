@@ -1,21 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using WinHue3.Models;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
-using WinHue3.Validation;
+using WinHue3.Validations;
 
-
-
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Sensors.HueTap
 {
     public class HueTapConfigViewModel : ValidatableBindableBase
     {
@@ -28,7 +21,7 @@ namespace WinHue3.ViewModels
 
         public HueTapConfigViewModel()
         {
-            HueTapModel = new HueTapModel();
+            _huetapmodel = new HueTapModel();
         }
 
         public bool CanSave => HueTapModel.Buttonid != string.Empty && SelectedScene != null;

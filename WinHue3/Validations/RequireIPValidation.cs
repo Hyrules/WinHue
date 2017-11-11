@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using WinHue3.ViewModels;
+using WinHue3.Functions.BridgeSettings;
 
-namespace WinHue3.Validation
+namespace WinHue3.Validations
 {
     public class RequireIPValidation : ValidationAttribute
     {

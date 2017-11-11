@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Utils;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Groups.View
 {
     public class GroupViewViewModel : ValidatableBindableBase
     {

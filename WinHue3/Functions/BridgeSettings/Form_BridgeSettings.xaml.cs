@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.ViewModels;
 using Xceed.Wpf.Toolkit;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.BridgeSettings
 {
     /// <summary>
     /// Interaction logic for BridgeSettings.xaml

@@ -6,17 +6,15 @@ using System.Net;
 using System.Windows;
 using System.Windows.Threading;
 using WinHue3.Addons.CpuTempMon;
-using WinHue3.Hotkeys;
-using WinHue3.Models;
+using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.HotKeys;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Settings;
 using WinHue3.Utils;
 
-
-namespace WinHue3.ViewModels.MainFormViewModels
+namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
@@ -50,12 +48,12 @@ namespace WinHue3.ViewModels.MainFormViewModels
             _findsensortimer.Tick += _findsensortimer_Tick;
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
-            SliderTt = WinHueSettings.settings.DefaultTT;
+            _sliderTT = WinHueSettings.settings.DefaultTT;
 
             Comm.Timeout = WinHueSettings.settings.Timeout;
-            MainFormModel.Sort = WinHueSettings.settings.Sort;
-            MainFormModel.ShowId = WinHueSettings.settings.ShowID;
-            MainFormModel.WrapText = WinHueSettings.settings.WrapText;
+            _mainFormModel.Sort = WinHueSettings.settings.Sort;
+            _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
+            _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
 
         }
 

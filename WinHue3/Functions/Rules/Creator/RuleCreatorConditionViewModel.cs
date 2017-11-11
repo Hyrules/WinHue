@@ -6,15 +6,13 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.Rules.Validation;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Utils;
-using WinHue3.Validation;
 
-
-namespace WinHue3.ViewModels.RuleCreatorViewModels
+namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorConditionViewModel : ValidatableBindableBase
     {
@@ -31,9 +29,9 @@ namespace WinHue3.ViewModels.RuleCreatorViewModels
 
         public RuleCreatorConditionViewModel()
         {
-            ListConditionHueObjects = new ObservableCollection<IHueObject>();
-            ListConditionProperties = new ObservableCollection<TreeViewItem>();
-            ListRuleConditions = new ObservableCollection<RuleCondition>();
+            _listConditionHueObjects = new ObservableCollection<IHueObject>();
+            _listConditionProperties = new ObservableCollection<TreeViewItem>();
+            _listRuleConditions = new ObservableCollection<RuleCondition>();
         }
 
         public void SetBridge(Bridge bridge)
@@ -202,7 +200,7 @@ namespace WinHue3.ViewModels.RuleCreatorViewModels
             List<TreeViewItem> lrtvi = new List<TreeViewItem>();
 
             PropertyInfo[] props = SelectedConditionHueObject?.GetType().GetHueProperties();
-            if (props == null && ObjectType == "config") props = new BridgeSettings().GetType().GetProperties();
+            if (props == null && ObjectType == "config") props = new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings().GetType().GetProperties();
             
 
             foreach (PropertyInfo pi in props)
@@ -286,25 +284,25 @@ namespace WinHue3.ViewModels.RuleCreatorViewModels
             switch (ObjectType)
             {
                 case "lights":
-                    CollectionExtensions.AddRange(ListConditionHueObjects, HueObjectHelper.GetBridgeLights(_bridge));
+                    ListConditionHueObjects.AddRange(HueObjectHelper.GetBridgeLights(_bridge));
                     break;
                 case "groups":
-                    CollectionExtensions.AddRange(ListConditionHueObjects, HueObjectHelper.GetBridgeGroups(_bridge));
+                    ListConditionHueObjects.AddRange(HueObjectHelper.GetBridgeGroups(_bridge));
                     break;
                 case "rules":
-                    CollectionExtensions.AddRange(ListConditionHueObjects, HueObjectHelper.GetBridgeRules(_bridge));
+                    ListConditionHueObjects.AddRange(HueObjectHelper.GetBridgeRules(_bridge));
                     break;
                 case "resourcelinks":
-                    CollectionExtensions.AddRange(ListConditionHueObjects, HueObjectHelper.GetBridgeResourceLinks(_bridge));
+                    ListConditionHueObjects.AddRange(HueObjectHelper.GetBridgeResourceLinks(_bridge));
                     break;
                 case "scenes":
-                    CollectionExtensions.AddRange(ListConditionHueObjects, HueObjectHelper.GetBridgeScenes(_bridge));
+                    ListConditionHueObjects.AddRange(HueObjectHelper.GetBridgeScenes(_bridge));
                     break;
                 case "config":
                     PopulateConditionProperties();
                     break;
                 case "sensors":
-                    CollectionExtensions.AddRange(ListConditionHueObjects, HueObjectHelper.GetBridgeSensors(_bridge));
+                    ListConditionHueObjects.AddRange(HueObjectHelper.GetBridgeSensors(_bridge));
                     break;
                 default:
                     break;

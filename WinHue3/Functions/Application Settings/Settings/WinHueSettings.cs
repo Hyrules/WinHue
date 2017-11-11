@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace WinHue3.Settings
+namespace WinHue3.Functions.Application_Settings.Settings
 {
     public static class WinHueSettings
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WinHue3.Validation
+namespace WinHue3.Validations
 {
     public class UIntValidation : ValidationAttribute
     {

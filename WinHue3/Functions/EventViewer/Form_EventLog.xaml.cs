@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using log4net;
-using WinHue3.ViewModels;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.EventViewer
 {
     /// <summary>
     /// Interaction logic for Form_EventLog.xaml

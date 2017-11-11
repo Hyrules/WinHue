@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using WinHue3.ViewModels;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.BridgePairing
 {
     /// <summary>
     /// Interaction logic for Form_AddManualIp.xaml

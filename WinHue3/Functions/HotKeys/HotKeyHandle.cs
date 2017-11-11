@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace WinHue3.Hotkeys
+namespace WinHue3.Functions.HotKeys
 {
     public class HotKeyHandle : IDisposable
     {
@@ -17,14 +17,14 @@ namespace WinHue3.Hotkeys
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        public const int WmHotKey = 0x0312;
+        private const int WmHotKey = 0x0312;
 
         private bool _disposed = false;
 
         public Key Key { get; private set; }
         public ModifierKeys KeyModifiers { get; private set; }
-        public Action<HotKeyHandle> Action { get; private set; }
-        public int Id { get; set; }
+        private Action<HotKeyHandle> Action { get; set; }
+        private int Id { get; set; }
 
         // ******************************************************************
         public HotKeyHandle(HotKey h, Action<HotKeyHandle> action, bool register = true)

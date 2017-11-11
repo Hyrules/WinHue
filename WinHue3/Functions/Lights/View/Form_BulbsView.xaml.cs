@@ -4,10 +4,8 @@ using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
 
-
-namespace WinHue3.Views
+namespace WinHue3.Functions.Lights.View
 {
     /// <summary>
     /// Interaction logic for Form_BulbsView.xaml

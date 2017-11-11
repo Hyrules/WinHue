@@ -81,7 +81,7 @@ namespace WinHue3.Philips_Hue
             {
 
                 // Detect using Portal
-                CommResult comres = Comm.SendRequest(new Uri("http://www.meethue.com/api/nupnp"), WebRequestType.GET);
+                CommResult comres = Comm.SendRequest(new Uri("http://www.meethue.com/api/nupnp"), WebRequestType.Get);
 
                 switch (comres.Status)
                 {
@@ -205,7 +205,7 @@ namespace WinHue3.Philips_Hue
                 Comm.Timeout = 50;
                 if (_ipscanBgw.CancellationPending) break;
 
-                CommResult comres = Comm.SendRequest(new Uri($@"http://{new IPAddress(ipArray)}/api/config"), WebRequestType.GET);
+                CommResult comres = Comm.SendRequest(new Uri($@"http://{new IPAddress(ipArray)}/api/config"), WebRequestType.Get);
 
                 switch (comres.Status)
                 {

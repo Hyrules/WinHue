@@ -1,12 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using WinHue3.Models;
+﻿using System.Windows.Input;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Sensors.Creator
 {
     public class SensorCreatorViewModel : ValidatableBindableBase
     {

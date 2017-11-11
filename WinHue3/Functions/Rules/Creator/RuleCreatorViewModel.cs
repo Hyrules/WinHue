@@ -1,9 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
+using WinHue3.Utils;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
-namespace WinHue3.ViewModels.RuleCreatorViewModels
+namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorViewModel: ValidatableBindableBase
     {
@@ -16,10 +17,10 @@ namespace WinHue3.ViewModels.RuleCreatorViewModels
 
         public RuleCreatorViewModel()
         {
-            Name = string.Empty;
-            Enabled = true;
-            RuleConditionViewModel = new RuleCreatorConditionViewModel();
-            RuleActionViewModel = new RuleCreatorActionViewModel();
+            _name = string.Empty;
+            _enabled = true;
+            _rccvm = new RuleCreatorConditionViewModel();
+            _rcavm = new RuleCreatorActionViewModel();
         }
 
         public void Initialize(Bridge bridge)

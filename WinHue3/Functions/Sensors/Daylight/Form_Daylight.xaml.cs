@@ -4,10 +4,8 @@ using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
 
-
-namespace WinHue3.Views
+namespace WinHue3.Functions.Sensors.Daylight
 {
     /// <summary>
     /// Interaction logic for Form_PowerFailure.xaml

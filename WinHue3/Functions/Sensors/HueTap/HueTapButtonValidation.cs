@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WinHue3.Validation
+namespace WinHue3.Functions.Sensors.HueTap
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public sealed class RequireHueTapButtonValidation : ValidationAttribute

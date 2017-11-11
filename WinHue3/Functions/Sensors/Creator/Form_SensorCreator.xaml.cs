@@ -3,9 +3,8 @@ using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.Sensors.Creator
 {
     /// <summary>
     /// Interaction logic for Form_SensorCreator.xaml

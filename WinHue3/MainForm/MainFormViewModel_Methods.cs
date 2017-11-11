@@ -14,9 +14,30 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using WinHue3.ExtensionMethods;
-using WinHue3.Hotkeys;
+using WinHue3.Functions.About;
+using WinHue3.Functions.Advanced_Creator;
+using WinHue3.Functions.Application_Settings;
+using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.BridgePairing;
+using WinHue3.Functions.BridgeSettings;
+using WinHue3.Functions.Groups.Creator;
+using WinHue3.Functions.Groups.View;
+using WinHue3.Functions.HotKeys;
+using WinHue3.Functions.HotKeys.Creator;
+using WinHue3.Functions.Lights.Finder;
+using WinHue3.Functions.Lights.View;
+using WinHue3.Functions.Renaming;
+using WinHue3.Functions.ResourceLinks;
+using WinHue3.Functions.Rules.Creator;
+using WinHue3.Functions.Scenes.Creator;
+using WinHue3.Functions.Scenes.View;
+using WinHue3.Functions.Schedules.OldCreator;
+using WinHue3.Functions.Sensors.Creator;
+using WinHue3.Functions.Sensors.Daylight;
+using WinHue3.Functions.Sensors.HueTap;
+using WinHue3.Functions.User_Management;
 using WinHue3.Interface;
-using WinHue3.Models;
+using WinHue3.MainForm.Wait;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
@@ -29,15 +50,13 @@ using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Settings;
 using WinHue3.Utils;
-using WinHue3.Views;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
 
-namespace WinHue3.ViewModels.MainFormViewModels
+namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
@@ -285,9 +304,9 @@ namespace WinHue3.ViewModels.MainFormViewModels
         {
             for (int i = 0; i <= 20; i++)
             {
-                await _selectedBridge.SetStateAsyncTask(new Action() {on = true, transitiontime = 0}, "2");
+                await _selectedBridge.SetStateAsyncTask(new Action() {@on = true, transitiontime = 0}, "2");
                 Thread.Sleep(100);
-                await _selectedBridge.SetStateAsyncTask(new Action() {on = false, transitiontime = 0}, "2");
+                await _selectedBridge.SetStateAsyncTask(new Action() {@on = false, transitiontime = 0}, "2");
                 Thread.Sleep(100);
             }
         }
@@ -330,7 +349,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
         private async Task AllOn()
         {
             log.Info("Sending all on command to bridge" + SelectedBridge.IpAddress);
-            Action act = new Action { on = true };
+            Action act = new Action { @on = true };
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
             bool bresult = await SelectedBridge.SetStateAsyncTask(act, "0");
             if (!bresult) return;
@@ -341,7 +360,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
         private async Task AllOff()
         {
             log.Info("Sending all off command to bridge" + SelectedBridge.IpAddress);
-            Action act = new Action { on = false };
+            Action act = new Action { @on = false };
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
             bool bresult = await SelectedBridge.SetStateAsyncTask(act, "0");
             if (!bresult) return;

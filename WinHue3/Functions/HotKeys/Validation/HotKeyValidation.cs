@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WinHue3.Validation
+namespace WinHue3.Functions.HotKeys.Validation
 {
     public class HotKeyValidation : ValidationAttribute
     {

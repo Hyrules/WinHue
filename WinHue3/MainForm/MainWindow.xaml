@@ -6,15 +6,15 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:converters="clr-namespace:WinHue3.Converters"
-        xmlns:controls="clr-namespace:WinHue3.Controls"
+    xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:th="clr-namespace:WinHue3.Utils"
-        xmlns:models="clr-namespace:WinHue3.Models"
-        xmlns:mainFormViewModels="clr-namespace:WinHue3.ViewModels.MainFormViewModels"
-        x:Class="WinHue3.MainWindow"
+        xmlns:mainForm="clr-namespace:WinHue3.MainForm"
+        xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
+        xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+        x:Class="WinHue3.MainForm.MainWindow"
     Title="WinHue 3" Height="824.356" Width="1349.484" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" Name="MainForm">
     <Window.DataContext>
-        <mainFormViewModels:MainFormViewModel/>
+        <mainForm:MainFormViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -134,9 +134,9 @@
                     <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Label Content="Sorting"/>
                         <controls:CommandComboBox x:Name="rbcSorting" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedValue="{Binding MainFormModel.Sort}" SelectedValuePath="Tag"  Command="{Binding SortListViewCommand}">
-                            <ComboBoxItem Content="Defaut" Tag="{x:Static models:WinHueSortOrder.Default}"/>
-                            <ComboBoxItem Content="Ascending" Tag="{x:Static models:WinHueSortOrder.Ascending}"/>
-                            <ComboBoxItem Content="Descending" Tag="{x:Static models:WinHueSortOrder.Descending}"/>
+                            <ComboBoxItem Content="Defaut" Tag="{x:Static mainForm:WinHueSortOrder.Default}"/>
+                            <ComboBoxItem Content="Ascending" Tag="{x:Static mainForm:WinHueSortOrder.Ascending}"/>
+                            <ComboBoxItem Content="Descending" Tag="{x:Static mainForm:WinHueSortOrder.Descending}"/>
                         </controls:CommandComboBox>
                     </WrapPanel>
                 </RibbonGroup>
@@ -359,8 +359,8 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="AliceBlue" Height="403" VerticalAlignment="Top">
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slHue, Path=IsEnabled}"/>
-                    <controls:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="-1" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
-                        <controls:BindableHueSlider.Background>
+                    <sliders:BindableHueSlider x:Name="slHue" Height="22" VerticalAlignment="Top" Margin="10,0,10,10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="-1" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
+                        <sliders:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                                 <GradientStop Color="#FFFF0000" />
                                 <GradientStop Color="#FEFFFF00" Offset="0.167" />
@@ -370,41 +370,41 @@
                                 <GradientStop Color="#FEFF00FF" Offset="0.833" />
                                 <GradientStop Color="#FFFF0000" Offset="1.0"   />
                             </LinearGradientBrush>
-                        </controls:BindableHueSlider.Background>
-                    </controls:BindableHueSlider>
+                        </sliders:BindableHueSlider.Background>
+                    </sliders:BindableHueSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slBri, Path=IsEnabled}"/>
-                    <controls:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri,Mode=OneWayToSource}">
-                        <controls:BindableSlider.Background>
+                    <sliders:BindableSlider x:Name="slBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri,Mode=OneWayToSource}">
+                        <sliders:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                                 <GradientStop Color="White" Offset="1"/>
                                 <GradientStop Color="Black" Offset="0"/>
                             </LinearGradientBrush>
-                        </controls:BindableSlider.Background>
-                    </controls:BindableSlider>
+                        </sliders:BindableSlider.Background>
+                    </sliders:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slSAT, Path=IsEnabled}"/>
-                    <controls:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}">
-                        <controls:BindableSlider.Background>
+                    <sliders:BindableSlider x:Name="slSAT" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0,10,10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slSAT}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}">
+                        <sliders:BindableSlider.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="White" x:Name="slSATStartGradient"/>
                                 <GradientStop Color="{Binding Hue, ElementName=slHue}" Offset="1" x:Name="slSATEndGradient"/>
                             </LinearGradientBrush>
-                        </controls:BindableSlider.Background>
-                    </controls:BindableSlider>
+                        </sliders:BindableSlider.Background>
+                    </sliders:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slCT, Path=IsEnabled}"/>
-                    <controls:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}">
-                        <controls:BindableSlider.Background>
+                    <sliders:BindableSlider x:Name="slCT" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=slCT}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}">
+                        <sliders:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
                                 <GradientStop Color="#FFFF8912" Offset="0"/>
                                 <GradientStop Color="#FFFFF9FD" Offset="1"/>
                             </LinearGradientBrush>
-                        </controls:BindableSlider.Background>
-                    </controls:BindableSlider>
+                        </sliders:BindableSlider.Background>
+                    </sliders:BindableSlider>
                     <Grid Height="100">
                         <Separator Margin="0,-1,0,93"/>
                         <Separator Margin="0,104,0,-12"/>
                         <Label x:Name="lblTT" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Margin="0,112,0,-38" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding ElementName=slTT, Path=IsEnabled}"/>
-                        <controls:BindableSlider x:Name="slTT" Maximum="65535" Minimum="-1" Margin="9,143,11,-65" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=slHue}" />
-                        <controls:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY,Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}"/>
+                        <sliders:BindableSlider x:Name="slTT" Maximum="65535" Minimum="-1" Margin="9,143,11,-65" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=slHue}" />
+                        <sliders:XYSliders Height="Auto" Margin="0,-1,0,-8" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY,Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}"/>
                     </Grid>
                 </StackPanel>
                 <xcad:DockingManager Grid.Row="1" Background="AliceBlue">
@@ -434,3 +434,258 @@
     </Grid>
 
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

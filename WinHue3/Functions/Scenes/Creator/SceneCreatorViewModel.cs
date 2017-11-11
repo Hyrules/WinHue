@@ -7,20 +7,19 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using WinHue3.Colors;
-using WinHue3.Models;
+using WinHue3.Functions.Scenes.Creator.ColorPicker;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Scenes.Creator
 {
     public class SceneCreatorViewModel : ValidatableBindableBase
     {
         private ObservableCollection<Light> _listAvailableLights;
         private ObservableCollection<Light> _selectedLight;
-        private BackgroundWorker _bgWorker = new BackgroundWorker { WorkerReportsProgress = false, WorkerSupportsCancellation = false };
+        private readonly BackgroundWorker _bgWorker;
         private Bridge _bridge;
         private SceneCreatorModel _sceneCreatorModel;
         private Light _selectedSceneLight;
@@ -28,11 +27,12 @@ namespace WinHue3.ViewModels
         
         public SceneCreatorViewModel()
         {
-            SceneCreatorModel = new SceneCreatorModel();
+            _bgWorker = new BackgroundWorker { WorkerReportsProgress = false, WorkerSupportsCancellation = false };
+            _sceneCreatorModel = new SceneCreatorModel();
 
-            ListAvailableLights = new ObservableCollection<Light>();
-            SelectedAvailableLights = new ObservableCollection<Light>();
-            ListSceneLights = new ObservableCollection<Light>();
+            _listAvailableLights = new ObservableCollection<Light>();
+            _selectedLight = new ObservableCollection<Light>();
+            _listSceneLights = new ObservableCollection<Light>();
         }
 
         public SceneCreatorModel SceneCreatorModel
@@ -131,7 +131,7 @@ namespace WinHue3.ViewModels
 
         public void GetColorFromImage()
         {
-            Views.Form_SelectColorFromImage fsci = new Views.Form_SelectColorFromImage { Owner = Application.Current.MainWindow };
+            Form_SelectColorFromImage fsci = new Form_SelectColorFromImage { Owner = Application.Current.MainWindow };
             if (fsci.ShowDialog() != true) return;
             System.Windows.Media.Color c = fsci.GetSelectedColor();
             CGPoint color = HueColorConverter.CalculateXY(c, "");
@@ -232,7 +232,7 @@ namespace WinHue3.ViewModels
             foreach (Light obj in SelectedAvailableLights)
             {
                 ListAvailableLights.Remove(obj);
-                obj.state = new State { hue = SceneCreatorModel.Hue, bri = SceneCreatorModel.Bri, sat = SceneCreatorModel.Sat, ct = SceneCreatorModel.Ct, on = SceneCreatorModel.On };
+                obj.state = new State { hue = SceneCreatorModel.Hue, bri = SceneCreatorModel.Bri, sat = SceneCreatorModel.Sat, ct = SceneCreatorModel.Ct, @on = SceneCreatorModel.On };
                 if (SceneCreatorModel.X != null && SceneCreatorModel.Y != null)
                 {
                     obj.state.xy = new decimal[]
@@ -259,7 +259,7 @@ namespace WinHue3.ViewModels
             {
                 hue = SceneCreatorModel.Hue,
                 bri = SceneCreatorModel.Bri,
-                on = SceneCreatorModel.On,
+                @on = SceneCreatorModel.On,
                 ct = SceneCreatorModel.Ct,
                 sat = SceneCreatorModel.Sat
             };

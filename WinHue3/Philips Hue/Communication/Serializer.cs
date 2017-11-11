@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Philips_Hue.Communication
 {
@@ -11,6 +10,7 @@ namespace WinHue3.Philips_Hue.Communication
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly JsonSerializerSettings jss = new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default};
+
 
         public static object DeserializeToObject(string json, Type objecttype)
         {
@@ -25,7 +25,7 @@ namespace WinHue3.Philips_Hue.Communication
             }
             catch (Exception)
             {
-
+                log.Error($"Error deserializing object {objecttype.Name} : " + json);
                 return null;
                 
             }
@@ -49,6 +49,7 @@ namespace WinHue3.Philips_Hue.Communication
             }
             catch (Exception)
             {
+                log.Error($"Error serializing object {obj }");
                 return null;
             }
       
@@ -60,8 +61,6 @@ namespace WinHue3.Philips_Hue.Communication
         /// <typeparam name="T">Type of object you want the string deserialize into</typeparam>
         /// <param name="json">JSON string to deserialize</param>
         /// <returns>The object result of the deserialized string</returns>
-
-
         public static T DeserializeToObject<T>(string json)
         {
             log.Debug(json);
@@ -76,6 +75,7 @@ namespace WinHue3.Philips_Hue.Communication
             }
             catch (Exception)
             {
+                log.Error($"Error deserializing object {typeof(T).Name} : " + json);
                 return default(T);
             }
 

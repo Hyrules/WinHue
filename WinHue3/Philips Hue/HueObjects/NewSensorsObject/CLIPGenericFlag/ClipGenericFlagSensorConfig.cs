@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WinHue3.SupportedLights
+namespace WinHue3.Functions.Lights.SupportedDevices
 {
     public static class SupportedDeviceType
     {

@@ -6,9 +6,9 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.Sensors.Creator
 {
     public class SensorCreatorModel : ValidatableBindableBase
     {
@@ -22,12 +22,12 @@ namespace WinHue3.Models
 
         public SensorCreatorModel()
         {
-            Name = string.Empty;
-            Mfgname = string.Empty;
-            ModelId = string.Empty;
-            Uniqueid = string.Empty;
-            Swversion = string.Empty;
-            Type = "CLIPGenericFlag";
+            _name = string.Empty;
+            _mfgname = string.Empty;
+            _modelId = string.Empty;
+            _uniqueid = string.Empty;
+            _swversion = string.Empty;
+            _type = "CLIPGenericFlag";
         }
 
 
@@ -75,28 +75,28 @@ namespace WinHue3.Models
                 switch (_type)
                 {
                     case "CLIPGenericFlag":
-                        Config = new ClipGenericFlagSensorConfig() {on=true};
+                        Config = new ClipGenericFlagSensorConfig() {@on=true};
                         break;
                     case "CLIPGenericStatus":
-                        Config = new ClipGenericStatusSensorConfig() { on = true };
+                        Config = new ClipGenericStatusSensorConfig() { @on = true };
                         break;
                     case "CLIPHumidity":
-                        Config = new ClipHumiditySensorConfig() { on = true };
+                        Config = new ClipHumiditySensorConfig() { @on = true };
                         break;
                     case "CLIPOpenClose":
-                        Config = new ClipOpenCloseSensorConfig() { on = true };
+                        Config = new ClipOpenCloseSensorConfig() { @on = true };
                         break;
                     case "CLIPPresence":
-                        Config = new ClipPresenceSensorConfig() { on = true };
+                        Config = new ClipPresenceSensorConfig() { @on = true };
                         break;
                     case "CLIPTemperature":
-                        Config = new TemperatureSensorConfig() { on = true };
+                        Config = new TemperatureSensorConfig() { @on = true };
                         break;
                     case "CLIPSwitch":
                         Config = null;
                         break;
                     default:
-                        Config = new ClipGenericFlagSensorConfig() { on = true };
+                        Config = new ClipGenericFlagSensorConfig() { @on = true };
                         break;
                 }
             }

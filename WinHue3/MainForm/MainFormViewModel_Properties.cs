@@ -1,15 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using WinHue3.Functions.EventViewer;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
 using WinHue3.Utils;
-using WinHue3.Views;
 
-
-namespace WinHue3.ViewModels.MainFormViewModels
+namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
@@ -58,7 +57,7 @@ namespace WinHue3.ViewModels.MainFormViewModels
             set => SetProperty(ref _selectedObject,value);
         }
 
-        public Views.Form_EventLog Eventlogform
+        public Form_EventLog Eventlogform
         {
             get => _eventlogform;
             set => SetProperty(ref _eventlogform,value);

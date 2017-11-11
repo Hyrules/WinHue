@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Windows.Input;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
-namespace WinHue3.Hotkeys
+namespace WinHue3.Functions.HotKeys
 {
     [DataContract]
     public class HotKey

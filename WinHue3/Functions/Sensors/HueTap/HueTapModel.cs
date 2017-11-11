@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Validation;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.Sensors.HueTap
 {
     public class HueTapModel : ValidatableBindableBase
     {

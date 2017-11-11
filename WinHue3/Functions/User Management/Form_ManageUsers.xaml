@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Views.Form_ManageUsers"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:userManagement="clr-namespace:WinHue3.Functions.User_Management"
+    x:Class="WinHue3.Functions.User_Management.Form_ManageUsers"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ManageUsers_Title}" Height="359.614" Width="641.738" Icon="/WinHue3;component/Resources/user.png" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
-        <viewModels:ManageUsersViewModel/>
+        <userManagement:ManageUsersViewModel/>
     </Window.DataContext>
     <Grid>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="300" Margin="10,10,0,0" VerticalAlignment="Top" Width="260" ItemsSource="{Binding ListUsers}" DisplayMemberPath="Name"  SelectedItem="{Binding SelectedUser}"/>

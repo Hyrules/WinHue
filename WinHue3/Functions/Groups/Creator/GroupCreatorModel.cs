@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using WinHue3.Validation;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
+using WinHue3.Validations;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.Groups.Creator
 {
     public class GroupCreatorModel : ValidatableBindableBase
     {

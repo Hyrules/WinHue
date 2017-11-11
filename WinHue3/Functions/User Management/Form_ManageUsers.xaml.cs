@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.ViewModels;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.User_Management
 {
     /// <summary>
     /// Interaction logic for Form_ManageUsers.xaml

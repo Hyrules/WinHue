@@ -1,4 +1,4 @@
-﻿namespace WinHue3.ViewModels.MainFormViewModels
+﻿namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel
     {

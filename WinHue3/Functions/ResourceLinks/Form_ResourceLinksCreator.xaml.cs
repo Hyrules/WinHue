@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Interface;
-using WinHue3.Models;
+using WinHue3.MainForm;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
@@ -16,12 +17,9 @@ using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Settings;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
 
-
-namespace WinHue3.Views
+namespace WinHue3.Functions.ResourceLinks
 {
     /// <summary>
     /// Interaction logic for Form_ResourceLinksCreator.xaml

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using WinHue3.Colors;
 
-namespace WinHue3.Converters
+namespace WinHue3.Functions.Converters
 {
     public class HueColorConverter : IValueConverter
     {

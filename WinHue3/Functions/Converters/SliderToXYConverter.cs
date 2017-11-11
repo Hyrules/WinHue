@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace WinHue3.Converters
+namespace WinHue3.Functions.Converters
 {
     public class SliderToXYConverter : IValueConverter
     {

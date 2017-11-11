@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Threading;
+using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.MainForm.Wait
 {
     public class WaitViewModel : ValidatableBindableBase
     {

@@ -2,9 +2,8 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using WinHue3.ViewModels;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.Scenes.Creator.ColorPicker
 {
     /// <summary>
     /// Interaction logic for Form_SelectColorFromImage.xaml

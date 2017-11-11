@@ -1,18 +1,16 @@
-﻿using Prism.Mvvm;
-using WinHue3.Models;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+﻿using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
+using WinHue3.Utils;
 
-
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Sensors.Daylight
 {
-    public class DaylightViewModel : BindableBase
+    public class DaylightViewModel : ValidatableBindableBase
     {
         private DaylightModel _daylight;
 
         public DaylightViewModel()
         {
-            this.Daylight = new DaylightModel();          
+            _daylight = new DaylightModel();          
             
         }
 

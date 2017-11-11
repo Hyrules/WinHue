@@ -1,6 +1,6 @@
-﻿using WinHue3.ViewModels;
+﻿using WinHue3.Utils;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.BridgePairing
 {
     public class BridgePairingModel : ValidatableBindableBase
     {

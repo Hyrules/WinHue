@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.ResourceLinks
 {
     public class ResourceLinkCreatorModel : ValidatableBindableBase
     {
@@ -18,8 +18,8 @@ namespace WinHue3.Models
         public ResourceLinkCreatorModel()
         {
             _name = string.Empty;
-            ListlinkObject = new ObservableCollection<IHueObject>();
-            ClassId = 1;
+            _listlinkObject = new ObservableCollection<IHueObject>();
+            _classId = 1;
         }
 
         [StringLength(32,MinimumLength = 1,ErrorMessageResourceName = "ResourceLinks_NameNeeded", ErrorMessageResourceType = typeof(GlobalStrings))]

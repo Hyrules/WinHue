@@ -8,7 +8,7 @@ using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 using MessageBox = System.Windows.Forms.MessageBox;
 using WebRequestType = WinHue3.Philips_Hue.Communication.WebRequestType;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Advanced_Creator
 {
     public class AdvancedCreatorViewModel : ValidatableBindableBase
     {
@@ -20,10 +20,10 @@ namespace WinHue3.ViewModels
 
         public AdvancedCreatorViewModel()
         {
-            Text = string.Empty;
-            Type = string.Empty;
-            RequestType = WebRequestType.POST;
-            Url = string.Empty;
+            _text = string.Empty;
+            _type = string.Empty;
+            _requestType = WebRequestType.Post;
+            _url = string.Empty;
         }
 
         public void Initialize(Bridge bridge)
@@ -34,7 +34,7 @@ namespace WinHue3.ViewModels
         private void CreateScheduleTemplate()
         {
             Type = "schedules";
-            RequestType = WebRequestType.POST;
+            RequestType = WebRequestType.Post;
             Url = _bridge.BridgeUrl + "/schedules";
             Text = @"{
     ""name"" : ""{YOUR NAME}"",
@@ -53,7 +53,7 @@ namespace WinHue3.ViewModels
         private void CreateSensorTemplate()
         {
             Type = "sensors";
-            RequestType = WebRequestType.POST;
+            RequestType = WebRequestType.Post;
             Url = _bridge.BridgeUrl + "/sensors";
             Text = @"{
     ""name"" : ""YOUR NAME"",
@@ -72,7 +72,7 @@ namespace WinHue3.ViewModels
         private void CreateRuleTemplate()
         {
             Type = "rules";
-            RequestType = WebRequestType.POST;
+            RequestType = WebRequestType.Post;
             Url = _bridge.BridgeUrl + "/rules";
             Text = @"{  
     ""name"":""YOUR NAME"",
@@ -104,7 +104,7 @@ namespace WinHue3.ViewModels
         private void CreateResourceLinkTemplate()
         {
             Type = "resourcelinks";
-            RequestType = WebRequestType.POST;
+            RequestType = WebRequestType.Post;
             Url = _bridge.BridgeUrl + "/resourcelinks";
             Text = @"{
     ""name"": ""Sunrise"",
@@ -121,7 +121,7 @@ namespace WinHue3.ViewModels
         private void CreateGroupTemplate()
         {
             Type = "groups";
-            RequestType = WebRequestType.POST;
+            RequestType = WebRequestType.Post;
             Url = _bridge.BridgeUrl + "/groups";
             Text = @"{
     ""name"": ""Living room"",
@@ -141,7 +141,7 @@ namespace WinHue3.ViewModels
             Type = string.Empty;
             Text = string.Empty;
             Url = string.Empty;
-            RequestType = WebRequestType.POST;
+            RequestType = WebRequestType.Post;
 
         }
 
@@ -149,7 +149,7 @@ namespace WinHue3.ViewModels
         {
             DialogResult result = DialogResult.Yes;
 
-            if (RequestType == WebRequestType.DELETE)
+            if (RequestType == WebRequestType.Delete)
             {
                 result = MessageBox.Show(GlobalStrings.AdvancedCreator_WarningDelete, GlobalStrings.Warning,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -164,7 +164,7 @@ namespace WinHue3.ViewModels
                 }
                 else
                 {
-                    if (RequestType == WebRequestType.GET)
+                    if (RequestType == WebRequestType.Get)
                     {
                         Text = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(json), Formatting.Indented);
                     }
@@ -182,7 +182,7 @@ namespace WinHue3.ViewModels
         private void CreateSceneTemplate()
         {
             Type = "scenes";
-            RequestType = WebRequestType.POST;
+            RequestType = WebRequestType.Post;
             Url = _bridge.BridgeUrl + "/scenes";
             Text = @"{
     ""lights""
@@ -200,7 +200,7 @@ namespace WinHue3.ViewModels
         private void CreateSceneStateTemplate()
         {
             Type = "scenes";
-            RequestType = WebRequestType.PUT;
+            RequestType = WebRequestType.Put;
             Url = _bridge.BridgeUrl + "/scenes/<scene id>/lights/<light id>/state";
             Text = @"{ 
     ""on"":true,

@@ -1,6 +1,6 @@
 ﻿using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.Rules.Cloning
 {
     public class CloneRuleModel
     {

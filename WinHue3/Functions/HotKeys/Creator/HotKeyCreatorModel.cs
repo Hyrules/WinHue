@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using System.Windows.Media;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
-namespace WinHue3.Models
+namespace WinHue3.Functions.HotKeys.Creator
 {
     public class HotKeyCreatorModel : ValidatableBindableBase
     {
@@ -56,12 +56,12 @@ namespace WinHue3.Models
 
         public HotKeyCreatorModel()
         {
-            Name = string.Empty;
-            Description = string.Empty;
-            Id = string.Empty;
-            Key = default(Key);
-            ModifierKeys = default(ModifierKeys);
-            RecordButtonColor = new SolidColorBrush() { Color = System.Windows.Media.Color.FromRgb(240, 240, 240) };
+            _name = string.Empty;
+            _description = string.Empty;
+            _id = string.Empty;
+            _key = default(Key);
+            _modifierKeys = default(ModifierKeys);
+            _recordbuttoncolor = new SolidColorBrush() { Color = System.Windows.Media.Color.FromRgb(240, 240, 240) };
 
         }
 

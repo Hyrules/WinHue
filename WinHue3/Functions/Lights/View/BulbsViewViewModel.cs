@@ -6,8 +6,9 @@ using System.Reflection;
 using System.Text;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Lights.View
 {
     public class BulbsViewViewModel : ValidatableBindableBase
     {

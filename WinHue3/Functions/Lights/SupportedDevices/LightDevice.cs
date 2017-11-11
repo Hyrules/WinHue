@@ -1,4 +1,4 @@
-﻿namespace WinHue3.SupportedLights
+﻿namespace WinHue3.Functions.Lights.SupportedDevices
 {
     public class LightDevice
     {

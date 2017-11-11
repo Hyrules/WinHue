@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using WinHue3.Models;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Groups.Creator
 {
     public class GroupCreatorViewModel : ValidatableBindableBase
     {

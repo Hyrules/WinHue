@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
-
-namespace WinHue3.Models
+namespace WinHue3.Functions.Sensors.Daylight
 {
     public class DaylightModel : ValidatableBindableBase
     {
@@ -11,8 +10,8 @@ namespace WinHue3.Models
 
         public DaylightModel()
         {
-            SunriseOffset = 0;
-            SunsetOffset = 0;
+            _sunriseoffset = 0;
+            _sunsetoffset = 0;
             
         }
           

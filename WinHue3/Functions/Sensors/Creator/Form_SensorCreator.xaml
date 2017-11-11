@@ -3,14 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
-        xmlns:converter="clr-namespace:WinHue3.Converters"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        x:Name="Form_SensorCreator1" x:Class="WinHue3.Views.Form_SensorCreator"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:creator="clr-namespace:WinHue3.Functions.Sensors.Creator"
+    x:Name="Form_SensorCreator1" x:Class="WinHue3.Functions.Sensors.Creator.Form_SensorCreator"
     
         Title="{x:Static resx:GUI.SensorCreatorForm_Title}" Height="280.889" Width="650.263" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png">
     <Window.DataContext>
-        <viewModels:SensorCreatorViewModel/>
+        <creator:SensorCreatorViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type xctk:WatermarkTextBox}">

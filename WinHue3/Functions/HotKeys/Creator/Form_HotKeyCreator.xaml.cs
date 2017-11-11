@@ -3,12 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using WinHue3.Hotkeys;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.ViewModels;
 
-
-namespace WinHue3.Views
+namespace WinHue3.Functions.HotKeys.Creator
 {
     /// <summary>
     /// Interaction logic for Form_HotKeyCreator.xaml

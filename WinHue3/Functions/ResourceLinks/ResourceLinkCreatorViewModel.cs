@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using WinHue3.Models;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
-using WinHue3.Validation;
+using WinHue3.Validations;
 
-
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.ResourceLinks
 {
     public class ResourceLinkCreatorViewModel : ValidatableBindableBase
     {

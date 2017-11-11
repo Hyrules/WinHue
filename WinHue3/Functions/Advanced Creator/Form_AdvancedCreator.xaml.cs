@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.ViewModels;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.Advanced_Creator
 {
     /// <summary>
     /// Interaction logic for Form_AdvancedCreator.xaml

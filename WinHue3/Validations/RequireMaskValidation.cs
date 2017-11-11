@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using WinHue3.ViewModels;
+using WinHue3.Functions.Schedules.OldCreator;
 
-
-namespace WinHue3.Validation
+namespace WinHue3.Validations
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public class RequireMaskAttribute : ValidationAttribute

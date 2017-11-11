@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace WinHue3.Converters
+namespace WinHue3.Functions.Converters
 {
     [ValueConversion(typeof(string),typeof(byte))]
     public class ScheduleMaskConverter: IValueConverter

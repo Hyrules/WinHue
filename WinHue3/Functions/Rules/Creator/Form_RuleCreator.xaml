@@ -7,13 +7,13 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-        xmlns:ruleCreatorViewModels="clr-namespace:WinHue3.ViewModels.RuleCreatorViewModels"
-        xmlns:utils="clr-namespace:WinHue3.Utils"
-        x:Class="WinHue3.Views.Form_RuleCreator"
+    xmlns:utils="clr-namespace:WinHue3.Utils"
+    xmlns:creator="clr-namespace:WinHue3.Functions.Rules.Creator"
+    x:Class="WinHue3.Functions.Rules.Creator.Form_RuleCreator"
         mc:Ignorable="d"
         Title="Rule Creator" Height="382.456" Width="641.281" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/rules.png">
     <Window.DataContext>
-        <ruleCreatorViewModels:RuleCreatorViewModel/>
+        <creator:RuleCreatorViewModel/>
     </Window.DataContext>
     <Grid>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="522" Watermark="{x:Static resx:GUI.RuleCreatorForm_Name}"/>

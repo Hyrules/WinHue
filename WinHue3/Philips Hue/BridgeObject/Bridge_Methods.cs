@@ -41,7 +41,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres = Comm.SendRequest(new Uri(url), type, data);
             if (comres.Status == WebExceptionStatus.Success)
             {
-                if(type != WebRequestType.GET)
+                if(type != WebRequestType.Get)
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return comres.Data;
             }
@@ -62,7 +62,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), type, data);
             if (comres.Status == WebExceptionStatus.Success)
             {
-                if(type != WebRequestType.GET)
+                if(type != WebRequestType.Get)
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return comres.Data;
             }
@@ -78,7 +78,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
             
 
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl), WebRequestType.GET);
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl), WebRequestType.Get);
             if (comres.Status == WebExceptionStatus.Success)
             {
                 DataStore listObjets = Serializer.DeserializeToObject<DataStore>(comres.Data);
@@ -95,7 +95,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>A DataStore of objects from the bridge.</returns>
         public async Task<DataStore> GetBridgeDataStoreAsyncTask()
         {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl), WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl), WebRequestType.Get);
             if (comres.Status == WebExceptionStatus.Success)
             {
                 DataStore listObjets = Serializer.DeserializeToObject<DataStore>(comres.Data);

@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 using WinHue3.Controls;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.ViewModels;
-using WinHue3.Views;
+using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using XYEditor = WinHue3.Functions.PropertyGrid.XYEditor;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {

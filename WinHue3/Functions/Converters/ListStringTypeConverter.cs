@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WinHue3.Converters
+namespace WinHue3.Functions.Converters
 {
     public class ListStringTypeConverter : TypeConverter
     {

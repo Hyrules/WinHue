@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
-        xmlns:viewModels="clr-namespace:WinHue3.ViewModels"
-        x:Class="WinHue3.Views.Form_Daylight"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:daylight="clr-namespace:WinHue3.Functions.Sensors.Daylight"
+        x:Class="WinHue3.Functions.Sensors.Daylight.Form_Daylight"
         Title="{x:Static resx:GUI.DaylightForm_Title}" Height="190" Width="288" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png"
 >
     <Window.DataContext>
-        <viewModels:DaylightViewModel/>
+        <daylight:DaylightViewModel/>
     </Window.DataContext>
     <Window.Resources>
         

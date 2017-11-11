@@ -2,19 +2,17 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 using log4net.Repository.Hierarchy;
 using WinHue3.Logs;
 using WinHue3.Philips_Hue.Communication;
-using WinHue3.Settings;
 using WinHue3.Utils;
-using WinHue3.Views;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
-using WinHue3.Resources;
 using System.Reflection;
+using WinHue3.Functions.Application_Settings.Settings;
+using Form_EventLog = WinHue3.Functions.EventViewer.Form_EventLog;
 
 namespace WinHue3
 {
@@ -43,7 +41,7 @@ namespace WinHue3
         {
             Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");
             Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated}");
-            MainWindow wnd = new MainWindow(_fel);
+            MainForm.MainWindow wnd = new MainForm.MainWindow(_fel);
             MainWindow.Title = "WinHue " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
                 ? SystemParameters.WorkArea.Height*0.75
@@ -114,7 +112,7 @@ namespace WinHue3
             MiniDumpWithCodeSegs = 0x00002000
         }
         [DllImport("dbghelp.dll")]
-        static extern bool MiniDumpWriteDump(
+        private static extern bool MiniDumpWriteDump(
             IntPtr hProcess,
             Int32 ProcessId,
             IntPtr hFile,
@@ -123,13 +121,10 @@ namespace WinHue3
             IntPtr UserStreamParam,
             IntPtr CallackParam);
 
-        public static void MiniDumpToFile(String fileToDump)
+        public static void MiniDumpToFile(string fileToDump)
         {
             FileStream fsToDump = null;
-            if (File.Exists(fileToDump))
-                fsToDump = File.Open(fileToDump, FileMode.Append);
-            else
-                fsToDump = File.Create(fileToDump);
+            fsToDump = File.Exists(fileToDump) ? File.Open(fileToDump, FileMode.Append) : File.Create(fileToDump);
             Process thisProcess = Process.GetCurrentProcess();
             MiniDumpWriteDump(thisProcess.Handle, thisProcess.Id,
                 fsToDump.SafeFileHandle.DangerousGetHandle(), MINIDUMP_TYPE.MiniDumpNormal,

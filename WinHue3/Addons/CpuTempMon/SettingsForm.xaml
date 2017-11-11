@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:winHue3="clr-namespace:WinHue3"
-        xmlns:converters="clr-namespace:WinHue3.Converters"
-        x:Class="WinHue3.Addons.CpuTempMon.Form_CpuTempMonitorSettings"
+    x:Class="WinHue3.Addons.CpuTempMon.Form_CpuTempMonitorSettings"
         xmlns:cputemp="clr-namespace:WinHue3.Addons.CpuTempMon"
         Title="Cpu Temp Monitor Settings..." Height="386" Width="473" ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
     <Window.DataContext>

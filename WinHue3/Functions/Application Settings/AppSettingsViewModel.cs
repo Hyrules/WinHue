@@ -1,6 +1,6 @@
-﻿using WinHue3.Models.AppSettings;
+﻿using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.Application_Settings
 {
     public class AppSettingsViewModel : ValidatableBindableBase
     {

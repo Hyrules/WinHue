@@ -9,8 +9,7 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
-
-namespace WinHue3.ViewModels.MainFormViewModels
+namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel
     {

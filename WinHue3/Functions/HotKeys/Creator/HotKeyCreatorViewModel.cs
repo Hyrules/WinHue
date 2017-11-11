@@ -10,19 +10,16 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using log4net;
 using WinHue3.ExtensionMethods;
-using WinHue3.Hotkeys;
-using WinHue3.Models;
+using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.HotKeys.Validation;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Settings;
 using WinHue3.Utils;
-using WinHue3.Validation;
 
-
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.HotKeys.Creator
 {
     
     public class HotKeyCreatorViewModel : ValidatableBindableBase
@@ -43,13 +40,13 @@ namespace WinHue3.ViewModels
 
         public HotKeyCreatorViewModel()
         {
-            HotKeyModel = new HotKeyCreatorModel();
+            _hotKeyModel = new HotKeyCreatorModel();
             _hotkeyrecordTimer = new DispatcherTimer();
-            ListHotKeys = new ObservableCollection<HotKey>();
+            _listHotKeys = new ObservableCollection<HotKey>();
             _hotkeyrecordTimer.Interval = new TimeSpan(0, 0, 0, 10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
-            ListHotKeys = new ObservableCollection<HotKey>(WinHueSettings.hotkeys.listHotKeys);
-            ObjectType = typeof(Light);
+            _listHotKeys = new ObservableCollection<HotKey>(WinHueSettings.hotkeys.listHotKeys);
+            _objectype = typeof(Light);
         }
 
         public bool NotGeneric => !_isGeneric;

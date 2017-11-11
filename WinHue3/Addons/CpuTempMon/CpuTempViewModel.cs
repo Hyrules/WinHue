@@ -9,7 +9,6 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
 
 
 namespace WinHue3.Addons.CpuTempMon
@@ -33,16 +32,16 @@ namespace WinHue3.Addons.CpuTempMon
 
         public CpuTempViewModel()
         {
-            LowerTemp = 30;
-            UpperTemp = 75;
-            CanTest = true;
-            LowerGradientColor = 25000;
-            UpperGradientColor = 0;
-            CpuTemp = "0.00ºC";
-            Bri = 254;
-            Sat = 254;
-            ListLightGroups = new List<IHueObject>();
-            ListCpuSensors = new ObservableCollection<ISensor>();
+            _lowerTemp = 30;
+            _UpperTemp = 75;
+            _canTest = true;
+            _lowerGradientColor = 25000;
+            _upperGradientColor = 0;
+            _cpuTemp = "0.00ºC";
+            _bri = 254;
+            _sat = 254;
+            _listLightGroups = new List<IHueObject>();
+            _listCpuSensors = new ObservableCollection<ISensor>();
         }
 
         public void Initialize(Bridge bridge, CpuTemp temp)

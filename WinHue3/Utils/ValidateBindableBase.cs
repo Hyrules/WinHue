@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
-using Prism.Mvvm;
+using WinHue3.Annotations;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Utils
 {
-    public class ValidatableBindableBase : BindableBase, IDataErrorInfo, IChangeTracking
+    public class ValidatableBindableBase : IDataErrorInfo, IChangeTracking, INotifyPropertyChanged
     {
         private ValidationContext _validationContext { get; set; }
         private bool _isChanged;
@@ -43,8 +45,16 @@ namespace WinHue3.ViewModels
                 return errormessages.Count == 0 ? null : string.Join(",", errormessages);
             }
         }
-        
 
+        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(storage, value)) return false;
+
+            storage = value;
+            RaisePropertyChanged(propertyName);
+
+            return true;
+        }
 
         [Browsable(false),JsonIgnore]
         public string Error { get; internal set; }
@@ -61,10 +71,12 @@ namespace WinHue3.ViewModels
             this.IsChanged = false;
         }
 
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            this.IsChanged = true;
-            base.OnPropertyChanged(args);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

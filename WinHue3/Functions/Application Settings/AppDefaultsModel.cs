@@ -1,6 +1,6 @@
-﻿using WinHue3.ViewModels;
+﻿using WinHue3.Utils;
 
-namespace WinHue3.Models.AppSettings
+namespace WinHue3.Functions.Application_Settings
 {
     public class AppDefaultsModel : ValidatableBindableBase
     {
@@ -12,11 +12,11 @@ namespace WinHue3.Models.AppSettings
 
         public AppDefaultsModel()
         {
-            AllOffTt = null;
-            AllOnTt = null;
-            DefaultTt = null;
-            DefaultLightBri = 255;
-            DefaultGroupBri = 255;
+            _allOffTT = null;
+            _allOnTT = null;
+            _defaultTT = null;
+            _defaultLightBri = 255;
+            _defaultGroupBri = 255;
         }
 
         public ushort? AllOnTt

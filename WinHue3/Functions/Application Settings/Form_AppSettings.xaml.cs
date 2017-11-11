@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using Microsoft.Win32;
-using WinHue3.Settings;
-using WinHue3.ViewModels;
+using WinHue3.Functions.Application_Settings.Settings;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.Application_Settings
 {
     /// <summary>
     /// Interaction logic for AppSettings.xaml

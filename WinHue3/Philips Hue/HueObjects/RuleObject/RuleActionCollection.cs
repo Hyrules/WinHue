@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using WinHue3.Annotations;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using Action = WinHue3.Philips_Hue.HueObjects.RuleObject.RuleAction;
 

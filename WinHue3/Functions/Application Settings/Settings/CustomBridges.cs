@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace WinHue3.Settings
+namespace WinHue3.Functions.Application_Settings.Settings
 {
     public class CustomBridges
     {

@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.EventViewer;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
-using WinHue3.Settings;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
-using WinHue3.ViewModels.MainFormViewModels;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
-namespace WinHue3
+namespace WinHue3.MainForm
 {
     /// <summary>
     /// Main window.
@@ -26,14 +25,14 @@ namespace WinHue3
     public partial class MainWindow : Window
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Views.Form_EventLog _fel;
+        private Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
         /// <summary>
         /// Form of the Eventlog.
         /// </summary>
 
-        public MainWindow(Views.Form_EventLog formEventLog)
+        public MainWindow(Form_EventLog formEventLog)
         {
             _fel = formEventLog;
 

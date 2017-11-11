@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -12,8 +13,7 @@ using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
 
-
-namespace WinHue3.ViewModels.RuleCreatorViewModels
+namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorActionViewModel : ValidatableBindableBase
     {
@@ -28,8 +28,8 @@ namespace WinHue3.ViewModels.RuleCreatorViewModels
 
         public RuleCreatorActionViewModel()
         {
-            ListActionHueObjects = new ObservableCollection<IHueObject>();
-            ListRuleActions = new ObservableCollection<RuleAction>();
+            _listActionHueObjects = new ObservableCollection<IHueObject>();
+            _listRuleActions = new ObservableCollection<RuleAction>();
         }
 
         public ICommand PopulateActionObjectsCommand => new RelayCommand(param => PopulateActionObjects());

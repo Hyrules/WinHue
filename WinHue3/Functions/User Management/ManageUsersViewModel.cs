@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using WinHue3.Models;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Utils;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.User_Management
 {
     public class ManageUsersViewModel : ValidatableBindableBase
     {

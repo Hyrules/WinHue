@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WinHue3.ViewModels;
+using WinHue3.Functions.HotKeys.Creator;
 
-namespace WinHue3.Validation
+namespace WinHue3.Functions.HotKeys.Validation
 {
     public class HotKeySelectedValidation : ValidationAttribute
     {

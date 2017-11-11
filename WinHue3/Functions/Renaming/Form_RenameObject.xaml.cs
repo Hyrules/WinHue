@@ -1,13 +1,9 @@
-﻿using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
-
-namespace WinHue3.Views
+namespace WinHue3.Functions.Renaming
 {
   
     

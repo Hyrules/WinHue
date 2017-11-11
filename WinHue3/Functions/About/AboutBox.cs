@@ -1,8 +1,7 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows.Forms;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.About
 {
     partial class AboutBox : Form
     {

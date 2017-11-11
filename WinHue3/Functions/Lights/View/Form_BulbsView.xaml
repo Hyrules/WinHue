@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="WinHue3.Views.Form_BulbsView"
-        xmlns:viewmodels="clr-namespace:WinHue3.ViewModels"
-        mc:Ignorable="d"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:view="clr-namespace:WinHue3.Functions.Lights.View"
+    x:Class="WinHue3.Functions.Lights.View.Form_BulbsView"
+    mc:Ignorable="d"
         Title="{x:Static resx:GUI.Form_BulbsView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner" >
     <Window.DataContext>
-        <viewmodels:BulbsViewViewModel/>
+        <view:BulbsViewViewModel/>
     </Window.DataContext>
     <Grid>
         <ToolBarTray Margin="0,0,0,430.667">

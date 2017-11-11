@@ -1,11 +1,9 @@
-﻿using System.Resources;
-using System.Windows;
+﻿using System.Windows;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Resources;
-using WinHue3.ViewModels.RuleCreatorViewModels;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
-namespace WinHue3.Views
+namespace WinHue3.Functions.Rules.Creator
 {
     /// <summary>
     /// Interaction logic for Form_RuleCreator.xaml

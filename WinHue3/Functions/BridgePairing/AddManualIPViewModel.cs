@@ -1,6 +1,7 @@
-﻿using WinHue3.Validation;
+﻿using WinHue3.Utils;
+using WinHue3.Validations;
 
-namespace WinHue3.ViewModels
+namespace WinHue3.Functions.BridgePairing
 {
     public class AddManualIPViewModel : ValidatableBindableBase
     {
