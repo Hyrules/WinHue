@@ -4,7 +4,6 @@ $(function () {
 
 $(document).ready(function() {
   $('.image-link').magnificPopup({
-    delegate: 'a',
     type: 'image',
     removalDelay: 500, //delay removal by X to allow out-animation
     callbacks: {
