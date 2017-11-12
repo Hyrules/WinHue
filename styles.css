@@ -2,14 +2,13 @@ body{
     background-color: #000000
 }
 
-h1, h2, h3, h4, h5, h6, p{
+*{
     color: #FFFFFF;
     font-family: 'Titillium Web', sans-serif;
-    
 }
 
 .row-btm-pad{
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
 }
 
 
