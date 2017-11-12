@@ -8,7 +8,12 @@ h1, h2, h3, h4, h5, h6, p{
     
 }
 
-#test1 {
+.row-btm-pad{
+    margin-bottom: 1rem;
+}
+
+
+#gradient-header {
     background: linear-gradient(90deg,rgba(255,0,0,0.75), rgba(255, 128, 0, 0.75), rgba(255,255,0,0.75), rgba(0, 255, 0, 0.75), rgba(0,0,255,0.75), rgba(75,0,130,0.75), rgba(127,0,255,0.75));
     background-size: 1400% 1400%;
     
@@ -18,16 +23,6 @@ h1, h2, h3, h4, h5, h6, p{
 
     text-align: center;
 }
-
-.btn {
-    display: inline-block;
-    margin-bottom: 1rem;
-}
-
-.btn + .btn {
-    margin-left: 1rem; }
-
-    
 @-webkit-keyframes AnimationName {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
@@ -43,6 +38,16 @@ h1, h2, h3, h4, h5, h6, p{
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
+
+.btn {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.btn + .btn {
+    margin-left: 1rem; }
+
+    
 
 @media screen and (min-width: 64em) {
     .btn {
