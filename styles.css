@@ -11,6 +11,17 @@ body{
     margin-bottom: 30px;
 }
 
+.row-gall-pad {
+    margin-bottom: 10px;
+}
+
+.col-gall-l {
+    padding-right: 5px;
+}
+
+.col-gall-r {
+    padding-left: 5px;
+}
 
 #gradient-header {
     background: linear-gradient(90deg,rgba(255,0,0,0.75), rgba(255, 128, 0, 0.75), rgba(255,255,0,0.75), rgba(0, 255, 0, 0.75), rgba(0,0,255,0.75), rgba(75,0,130,0.75), rgba(127,0,255,0.75));
