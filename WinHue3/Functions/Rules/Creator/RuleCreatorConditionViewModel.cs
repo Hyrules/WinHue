@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
@@ -197,81 +198,13 @@ namespace WinHue3.Functions.Rules.Creator
             ListConditionProperties.Clear();
             if (ObjectType == null || SelectedConditionHueObject == null ) return;
             string path = SelectedConditionHueObject == null ? $"/config" : $"/{SelectedConditionHueObject.GetHueType()}/{SelectedConditionHueObject.Id}";
-            List<TreeViewItem> lrtvi = new List<TreeViewItem>();
 
-            PropertyInfo[] props = SelectedConditionHueObject?.GetType().GetHueProperties();
-            if (props == null && ObjectType == "config") props = new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings().GetType().GetProperties();
-            
+            TreeViewItem tvi = TreeViewHelper.BuildPropertiesTree(SelectedConditionHueObject, path, selectedpath);
 
-            foreach (PropertyInfo pi in props)
-            {
-                lrtvi.Add(BuildTree(pi, path, selectedpath));
-                
-
-            }
+            List<TreeViewItem> lrtvi = tvi.Items.Cast<TreeViewItem>().ToList();
 
             ListConditionProperties.AddRange(lrtvi);
 
-        }
-
-        private static TreeViewItem BuildTree(PropertyInfo root, string currentpath, string selectedpath = null)
-        {
-            var toVisit = new Stack<PropertyInfo>();
-            var toVisitRtvi = new Stack<TreeViewItem>();
-            var visitedAncestors = new Stack<PropertyInfo>();
-            var pathstack = new Stack<string>();
-            var actualpath = currentpath + "/" + root.Name;
-            var rtvi = new TreeViewItem() { Header = root.Name, Tag = actualpath };
-
-            toVisit.Push(root);
-            while (toVisit.Count > 0)
-            {
-
-                var node = toVisit.Peek();
-                if (node.PropertyType.GetHueProperties().Length > 0)
-                {
-
-
-                    if (visitedAncestors.PeekOrDefault() != node)
-                    {
-                        visitedAncestors.Push(node);
-                        toVisit.PushReverse(node.PropertyType.GetHueProperties().ToList());
-
-                        if (root.Name != node.Name)
-                        {
-                            pathstack.Push(actualpath);
-                            actualpath = actualpath + "/" + node.Name;
-                            toVisitRtvi.Push(rtvi);
-                            rtvi = new TreeViewItem() { Header = node.Name, Tag = actualpath };
-                        }
-                        continue;
-                    }
-                    visitedAncestors.Pop();
-                    if (toVisitRtvi.Count == 0) return rtvi;
-                    TreeViewItem currtvi = toVisitRtvi.Pop();
-                    currtvi.Items.Add(rtvi);
-                    actualpath = pathstack.Pop();
-                    currtvi.Tag = actualpath;
-                    rtvi = currtvi;
-                    toVisit.Pop();
-                    continue;
-                }
-
-
-                if (visitedAncestors.Count > 0)
-                {
-                    TreeViewItem nrtvi = new TreeViewItem() { Header = node.Name,  Tag = actualpath + "/" + node.Name};
-                    if (selectedpath != null && nrtvi.Tag.ToString().Equals(selectedpath)) nrtvi.IsSelected = true;
-                    rtvi.Items.Add(nrtvi);
-                    rtvi.IsExpanded = true;
-                    if(nrtvi.IsSelected)
-                        nrtvi.BringIntoView();
-                }
-
-                toVisit.Pop();
-            }
-
-            return rtvi;
         }
 
         private void PopulateObjects()

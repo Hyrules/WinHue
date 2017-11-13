@@ -6,12 +6,14 @@
  xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
+        xmlns:slider ="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="420.173" Width="968.981">
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSlidersViewModel}" >
-            
+            <slider:Sliders Hue="{Binding Hue, Mode=TwoWay}"/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSensorsViewModel}">
             
@@ -22,12 +24,36 @@
     </Window.DataContext>
     <Grid>
 
-        <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="369" Width="241"/>
+        <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="369" Width="339" SelectedObject="{Binding Header}" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False">
+            <xctk:PropertyGrid.EditorDefinitions>
+                <xctk:EditorTemplateDefinition TargetProperties="Datetime">
+                    <xctk:EditorTemplateDefinition.EditingTemplate>
+                        <DataTemplate>
+                            <xctk:DateTimePicker Value="{Binding Header.Datetime}" Format="Custom" >
+                                <xctk:DateTimePicker.Style>
+                                    <Style TargetType="xctk:DateTimePicker">
+                                        <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Header.ScheduleType}" Value="Timer">
+                                                <Setter Property="FormatString" Value="HH:mm:ss"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Header.ScheduleType}" Value="Alarm">
+                                                <Setter Property="FormatString" Value="HH:mm:ss"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </xctk:DateTimePicker.Style>
+                            </xctk:DateTimePicker>
+                        </DataTemplate>
+                    </xctk:EditorTemplateDefinition.EditingTemplate>
+                </xctk:EditorTemplateDefinition>
+            </xctk:PropertyGrid.EditorDefinitions>
+        </xctk:PropertyGrid>
         <ContentPresenter>
            
         </ContentPresenter>
-        <ContentControl Content="{TemplateBinding  }" HorizontalAlignment="Left" Margin="256,43,0,0" VerticalAlignment="Top" Height="338" Width="696"/>
-        <ComboBox HorizontalAlignment="Left" Margin="256,10,0,0" VerticalAlignment="Top" Width="232">
+        <!--<ContentControl Content="{TemplateBinding   }" HorizontalAlignment="Left" Margin="256,43,0,0" VerticalAlignment="Top" Height="338" Width="696"/>-->
+        <ComboBox HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Width="232">
             <ComboBoxItem Content="Sliders"></ComboBoxItem>
             <ComboBoxItem Content="Sensors"></ComboBoxItem>
         </ComboBox>

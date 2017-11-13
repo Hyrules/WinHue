@@ -11,18 +11,18 @@ using WinHue3.Philips_Hue.Communication;
 
 namespace WinHue3.Utils
 {
-    public class UpdateManager
+    public static class UpdateManager
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private const string UPDATE_URL = "https://raw.githubusercontent.com/Hyrules/WinHue3/master/update.md";
         private static bool _updateAvailable;
         private static Update _update;
-        private static WebClient wc;
+        private static readonly WebClient wc;
 
         public static bool UpdateAvailable
         {
             get => _updateAvailable;
-            set { _updateAvailable = value; }
+            set => _updateAvailable = value;
         }
 
         static UpdateManager()
@@ -137,27 +137,22 @@ namespace WinHue3.Utils
         private string _URL;
         private string _bridgeversion;
 
-        public Update()
-        {
-            
-        }
-
         public string Url
         {
-            get { return _URL; }
-            set { SetProperty(ref _URL,value); }
+            get => _URL;
+            set => SetProperty(ref _URL,value);
         }
 
         public string Version
         {
-            get { return _version; }
-            set { SetProperty(ref _version,value); }
+            get => _version;
+            set => SetProperty(ref _version,value);
         }
 
         public string BridgeVersion
         {
-            get { return _bridgeversion; }
-            set { SetProperty(ref _bridgeversion, value); }
+            get => _bridgeversion;
+            set => SetProperty(ref _bridgeversion, value);
         }
 
         public string Filename => !string.IsNullOrEmpty(_URL) ? Path.GetFileName(new Uri(_URL).LocalPath) : string.Empty;

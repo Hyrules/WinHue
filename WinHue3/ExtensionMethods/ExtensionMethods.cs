@@ -151,6 +151,11 @@ namespace WinHue3.ExtensionMethods
             return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
         }
 
+        public static bool HasHueProperties(this Type type)
+        {
+            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList().Count > 0;
+        }
+
         public static PropertyInfo[] GetPublicProperties(this Type type)
         {
             if (type.IsInterface)

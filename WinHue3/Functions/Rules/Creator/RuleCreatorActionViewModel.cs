@@ -136,7 +136,7 @@ namespace WinHue3.Functions.Rules.Creator
                     ActionProperties = null;
                     break;
                 case "sensors":
-               //     ActionProperties = (IRuleBody)Activator.CreateInstance(((ISensor) SelectedHueObject).state.GetType());
+                    //ActionProperties = TreeViewHelper.
                     break;
                 default:
                     break;

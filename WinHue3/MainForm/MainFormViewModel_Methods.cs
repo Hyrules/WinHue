@@ -31,6 +31,7 @@ using WinHue3.Functions.ResourceLinks;
 using WinHue3.Functions.Rules.Creator;
 using WinHue3.Functions.Scenes.Creator;
 using WinHue3.Functions.Scenes.View;
+using WinHue3.Functions.Schedules.NewCreator;
 using WinHue3.Functions.Schedules.OldCreator;
 using WinHue3.Functions.Sensors.Creator;
 using WinHue3.Functions.Sensors.Daylight;
@@ -441,7 +442,7 @@ namespace WinHue3.MainForm
 
         private async Task CreateSchedule()
         {
-            Form_ScheduleCreator fscc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
+           /* Form_ScheduleCreator fscc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
             await fscc.Initialize(SelectedBridge, _selectedObject );
             log.Debug($@"Opening the schedule creator window passing bridge {SelectedBridge.IpAddress} ");
             if (fscc.ShowDialog() != true) return;
@@ -454,7 +455,10 @@ namespace WinHue3.MainForm
             else
             {
                 MessageBoxError.ShowLastErrorMessages(SelectedBridge);
-            }
+            }*/
+
+            Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow};
+            fscc.ShowDialog();
 
         }
 
