@@ -12,7 +12,7 @@
         <Converters:HueColorConverter x:Key="HueColorConverter"/>
         <Converters:SliderToXYConverter x:Key="SliderToXyConverter"/>
     </UserControl.Resources>
-    <Grid Margin="0,0,0,0" Height="269" VerticalAlignment="Top" Background="{DynamicResource SliderThumb.Track.Background}">
+    <Grid Margin="0,0,0,0" Height="269" VerticalAlignment="Top">
 
         <Label Content="{x:Static Resources:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Left" Margin="10,0,0,0" Width="102" Height="25" VerticalAlignment="Top"/>
         <Slider x:Name="slHue" Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,0,0" Width="21" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding Value, ElementName=slHue}" IsMoveToPointEnabled="True" HorizontalAlignment="Left">

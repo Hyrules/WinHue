@@ -21,7 +21,6 @@ namespace WinHue3.Functions.Schedules.NewCreator
         public bool? _randomize;
         public string _enabled;
         public string _scheduletype;
-        public string _timeFormat;
 
         public ScheduleCreatorHeader()
         {
@@ -29,7 +28,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             _datetime += new TimeSpan(0,10,0);
             _enabled = "enabled";
             _scheduletype = "Schedule";
-            _timeFormat = "yyyy-MM-dd HH:mm:ss";
+            
         }
 
         [PropertyOrder(1)]
@@ -96,11 +95,5 @@ namespace WinHue3.Functions.Schedules.NewCreator
             set { SetProperty(ref _enabled,value); }
         }
 
-        [Browsable(false),DefaultValue("yyyy-MM-dd HH:mm:ss")]
-        public string DateTimeFormat
-        {
-            get { return _timeFormat; }
-            set { SetProperty(ref _timeFormat,value); }
-        }
     }
 }

@@ -10,13 +10,13 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="420.173" Width="968.981">
+        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="420.173" Width="1036.675">
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSlidersViewModel}" >
             <slider:Sliders Hue="{Binding Hue, Mode=TwoWay}"/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSensorsViewModel}">
-            
+
         </DataTemplate>
     </Window.Resources>
     <Window.DataContext>
@@ -29,7 +29,7 @@
                 <xctk:EditorTemplateDefinition TargetProperties="Datetime">
                     <xctk:EditorTemplateDefinition.EditingTemplate>
                         <DataTemplate>
-                            <xctk:DateTimePicker Value="{Binding Header.Datetime}" Format="Custom" >
+                            <xctk:DateTimePicker Value="{Binding Header.Datetime}" Format="Custom" FormatString="yyyy-MM-dd HH:mm:ss" >
                                 <xctk:DateTimePicker.Style>
                                     <Style TargetType="xctk:DateTimePicker">
                                         <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss"/>
@@ -50,9 +50,9 @@
             </xctk:PropertyGrid.EditorDefinitions>
         </xctk:PropertyGrid>
         <ContentPresenter>
-           
+
         </ContentPresenter>
-        <!--<ContentControl Content="{TemplateBinding   }" HorizontalAlignment="Left" Margin="256,43,0,0" VerticalAlignment="Top" Height="338" Width="696"/>-->
+        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,37,0,0" VerticalAlignment="Top" Height="344" Width="659" Background="{DynamicResource SliderThumb.Disabled.Border}"/>
         <ComboBox HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Width="232">
             <ComboBoxItem Content="Sliders"></ComboBoxItem>
             <ComboBoxItem Content="Sensors"></ComboBoxItem>
