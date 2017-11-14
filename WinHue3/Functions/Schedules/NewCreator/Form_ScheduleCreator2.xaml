@@ -10,13 +10,13 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="420.173" Width="1036.675">
+        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="424.841" Width="712.986">
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSlidersViewModel}" >
             <slider:Sliders Hue="{Binding Hue, Mode=TwoWay}"/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSensorsViewModel}">
-
+            <xctk:PropertyGrid ></xctk:PropertyGrid>
         </DataTemplate>
     </Window.Resources>
     <Window.DataContext>
@@ -24,7 +24,7 @@
     </Window.DataContext>
     <Grid>
 
-        <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="369" Width="339" SelectedObject="{Binding Header}" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False">
+        <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="339" Width="339" SelectedObject="{Binding Header}" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False">
             <xctk:PropertyGrid.EditorDefinitions>
                 <xctk:EditorTemplateDefinition TargetProperties="Datetime">
                     <xctk:EditorTemplateDefinition.EditingTemplate>
@@ -52,11 +52,13 @@
         <ContentPresenter>
 
         </ContentPresenter>
-        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,37,0,0" VerticalAlignment="Top" Height="344" Width="659" Background="{DynamicResource SliderThumb.Disabled.Border}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Width="232">
+        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="339" Width="334" Background="{DynamicResource SliderThumb.Disabled.Border}"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="339">
             <ComboBoxItem Content="Sliders"></ComboBoxItem>
             <ComboBoxItem Content="Sensors"></ComboBoxItem>
         </ComboBox>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,354,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="533,354,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

@@ -117,71 +117,11 @@ namespace HueLib2Test
 
             foreach (PropertyInfo pi in props)
             {
-                lrtvi.Add(BuildTree(pi, path, null));
+             //   lrtvi.Add(BuildTree(pi, path, null));
 
 
             }
 
-        }
-
-        private static TreeViewItem BuildTree(PropertyInfo root, string currentpath, string selectedpath = null)
-        {
-            var toVisit = new Stack<PropertyInfo>();
-            var toVisitRtvi = new Stack<TreeViewItem>();
-            var visitedAncestors = new Stack<PropertyInfo>();
-            var pathstack = new Stack<string>();
-            var actualpath = currentpath + "/" + root.Name;
-            var rtvi = new TreeViewItem() { Header = root.Name, Tag = actualpath };
-
-            toVisit.Push(root);
-            while (toVisit.Count > 0)
-            {
-
-                var node = toVisit.Peek();
-                if (node.PropertyType.GetHueProperties().Length > 0)
-                {
-
-
-                    if (visitedAncestors.PeekOrDefault() != node)
-                    {
-                        visitedAncestors.Push(node);
-                        toVisit.PushReverse(node.PropertyType.GetHueProperties().ToList());
-
-                        if (root.Name != node.Name)
-                        {
-                            pathstack.Push(actualpath);
-                            actualpath = actualpath + "/" + node.Name;
-                            toVisitRtvi.Push(rtvi);
-                            rtvi = new TreeViewItem() { Header = node.Name, Tag = actualpath };
-                        }
-                        continue;
-                    }
-                    visitedAncestors.Pop();
-                    if (toVisitRtvi.Count == 0) return rtvi;
-                    TreeViewItem currtvi = toVisitRtvi.Pop();
-                    currtvi.Items.Add(rtvi);
-                    actualpath = pathstack.Pop();
-                    currtvi.Tag = actualpath;
-                    rtvi = currtvi;
-                    toVisit.Pop();
-                    continue;
-                }
-
-
-                if (visitedAncestors.Count > 0)
-                {
-                    TreeViewItem nrtvi = new TreeViewItem() { Header = node.Name, Tag = actualpath + "/" + node.Name };
-                    if (selectedpath != null && nrtvi.Tag.ToString().Equals(selectedpath)) nrtvi.IsSelected = true;
-                    rtvi.Items.Add(nrtvi);
-                    rtvi.IsExpanded = true;
-                    if (nrtvi.IsSelected)
-                        nrtvi.BringIntoView();
-                }
-
-                toVisit.Pop();
-            }
-
-            return rtvi;
         }
 
         /*   private List<RuleTreeViewItem> BuildTree(Type type, string currentPath, string propname, string selectedpath = null)
