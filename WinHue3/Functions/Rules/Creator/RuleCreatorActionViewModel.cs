@@ -1,17 +1,21 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
+using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 
 namespace WinHue3.Functions.Rules.Creator
 {
@@ -24,7 +28,7 @@ namespace WinHue3.Functions.Rules.Creator
         private Bridge _bridge;
         private string _objectType;
         private IHueObject _selectedHueObject;
-        private IBaseProperties _actionProperties;
+        private object _actionProperties;
 
         public RuleCreatorActionViewModel()
         {
@@ -127,16 +131,14 @@ namespace WinHue3.Functions.Rules.Creator
                 case "groups":
                     ActionProperties = new Action();
                     break;
-                case "rules":
-                    break;
                 case "schedules":
-                    //ActionProperties = new ScheduleBody();
+                    ActionProperties = JObject.Parse(((Schedule)_selectedHueObject).command.body);
                     break;
                 case "scenes":
                     ActionProperties = null;
                     break;
                 case "sensors":
-                    //ActionProperties = TreeViewHelper.
+                    ActionProperties = ((Sensor) _selectedHueObject).state;
                     break;
                 default:
                     break;
@@ -168,7 +170,7 @@ namespace WinHue3.Functions.Rules.Creator
             set => SetProperty(ref _selectedHueObject,value);
         }
 
-        public IBaseProperties ActionProperties
+        public object ActionProperties
         {
             get => _actionProperties;
             set => SetProperty(ref _actionProperties,value);

@@ -116,23 +116,6 @@ namespace WinHue3.ExtensionMethods
 
     }
 
-    public static class StackHelper
-    {
-
-        public static PropertyInfo PeekOrDefault(this Stack<PropertyInfo> s)
-        {
-            return s.Count == 0 ? null : s.Peek();
-        }
-
-        public static void PushReverse(this Stack<PropertyInfo> s, List<PropertyInfo> list)
-        {
-            foreach (var l in list.ToArray().Reverse())
-            {
-                s.Push(l);
-            }
-        }
-    }
-
     public static class TypeExtensionMethods
     {
         public static string GetHueType(this Type type)

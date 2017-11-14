@@ -77,10 +77,11 @@ namespace WinHue3.Functions.Rules.Creator
             ObjectType = SelectedRuleCondition.address.objecttype;
             if (ObjectType != "config")
             {
-                SelectedConditionHueObject =
-                    ListConditionHueObjects.FirstOrDefault(x => x.Id == SelectedRuleCondition.address.id);
-                if(SelectedConditionHueObject != null)
+                SelectedConditionHueObject = ListConditionHueObjects.FirstOrDefault(x => x.Id == SelectedRuleCondition.address.id);
+                if (SelectedConditionHueObject != null)
+                {
                     PopulateConditionProperties(SelectedRuleCondition.address.ToString());
+                }
             }
 
             foreach(TreeViewItem r in ListConditionProperties)

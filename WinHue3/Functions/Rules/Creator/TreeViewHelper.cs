@@ -28,7 +28,7 @@ namespace WinHue3.Functions.Rules.Creator
                 }
                 else
                 {
-                    TreeViewItem ttvi = BuildPropertiesTree(value, actualpath);
+                    TreeViewItem ttvi = BuildPropertiesTree(value, actualpath, selectedpath);
                     ttvi.Header = p.Name;
                     ttvi.Tag = actualpath;
                     tvi.Items.Add(ttvi);
