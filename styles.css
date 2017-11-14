@@ -58,6 +58,21 @@ body{
 .btn + .btn {
     margin-left: 1rem; }
 
+/*.btn-donate {
+    border-color: #ffc439; background-color: #ffc439; color: white;
+}
+    
+.btn-donate:hover {
+    border-color: #E0A51A; background-color: #E6AB20; color: white;
+}
+
+.btn-donate:active {
+    border-color: #E0A51A; background-color: #E6AB20; color: white;
+}
+
+.btn-donate:focus {
+    border-color: #BF8400; background-color: #E6AB20; color: white;
+}*/
     
 
 @media screen and (min-width: 64em) {
