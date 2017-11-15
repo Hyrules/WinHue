@@ -112,7 +112,7 @@ namespace HueLib2Test
             PropertyInfo[] props = obj.GetType().GetHueProperties();
             ISensorConfigBase cfg = (ISensorConfigBase)props[8].GetValue(obj);
           //  ISensorConfigBase cfg = props["config"].GetValue(obj);
-            string path = "/sensors";
+            //string path = "/sensors";
             List<TreeViewItem> lrtvi = new List<TreeViewItem>();
 
             foreach (PropertyInfo pi in props)
