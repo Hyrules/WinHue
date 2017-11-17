@@ -61,45 +61,16 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="270,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding RuleConditionViewModel.AddConditionCommand}"/>
-                    <TreeView x:Name="tvProperties" HorizontalAlignment="Left" Height="187" Margin="5,59,0,0" VerticalAlignment="Top" Width="340" ItemsSource="{Binding RuleConditionViewModel.ListConditionProperties}" IsManipulationEnabled="True" IsHitTestVisible="True" SelectedItemChanged="tvProperties_SelectedItemChanged">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectedItemChanged">
-                                <i:InvokeCommandAction Command="{Binding RuleConditionViewModel.ChangeSelectedConditionPropertyCommand}" CommandParameter="{Binding ElementName=tvProperties, Path=SelectedItem}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                    <TreeView x:Name="tvProperties" HorizontalAlignment="Left" Height="242" Margin="5,4,0,0" VerticalAlignment="Top" Width="340" ItemsSource="{Binding RuleConditionViewModel.ListConditionProperties}" IsManipulationEnabled="True" IsHitTestVisible="True">
+                        <i:Interaction.Behaviors>
+                            <creator:TreeViewBehavior SelectedItem="{Binding RuleConditionViewModel.SelectedConditionProperty, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
+                                <TextBlock Text="{Binding Name }"></TextBlock>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
                     </TreeView>
-                    <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="5,4,0,0" VerticalAlignment="Top" Width="340" Watermark="{x:Static resx:GUI.RuleCreatorForm_ObjectType_Watermark}" SelectedValuePath="Tag" SelectedValue="{Binding RuleConditionViewModel.ObjectType}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding RuleConditionViewModel.PopulateConditionObjectsCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lights}" Tag="lights"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Groups}" Tag="groups"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Scenes}" Tag="scenes"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_ResourceLinks}" Tag="resourcelinks"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Rules}" Tag="rules"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Schedules}" Tag="schedules"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Sensors}" Tag="sensors"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Config}" Tag="config"/>
-                    </xctk:WatermarkComboBox>
-                    <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="5,31,0,0" VerticalAlignment="Top" Width="340" ItemsSource="{Binding RuleConditionViewModel.ListConditionHueObjects}" DisplayMemberPath="name" SelectedItem="{Binding RuleConditionViewModel.SelectedConditionHueObject}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Object_Watermark}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding RuleConditionViewModel.PopulateConditionPropertiesCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <xctk:WatermarkComboBox.Style>
-                            <Style TargetType="xctk:WatermarkComboBox">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RuleConditionViewModel.ObjectType}" Value="config">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </xctk:WatermarkComboBox.Style>
-                    </xctk:WatermarkComboBox>
                     <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="5,251,0,0" VerticalAlignment="Top" Width="340"  SelectedValuePath="Tag" SelectedValue="{Binding RuleConditionViewModel.ConditionOperator}" Watermark="(Choose the operator)">
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>

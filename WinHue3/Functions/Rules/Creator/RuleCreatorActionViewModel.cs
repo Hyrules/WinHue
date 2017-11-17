@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Newtonsoft.Json;
@@ -29,6 +30,7 @@ namespace WinHue3.Functions.Rules.Creator
         private string _objectType;
         private IHueObject _selectedHueObject;
         private object _actionProperties;
+
 
         public RuleCreatorActionViewModel()
         {

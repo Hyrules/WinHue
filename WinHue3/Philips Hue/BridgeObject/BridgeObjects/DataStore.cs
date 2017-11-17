@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
@@ -15,26 +16,29 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
     [DataContract,Serializable]
     public class DataStore
     {
-        [DataMember(EmitDefaultValue = false,IsRequired =false)]
+        [DataMember(EmitDefaultValue = false,IsRequired =false),HueProperty]
         public Dictionary<string,Light> lights { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Group> groups { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Schedule> schedules { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Scene> scenes { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Sensor> sensors { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Rule> rules { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Resourcelink> resourcelinks { get; set; }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
+        public BridgeSettings config { get; set; }
 
         public override string ToString()
         {

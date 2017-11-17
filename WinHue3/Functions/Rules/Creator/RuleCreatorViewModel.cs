@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Utils;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
@@ -28,6 +29,7 @@ namespace WinHue3.Functions.Rules.Creator
             _bridge = bridge;
             _rccvm.SetBridge(bridge);
             _rcavm.SetBridge(bridge);
+            _rccvm.Initialize();
         }
 
 
