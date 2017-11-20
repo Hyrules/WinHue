@@ -66,8 +66,8 @@
                             <creator:TreeViewBehavior SelectedItem="{Binding RuleConditionViewModel.SelectedConditionProperty, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
                         <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Childrens}">
-                                <TextBlock Text="{Binding Name }"></TextBlock>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                <TextBlock Text="{Binding PropName }"></TextBlock>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
@@ -124,29 +124,27 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="334" Height="213" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding RuleActionViewModel.ActionProperties }"/>
+                    <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="334" Height="146" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding RuleActionViewModel.ActionProperties }"/>
 
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="269,281,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RuleActionViewModel.AddActionCommand}"/>
-                    <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="334" SelectedValuePath="Tag" SelectedValue="{Binding RuleActionViewModel.ObjectType}" Watermark="{x:Static resx:GUI.RuleCreatorForm_ObjectType_Watermark}">
+                    <TreeView HorizontalAlignment="Left" Height="118" Margin="10,7,0,0" VerticalAlignment="Top" Width="164" ItemsSource="{Binding RuleActionViewModel.ListBridgeResources}" IsEnabled="{Binding RuleActionViewModel.CanChangeHueObject}">
+                        <i:Interaction.Behaviors>
+                            <creator:TreeViewBehavior SelectedItem="{Binding RuleActionViewModel.SelectedHueObject, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>
+                        <!--<i:EventTrigger EventName="SelectedItemChanged">
+                            <i:InvokeCommandAction Command="{Binding RuleActionViewModel.SelectHueObjectCommand}"/>
+                        </i:EventTrigger>-->
+                    </TreeView>
+                    <TreeView HorizontalAlignment="Left" Height="118" Margin="179,7,0,0" VerticalAlignment="Top" Width="165" ItemsSource="{Binding RuleActionViewModel.ListHueObjectProperties}">
+                        <i:Interaction.Behaviors>
+                            <creator:TreeViewBehavior SelectedItem="{Binding RuleActionViewModel.SelectedHueProperty, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>  
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding RuleActionViewModel.PopulateActionObjectsCommand}"/>
+                            <i:EventTrigger EventName="PreviewMouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding RuleActionViewModel.DoubleClickPropertyCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <ComboBoxItem Content="Lights" Tag="lights"/>
-                        <ComboBoxItem Content="Groups" Tag="groups"/>
-                        <ComboBoxItem Content="Scenes" Tag="scenes"/>
-                        <ComboBoxItem Content="Schedules" Tag="schedules"/>
-                        <!--<ComboBoxItem Content="Resource Links" Tag="resourcelinks"/>-->
-                        <ComboBoxItem Content="Sensors" Tag="sensors"/>
-                    </xctk:WatermarkComboBox>
-                    <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="334" ItemsSource="{Binding RuleActionViewModel.ListActionHueObjects}" SelectedItem="{Binding RuleActionViewModel.SelectedHueObject}" DisplayMemberPath="name" Watermark="{x:Static resx:GUI.RuleCreatorForm_Object_Watermark}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding RuleActionViewModel.PopulatePropertyGridCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </xctk:WatermarkComboBox>
+                    </TreeView>
                 </Grid>
             </TabItem>
         </TabControl>
@@ -156,4 +154,5 @@
     </Grid>
 </Window>
 
+    
     

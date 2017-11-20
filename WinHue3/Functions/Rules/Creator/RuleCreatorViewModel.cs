@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Utils;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
@@ -24,12 +25,12 @@ namespace WinHue3.Functions.Rules.Creator
             _rcavm = new RuleCreatorActionViewModel();
         }
 
-        public void Initialize(Bridge bridge)
+        public async Task Initialize(Bridge bridge)
         {
             _bridge = bridge;
-            _rccvm.SetBridge(bridge);
-            _rcavm.SetBridge(bridge);
-            _rccvm.Initialize();
+            DataStore ds = await _bridge.GetBridgeDataStoreAsyncTask();
+            _rccvm.Initialize(bridge,ds);
+            _rcavm.Initialize(bridge,ds);
         }
 
 

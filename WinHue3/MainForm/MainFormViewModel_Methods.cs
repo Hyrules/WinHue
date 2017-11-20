@@ -467,6 +467,7 @@ namespace WinHue3.MainForm
         {
 
             Form_RuleCreator frc = new Form_RuleCreator(SelectedBridge) { Owner = Application.Current.MainWindow };
+            await frc.Initialize();
             if (frc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly sensor schedule ID {frc.GetCreatedOrModifiedID()} from bridge {SelectedBridge.IpAddress}");
             Rule rule = (Rule) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, frc.GetCreatedOrModifiedID(), typeof(Rule));
@@ -942,6 +943,7 @@ namespace WinHue3.MainForm
             else if (_selectedObject is Rule)
             {
                 Form_RuleCreator frc = new Form_RuleCreator(SelectedBridge, (Rule)_selectedObject) { Owner = Application.Current.MainWindow };
+                await frc.Initialize();
                 if (frc.ShowDialog() == true)
                 {
                     await RefreshObject(_selectedObject);

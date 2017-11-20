@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 using Xceed.Wpf.Toolkit.PropertyGrid;
@@ -46,5 +47,6 @@ namespace WinHue3.Functions.Rules.Creator
         {
             this.SelectedItem = e.NewValue;
         }
+
     }
 }

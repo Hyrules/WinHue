@@ -35,6 +35,7 @@ namespace whc
         static OptionSet groupOpts;
         static OptionSet createGrOpts;
         static OptionSet sensorOpts;
+        private static ISensorStateBase sensorstate;
         static Group grp;
         static bool error;
         static State state;
@@ -42,7 +43,7 @@ namespace whc
         static string id;
         static bool noprompt;
         static bool nomsg;
-        static object sensorstate;
+  
 
         static ConsoleHandler()
         {
@@ -84,7 +85,7 @@ namespace whc
                     else
                         error = true;
                 }},             
-                {"sc|schedule=","Set the mode to schedule.", delegate(string v)
+  /*              {"sc|schedule=","Set the mode to schedule.", delegate(string v)
                 { 
                     if(cmd == Command.NONE)
                     {
@@ -93,7 +94,7 @@ namespace whc
                     }
                     else
                         error = true;
-                }},
+                }},*/
                 {"sn|scene=","Set the mode to scene.", delegate(string v) 
                 { 
                     if(cmd == Command.NONE)
@@ -569,7 +570,7 @@ namespace whc
                         {
                             if (state.xy_inc == null)
                             {
-                                state.xy_inc = new decimal?[2]{0,0};
+                                state.xy_inc = new decimal[2]{0,0};
                             }
                             state.xy[0]= x_inc;
                         }
@@ -618,7 +619,7 @@ namespace whc
                         {
                             if (state.xy_inc == null)
                             {
-                                state.xy_inc = new decimal?[2]{0,0};
+                                state.xy_inc = new decimal[2]{0,0};
                             }
                             state.xy[0]= y_inc;
                         }
@@ -825,7 +826,7 @@ namespace whc
                         {
                             if (action.xy_inc == null)
                             {
-                                action.xy_inc = new decimal?[2]{0,0};
+                                action.xy_inc = new decimal[2]{0,0};
                             }
                             action.xy[0]= x_inc;
                         }
@@ -872,7 +873,7 @@ namespace whc
                         {
                             if (action.xy_inc == null)
                             {
-                                action.xy_inc = new decimal?[2]{0,0};
+                                action.xy_inc = new decimal[2]{0,0};
                             }
                             action.xy[0]= y_inc;
                         }
@@ -925,6 +926,7 @@ namespace whc
                         {
                             WriteMessageToConsole($"open invalid value {v} expecting true or false.");
                         }
+
                     }
 
                 },
@@ -1206,16 +1208,24 @@ namespace whc
 
         private static void SetSensorState()
         {
-            bool bresult = bridge.ChangeSensorState(id, sensorstate);
             
-            if (!bresult || error)
+            if (sensorstate == null)
             {
-                Console.WriteLine(@"An error occured while sending the sensor state to the bridge.");
-                Console.WriteLine(bridge.LastCommandMessages);
+                Console.WriteLine(@"Error : Please specify a sensor state.");
             }
             else
             {
-                Console.WriteLine("Sensor state sent succesfully to sensor : " + id);
+                bool bresult = bridge.ChangeSensorState(id, sensorstate);
+                if (!bresult || error)
+                {
+                    Console.WriteLine(@"An error occured while sending the sensor state to the bridge.");
+                    Console.WriteLine(bridge.LastCommandMessages);
+                }
+                else
+                {
+                    Console.WriteLine("Sensor state sent succesfully to sensor : " + id);
+                }
+
             }
 
         }

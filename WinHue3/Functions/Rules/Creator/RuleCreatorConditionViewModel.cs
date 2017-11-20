@@ -21,9 +21,9 @@ namespace WinHue3.Functions.Rules.Creator
     {
         private Bridge _bridge;
         private ObservableCollection<IHueObject> _listConditionHueObjects;
-        private ObservableCollection<HuePropertyTreeViewItem> _listConditionProperties;
+        private ObservableCollection<TreeViewItem> _listConditionProperties;
         private string _conditionValue;
-        private HuePropertyTreeViewItem _selectedConditionProperty;
+        private TreeViewItem _selectedConditionProperty;
         private string _conditionOperator;
         private ObservableCollection<RuleCondition> _listRuleConditions;
         private RuleCondition _selectedRuleCondition;
@@ -31,40 +31,21 @@ namespace WinHue3.Functions.Rules.Creator
         public RuleCreatorConditionViewModel()
         {
             _listConditionHueObjects = new ObservableCollection<IHueObject>();
-            _listConditionProperties = new ObservableCollection<HuePropertyTreeViewItem>();
             _listRuleConditions = new ObservableCollection<RuleCondition>();
+            _listConditionProperties = new ObservableCollection<TreeViewItem>();
         }
 
-        public void Initialize()
-        {
-            DataStore ds = _bridge.GetBridgeDataStore();
-
-            HuePropertyTreeViewItem tvi = TreeViewHelper.BuildPropertiesTreeFromDataStore(ds);
-
-            foreach (HuePropertyTreeViewItem t in tvi.Childrens)
-            {
-                _listConditionProperties.Add(t);    
-            }
-
-            
-        }
-
-        public void SetBridge(Bridge bridge)
+        public void Initialize(Bridge bridge,DataStore ds)
         {
             _bridge = bridge;
-        }
+            _listConditionProperties.Add(TreeViewHelper.BuildPropertiesTreeFromDataStore(ds));
 
+        }
 
         public ICommand AddConditionCommand => new RelayCommand(param => AddCondition(), (param) => CanAddCondition());
         public ICommand RemoveRuleConditionCommand => new RelayCommand(param => RemoveRuleCondition(), (param) => CanRemoveRuleCondition());
         public ICommand SelectRuleConditionCommand => new RelayCommand(param => SelectRuleCondition());
         public ICommand ClearSelectedRuleConditionCommand => new RelayCommand(param => ClearSelectedRuleCondition());
-        public ICommand ChangeSelectedConditionPropertyCommand => new RelayCommand(param => ChangeSelectedConditionProperty((HuePropertyTreeViewItem)param));
-
-        private void ChangeSelectedConditionProperty(HuePropertyTreeViewItem tvi)
-        {
-            SelectedConditionProperty = tvi;
-        }
 
         private void ClearSelectedRuleCondition()
         {
@@ -74,35 +55,32 @@ namespace WinHue3.Functions.Rules.Creator
 
         private void SelectRuleCondition()
         {
-         /*   if (SelectedRuleCondition == null) return;
-            ObjectType = SelectedRuleCondition.address.objecttype;
-            if (ObjectType != "config")
+            if (_selectedRuleCondition == null) return;
+            SelectedConditionProperty = ParseRuleForProperty(_selectedRuleCondition.address.ToString(), ListConditionProperties[0]);
+            if (SelectedConditionProperty == null)
             {
-                SelectedConditionHueObject = ListConditionHueObjects.FirstOrDefault(x => x.Id == SelectedRuleCondition.address.id);
-                if (SelectedConditionHueObject != null)
-                {
-                    PopulateConditionProperties(SelectedRuleCondition.address.ToString());
-                }
+                return;
             }
-
-            foreach(HuePropertyTreeViewItem r in ListConditionProperties)
-            {
-               SelectedConditionProperty = ParseRuleForProperty(SelectedRuleCondition.address.ToString(), r);
-                if (SelectedConditionProperty != null) break;
-            }
-
-            ConditionOperator = SelectedRuleCondition.@operator;
-            ConditionValue = SelectedRuleCondition.value;*/
+            ExpandAllNodes(ListConditionProperties[0], _selectedRuleCondition.address.ToString());
         }
 
-        private HuePropertyTreeViewItem ParseRuleForProperty(string address, HuePropertyTreeViewItem rtvi)
+        private void ExpandAllNodes(TreeViewItem treeItem,string path)
         {
-            if (rtvi.Name.Equals(address)) return rtvi;
-            if (rtvi.Childrens.Count == 0) return null;
-            
-            foreach (HuePropertyTreeViewItem r in rtvi.Childrens)
+            treeItem.IsExpanded = path.Contains(treeItem.Tag.ToString());
+            foreach (var childItem in treeItem.Items.OfType<TreeViewItem>())
             {
-                HuePropertyTreeViewItem nrt = ParseRuleForProperty(address, r);
+                ExpandAllNodes(childItem,path);
+            }
+        }
+
+        private TreeViewItem ParseRuleForProperty(string address, TreeViewItem rtvi)
+        {
+            if (rtvi.Tag.ToString().Equals(address)) return rtvi;
+            if (rtvi.Items.Count == 0) return null;
+            
+            foreach (TreeViewItem r in rtvi.Items)
+            {
+                TreeViewItem nrt = ParseRuleForProperty(address, r);
                 if (nrt != null) return nrt;
             }
             return null;
@@ -121,9 +99,11 @@ namespace WinHue3.Functions.Rules.Creator
 
         private bool CanAddCondition()
         {
+            
             if (ListRuleConditions.Count > 7) return false;
             if (ConditionOperator == null) return false;
             if (SelectedConditionProperty == null) return false;
+            if (SelectedConditionProperty.Items.Count > 0) return false;
             if (!ConditionValue.IsValid() && ConditionOperator != "dx") return false;
             return true;
         }
@@ -131,19 +111,19 @@ namespace WinHue3.Functions.Rules.Creator
         private void AddCondition()
         {
             DialogResult result = DialogResult.Yes;
-            if (ListRuleConditions.Any(x => x.address.ToString().Equals(SelectedConditionProperty.Name)))
+            if (ListRuleConditions.Any(x => x.address.ToString().Equals(SelectedConditionProperty.Tag.ToString())))
             {
                 result = MessageBox.Show(GlobalStrings.Rule_ConditionAlreadyExists, GlobalStrings.Warning,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                     ListRuleConditions.Remove(
-                        ListRuleConditions.FirstOrDefault(x => x.address.ToString().Equals(SelectedConditionProperty.Name)));
+                        ListRuleConditions.FirstOrDefault(x => x.address.ToString().Equals(SelectedConditionProperty.Tag.ToString())));
             }
             if(result == DialogResult.Yes)
-                ListRuleConditions.Add(new RuleCondition(){address = new HueAddress(SelectedConditionProperty.Name), @operator = ConditionOperator, value = ConditionValue});
+                ListRuleConditions.Add(new RuleCondition(){address = new HueAddress(SelectedConditionProperty.Tag.ToString()), @operator = ConditionOperator, value = ConditionValue});
         }
 
-        public ObservableCollection<HuePropertyTreeViewItem> ListConditionProperties
+        public ObservableCollection<TreeViewItem> ListConditionProperties
         {
             get => _listConditionProperties;
             set => SetProperty(ref _listConditionProperties, value);
@@ -156,7 +136,7 @@ namespace WinHue3.Functions.Rules.Creator
             set => SetProperty(ref _conditionValue, value);
         }
 
-        public HuePropertyTreeViewItem SelectedConditionProperty
+        public TreeViewItem SelectedConditionProperty
         {
             get => _selectedConditionProperty;
             set => SetProperty(ref _selectedConditionProperty, value);

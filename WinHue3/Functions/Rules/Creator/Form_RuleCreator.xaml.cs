@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Resources;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
@@ -19,7 +20,6 @@ namespace WinHue3.Functions.Rules.Creator
             InitializeComponent();
             _rcvm = DataContext as RuleCreatorViewModel;
             _bridge = bridge;
-            _rcvm.Initialize(bridge);
             _id = null;
             Title = GUI.RuleCreatorForm_Create;
         }
@@ -28,11 +28,15 @@ namespace WinHue3.Functions.Rules.Creator
         {
             InitializeComponent();
             _rcvm = DataContext as RuleCreatorViewModel;
-            _bridge = bridge;
-            _rcvm.Initialize(bridge);
+            _bridge = bridge;            
             _rcvm.Rule = modifiedrule;
             _id = modifiedrule.Id;
             Title = $"{GUI.RuleCreatorForm_Editing} {modifiedrule.name}";
+        }
+
+        public async Task Initialize()
+        {
+            await _rcvm.Initialize(_bridge);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

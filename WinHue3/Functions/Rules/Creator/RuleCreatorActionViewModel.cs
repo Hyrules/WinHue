@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Dynamic;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -8,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -22,46 +24,100 @@ namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorActionViewModel : ValidatableBindableBase
     {
-        private ObservableCollection<IHueObject> _listActionHueObjects;
         private ObservableCollection<RuleAction> _listRuleActions;
         private RuleAction _selectedRuleAction;
-
+        private ObservableCollection<HuePropertyTreeViewItem> _listBridgeResources;
+        private ObservableCollection<HuePropertyTreeViewItem> _listHueObjectProperties;
         private Bridge _bridge;
-        private string _objectType;
-        private IHueObject _selectedHueObject;
-        private object _actionProperties;
-
+        private DataStore _ds;
+        private HuePropertyTreeViewItem _selectedHueObject;
+        private HueObject _actionProperties;
+        private HueObject _currentProperties;
+        private HuePropertyTreeViewItem _selectedHueProperty;
+        private bool _canChangeHueObject;
 
         public RuleCreatorActionViewModel()
         {
-            _listActionHueObjects = new ObservableCollection<IHueObject>();
             _listRuleActions = new ObservableCollection<RuleAction>();
+            _listBridgeResources = new ObservableCollection<HuePropertyTreeViewItem>();
+            _listHueObjectProperties = new ObservableCollection<HuePropertyTreeViewItem>();
+            _currentProperties = new HueObject();
         }
 
-        public ICommand PopulateActionObjectsCommand => new RelayCommand(param => PopulateActionObjects());
-        public ICommand PopulatePropertyGridCommand => new RelayCommand(param => PopulatePropertyGrid());
+        public void Initialize(Bridge bridge,DataStore ds)
+        {
+            _bridge = bridge;
+            _ds = ds;
+            _listBridgeResources.Add(TreeViewHelper.BuildObjectTreeFromDataStore(ds));
+        }
+
         public ICommand AddActionCommand => new RelayCommand(param => AddAction(), (param) => CanAddAction());
         public ICommand RemoveRuleActionCommand => new RelayCommand(param => RemoveRuleAction());
         public ICommand SelectRuleActionCommand => new RelayCommand(param => SelectRuleAction());
+        public ICommand DoubleClickPropertyCommand => new RelayCommand(param => DoubleClickProperty());
+
+        private void DoubleClickProperty()
+        {
+            if (SelectedHueProperty == null) return;
+            if (SelectedHueProperty.Items.Count > 0) return;
+            ActionProperties = null;
+            _currentProperties.SetProperty(SelectedHueProperty.Header.ToString(), Activator.CreateInstance(SelectedHueProperty.PropType));
+            ActionProperties = _currentProperties;
+            RaisePropertyChanged("CanChangeHueObject");
+        }
+
+        private void SelectHueObject()
+        {
+            if (SelectedHueObject == null) return;
+            if (SelectedHueObject.Items.Count > 0) return;
+            ListHueObjectProperties.Clear();
+            
+  
+            switch (SelectedHueObject.Address.objecttype)
+            {
+                case "lights":
+                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.lights[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
+                    break;
+                case "groups":
+                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.groups[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
+                    break;
+                case "schedules":
+                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.schedules[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
+                    break;
+                case "resourcelinks":
+                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.resourcelinks[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
+                    break;
+                case "scenes":
+                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.scenes[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
+                    break;
+                case "sensors":
+                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.sensors[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
+
+                    break;
+                default:
+                    ActionProperties = null;
+                    break;
+            }
+        }
 
         private void SelectRuleAction()
         {
             if (SelectedRuleAction == null) return;
-            if (SelectedRuleAction.address.objecttype == "groups" && SelectedRuleAction.address.id == "0")
+            SelectedHueObject = ParseRuleForObject(SelectedRuleAction.address.ToString(),ListBridgeResources[0]);
+        }
+
+        private HuePropertyTreeViewItem ParseRuleForObject(string address, HuePropertyTreeViewItem rtvi)
+        {
+            
+            if (rtvi.Tag.ToString().Equals(address)) return rtvi;
+            if (rtvi.Items.Count == 0) return null;
+
+            foreach (HuePropertyTreeViewItem r in rtvi.Items)
             {
-                ObjectType = "scenes";
-                string id = Serializer.DeserializeToObject<SceneBody>(SelectedRuleAction.body).scene;
-                SelectedHueObject =
-                    ListActionHueObjects.FirstOrDefault(x => x.Id == id);
+                HuePropertyTreeViewItem nrt = ParseRuleForObject(address, r);
+                if (nrt != null) return nrt;
             }
-            else
-            {
-                IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedRuleAction.address.objecttype);
-                JsonConvert.PopulateObject(SelectedRuleAction.body,bp);
-                ObjectType = SelectedRuleAction.address.objecttype;
-                SelectedHueObject = ListActionHueObjects.FirstOrDefault(x => x.Id == SelectedRuleAction.address.id);
-                ActionProperties = bp;
-            }
+            return null;
         }
 
         private void RemoveRuleAction()
@@ -74,7 +130,7 @@ namespace WinHue3.Functions.Rules.Creator
         {
             if (ListRuleActions.Count > 7) return false;
             if (SelectedHueObject == null) return false;
-            if (ObjectType == null) return false;
+            if (SelectedHueObject.Items.Count > 0) return false;
             if (Serializer.SerializeToJson(ActionProperties) == "{}") return false;
             return true;
         }
@@ -84,74 +140,45 @@ namespace WinHue3.Functions.Rules.Creator
             DialogResult result = DialogResult.Yes;
 
             RuleAction ra = new RuleAction();
-            string address = string.Empty;
-            switch (ObjectType)
+            HueAddress address = new HueAddress(SelectedHueObject.Tag.ToString());
+            switch (address.objecttype)
             {
                 case "lights":
-                    address = $"/{ObjectType}/{SelectedHueObject.Id}/state";
+                    address.property = "state";
                     break;
                 case "groups":
-                    address = $"/{ObjectType}/{SelectedHueObject.Id}/action";
+                    address.property= "action";
                     break;
                 case "schedules":
-                    address = $"/{ObjectType}/{SelectedHueObject.Id}";
+                    address.property = "command";
+                    address.subprop = "body";
                     break;
                 case "resourcelinks":
-                    address = $"/{ObjectType}/{SelectedHueObject.Id}/";
+                    address.property = "links";
                     break;
                 case "scenes":
-                    address = $"/groups/0/action";
+                    address = new HueAddress($"/groups/0/action");
                     break;
                 case "sensors":
+                    address.property = "state";
                     break;
                 default:
                     break;
             }
 
-            if (ListRuleActions.Any(x => x.address.ToString() == address))
+            if (ListRuleActions.Any(x => x.address == address))
             {
                 result = MessageBox.Show(GlobalStrings.Rule_ActionAlreadyExists, GlobalStrings.Warning,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
-                    ListRuleActions.Remove(ListRuleActions.FirstOrDefault(x => x.address.ToString() == address));
+                    ListRuleActions.Remove(ListRuleActions.FirstOrDefault(x => x.address == address));
             }
 
             if (result != DialogResult.Yes) return;
-            ra.address = new HueAddress(address);
+            ra.address = address;
             ra.method = "PUT";
-            ra.body = _actionProperties != null ? Serializer.SerializeToJson(_actionProperties) : Serializer.SerializeToJson(new SceneBody() {scene = SelectedHueObject.Id});
+            ra.body = _actionProperties != null ? Serializer.SerializeToJson(_actionProperties) : Serializer.SerializeToJson(new SceneBody() {scene = address.id});
             ListRuleActions.Add(ra);
-        }
-
-        private void PopulatePropertyGrid()
-        {
-            switch (ObjectType)
-            {
-                case "lights":
-                    ActionProperties = new State();
-                    break;
-                case "groups":
-                    ActionProperties = new Action();
-                    break;
-                case "schedules":
-                    ActionProperties = JObject.Parse(((Schedule)_selectedHueObject).command.body);
-                    break;
-                case "scenes":
-                    ActionProperties = null;
-                    break;
-                case "sensors":
-                    ActionProperties = ((Sensor) _selectedHueObject).state;
-                    break;
-                default:
-                    break;
-            }   
-                          
-        }
-
-        public ObservableCollection<IHueObject> ListActionHueObjects
-        {
-            get => _listActionHueObjects;
-            set => SetProperty(ref _listActionHueObjects,value);
         }
 
         public ObservableCollection<RuleAction> ListRuleActions
@@ -160,19 +187,17 @@ namespace WinHue3.Functions.Rules.Creator
             set => SetProperty(ref _listRuleActions,value);
         }
 
-        public string ObjectType
-        {
-            get => _objectType;
-            set => SetProperty(ref _objectType,value);
-        }
-
-        public IHueObject SelectedHueObject
+        public HuePropertyTreeViewItem SelectedHueObject
         {
             get => _selectedHueObject;
-            set => SetProperty(ref _selectedHueObject,value);
+            set
+            {
+                SetProperty(ref _selectedHueObject, value);
+                SelectHueObject();
+            }
         }
 
-        public object ActionProperties
+        public HueObject ActionProperties
         {
             get => _actionProperties;
             set => SetProperty(ref _actionProperties,value);
@@ -184,42 +209,33 @@ namespace WinHue3.Functions.Rules.Creator
             set => SetProperty(ref _selectedRuleAction,value);
         }
 
-
-        private void PopulateActionObjects()
+        public ObservableCollection<HuePropertyTreeViewItem> ListBridgeResources
         {
-            ListActionHueObjects.Clear();
-            ActionProperties = null;
-            switch (ObjectType)
-            {
-                case "lights":
-                    ListActionHueObjects.AddRange(HueObjectHelper.GetBridgeLights(_bridge));
-                    break;
-                case "groups":
-                    ListActionHueObjects.AddRange(HueObjectHelper.GetBridgeGroups(_bridge));
-                    break;
-                case "rules":
-                    ListActionHueObjects.AddRange(HueObjectHelper.GetBridgeRules(_bridge));
-                    break;
-                case "resourcelinks":
-                    ListActionHueObjects.AddRange(HueObjectHelper.GetBridgeResourceLinks(_bridge));
-                    break;
-                case "scenes":
-                    ListActionHueObjects.AddRange(HueObjectHelper.GetBridgeScenes(_bridge));
-                    break;
-                case "sensors":
-                    ListActionHueObjects.AddRange(HueObjectHelper.GetBridgeSensors(_bridge));
-                    break;
-                case "schedules":
-                    ListActionHueObjects.AddRange(HueObjectHelper.GetBridgeSchedules(_bridge));
-                    break;
-                default:
-                    break;
-            }
+            get => _listBridgeResources;
+            set => SetProperty(ref _listBridgeResources,value);
         }
 
-        public void SetBridge(Bridge bridge)
+        public ObservableCollection<HuePropertyTreeViewItem> ListHueObjectProperties
         {
-            _bridge = bridge;
+            get { return _listHueObjectProperties; }
+            set { SetProperty(ref _listHueObjectProperties, value); }
+        }
+
+        public HuePropertyTreeViewItem SelectedHueProperty
+        {
+            get { return _selectedHueProperty; }
+            set { SetProperty(ref _selectedHueProperty,value); }
+        }
+
+        public bool CanChangeHueObject
+        {
+            get
+            {
+                if (!_currentProperties.Any()) return true;
+                return _canChangeHueObject;
+                
+            }
+            
         }
     }
 }

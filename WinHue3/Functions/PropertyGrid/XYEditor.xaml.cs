@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,13 +16,20 @@ namespace WinHue3.Functions.PropertyGrid
     /// </summary>
     public partial class XYEditor : UserControl, ITypeEditor, INotifyPropertyChanged
     {
+        private decimal _max;
+        private decimal _min;
 
 
         public XYEditor()
         {
             InitializeComponent();
-
+            _max = 1.0m;
+            _min = 0;
         }
+
+        public decimal Max => _max;
+
+        public decimal Min => _min;
 
         public decimal? X
         {
@@ -83,9 +92,20 @@ namespace WinHue3.Functions.PropertyGrid
                 Source = propertyItem,
                 Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay
             };
+
+            var mm = propertyItem.PropertyDescriptor.Attributes.OfType<MaxMinAttribute>();
+            if (mm.Any())
+            {
+                MaxMinAttribute mma = mm.First();
+                _max = Convert.ToDecimal(mma.Max);
+                _min = Convert.ToDecimal(mma.Min);
+            }
+
             BindingOperations.SetBinding(this, ValueProperty, binding);
             OnPropertyChanged("X");
             OnPropertyChanged("Y");
+            OnPropertyChanged("Max");
+            OnPropertyChanged("Min");
             return this;
         }
 
@@ -96,7 +116,20 @@ namespace WinHue3.Functions.PropertyGrid
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public class MaxMinAttribute : Attribute
+        {
+            public string Max { get; }
+            public string Min { get; }
+
+            public MaxMinAttribute(string max, string min)
+            {
+                Max = max;
+                Min = min;
+            }
+        }
     }
+
 
 
 }

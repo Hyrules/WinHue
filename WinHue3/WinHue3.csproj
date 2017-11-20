@@ -177,8 +177,8 @@
     <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\Rules\Creator\HuePropertyTreeViewItem.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewHelper.cs" />
+    <Compile Include="Functions\Rules\HueTreeViewItem.cs" />
     <Compile Include="Functions\Schedules\NewCreator\Controls\Sliders.xaml.cs">
       <DependentUpon>Sliders.xaml</DependentUpon>
     </Compile>
