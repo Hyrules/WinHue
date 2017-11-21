@@ -1,4 +1,5 @@
-﻿using WinHue3.Utils;
+﻿using System.Threading.Tasks;
+using WinHue3.Utils;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
@@ -12,6 +13,11 @@ namespace WinHue3.Functions.Schedules.NewCreator
         {
             _header = new ScheduleCreatorHeader();
             _selectedViewModel = new ScheduleCreatorSlidersViewModel();
+        }
+
+        public async Task Initialize()
+        {
+
         }
 
         public ScheduleCreatorHeader Header

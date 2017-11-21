@@ -19,8 +19,6 @@ namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorConditionViewModel : ValidatableBindableBase
     {
-        private Bridge _bridge;
-        private ObservableCollection<IHueObject> _listConditionHueObjects;
         private ObservableCollection<TreeViewItem> _listConditionProperties;
         private string _conditionValue;
         private TreeViewItem _selectedConditionProperty;
@@ -30,14 +28,14 @@ namespace WinHue3.Functions.Rules.Creator
 
         public RuleCreatorConditionViewModel()
         {
-            _listConditionHueObjects = new ObservableCollection<IHueObject>();
+
             _listRuleConditions = new ObservableCollection<RuleCondition>();
             _listConditionProperties = new ObservableCollection<TreeViewItem>();
+           
         }
 
-        public void Initialize(Bridge bridge,DataStore ds)
+        public void Initialize(DataStore ds)
         {
-            _bridge = bridge;
             _listConditionProperties.Add(TreeViewHelper.BuildPropertiesTreeFromDataStore(ds));
 
         }

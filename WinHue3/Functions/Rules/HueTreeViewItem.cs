@@ -11,7 +11,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Functions.Rules
 {
-    public class HuePropertyTreeViewItem : TreeViewItem, INotifyPropertyChanged
+    public sealed class HuePropertyTreeViewItem : TreeViewItem, INotifyPropertyChanged
     {
         private Type _propType;
         private HueAddress _address;
@@ -33,7 +33,7 @@ namespace WinHue3.Functions.Rules
             set => SetProperty(ref _address, value);
         }
 
-        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        private bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value)) return false;
 
@@ -46,7 +46,7 @@ namespace WinHue3.Functions.Rules
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

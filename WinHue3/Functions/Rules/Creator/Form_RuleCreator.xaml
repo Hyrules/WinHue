@@ -61,7 +61,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="270,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding RuleConditionViewModel.AddConditionCommand}"/>
-                    <TreeView x:Name="tvProperties" HorizontalAlignment="Left" Height="242" Margin="5,4,0,0" VerticalAlignment="Top" Width="340" ItemsSource="{Binding RuleConditionViewModel.ListConditionProperties}" IsManipulationEnabled="True" IsHitTestVisible="True">
+                    <TreeView x:Name="tvProperties" HorizontalAlignment="Left" Height="242" Margin="10,4,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding RuleConditionViewModel.ListConditionProperties}" IsManipulationEnabled="True" IsHitTestVisible="True">
                         <i:Interaction.Behaviors>
                             <creator:TreeViewBehavior SelectedItem="{Binding RuleConditionViewModel.SelectedConditionProperty, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
@@ -71,7 +71,7 @@
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
-                    <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="5,251,0,0" VerticalAlignment="Top" Width="340"  SelectedValuePath="Tag" SelectedValue="{Binding RuleConditionViewModel.ConditionOperator}" Watermark="(Choose the operator)">
+                    <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding RuleConditionViewModel.ConditionOperator}" Watermark="(Choose the operator)">
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Delayed_Changed}" Tag="ddx"/>
@@ -82,7 +82,7 @@
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lower_Than}" Tag="lt"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Greater_Than}" Tag="gt"/>
                     </xctk:WatermarkComboBox>
-                    <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="5,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Text="{Binding RuleConditionViewModel.ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}">
+                    <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" Text="{Binding RuleConditionViewModel.ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}">
                         <xctk:WatermarkTextBox.Style>
                             <Style TargetType="{x:Type xctk:WatermarkTextBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -98,7 +98,7 @@
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}">
                 <Grid Background="#FFE5E5E5">
-                    <ListView HorizontalAlignment="Left" Height="294" Margin="349,7,0,0" VerticalAlignment="Top" Width="343" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding RuleActionViewModel.ListRuleActions}" SelectedItem="{Binding RuleActionViewModel.SelectedRuleAction}">
+                    <ListView HorizontalAlignment="Left" Height="143" Margin="349,158,0,0" VerticalAlignment="Top" Width="343" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding RuleActionViewModel.ListRuleActions}" SelectedItem="{Binding RuleActionViewModel.SelectedRuleAction}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding RuleActionViewModel.SelectRuleActionCommand}"/>
@@ -124,10 +124,10 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="334" Height="146" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding RuleActionViewModel.ActionProperties }"/>
+                    <xctk:PropertyGrid HorizontalAlignment="Left" Margin="349,7,0,0" VerticalAlignment="Top" Width="343" Height="146" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding RuleActionViewModel.ActionProperties }" IsReadOnly="True"/>
 
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="269,281,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RuleActionViewModel.AddActionCommand}"/>
-                    <TreeView HorizontalAlignment="Left" Height="118" Margin="10,7,0,0" VerticalAlignment="Top" Width="164" ItemsSource="{Binding RuleActionViewModel.ListBridgeResources}" IsEnabled="{Binding RuleActionViewModel.CanChangeHueObject}">
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="269,278,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RuleActionViewModel.AddActionCommand}" Height="23"/>
+                    <TreeView HorizontalAlignment="Left" Height="269" Margin="10,7,0,0" VerticalAlignment="Top" Width="334" ItemsSource="{Binding RuleActionViewModel.ListBridgeResources}" IsEnabled="{Binding RuleActionViewModel.CanChangeHueObject}">
                         <i:Interaction.Behaviors>
                             <creator:TreeViewBehavior SelectedItem="{Binding RuleActionViewModel.SelectedHueObject, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
@@ -135,16 +135,7 @@
                             <i:InvokeCommandAction Command="{Binding RuleActionViewModel.SelectHueObjectCommand}"/>
                         </i:EventTrigger>-->
                     </TreeView>
-                    <TreeView HorizontalAlignment="Left" Height="118" Margin="179,7,0,0" VerticalAlignment="Top" Width="165" ItemsSource="{Binding RuleActionViewModel.ListHueObjectProperties}">
-                        <i:Interaction.Behaviors>
-                            <creator:TreeViewBehavior SelectedItem="{Binding RuleActionViewModel.SelectedHueProperty, Mode=TwoWay}"/>
-                        </i:Interaction.Behaviors>  
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding RuleActionViewModel.DoubleClickPropertyCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TreeView>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" Text="{Binding RuleActionViewModel.PropertyValue, UpdateSourceTrigger=PropertyChanged }" VerticalAlignment="Top" Width="254" />
                 </Grid>
             </TabItem>
         </TabControl>

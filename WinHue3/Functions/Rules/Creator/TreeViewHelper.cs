@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
@@ -16,6 +20,7 @@ using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
+using Xceed.Wpf.DataGrid.Views;
 
 namespace WinHue3.Functions.Rules.Creator
 {
@@ -24,7 +29,7 @@ namespace WinHue3.Functions.Rules.Creator
         public static HuePropertyTreeViewItem BuildPropertiesTree(object root,  string currentpath, string name = null, string selectedpath = null)
         {
             PropertyInfo[] listprops = root.GetArrayHueProperties();
-            HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Address = new HueAddress(currentpath), Header = name, PropType = root.GetType()};
+            HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Address = new HueAddress(currentpath), Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal};
 
             foreach (PropertyInfo p in listprops)
             {
@@ -40,7 +45,9 @@ namespace WinHue3.Functions.Rules.Creator
                         Address = new HueAddress(actualpath),
                         IsSelected = selectedpath == actualpath,
                         IsExpanded = selectedpath == actualpath,
-                        PropType = p.PropertyType
+                        PropType = p.PropertyType,
+                        FontWeight = FontWeights.Normal,
+                        FontStyle = FontStyles.Normal
                     });
                 }
                 else
@@ -49,6 +56,7 @@ namespace WinHue3.Functions.Rules.Creator
                     ttvi.Header = p.Name;
                     ttvi.Address = new HueAddress(actualpath);
                     tvi.Items.Add(ttvi);
+
 
                 }
             }
@@ -166,10 +174,10 @@ namespace WinHue3.Functions.Rules.Creator
         public static HuePropertyTreeViewItem BuildPropertiesTreeFromDataStore(DataStore ds, string selectedpath = null)
         {
 
-            HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Header = $"{ds.config.name} [{ds.config.ipaddress}]", Address = new HueAddress("")};
+            HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Header = $"{ds.config.name} [{ds.config.ipaddress}]", Address = new HueAddress(""), FontStyle = FontStyles.Italic};
 
             // LIGHTS
-            HuePropertyTreeViewItem tviLights = new HuePropertyTreeViewItem() {Header = "lights", Address = new HueAddress("/lights"), IsSelected = false};
+            HuePropertyTreeViewItem tviLights = new HuePropertyTreeViewItem() {Header = "lights", Address = new HueAddress("/lights"), IsSelected = false, FontStyle = FontStyles.Italic };
             foreach (KeyValuePair<string, Light> l in ds.lights)
             {
                 tviLights.Items.Add(BuildPropertiesTree(l.Value, tviLights.Address + $"/{l.Key}", WinHueSettings.settings.ShowID ? $"[{l.Key}] - {l.Value.name}" : $"{l.Value.name}", selectedpath));
@@ -177,7 +185,7 @@ namespace WinHue3.Functions.Rules.Creator
             tvi.Items.Add(tviLights);
 
             // GROUPS
-            HuePropertyTreeViewItem tviGroups = new HuePropertyTreeViewItem() { Header = "groups", Address = new HueAddress("/groups"), IsSelected = false };
+            HuePropertyTreeViewItem tviGroups = new HuePropertyTreeViewItem() { Header = "groups", Address = new HueAddress("/groups"), IsSelected = false, FontStyle = FontStyles.Italic };
             foreach (KeyValuePair<string, Group> g in ds.groups)
             {
                 tviGroups.Items.Add(BuildPropertiesTree(g.Value, tviGroups.Address + $"/{g.Key}", WinHueSettings.settings.ShowID ? $"[{g.Key}] - {g.Value.name}" : $"{g.Value.name}", selectedpath));
@@ -185,7 +193,7 @@ namespace WinHue3.Functions.Rules.Creator
             tvi.Items.Add(tviGroups);
 
             // RULES
-            HuePropertyTreeViewItem tviRules = new HuePropertyTreeViewItem() { Header = "rules", Address = new HueAddress("/rules"), IsSelected = false };
+            HuePropertyTreeViewItem tviRules = new HuePropertyTreeViewItem() { Header = "rules", Address = new HueAddress("/rules"), IsSelected = false, FontStyle = FontStyles.Italic };
             foreach (KeyValuePair<string, Rule> r in ds.rules)
             {
                 tviRules.Items.Add(BuildPropertiesTree(r.Value, tviRules.Address + $"/{r.Key}", WinHueSettings.settings.ShowID ? $"[{r.Key}] - {r.Value.name}" : $"{r.Value.name}", selectedpath));
@@ -193,7 +201,7 @@ namespace WinHue3.Functions.Rules.Creator
             tvi.Items.Add(tviRules);
 
             // SCHEDULES
-            HuePropertyTreeViewItem tviSchedules = new HuePropertyTreeViewItem() { Header = "schedules", Address = new HueAddress("/schedules"), IsSelected = false };
+            HuePropertyTreeViewItem tviSchedules = new HuePropertyTreeViewItem() { Header = "schedules", Address = new HueAddress("/schedules"), IsSelected = false, FontStyle = FontStyles.Italic };
             foreach (KeyValuePair<string, Schedule> s in ds.schedules)
             {
                 tviSchedules.Items.Add(BuildPropertiesTree(s.Value, tviSchedules.Address + $"/{s.Key}", WinHueSettings.settings.ShowID ? $"[{s.Key}] - {s.Value.name}" : $"{s.Value.name}", selectedpath));
@@ -201,7 +209,7 @@ namespace WinHue3.Functions.Rules.Creator
             tvi.Items.Add(tviSchedules);
 
             // SCENES
-            HuePropertyTreeViewItem tviScenes = new HuePropertyTreeViewItem() { Header = "scenes", Address = new HueAddress("/scenes"), IsSelected = false };
+            HuePropertyTreeViewItem tviScenes = new HuePropertyTreeViewItem() { Header = "scenes", Address = new HueAddress("/scenes"), IsSelected = false, FontStyle = FontStyles.Italic };
             foreach (KeyValuePair<string, Scene> sc in ds.scenes)
             {
                 if (!WinHueSettings.settings.ShowHiddenScenes && sc.Value.name.StartsWith("HIDDEN")) continue;
@@ -210,7 +218,7 @@ namespace WinHue3.Functions.Rules.Creator
             tvi.Items.Add(tviScenes);
 
             // RESOURCE LINKS
-            HuePropertyTreeViewItem tviResourceLinks = new HuePropertyTreeViewItem() { Header = "ressource links", Address = new HueAddress("/resourcelinks"), IsSelected = false };
+            HuePropertyTreeViewItem tviResourceLinks = new HuePropertyTreeViewItem() { Header = "ressource links", Address = new HueAddress("/resourcelinks"), IsSelected = false, FontStyle = FontStyles.Italic };
             foreach (KeyValuePair<string, Resourcelink> rl in ds.resourcelinks)
             {
                 tviResourceLinks.Items.Add(BuildPropertiesTree(rl.Value, tviResourceLinks.Address + $"/{rl.Key}", WinHueSettings.settings.ShowID ? $"[{rl.Key}] - {rl.Value.name}" : $"{rl.Value.name}", selectedpath));
@@ -218,7 +226,7 @@ namespace WinHue3.Functions.Rules.Creator
             tvi.Items.Add(tviResourceLinks);
 
             //SENSORS
-            HuePropertyTreeViewItem tviSensors = new HuePropertyTreeViewItem() { Header = "sensors", Address = new HueAddress("/sensors"), IsSelected = false };
+            HuePropertyTreeViewItem tviSensors = new HuePropertyTreeViewItem() { Header = "sensors", Address = new HueAddress("/sensors"), IsSelected = false, FontStyle = FontStyles.Italic };
             foreach (KeyValuePair<string, Sensor> sn in ds.sensors)
             {
                 tviSensors.Items.Add(BuildPropertiesTree(sn.Value, tviSensors.Address + $"/{sn.Key}", WinHueSettings.settings.ShowID ? $"[{sn.Key}] - {sn.Value.name}" : $"{sn.Value.name}", selectedpath));

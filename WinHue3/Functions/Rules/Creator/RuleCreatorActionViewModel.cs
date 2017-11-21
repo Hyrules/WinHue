@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using System.Windows.Controls;
@@ -28,13 +29,12 @@ namespace WinHue3.Functions.Rules.Creator
         private RuleAction _selectedRuleAction;
         private ObservableCollection<HuePropertyTreeViewItem> _listBridgeResources;
         private ObservableCollection<HuePropertyTreeViewItem> _listHueObjectProperties;
-        private Bridge _bridge;
-        private DataStore _ds;
         private HuePropertyTreeViewItem _selectedHueObject;
         private HueObject _actionProperties;
         private HueObject _currentProperties;
         private HuePropertyTreeViewItem _selectedHueProperty;
         private bool _canChangeHueObject;
+        private string _propertyValue;
 
         public RuleCreatorActionViewModel()
         {
@@ -42,29 +42,18 @@ namespace WinHue3.Functions.Rules.Creator
             _listBridgeResources = new ObservableCollection<HuePropertyTreeViewItem>();
             _listHueObjectProperties = new ObservableCollection<HuePropertyTreeViewItem>();
             _currentProperties = new HueObject();
+            _propertyValue = string.Empty;
         }
 
-        public void Initialize(Bridge bridge,DataStore ds)
+        public void Initialize(DataStore ds)
         {
-            _bridge = bridge;
-            _ds = ds;
-            _listBridgeResources.Add(TreeViewHelper.BuildObjectTreeFromDataStore(ds));
+            _listBridgeResources.Add(TreeViewHelper.BuildPropertiesTreeFromDataStore(ds));
+
         }
 
         public ICommand AddActionCommand => new RelayCommand(param => AddAction(), (param) => CanAddAction());
         public ICommand RemoveRuleActionCommand => new RelayCommand(param => RemoveRuleAction());
         public ICommand SelectRuleActionCommand => new RelayCommand(param => SelectRuleAction());
-        public ICommand DoubleClickPropertyCommand => new RelayCommand(param => DoubleClickProperty());
-
-        private void DoubleClickProperty()
-        {
-            if (SelectedHueProperty == null) return;
-            if (SelectedHueProperty.Items.Count > 0) return;
-            ActionProperties = null;
-            _currentProperties.SetProperty(SelectedHueProperty.Header.ToString(), Activator.CreateInstance(SelectedHueProperty.PropType));
-            ActionProperties = _currentProperties;
-            RaisePropertyChanged("CanChangeHueObject");
-        }
 
         private void SelectHueObject()
         {
@@ -72,32 +61,6 @@ namespace WinHue3.Functions.Rules.Creator
             if (SelectedHueObject.Items.Count > 0) return;
             ListHueObjectProperties.Clear();
             
-  
-            switch (SelectedHueObject.Address.objecttype)
-            {
-                case "lights":
-                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.lights[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
-                    break;
-                case "groups":
-                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.groups[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
-                    break;
-                case "schedules":
-                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.schedules[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
-                    break;
-                case "resourcelinks":
-                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.resourcelinks[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
-                    break;
-                case "scenes":
-                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.scenes[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
-                    break;
-                case "sensors":
-                    ListHueObjectProperties.Add(TreeViewHelper.BuildPropertiesTree(_ds.sensors[SelectedHueObject.Address.id], SelectedHueObject.Address.ToString(), SelectedHueObject.Header.ToString()));
-
-                    break;
-                default:
-                    ActionProperties = null;
-                    break;
-            }
         }
 
         private void SelectRuleAction()
@@ -131,6 +94,7 @@ namespace WinHue3.Functions.Rules.Creator
             if (ListRuleActions.Count > 7) return false;
             if (SelectedHueObject == null) return false;
             if (SelectedHueObject.Items.Count > 0) return false;
+            if (string.IsNullOrEmpty(PropertyValue) || string.IsNullOrWhiteSpace(PropertyValue)) return false;
             if (Serializer.SerializeToJson(ActionProperties) == "{}") return false;
             return true;
         }
@@ -221,12 +185,6 @@ namespace WinHue3.Functions.Rules.Creator
             set { SetProperty(ref _listHueObjectProperties, value); }
         }
 
-        public HuePropertyTreeViewItem SelectedHueProperty
-        {
-            get { return _selectedHueProperty; }
-            set { SetProperty(ref _selectedHueProperty,value); }
-        }
-
         public bool CanChangeHueObject
         {
             get
@@ -236,6 +194,12 @@ namespace WinHue3.Functions.Rules.Creator
                 
             }
             
+        }
+
+        public string PropertyValue
+        {
+            get { return _propertyValue; }
+            set { SetProperty(ref _propertyValue,value); }
         }
     }
 }

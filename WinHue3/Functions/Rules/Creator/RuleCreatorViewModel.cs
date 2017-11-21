@@ -29,8 +29,8 @@ namespace WinHue3.Functions.Rules.Creator
         {
             _bridge = bridge;
             DataStore ds = await _bridge.GetBridgeDataStoreAsyncTask();
-            _rccvm.Initialize(bridge,ds);
-            _rcavm.Initialize(bridge,ds);
+            _rccvm.Initialize(ds);
+            _rcavm.Initialize(ds);
         }
 
 
