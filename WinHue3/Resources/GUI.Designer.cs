@@ -2554,7 +2554,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to Add to current properties.
         /// </summary>
         public static string RuleCreatorForm_Add {
             get {

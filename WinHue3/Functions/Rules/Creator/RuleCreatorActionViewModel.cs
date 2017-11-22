@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -29,11 +30,9 @@ namespace WinHue3.Functions.Rules.Creator
         private RuleAction _selectedRuleAction;
         private ObservableCollection<HuePropertyTreeViewItem> _listBridgeResources;
         private ObservableCollection<HuePropertyTreeViewItem> _listHueObjectProperties;
-        private HuePropertyTreeViewItem _selectedHueObject;
         private HueObject _actionProperties;
         private HueObject _currentProperties;
         private HuePropertyTreeViewItem _selectedHueProperty;
-        private bool _canChangeHueObject;
         private string _propertyValue;
 
         public RuleCreatorActionViewModel()
@@ -41,7 +40,6 @@ namespace WinHue3.Functions.Rules.Creator
             _listRuleActions = new ObservableCollection<RuleAction>();
             _listBridgeResources = new ObservableCollection<HuePropertyTreeViewItem>();
             _listHueObjectProperties = new ObservableCollection<HuePropertyTreeViewItem>();
-            _currentProperties = new HueObject();
             _propertyValue = string.Empty;
         }
 
@@ -54,19 +52,33 @@ namespace WinHue3.Functions.Rules.Creator
         public ICommand AddActionCommand => new RelayCommand(param => AddAction(), (param) => CanAddAction());
         public ICommand RemoveRuleActionCommand => new RelayCommand(param => RemoveRuleAction());
         public ICommand SelectRuleActionCommand => new RelayCommand(param => SelectRuleAction());
+        public ICommand AddPropertyCommand => new RelayCommand(param => AddProperty(), (param) => CanAddProperty());
 
-        private void SelectHueObject()
+        private bool CanAddProperty()
         {
-            if (SelectedHueObject == null) return;
-            if (SelectedHueObject.Items.Count > 0) return;
-            ListHueObjectProperties.Clear();
-            
+            if (_selectedHueProperty == null) return false;
+            if (_propertyValue == null) return false;
+            if (string.IsNullOrEmpty(_propertyValue) || string.IsNullOrWhiteSpace(_propertyValue)) return false;
+            return true;
         }
+
+        private void AddProperty()
+        {
+            if (_currentProperties == null)
+                _currentProperties = new HueObject();
+            TypeConverter conv = TypeDescriptor.GetConverter(SelectedHueProperty.PropType);
+            object result = conv.ConvertFrom(_propertyValue);
+
+            _currentProperties.SetProperty(SelectedHueProperty.Header.ToString(), result);
+            ActionProperties = null;
+            ActionProperties = _currentProperties;
+        }
+
 
         private void SelectRuleAction()
         {
             if (SelectedRuleAction == null) return;
-            SelectedHueObject = ParseRuleForObject(SelectedRuleAction.address.ToString(),ListBridgeResources[0]);
+           // SelectedHueObject = ParseRuleForObject(SelectedRuleAction.address.ToString(),ListBridgeResources[0]);
         }
 
         private HuePropertyTreeViewItem ParseRuleForObject(string address, HuePropertyTreeViewItem rtvi)
@@ -92,8 +104,6 @@ namespace WinHue3.Functions.Rules.Creator
         private bool CanAddAction()
         {
             if (ListRuleActions.Count > 7) return false;
-            if (SelectedHueObject == null) return false;
-            if (SelectedHueObject.Items.Count > 0) return false;
             if (string.IsNullOrEmpty(PropertyValue) || string.IsNullOrWhiteSpace(PropertyValue)) return false;
             if (Serializer.SerializeToJson(ActionProperties) == "{}") return false;
             return true;
@@ -101,7 +111,7 @@ namespace WinHue3.Functions.Rules.Creator
 
         private void AddAction()
         {
-            DialogResult result = DialogResult.Yes;
+           /* DialogResult result = DialogResult.Yes;
 
             RuleAction ra = new RuleAction();
             HueAddress address = new HueAddress(SelectedHueObject.Tag.ToString());
@@ -142,7 +152,7 @@ namespace WinHue3.Functions.Rules.Creator
             ra.address = address;
             ra.method = "PUT";
             ra.body = _actionProperties != null ? Serializer.SerializeToJson(_actionProperties) : Serializer.SerializeToJson(new SceneBody() {scene = address.id});
-            ListRuleActions.Add(ra);
+            ListRuleActions.Add(ra);*/
         }
 
         public ObservableCollection<RuleAction> ListRuleActions
@@ -151,15 +161,6 @@ namespace WinHue3.Functions.Rules.Creator
             set => SetProperty(ref _listRuleActions,value);
         }
 
-        public HuePropertyTreeViewItem SelectedHueObject
-        {
-            get => _selectedHueObject;
-            set
-            {
-                SetProperty(ref _selectedHueObject, value);
-                SelectHueObject();
-            }
-        }
 
         public HueObject ActionProperties
         {
@@ -181,25 +182,20 @@ namespace WinHue3.Functions.Rules.Creator
 
         public ObservableCollection<HuePropertyTreeViewItem> ListHueObjectProperties
         {
-            get { return _listHueObjectProperties; }
-            set { SetProperty(ref _listHueObjectProperties, value); }
-        }
-
-        public bool CanChangeHueObject
-        {
-            get
-            {
-                if (!_currentProperties.Any()) return true;
-                return _canChangeHueObject;
-                
-            }
-            
+            get => _listHueObjectProperties;
+            set => SetProperty(ref _listHueObjectProperties, value);
         }
 
         public string PropertyValue
         {
-            get { return _propertyValue; }
-            set { SetProperty(ref _propertyValue,value); }
+            get => _propertyValue;
+            set => SetProperty(ref _propertyValue,value);
+        }
+
+        public HuePropertyTreeViewItem SelectedHueProperty
+        {
+            get => _selectedHueProperty;
+            set => SetProperty(ref _selectedHueProperty,value);
         }
     }
 }

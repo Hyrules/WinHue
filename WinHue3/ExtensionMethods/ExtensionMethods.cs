@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -70,6 +71,7 @@ namespace WinHue3.ExtensionMethods
                 throw new ArgumentException("ARGH!");
             return str.First().ToString().ToLower() + str.Substring(1);
         }
+
     }
 
     public static class ObjectExtensionMethods

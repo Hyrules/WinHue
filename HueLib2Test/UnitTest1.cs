@@ -36,7 +36,8 @@ namespace HueLib2Test
             DataStore ds = JsonConvert.DeserializeObject<DataStore>(test3);
             TreeViewItem tvi = TreeViewHelper.BuildPropertiesTreeFromDataStore(ds);
            
-
+            HueObject ho = new HueObject();
+            
 
 
             //  string ser = Serializer.SerializeToJson(ds);

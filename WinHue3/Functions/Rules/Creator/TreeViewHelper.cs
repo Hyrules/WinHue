@@ -64,6 +64,8 @@ namespace WinHue3.Functions.Rules.Creator
             return tvi;
         }
 
+       // public static HuePropertyTreeViewItem BuildPropertyBranch(object root, string currentpath, string name = null, string selected)
+
 
         public static HuePropertyTreeViewItem BuildObjectTreeFromDataStore(DataStore ds, string selectedpath = null)
         {

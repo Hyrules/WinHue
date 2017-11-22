@@ -61,7 +61,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="270,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding RuleConditionViewModel.AddConditionCommand}"/>
-                    <TreeView x:Name="tvProperties" HorizontalAlignment="Left" Height="242" Margin="10,4,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding RuleConditionViewModel.ListConditionProperties}" IsManipulationEnabled="True" IsHitTestVisible="True">
+                    <TreeView x:Name="tvProperties" HorizontalAlignment="Left" Height="242" Margin="10,4,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding RuleConditionViewModel.ListConditionProperties}" IsManipulationEnabled="True" IsHitTestVisible="True" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
                         <i:Interaction.Behaviors>
                             <creator:TreeViewBehavior SelectedItem="{Binding RuleConditionViewModel.SelectedConditionProperty, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
@@ -124,18 +124,19 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <xctk:PropertyGrid HorizontalAlignment="Left" Margin="349,7,0,0" VerticalAlignment="Top" Width="343" Height="146" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding RuleActionViewModel.ActionProperties }" IsReadOnly="True"/>
+                    <xctk:PropertyGrid HorizontalAlignment="Left" Margin="349,7,0,0" VerticalAlignment="Top" Width="343" Height="121" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding RuleActionViewModel.ActionProperties }" IsReadOnly="True"/>
 
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="269,278,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RuleActionViewModel.AddActionCommand}" Height="23"/>
-                    <TreeView HorizontalAlignment="Left" Height="269" Margin="10,7,0,0" VerticalAlignment="Top" Width="334" ItemsSource="{Binding RuleActionViewModel.ListBridgeResources}" IsEnabled="{Binding RuleActionViewModel.CanChangeHueObject}">
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="10,278,0,0" VerticalAlignment="Top" Width="334" Command="{Binding RuleActionViewModel.AddPropertyCommand}" Height="23"/>
+                    <TreeView HorizontalAlignment="Left" Height="239" Margin="10,7,0,0" VerticalAlignment="Top" Width="334" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
                         <i:Interaction.Behaviors>
-                            <creator:TreeViewBehavior SelectedItem="{Binding RuleActionViewModel.SelectedHueObject, Mode=TwoWay}"/>
+                            <creator:TreeViewBehavior SelectedItem="{Binding RuleActionViewModel.SelectedHueProperty, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
                         <!--<i:EventTrigger EventName="SelectedItemChanged">
                             <i:InvokeCommandAction Command="{Binding RuleActionViewModel.SelectHueObjectCommand}"/>
                         </i:EventTrigger>-->
                     </TreeView>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" Text="{Binding RuleActionViewModel.PropertyValue, UpdateSourceTrigger=PropertyChanged }" VerticalAlignment="Top" Width="254" />
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="10,250,0,0" TextWrapping="Wrap" Text="{Binding RuleActionViewModel.PropertyValue, UpdateSourceTrigger=PropertyChanged }" VerticalAlignment="Top" Width="334" />
+                    <Button Content="Add to rule actions" HorizontalAlignment="Left" Margin="349,133,0,0" VerticalAlignment="Top" Width="343" Command="{Binding RuleActionViewModel.AddActionCommand}"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -1372,7 +1372,7 @@
     <value>Sauvegarder</value>
   </data>
   <data name="RuleCreatorForm_Add" xml:space="preserve">
-    <value>Ajouter</value>
+    <value>Ajouter aux propriétés actuelles</value>
   </data>
   <data name="RuleCreatorForm_Value_Watermark" xml:space="preserve">
     <value>(Saisissez la valeur ici)</value>
