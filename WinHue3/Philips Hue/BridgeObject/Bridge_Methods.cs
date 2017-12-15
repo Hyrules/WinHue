@@ -135,11 +135,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() {type = -1, address = url, description = "A Timeout occured." });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 case WebExceptionStatus.ConnectFailure:
                     LastCommandMessages.AddMessage(new Error() {type = -1, address = url, description = "Unable to contact the bridge"});
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { type = -2, address = url, description = "A unknown error occured." });

@@ -85,12 +85,15 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="ManagedUPnP">
       <HintPath>..\packages\ManagedUPnP\ManagedUPnP.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="NAudio, Version=1.8.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.3\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="NDesk.Options, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -121,6 +124,7 @@
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\System.Windows.Interactivity.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml" />
@@ -179,6 +183,7 @@
     </Compile>
     <Compile Include="Functions\Rules\Creator\TreeViewHelper.cs" />
     <Compile Include="Functions\Rules\HueTreeViewItem.cs" />
+    <Compile Include="Functions\Rules\Creator\PropertyGridBehavior.cs" />
     <Compile Include="Functions\Schedules\NewCreator\Controls\Sliders.xaml.cs">
       <DependentUpon>Sliders.xaml</DependentUpon>
     </Compile>
@@ -287,6 +292,7 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueDimmer\HueDimmerSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueMotion\HueMotionSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueSensorConfigFactory.cs" />
+    <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueSensorStateFactory.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\HueTap\HueTapSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\Sensor.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\SensorConfigBase.cs" />
@@ -321,7 +327,7 @@
     <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
-    <Compile Include="Utils\UnknownObject.cs" />
+    <Compile Include="Utils\HueObject.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Functions\Rules\Validation\RuleValueValidation.cs" />
     <Compile Include="Validations\UIntValidation.cs" />
@@ -346,8 +352,6 @@
     <Compile Include="Functions\EventViewer\EventViewerViewModel.cs" />
     <Compile Include="Functions\HotKeys\Creator\HotKeyCreatorViewModel.cs" />
     <Compile Include="Functions\User Management\ManageUsersViewModel.cs" />
-    <Compile Include="Functions\Rules\Creator\RuleCreatorActionViewModel.cs" />
-    <Compile Include="Functions\Rules\Creator\RuleCreatorConditionViewModel.cs" />
     <Compile Include="Functions\Rules\Creator\RuleCreatorViewModel.cs" />
     <Compile Include="Functions\Scenes\Creator\SceneCreatorViewModel.cs" />
     <Compile Include="Functions\Lights\Finder\Form_AddLightSerial.xaml.cs">
@@ -831,7 +835,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

@@ -97,8 +97,12 @@ namespace WinHue3.Functions.PropertyGrid
             if (mm.Any())
             {
                 MaxMinAttribute mma = mm.First();
-                _max = Convert.ToDecimal(mma.Max);
-                _min = Convert.ToDecimal(mma.Min);
+                if (mma != null)
+                {
+
+                    _max = Convert.ToDecimal(mma.Max);
+                    _min = Convert.ToDecimal(mma.Min);
+                }
             }
 
             BindingOperations.SetBinding(this, ValueProperty, binding);
@@ -119,10 +123,10 @@ namespace WinHue3.Functions.PropertyGrid
 
         public class MaxMinAttribute : Attribute
         {
-            public string Max { get; }
-            public string Min { get; }
+            public float Max { get; }
+            public float Min { get; }
 
-            public MaxMinAttribute(string max, string min)
+            public MaxMinAttribute(float max, float min)
             {
                 Max = max;
                 Min = min;

@@ -214,6 +214,10 @@ namespace WinHue3.ExtensionMethods
             {
                 return;
             }
+
+            if(oc == null)
+                oc = new ObservableCollection<T>();
+
             foreach (var item in collection)
             {
                 oc.Add(item);

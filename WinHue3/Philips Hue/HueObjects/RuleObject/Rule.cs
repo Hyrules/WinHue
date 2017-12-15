@@ -25,6 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         private string _lasttriggered;
         private string _created;
         private string _status;
+        private bool _visible;
 
         /// <summary>
         /// Image of the rule.
@@ -124,6 +125,13 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         {
             get => _status;
             set => SetProperty(ref _status,value);
+        }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get { return _visible; }
+            set { SetProperty(ref _visible,value); }
         }
 
         /// <summary>

@@ -2,10 +2,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace WinHue3.Controls
 {
-    public class CommandComboBox : ComboBox, ICommandSource
+    public class CommandComboBox : WatermarkComboBox, ICommandSource
     {
 
         public CommandComboBox() : base()

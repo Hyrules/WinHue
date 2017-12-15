@@ -37,6 +37,7 @@ namespace WinHue3.MainForm
                 Interval = new TimeSpan(0, 0, 0, 2)
                 
             };
+            Comm.CommunicationTimedOut += Comm_CommunicationTimedOut;
             _hotkeyDetected = false;
             _ledTimer.Tick += _ledTimer_Tick;
             _lhk = new List<HotKeyHandle>();
@@ -55,6 +56,11 @@ namespace WinHue3.MainForm
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
 
+        }
+
+        private void Comm_CommunicationTimedOut(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not Responding");
         }
 
         private void _ledTimer_Tick(object sender, EventArgs e)
@@ -143,7 +149,6 @@ namespace WinHue3.MainForm
                             Mac = b.Key
                         };
                         if (b.Value.apikey == string.Empty) continue;
-                        bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
                         bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
                         bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
 

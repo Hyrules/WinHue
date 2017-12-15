@@ -13,6 +13,7 @@ using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys.Validation;
 using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -25,7 +26,7 @@ namespace WinHue3.Functions.HotKeys.Creator
     public class HotKeyCreatorViewModel : ValidatableBindableBase
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private List<IHueObject> _listAvailbleHueObjects;
         private ObservableCollection<IHueObject> _listHueObject;
         private IHueObject _selectedHueObject;
         private IBaseProperties _propertyObject;
@@ -46,7 +47,7 @@ namespace WinHue3.Functions.HotKeys.Creator
             _hotkeyrecordTimer.Interval = new TimeSpan(0, 0, 0, 10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
             _listHotKeys = new ObservableCollection<HotKey>(WinHueSettings.hotkeys.listHotKeys);
-            _objectype = typeof(Light);
+          
         }
 
         public bool NotGeneric => !_isGeneric;
@@ -55,7 +56,7 @@ namespace WinHue3.Functions.HotKeys.Creator
         {
             CanRecordKeyUp = false;
             _bridge = bridge;
-            await FetchHueObject();
+            _listAvailbleHueObjects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
         }
 
         public IBaseProperties PropertyGridObject
@@ -122,29 +123,7 @@ namespace WinHue3.Functions.HotKeys.Creator
         public HotKey SelectedHotKey
         {
             get => _selectedHotKey;
-            set
-            {
-                SetProperty(ref _selectedHotKey, value);
-                if (SelectedHotKey == null) return;
-                HotKeyModel.Name = value.Name;
-                HotKeyModel.Description = value.Description;
-                HotKeyModel.Key = value.Key;
-                HotKeyModel.ModifierKeys = value.Modifier;
-                HotKeyModel.Id = value.id;
-
-                if (value.objecType != null)
-                {
-                    ObjectType = value.objecType;
-                    SelectedHueObject = ListHueObject.FirstOrDefault(x => x.Id == value.id);                   
-
-                }
-                else
-                {
-                    IsGeneric = true;
-                }
-                PropertyGridObject = value.properties;
-                RaisePropertyChanged("CurrentHotKey");
-            }
+            set => SetProperty(ref _selectedHotKey, value);
         }
 
         public bool CanRecordKeyUp
@@ -184,42 +163,6 @@ namespace WinHue3.Functions.HotKeys.Creator
         private void _hotkeyrecordTimer_Tick(object sender, EventArgs e)
         {
             StopRecording();
-        }
-
-        private async Task FetchHueObject()
-        {
-            if (ObjectType == null || _bridge == null)
-            {
-                ListHueObject = null;
-                return;
-            }
-
-           
-            if (ObjectType == typeof(Light))
-            {
-                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
-                if (hr != null)
-                {
-                    ListHueObject = new ObservableCollection<IHueObject>(hr);
-                }   
-
-            }
-            else if (ObjectType == typeof(Group))
-            {
-                List<Group> hr = await HueObjectHelper.GetBridgeGroupsAsyncTask(_bridge);
-                if (hr != null)
-                {
-                    ListHueObject = new ObservableCollection<IHueObject>(hr);
-                }
-            }
-            else if( ObjectType == typeof(Scene))
-            {
-                List<Scene> hr = await HueObjectHelper.GetBridgeScenesAsyncTask(_bridge);
-                if (hr != null)
-                {
-                    ListHueObject = new ObservableCollection<IHueObject>(hr);
-                }
-            }
         }
 
         private bool ValidateHotKeyProperties()
@@ -332,6 +275,7 @@ namespace WinHue3.Functions.HotKeys.Creator
 
         private bool CanAddHotKey()
         {
+            if (HotKeyModel.Name.Length < 1 || HotKeyModel.Name.Length > 30) return false;
             if (IsGeneric)
                 return HotKeyModel.Name != string.Empty && HotKeyModel.Key != default(Key) &&
                        HotKeyModel.ModifierKeys != default(ModifierKeys);
@@ -353,13 +297,53 @@ namespace WinHue3.Functions.HotKeys.Creator
         public ICommand RecordHotKeyCommand => new RelayCommand(param => RecordHotKey(), param => CanRecord());
         public ICommand DeleteHotKeyCommand => new RelayCommand(param => DeleteHotkey(), param=> IsObjectSelected());
         public ICommand ClearFieldsCommand => new RelayCommand(param => Clearfields());
-        public ICommand ChangeObjectTypeCommand => new AsyncRelayCommand(param => ChangeObject());
+        public ICommand ChangeObjectTypeCommand => new RelayCommand(param => ChangeObject());
+        public ICommand SelectExistingHotkeyCommand => new RelayCommand(param => SelectExistingHotkey());
 
-        private async Task ChangeObject()
+        private void SelectExistingHotkey()
         {
-            if (_objectype != null)
+            if (SelectedHotKey == null) return;
+            HotKeyModel.Name = SelectedHotKey.Name;
+            HotKeyModel.Description = SelectedHotKey.Description;
+            HotKeyModel.Key = SelectedHotKey.Key;
+            HotKeyModel.ModifierKeys = SelectedHotKey.Modifier;
+            HotKeyModel.Id = SelectedHotKey.id;
+
+            if (SelectedHotKey.objecType != null)
             {
-                await FetchHueObject();
+                ObjectType = SelectedHotKey.objecType;
+                SelectedHueObject = ListHueObject.FirstOrDefault(x => x.Id == SelectedHotKey.id);
+
+            }
+            else
+            {
+                IsGeneric = true;
+            }
+            PropertyGridObject = SelectedHotKey.properties;
+            RaisePropertyChanged("CurrentHotKey");
+        }
+
+        private void ChangeObject()
+        {
+            switch (ObjectType)
+            {
+                case Type light when light == typeof(Light):
+                    ListHueObject = new ObservableCollection<IHueObject>(_listAvailbleHueObjects.OfType<Light>().ToList<IHueObject>());
+
+                    break;
+                case Type group when group == typeof(Group):
+                    ListHueObject = new ObservableCollection<IHueObject>(_listAvailbleHueObjects.OfType<Group>().ToList<IHueObject>());
+
+                    break;
+
+                case Type scene when scene == typeof(Scene):
+                    ListHueObject = new ObservableCollection<IHueObject>(_listAvailbleHueObjects.OfType<Scene>().ToList<IHueObject>());
+
+                    break;
+                default:
+                    ListHueObject = null;
+                    break;
+
             }
         }
     }

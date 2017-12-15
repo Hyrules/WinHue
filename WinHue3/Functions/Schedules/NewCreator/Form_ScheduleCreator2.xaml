@@ -24,34 +24,8 @@
     </Window.DataContext>
     <Grid>
 
-        <xctk:PropertyGrid HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="339" Width="339" SelectedObject="{Binding Header}" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False">
-            <xctk:PropertyGrid.EditorDefinitions>
-                <xctk:EditorTemplateDefinition TargetProperties="Datetime">
-                    <xctk:EditorTemplateDefinition.EditingTemplate>
-                        <DataTemplate>
-                            <xctk:DateTimePicker Value="{Binding Header.Datetime}" Format="Custom" FormatString="yyyy-MM-dd HH:mm:ss" >
-                                <xctk:DateTimePicker.Style>
-                                    <Style TargetType="xctk:DateTimePicker">
-                                        <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Header.ScheduleType}" Value="Timer">
-                                                <Setter Property="FormatString" Value="HH:mm:ss"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Header.ScheduleType}" Value="Alarm">
-                                                <Setter Property="FormatString" Value="HH:mm:ss"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </xctk:DateTimePicker.Style>
-                            </xctk:DateTimePicker>
-                        </DataTemplate>
-                    </xctk:EditorTemplateDefinition.EditingTemplate>
-                </xctk:EditorTemplateDefinition>
-            </xctk:PropertyGrid.EditorDefinitions>
-        </xctk:PropertyGrid>
-        <ContentPresenter>
 
-        </ContentPresenter>
+
         <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="339" Width="334" Background="{DynamicResource SliderThumb.Disabled.Border}"/>
         <ComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="339">
             <ComboBoxItem Content="Sliders"></ComboBoxItem>
@@ -59,6 +33,29 @@
         </ComboBox>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,354,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="533,354,0,0" VerticalAlignment="Top" Width="75"/>
+        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="339" Kind="Local" Format="Custom" Value="{Binding Header.Datetime}"  >
+            <xctk:DateTimePicker.Style>
+                <Style TargetType="xctk:DateTimePicker">
+                    <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Header.ScheduleType}" Value="timer">
+                            <Setter Property="FormatString" Value="HH:mm:ss"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Header.ScheduleType}" Value="alarm">
+                            <Setter Property="FormatString" Value="HH:mm:ss"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </xctk:DateTimePicker.Style>
+        </xctk:DateTimePicker>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}">
+            <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}" Tag="schedule"/>
+            <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}" Tag="alarm"/>
+            <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}" Tag="timer" />
+        </xctk:WatermarkComboBox>
 
     </Grid>
 </Window>

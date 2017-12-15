@@ -943,6 +943,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified value does not convert to the requested property type..
+        /// </summary>
+        public static string Invalid_Rule_Action_Conversion {
+            get {
+                return ResourceManager.GetString("Invalid_Rule_Action_Conversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scene file invalid .
         /// </summary>
         public static string Invalid_Scene_File {
@@ -1240,6 +1249,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This rule action cannot be edited in this editor..
+        /// </summary>
+        public static string Rule_CannotBeEdited {
+            get {
+                return ResourceManager.GetString("Rule_CannotBeEdited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A similar condition already exists. Do you want to replace it?.
         /// </summary>
         public static string Rule_ConditionAlreadyExists {
@@ -1407,6 +1425,15 @@ namespace WinHue3 {
         public static string Rule_ReplaceCondition {
             get {
                 return ResourceManager.GetString("Rule_ReplaceCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry the selected object not found. Does it still exists ?.
+        /// </summary>
+        public static string Rule_SelectedObjectDoesNotExists {
+            get {
+                return ResourceManager.GetString("Rule_SelectedObjectDoesNotExists", resourceCulture);
             }
         }
         

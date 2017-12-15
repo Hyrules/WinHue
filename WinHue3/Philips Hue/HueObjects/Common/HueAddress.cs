@@ -87,6 +87,13 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
             
         }
 
+
+
+        public static implicit operator string(HueAddress s)
+        {
+            return s.ToString();
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

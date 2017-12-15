@@ -13,6 +13,7 @@ namespace WinHue3.Philips_Hue.Communication
         public static bool DetectProxy = false;
         private static string _lastjson = string.Empty;
         private static readonly string _lastUrl = string.Empty;
+        private static Action _timeoutcallback;
 
         public static int Timeout
         {
@@ -24,6 +25,8 @@ namespace WinHue3.Philips_Hue.Communication
 
         public static string LastUrl => _lastUrl;
 
+        public static Action Timeoutcallback { get => _timeoutcallback; set => _timeoutcallback = value; }
+
         public static CommResult SendRequest(Uri url, WebRequestType type, string data = "")
         {
             CommResult result = new CommResult();
@@ -31,6 +34,7 @@ namespace WinHue3.Philips_Hue.Communication
             try
             {
                 WebClientTimeout wc = new WebClientTimeout {Proxy = null, Timeout = _timeout};
+
                 string Method = string.Empty;
                 string received = string.Empty;
                 switch (type)
@@ -41,7 +45,7 @@ namespace WinHue3.Philips_Hue.Communication
                         break;
                     case WebRequestType.Get:
                         Method = "GET";
-                        var bytes = wc.DownloadData(url);                       
+                        var bytes = wc.DownloadData(url);
                         UTF8Encoding utf8 = new UTF8Encoding();
                         received = utf8.GetString(bytes);
                         break;
@@ -63,12 +67,19 @@ namespace WinHue3.Philips_Hue.Communication
 
                 _lastjson = received;
             }
+            catch (TimeoutException ex)
+            {               
+                OnCommunicationTimeOut(new TimeOutEventArgs(url, type));
+                _timeoutcallback?.Invoke();
+                result = null;
+            }
             catch (WebException ex)
             {
                 result.Status = ex.Status;
                 result.Data = "{}";
                 result.Ex = ex;
             }
+
             catch(Exception ex)
             {
                 result.Status = WebExceptionStatus.UnknownError;
@@ -118,6 +129,14 @@ namespace WinHue3.Philips_Hue.Communication
 
                 _lastjson = received;
             }
+            catch (TimeoutException ex)
+            {
+                OnCommunicationTimeOut(new TimeOutEventArgs(url, type));
+                _timeoutcallback?.Invoke();
+                result.Status = WebExceptionStatus.Timeout;
+                result.Data = null;
+                result.Ex = ex;
+            }
             catch (WebException ex)
             {
                 result.Status = ex.Status;
@@ -133,6 +152,30 @@ namespace WinHue3.Philips_Hue.Communication
             }
             return result;
         }
+
+        public static event EventHandler CommunicationTimedOut;
+
+        private static void OnCommunicationTimeOut(TimeOutEventArgs e)
+        {
+            CommunicationTimedOut?.Invoke(null, e);
+        }
+
+    }
+
+    public class TimeOutEventArgs : EventArgs
+    {
+        private Uri _url;
+        private WebRequestType _type;
+
+        public TimeOutEventArgs(Uri url, WebRequestType type)
+        {
+            _url = url;
+            _type = type;
+        }
+
+        public Uri Url => _url;
+
+        public WebRequestType Type => _type;
     }
 
     public class CommResult

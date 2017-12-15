@@ -187,7 +187,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// XY increment.
         /// </summary>
         [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("XY increment."),Category("Incrementors"), Editor(typeof(XYEditor), typeof(XYEditor))]
-        [XYEditor.MaxMin("0.5","0")]
+        [XYEditor.MaxMin(0.5f,0f)]
         public decimal[] xy_inc
         {
             get => _xyInc;

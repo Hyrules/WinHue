@@ -80,9 +80,5 @@ namespace WinHue3.Functions.Rules.Creator
             return _id;
         }
 
-        private void tvProperties_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
     }
 }

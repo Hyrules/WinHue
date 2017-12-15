@@ -11,7 +11,7 @@ namespace WinHue3.Functions.Rules.Validation
        
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            RuleCreatorConditionViewModel rcvm = validationContext.ObjectInstance as RuleCreatorConditionViewModel;
+            RuleCreatorViewModel rcvm = validationContext.ObjectInstance as RuleCreatorViewModel;
             if(rcvm.ConditionOperator == "dx") return ValidationResult.Success;
             string msg = string.Empty;
             try

@@ -23,6 +23,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         private string _owner;
         private bool? _recycle;
         private StringCollection _links;
+        private bool _visible;
 
         /// <summary>
         /// ID of the ResourceLink
@@ -114,6 +115,13 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         {
             get => _links;
             set => SetProperty(ref _links,value);
+        }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get { return _visible; }
+            set { SetProperty(ref _visible,value); }
         }
 
         public object Clone()

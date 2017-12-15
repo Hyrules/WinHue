@@ -442,7 +442,7 @@ namespace WinHue3.MainForm
 
         private async Task CreateSchedule()
         {
-           /* Form_ScheduleCreator fscc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
+            Form_ScheduleCreator fscc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
             await fscc.Initialize(SelectedBridge, _selectedObject );
             log.Debug($@"Opening the schedule creator window passing bridge {SelectedBridge.IpAddress} ");
             if (fscc.ShowDialog() != true) return;
@@ -455,11 +455,11 @@ namespace WinHue3.MainForm
             else
             {
                 MessageBoxError.ShowLastErrorMessages(SelectedBridge);
-            }*/
-
+            }
+            /*
             Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow};
             await fscc.Initialize();
-            fscc.ShowDialog();
+            fscc.ShowDialog();*/
 
         }
 

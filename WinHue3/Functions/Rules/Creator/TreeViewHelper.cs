@@ -47,7 +47,8 @@ namespace WinHue3.Functions.Rules.Creator
                         IsExpanded = selectedpath == actualpath,
                         PropType = p.PropertyType,
                         FontWeight = FontWeights.Normal,
-                        FontStyle = FontStyles.Normal
+                        FontStyle = FontStyles.Normal,
+                        PropInfo = p,
                     });
                 }
                 else
@@ -64,8 +65,222 @@ namespace WinHue3.Functions.Rules.Creator
             return tvi;
         }
 
-       // public static HuePropertyTreeViewItem BuildPropertyBranch(object root, string currentpath, string name = null, string selected)
+        public static HuePropertyTreeViewItem BuildPropertyBranch(object root, string currentpath, string name = null,string selectedpath = null)
+        {
+            PropertyInfo[] listprops = root.GetArrayHueProperties();
+            HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Address = new HueAddress(currentpath), Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal };
+           // tvi.Expanded -= Tvi_Expanded;
+            foreach (PropertyInfo p in listprops)
+            {
+                string actualpath = currentpath + "/" + p.Name;
+                object value = p.GetValue(root);
+                HuePropertyTreeViewItem hptvi = new HuePropertyTreeViewItem()
+                {
+                    Address = new HueAddress(actualpath),
+                    Header = p.Name,
+                    IsSelected = selectedpath == actualpath,
+                    IsExpanded = selectedpath == actualpath,
+                    PropType = value?.GetType() ?? p.PropertyType,
+                    PropInfo = p,
+                };
 
+                if (value != null && value.GetType().HasHueProperties())
+                {
+                    hptvi.Items.Add(new HuePropertyTreeViewItem() {Header = "Loading..."});
+                    hptvi.Tag = value;
+                    hptvi.Expanded += PropExpanded;
+                }
+                else
+                {
+                    hptvi.Expanded -= PropExpanded;
+                    hptvi.FontStyle = FontStyles.Normal;
+                }
+
+                tvi.Items.Add(hptvi);
+            }
+
+            return tvi;
+        }
+
+        
+
+        private static void PropExpanded(object sender, RoutedEventArgs e)
+        {
+            HuePropertyTreeViewItem hptvi = (HuePropertyTreeViewItem) e.Source;
+            hptvi.Items.Clear();
+            HuePropertyTreeViewItem ntvi = BuildPropertyBranch(hptvi.Tag, hptvi.Address.ToString(), hptvi.Header.ToString());
+            HuePropertyTreeViewItem[] arr = new HuePropertyTreeViewItem[ntvi.Items.Count];
+            ntvi.Items.CopyTo(arr,0);
+
+            foreach (var i in arr)
+            {
+                ntvi.Items.Remove(i);
+                hptvi.Items.Add(i);
+            }
+            
+        }
+
+
+        public static HuePropertyTreeViewItem BuildPropertiesBranchFromDataStore(DataStore ds, string selectedpath = null)
+        {
+
+            HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Header = $"{ds.config.name} [{ds.config.ipaddress}]", Address = new HueAddress(""), FontStyle = FontStyles.Italic };
+
+            // LIGHTS
+            HuePropertyTreeViewItem tviLights = new HuePropertyTreeViewItem() { Header = "lights", Address = new HueAddress("/lights"), IsSelected = false, FontStyle = FontStyles.Italic, Tag = ds.lights};
+            if (ds.lights.Count > 0)
+            {
+                tviLights.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+                tviLights.Expanded += Tvi_Expanded;
+            }
+                
+
+            tvi.Items.Add(tviLights);
+
+            // GROUPS
+            HuePropertyTreeViewItem tviGroups = new HuePropertyTreeViewItem() { Header = "groups", Address = new HueAddress("/groups"), IsSelected = false, FontStyle = FontStyles.Italic, Tag= ds.groups };
+            if (ds.groups.Count > 0)
+            {
+                tviGroups.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+                tviGroups.Expanded += Tvi_Expanded;
+            }
+                
+            tvi.Items.Add(tviGroups);
+
+            // RULES
+            HuePropertyTreeViewItem tviRules = new HuePropertyTreeViewItem() { Header = "rules", Address = new HueAddress("/rules"), IsSelected = false, FontStyle = FontStyles.Italic, Tag=ds.rules };
+            if (ds.rules.Count > 0)
+            {
+                tviRules.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+                tviRules.Expanded += Tvi_Expanded;
+            }
+
+            tvi.Items.Add(tviRules);
+
+            // SCHEDULES
+            HuePropertyTreeViewItem tviSchedules = new HuePropertyTreeViewItem() { Header = "schedules", Address = new HueAddress("/schedules"), IsSelected = false, FontStyle = FontStyles.Italic, Tag=ds.schedules };
+            if (ds.schedules.Count > 0)
+            {
+                tviSchedules.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+                tviSchedules.Expanded += Tvi_Expanded;
+            }
+            tvi.Items.Add(tviSchedules);
+
+            // SCENES
+            HuePropertyTreeViewItem tviScenes = new HuePropertyTreeViewItem() { Header = "scenes", Address = new HueAddress("/scenes"), IsSelected = false, FontStyle = FontStyles.Italic, Tag=ds.scenes };
+            if (ds.scenes.Count > 0)
+            {
+                tviScenes.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+                tviScenes.Expanded += Tvi_Expanded;
+            }
+            tvi.Items.Add(tviScenes);
+
+            // RESOURCE LINKS
+            HuePropertyTreeViewItem tviResourceLinks = new HuePropertyTreeViewItem() { Header = "ressource links", Address = new HueAddress("/resourcelinks"), IsSelected = false, FontStyle = FontStyles.Italic, Tag= ds.resourcelinks };
+            if (ds.resourcelinks.Count > 0)
+            {
+                tviResourceLinks.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+                tviResourceLinks.Expanded += Tvi_Expanded;
+            }
+            tvi.Items.Add(tviResourceLinks);
+
+            //SENSORS
+            HuePropertyTreeViewItem tviSensors = new HuePropertyTreeViewItem() { Header = "sensors", Address = new HueAddress("/sensors"), IsSelected = false, FontStyle = FontStyles.Italic, Tag = ds.sensors};
+            if (ds.sensors.Count > 0)
+            {
+                tviSensors.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+                tviSensors.Expanded += Tvi_Expanded;
+            }
+            tvi.Items.Add(tviSensors);
+
+
+            // CONFIG
+            HuePropertyTreeViewItem tviConfig = new HuePropertyTreeViewItem() { Header = "config" , Address = new HueAddress("/config"), IsSelected = false, FontStyle = FontStyles.Italic, Tag = ds.config};
+            tviConfig.Items.Add(new HuePropertyTreeViewItem() { Header = "Loading..." });
+            tviConfig.Expanded += PropExpanded;
+            tvi.Items.Add(tviConfig);
+
+            return tvi;
+        }
+
+        private static void Tvi_Expanded(object sender, RoutedEventArgs e)
+        {
+            HuePropertyTreeViewItem currentTvi = (HuePropertyTreeViewItem)e.Source;
+
+            if (currentTvi.Address == new HueAddress("/lights"))
+            {
+                currentTvi.Items.Clear();
+                foreach (KeyValuePair<string, Light> v in (Dictionary<string,Light>)currentTvi.Tag)
+                {
+                    currentTvi.Items.Add(BuildPropertyBranch(v.Value, currentTvi.Address + $"/{v.Key}",WinHueSettings.settings.ShowID ? $"[{v.Key}] - {v.Value.name}" : $"{v.Value.name}"));                  
+                }
+                currentTvi.Expanded -= Tvi_Expanded;
+                e.Source = currentTvi;
+                return;
+            }
+
+            if (currentTvi.Address == new HueAddress("/groups"))
+            {
+                currentTvi.Items.Clear();
+                foreach (KeyValuePair<string, Group> v in (Dictionary<string, Group>)currentTvi.Tag)
+                {
+                    currentTvi.Items.Add(BuildPropertyBranch(v.Value, currentTvi.Address + $"/{v.Key}", WinHueSettings.settings.ShowID ? $"[{v.Key}] - {v.Value.name}" : $"{v.Value.name}"));
+                }
+                currentTvi.Expanded -= Tvi_Expanded;
+                e.Source = currentTvi;
+                return;
+            }
+
+            if (currentTvi.Address == new HueAddress("/scenes"))
+            {
+                currentTvi.Items.Clear();
+                foreach (KeyValuePair<string, Scene> v in (Dictionary<string, Scene>)currentTvi.Tag)
+                {
+                    currentTvi.Items.Add(BuildPropertyBranch(v.Value, currentTvi.Address + $"/{v.Key}", WinHueSettings.settings.ShowID ? $"[{v.Key}] - {v.Value.name}" : $"{v.Value.name}"));
+                }
+                currentTvi.Expanded -= Tvi_Expanded;
+                e.Source = currentTvi;
+                return;
+            }
+
+            if (currentTvi.Address == new HueAddress("/sensors"))
+            {
+                currentTvi.Items.Clear();
+                foreach (KeyValuePair<string, Sensor> v in (Dictionary<string, Sensor>)currentTvi.Tag)
+                {
+                    currentTvi.Items.Add(BuildPropertyBranch(v.Value, currentTvi.Address + $"/{v.Key}", WinHueSettings.settings.ShowID ? $"[{v.Key}] - {v.Value.name}" : $"{v.Value.name}"));
+                }
+                currentTvi.Expanded -= Tvi_Expanded;
+                e.Source = currentTvi;
+                return;
+            }
+
+            if (currentTvi.Address == new HueAddress("/resourcelinks"))
+            {
+                currentTvi.Items.Clear();
+                foreach (KeyValuePair<string, Resourcelink> v in (Dictionary<string, Resourcelink>)currentTvi.Tag)
+                {
+                    currentTvi.Items.Add(BuildPropertyBranch(v.Value, currentTvi.Address + $"/{v.Key}", WinHueSettings.settings.ShowID ? $"[{v.Key}] - {v.Value.name}" : $"{v.Value.name}"));
+                }
+                currentTvi.Expanded -= Tvi_Expanded;
+                e.Source = currentTvi;
+                return;
+            }
+
+            if (currentTvi.Address == new HueAddress("/schedules"))
+            {
+                currentTvi.Items.Clear();
+                foreach (KeyValuePair<string, Schedule> v in (Dictionary<string, Schedule>)currentTvi.Tag)
+                {
+                    currentTvi.Items.Add(BuildPropertyBranch(v.Value, currentTvi.Address + $"/{v.Key}", WinHueSettings.settings.ShowID ? $"[{v.Key}] - {v.Value.name}" : $"{v.Value.name}"));
+                }
+                currentTvi.Expanded -= Tvi_Expanded;
+                e.Source = currentTvi;
+                return;
+            }
+
+
+        }
 
         public static HuePropertyTreeViewItem BuildObjectTreeFromDataStore(DataStore ds, string selectedpath = null)
         {

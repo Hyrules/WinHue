@@ -90,11 +90,20 @@ namespace WinHue3.Utils
                     }
                     else
                     {
-                        DirectoryInfo di = new DirectoryInfo(savepath);
-
-                        foreach (FileInfo fi in di.GetFiles())
+                        if (!File.Exists(filepath))
                         {
-                            fi.Delete();
+                            DirectoryInfo di = new DirectoryInfo(savepath);
+
+                            foreach (FileInfo fi in di.GetFiles())
+                            {
+
+                                fi.Delete();
+                            }
+                        }
+                        else
+                        {
+                            log.Info("File already downloaded not downloading again.");
+                            DoUpdate(filepath);
                         }
                     }
 
@@ -113,19 +122,24 @@ namespace WinHue3.Utils
             }
         }
 
-        private static void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private static void DoUpdate(string path)
         {
-            if (!e.Cancelled || e.Error != null) return;
             if (MessageBox.Show(GlobalStrings.NewUpdateDownloaded, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
             try
             {
-                Process.Start(e.UserState.ToString());
+                Process.Start(path);
             }
             catch (Exception ex)
             {
                 log.Error(ex.Message);
             }
             Application.Current.Shutdown();
+        }
+
+        private static void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            if (!e.Cancelled || e.Error != null) return;
+            DoUpdate(e.UserState.ToString());
         }
 
         

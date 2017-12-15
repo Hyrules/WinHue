@@ -34,12 +34,7 @@ namespace WinHue3.MainForm
 
         public MainWindow(Form_EventLog formEventLog)
         {
-            _fel = formEventLog;
-
-            if (!string.IsNullOrEmpty(WinHueSettings.settings.Language) &&
-                !string.IsNullOrWhiteSpace(WinHueSettings.settings.Language))
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(WinHueSettings.settings.Language);
-
+            _fel = formEventLog;           
             InitializeComponent();
             _mfvm = DataContext as MainFormViewModel;
             _mfvm.Eventlogform = _fel;

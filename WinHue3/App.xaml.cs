@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,6 +12,7 @@ using WinHue3.Utils;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using System.Reflection;
+using System.Threading;
 using WinHue3.Functions.Application_Settings.Settings;
 using Form_EventLog = WinHue3.Functions.EventViewer.Form_EventLog;
 
@@ -34,6 +36,15 @@ namespace WinHue3
             {
                 DataGridViewAppender dgva = (DataGridViewAppender)hier.GetAppenders().FirstOrDefault(appender => appender.Name.Equals("DataGridViewAppender"));
                 dgva.DgEventLog = _fel.ViewModel.EventViewerModel.ListLogEntries;
+            }
+
+            Log.Info(WinHueSettings.settings.Language);
+            if (!string.IsNullOrEmpty(WinHueSettings.settings.Language) &&
+                !string.IsNullOrWhiteSpace(WinHueSettings.settings.Language))
+            {
+                var culture = new CultureInfo(WinHueSettings.settings.Language);
+                Thread.CurrentThread.CurrentUICulture = culture;
+                Thread.CurrentThread.CurrentCulture = culture;
             }
         }
 

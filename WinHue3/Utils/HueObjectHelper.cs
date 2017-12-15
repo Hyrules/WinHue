@@ -94,7 +94,7 @@ namespace WinHue3.Utils
             foreach (KeyValuePair<string, Light> kvp in listlights)
             {
                 kvp.Value.Id = kvp.Key;
-
+                kvp.Value.visible = true;
                 kvp.Value.Image = GetImageForLight(kvp.Value.state.reachable.GetValueOrDefault() ? kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, kvp.Value.modelid);
 
                 newlist.Add(kvp.Value);
@@ -210,6 +210,7 @@ namespace WinHue3.Utils
             foreach (KeyValuePair<string, Group> kvp in listgroups)
             {
                 log.Debug("Processing group : " + kvp.Value);
+                kvp.Value.visible = true;
                 kvp.Value.Id = kvp.Key;
                 kvp.Value.Image = GDIManager.CreateImageSourceFromImage(kvp.Value.state.any_on.GetValueOrDefault() ? (kvp.Value.state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
                 newlist.Add(kvp.Value);
@@ -253,6 +254,7 @@ namespace WinHue3.Utils
         /// Process a list of scenes.
         /// </summary>
         /// <param name="listscenes">List of scenes to process.</param>
+        /// <param name="bypassShowId">Bypass the Show ID Parameters (Used in the rule creator)</param>
         /// <returns>A list of processed scenes.</returns>
         private static List<Scene> ProcessScenes(Dictionary<string, Scene> listscenes)
         {
@@ -264,7 +266,7 @@ namespace WinHue3.Utils
                 kvp.Value.Id = kvp.Key;
                 log.Debug("Processing scene : " + kvp.Value);
                 kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
-                if (kvp.Value.name.Contains("HIDDEN") && !WinHueSettings.settings.ShowHiddenScenes) continue;
+                kvp.Value.visible = !(kvp.Value.name.StartsWith("HIDDEN") && !WinHueSettings.settings.ShowHiddenScenes) ;
                 newlist.Add(kvp.Value);
             }
 
@@ -314,6 +316,7 @@ namespace WinHue3.Utils
             foreach (KeyValuePair<string, Schedule> kvp in listschedules)
             {
                 log.Debug("Assigning id to schedule ");
+                kvp.Value.visible = true;
                 kvp.Value.Id = kvp.Key;
                 ImageSource imgsource;
                 log.Debug("Processing schedule : " + kvp.Value);
@@ -402,6 +405,7 @@ namespace WinHue3.Utils
             foreach (KeyValuePair<string, Rule> kvp in listrules)
             {
                 kvp.Value.Id = kvp.Key;
+                kvp.Value.visible = true;
                 log.Debug("Processing rule : " + kvp.Value);
                 kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
                 newlist.Add(kvp.Value);
@@ -481,6 +485,7 @@ namespace WinHue3.Utils
             foreach (KeyValuePair<string, Sensor> kvp in listsensors)
             {
                 kvp.Value.Id = kvp.Key;
+                kvp.Value.visible = true;
                 log.Debug("Processing Sensor : " + kvp.Value);
                 switch (kvp.Value.type)
                 {
@@ -633,6 +638,7 @@ namespace WinHue3.Utils
             foreach (KeyValuePair<string, Resourcelink> kvp in listrl)
             {
                 kvp.Value.Id = kvp.Key;
+                kvp.Value.visible = true;
                 log.Debug("Processing resource links : " + kvp.Value);
                 kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
                 newlist.Add(kvp.Value);

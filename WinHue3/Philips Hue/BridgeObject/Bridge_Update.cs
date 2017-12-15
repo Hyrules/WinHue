@@ -25,7 +25,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error(){address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535});
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "An unknown error occured.", type = 65535 });
@@ -49,7 +48,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "An unknown error occured.", type = 65535 });
@@ -81,7 +79,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     break;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -118,7 +115,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     break;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -143,7 +139,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -169,7 +164,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -196,7 +190,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:                
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -223,7 +216,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });

@@ -2581,6 +2581,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to rule actions.
+        /// </summary>
+        public static string RuleCreatorForm_AddToRuleActions {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_AddToRuleActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string RuleCreatorForm_CancelButton {
@@ -2658,6 +2667,15 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Delete {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove property.
+        /// </summary>
+        public static string RuleCreatorForm_DeleteProperty {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_DeleteProperty", resourceCulture);
             }
         }
         

@@ -42,6 +42,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         private dynamic _config;
         private dynamic _state;
         public SwUpdate _swupdate;
+        private bool _visible;
 
         /// <summary>
         /// ID of the rule.
@@ -183,6 +184,13 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         {
             get => _swupdate;
             set => SetProperty(ref _swupdate, value);
+        }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get { return _visible; }
+            set { SetProperty(ref _visible,value); }
         }
 
         public T GetState<T>() where T : ISensorStateBase

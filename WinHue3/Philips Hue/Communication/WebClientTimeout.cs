@@ -26,6 +26,8 @@ namespace WinHue3.Philips_Hue.Communication
             return (WebRequest)request;
         }
 
+        
+
     }
 
 

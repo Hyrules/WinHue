@@ -25,6 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         private string _modelid;
         private string _uniqueid;
         private string _class;
+        private bool _visible;
 
         /// <summary>
         /// Image of the group.
@@ -137,5 +138,11 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
             return MemberwiseClone();
         }
 
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get => _visible;
+            set => SetProperty(ref _visible, value);
+        }
     }
 }

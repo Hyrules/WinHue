@@ -26,6 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         private string _swversion;
         private string _uniqueid;
         private string _luminaireuniqueid;
+        private bool _visible;
 
         /// <summary>
         /// ID of the Light
@@ -36,8 +37,13 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Image
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Image of the light"), ReadOnly(true), Browsable(false), JsonIgnore]
-        public ImageSource Image { get => _image; set => SetProperty(ref _image, value); }
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"),
+         Description("Image of the light"), ReadOnly(true), Browsable(false), JsonIgnore]
+        public ImageSource Image
+        {
+            get => _image;
+            set => SetProperty(ref _image, value);
+        }
 
         /// <summary>
         /// State of the Light.
@@ -49,8 +55,14 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// Type of light.
         /// </summary>
 
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"),Description("Type of Light"), ReadOnly(true)]
-        public string type { get => _type; set => SetProperty(ref _type, value); }
+        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"),
+         Description("Type of Light"), ReadOnly(true)]
+        public string type
+        {
+            get => _type;
+            set { SetProperty(ref _type, value); }
+            
+        }
 
         /// <summary>
         /// Manufacturer name.
@@ -88,6 +100,13 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// </summary>
         [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Luminaire Unique ID"), ReadOnly(true)]
         public string luminaireuniqueid { get => _luminaireuniqueid; set => SetProperty(ref _luminaireuniqueid, value); }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get => _visible;
+            set => SetProperty(ref _visible,value);
+        }
 
 
         /// <summary>

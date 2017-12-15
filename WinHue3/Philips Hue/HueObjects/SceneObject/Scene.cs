@@ -31,6 +31,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         private Dictionary<string, State> _lightstates;
         private bool? _storelightstate;
         private ushort? _transitiontime;
+        private bool _visible;
 
         /// <summary>
         /// Image of the rule.
@@ -170,6 +171,13 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         {
             get => _transitiontime;
             set => SetProperty(ref _transitiontime,value);
+        }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get { return _visible; }
+            set { SetProperty(ref _visible,value); }
         }
 
         /// <summary>

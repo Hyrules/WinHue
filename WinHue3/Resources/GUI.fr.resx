@@ -1437,4 +1437,10 @@
   <data name="SettingsForm_Tab_MainSettings_NoCheckBridgeVersion" xml:space="preserve">
     <value>Vérifier la version de la passerelle. (Vous pourriez rencontrer des crash que le dev ne corrigera pas si vous choisissez de ne pas)</value>
   </data>
+  <data name="RuleCreatorForm_AddToRuleActions" xml:space="preserve">
+    <value>Ajouter aux actions de la règle</value>
+  </data>
+  <data name="RuleCreatorForm_DeleteProperty" xml:space="preserve">
+    <value>Retirer la propriété</value>
+  </data>
 </root>
