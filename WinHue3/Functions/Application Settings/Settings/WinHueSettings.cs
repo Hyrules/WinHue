@@ -25,7 +25,10 @@ namespace WinHue3.Functions.Application_Settings.Settings
         /// <returns>True or false on all success</returns>
         public static bool LoadAllSettings()
         {
-            if (LoadBridges() && LoadHotkeys() && LoadSettings()) return true;
+            bool loadbridges = LoadBridges();
+            bool loadhotkeys = LoadHotkeys();
+            bool loadsettings = LoadAllSettings();
+            if (loadbridges && loadhotkeys && loadsettings) return true;
             return false;
         }
 
@@ -35,7 +38,11 @@ namespace WinHue3.Functions.Application_Settings.Settings
         /// <returns>True or false on all success</returns>
         public static bool SaveAllSettings()
         {
-            if (SaveBridges() && SaveHotkeys() && SaveSettings()) return true;
+            bool savebridges = SaveBridges();
+            bool savehotkeys = SaveHotkeys();
+            bool savesettings = SaveSettings();
+
+            if (savebridges && savehotkeys && savesettings) return true;
             return false;
         }
 
