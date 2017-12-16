@@ -27,7 +27,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
         {
             bool loadbridges = LoadBridges();
             bool loadhotkeys = LoadHotkeys();
-            bool loadsettings = LoadAllSettings();
+            bool loadsettings = LoadSettings();
             if (loadbridges && loadhotkeys && loadsettings) return true;
             return false;
         }
