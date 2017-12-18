@@ -23,6 +23,7 @@ namespace WinHue3.Philips_Hue
 
         private static BackgroundWorker _ipscanBgw = new BackgroundWorker();
         private static BackgroundWorker _detectionBgw = new BackgroundWorker();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         static Hue()
         {
@@ -43,39 +44,55 @@ namespace WinHue3.Philips_Hue
 
         private static void _detectionBgw_DoWork(object sender, DoWorkEventArgs e)
         {
+            log.Info("Starting bridge detection...");
+
+            
             Dictionary<string, BasicConfig> newdetectedBridge = new Dictionary<string, BasicConfig>();
 
             // Detect using UPNP
             bool finished;
 
-            ServiceController sc = new ServiceController("SSDPSRV");
-
-            if (sc.Status == ServiceControllerStatus.Running)
+            try
             {
-                try
-                {
-                    List<ManagedUPnP.Device> upnpDevices =
-                        Discovery.FindDevices(null, 3000, int.MaxValue, out finished).ToList();
+                ServiceController sc = new ServiceController("SSDPSRV");
 
-                    foreach (ManagedUPnP.Device dev in upnpDevices)
+                if (sc.Status == ServiceControllerStatus.Running)
+                {
+                    log.Info("Starting UPNP detection of bridges...");
+                    try
                     {
-                        if (!dev.ModelName.Contains("Philips hue bridge")) continue;
-                        Bridge bridge = new Bridge(){IpAddress = IPAddress.Parse(dev.RootHostName)};
-                        BasicConfig bresult = bridge.GetBridgeBasicConfig();
-                        if (bresult != null)
-                        {
-                            newdetectedBridge.Add(dev.RootHostName, bresult);
-                        }
+                        List<ManagedUPnP.Device> upnpDevices =
+                            Discovery.FindDevices(null, 3000, int.MaxValue, out finished).ToList();
 
+                        foreach (ManagedUPnP.Device dev in upnpDevices)
+                        {
+                            if (!dev.ModelName.Contains("Philips hue bridge")) continue;
+                            Bridge bridge = new Bridge() { IpAddress = IPAddress.Parse(dev.RootHostName) };
+                            BasicConfig bresult = bridge.GetBridgeBasicConfig();
+                            if (bresult != null)
+                            {
+                                log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
+                                newdetectedBridge.Add(dev.RootHostName, bresult);
+                            }
+
+                        }
                     }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+
+                    log.Info("Ending UPNP detection of bridges...");
                 }
-                catch (Exception)
-                {
-                    // ignored
-                }
+
+            }
+            catch (Exception ex)
+            {
+                log.Error($"UPNP detection error : {ex.Message}");
             }
 
             // If not bridge are found via upnp try the portal.
+            log.Info("Starting bridge portal detection...");
             if (newdetectedBridge.Count == 0)
             {
 
@@ -93,23 +110,26 @@ namespace WinHue3.Philips_Hue
                             BasicConfig bresult = bridge.GetBridgeBasicConfig();
                             if (bresult != null)
                             {
+                                log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
                                 newdetectedBridge.Add(dev.internalipaddress, bresult);
                             }
                             
                         }
                         break;
                     case WebExceptionStatus.Timeout:
+                        log.Info($"Timeout while detecting bridge via portal");
                         OnPortalDetectionTimedOut?.Invoke(null, new DetectionErrorEventArgs(comres.Data));
                         OnBridgeDetectionFailed?.Invoke(null, new DetectionErrorEventArgs(comres.Data));
                         break;
                     default:
+                        log.Info($"Unknown error while detecting bridge via portal");
                         OnPortalDetectionError?.Invoke(null, new DetectionErrorEventArgs(comres.Data));
                         OnBridgeDetectionFailed?.Invoke(null, new DetectionErrorEventArgs(comres.Data));
                         break;
                 }
 
             }
-
+            log.Info("Ending bridge portal detection...");
 
             Dictionary<string, Bridge> bridges = newdetectedBridge.Select(kvp => new Bridge
             {
@@ -122,7 +142,7 @@ namespace WinHue3.Philips_Hue
 
             // Process all bridges to get needed settings.
             e.Result = bridges;
-
+            log.Info("Ending bridge detection.");
         }
 
         /// <summary>
@@ -182,6 +202,7 @@ namespace WinHue3.Philips_Hue
 
         private static void _ipscanBgw_DoWork(object sender, DoWorkEventArgs e)
         {
+            log.Info("Starting IP scan for bridge...");
             IPAddress ip = IPAddress.Parse(GetLocalIPAddress());
             byte[] ipArray = ip.GetAddressBytes();
             byte currentip = ipArray[3];
@@ -193,6 +214,7 @@ namespace WinHue3.Philips_Hue
             {
                 if (_ipscanBgw.CancellationPending)
                 {
+                    log.Info("IP scan cancelled.");
                     e.Cancel = true;
                     break;
                 }
@@ -210,16 +232,30 @@ namespace WinHue3.Philips_Hue
                     case WebExceptionStatus.Success:
                         desc = Serializer.DeserializeToObject<BridgeSettings>(comres.Data); // try to deserialize the received message.
                         if(desc == null) continue; // if the deserialisation didn't work it means this is not a bridge continue with next ip.
+                        Bridge bridge = new Bridge()
+                        {
+                            IpAddress = new IPAddress(ipArray),
+                            ApiVersion = desc.apiversion,
+                            Mac = desc.mac
+                        };
+
                         if (newlist.Count > 0)
                         {
                             if (!newlist.Any(y => Equals(y.Value.IpAddress, ipArray)))
                             {
-                                newlist.Add(desc.mac,new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
+
+                                log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
+                                newlist.Add(desc.mac,bridge);
+                            }
+                            else
+                            {
+                                log.Info($"Bridge {bridge.name} at {bridge.IpAddress} already in the list ignoring...");
                             }
                         }
                         else
                         {
-                            newlist.Add(desc.mac,new Bridge() { IpAddress = new IPAddress(ipArray), ApiVersion = desc.apiversion, Mac = desc.mac });
+                            log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
+                            newlist.Add(desc.mac,bridge);
                         }
                         break;
                     case WebExceptionStatus.Timeout:
@@ -232,6 +268,7 @@ namespace WinHue3.Philips_Hue
             }
 
             e.Result = newlist;
+            log.Info("Ending IP scan for bridge.");
         }
 
         /// <summary>
