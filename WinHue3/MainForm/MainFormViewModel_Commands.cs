@@ -213,6 +213,13 @@ namespace WinHue3.MainForm
             return SelectedObject is Light || SelectedObject is Group;
         }
 
+        private bool CanToggleDim()
+        {
+            if (!IsObjectSelected()) return false;
+            if (!(SelectedObject is Light || SelectedObject is Group)) return false;
+            return true;
+        }
+
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new AsyncRelayCommand(param => OpenSettingsWindow());
@@ -275,7 +282,10 @@ namespace WinHue3.MainForm
         public ICommand ColorloopCommand => new AsyncRelayCommand(param => Colorloop(), (param) => CanIdentify());
         public ICommand NoEffectCommand => new AsyncRelayCommand(param => NoEffect(), (param) => CanIdentify());
         public ICommand StrobeCommand => new AsyncRelayCommand(param =>Strobe(),(param) => CanStrobe());
-
+        public ICommand ToggleDim10Command => new AsyncRelayCommand(param => OnDim(25), (param) => CanToggleDim());
+        public ICommand ToggleDim25Command => new AsyncRelayCommand(param => OnDim(64), (param) => CanToggleDim());
+        public ICommand ToggleDim50Command => new AsyncRelayCommand(param => OnDim(128), (param) => CanToggleDim());
+        public ICommand ToggleDim75Command => new AsyncRelayCommand(param => OnDim(191), (param) => CanToggleDim());
 
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new AsyncRelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());

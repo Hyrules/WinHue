@@ -65,10 +65,17 @@ namespace WinHue3.Functions.BridgePairing
 
         private void Hue_OnDetectionComplete(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>)e.Result;
-            UpdateBridgeList(brlist);
-            log.Info($"Bridge Dectected : {brlist.Count}");
-            log.Info("Bridge detection complete.");
+            if(e.Result != null)
+            { 
+                Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>)e.Result;
+                UpdateBridgeList(brlist);
+                log.Info($"Bridge Dectected : {brlist.Count}");
+                log.Info("Bridge detection complete.");                
+            }
+            else
+            {
+                
+            }
             Cursor_Tools.ShowNormalCursor();
             CommandManager.InvalidateRequerySuggested();
         }
@@ -83,10 +90,17 @@ namespace WinHue3.Functions.BridgePairing
         {
             if (!e.Cancelled)
             {
-                BridgePairModel.UserMessage = GlobalStrings.BridgeDetectionPairing_ScanComplete;
-                Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>)e.Result;
-                UpdateBridgeList(brlist);
-                log.Info("Scan for bridge completed.");
+                if (e.Result != null)
+                {
+                    BridgePairModel.UserMessage = GlobalStrings.BridgeDetectionPairing_ScanComplete;
+                    Dictionary<string, Bridge> brlist = (Dictionary<string, Bridge>) e.Result;
+                    UpdateBridgeList(brlist);
+                    log.Info("Scan for bridge completed.");
+                }
+                else
+                {
+                    
+                }
             }
             else
             {
@@ -216,11 +230,12 @@ namespace WinHue3.Functions.BridgePairing
                 if (ListBridges.Any(x => (x.Mac == kvp.Value.Mac) && !(Equals(x.IpAddress, kvp.Value.IpAddress))))
                 {
                     Bridge firstOrDefault = ListBridges.FirstOrDefault(x => x.Mac == kvp.Value.Mac);
-                    if (firstOrDefault != null && MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.name),GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    {
-                        int index = ListBridges.IndexOf(firstOrDefault);
-                        ListBridges[index].IpAddress = kvp.Value.IpAddress;
-                    }
+                    if (firstOrDefault == null ||
+                        MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.name),
+                            GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) !=
+                        MessageBoxResult.Yes) continue;
+                    int index = ListBridges.IndexOf(firstOrDefault);
+                    ListBridges[index].IpAddress = kvp.Value.IpAddress;
                 }
                 else
                 {

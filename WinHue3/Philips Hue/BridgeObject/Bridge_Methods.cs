@@ -143,6 +143,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     LastCommandMessages.AddMessage(new Error() { type = -2, address = url, description = "A unknown error occured." });
                     break;
             }
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this,url, exception));
         }
 
         public override string ToString()

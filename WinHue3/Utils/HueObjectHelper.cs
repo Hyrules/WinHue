@@ -77,7 +77,7 @@ namespace WinHue3.Utils
             log.Debug($@"Getting new lights from bridge {bridge.IpAddress}");
             SearchResult bresult = await bridge?.GetNewObjectsAsyncTask<Light>();
             if (bresult == null) return null;
-            log.Debug("Search Result : " + bresult.ToString());
+            log.Debug("Search Result : " + bresult);
             return ProcessSearchResult(bridge, bresult, true);
         }
 
@@ -766,8 +766,9 @@ namespace WinHue3.Utils
         /// <param name="bridge">Bridge to get the information from.</param>
         /// <param name="obj">Object to toggle.</param>
         /// <param name="tt">Transition Time (Optional)</param>
+        /// <param name="dimvalue">Value for the dim</param>
         /// <returns>The new image of the object.</returns>
-        public static async Task<ImageSource> ToggleObjectOnOffStateAsyncTask(Bridge bridge, IHueObject obj, ushort? tt = null)
+        public static async Task<ImageSource> ToggleObjectOnOffStateAsyncTask(Bridge bridge, IHueObject obj, ushort? tt = null, byte? dimvalue = null)
         {
             ImageSource hr = null;
             if (obj is Light)
@@ -785,7 +786,7 @@ namespace WinHue3.Utils
                     if (currentState.state.@on == true)
                     {
                         log.Debug("Toggling light state : OFF");
-                        bool bsetlightstate = await bridge.SetStateAsyncTask(new State { @on = false, transitiontime = tt }, obj.Id);
+                        bool bsetlightstate = await bridge.SetStateAsyncTask(new State { @on = false, transitiontime = tt}, obj.Id);
 
                         if (bsetlightstate)
                         {
@@ -796,7 +797,8 @@ namespace WinHue3.Utils
                     else
                     {
                         log.Debug("Toggling light state : ON");
-                        bool bsetlightstate = await bridge.SetStateAsyncTask(new State { @on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id);
+
+                        bool bsetlightstate = await bridge.SetStateAsyncTask(new State { @on = true, transitiontime = tt, bri = dimvalue ?? WinHueSettings.settings.DefaultBriLight }, obj.Id);
 
                         if (bsetlightstate)
                         {
@@ -828,7 +830,7 @@ namespace WinHue3.Utils
                 else
                 {
                     log.Debug("Toggling group state : OFF");
-                    bool bsetgroupstate = await bridge.SetStateAsyncTask(new Action { @on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriGroup }, obj.Id);
+                    bool bsetgroupstate = await bridge.SetStateAsyncTask(new Action { @on = true, transitiontime = tt, bri = dimvalue ?? WinHueSettings.settings.DefaultBriGroup }, obj.Id);
                     if (bsetgroupstate)
                     {
                         hr = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOn_Large);

@@ -1443,4 +1443,22 @@
   <data name="RuleCreatorForm_DeleteProperty" xml:space="preserve">
     <value>Remove property</value>
   </data>
+  <data name="MainForm_ListView_Context_Toggle" xml:space="preserve">
+    <value>On / Off</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim" xml:space="preserve">
+    <value>Dim (% of 255)</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_10" xml:space="preserve">
+    <value>10%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_25" xml:space="preserve">
+    <value>25%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_50" xml:space="preserve">
+    <value>50%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_75" xml:space="preserve">
+    <value>75%</value>
+  </data>
 </root>

@@ -1663,6 +1663,60 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to On / Off.
+        /// </summary>
+        public static string MainForm_ListView_Context_Toggle {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Toggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dim (% of 255).
+        /// </summary>
+        public static string MainForm_ListView_Context_ToggleDim {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_ToggleDim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10%.
+        /// </summary>
+        public static string MainForm_ListView_Context_ToggleDim_10 {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_ToggleDim_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 25%.
+        /// </summary>
+        public static string MainForm_ListView_Context_ToggleDim_25 {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_ToggleDim_25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 50%.
+        /// </summary>
+        public static string MainForm_ListView_Context_ToggleDim_50 {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_ToggleDim_50", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 75%.
+        /// </summary>
+        public static string MainForm_ListView_Context_ToggleDim_75 {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_ToggleDim_75", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detect and Pair bridges....
         /// </summary>
         public static string MainForm_Menu_BridgePairing {

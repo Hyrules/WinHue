@@ -1081,6 +1081,30 @@ namespace WinHue3.MainForm
             Clipboard.SetText(JsonConvert.SerializeObject(SelectedObject, raw ? Formatting.None : Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
         }
 
+        private async Task OnDim(byte dimval)
+        {
+            if (SelectedObject is Light)
+                await SelectedBridge.SetStateAsyncTask(new State() {bri = dimval, on = true}, SelectedObject.Id);
+            else
+                await SelectedBridge.SetStateAsyncTask(new Action() {bri = dimval, on = true}, SelectedObject.Id);
+        }
+
+        private async Task Colorloop()
+        {
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            bp.effect = "colorloop";
+            await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
+
+        }
+
+        private async Task NoEffect()
+        {
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            bp.effect = "none";
+            await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
+
+        }
+
         #endregion
 
         #region VIEW_TAB_METHODS
@@ -1166,22 +1190,6 @@ namespace WinHue3.MainForm
 
         private void RssFeedMonSettings()
         {
-
-        }
-
-        private async Task Colorloop()
-        {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
-            bp.effect = "colorloop";
-            await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
-
-        }
-
-        private async Task NoEffect()
-        {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
-            bp.effect = "none";
-            await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
 
         }
 

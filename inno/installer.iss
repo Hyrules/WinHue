@@ -55,9 +55,9 @@ Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4net.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\fr\*"; DestDir: "{app}\fr"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\en\*.*"; DestDir: "{app}\en"; Flags: ignoreversion
+;Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\en\*"; DestDir: "{app}\en"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion

@@ -14,7 +14,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
     {
         private Messages _lastCommandMessages;
         private string _apiKey = string.Empty;
-        readonly EventArgs _e = null;
         private string _apiversion = string.Empty;
         private string _mac = string.Empty;
         private string _swversion;
@@ -152,10 +151,5 @@ namespace WinHue3.Philips_Hue.BridgeObject
             _updateAvailable = false;
         }
 
-    }
-
-    public class BridgeNotRespondingEventArgs : EventArgs
-    {
-        public CommResult ex;
     }
 }

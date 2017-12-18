@@ -403,6 +403,15 @@
                 </i:Interaction.Triggers>
                 <ListView.ContextMenu>
                     <ContextMenu x:Name="cmListView" IsTabStop="True">
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Toggle}" Command="{Binding DoubleClickObjectCommand}"/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim}">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_10}" Command="{Binding ToggleDim10Command}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_25}" Command="{Binding ToggleDim25Command}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_50}" Command="{Binding ToggleDim50Command}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_75}" Command="{Binding ToggleDim75Command}"/>
+                            
+                        </MenuItem>
+                        <Separator/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" x:Name="mnuEdit" Command="{Binding EditObjectCommand}"/>
                         <Separator/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" x:Name="mnuIdentify">

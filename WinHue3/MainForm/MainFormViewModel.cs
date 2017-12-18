@@ -149,6 +149,7 @@ namespace WinHue3.MainForm
                             Mac = b.Key
                         };
                         if (b.Value.apikey == string.Empty) continue;
+                        bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
                         bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
                         bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
 

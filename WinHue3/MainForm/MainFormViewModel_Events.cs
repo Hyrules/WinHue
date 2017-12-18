@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Interface;
 using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -13,27 +15,22 @@ namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel
     {
-        private void Bridge_OnMessageAdded(object sender, EventArgs e)
+        private void Bridge_OnMessageAdded(object sender, MessageAddedEventArgs e)
         {
-            if (SelectedBridge.LastCommandMessages?.ListMessages.Count > 0)
-            {
-                Lastmessage = SelectedBridge.LastCommandMessages.LastError?.ToString() ?? SelectedBridge.LastCommandMessages.LastSuccess.ToString();
-            }
-               
+            Lastmessage = e.Messages.Last().ToString();              
         }
-
-        private void Bridge_BridgeNotResponding(object sender, EventArgs e)
+        
+        private void Bridge_BridgeNotResponding(object sender, BridgeNotRespondingEventArgs e)
         {
-
+            e.Bridge.BridgeNotResponding -= Bridge_BridgeNotResponding;
+            
             MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            if (e is BridgeNotRespondingEventArgs)
-            {
-                log.Error($"{sender}");
-                log.Error(Serializer.SerializeToJson(((BridgeNotRespondingEventArgs)e).ex?.ToString()));
-            }
+            log.Error($"{sender}");
+            log.Error(Serializer.SerializeToJson(e.Exception.ToString()));
             log.Error($"{sender} : {e}");
             Cursor_Tools.ShowNormalCursor();
 
+            e.Bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
         }
 
         private async void _findlighttimer_Tick(object sender, EventArgs e)

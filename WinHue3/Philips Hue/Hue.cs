@@ -38,8 +38,7 @@ namespace WinHue3.Philips_Hue
 
         private static void _detectionBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result != null)
-                OnDetectionComplete?.Invoke(null, e);
+            OnDetectionComplete?.Invoke(null, e);
         }
 
         private static void _detectionBgw_DoWork(object sender, DoWorkEventArgs e)
@@ -173,7 +172,6 @@ namespace WinHue3.Philips_Hue
 
         private static void _ipscanBgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
             OnIpScanComplete?.Invoke(null, e);
         }
 

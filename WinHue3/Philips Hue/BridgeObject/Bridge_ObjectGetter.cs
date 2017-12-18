@@ -216,7 +216,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = typeof(T).GetHueType();
             string url = BridgeUrl + $"/{typename}";
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url + "/new"), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
