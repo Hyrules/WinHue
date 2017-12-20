@@ -311,6 +311,9 @@ namespace WinHue3.MainForm
 
         public ICommand LoadVirtualBridgeCommand => new RelayCommand(param => LoadVirtualBridge());
         
+        //*************** Title bar **************************
+        public ICommand MinimizeToTrayCommand => new RelayCommand(param => MinimizeToTray());
+
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
         //      
         //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());

@@ -4,7 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
+using Hardcodet.Wpf.TaskbarNotification;
+using MahApps.Metro.Controls;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys;
@@ -13,6 +16,7 @@ using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
+using HotKey = WinHue3.Functions.HotKeys.HotKey;
 
 namespace WinHue3.MainForm
 {
@@ -29,7 +33,8 @@ namespace WinHue3.MainForm
         private CpuTempMonitor _ctm;
         private DispatcherTimer _ledTimer;
         private bool _hotkeyDetected;
-
+        private TaskbarIcon _tbt;
+        
         public MainFormViewModel()
         {
             _ledTimer = new DispatcherTimer()
@@ -56,6 +61,11 @@ namespace WinHue3.MainForm
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
 
+        }
+
+        public void SetToolbarTray(TaskbarIcon tbt)
+        {
+            _tbt = tbt;
         }
 
         private void Comm_CommunicationTimedOut(object sender, EventArgs e)

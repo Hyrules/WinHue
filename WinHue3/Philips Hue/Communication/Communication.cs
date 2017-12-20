@@ -67,7 +67,7 @@ namespace WinHue3.Philips_Hue.Communication
 
                 _lastjson = received;
             }
-            catch (TimeoutException ex)
+            catch (TimeoutException)
             {               
                 OnCommunicationTimeOut(new TimeOutEventArgs(url, type));
                 _timeoutcallback?.Invoke();

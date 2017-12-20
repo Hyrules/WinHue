@@ -17,9 +17,9 @@ namespace WinHue3.Functions.Schedules.NewCreator
             
         }
 
-        public async Task Initialize()
+        public void Initialize()
         {
-            await _scvm.Initialize();
+            _scvm.Initialize();
         }
     }
 }

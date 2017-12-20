@@ -1214,6 +1214,10 @@ namespace WinHue3.MainForm
                 UpdateManager.DownloadUpdate();
         }
 
+        private void MinimizeToTray()
+        {
+            Application.Current.MainWindow.Visibility = Visibility.Hidden;
+        }
 
         private void LoadVirtualBridge()
         {

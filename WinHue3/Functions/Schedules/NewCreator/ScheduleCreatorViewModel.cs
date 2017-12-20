@@ -15,7 +15,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             _selectedViewModel = new ScheduleCreatorSlidersViewModel();
         }
 
-        public async Task Initialize()
+        public void Initialize()
         {
 
         }

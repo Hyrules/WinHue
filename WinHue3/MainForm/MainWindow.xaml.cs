@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MahApps.Metro.Controls;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.EventViewer;
@@ -22,7 +23,7 @@ namespace WinHue3.MainForm
     /// <summary>
     /// Main window.
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Form_EventLog _fel;
@@ -41,8 +42,9 @@ namespace WinHue3.MainForm
             Title += " " + Assembly.GetExecutingAssembly().GetName().Version; 
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              trayicon.Icon = Properties.Resources.icon;
-
+            _mfvm.SetToolbarTray(trayicon);
         }
+
 
         private void lvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
