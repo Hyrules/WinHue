@@ -25,6 +25,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
             DefaultBriLight = 255;
             CheckForUpdate = true;
             CheckForBridgeUpdate = true;
+            ThemeColor = "Amber";
+            Theme = "BaseLight";
         }
 
         [DataMember(EmitDefaultValue = true)]
@@ -61,6 +63,10 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public bool CheckForUpdate { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public bool CheckForBridgeUpdate { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public string ThemeColor { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public string Theme { get; set; }
 
         public override string ToString()
         {

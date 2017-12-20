@@ -1461,4 +1461,7 @@
   <data name="MainForm_ListView_Context_ToggleDim_75" xml:space="preserve">
     <value>75%</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_Theme" xml:space="preserve">
+    <value>Thème</value>
+  </data>
 </root>

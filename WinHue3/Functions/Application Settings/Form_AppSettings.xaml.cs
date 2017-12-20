@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using WinHue3.Functions.Application_Settings.Settings;
 
@@ -7,7 +8,7 @@ namespace WinHue3.Functions.Application_Settings
     /// <summary>
     /// Interaction logic for AppSettings.xaml
     /// </summary>
-    public partial class Form_AppSettings : Window
+    public partial class Form_AppSettings : MetroWindow
     {
  
         private AppSettingsViewModel _appSettingsViewModel;
