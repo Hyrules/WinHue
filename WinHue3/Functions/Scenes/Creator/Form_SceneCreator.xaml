@@ -69,10 +69,10 @@
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step2}" HorizontalAlignment="Left" Margin="3,87,0,0" VerticalAlignment="Top" Height="410" Width="409">
             <Grid>
-                <Button x:Name="btnSelectLight" Content="{x:Static resx:GUI.SceneCreatorForm_AddButton}" Margin="567,337,-236,0" VerticalAlignment="Top" Height="30" Command="{Binding AddSelectedLightsToSceneCommand}"/>
-                <Button x:Name="btnColorPicker" Content="{x:Static resx:GUI.SceneCreatorForm_FromImageButton}" HorizontalAlignment="Left" Margin="5,344,0,0" VerticalAlignment="Top" Width="97" Height="24" Command="{Binding GetColorFromImageCommand}" IsEnabled="{Binding ElementName=chbOn, Path=IsChecked}"/>
-                <Button x:Name="btnRandomColor" Content="{x:Static resx:GUI.SceneCreatorForm_RandomColorButton}" HorizontalAlignment="Left" Margin="107,344,0,0" VerticalAlignment="Top" Width="98" Height="24" Command="{Binding SetRandomColorCommand}" IsEnabled="{Binding ElementName=chbOn, Path=IsChecked}"/>
-                <CheckBox x:Name="chbOn" Content="{x:Static resx:GUI.SceneCreatorForm_On}" HorizontalAlignment="Left" Margin="219,349,0,0" VerticalAlignment="Top" IsChecked="{Binding SceneCreatorModel.On}"/>
+                <Button x:Name="btnSelectLight" Content="{x:Static resx:GUI.SceneCreatorForm_AddButton}" Margin="564,337,-233,0" VerticalAlignment="Top" Height="30" Command="{Binding AddSelectedLightsToSceneCommand}"/>
+                <Button x:Name="btnColorPicker" Content="{x:Static resx:GUI.SceneCreatorForm_FromImageButton}" HorizontalAlignment="Left" Margin="5,337,0,0" VerticalAlignment="Top" Width="109" Height="31" Command="{Binding GetColorFromImageCommand}" IsEnabled="{Binding ElementName=chbOn, Path=IsChecked}"/>
+                <Button x:Name="btnRandomColor" Content="{x:Static resx:GUI.SceneCreatorForm_RandomColorButton}" HorizontalAlignment="Left" Margin="119,337,0,0" VerticalAlignment="Top" Width="86" Height="31" Command="{Binding SetRandomColorCommand}" IsEnabled="{Binding ElementName=chbOn, Path=IsChecked}"/>
+                <CheckBox x:Name="chbOn" Content="{x:Static resx:GUI.SceneCreatorForm_On}" HorizontalAlignment="Left" Margin="222,344,0,0" VerticalAlignment="Top" IsChecked="{Binding SceneCreatorModel.On}"/>
                 <Grid Margin="0,0,0,108">
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_Hue}" HorizontalAlignment="Center" Margin="8,0,299,214" Width="90"/>
                     <sliders:BindableHueSlider x:Name="slHue" Value="{Binding SceneCreatorModel.Hue, Converter={StaticResource DoubleToUshortConverter }}"  Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,338,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" AutoToolTipPlacement="TopLeft" Minimum="-1" IsMoveToPointEnabled="True" IsEnabled="{Binding ElementName=chbOn, Path=IsChecked}">
@@ -124,7 +124,7 @@
                 </Grid>
                 <Label x:Name="lblTT" Content="{Binding SceneCreatorModel.TransitionTimeMessage, Mode=OneWay}" HorizontalAlignment="Center" Margin="20,268,27,74" Width="350" HorizontalContentAlignment="Center"/>
                 <Slider x:Name="slTT" Value="{Binding SceneCreatorModel.TT, Converter={StaticResource SliderToUshortConverter}}" Maximum="65535" Minimum="-1" Margin="33,302,20,54" IsSnapToTickEnabled="True" SmallChange="1" ToolTip="Use the left and right key on the keyboard for more precise movement." SnapsToDevicePixels="True" IsMoveToPointEnabled="True"/>
-                <CheckBox x:Name="chbRecycle" Content="{x:Static resx:GUI.SceneCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="288,349,0,0" VerticalAlignment="Top" Width="99" IsChecked="{Binding SceneCreatorModel.Recycle}"/>
+                <CheckBox x:Name="chbRecycle" Content="{x:Static resx:GUI.SceneCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="295,344,0,0" VerticalAlignment="Top" Width="82" IsChecked="{Binding SceneCreatorModel.Recycle}"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step1}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="646" Margin="3,10,0,0">
@@ -149,7 +149,7 @@
                 </ListView>
                 <Button x:Name="btnRemoveLight" Content="{x:Static resx:GUI.SceneCreatorForm_RemoveButton}" HorizontalAlignment="Left" Margin="158,418,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding RemoveSelectedSceneLightCommand}"/>
                 <Button x:Name="btnClearSelection" Content="{x:Static resx:GUI.SceneCreatorForm_ClearButton}" HorizontalAlignment="Left" Margin="68,418,0,0" VerticalAlignment="Top" Width="85" Height="30" Command="{Binding ClearSelectionSceneLightCommand}"/>
-                <Button x:Name="btnSaveState" Content="{x:Static resx:GUI.SceneCreatorForm_Modify}" HorizontalAlignment="Left" Margin="1,418,0,0" VerticalAlignment="Top" Width="62" Height="30" Command="{Binding ModifyStateCommand}"/>
+                <Button x:Name="btnSaveState" Content="{x:Static resx:GUI.SceneCreatorForm_Modify}" HorizontalAlignment="Left" Margin="0,418,0,0" VerticalAlignment="Top" Width="62" Height="30" Command="{Binding ModifyStateCommand}"/>
 
             </Grid>
         </GroupBox>

@@ -184,8 +184,7 @@ namespace WinHue3.Functions.Behaviors
         /// </summary>
         /// <param name="adornedElement"><see cref="UIElement"/> to be adorned</param>
         /// <param name="watermark">The watermark</param>
-        public WatermarkAdorner(UIElement adornedElement, object watermark) :
-           base(adornedElement)
+        public WatermarkAdorner(UIElement adornedElement, object watermark) : base(adornedElement)
         {
             this.IsHitTestVisible = false;
 

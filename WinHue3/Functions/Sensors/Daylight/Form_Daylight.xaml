@@ -34,7 +34,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="btnSet">
+        <Style TargetType="{x:Type Button}" x:Key="btnSet" BasedOn="{StaticResource AccentedSquareButtonStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=tbLat, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -47,7 +47,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="btnSet" Style="{StaticResource btnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click"/>
+        <Button x:Name="btnSet" Style="{StaticResource btnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click" Height="27"/>
         <Button x:Name="btnCancel" Content="{x:Static resx:GUI.DaylightForm_CancelButton}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Longitude}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="77"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Latitude}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="77"/>
