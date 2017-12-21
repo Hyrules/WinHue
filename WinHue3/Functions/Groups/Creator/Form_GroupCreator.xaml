@@ -1,4 +1,5 @@
-﻿<Window
+﻿<mahapps:MetroWindow
+    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:WinHue3.Resources"
@@ -95,7 +96,7 @@
         <Button x:Name="btnClear" Content="{x:Static resx:GUI.GroupCreatorForm_ClearButton}" Command="{Binding ClearFieldsCommand}" Margin="0,0,193.667,19" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
         <Label x:Name="label2" Content="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" Margin="185,0,285.667,23" FontSize="10" Height="24" VerticalAlignment="Bottom"/>
     </Grid>
-</Window>
+</mahapps:MetroWindow>
 
 
 

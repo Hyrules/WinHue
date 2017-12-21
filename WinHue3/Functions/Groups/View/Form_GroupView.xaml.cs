@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MahApps.Metro.Controls;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
@@ -11,7 +12,7 @@ namespace WinHue3.Functions.Groups.View
     /// <summary>
     /// Interaction logic for Form_BulbsView.xaml
     /// </summary>
-    public partial class Form_GroupView : Window
+    public partial class Form_GroupView : MetroWindow
     {
         private GroupViewViewModel _gvv;
         private Bridge _bridge;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
@@ -10,7 +11,7 @@ namespace WinHue3.Functions.Sensors.Daylight
     /// <summary>
     /// Interaction logic for Form_PowerFailure.xaml
     /// </summary>
-    public partial class Form_Daylight : Window
+    public partial class Form_Daylight : MetroWindow
     {
         
         private string _id;

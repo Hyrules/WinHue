@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using log4net;
+using MahApps.Metro.Controls;
 
 namespace WinHue3.Functions.EventViewer
 {
     /// <summary>
     /// Interaction logic for Form_EventLog.xaml
     /// </summary>
-    public partial class Form_EventLog : Window
+    public partial class Form_EventLog : MetroWindow
     {
         private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public readonly EventViewerViewModel ViewModel;

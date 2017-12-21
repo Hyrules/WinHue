@@ -13,8 +13,9 @@
         xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
         xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         x:Class="WinHue3.MainForm.MainWindow"
-    Title="WinHue 3" Height="824.356" Width="1349.484" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" x:Name="MainForm">
+    Title="WinHue 3" Height="824.356" Width="1349.484" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" x:Name="MainForm" BorderBrush="{x:Static SystemColors.ActiveCaptionBrush}" BorderThickness="2">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <ComboBox  x:Name="cbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" Visibility="{Binding MultiBridgeCB}" Width="200" Height="24">
@@ -288,11 +289,11 @@
                 <RibbonGroup x:Name="rgViewSort" Width="auto" Header="{x:Static resx:GUI.MainForm_Tab_View_Sorting}">
                     <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Label Content="Sorting"/>
-                        <whcontrols:CommandComboBox x:Name="rbcSorting" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedValue="{Binding MainFormModel.Sort}" SelectedValuePath="Tag"  Command="{Binding SortListViewCommand}">
+                        <ComboBox x:Name="rbcSorting" Width="100" HorizontalAlignment="Left" HorizontalContentAlignment="Left" SelectedValue="{Binding MainFormModel.Sort}" SelectedValuePath="Tag" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding SortListViewCommand}">
                             <ComboBoxItem Content="Defaut" Tag="{x:Static mainForm:WinHueSortOrder.Default}"/>
                             <ComboBoxItem Content="Ascending" Tag="{x:Static mainForm:WinHueSortOrder.Ascending}"/>
                             <ComboBoxItem Content="Descending" Tag="{x:Static mainForm:WinHueSortOrder.Descending}"/>
-                        </whcontrols:CommandComboBox>
+                        </ComboBox>
                     </WrapPanel>
                 </RibbonGroup>
             </RibbonTab>

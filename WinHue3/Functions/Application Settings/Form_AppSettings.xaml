@@ -9,6 +9,7 @@
     xmlns:applicationSettings="clr-namespace:WinHue3.Functions.Application_Settings"
     xmlns:models="clr-namespace:WinHue3.MainForm"
     xmlns:winhue="clr-namespace:WinHue3.Controls"
+    xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
     Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="499.603" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png">
     <Window.Resources>
         <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
@@ -43,8 +44,8 @@
                     <CheckBox HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="454" Height="65" IsChecked="{Binding MainSettingsModel.CheckForBridgeUpdate}">
                         <TextBlock Text="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_NoCheckBridgeVersion}" TextWrapping="Wrap" Width="436" Height="51"/>
                     </CheckBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="241,39,0,0" VerticalAlignment="Top"/>
-                    <winhue:CommandComboBox HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="227,39,0,0" VerticalAlignment="Top" Width="60"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
                         <ComboBoxItem Content="Red" Tag="Red"/>
                         <ComboBoxItem Content="Green" Tag="Green"/>
                         <ComboBoxItem Content="Blue" Tag="Blue"/>
@@ -68,12 +69,12 @@
                         <ComboBoxItem Content="Mauve" Tag="Mauve"/>
                         <ComboBoxItem Content="Taupe" Tag="Taupe"/>
                         <ComboBoxItem Content="Sienna" Tag="Sienna"/>
-                    </winhue:CommandComboBox>
-                    <winhue:CommandComboBox HorizontalAlignment="Left" Margin="292,39,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
+                    </ComboBox>
+                    <ComboBox HorizontalAlignment="Left" Margin="292,39,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
                         <ComboBoxItem Content="BaseLight"></ComboBoxItem>
                         <ComboBoxItem Content="BaseDark"></ComboBoxItem>
-                    </winhue:CommandComboBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="241,10,0,0" VerticalAlignment="Top" Width="46"/>
+                    </ComboBox>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="227,10,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >

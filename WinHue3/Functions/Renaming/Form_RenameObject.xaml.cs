@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MahApps.Metro.Controls;
+using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -10,7 +11,7 @@ namespace WinHue3.Functions.Renaming
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Form_RenameObject : Window
+    public partial class Form_RenameObject : MetroWindow
     {
         private readonly Bridge _bridge;
         private readonly IHueObject _obj;

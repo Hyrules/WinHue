@@ -1,4 +1,5 @@
-﻿<Window
+﻿<mahapps:MetroWindow
+    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -31,4 +32,4 @@
         <Button x:Name="btnClear" Content="{x:Static resx:GUI.ManageUsers_Clear}" HorizontalAlignment="Left" Margin="362,290,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClearCommand}"/>
 
     </Grid>
-</Window>
+</mahapps:MetroWindow>

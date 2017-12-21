@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MahApps.Metro.Controls;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace WinHue3.Functions.Groups.Creator
     /// <summary>
     /// Interaction logic for GroupCreator.xaml
     /// </summary>
-    public partial class Form_GroupCreator : Window
+    public partial class Form_GroupCreator : MetroWindow
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

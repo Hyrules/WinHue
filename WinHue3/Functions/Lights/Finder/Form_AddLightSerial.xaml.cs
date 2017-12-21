@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MahApps.Metro.Controls;
+using System.Windows;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 
@@ -7,7 +8,7 @@ namespace WinHue3.Functions.Lights.Finder
     /// <summary>
     /// Logique d'interaction pour Form_AddLightSerial.xaml
     /// </summary>
-    public partial class Form_AddLightSerial : Window
+    public partial class Form_AddLightSerial : MetroWindow
     {
         private AddLightSerialViewModel _asf;
         private Bridge _bridge;

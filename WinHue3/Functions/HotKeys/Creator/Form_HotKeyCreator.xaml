@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3"
-
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resources="clr-namespace:WinHue3.Resources"
     xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
@@ -36,7 +36,7 @@
         <xctk:PropertyGrid x:Name="pgObjectPresets" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Height="216" Width="594" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding PropertyGridObject}"/>
         <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" Style="{StaticResource AccentedSquareButtonStyle}"/>
         <Button x:Name="btnAdd" Style="{StaticResource btnSave}"  Content="Add Hotkey" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
-        <controls:CommandComboBox x:Name="cbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,105,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" Command="{Binding ChangeObjectTypeCommand}" Style="{StaticResource {x:Type ComboBox}}">
+        <ComboBox x:Name="cbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,105,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" behaviors:CommandBehavior.Command="{Binding ChangeObjectTypeCommand}" Style="{StaticResource {x:Type ComboBox}}">
             <ComboBoxItem x:Name="cbOTLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}">
                 <ComboBoxItem.Tag>
                     <x:Type TypeName="lightObject:Light"/>
@@ -52,7 +52,7 @@
                     <x:Type TypeName="sceneObject:Scene"/>
                 </ComboBoxItem.Tag>
             </ComboBoxItem>
-        </controls:CommandComboBox>
+        </ComboBox>
         <ComboBox x:Name="cbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}"/>
         <Label x:Name="label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="328"/>
         <Button x:Name="BtnRecordKeyPress" Content="{x:Static resources:GUI.Form_HotKeyCreator_Record}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="98" Command="{Binding RecordHotKeyCommand}" Height="30" />

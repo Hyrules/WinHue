@@ -1,11 +1,12 @@
-﻿using System.Windows;
+﻿using MahApps.Metro.Controls;
+using System.Windows;
 
 namespace WinHue3.Functions.BridgePairing
 {
     /// <summary>
     /// Interaction logic for Form_AddManualIp.xaml
     /// </summary>
-    public partial class Form_AddManualIp : Window
+    public partial class Form_AddManualIp : MetroWindow
     {
         private AddManualIPViewModel amiv;
 

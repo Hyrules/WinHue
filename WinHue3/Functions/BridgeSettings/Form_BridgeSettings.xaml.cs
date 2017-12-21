@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using MahApps.Metro.Controls;
+using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 using Xceed.Wpf.Toolkit;
@@ -8,7 +9,7 @@ namespace WinHue3.Functions.BridgeSettings
     /// <summary>
     /// Interaction logic for BridgeSettings.xaml
     /// </summary>
-    public partial class Form_BridgeSettings : Window
+    public partial class Form_BridgeSettings : MetroWindow
     {
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

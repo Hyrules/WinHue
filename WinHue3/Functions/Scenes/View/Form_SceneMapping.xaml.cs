@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace WinHue3.Functions.Scenes.View
     /// <summary>
     /// Interaction logic for Form_SceneMapping.xaml
     /// </summary>
-    public partial class Form_SceneMapping : Window
+    public partial class Form_SceneMapping : MetroWindow
     {
 
         private readonly SceneMappingViewModel _smv;
