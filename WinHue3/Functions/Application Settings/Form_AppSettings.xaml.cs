@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MahApps.Metro;
 using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using WinHue3.Functions.Application_Settings.Settings;
@@ -42,6 +43,9 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.StartMode = _appSettingsViewModel.MainSettingsModel.StartMode;
             WinHueSettings.settings.CheckForUpdate = _appSettingsViewModel.MainSettingsModel.CheckUpdate;
             WinHueSettings.settings.CheckForBridgeUpdate = _appSettingsViewModel.MainSettingsModel.CheckForBridgeUpdate;
+            WinHueSettings.settings.ThemeColor = _appSettingsViewModel.MainSettingsModel.Themecolor;
+            WinHueSettings.settings.Theme = _appSettingsViewModel.MainSettingsModel.Theme;
+
             RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
             if (WinHueSettings.settings.StartMode > 0)
@@ -60,29 +64,9 @@ namespace WinHue3.Functions.Application_Settings
             Close();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _appSettingsViewModel.DefaultModel.AllOffTt = WinHueSettings.settings.AllOffTT;
-            _appSettingsViewModel.DefaultModel.AllOnTt = WinHueSettings.settings.AllOnTT;
-            _appSettingsViewModel.DefaultModel.DefaultTt = WinHueSettings.settings.DefaultTT;
-            _appSettingsViewModel.ViewSettingsModel.Sort = WinHueSettings.settings.Sort;
-            _appSettingsViewModel.ViewSettingsModel.ShowId = WinHueSettings.settings.ShowID;
-            _appSettingsViewModel.ViewSettingsModel.Wrap = WinHueSettings.settings.WrapText;
-            _appSettingsViewModel.DefaultModel.DefaultLightBri = WinHueSettings.settings.DefaultBriLight;
-            _appSettingsViewModel.DefaultModel.DefaultGroupBri = WinHueSettings.settings.DefaultBriGroup;
-            _appSettingsViewModel.MainSettingsModel.DetectProxy = WinHueSettings.settings.DetectProxy;
-            _appSettingsViewModel.MainSettingsModel.Debug = WinHueSettings.settings.EnableDebug;
-            _appSettingsViewModel.MainSettingsModel.ShowHidden = WinHueSettings.settings.ShowHiddenScenes;
-            _appSettingsViewModel.MainSettingsModel.Timeout = WinHueSettings.settings.Timeout;
-            _appSettingsViewModel.MainSettingsModel.UpnpTimeout = WinHueSettings.settings.UpnpTimeout;
-            _appSettingsViewModel.MainSettingsModel.Language = WinHueSettings.settings.Language;
-            _appSettingsViewModel.MainSettingsModel.StartMode = WinHueSettings.settings.StartMode;
-            _appSettingsViewModel.MainSettingsModel.CheckUpdate = WinHueSettings.settings.CheckForUpdate;
-            _appSettingsViewModel.MainSettingsModel.CheckForBridgeUpdate = WinHueSettings.settings.CheckForBridgeUpdate;
-        }
-
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
             Close();
         }
 

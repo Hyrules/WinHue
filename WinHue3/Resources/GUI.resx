@@ -349,7 +349,7 @@
     <value>Clear</value>
   </data>
   <data name="Form_HotKeyCreator_Description" xml:space="preserve">
-    <value>Desc</value>
+    <value>Description</value>
   </data>
   <data name="Form_HotKeyCreator_Done" xml:space="preserve">
     <value>Done</value>
@@ -1463,5 +1463,8 @@
   </data>
   <data name="SettingsForm_Tab_MainSettings_Theme" xml:space="preserve">
     <value>Theme</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_ThemeColor" xml:space="preserve">
+    <value>Color</value>
   </data>
 </root>

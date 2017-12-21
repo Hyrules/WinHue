@@ -25,7 +25,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             DefaultBriLight = 255;
             CheckForUpdate = true;
             CheckForBridgeUpdate = true;
-            ThemeColor = "Amber";
+            ThemeColor = "Cyan";
             Theme = "BaseLight";
         }
 

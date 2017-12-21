@@ -1464,4 +1464,7 @@
   <data name="SettingsForm_Tab_MainSettings_Theme" xml:space="preserve">
     <value>Thème</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_ThemeColor" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
 </root>

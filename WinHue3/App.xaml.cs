@@ -13,6 +13,7 @@ using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using System.Reflection;
 using System.Threading;
+using MahApps.Metro;
 using WinHue3.Functions.Application_Settings.Settings;
 using Form_EventLog = WinHue3.Functions.EventViewer.Form_EventLog;
 
@@ -64,7 +65,7 @@ namespace WinHue3
 
             MainWindow.Height = height;
             MainWindow.Width = width;
-
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
             switch (WinHueSettings.settings.StartMode)
             {
                 case 0:
@@ -72,11 +73,11 @@ namespace WinHue3
                     wnd.Show();
                     break;
                 case 1:
-                    wnd.Hide();
-                    break;
-                case 2:
                     wnd.WindowState = WindowState.Minimized;
                     wnd.Show();
+                    break;
+                case 2:
+                    wnd.Hide();                 
                     break;
                 default:
                     wnd.Show();

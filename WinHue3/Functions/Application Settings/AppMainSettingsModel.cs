@@ -1,4 +1,5 @@
-﻿using WinHue3.Utils;
+﻿using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Utils;
 
 namespace WinHue3.Functions.Application_Settings
 {
@@ -14,18 +15,22 @@ namespace WinHue3.Functions.Application_Settings
         private int startMode;
         private bool checkupdate;
         private bool checkforbridgeupdate;
+        private string theme;
+        private string themecolor;
 
         public AppMainSettingsModel()
         {
-            detectProxy = false;
-            debug = true;
-            showHidden = false;
-            upnpTimeout = 5000;
-            timeout = 3000;
-            language = "en-US";
-            startMode = 0;
-            checkupdate = true;
-            checkforbridgeupdate = true;
+            detectProxy = WinHueSettings.settings.DetectProxy;
+            debug = WinHueSettings.settings.EnableDebug;
+            showHidden = WinHueSettings.settings.ShowHiddenScenes;
+            upnpTimeout = WinHueSettings.settings.UpnpTimeout;
+            timeout = WinHueSettings.settings.Timeout;
+            language = WinHueSettings.settings.Language;
+            startMode = WinHueSettings.settings.StartMode;
+            checkupdate = WinHueSettings.settings.CheckForUpdate;
+            checkforbridgeupdate = WinHueSettings.settings.CheckForBridgeUpdate;
+            theme = WinHueSettings.settings.Theme;
+            themecolor = WinHueSettings.settings.ThemeColor;
         }
 
         public bool StartWindows
@@ -86,6 +91,18 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => checkupdate;
             set => SetProperty(ref checkupdate,value);
+        }
+
+        public string Theme
+        {
+            get => theme;
+            set => SetProperty(ref theme, value);
+        }
+
+        public string Themecolor
+        {
+            get => themecolor;
+            set => SetProperty(ref themecolor,value);
         }
     }
 }

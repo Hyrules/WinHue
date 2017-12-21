@@ -1,4 +1,5 @@
-﻿using WinHue3.Utils;
+﻿using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Utils;
 
 namespace WinHue3.Functions.Application_Settings
 {
@@ -12,11 +13,11 @@ namespace WinHue3.Functions.Application_Settings
 
         public AppDefaultsModel()
         {
-            _allOffTT = null;
-            _allOnTT = null;
-            _defaultTT = null;
-            _defaultLightBri = 255;
-            _defaultGroupBri = 255;
+            _allOffTT = WinHueSettings.settings.AllOffTT;
+            _allOnTT = WinHueSettings.settings.AllOnTT;
+            _defaultTT = WinHueSettings.settings.DefaultTT;
+            _defaultLightBri = WinHueSettings.settings.DefaultBriLight;
+            _defaultGroupBri = WinHueSettings.settings.DefaultBriGroup;
         }
 
         public ushort? AllOnTt

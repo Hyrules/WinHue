@@ -943,7 +943,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Desc.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Form_HotKeyCreator_Description {
             get {
@@ -4008,6 +4008,24 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Startup {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Startup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_Theme {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_ThemeColor {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_ThemeColor", resourceCulture);
             }
         }
         

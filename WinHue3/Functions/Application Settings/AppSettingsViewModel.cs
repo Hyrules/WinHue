@@ -1,4 +1,7 @@
-﻿using WinHue3.Utils;
+﻿using System.Windows;
+using System.Windows.Input;
+using MahApps.Metro;
+using WinHue3.Utils;
 
 namespace WinHue3.Functions.Application_Settings
 {
@@ -31,6 +34,13 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _appViewSettingsModel;
             set => SetProperty(ref _appViewSettingsModel,value);
+        }
+
+        public ICommand ChangeThemeCommand => new RelayCommand(param => ChangeThemeColor());
+
+        private void ChangeThemeColor()
+        {
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(MainSettingsModel.Themecolor), ThemeManager.GetAppTheme(MainSettingsModel.Theme));
         }
     }
 }

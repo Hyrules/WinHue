@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using MahApps.Metro.Controls;
 using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.HotKeys.Creator
@@ -10,7 +11,7 @@ namespace WinHue3.Functions.HotKeys.Creator
     /// <summary>
     /// Interaction logic for Form_HotKeyCreator.xaml
     /// </summary>
-    public partial class Form_HotKeyCreator : Window
+    public partial class Form_HotKeyCreator : MetroWindow
     {
         private HotKeyCreatorViewModel _hkv;
 

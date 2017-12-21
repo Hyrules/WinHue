@@ -1,4 +1,5 @@
-﻿using WinHue3.MainForm;
+﻿using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.MainForm;
 using WinHue3.Utils;
 
 namespace WinHue3.Functions.Application_Settings
@@ -11,9 +12,9 @@ namespace WinHue3.Functions.Application_Settings
 
         public AppViewSettingsModel()
         {
-            _sort = WinHueSortOrder.Default;
-            _showId = false;
-            _wrap = false;
+            _sort = WinHueSettings.settings.Sort;
+            _showId = WinHueSettings.settings.ShowID;
+            _wrap = WinHueSettings.settings.WrapText;
         }
 
 

@@ -353,11 +353,6 @@
     <Compile Include="Functions\User Management\Form_ManageUsers.xaml.cs">
       <DependentUpon>Form_ManageUsers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GlobalStrings.de.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GlobalStrings.de.resx</DependentUpon>
-    </Compile>
     <Compile Include="GlobalStrings.fr.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -679,10 +674,6 @@
     <Resource Include="Resources\1464410329_pause.png" />
     <Resource Include="Resources\1464410315_play.png" />
     <Resource Include="Resources\animation.png" />
-    <EmbeddedResource Include="GlobalStrings.de.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalStrings.de.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="Resources\icon.ico" />
     <Resource Include="Resources\dimmer.png" />
     <None Include="log4net.config">
@@ -725,6 +716,7 @@
     <EmbeddedResource Include="Resources\GUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GUI.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -825,7 +817,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

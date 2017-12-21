@@ -8,7 +8,8 @@
     xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:applicationSettings="clr-namespace:WinHue3.Functions.Application_Settings"
     xmlns:models="clr-namespace:WinHue3.MainForm"
-    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="499.603" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" Icon="/WinHue3;component/Resources/gear_in.png">
+    xmlns:winhue="clr-namespace:WinHue3.Controls"
+    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="499.603" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png">
     <Window.Resources>
         <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
     </Window.Resources>
@@ -20,7 +21,7 @@
         <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" Style="{DynamicResource SquareButtonStyle}" x:Name="btnCancel" HorizontalAlignment="Left" Margin="409,372,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <TabControl x:Name="tcSettings" HorizontalAlignment="Left" Height="367" VerticalAlignment="Top" Width="484">
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <CheckBox x:Name="chbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}"/>
                     <CheckBox x:Name="chbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}"/>
                     <Label x:Name="lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="113"/>
@@ -42,11 +43,41 @@
                     <CheckBox HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="454" Height="65" IsChecked="{Binding MainSettingsModel.CheckForBridgeUpdate}">
                         <TextBlock Text="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_NoCheckBridgeVersion}" TextWrapping="Wrap" Width="436" Height="51"/>
                     </CheckBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="241,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="241,39,0,0" VerticalAlignment="Top"/>
+                    <winhue:CommandComboBox HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
+                        <ComboBoxItem Content="Red" Tag="Red"/>
+                        <ComboBoxItem Content="Green" Tag="Green"/>
+                        <ComboBoxItem Content="Blue" Tag="Blue"/>
+                        <ComboBoxItem Content="Purple" Tag="Purple"/>
+                        <ComboBoxItem Content="Orange" Tag="Orange"/>
+                        <ComboBoxItem Content="Lime" Tag="Lime"/>
+                        <ComboBoxItem Content="Emerald" Tag="Emerald"/>
+                        <ComboBoxItem Content="Teal" Tag="Teal"/>
+                        <ComboBoxItem Content="Cyan" Tag="Cyan"/>
+                        <ComboBoxItem Content="Cobalt" Tag="Cobalt"/>
+                        <ComboBoxItem Content="Indigo" Tag="Indigo"/>
+                        <ComboBoxItem Content="Violet" Tag="Violet"/>
+                        <ComboBoxItem Content="Pink" Tag="Pink"/>
+                        <ComboBoxItem Content="Magenta" Tag="Magenta"/>
+                        <ComboBoxItem Content="Crimson" Tag="Crimsom"/>
+                        <ComboBoxItem Content="Amber" Tag="Amber"/>
+                        <ComboBoxItem Content="Yellow" Tag="Yellow"/>
+                        <ComboBoxItem Content="Brown" Tag="Brown"/>
+                        <ComboBoxItem Content="Olive" Tag="Olive"/>
+                        <ComboBoxItem Content="Steel" Tag="Steel"/>
+                        <ComboBoxItem Content="Mauve" Tag="Mauve"/>
+                        <ComboBoxItem Content="Taupe" Tag="Taupe"/>
+                        <ComboBoxItem Content="Sienna" Tag="Sienna"/>
+                    </winhue:CommandComboBox>
+                    <winhue:CommandComboBox HorizontalAlignment="Left" Margin="292,39,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
+                        <ComboBoxItem Content="BaseLight"></ComboBoxItem>
+                        <ComboBoxItem Content="BaseDark"></ComboBoxItem>
+                    </winhue:CommandComboBox>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="241,10,0,0" VerticalAlignment="Top" Width="46"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" >
-                <Grid Background="#FFE5E5E5">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
+                <Grid>
                     <GroupBox x:Name="groupBox2" Header="All On/Off settings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="191" Width="251">
                         <Grid Margin="0,0,-1.667,-2.333">
                             <xctk:IntegerUpDown x:Name="nudAllOnTT" HorizontalAlignment="Left" Margin="87,21,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource IntToUshortConverter }}" />
@@ -76,8 +107,8 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="99">
-                <Grid Background="#FFE5E5E5">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" HorizontalAlignment="Left"  VerticalAlignment="Top">
+                <Grid>
                     <ComboBox x:Name="cbDefaultSort" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="165" SelectedValue="{Binding ViewSettingsModel.Sort}" SelectedValuePath="Tag" >
                         <ComboBoxItem Content="Defaut" Tag="{x:Static models:WinHueSortOrder.Default}"/>
                         <ComboBoxItem Content="Ascending" Tag="{x:Static models:WinHueSortOrder.Ascending}"/>

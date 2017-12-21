@@ -19,8 +19,10 @@
         <controls:WindowCommands>
             <ComboBox  x:Name="cbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" Visibility="{Binding MultiBridgeCB}" Width="200" Height="24">
                 <ComboBox.Style>
-                    <Style TargetType="{x:Type ComboBox}">
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                         <Setter Property="Visibility" Value="Visible"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding MultiBridgeCB}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed"/>

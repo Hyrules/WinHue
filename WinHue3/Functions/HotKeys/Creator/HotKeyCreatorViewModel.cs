@@ -143,7 +143,15 @@ namespace WinHue3.Functions.HotKeys.Creator
             StopRecording();
             CanRecordKeyUp = false;
             HotKeyModel.ModifierKeys = e.KeyboardDevice.Modifiers;
-            HotKeyModel.Key = e.Key;
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
+            {
+                HotKeyModel.Key = e.SystemKey;
+            }
+            else
+            {
+                HotKeyModel.Key = e.Key;
+            }
+            
             RaisePropertyChanged("CurrentHotKey");
         }
 

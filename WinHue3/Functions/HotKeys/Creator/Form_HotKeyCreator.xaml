@@ -1,4 +1,4 @@
-﻿<Window
+﻿<mahapps:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,14 +13,12 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:creator="clr-namespace:WinHue3.Functions.HotKeys.Creator"
         xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         x:Class="WinHue3.Functions.HotKeys.Creator.Form_HotKeyCreator"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/hotkeys.png" PreviewKeyUp="Window_PreviewKeyUp">
-    <Window.DataContext>
-        <creator:HotKeyCreatorViewModel/>
-    </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="{x:Type Button}" x:Key="btnSave">
+        <Style TargetType="{x:Type Button}" x:Key="btnSave" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding (Validation.HasError), ElementName=cbListObjects}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -31,23 +29,36 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+    <Window.DataContext>
+        <creator:HotKeyCreatorViewModel/>
+    </Window.DataContext>
     <Grid>
         <xctk:PropertyGrid x:Name="pgObjectPresets" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Height="216" Width="594" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding PropertyGridObject}"/>
-        <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
+        <Button x:Name="btnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" Style="{StaticResource AccentedSquareButtonStyle}"/>
         <Button x:Name="btnAdd" Style="{StaticResource btnSave}"  Content="Add Hotkey" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
-        <controls:CommandComboBox x:Name="cbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,108,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" Command="{Binding ChangeObjectTypeCommand}">
-            <ComboBoxItem x:Name="cbOTLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}" Tag="{x:Type lightObject:Light}"/>
-            <ComboBoxItem x:Name="cbOTGroup" Content="{x:Static resources:GUI.Form_HotKeyCreator_Groups}" Tag="{x:Type groupObject:Group}"/>
-            <ComboBoxItem x:Name="cbOTScene" Content="{x:Static resources:GUI.Form_HotKeyCreator_Scenes}" Tag="{x:Type sceneObject:Scene}"/>
+        <controls:CommandComboBox x:Name="cbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,105,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" Command="{Binding ChangeObjectTypeCommand}" Style="{StaticResource {x:Type ComboBox}}">
+            <ComboBoxItem x:Name="cbOTLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}">
+                <ComboBoxItem.Tag>
+                    <x:Type TypeName="lightObject:Light"/>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="cbOTGroup" Content="{x:Static resources:GUI.Form_HotKeyCreator_Groups}">
+                <ComboBoxItem.Tag>
+                    <x:Type TypeName="groupObject:Group"/>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="cbOTScene" Content="{x:Static resources:GUI.Form_HotKeyCreator_Scenes}">
+                <ComboBoxItem.Tag>
+                    <x:Type TypeName="sceneObject:Scene"/>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
         </controls:CommandComboBox>
-        <ComboBox x:Name="cbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}"/>
-        <Label x:Name="label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="5,81,0,0" VerticalAlignment="Top" Width="301"/>
+        <ComboBox x:Name="cbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}"/>
+        <Label x:Name="label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="328"/>
         <Button x:Name="BtnRecordKeyPress" Content="{x:Static resources:GUI.Form_HotKeyCreator_Record}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="98" Command="{Binding RecordHotKeyCommand}" Height="30" />
         <Label x:Name="label2" Content="{Binding CurrentHotKey, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="113,165,0,0" VerticalAlignment="Top" Width="226" Height="30" Background="{Binding HotKeyModel.RecordButtonColor}" BorderBrush="#FF8E8E8E" BorderThickness="1"/>
-        <Label x:Name="label3" Content="{x:Static resources:GUI.Form_HotKeyCreator_Name}" HorizontalAlignment="Left" Margin="6,14,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbHotkeyName" HorizontalAlignment="Left" Height="23" Margin="57,18,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Name,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="282"/>
-        <Label x:Name="label4" Content="{x:Static resources:GUI.Form_HotKeyCreator_Description}" HorizontalAlignment="Left" Margin="5,50,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbHotkeyDesc" HorizontalAlignment="Left" Height="23" Margin="57,50,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Description,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="282" />
+        <TextBox x:Name="tbHotkeyName" mahapps:TextBoxHelper.Watermark="{x:Static resources:GUI.Form_HotKeyCreator_Name}" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Name, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="329"/>
+        <TextBox x:Name="tbHotkeyDesc" mahapps:TextBoxHelper.Watermark="{x:Static resources:GUI.Form_HotKeyCreator_Description}" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Description, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="329" />
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Height="206" Width="928" AlternationCount="-5" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" ItemsSource="{Binding ListHotKeys}" SelectedItem="{Binding SelectedHotKey}" AlternatingRowBackground="#FFF2F2F2" BorderBrush="#FFCECECE" AllowDrop="True" CanUserAddRows="False" AutomationProperties.IsColumnHeader="True" Background="White" AutomationProperties.IsRowHeader="True" GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_Name}" Binding="{Binding Name}"  Width="100" IsReadOnly="True"/>
@@ -67,13 +78,15 @@
             </i:Interaction.Triggers>
         </DataGrid>
         <Button x:Name="btnClearFields" Content="{x:Static resources:GUI.Form_HotKeyCreator_Clear}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="265,200,0,0" VerticalAlignment="Top" Width="74" Height="26"/>
-        <CheckBox x:Name="chbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,112,0,0" VerticalAlignment="Top" Width="156" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>
+        <CheckBox x:Name="chbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,110,0,0" VerticalAlignment="Top" Width="156" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,442,0,0" TextWrapping="Wrap" Text="{x:Static resources:GUI.Form_HotKeyCreator_Warning_Generic}" VerticalAlignment="Top" Width="662"/>
-        <Button x:Name="btnHelpGeneric" Content="?" HorizontalAlignment="Left" Margin="307,109,0,0" VerticalAlignment="Top" Width="32" Click="btnHelpGeneric_Click"/>
+        <Button x:Name="btnHelpGeneric" Content="?" HorizontalAlignment="Left" Margin="306,106,0,0" VerticalAlignment="Top" Width="32" Click="btnHelpGeneric_Click" Height="25"/>
 
 
 
 
     </Grid>
-</Window>
+</mahapps:MetroWindow>
+
+
 

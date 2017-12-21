@@ -61,7 +61,7 @@ namespace WinHue3.Functions.HotKeys.Creator
             _id = string.Empty;
             _key = default(Key);
             _modifierKeys = default(ModifierKeys);
-            _recordbuttoncolor = new SolidColorBrush() { Color = System.Windows.Media.Color.FromRgb(240, 240, 240) };
+            _recordbuttoncolor = new SolidColorBrush() { Color = System.Windows.Media.Color.FromArgb(0,240, 240, 240) };
 
         }
 
