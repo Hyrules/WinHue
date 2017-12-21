@@ -15,10 +15,10 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         x:Class="WinHue3.MainForm.MainWindow"
-    Title="WinHue 3" Height="824.356" Width="1349.484" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" x:Name="MainForm" BorderBrush="{x:Static SystemColors.ActiveCaptionBrush}" BorderThickness="2">
+    Title="WinHue 3" Height="824.356" Width="1349.484" WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  ResizeMode="CanResizeWithGrip" x:Name="MainForm" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <ComboBox  x:Name="cbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" Visibility="{Binding MultiBridgeCB}" Width="200" Height="24">
+            <ComboBox  x:Name="cbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" Visibility="{Binding MultiBridgeCB}" Width="200" Height="24"  >
                 <ComboBox.Style>
                     <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                         <Setter Property="Visibility" Value="Visible"/>

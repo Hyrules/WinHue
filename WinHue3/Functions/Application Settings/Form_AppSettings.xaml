@@ -10,7 +10,7 @@
     xmlns:models="clr-namespace:WinHue3.MainForm"
     xmlns:winhue="clr-namespace:WinHue3.Controls"
     xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="499.603" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png">
+    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="499.603" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.Resources>
         <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
     </Window.Resources>

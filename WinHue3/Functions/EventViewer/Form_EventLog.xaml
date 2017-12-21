@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:eventViewer="clr-namespace:WinHue3.Functions.EventViewer"
         x:Name="Form_EventLogger" x:Class="WinHue3.Functions.EventViewer.Form_EventLog"
-    Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/eventlog.png" ResizeMode="CanResizeWithGrip">
+    Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/eventlog.png" ResizeMode="CanResizeWithGrip" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.DataContext>
         <eventViewer:EventViewerViewModel/>
     </Window.DataContext>

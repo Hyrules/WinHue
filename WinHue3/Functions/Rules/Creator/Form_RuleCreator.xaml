@@ -23,7 +23,7 @@
         xmlns:rules="clr-namespace:WinHue3.Functions.Rules"
         x:Class="WinHue3.Functions.Rules.Creator.Form_RuleCreator"
         mc:Ignorable="d"
-        Title="Rule Creator" Height="468.168" Width="733.396" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/rules.png">
+        Title="Rule Creator" Height="468.168" Width="733.396" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/rules.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.Resources>
         <xctk:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </Window.Resources>

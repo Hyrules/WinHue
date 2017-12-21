@@ -7,7 +7,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:daylight="clr-namespace:WinHue3.Functions.Sensors.Daylight"
         x:Class="WinHue3.Functions.Sensors.Daylight.Form_Daylight"
-        Title="{x:Static resx:GUI.DaylightForm_Title}" Height="190" Width="288" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png"
+        Title="{x:Static resx:GUI.DaylightForm_Title}" Height="190" Width="288" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}"
 >
     <Window.DataContext>
         <daylight:DaylightViewModel/>

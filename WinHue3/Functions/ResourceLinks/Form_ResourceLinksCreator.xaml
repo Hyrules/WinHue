@@ -11,7 +11,7 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     x:Name="Form_ResourceLink" x:Class="WinHue3.Functions.ResourceLinks.Form_ResourceLinksCreator"
     mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="352.861" Width="599.472" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/resource.png" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800">
+        Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="352.861" Width="599.472" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/resource.png" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.DataContext>
         <resourceLinks:ResourceLinkCreatorViewModel/>
     </Window.DataContext>

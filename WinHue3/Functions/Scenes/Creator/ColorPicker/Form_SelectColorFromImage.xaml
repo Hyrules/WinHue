@@ -8,7 +8,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         x:Class="WinHue3.Functions.Scenes.Creator.ColorPicker.Form_SelectColorFromImage"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.SelectColorFromImageForm_Title}" Height="569.334" Width="735.333" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Background="{Binding SelectedColorBackground}">
+        Title="{x:Static resx:GUI.SelectColorFromImageForm_Title}" Height="569.334" Width="735.333" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Background="{Binding SelectedColorBackground}" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     
     <Grid>
         <Image x:Name="ImageViewer" Margin="0,0,0,53" PreviewMouseDown="ImageViewer_PreviewMouseDown" Source="{Binding ImageSource}"/>

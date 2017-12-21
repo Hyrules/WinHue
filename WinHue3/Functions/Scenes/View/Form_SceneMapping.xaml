@@ -12,7 +12,7 @@
     xmlns:view="clr-namespace:WinHue3.Functions.Scenes.View"
     x:Class="WinHue3.Functions.Scenes.View.Form_SceneMapping"
         mc:Ignorable="d"
-        Title="{x:Static resources:GUI.Form_SceneMapping_Title}" Height="653.956" Width="891.887" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SceneMapping.png" ResizeMode="CanResizeWithGrip" >
+        Title="{x:Static resources:GUI.Form_SceneMapping_Title}" Height="653.956" Width="891.887" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SceneMapping.png" ResizeMode="CanResizeWithGrip" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}" >
 
     <Window.Resources>
         <xcdg:DataGridCollectionViewSource x:Key="scenes" Source="{Binding SceneMapping}" AutoCreateItemProperties="True"></xcdg:DataGridCollectionViewSource>

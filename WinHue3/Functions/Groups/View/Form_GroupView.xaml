@@ -10,7 +10,7 @@
     xmlns:view="clr-namespace:WinHue3.Functions.Groups.View"
     x:Class="WinHue3.Functions.Groups.View.Form_GroupView"
     mc:Ignorable="d"
-        Title="{x:Static resx:GUI.Form_GroupView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.Form_GroupView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.DataContext>
         <view:GroupViewViewModel/>
     </Window.DataContext>

@@ -16,7 +16,7 @@
         xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         x:Class="WinHue3.Functions.HotKeys.Creator.Form_HotKeyCreator"
         mc:Ignorable="d"
-        Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/hotkeys.png" PreviewKeyUp="Window_PreviewKeyUp">
+        Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/hotkeys.png" PreviewKeyUp="Window_PreviewKeyUp" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="btnSave" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>

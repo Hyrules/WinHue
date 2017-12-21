@@ -8,7 +8,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:finder="clr-namespace:WinHue3.Functions.Lights.Finder"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.AddLightSerialForm_Title}" Height="189.669" Width="401.444" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.AddLightSerialForm_Title}" Height="189.669" Width="401.444" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.DataContext>
         <finder:AddLightSerialViewModel/>
     </Window.DataContext>
