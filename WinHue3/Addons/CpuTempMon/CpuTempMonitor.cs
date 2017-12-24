@@ -3,7 +3,7 @@ using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
 
 namespace WinHue3.Addons.CpuTempMon

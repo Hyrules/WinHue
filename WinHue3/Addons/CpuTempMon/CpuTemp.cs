@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Threading;
 using OpenHardwareMonitor.Hardware;
 using WinHue3.ExtensionMethods;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
 namespace WinHue3.Addons.CpuTempMon
 {
@@ -56,7 +56,7 @@ namespace WinHue3.Addons.CpuTempMon
             bgwOpen = new BackgroundWorker();
             bgwOpen.DoWork += bgwOpen_DoWork;
            
-            PollSensorName = "CPU Package";
+            _pollSensorName = "CPU Package";
         }
 
         void bgwOpen_DoWork(object sender, DoWorkEventArgs e)

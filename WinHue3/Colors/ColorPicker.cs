@@ -6,13 +6,13 @@ namespace WinHue3.Colors
     class ColorPicker
     {
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr GetDesktopWindow();
+        private static extern IntPtr GetDesktopWindow();
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr GetWindowDC(IntPtr window);
+        private static extern IntPtr GetWindowDC(IntPtr window);
         [DllImport("gdi32.dll", SetLastError = true)]
-        public static extern uint GetPixel(IntPtr dc, int x, int y);
+        private static extern uint GetPixel(IntPtr dc, int x, int y);
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern int ReleaseDC(IntPtr window, IntPtr dc);
+        private static extern int ReleaseDC(IntPtr window, IntPtr dc);
 
         public System.Drawing.Color GetColorAt(int x, int y)
         {

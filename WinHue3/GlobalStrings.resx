@@ -738,4 +738,13 @@
   <data name="SerialCannotBeEmpty_Error" xml:space="preserve">
     <value>Please enter at least one serial number.</value>
   </data>
+  <data name="Invalid_Rule_Action_Conversion" xml:space="preserve">
+    <value>The specified value does not convert to the requested property type.</value>
+  </data>
+  <data name="Rule_CannotBeEdited" xml:space="preserve">
+    <value>This rule action cannot be edited in this editor.</value>
+  </data>
+  <data name="Rule_SelectedObjectDoesNotExists" xml:space="preserve">
+    <value>Sorry the selected object not found. Does it still exists ?</value>
+  </data>
 </root>

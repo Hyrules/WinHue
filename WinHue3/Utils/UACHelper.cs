@@ -20,9 +20,9 @@ namespace WinHue3.Utils
         static extern bool OpenProcessToken(IntPtr ProcessHandle, UInt32 DesiredAccess, out IntPtr TokenHandle);
 
         [DllImport("advapi32.dll", SetLastError = true)]
-        public static extern bool GetTokenInformation(IntPtr TokenHandle, TOKEN_INFORMATION_CLASS TokenInformationClass, IntPtr TokenInformation, uint TokenInformationLength, out uint ReturnLength);
+        private static extern bool GetTokenInformation(IntPtr TokenHandle, TOKEN_INFORMATION_CLASS TokenInformationClass, IntPtr TokenInformation, uint TokenInformationLength, out uint ReturnLength);
 
-        public enum TOKEN_INFORMATION_CLASS
+        private enum TOKEN_INFORMATION_CLASS
         {
             TokenUser = 1,
             TokenGroups,
@@ -55,14 +55,14 @@ namespace WinHue3.Utils
             MaxTokenInfoClass
         }
 
-        public enum TOKEN_ELEVATION_TYPE
+        private enum TOKEN_ELEVATION_TYPE
         {
             TokenElevationTypeDefault = 1,
             TokenElevationTypeFull,
             TokenElevationTypeLimited
         }
 
-        public static bool IsUacEnabled
+        private static bool IsUacEnabled
         {
             get
             {

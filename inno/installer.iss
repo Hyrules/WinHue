@@ -5,10 +5,9 @@
 #define MyAppExeName "WinHue3.exe"
 #define MyVersion GetFileVersion("D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\WinHue3.exe")
 #define MyAppName "WinHue 3"
-#define MyAppVersion "RC 3 - " + Str(MyVersion)
+#define MyAppVersion "RC 4 - " + Str(MyVersion)
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
-
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -41,6 +40,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
+
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\*.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\whc.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.DataGrid.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -54,15 +54,15 @@ Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4net.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\fr\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\MahApps.Metro.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\fr\*"; DestDir: "{app}\fr"; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\en\*"; DestDir: "{app}\en"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\prism.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\prism.wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\procdump.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\fluent.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -141,9 +141,9 @@ begin
         success := success and (release >= 378675);
     end;
 
+
     result := success and (install = 1) and (serviceCount >= service);
 end;
-
 
 function InitializeSetup(): Boolean;
 begin

@@ -7,7 +7,6 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
-using WinHue3.ViewModels;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.SceneObject
@@ -32,6 +31,8 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         private Dictionary<string, State> _lightstates;
         private bool? _storelightstate;
         private ushort? _transitiontime;
+        private bool _visible;
+        private bool _on;
 
         /// <summary>
         /// Image of the rule.
@@ -171,6 +172,20 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         {
             get => _transitiontime;
             set => SetProperty(ref _transitiontime,value);
+        }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get => _visible;
+            set { SetProperty(ref _visible,value); }
+        }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), JsonIgnore, Browsable(false)]
+        public bool On
+        {
+            get => _on;
+            set => SetProperty(ref _on, value);
         }
 
         /// <summary>

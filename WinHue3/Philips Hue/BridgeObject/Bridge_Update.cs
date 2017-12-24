@@ -17,7 +17,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or false if the operation is successful (does not return if there is an update)</returns>
         public bool CheckOnlineForUpdate()
         {
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"checkforupdate\":true}}");
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\": {\"checkforupdate\":true}}");
             switch (comres.Status)
             {
                 case WebExceptionStatus.Success:
@@ -25,7 +25,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error(){address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535});
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "An unknown error occured.", type = 65535 });
@@ -41,7 +40,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or false if the operation is successful (does not return if there is an update)</returns>
         public async Task<bool> CheckOnlineForUpdateAsyncTask()
         {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"checkforupdate\":true}}");
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\": {\"checkforupdate\":true}}");
             switch (comres.Status)
             {
                 case WebExceptionStatus.Success:
@@ -49,7 +48,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "An unknown error occured.", type = 65535 });
@@ -64,7 +62,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>Software Update or null.</returns>
         public bool CheckUpdateAvailable()
         {
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Get);
 
             switch (comres.Status)
             {
@@ -81,7 +79,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     break;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -96,7 +93,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>Software Update or null.</returns>
         public async Task<bool> CheckUpdateAvailableAsyncTask()
         {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Get);
 
             switch (comres.Status)
             {
@@ -118,7 +115,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     break;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -134,7 +130,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public bool UpdateBridge()
         {
           
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\":" + Serializer.SerializeToJson(new SwUpdate() { updatestate = 3 }) + "}");
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\":" + Serializer.SerializeToJson(new SwUpdate() { updatestate = 3 }) + "}");
 
             switch (comres.Status)
             {
@@ -143,7 +139,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -160,7 +155,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> UpdateBridgeAsyncTask()
         {
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\":" + Serializer.SerializeToJson(new SwUpdate() { updatestate = 3 }) + "}");
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\":" + Serializer.SerializeToJson(new SwUpdate() { updatestate = 3 }) + "}");
 
             switch (comres.Status)
             {
@@ -169,7 +164,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     return LastCommandMessages.Success;
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -186,7 +180,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public bool SetNotify()
         {
             
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"notify\":false}}");
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\": {\"notify\":false}}");
 
             switch (comres.Status)
             {
@@ -196,7 +190,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:                
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });
@@ -213,7 +206,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> SetNotifyAsyncTask()
         {
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.PUT, "{\"swupdate\": {\"notify\":false}}");
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\": {\"notify\":false}}");
 
             switch (comres.Status)
             {
@@ -223,7 +216,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A unknown error occured.", type = 65535 });

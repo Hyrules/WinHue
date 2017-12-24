@@ -2,7 +2,7 @@
 using System.Net;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.Communication;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.BridgeObject
 {
@@ -13,10 +13,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
     public partial class Bridge : ValidatableBindableBase
     {
         private Messages _lastCommandMessages;
-        private string _apiKey = String.Empty;
-        readonly EventArgs _e = null;
-        private string _apiversion = String.Empty;
-        private string _mac = String.Empty;
+        private string _apiKey = string.Empty;
+        private string _apiversion = string.Empty;
+        private string _mac = string.Empty;
         private string _swversion;
         private bool _isdefault;
         private IPAddress _ipAddress;
@@ -122,10 +121,10 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         public Bridge()
         {
-            IpAddress = IPAddress.None;
-            ApiKey = String.Empty;
-            LastCommandMessages = new Messages();
-            UpdateAvailable = false;
+            _ipAddress = IPAddress.None;
+            _apiKey = String.Empty;
+            _lastCommandMessages = new Messages();
+            _updateAvailable = false;
         }
 
         /// <summary>
@@ -139,23 +138,18 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <param name="swversion"></param>
         public Bridge(IPAddress ip, string mac, string apiversion, string swversion,string newname, string apiKey = null)
         {
-            IpAddress = ip;
+            _ipAddress = ip;
             if (apiKey != null || apiKey != string.Empty)
             {
-                ApiKey = apiKey;
+                _apiKey = apiKey;
             }
-            Mac = mac;
-            ApiVersion = apiversion;
-            SwVersion = swversion;
-            name = newname;
-            LastCommandMessages = new Messages();
-            UpdateAvailable = false;
+            _mac = mac;
+            _apiversion = apiversion;
+            _swversion = swversion;
+            _name = newname;
+            _lastCommandMessages = new Messages();
+            _updateAvailable = false;
         }
 
-    }
-
-    public class BridgeNotRespondingEventArgs : EventArgs
-    {
-        public CommResult ex;
     }
 }

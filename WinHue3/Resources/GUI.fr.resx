@@ -1372,7 +1372,7 @@
     <value>Sauvegarder</value>
   </data>
   <data name="RuleCreatorForm_Add" xml:space="preserve">
-    <value>Ajouter</value>
+    <value>Ajouter aux propriétés actuelles</value>
   </data>
   <data name="RuleCreatorForm_Value_Watermark" xml:space="preserve">
     <value>(Saisissez la valeur ici)</value>
@@ -1408,7 +1408,7 @@
     <value>WinHue doit être exécuté en tant qu'administrateur afin d'utiliser le moniteur de température de CPU.</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Check_Update" xml:space="preserve">
-    <value>Vérifier les maj de WinHue au démarrage.</value>
+    <value>Notifier si une mise à jour de WinHue est disponible au démarrage.</value>
   </data>
   <data name="MainForm_StatusBar_ToolTip_UpdateAvailable" xml:space="preserve">
     <value>Mise à jour de WinHue disponible. Cliquez ici pour faire la maj.</value>
@@ -1436,5 +1436,53 @@
   </data>
   <data name="SettingsForm_Tab_MainSettings_NoCheckBridgeVersion" xml:space="preserve">
     <value>Vérifier la version de la passerelle. (Vous pourriez rencontrer des crash que le dev ne corrigera pas si vous choisissez de ne pas)</value>
+  </data>
+  <data name="RuleCreatorForm_AddToRuleActions" xml:space="preserve">
+    <value>Ajouter aux actions de la règle</value>
+  </data>
+  <data name="RuleCreatorForm_DeleteProperty" xml:space="preserve">
+    <value>Retirer la propriété</value>
+  </data>
+  <data name="MainForm_ListView_Context_Toggle" xml:space="preserve">
+    <value>Allumer / Éteindre</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim" xml:space="preserve">
+    <value>Tamiser (% de 255)</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_10" xml:space="preserve">
+    <value>10%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_25" xml:space="preserve">
+    <value>25%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_50" xml:space="preserve">
+    <value>50%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_75" xml:space="preserve">
+    <value>75%</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Theme" xml:space="preserve">
+    <value>Thème</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_ThemeColor" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="SceneCreatorForm_SceneName" xml:space="preserve">
+    <value>Nom de la scène (optionnel)</value>
+  </data>
+  <data name="MainForm_TrayButton" xml:space="preserve">
+    <value>Envoyer dans le tirroir système</value>
+  </data>
+  <data name="SettingsForm_Tab_Theme" xml:space="preserve">
+    <value>Thème</value>
+  </data>
+  <data name="MainForm_Tab_Home_Touchlink" xml:space="preserve">
+    <value>Lien par touché</value>
+  </data>
+  <data name="MainForm_Tab_Home_FindSerial" xml:space="preserve">
+    <value>Trouver un ampoule par no. série</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_LastState" xml:space="preserve">
+    <value>Dernier État</value>
   </data>
 </root>

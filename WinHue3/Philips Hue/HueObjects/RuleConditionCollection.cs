@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 

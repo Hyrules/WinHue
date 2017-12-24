@@ -35,10 +35,19 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
 
         public HueAddress(string address)
         {
-            List<string> parts = address.Split('/').ToList();
-            parts.RemoveAt(0); // remove the blank first item
+            api = null;
+            key = null;
+            objecttype = null;
+            id = null;
+            property = null;
+            subprop = null;
 
-            if (parts.Contains("api"))
+            List<string> parts = address.Split('/').ToList();
+            if (parts.Count == 0) return;
+            parts.RemoveAt(0); // remove the blank first item
+            if (parts.Count == 0) return;
+
+            if (parts[0] == "api")
             {
                 api = parts[0];
                 key = parts[1];
@@ -50,45 +59,66 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
 
             objecttype = parts[0];
 
-            if (parts.Count == 2)
+            if (parts.Count == 1) return;
+
+            if (parts[0] == "config")
             {
-                property = parts[1];
-                id = string.Empty;
+                if (parts.Count > 1)
+                {
+                    property = parts[1];
+                }
             }
             else
             {
-                id = parts[1];
-                property = parts[2];
+                if (parts.Count > 1)
+                {
+                    id = parts[1];
+                    if(parts.Count > 2)
+                        property = parts[2];
+                }
             }
 
-            subprop = parts.Count == 4 ? parts[3] : string.Empty;
+
+            if (parts.Count == 4)
+            {
+                subprop = parts[3];
+            }
+
+            
+        }
+
+
+
+        public static implicit operator string(HueAddress s)
+        {
+            return s.ToString();
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
-            if (api != null)
+            if (!string.IsNullOrEmpty(api) && api != string.Empty)
             {
                 sb.Append($"/api/{key}");
             }
 
-            if (objecttype != string.Empty)
+            if (!string.IsNullOrEmpty(objecttype) && objecttype != string.Empty)
             {
                 sb.Append($"/{objecttype}");
             }
 
-            if (id != string.Empty)
+            if (!string.IsNullOrEmpty(id) && id != string.Empty)
             {
                 sb.Append($"/{id}");
             }
 
-            if (property != string.Empty)
+            if (!string.IsNullOrEmpty(property) && property != string.Empty)
             {
                 sb.Append($"/{property}");
             }
 
-            if (subprop != string.Empty)
+            if (!string.IsNullOrEmpty(subprop) && subprop != string.Empty)
             {
                 sb.Append($"/{subprop}");
             }
@@ -146,40 +176,7 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            HueAddress hueAddress = new HueAddress();
-
-            List<string> str = reader.Value.ToString().Split('/').ToList();
-            str.RemoveAt(0);
-
-            if (str.Contains("api"))
-            {
-                hueAddress.api = "api";
-                hueAddress.key = str[1];
-                //remove the api
-                str.Remove("api");
-                //remove the apikey
-                str.RemoveAt(0);
-            }
-
-            hueAddress.objecttype = str[0];
-
-            if (str.Count == 4)
-            {
-                hueAddress.id = str[1];
-                hueAddress.property = str[2];
-                hueAddress.subprop = str[3];
-                
-            }
-            else if (str.Count == 3)
-            {
-                hueAddress.id = str[1];
-                hueAddress.property = str[2];
-
-            }
-            else if(str.Count == 2)
-            {
-                hueAddress.property = str[1];
-            }
+            HueAddress hueAddress = new HueAddress(reader.Value.ToString());
             return hueAddress;
         }
 

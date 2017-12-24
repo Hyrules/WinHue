@@ -1,0 +1,61 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
+        xmlns:slider ="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
+        mc:Ignorable="d"
+        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="424.841" Width="712.986">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:ScheduleCreatorSlidersViewModel}" >
+            <slider:Sliders Hue="{Binding Hue, Mode=TwoWay}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:ScheduleCreatorSensorsViewModel}">
+            <xctk:PropertyGrid ></xctk:PropertyGrid>
+        </DataTemplate>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:ScheduleCreatorViewModel/>
+    </Window.DataContext>
+    <Grid>
+
+
+
+        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="339" Width="334" Background="{DynamicResource SliderThumb.Disabled.Border}"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="339">
+            <ComboBoxItem Content="Sliders"></ComboBoxItem>
+            <ComboBoxItem Content="Sensors"></ComboBoxItem>
+        </ComboBox>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,354,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="533,354,0,0" VerticalAlignment="Top" Width="75"/>
+        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="339" Kind="Local" Format="Custom" Value="{Binding Header.Datetime}"  >
+            <xctk:DateTimePicker.Style>
+                <Style TargetType="xctk:DateTimePicker">
+                    <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Header.ScheduleType}" Value="timer">
+                            <Setter Property="FormatString" Value="HH:mm:ss"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Header.ScheduleType}" Value="alarm">
+                            <Setter Property="FormatString" Value="HH:mm:ss"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </xctk:DateTimePicker.Style>
+        </xctk:DateTimePicker>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}">
+            <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}" Tag="schedule"/>
+            <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}" Tag="alarm"/>
+            <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}" Tag="timer" />
+        </xctk:WatermarkComboBox>
+
+    </Grid>
+</Window>
