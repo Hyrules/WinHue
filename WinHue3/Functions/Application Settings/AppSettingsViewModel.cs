@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using MahApps.Metro;
+
 using WinHue3.Utils;
 
 namespace WinHue3.Functions.Application_Settings
@@ -40,7 +40,9 @@ namespace WinHue3.Functions.Application_Settings
 
         private void ChangeThemeColor()
         {
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(MainSettingsModel.Themecolor), ThemeManager.GetAppTheme(MainSettingsModel.Theme));
+            MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(MainSettingsModel.Themecolor), MahApps.Metro.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
+            //Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(MainSettingsModel.Themecolor), Fluent.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
+
         }
     }
 }

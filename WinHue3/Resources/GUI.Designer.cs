@@ -1933,6 +1933,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find Light by serial.
+        /// </summary>
+        public static string MainForm_Tab_Home_FindSerial {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_FindSerial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commands.
         /// </summary>
         public static string MainForm_Tab_Home_Group_Commands {
@@ -2176,6 +2185,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Touchlink.
+        /// </summary>
+        public static string MainForm_Tab_Home_Touchlink {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Touchlink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tools.
         /// </summary>
         public static string MainForm_Tab_Tools {
@@ -2307,6 +2325,15 @@ namespace WinHue3.Resources {
         public static string MainForm_ToolsTab_Settings {
             get {
                 return ResourceManager.GetString("MainForm_ToolsTab_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send to system tray.
+        /// </summary>
+        public static string MainForm_TrayButton {
+            get {
+                return ResourceManager.GetString("MainForm_TrayButton", resourceCulture);
             }
         }
         
@@ -3130,6 +3157,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scene Name (Optional).
+        /// </summary>
+        public static string SceneCreatorForm_SceneName {
+            get {
+                return ResourceManager.GetString("SceneCreatorForm_SceneName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected Lights.
         /// </summary>
         public static string SceneCreatorForm_SelectedLights {
@@ -3751,6 +3787,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last State.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_LastState {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_LastState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lights.
         /// </summary>
         public static string SettingsForm_Tab_Defaults_Lights {
@@ -4044,6 +4089,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Warning_Message_Upnp {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Warning_Message_Upnp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string SettingsForm_Tab_Theme {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Theme", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿<Window
+﻿<mahapps:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -8,7 +8,10 @@
     xmlns:controls="clr-namespace:WinHue3.Controls"
     xmlns:oldCreator="clr-namespace:WinHue3.Functions.Schedules.OldCreator"
     xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
-    Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="677.449" Width="716" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SchedulesLarge.png">
+    xmlns:mahapps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    BorderThickness="2" 
+    BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}"
+    Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="677.449" Width="706.587" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SchedulesLarge.png">
 
     <Window.DataContext>
         <oldCreator:ScheduleCreatorViewModel/>
@@ -136,7 +139,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="btnSave">
+        <Style TargetType="{x:Type Button}" x:Key="btnSave" BasedOn="{StaticResource AccentedSquareButtonStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=chcbDOW, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -154,7 +157,7 @@
     <Grid>
         <GroupBox x:Name="grpSettings" Header="{x:Static resx:GUI.ScheduleCreatorForm_ScheduleSettings}" HorizontalAlignment="Left" Margin="7,304,0,0" VerticalAlignment="Top" Height="302" Width="685" IsEnabled="{Binding CanSetSettings}">
             <Grid>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Center" Margin="10,0,561,254" Width="102"/>
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Center" Margin="10,0,561.333,236.667" Width="102"/>
                 <Slider x:Name="slHue" Value="{Binding Body.hue, Converter={StaticResource SliderToUshortConverter}}" Height="217" VerticalAlignment="Top" Maximum="65535" Margin="33,31,619,0" Width="Auto" IsSnapToTickEnabled="True" Orientation="Vertical" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding ElementName=slHue,Path=Value}" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0" >
@@ -171,7 +174,7 @@
                         <Style/>
                     </Slider.Style>
                 </Slider>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Brightness}" HorizontalAlignment="Center" Margin="117,0,460,254" Width="96"/>
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Brightness}" HorizontalAlignment="Center" Margin="117,0,460.333,236.667" Width="96"/>
                 <Slider x:Name="slBri" Value="{Binding Body.bri, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Margin="140,31,511,0" Width="Auto" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" Minimum="-1" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
@@ -180,7 +183,7 @@
                         </LinearGradientBrush>
                     </Slider.Background>
                 </Slider>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_ColorTemp}" HorizontalAlignment="Center"  Width="101" Margin="218,0,354,254"/>
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_ColorTemp}" HorizontalAlignment="Center"  Width="101" Margin="218,0,354.333,236.667"/>
                 <Slider x:Name="slCT" Value="{Binding Body.ct, Converter={StaticResource SliderToUshortConverter}}"  Height="217" VerticalAlignment="Top" Maximum="500" Margin="249,31,403,0" Width="Auto" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -189,7 +192,7 @@
                         </LinearGradientBrush>
                     </Slider.Background>
                 </Slider>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Saturation}" HorizontalAlignment="Center" Margin="339,0,241,254" Width="93"/>
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Saturation}" HorizontalAlignment="Center" Margin="339,0,241.333,236.667" Width="93"/>
                 <Slider x:Name="slSAT" Value="{Binding Body.sat, Converter={StaticResource SliderToByteConverter}}"  Height="217" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="361,31,290,0" IsSnapToTickEnabled="True" SmallChange="1" Orientation="Vertical" IsMoveToPointEnabled="True">
                     <Slider.Background>
                         <LinearGradientBrush  EndPoint="0.5,0" StartPoint="0.5,1">
@@ -198,10 +201,10 @@
                         </LinearGradientBrush>
                     </Slider.Background>
                 </Slider>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_XColorSpace}" HorizontalAlignment="Center" Margin="447,0,136,254" Width="90" RenderTransformOrigin="0.507,0"/>
-                <Slider x:Name="slX" Value="{Binding Body.xy.X, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="479,31,167,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True" />
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_YColorSpace}" HorizontalAlignment="Center" Margin="557,0,28,254" Width="88"/>
-                <Slider x:Name="slY" Value="{Binding Body.xy.Y, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="589,31,60,32" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True"/>
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_XColorSpace}" HorizontalAlignment="Center" Margin="447,0,136.333,236.667" Width="90" RenderTransformOrigin="0.507,0"/>
+                <Slider x:Name="slX" Value="{Binding Body.xy.X, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="479,31,167.333,14.667" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True" />
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_YColorSpace}" HorizontalAlignment="Center" Margin="557,0,28.333,236.667" Width="88"/>
+                <Slider x:Name="slY" Value="{Binding Body.xy.Y, Converter={StaticResource SliderToXyConverter}}" Maximum="1" Margin="589,31,60.333,14.667" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Orientation="Vertical" Minimum="-0.001" IsMoveToPointEnabled="True"/>
             </Grid>
         </GroupBox>
 
@@ -236,15 +239,15 @@
                 <CheckBox x:Name="chbRandomize" IsChecked="{Binding ScheduleModel.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="566,111,0,0" VerticalAlignment="Top" Width="83" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
                 <CheckBox x:Name="chbAutodelete" Style="{StaticResource AutoDeleteHide}" IsChecked="{Binding ScheduleModel.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="566,77,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True"/>
                 <CheckBox x:Name="chbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="566,141,0,0" VerticalAlignment="Top" IsChecked="{Binding ScheduleModel.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not."/>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="197,224,0,0" VerticalAlignment="Top" Width="161"/>
-                <Label x:Name="label" Content="Transition time :" HorizontalAlignment="Left" Margin="9,223,0,0" VerticalAlignment="Top"/>
-                <xctk:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="133,96,0,0"  Text="{Binding ScheduleModel.Name}" VerticalAlignment="Top" Width="379" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name_Tooltip}" Height="24" SnapsToDevicePixels="True" MaxLength="32" />
-                <xctk:WatermarkTextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="133,138,0,0" Text="{Binding ScheduleModel.Description}" VerticalAlignment="Top" Width="379" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}" Height="24" SnapsToDevicePixels="True" />
+                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="197,219,0,0" VerticalAlignment="Top" Width="161"/>
+                <Label x:Name="label" Content="Transition time :" HorizontalAlignment="Left" Margin="9,218,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="133,96,0,0"  Text="{Binding ScheduleModel.Name}" VerticalAlignment="Top" Width="379" mahapps:TextBoxHelper.Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name_Tooltip}" Height="24" SnapsToDevicePixels="True" MaxLength="32" />
+                <TextBox x:Name="tbDesc" HorizontalAlignment="Left" Margin="133,138,0,0" Text="{Binding ScheduleModel.Description}" VerticalAlignment="Top" Width="379" mahapps:TextBoxHelper.Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Desc_Tooltip}" Height="24" SnapsToDevicePixels="True" />
                 <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="479,189,0,0" VerticalAlignment="Top" Minimum="1" Maximum="99" Height="23" Width="59" Value="{Binding ScheduleModel.Repetition}"/>
                 <Label x:Name="label1" Style="{StaticResource lblRepeat}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Repeat}" HorizontalAlignment="Left" Margin="383,188,0,0" VerticalAlignment="Top" Width="91"/>
-                <DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="200,180,0,0" VerticalAlignment="Top" SelectedDate="{Binding ScheduleModel.Date, Converter={StaticResource DateFormatConverter}, UpdateSourceTrigger=PropertyChanged}" Width="159"/>
-                <TextBox x:Name="tbTime" HorizontalAlignment="Left" Height="24" Margin="133,180,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Time, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="62" MaxLength="8" Padding="0,2,0,0"/>
-                <TextBox x:Name="tbTT" HorizontalAlignment="Left" Height="23" Margin="133,225,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Transitiontime, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="62" SnapsToDevicePixels="True"/>
+                <DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="200,180,0,0" VerticalAlignment="Top" SelectedDate="{Binding ScheduleModel.Date, Converter={StaticResource DateFormatConverter}, UpdateSourceTrigger=PropertyChanged}" Width="159" Height="32"/>
+                <TextBox x:Name="tbTime" HorizontalAlignment="Left" Height="32" Margin="133,180,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Time, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="62" MaxLength="8" Padding="0,2,0,0"/>
+                <TextBox x:Name="tbTT" HorizontalAlignment="Left" Height="23" Margin="133,220,0,0" TextWrapping="Wrap" Text="{Binding ScheduleModel.Transitiontime, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="62" SnapsToDevicePixels="True"/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Target}" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
                 <ComboBox HorizontalAlignment="Left" Margin="133,10,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding ListTarget}" SelectedItem="{Binding SelectedObject}" Background="White">
                     <ComboBox.ItemTemplate>
@@ -256,7 +259,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <ComboBox HorizontalAlignment="Left" Margin="475,223,0,0" VerticalAlignment="Top" Width="170" SelectedValuePath="Tag" SelectedValue="{Binding Effect}">
+                <ComboBox HorizontalAlignment="Left" Margin="475,218,0,0" VerticalAlignment="Top" Width="170" SelectedValuePath="Tag" SelectedValue="{Binding Effect}">
                     <ComboBoxItem Content="None" Tag="1"/>
                     <ComboBoxItem Content="Identify Long" Tag="2"/>
                     <ComboBoxItem Content="Identify Short" Tag="3"/>
@@ -265,8 +268,8 @@
             </Grid>
         </GroupBox>
         <Button x:Name="btnClear" Content="{x:Static resx:GUI.ScheduleCreatorForm_ClearButton}" IsEnabled="{Binding IsEditing}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="457,611,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnSave" Content="{x:Static resx:GUI.ScheduleCreatorForm_SaveButton}" Style="{StaticResource btnSave}"  HorizontalAlignment="Left" Margin="537,611,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
+        <Button x:Name="btnSave" Content="{x:Static resx:GUI.ScheduleCreatorForm_SaveButton}" Style="{StaticResource btnSave}"  HorizontalAlignment="Left" Margin="537,611,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click" />
         <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ScheduleCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="617,611,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
     </Grid>
 
-</Window>
+</mahapps:MetroWindow>

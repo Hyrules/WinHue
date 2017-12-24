@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using WinHue3.Functions.EventViewer;
 using WinHue3.Philips_Hue.BridgeObject;
@@ -38,6 +39,10 @@ namespace WinHue3.MainForm
             get => _listBridgeObjects;
             set { SetProperty(ref _listBridgeObjects, value); RaisePropertyChanged("MultiBridgeCB");}
         }
+
+        public string Title => $"WinHue 3 - {Version}";
+
+        public string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string Lastmessage
         {

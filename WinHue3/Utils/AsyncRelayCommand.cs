@@ -22,12 +22,14 @@ namespace WinHue3.Utils
         public event EventHandler CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            remove => CommandManager.RequerySuggested -= value;          
         }
 
-        public void RaiseCanExecuteChanged()
+
+        private static void RaiseCanExecuteChanged()
         {
             CommandManager.InvalidateRequerySuggested();
+            
         }
 
         [DebuggerStepThrough]
@@ -55,7 +57,13 @@ namespace WinHue3.Utils
                 RaiseCanExecuteChanged();
             }
         }
+
+
     }
 
+    public class CanExecuteEventArgs : EventArgs
+    {
+
+    }
  
 }

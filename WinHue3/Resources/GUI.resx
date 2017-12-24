@@ -1467,4 +1467,22 @@
   <data name="SettingsForm_Tab_MainSettings_ThemeColor" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="SceneCreatorForm_SceneName" xml:space="preserve">
+    <value>Scene Name (Optional)</value>
+  </data>
+  <data name="MainForm_TrayButton" xml:space="preserve">
+    <value>Send to system tray</value>
+  </data>
+  <data name="SettingsForm_Tab_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="MainForm_Tab_Home_Touchlink" xml:space="preserve">
+    <value>Touchlink</value>
+  </data>
+  <data name="MainForm_Tab_Home_FindSerial" xml:space="preserve">
+    <value>Find Light by serial</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_LastState" xml:space="preserve">
+    <value>Last State</value>
+  </data>
 </root>

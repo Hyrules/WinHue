@@ -106,7 +106,7 @@
                             </Style>
                         </xctk:WatermarkTextBox.Style>
                     </xctk:WatermarkTextBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionObjectTypeCommand}" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" behaviors:WatermarkBehavior.Watermark="Object Type">
+                    <ComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionObjectTypeCommand}" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" mahapps:TextBoxHelper.Watermark="(Object Type)">
                         <ComboBoxItem Content="Lights" Tag="{x:Type light:Light}" />
                         <ComboBoxItem Content="Groups" Tag="{x:Type group:Group}"/>
                         <ComboBoxItem Content="Sensors" Tag="{x:Type sensor:Sensor}"/>
@@ -116,7 +116,7 @@
                         <ComboBoxItem Content="Rule" Tag="{x:Type rule:Rule}"/>
                         <ComboBoxItem Content="Config" Tag="{x:Type bridgeObjects:BridgeSettings}"/>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="142,9,0,0" VerticalAlignment="Top" Width="203" ItemsSource="{Binding ListConditionHueObjects}" SelectedItem="{Binding SelectedConditionHueObject}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionHueObjectCommand}" behaviors:WatermarkBehavior.Watermark="Object">
+                    <ComboBox HorizontalAlignment="Left" Margin="142,10,0,0" VerticalAlignment="Top" Width="203" ItemsSource="{Binding ListConditionHueObjects}" SelectedItem="{Binding SelectedConditionHueObject}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionHueObjectCommand}" mahapps:TextBoxHelper.Watermark="(Object)">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
@@ -190,7 +190,7 @@
                         </xctk:PropertyGrid.EditorDefinitions>-->
                     </xctk:PropertyGrid>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_AddToRuleActions}" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="335" Command="{Binding Action_AddActionCommand}"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="185" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Action_SelectActionObjectCommand}" behaviors:WatermarkBehavior.Watermark="Object">
+                    <ComboBox HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="185" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Action_SelectActionObjectCommand}" mahapps:TextBoxHelper.Watermark="Object" Height="27">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
@@ -201,7 +201,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Action_SelectHueObjectTypeCommand}" behaviors:WatermarkBehavior.Watermark="Object Type">
+                    <ComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding Action_SelectHueObjectTypeCommand}" mahapps:TextBoxHelper.Watermark="Object Type">
                         <ComboBoxItem Content="Lights" Tag="{x:Type light:Light}"/>
                         <ComboBoxItem Content="Groups" Tag="{x:Type group:Group}"/>
                         <ComboBoxItem Content="Scenes" Tag="{x:Type scene:Scene}"/>

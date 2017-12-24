@@ -5,12 +5,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace WinHue3.Functions.Behaviors
 {
     public static class CommandBehavior
     {
+        private static DependencyObject obj;
 
         public static ICommand GetCommand(DependencyObject obj)
         {
@@ -24,24 +26,44 @@ namespace WinHue3.Functions.Behaviors
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(CommandBehavior), new FrameworkPropertyMetadata((ICommand)null));
+            DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(CommandBehavior), new FrameworkPropertyMetadata((ICommand)null, OnCommandPropertyChanged));
+
+        private static void OnCommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            obj = d;
+            if ((e.NewValue != null) && (e.OldValue == null))
+            {
+                ((ICommand)e.NewValue).CanExecuteChanged += OnCanExecuteChanged;
+            }
+            else if ((e.NewValue == null) && (e.OldValue != null))
+            {
+                ((ICommand) e.OldValue).CanExecuteChanged -= OnCanExecuteChanged;
+            }
+        }
+
+        private static void OnCanExecuteChanged(object sender, EventArgs e)
+        {
+            if (!(obj is Control ctrl)) return;
+            ctrl.IsEnabled = ((ICommand) obj.GetValue(CommandProperty)).CanExecute(null);
+        }
+
 
         public static readonly DependencyProperty RoutedEventNameProperty =
-            DependencyProperty.RegisterAttached("RoutedEventName", typeof(String),
-               typeof(CommandBehavior), new FrameworkPropertyMetadata((String) String.Empty, new PropertyChangedCallback(OnRoutedEventNameChanged)));
+            DependencyProperty.RegisterAttached("RoutedEventName", typeof(string),
+               typeof(CommandBehavior), new FrameworkPropertyMetadata(string.Empty, OnRoutedEventNameChanged));
  
         /// <summary>
         /// Gets the RoutedEventName property.  
         /// </summary>
-        public static String GetRoutedEventName(DependencyObject d)
+        public static string GetRoutedEventName(DependencyObject d)
         {
-            return (String) d.GetValue(RoutedEventNameProperty);
+            return (string) d.GetValue(RoutedEventNameProperty);
         }
 
         /// <summary>
         /// Sets the RoutedEventName property.  
         /// </summary>
-        public static void SetRoutedEventName(DependencyObject d, String value)
+        public static void SetRoutedEventName(DependencyObject d, string value)
         {
             d.SetValue(RoutedEventNameProperty, value);
         }
@@ -53,15 +75,14 @@ namespace WinHue3.Functions.Behaviors
         /// </summary>
         private static void OnRoutedEventNameChanged(DependencyObject d,DependencyPropertyChangedEventArgs e)
         {
-            String routedEvent = (String)e.NewValue;
+            string routedEvent = (string)e.NewValue;
   
             //If the RoutedEvent string is not null, create a new
             //dynamically created EventHandler that when run will execute
             //the actual bound ICommand instance (usually in the ViewModel)
-            if (!String.IsNullOrEmpty(routedEvent))
+            if (!string.IsNullOrEmpty(routedEvent))
             {
-                EventHooker eventHooker = new EventHooker();
-                eventHooker.ObjectWithAttachedCommand = d;
+                EventHooker eventHooker = new EventHooker {ObjectWithAttachedCommand = d};
                 EventInfo eventInfo = d.GetType().GetEvent(routedEvent,BindingFlags.Public | BindingFlags.Instance);
 
                 //Hook up Dynamically created event handler
@@ -116,9 +137,12 @@ namespace WinHue3.Functions.Behaviors
             ICommand command = (ICommand)(sender as DependencyObject).GetValue(CommandBehavior.CommandProperty);
             if (command != null)
             {
-                command.Execute(null);
+                if (command.CanExecute(null))
+                {
+                    command.Execute(null);
+                }
             }
-            
+
         }
     }
 }

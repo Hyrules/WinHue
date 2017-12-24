@@ -39,7 +39,6 @@ namespace WinHue3.MainForm
             InitializeComponent();
             _mfvm = DataContext as MainFormViewModel;
             _mfvm.Eventlogform = _fel;
-            Title += " " + Assembly.GetExecutingAssembly().GetName().Version; 
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              trayicon.Icon = Properties.Resources.icon;
             _mfvm.SetToolbarTray(trayicon);
@@ -132,7 +131,6 @@ namespace WinHue3.MainForm
         {
             this.Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
         }
-
 
     }
 }

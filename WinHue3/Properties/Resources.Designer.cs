@@ -203,6 +203,16 @@ namespace WinHue3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap findserial {
+            get {
+                object obj = ResourceManager.GetObject("findserial", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap flashlight_shine {
             get {
                 object obj = ResourceManager.GetObject("flashlight_shine", resourceCulture);
@@ -516,6 +526,16 @@ namespace WinHue3.Properties {
         public static System.Drawing.Bitmap timer_clock {
             get {
                 object obj = ResourceManager.GetObject("timer_clock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap touchlink {
+            get {
+                object obj = ResourceManager.GetObject("touchlink", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

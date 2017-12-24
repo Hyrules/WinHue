@@ -21,10 +21,15 @@ namespace WinHue3.Philips_Hue.Communication
                 {
                     return JsonConvert.DeserializeObject(json, objecttype);
                 }
+                else
+                {
+                    log.Warn("Received string was empty.");
+                }
                 return null;
             }
             catch (Exception)
             {
+                
                 log.Error($"Error deserializing object {objecttype.Name} : " + json);
                 return null;
                 
@@ -71,6 +76,11 @@ namespace WinHue3.Philips_Hue.Communication
                 {
                     return (T) JsonConvert.DeserializeObject<T>(json, jss);
                 }
+                else
+                {
+                    log.Warn("Received string was empty.");
+                }
+
                 return default(T);
             }
             catch (Exception)

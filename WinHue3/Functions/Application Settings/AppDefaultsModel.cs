@@ -10,6 +10,7 @@ namespace WinHue3.Functions.Application_Settings
         private ushort? _defaultTT;
         private byte _defaultLightBri;
         private byte _defaultGroupBri;
+        private bool _lastState;
 
         public AppDefaultsModel()
         {
@@ -18,6 +19,7 @@ namespace WinHue3.Functions.Application_Settings
             _defaultTT = WinHueSettings.settings.DefaultTT;
             _defaultLightBri = WinHueSettings.settings.DefaultBriLight;
             _defaultGroupBri = WinHueSettings.settings.DefaultBriGroup;
+            _lastState = WinHueSettings.settings.UseLastBriState;
         }
 
         public ushort? AllOnTt
@@ -48,6 +50,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _defaultGroupBri;
             set => SetProperty(ref _defaultGroupBri,value);
+        }
+
+        public bool UseLastBriState
+        {
+            get => _lastState;
+            set => SetProperty(ref _lastState, value);
         }
     }
 }

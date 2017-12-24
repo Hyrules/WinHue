@@ -14,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using WinHue3.ExtensionMethods;
-using WinHue3.Functions.About;
 using WinHue3.Functions.Advanced_Creator;
 using WinHue3.Functions.Application_Settings;
 using WinHue3.Functions.Application_Settings.Settings;
@@ -295,8 +294,19 @@ namespace WinHue3.MainForm
             else
             {
                 log.Info($"Activating scene : {_selectedObject.Id}");
-                await SelectedBridge.ActivateSceneAsyncTask(_selectedObject.Id);
-
+                Scene scene = (Scene) _selectedObject;
+                if (!scene.On)
+                {
+                    await SelectedBridge.ActivateSceneAsyncTask(_selectedObject.Id);
+                }
+                else
+                {
+                    foreach (string l in scene.lights)
+                    {
+                        await SelectedBridge.SetStateAsyncTask(new State() {on = false}, l);
+                    }
+                }
+                ((Scene)_selectedObject).On = !((Scene)_selectedObject).On;
             }
 
         }
@@ -812,7 +822,7 @@ namespace WinHue3.MainForm
                 MainFormModel.SliderCt = light.state.ct ?? 153;
                 MainFormModel.SliderX = light.state.xy?[0] ?? 0;
                 MainFormModel.SliderY = light.state.xy?[1] ?? 0;
-             
+                MainFormModel.On = light.state.on ?? false;
             }
             else if (_selectedObject is Group)
             {
@@ -824,7 +834,12 @@ namespace WinHue3.MainForm
                 MainFormModel.SliderCt = light.action.ct ?? 153;
                 MainFormModel.SliderX = light.action.xy?[0] ?? 0;
                 MainFormModel.SliderY = light.action.xy?[1] ?? 0;
-               
+                MainFormModel.On = light.action.on ?? false;
+            }
+            else if (_selectedObject is Scene)
+            {
+                Scene scene = (Scene) _selectedObject;
+                MainFormModel.On = scene.On;
             }
             else
             {            
@@ -833,7 +848,8 @@ namespace WinHue3.MainForm
                 MainFormModel.SliderSat = 0;
                 MainFormModel.SliderCt = 153;
                 MainFormModel.SliderX = 0;
-                MainFormModel.SliderY = 0;           
+                MainFormModel.SliderY = 0;
+                MainFormModel.On = false;
             }
         }
 
@@ -1127,11 +1143,6 @@ namespace WinHue3.MainForm
             Process.Start("https://github.com/Hyrules/WinHue3/issues");
         }
 
-        private void OpenAboutWindow()
-        {
-            AboutBox ab = new AboutBox();
-            ab.ShowDialog();
-        }
 
         #endregion
 

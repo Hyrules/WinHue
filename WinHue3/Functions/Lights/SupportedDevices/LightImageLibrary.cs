@@ -31,8 +31,8 @@ namespace WinHue3.Functions.Lights.SupportedDevices
         public static void LoadLightsImages()
         {
             string[] listlightsfiles = Directory.GetFiles("lights", "*.png");
-            string path = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-
+            string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            log.Info("Image path = " + path + "\\lights");
             foreach (string file in listlightsfiles)
             {
                 if (!(file.Contains("_unr.png") || file.Contains("_off.png") || file.Contains("_on.png"))) continue; // CHECK IF FILE PATTERN FOR NAMING IS VALID. OTHERWISE IGNORE.

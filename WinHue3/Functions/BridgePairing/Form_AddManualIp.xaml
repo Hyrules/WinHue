@@ -35,7 +35,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="btnApply">
+        <Style TargetType="{x:Type Button}" x:Key="btnApply" BasedOn="{StaticResource AccentedSquareButtonStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=tbIPAddress, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -45,9 +45,10 @@
     </Window.Resources>
 
     <Grid>
-        <TextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="64,10,0,0" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="218" behaviors:WatermarkBehavior.Watermark="eg. 192.168.1.1" BorderThickness="2"/>
-        <Label x:Name="label" Content="{x:Static resx:GUI.Form_AddManualIP_IP}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="49"/>
-        <Button x:Name="btnSaveIp" Content="{x:Static resx:GUI.Form_AddManualIP_Apply}" Style="{StaticResource btnApply}" HorizontalAlignment="Left" Margin="127,36,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveIp_Click" Height="27"/>
-        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.Form_AddManualIP_Cancel}" HorizontalAlignment="Left" Margin="207,36,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <TextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="64,7,0,0" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="218"  BorderThickness="2" mahapps:TextBoxHelper.Watermark="eg. 192.168.1.1" >
+        </TextBox>
+        <Label x:Name="label" Content="{x:Static resx:GUI.Form_AddManualIP_IP}" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="49"/>
+        <Button x:Name="btnSaveIp" Content="{x:Static resx:GUI.Form_AddManualIP_Apply}" Style="{StaticResource btnApply}" HorizontalAlignment="Left" Margin="127,39,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveIp_Click" Height="27"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.Form_AddManualIP_Cancel}" HorizontalAlignment="Left" Margin="207,38,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
     </Grid>
 </mahapps:MetroWindow>

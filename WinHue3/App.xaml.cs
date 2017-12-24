@@ -13,7 +13,6 @@ using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using System.Reflection;
 using System.Threading;
-using MahApps.Metro;
 using WinHue3.Functions.Application_Settings.Settings;
 using Form_EventLog = WinHue3.Functions.EventViewer.Form_EventLog;
 
@@ -54,7 +53,7 @@ namespace WinHue3
             Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");
             Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated}");
             MainForm.MainWindow wnd = new MainForm.MainWindow(_fel);
-            MainWindow.Title = "WinHue " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+         
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
                 ? SystemParameters.WorkArea.Height*0.75
                 : MainWindow.MinHeight;
@@ -65,83 +64,38 @@ namespace WinHue3
 
             MainWindow.Height = height;
             MainWindow.Width = width;
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+            //MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), MahApps.Metro.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+           // Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), Fluent.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
             switch (WinHueSettings.settings.StartMode)
             {
                 case 0:
-                    wnd.WindowState = WindowState.Normal;
                     wnd.Show();
+                    wnd.WindowState = WindowState.Normal;
                     break;
                 case 1:
-                    wnd.WindowState = WindowState.Minimized;
                     wnd.Show();
+                    wnd.WindowState = WindowState.Minimized;                   
                     break;
                 case 2:
-                    wnd.Hide();                 
+                    wnd.Show();
+                    wnd.Hide();
                     break;
                 default:
                     wnd.Show();
                     wnd.WindowState = WindowState.Normal;
                     break;
             }
-
         }
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-           
+          
             MessageBox.Show("Sorry but an unexpected exception occured. Please report the exception on the support website so the developper can fix the issues. Please include the most recent log located in the logs folder.");
             string ex = Serializer.SerializeToJson(e.ExceptionObject);
             Log.Fatal("Unexpected Exception : ",(Exception)e.ExceptionObject);
             Log.Fatal(ex);
-            MiniDump.MiniDumpToFile(path + "\\log\\" + $"WinHue3_dump_{DateTime.Now}.dmp");
         }
 
 
     }
-
-
-    public class MiniDump
-    {
-
-        internal enum MINIDUMP_TYPE
-        {
-            MiniDumpNormal = 0x00000000,
-            MiniDumpWithDataSegs = 0x00000001,
-            MiniDumpWithFullMemory = 0x00000002,
-            MiniDumpWithHandleData = 0x00000004,
-            MiniDumpFilterMemory = 0x00000008,
-            MiniDumpScanMemory = 0x00000010,
-            MiniDumpWithUnloadedModules = 0x00000020,
-            MiniDumpWithIndirectlyReferencedMemory = 0x00000040,
-            MiniDumpFilterModulePaths = 0x00000080,
-            MiniDumpWithProcessThreadData = 0x00000100,
-            MiniDumpWithPrivateReadWriteMemory = 0x00000200,
-            MiniDumpWithoutOptionalData = 0x00000400,
-            MiniDumpWithFullMemoryInfo = 0x00000800,
-            MiniDumpWithThreadInfo = 0x00001000,
-            MiniDumpWithCodeSegs = 0x00002000
-        }
-        [DllImport("dbghelp.dll")]
-        private static extern bool MiniDumpWriteDump(
-            IntPtr hProcess,
-            Int32 ProcessId,
-            IntPtr hFile,
-            MINIDUMP_TYPE DumpType,
-            IntPtr ExceptionParam,
-            IntPtr UserStreamParam,
-            IntPtr CallackParam);
-
-        public static void MiniDumpToFile(string fileToDump)
-        {
-            FileStream fsToDump = null;
-            fsToDump = File.Exists(fileToDump) ? File.Open(fileToDump, FileMode.Append) : File.Create(fileToDump);
-            Process thisProcess = Process.GetCurrentProcess();
-            MiniDumpWriteDump(thisProcess.Handle, thisProcess.Id,
-                fsToDump.SafeFileHandle.DangerousGetHandle(), MINIDUMP_TYPE.MiniDumpNormal,
-                IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
-            fsToDump.Close();
-        }
-    };
 }

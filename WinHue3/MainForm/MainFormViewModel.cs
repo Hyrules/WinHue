@@ -124,6 +124,7 @@ namespace WinHue3.MainForm
                 }
             }
             LoadBridges();
+
         }
 
         private void LoadBridges()

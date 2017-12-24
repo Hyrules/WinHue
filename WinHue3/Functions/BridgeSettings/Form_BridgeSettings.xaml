@@ -7,7 +7,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgeSettings="clr-namespace:WinHue3.Functions.BridgeSettings"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
-        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="502" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="487.721" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.DataContext>
         <bridgeSettings:BridgeSettingsViewModel/>
     </Window.DataContext>
@@ -32,7 +32,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="btnApplyNetwork">
+        <Style TargetType="{x:Type Button}" x:Key="btnApplyNetwork" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=tbIPAddress, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -50,10 +50,10 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="btnDone" Content="{x:Static resx:GUI.BridgeSettingsForm_DoneButton}" HorizontalAlignment="Left" Margin="408,316,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." Style="{StaticResource AccentedSquareButtonStyle}"/>
+        <Button x:Name="btnDone" Content="{x:Static resx:GUI.BridgeSettingsForm_DoneButton}" HorizontalAlignment="Left" Margin="398,316,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." Style="{StaticResource AccentedSquareButtonStyle}"/>
         <TabControl HorizontalAlignment="Left" Height="311" VerticalAlignment="Top" Width="483">
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings}">
-                <Grid Background="#FFE5E5E5" Margin="0,0,0,-5">
+                <Grid>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_UTC}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="106"/>
                     <Label x:Name="lblTime" Content="{Binding GeneralModel.Utc}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
@@ -69,12 +69,12 @@
                     <Label x:Name="lblLinkButton" Content="{Binding GeneralModel.Linkstate}" HorizontalAlignment="Left" Margin="121,227,0,0" VerticalAlignment="Top" Width="210"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Timezone}" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="106"/>
                     <ComboBox x:Name="cbTimezones" HorizontalAlignment="Left" Margin="121,107,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}"/>
-                    <xctk:WatermarkTextBox x:Name="tbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" Watermark="Optional"/>
-                    <Button x:Name="btnApplyGeneralSettings" Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" HorizontalAlignment="Left" Margin="392,233,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}"/>
+                    <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" mahapps:TextBoxHelper.Watermark="Optional"/>
+                    <Button x:Name="btnApplyGeneralSettings" Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings}">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_MAC}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label x:Name="lblMac"  Content="{Binding NetworkModel.Mac}" HorizontalAlignment="Left" Margin="107,20,0,0" VerticalAlignment="Top" Width="155"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_IPAddress}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="92" />
@@ -84,15 +84,15 @@
                     <xctk:IntegerUpDown x:Name="nudProxyPort" HorizontalAlignment="Left" Margin="107,192,0,0" VerticalAlignment="Top" Width="71" Maximum="65535" Minimum="0" Value="{Binding NetworkModel.Proxyport}" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyPort}" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="92"/>
                     <CheckBox x:Name="chbDHCP" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Left" Margin="336,26,0,0" VerticalAlignment="Top" Width="125" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click"/>
-                    <xctk:WatermarkTextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.123" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" />
-                    <xctk:WatermarkTextBox x:Name="tbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 255.255.255.0" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <xctk:WatermarkTextBox x:Name="tbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.1" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <xctk:WatermarkTextBox x:Name="tbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.2" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <Button x:Name="btnApplyNetworkSettings" Style="{StaticResource btnApplyNetwork}"  Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" Margin="392,233,0,0" VerticalAlignment="Top" Width="75"/>
+                    <TextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 192.168.1.123" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" />
+                    <TextBox x:Name="tbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 255.255.255.0" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <TextBox x:Name="tbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 192.168.1.1" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <TextBox x:Name="tbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 192.168.1.2" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <Button x:Name="btnApplyNetworkSettings" Style="{StaticResource btnApplyNetwork}"  Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus}">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <CheckBox x:Name="chbPortalService" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_PortalService}" IsChecked="{Binding PortalModel.Portalservice,Mode=OneWay}" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" IsHitTestVisible="False" ToolTip="This option cannot be modified." Width="211"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Connection}" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="119"/>
                     <Label x:Name="lblPortalConnection" Content="{Binding PortalModel.Connection}" HorizontalAlignment="Left" Margin="134,52,0,0" VerticalAlignment="Top" Width="333"/>
@@ -107,7 +107,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate}">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_URL}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90"/>
                     <Label x:Name="lblURL" Content="{Binding SoftwareModel.Url}" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="289"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Text}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="90"/>
@@ -115,7 +115,7 @@
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="90"/>
                     <Label x:Name="lblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="289"/>
                     <CheckBox x:Name="chbNotify" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Notify}" IsChecked="{Binding SoftwareModel.Notify,Mode=OneWay}" HorizontalAlignment="Left" Margin="11,114,0,0" VerticalAlignment="Top" Width="89" IsHitTestVisible="False"/>
-                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top" Width="170" Command="{Binding ForceCheckUpdateCommand}"/>
+                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="11,228,0,0" VerticalAlignment="Top" Width="170" Command="{Binding ForceCheckUpdateCommand}"/>
                 </Grid>
             </TabItem>
         </TabControl>

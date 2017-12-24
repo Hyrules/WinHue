@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
+using MahApps.Metro.Controls;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
@@ -10,7 +11,7 @@ namespace WinHue3.Functions.Schedules.OldCreator
     /// <summary>
     /// Interaction logic for ScheduleCreator.xaml
     /// </summary>
-    public partial class Form_ScheduleCreator : Window
+    public partial class Form_ScheduleCreator : MetroWindow
     {
         private ScheduleCreatorViewModel scvm;
         private Bridge _bridge;

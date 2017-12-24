@@ -20,8 +20,7 @@ namespace WinHue3.Utils
 
             public RelayCommand(Action<object> execute, Predicate<object> canExecute)
             {
-                if (execute == null) throw new ArgumentNullException("execute");
-                _execute = execute; _canExecute = canExecute;
+                _execute = execute ?? throw new ArgumentNullException("execute"); _canExecute = canExecute;
             }
 
             #endregion
@@ -31,7 +30,7 @@ namespace WinHue3.Utils
             [DebuggerStepThrough]
             public bool CanExecute(object parameter)
             {
-                return _canExecute == null ? true : _canExecute(parameter);
+                return _canExecute?.Invoke(parameter) ?? true;
             }
 
             public event EventHandler CanExecuteChanged

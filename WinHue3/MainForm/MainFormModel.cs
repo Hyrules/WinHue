@@ -11,23 +11,22 @@ namespace WinHue3.MainForm
 
     public class MainFormModel : ValidatableBindableBase
     {
-
-
         private byte _sliderBri;
         private ushort _sliderHue;
-        private ushort _sliderCT;
+        private ushort _sliderCt;
         private byte _sliderSat;
         private decimal _sliderX;
         private decimal _sliderY;
 
         private byte _oldsliderBri;
         private ushort _oldsliderHue;
-        private ushort _oldsliderCT;
+        private ushort _oldsliderCt;
         private byte _oldsliderSat;
         private decimal _oldsliderX;
         private decimal _oldsliderY;
         private bool _showId;
         private bool _wrapText;
+        private bool _on;
 
         private WinHueSortOrder _sort;
 
@@ -50,8 +49,8 @@ namespace WinHue3.MainForm
 
         public ushort SliderCt
         {
-            get => _sliderCT;
-            set => SetProperty(ref _sliderCT,value);
+            get => _sliderCt;
+            set => SetProperty(ref _sliderCt,value);
         }
 
         public byte SliderSat
@@ -92,8 +91,8 @@ namespace WinHue3.MainForm
 
         public ushort OldSliderCt
         {
-            get => _oldsliderCT;
-            set => SetProperty(ref _oldsliderCT,value);
+            get => _oldsliderCt;
+            set => SetProperty(ref _oldsliderCt,value);
         }
 
         public byte OldSliderSat
@@ -124,6 +123,12 @@ namespace WinHue3.MainForm
         {
             get => _wrapText;
             set => SetProperty(ref _wrapText,value);
+        }
+
+        public bool On
+        {
+            get => _on;
+            set => SetProperty(ref _on,value); 
         }
     }
 }

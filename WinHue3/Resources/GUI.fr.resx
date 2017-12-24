@@ -1467,4 +1467,22 @@
   <data name="SettingsForm_Tab_MainSettings_ThemeColor" xml:space="preserve">
     <value>Couleur</value>
   </data>
+  <data name="SceneCreatorForm_SceneName" xml:space="preserve">
+    <value>Nom de la scène (optionnel)</value>
+  </data>
+  <data name="MainForm_TrayButton" xml:space="preserve">
+    <value>Envoyer dans le tirroir système</value>
+  </data>
+  <data name="SettingsForm_Tab_Theme" xml:space="preserve">
+    <value>Thème</value>
+  </data>
+  <data name="MainForm_Tab_Home_Touchlink" xml:space="preserve">
+    <value>Lien par touché</value>
+  </data>
+  <data name="MainForm_Tab_Home_FindSerial" xml:space="preserve">
+    <value>Trouver un ampoule par no. série</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_LastState" xml:space="preserve">
+    <value>Dernier État</value>
+  </data>
 </root>

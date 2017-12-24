@@ -1,8 +1,11 @@
-﻿using System.Windows;
-using MahApps.Metro;
+﻿using System;
+using System.IO;
+using System.Windows;
+using IWshRuntimeLibrary;
 using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using WinHue3.Functions.Application_Settings.Settings;
+using File = System.IO.File;
 
 namespace WinHue3.Functions.Application_Settings
 {
@@ -45,19 +48,34 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.CheckForBridgeUpdate = _appSettingsViewModel.MainSettingsModel.CheckForBridgeUpdate;
             WinHueSettings.settings.ThemeColor = _appSettingsViewModel.MainSettingsModel.Themecolor;
             WinHueSettings.settings.Theme = _appSettingsViewModel.MainSettingsModel.Theme;
+            WinHueSettings.settings.UseLastBriState = _appSettingsViewModel.DefaultModel.UseLastBriState;
 
-            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            string pathtostartupfile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "WinHue3.lnk");
 
             if (WinHueSettings.settings.StartMode > 0)
             {
-                registryKey.SetValue("WinHue3", System.Reflection.Assembly.GetEntryAssembly().Location);
+                
+                if (!File.Exists(pathtostartupfile))
+                {
+                 
+                    WshShell shell = new WshShell();
+                    IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(pathtostartupfile);
+                    shortcut.Description = "WinHue Startup";
+                    shortcut.TargetPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+                    shortcut.WorkingDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                    shortcut.Save();
+                }
+
             }
             else
             {
-                if(registryKey.GetValue("WinHue3") != null)
-                    registryKey.DeleteValue("WinHue3");
+                if (File.Exists(pathtostartupfile))
+                {
+                    File.Delete(pathtostartupfile);
+                }
+
             }
-            registryKey.Close();
+            //registryKey.Close();
     
             WinHueSettings.SaveSettings();
             DialogResult = true;
@@ -66,7 +84,9 @@ namespace WinHue3.Functions.Application_Settings
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+            MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), MahApps.Metro.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+           // Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), Fluent.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+            
             Close();
         }
 

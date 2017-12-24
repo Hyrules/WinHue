@@ -27,6 +27,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             CheckForBridgeUpdate = true;
             ThemeColor = "Cyan";
             Theme = "BaseLight";
+            UseLastBriState = false;
         }
 
         [DataMember(EmitDefaultValue = true)]
@@ -67,6 +68,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public string ThemeColor { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public string Theme { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public bool UseLastBriState { get; set; }
 
         public override string ToString()
         {

@@ -9,7 +9,6 @@
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
 
-
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -55,7 +54,7 @@ Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\log4net.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\MahApps.Metro.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\fr\*"; DestDir: "{app}\fr"; Flags: ignoreversion recursesubdirs createallsubdirs
 ;Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\en\*"; DestDir: "{app}\en"; Flags: ignoreversion
@@ -63,6 +62,7 @@ Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\ligh
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\fluent.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -141,9 +141,9 @@ begin
         success := success and (release >= 378675);
     end;
 
+
     result := success and (install = 1) and (serviceCount >= service);
 end;
-
 
 function InitializeSetup(): Boolean;
 begin

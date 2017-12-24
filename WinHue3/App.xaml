@@ -8,12 +8,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Amber.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cyan.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Accents/Cyan.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="SliderThumb.Static.Foreground" Color="#FFE5E5E5"/>
+            <!--<SolidColorBrush x:Key="SliderThumb.Static.Foreground" Color="#FFE5E5E5"/>
             <SolidColorBrush x:Key="SliderThumb.MouseOver.Background" Color="#FFDCECFC"/>
             <SolidColorBrush x:Key="SliderThumb.MouseOver.Border" Color="#FF7Eb4EA"/>
             <SolidColorBrush x:Key="SliderThumb.Pressed.Background" Color="#FFDAECFC"/>
@@ -79,7 +81,7 @@
                 <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
                     <Path x:Name="grip" Data="M 0,0 C0,0 11,0 11,0 11,0 11,18 11,18 11,18 0,18 0,18 0,18 0,0 0,0 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{StaticResource SliderThumb.Static.Border}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
                 </Grid>
-                <!--<Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
+                --><!--<Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
                 <Path x:Name="grip" StrokeThickness="8" Stretch="Fill" Width="35" SnapsToDevicePixels="True" UseLayoutRounding="True" Data="M 0,0 A 180 180,180 1 1 1,1 Z" VerticalAlignment="Center">
                     <Path.Stroke>
                         <RadialGradientBrush>
@@ -89,19 +91,19 @@
                     </Path.Stroke>                 
                 </Path>
                    
-            </Grid>-->
+            </Grid>--><!--
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <!--<Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>-->
+                        --><!--<Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>--><!--
                     </Trigger>
                     <Trigger Property="IsDragging" Value="true">
                         <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Background}"/>
                         <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Border}"/>
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="false">
-                        <!--<Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>-->
+                        --><!--<Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>--><!--
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -275,7 +277,7 @@
                         <Setter Property="Template" Value="{StaticResource SliderVertical}"/>
                     </Trigger>
                 </Style.Triggers>
-            </Style>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 

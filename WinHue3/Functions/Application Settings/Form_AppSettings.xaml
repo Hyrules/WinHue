@@ -13,6 +13,14 @@
     Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="499.603" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.Resources>
         <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
+        <Style TargetType="xctk:ByteUpDown" x:Key="BriLastState">
+            <Setter Property="IsEnabled" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=chbLastState, Path=IsChecked}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <applicationSettings:AppSettingsViewModel/>
@@ -44,42 +52,11 @@
                     <CheckBox HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="454" Height="65" IsChecked="{Binding MainSettingsModel.CheckForBridgeUpdate}">
                         <TextBlock Text="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_NoCheckBridgeVersion}" TextWrapping="Wrap" Width="436" Height="51"/>
                     </CheckBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="227,39,0,0" VerticalAlignment="Top" Width="60"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
-                        <ComboBoxItem Content="Red" Tag="Red"/>
-                        <ComboBoxItem Content="Green" Tag="Green"/>
-                        <ComboBoxItem Content="Blue" Tag="Blue"/>
-                        <ComboBoxItem Content="Purple" Tag="Purple"/>
-                        <ComboBoxItem Content="Orange" Tag="Orange"/>
-                        <ComboBoxItem Content="Lime" Tag="Lime"/>
-                        <ComboBoxItem Content="Emerald" Tag="Emerald"/>
-                        <ComboBoxItem Content="Teal" Tag="Teal"/>
-                        <ComboBoxItem Content="Cyan" Tag="Cyan"/>
-                        <ComboBoxItem Content="Cobalt" Tag="Cobalt"/>
-                        <ComboBoxItem Content="Indigo" Tag="Indigo"/>
-                        <ComboBoxItem Content="Violet" Tag="Violet"/>
-                        <ComboBoxItem Content="Pink" Tag="Pink"/>
-                        <ComboBoxItem Content="Magenta" Tag="Magenta"/>
-                        <ComboBoxItem Content="Crimson" Tag="Crimsom"/>
-                        <ComboBoxItem Content="Amber" Tag="Amber"/>
-                        <ComboBoxItem Content="Yellow" Tag="Yellow"/>
-                        <ComboBoxItem Content="Brown" Tag="Brown"/>
-                        <ComboBoxItem Content="Olive" Tag="Olive"/>
-                        <ComboBoxItem Content="Steel" Tag="Steel"/>
-                        <ComboBoxItem Content="Mauve" Tag="Mauve"/>
-                        <ComboBoxItem Content="Taupe" Tag="Taupe"/>
-                        <ComboBoxItem Content="Sienna" Tag="Sienna"/>
-                    </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="292,39,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" Background="{x:Null}" Style="{StaticResource {x:Type ComboBox}}">
-                        <ComboBoxItem Content="BaseLight"></ComboBoxItem>
-                        <ComboBoxItem Content="BaseDark"></ComboBoxItem>
-                    </ComboBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="227,10,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
                 <Grid>
-                    <GroupBox x:Name="groupBox2" Header="All On/Off settings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="191" Width="251">
+                    <GroupBox x:Name="groupBox2" Header="All On/Off settings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="150" Width="251" Margin="5,5,0,0">
                         <Grid Margin="0,0,-1.667,-2.333">
                             <xctk:IntegerUpDown x:Name="nudAllOnTT" HorizontalAlignment="Left" Margin="87,21,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource IntToUshortConverter }}" />
                             <xctk:IntegerUpDown x:Name="nudAllOffTT" HorizontalAlignment="Left" Margin="87,54,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOffTt, Converter={StaticResource IntToUshortConverter}}" />
@@ -88,21 +65,22 @@
                             <Label x:Name="label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="220"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="groupBox3" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}" HorizontalAlignment="Left" Margin="261,5,0,0" VerticalAlignment="Top" Height="191" Width="162">
+                    <GroupBox x:Name="groupBox3" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}" HorizontalAlignment="Left" Margin="5,159,0,0" VerticalAlignment="Top" Height="123" Width="251">
                         <Grid>
-                            <TextBlock x:Name="label3" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,16,-2,0" Width="152" Height="33" TextWrapping="Wrap" TextAlignment="Center"/>
-                            <xctk:IntegerUpDown x:Name="nudTT" HorizontalAlignment="Left" Margin="3,54,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}"/>
-                            <TextBlock x:Name="TextBlock1" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_MinusOne}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,134,0,0" Width="150" Height="33" TextWrapping="Wrap" TextAlignment="Center"/>
+                            <TextBlock x:Name="label3" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="33" TextWrapping="Wrap" TextAlignment="Center"/>
+                            <xctk:IntegerUpDown x:Name="nudTT" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}"/>
+                            <TextBlock x:Name="TextBlock1" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_MinusOne}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,49,0,0" Width="150" Height="33" TextWrapping="Wrap" TextAlignment="Center"/>
                         </Grid>
 
 
                     </GroupBox>
-                    <GroupBox x:Name="groupBox4" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Brightness}" HorizontalAlignment="Left" Height="115" Margin="5,201,0,-21" VerticalAlignment="Top" Width="251">
+                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Brightness}" HorizontalAlignment="Left" Height="150" Margin="261,5,0,0" VerticalAlignment="Top" Width="211">
                         <Grid>
-                            <xctk:ByteUpDown x:Name="budLightsDefault" HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="133" Value="{Binding DefaultModel.DefaultLightBri}"/>
-                            <xctk:ByteUpDown x:Name="budGroupsDefault" HorizontalAlignment="Left" Margin="93,49,0,0" VerticalAlignment="Top" Width="133" Value="{Binding DefaultModel.DefaultGroupBri}"/>
-                            <Label x:Name="label4" Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Lights}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78"/>
-                            <Label x:Name="label5" Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Groups}" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="78"/>
+                            <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultLightBri}" Style="{StaticResource BriLastState}"/>
+                            <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,49,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultGroupBri}" Style="{StaticResource BriLastState}"/>
+                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Lights}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78"/>
+                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Groups}" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="78"/>
+                            <CheckBox x:Name="chbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" Width="78" Margin="10,80,110.667,9.667" />
                         </Grid>
                     </GroupBox>
 
@@ -118,6 +96,41 @@
                     <Label x:Name="lblDefaultSort" Content="{x:Static resx:GUI.SettingsForm_Tab_View_DefautSort}" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="112"/>
                     <CheckBox x:Name="chbShowID" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" HorizontalAlignment="Left" Margin="307,13,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.ShowId}"/>
                     <CheckBox x:Name="chbWrapText" Content="{x:Static resx:GUI.SettingsForm_Tab_View_WrapText}" HorizontalAlignment="Left" Margin="307,45,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.Wrap}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Grid>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="60"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" >
+                        <ComboBoxItem Content="Red" Tag="Red"/>
+                        <ComboBoxItem Content="Green" Tag="Green"/>
+                        <ComboBoxItem Content="Blue" Tag="Blue"/>
+                        <ComboBoxItem Content="Purple" Tag="Purple"/>
+                        <ComboBoxItem Content="Orange" Tag="Orange"/>
+                        <ComboBoxItem Content="Lime" Tag="Lime"/>
+                        <ComboBoxItem Content="Emerald" Tag="Emerald"/>
+                        <ComboBoxItem Content="Teal" Tag="Teal"/>
+                        <ComboBoxItem Content="Cyan" Tag="Cyan"/>
+                        <ComboBoxItem Content="Cobalt" Tag="Cobalt"/>
+                        <ComboBoxItem Content="Indigo" Tag="Indigo"/>
+                        <ComboBoxItem Content="Violet" Tag="Violet"/>
+                        <ComboBoxItem Content="Pink" Tag="Pink"/>
+                        <ComboBoxItem Content="Magenta" Tag="Magenta"/>
+                        <ComboBoxItem Content="Crimson" Tag="Crimson"/>
+                        <ComboBoxItem Content="Amber" Tag="Amber"/>
+                        <ComboBoxItem Content="Yellow" Tag="Yellow"/>
+                        <ComboBoxItem Content="Brown" Tag="Brown"/>
+                        <ComboBoxItem Content="Olive" Tag="Olive"/>
+                        <ComboBoxItem Content="Steel" Tag="Steel"/>
+                        <ComboBoxItem Content="Mauve" Tag="Mauve"/>
+                        <ComboBoxItem Content="Taupe" Tag="Taupe"/>
+                        <ComboBoxItem Content="Sienna" Tag="Sienna"/>
+                    </ComboBox>
+                    <ComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" >
+                        <ComboBoxItem Content="BaseLight"></ComboBoxItem>
+                        <ComboBoxItem Content="BaseDark"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
         </TabControl>
