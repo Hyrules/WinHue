@@ -3,7 +3,7 @@
 
 
 #define MyAppExeName "WinHue3.exe"
-#define WinHue3 "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\"
+#define WinHue3 "C:\Program Files (x86)\Jenkins\workspace\WinHue 3 DEV\WinHue3\"
 #define Debug "bin\Debug\"
 #define Folder Str(WinHue3) + Str(Debug)
 #define MyVersion GetFileVersion(Str(Folder) + "WinHue3.exe")
@@ -11,8 +11,6 @@
 #define MyAppVersion Str(MyVersion)
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
-
-
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
