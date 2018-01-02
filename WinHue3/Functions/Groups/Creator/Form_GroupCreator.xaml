@@ -48,7 +48,7 @@
 
         <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" />
 
-        <xctk:WatermarkTextBox x:Name="tbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23" Watermark="Group name (Optional)"/>
+        <TextBox x:Name="tbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23" mahapps:TextBoxHelper.Watermark="Group name (Optional)"/>
         <sliders:BindableListView x:Name="bindableListView" Margin="185,10,9.667,47" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <sliders:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>

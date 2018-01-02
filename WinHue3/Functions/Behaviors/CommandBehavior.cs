@@ -10,6 +10,7 @@ using System.Windows.Input;
 
 namespace WinHue3.Functions.Behaviors
 {
+    [Obsolete]
     public static class CommandBehavior
     {
         private static DependencyObject obj;

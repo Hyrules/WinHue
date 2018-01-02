@@ -2635,7 +2635,43 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to current properties.
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_Clear {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_Delete {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Down.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_MoveDown {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Up.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_MoveUp {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_MoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string RuleCreatorForm_Add {
             get {

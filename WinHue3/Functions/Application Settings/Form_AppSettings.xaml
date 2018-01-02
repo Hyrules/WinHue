@@ -1,10 +1,10 @@
-﻿<controls:MetroWindow
-    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+﻿<mahapps:MetroWindow
+    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:WinHue3" x:Class="WinHue3.Functions.Application_Settings.Form_AppSettings"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-    xmlns:wh="clr-namespace:WinHue3"
+    xmlns:controls="clr-namespace:WinHue3.Controls"
     xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:applicationSettings="clr-namespace:WinHue3.Functions.Application_Settings"
     xmlns:models="clr-namespace:WinHue3.MainForm"
@@ -101,7 +101,7 @@
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Grid>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="60"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" >
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" Command="{Binding ChangeThemeCommand}" Style="{StaticResource {x:Type ComboBox}}" >
                         <ComboBoxItem Content="Red" Tag="Red"/>
                         <ComboBoxItem Content="Green" Tag="Green"/>
                         <ComboBoxItem Content="Blue" Tag="Blue"/>
@@ -125,15 +125,15 @@
                         <ComboBoxItem Content="Mauve" Tag="Mauve"/>
                         <ComboBoxItem Content="Taupe" Tag="Taupe"/>
                         <ComboBoxItem Content="Sienna" Tag="Sienna"/>
-                    </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding ChangeThemeCommand}" >
+                    </controls:CommandComboBox>
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Command="{Binding ChangeThemeCommand}" Style="{StaticResource {x:Type ComboBox}}" >
                         <ComboBoxItem Content="BaseLight"></ComboBoxItem>
                         <ComboBoxItem Content="BaseDark"></ComboBoxItem>
-                    </ComboBox>
+                    </controls:CommandComboBox>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
         </TabControl>
 
     </Grid>
-</controls:MetroWindow>
+</mahapps:MetroWindow>

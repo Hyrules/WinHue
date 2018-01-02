@@ -217,10 +217,10 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="2" BorderBrush="{x:Null}" >
+            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="{x:Null}" >
                 <TextBlock  x:Name="lblSBMessage" Text="{Binding Lastmessage}" HorizontalAlignment="Stretch"/>
             </StatusBarItem>
-            <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="2" BorderBrush="{x:Null}">
+            <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="1" BorderBrush="{x:Null}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="18"/>
@@ -431,7 +431,7 @@
                     </GroupStyle>
                 </ListView.GroupStyle>
             </ListView>
-            <TextBlock Text="{x:Static resx:GUI.BridgeUpdateRequired}" FontSize="40" Margin="5,181,9.667,0"  Height="198" VerticalAlignment="Top" TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="#FF7D7D7D" Grid.Column="1">
+            <TextBlock Text="{x:Static resx:GUI.BridgeUpdateRequired}" FontSize="40" Margin="5,181,9.667,0"  Height="198" VerticalAlignment="Top" TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="#FF7D7D7D" Grid.Column="0">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Visibility" Value="Hidden"/>

@@ -102,14 +102,78 @@ namespace WinHue3.Functions.Rules.Creator
         private readonly List<IHueObject> _listAvailableHueObject;
 
         public ICommand Action_AddActionCommand => new RelayCommand(param => AddAction(), (param) => CanAddAction());
-        public ICommand Action_RemoveRuleActionCommand => new RelayCommand(param => RemoveRuleAction());
+        public ICommand Action_RemoveRuleActionCommand => new RelayCommand(param => RemoveRuleAction(), (param) => CanRemoveRuleAction());
         public ICommand Action_SelectRuleActionCommand => new RelayCommand(param => SelectRuleAction());
         public ICommand Action_SelectActionObjectCommand => new RelayCommand(param => SelectActionObject(), (param) => CanSelectActionObject());
         public ICommand Action_SelectHueObjectTypeCommand => new RelayCommand(param => SelectHueObjectType(), (param) => CanSelectHueObjectType());
+        public ICommand Action_MoveUpRuleActionCommand => new RelayCommand(param => MoveUpRuleAction(), (param) => CanMoveUpRuleAction());
+        public ICommand Action_MoveDownRuleActionCommand => new RelayCommand(param => MoveDownRuleAction(), (param) => CanMoveDownRuleAction());
+        public ICommand Action_ClearRuleActionCommand => new RelayCommand(param => ClearRuleAction(),(param) => CanClearRuleAction());
+
+        private bool CanClearRuleAction()
+        {
+            return CanMoveRuleAction();
+        }
+
+        private bool CanMoveRuleAction()
+        {
+            return SelectedRuleAction != null;
+        }
+
+        private bool CanRemoveRuleAction()
+        {
+            return CanMoveRuleAction();
+        }
+
+        private void ClearRuleAction()
+        {
+            ActionProperties = null;
+            SelectedHueObjectType = null;
+            SelectedRuleAction = null;
+        }
+
+        private bool CanMoveUpRuleAction()
+        {
+            if (!CanMoveRuleAction()) return false;
+            if (_listRuleActions.IndexOf(SelectedRuleAction) == 0) return false;
+            return true;
+        }
+
+        private bool CanMoveDownRuleAction()
+        {
+            if (!CanMoveRuleAction()) return false;
+            if (_listRuleActions.IndexOf(SelectedRuleAction) == (_listRuleActions.Count -1)) return false;
+            return true;
+
+        }
 
         private bool CanSelectActionObject()
         {
             return SelectedRuleAction == null;
+        }
+
+        private void MoveUpRuleAction()
+        {
+            int index = _listRuleActions.IndexOf(SelectedRuleAction);
+
+            if (index > -1)
+            {
+                RuleAction ra = SelectedRuleAction;
+                _listRuleActions.RemoveAt(index);
+                _listRuleActions.Insert(index -1, ra);
+            }
+        }
+
+        private void MoveDownRuleAction()
+        {
+            int index = _listRuleActions.IndexOf(SelectedRuleAction);
+
+            if (index > -1)
+            {
+                RuleAction ra = SelectedRuleAction;
+                _listRuleActions.RemoveAt(index);
+                _listRuleActions.Insert(index + 1, ra);
+            }
         }
 
         private void SelectActionObject()
@@ -500,13 +564,13 @@ namespace WinHue3.Functions.Rules.Creator
         private void AddCondition()
         {
             DialogResult result = DialogResult.Yes;
-            if (ListRuleConditions.Any(x => x.address.ToString().Equals(SelectedConditionProperty.Tag.ToString())))
+            if (ListRuleConditions.Any(x => x.address.ToString().Equals(SelectedConditionProperty.Address)))
             {
                 result = MessageBox.Show(GlobalStrings.Rule_ConditionAlreadyExists, GlobalStrings.Warning,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                     ListRuleConditions.Remove(
-                        ListRuleConditions.FirstOrDefault(x => x.address.ToString().Equals(SelectedConditionProperty.Tag.ToString())));
+                        ListRuleConditions.FirstOrDefault(x => x.address.ToString().Equals(SelectedConditionProperty.Address)));
             }
             if (result == DialogResult.Yes)
                 ListRuleConditions.Add(new RuleCondition() { address = SelectedConditionProperty.Address, @operator = ConditionOperator, value = ConditionValue });

@@ -43,7 +43,7 @@
             </Button.Content>
         </Button>
 
-        <xctk:WatermarkTextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,118,97.333,0" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}" />
+        <TextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,118,97.333,0" VerticalAlignment="Top" mahapps:TextBoxHelper.Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}" />
         <ComboBox Margin="0,118,0.333,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content">
             <ComboBoxItem Content="POST" Tag="{x:Static comm:WebRequestType.Post}"/>
             <ComboBoxItem Content="PUT" Tag="{x:Static comm:WebRequestType.Put}"/>

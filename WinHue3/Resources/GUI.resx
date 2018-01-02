@@ -1372,7 +1372,7 @@
     <value>Save</value>
   </data>
   <data name="RuleCreatorForm_Add" xml:space="preserve">
-    <value>Add to current properties</value>
+    <value>Add</value>
   </data>
   <data name="RuleCreatorForm_Value_Watermark" xml:space="preserve">
     <value>(Enter the value here)</value>
@@ -1484,5 +1484,17 @@
   </data>
   <data name="SettingsForm_Tab_Defaults_LastState" xml:space="preserve">
     <value>Last State</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_MoveUp" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_MoveDown" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_Clear" xml:space="preserve">
+    <value>Clear</value>
   </data>
 </root>
