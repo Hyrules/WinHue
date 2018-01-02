@@ -659,7 +659,8 @@
     <Resource Include="Resources\Motion.png" />
     <Resource Include="Resources\rules.png" />
     <Resource Include="Resources\HueTap.png" />
-    <None Include="Readme\process_readme.ps1" />
+    <None Include="Build\process_installer.ps1" />
+    <None Include="Build\process_readme.ps1" />
     <None Include="Resources\LCT001_on.png" />
     <None Include="Resources\LCT001_off.png" />
     <Resource Include="Resources\HueLight_unr.png" />
@@ -834,7 +835,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Readme\README_TEMPLATE.txt" />
+    <None Include="Build\README_TEMPLATE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -844,7 +845,8 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)lights\*" "$(TargetDir)lights\*" /e /y
-powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Readme\process_readme.ps1" "$(SolutionDir)\WinHue3\Readme\README_TEMPLATE.txt" "$(TargetDir)WinHue3.exe"</PostBuildEvent>
+powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Build\process_readme.ps1" "$(SolutionDir)WinHue3\Build\README_TEMPLATE.txt" "$(TargetDir)WinHue3.exe"
+powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Build\process_installer.ps1" "$(SolutionDir)inno\installer_template.iss" "$(SolutionDir)WinHue3\\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,7 +3,7 @@
 
 
 #define MyAppExeName "WinHue3.exe"
-#define WinHue3 "D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\"
+#define WinHue3 "[[[WINHUE3]]]"
 #define Debug "bin\Debug\"
 #define Folder Str(WinHue3) + Str(Debug)
 #define MyVersion GetFileVersion(Str(Folder) + "WinHue3.exe")
@@ -34,7 +34,7 @@ Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 SetupIconFile="{#WinHue3}icon.ico"
-InfoBeforeFile="{#WinHue3}Readme\README.txt"
+InfoBeforeFile="{#WinHue3}Build\README.txt"
 UninstallDisplayIcon="{#WinHue3}icon.ico"
 
 [Languages]
