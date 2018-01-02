@@ -659,6 +659,7 @@
     <Resource Include="Resources\Motion.png" />
     <Resource Include="Resources\rules.png" />
     <Resource Include="Resources\HueTap.png" />
+    <None Include="Readme\process_readme.ps1" />
     <None Include="Resources\LCT001_on.png" />
     <None Include="Resources\LCT001_off.png" />
     <Resource Include="Resources\HueLight_unr.png" />
@@ -831,6 +832,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Readme\README_TEMPLATE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
@@ -838,7 +843,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)lights\*" "$(TargetDir)lights\*" /e /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(SolutionDir)lights\*" "$(TargetDir)lights\*" /e /y
+powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Readme\process_readme.ps1" "$(SolutionDir)\WinHue3\Readme\README_TEMPLATE.txt" "$(TargetDir)WinHue3.exe"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

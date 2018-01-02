@@ -4,8 +4,8 @@
 
 #define MyAppExeName "WinHue3.exe"
 #define MyVersion GetFileVersion("D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\bin\Debug\WinHue3.exe")
-#define MyAppName "WinHue 3"
-#define MyAppVersion "RC 5 - " + Str(MyVersion)
+#define MyAppName "WinHue"
+#define MyAppVersion Str(MyVersion)
 #define MyAppPublisher "Pascal Pharand"
 #define MyAppURL "https://hyrules.github.io/WinHue3/"
 
@@ -29,7 +29,7 @@ Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 SetupIconFile="D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\icon.ico"
-InfoBeforeFile="D:\Desktop\readme\WinHue\README.txt"
+InfoBeforeFile="D:\Documents\Visual Studio 2015\Projects\WinHue3\WinHue3\Readme\README.txt"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
