@@ -6,7 +6,7 @@ using System.Windows;
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("WinHue3")]
-[assembly: AssemblyDescription("WinHue Desktop Application Creative Commons Attribution Non-Commercial License V2.0. Application by Pascal Pharand (Hyrules)")]
+[assembly: AssemblyDescription("Creative Commons Attribution Non-Commercial License V2.0. Application by Pascal Pharand (Hyrules)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("WinHue 3")]
 [assembly: AssemblyProduct("WinHue 3")]
@@ -49,6 +49,6 @@ using System.Windows;
 // Vous pouvez spécifier toutes les valeurs ou indiquer les numéros de build et de révision par défaut 
 // en utilisant '*', comme indiqué ci-dessous :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.317.0")]
+[assembly: AssemblyVersion("3.0.1422.0")]
 //[assembly: AssemblyFileVersion("3.0.*")]
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]

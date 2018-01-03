@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.ViewModels;
+using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.RuleObject
@@ -26,6 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         private string _lasttriggered;
         private string _created;
         private string _status;
+        private bool _visible;
 
         /// <summary>
         /// Image of the rule.
@@ -125,6 +125,13 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         {
             get => _status;
             set => SetProperty(ref _status,value);
+        }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get { return _visible; }
+            set { SetProperty(ref _visible,value); }
         }
 
         /// <summary>

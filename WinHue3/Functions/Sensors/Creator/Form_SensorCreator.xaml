@@ -1,0 +1,105 @@
+﻿<mahapps:MetroWindow
+    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:creator="clr-namespace:WinHue3.Functions.Sensors.Creator"
+    x:Name="Form_SensorCreator1" x:Class="WinHue3.Functions.Sensors.Creator.Form_SensorCreator"
+    
+        Title="{x:Static resx:GUI.SensorCreatorForm_Title}" Height="301.175" Width="650.263" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+    <Window.DataContext>
+        <creator:SensorCreatorViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type xctk:WatermarkTextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel DockPanel.Dock="Right">
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                            <TextBlock Margin="3" Foreground="Red"><Run Text="!"/></TextBlock>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="btnSave" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding (Validation.HasError), ElementName=tbSensorName}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding (Validation.HasError), ElementName=tbModelId}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding (Validation.HasError), ElementName=tbSwVersion}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding (Validation.HasError), ElementName=tbMfgName}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding (Validation.HasError), ElementName=tbUniqueID}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="btnTestUrl" >
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding (Validation.HasError), ElementName=tbSensorUrl}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Button x:Name="btnCreate" Content="{Binding CreateBtnText}" Style="{StaticResource btnSave}" HorizontalAlignment="Left" Margin="472,235,0,0" VerticalAlignment="Top" Width="75" Click="btnCreate_Click" TabIndex="9"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.SensorCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="552,235,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" TabIndex="10" Click="btnCancel_Click" Height="28"/>
+        <GroupBox Header="{x:Static resx:GUI.SensorCreatorForm_SensorBody}" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Height="221" Width="362">
+            <Grid Margin="0,0,-2,0">
+                <Label Content="{x:Static resx:GUI.SensorCreatorForm_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <Label Content="{x:Static resx:GUI.SensorCreatorForm_SensorType}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
+                <ComboBox x:Name="cbSensorType" HorizontalAlignment="Left" Margin="97,41,0,0" VerticalAlignment="Top" Width="174" SelectedValue="{Binding SensorModel.Type}" SelectedValuePath="Tag" TabIndex="1" IsEnabled="{Binding NotEditing}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeSensorTypeCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ComboBoxItem Content="CLIPGenericFlag" Tag="CLIPGenericFlag"/>
+                    <ComboBoxItem Content="CLIPGenericStatus" Tag="CLIPGenericStatus"/>
+                    <ComboBoxItem Content="CLIPHumidity" Tag="CLIPHumidity"/>
+                    <ComboBoxItem Content="CLIPOpenClose" Tag="CLIPOpenClose"/>
+                    <ComboBoxItem Content="CLIPPresence" Tag="CLIPPresence"/>
+                    <ComboBoxItem Content="CLIPTemperature" Tag="CLIPTemperature"/>
+                    <ComboBoxItem Content="CLIPSwitch" Tag="CLIPSwitch"/>
+                </ComboBox>
+                <Label Content="{x:Static resx:GUI.SensorCreatorForm_ModelId}" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
+                <Label Content="{x:Static resx:GUI.SensorCreatorForm_SwVersion}" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top"/>
+                <Label Content="{x:Static resx:GUI.SensorCreatorForm_MfgName}" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top"/>
+                <Label Content="{x:Static resx:GUI.SensorCreatorForm_UniqueId}" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top"/>
+                <xctk:WatermarkTextBox x:Name="tbUniqueID" HorizontalAlignment="Left" Margin="97,152,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Uniqueid, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" Watermark="00:00:00:00:00:00" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="5" />
+                <xctk:WatermarkTextBox x:Name="tbMfgName" HorizontalAlignment="Left" Margin="97,123,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Mfgname, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" Watermark="my manufacturer name" MinWidth="6" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="4"/>
+                <xctk:WatermarkTextBox x:Name="tbSwVersion" HorizontalAlignment="Left" Margin="97,96,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Swversion, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" Watermark="1.0" MaxLength="16" IsEnabled="{Binding NotEditing}" TabIndex="3"/>
+                <xctk:WatermarkTextBox x:Name="tbModelId" HorizontalAlignment="Left" Margin="97,67,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.ModelId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" Watermark="IPSENSOR" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="2"/>
+                <xctk:WatermarkTextBox x:Name="tbSensorName" HorizontalAlignment="Left" Margin="97,13,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" Watermark="my new sensor" MaxLength="32" TabIndex="0"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="{x:Static resx:GUI.SensorCreatorForm_SensorConfig}" HorizontalAlignment="Left" Margin="374,5,0,0" VerticalAlignment="Top" Height="221" Width="256">
+            <Grid>
+                <xctk:PropertyGrid HorizontalAlignment="Left" Margin="0,10,0,-0.333" VerticalAlignment="Top" Height="171" Width="243" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding SensorModel.Config}"/>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</mahapps:MetroWindow>

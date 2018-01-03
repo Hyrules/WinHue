@@ -1,0 +1,27 @@
+﻿<mahapps:MetroWindow
+        xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+        x:Class="WinHue3.Functions.Rules.Cloning.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:cloning="clr-namespace:WinHue3.Functions.Rules.Cloning"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
+        mc:Ignorable="d"
+        Title="{x:Static resx:GUI.Form_CloneRule_Title}" Height="224.266" Width="311.742" ResizeMode="NoResize" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+    <Window.DataContext>
+        <cloning:CloneRuleViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="label" Content="=>" HorizontalAlignment="Left" Margin="135,11,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="166,15,0,0" VerticalAlignment="Top" Width="120" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding AddToListCommand}"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="10,55,0,0" VerticalAlignment="Top" Width="276"/>
+        <Button x:Name="button" Content="{x:Static resx:GUI.Form_CloneRule_Clone}" HorizontalAlignment="Left" Margin="131,160,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button1" Content="{x:Static resx:GUI.Form_CloneRule_Cancel}" HorizontalAlignment="Left" Margin="211,160,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</mahapps:MetroWindow>

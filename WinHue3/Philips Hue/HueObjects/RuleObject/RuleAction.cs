@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;

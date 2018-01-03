@@ -24,7 +24,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = typeof(T).GetHueType();
             if (typename == null) return default(T);
             string url = BridgeUrl + $"/{typename}/{id}";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url),WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url),WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -49,7 +49,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = typeof(T).GetHueType();
             if (typename == null) return default(T);
             string url = BridgeUrl + $"/{typename}/{id}";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.GET);
+            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -74,7 +74,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = objecttype.GetHueType();
             if (typename == null) return null;
             string url = BridgeUrl + $"/{typename}/{id}";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.GET);
+            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -99,7 +99,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = objecttype.GetHueType();
             if (typename == null) return null;
             string url = BridgeUrl + $"/{typename}/{id}";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -124,7 +124,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = objecttype.GetHueType();
             if (typename == null) return default(T);
             string url = BridgeUrl + $"/{typename}/{id}";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -147,7 +147,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             string typename = typeof(T).GetHueType();
             string url = BridgeUrl + $"/{typename}";
-            CommResult comres = Comm.SendRequest(new Uri(url),WebRequestType.GET);
+            CommResult comres = Comm.SendRequest(new Uri(url),WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -170,7 +170,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             string typename = typeof(T).GetHueType();
             string url = BridgeUrl + $"/{typename}";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -193,7 +193,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = typeof(T).GetHueType();
             string url = BridgeUrl + $"/{typename}";
 
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.GET);
+            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -216,7 +216,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = typeof(T).GetHueType();
             string url = BridgeUrl + $"/{typename}";
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url + "/new"), WebRequestType.Get);
 
             if (comres.Status == WebExceptionStatus.Success)
             {

@@ -349,7 +349,7 @@
     <value>Clear</value>
   </data>
   <data name="Form_HotKeyCreator_Description" xml:space="preserve">
-    <value>Desc</value>
+    <value>Description</value>
   </data>
   <data name="Form_HotKeyCreator_Done" xml:space="preserve">
     <value>Done</value>
@@ -1436,5 +1436,65 @@
   </data>
   <data name="SettingsForm_Tab_MainSettings_NoCheckBridgeVersion" xml:space="preserve">
     <value>Check for Bridge version. (You might encounter crashes that the dev will not fix if you choose not to)</value>
+  </data>
+  <data name="RuleCreatorForm_AddToRuleActions" xml:space="preserve">
+    <value>Add to rule actions</value>
+  </data>
+  <data name="RuleCreatorForm_DeleteProperty" xml:space="preserve">
+    <value>Remove property</value>
+  </data>
+  <data name="MainForm_ListView_Context_Toggle" xml:space="preserve">
+    <value>On / Off</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim" xml:space="preserve">
+    <value>Dim (% of 255)</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_10" xml:space="preserve">
+    <value>10%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_25" xml:space="preserve">
+    <value>25%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_50" xml:space="preserve">
+    <value>50%</value>
+  </data>
+  <data name="MainForm_ListView_Context_ToggleDim_75" xml:space="preserve">
+    <value>75%</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_ThemeColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="SceneCreatorForm_SceneName" xml:space="preserve">
+    <value>Scene Name (Optional)</value>
+  </data>
+  <data name="MainForm_TrayButton" xml:space="preserve">
+    <value>Send to system tray</value>
+  </data>
+  <data name="SettingsForm_Tab_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="MainForm_Tab_Home_Touchlink" xml:space="preserve">
+    <value>Touchlink</value>
+  </data>
+  <data name="MainForm_Tab_Home_FindSerial" xml:space="preserve">
+    <value>Find Light by serial</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_LastState" xml:space="preserve">
+    <value>Last State</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_MoveUp" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_MoveDown" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="RuleCreatorForm_Actions_Clear" xml:space="preserve">
+    <value>Clear</value>
   </data>
 </root>

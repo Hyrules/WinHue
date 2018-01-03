@@ -8,6 +8,8 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeMessages
 {
     public class MessageJsonConverter : JsonConverter
     {
+        public override bool CanWrite => false;
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             throw new NotImplementedException();

@@ -747,4 +747,13 @@
   <data name="SerialCannotBeEmpty_Error" xml:space="preserve">
     <value>Veuillez svp saisir au moins un numéro de série.</value>
   </data>
+  <data name="Invalid_Rule_Action_Conversion" xml:space="preserve">
+    <value>La valeur spécifée ne se convertis pas au type de la propriété désirée.</value>
+  </data>
+  <data name="Rule_CannotBeEdited" xml:space="preserve">
+    <value>Cet action ne peut être modifié dans cet éditeur.</value>
+  </data>
+  <data name="Rule_SelectedObjectDoesNotExists" xml:space="preserve">
+    <value>Désolé l'objet sélection est introuvable. Existe t'il toujours ?</value>
+  </data>
 </root>

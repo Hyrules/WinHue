@@ -53,5 +53,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
                     return new UnknownSensorConfig();
             }
         }
+
     }
 }

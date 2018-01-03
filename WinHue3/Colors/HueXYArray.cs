@@ -1,4 +1,4 @@
-﻿namespace WinHue3.Color
+﻿namespace WinHue3.Colors
 {
   
         /// <summary>

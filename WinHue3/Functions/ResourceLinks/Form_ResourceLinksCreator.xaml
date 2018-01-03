@@ -1,0 +1,160 @@
+﻿<mahapps:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+    xmlns:CustomControls="clr-namespace:WinHue3.Controls" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:resourceLinks="clr-namespace:WinHue3.Functions.ResourceLinks"
+    xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+    x:Name="Form_ResourceLink" x:Class="WinHue3.Functions.ResourceLinks.Form_ResourceLinksCreator"
+    mc:Ignorable="d"
+        Title="{x:Static resx:GUI.ResourceLinkCreatorForm_Title}" Height="352.861" Width="599.472" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/resource.png" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+    <Window.DataContext>
+        <resourceLinks:ResourceLinkCreatorViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="tbWrap">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.Wrap, ElementName=Form_ResourceLink}" Value="True">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="Width" Value="75"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ListView}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+
+                    <ControlTemplate>
+                        <DockPanel DockPanel.Dock="Right">
+                            <!--<TextBlock Margin="3" Foreground="Red">!</TextBlock>-->
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="btnSave">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=bindableListView, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="tblID">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.ShowID, ElementName=Form_ResourceLink}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.ShowID, ElementName=Form_ResourceLink}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding DataContext.LinkCreatorModel.Wrap, ElementName=Form_ResourceLink}" Value="True">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="Width" Value="75"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Label x:Name="label" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Name}" HorizontalAlignment="Left" Margin="11,7,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnCreateResourceLink" Style="{StaticResource btnSave}" Content="{Binding BtnSaveText}" Margin="0,0,100.333,17.667" Click="btnCreateResourceLink_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="102"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" Margin="0,0,20.333,17.667" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
+
+        <sliders:BindableListView x:Name="bindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <sliders:BindableListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
+                </ItemsPanelTemplate>
+            </sliders:BindableListView.ItemsPanel>
+            <sliders:BindableListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                        <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource tblID}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
+                    </WrapPanel>
+                </DataTemplate>
+            </sliders:BindableListView.ItemTemplate>
+            <sliders:BindableListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True" >
+                                            <Expander.Header>
+                                                <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" >
+                                                    <!--<Grid.Background>
+                                                        <LinearGradientBrush>
+                                                            <GradientStop Color="White" />
+                                                            <GradientStop Color="Gray" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>-->
+                                                    <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}" FontStyle="Italic"/>
+                                                </Grid>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </sliders:BindableListView.GroupStyle>
+        </sliders:BindableListView>
+        <Label x:Name="label1" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Description}" HorizontalAlignment="Left" Margin="11,67,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock" Margin="243,0,181.333,34.667" TextWrapping="Wrap" Text="{x:Static resx:GUI.ResourceLinkCreatorForm_HoldControl}" FontSize="10" Height="15" VerticalAlignment="Bottom"/>
+        <Label x:Name="label2" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_ClassID}" HorizontalAlignment="Left" Margin="16,200,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="167,327,0,0" VerticalAlignment="Top" IsThreeState="True" IsChecked="{Binding LinkCreatorModel.Recycle}" IsEnabled="{Binding NotEditing}"/>
+
+        <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="16,231,0,0" VerticalAlignment="Top" Width="210" Minimum="1" Maximum="10000" Value="{Binding LinkCreatorModel.ClassId}" IsEnabled="{Binding NotEditing}"/>
+        <TextBox x:Name="watermarkTextBox" HorizontalAlignment="Left" Margin="16,28,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Name, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="210" mahapps:TextBoxHelper.Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Name}"/>
+        <TextBox x:Name="watermarkTextBox1" HorizontalAlignment="Left" Margin="16,93,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Description}" VerticalAlignment="Top" Height="107" Width="210" mahapps:TextBoxHelper.Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Description}"/>
+
+    </Grid>
+</mahapps:MetroWindow>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

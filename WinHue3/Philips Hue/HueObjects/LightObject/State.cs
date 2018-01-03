@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 using WinHue3.Controls;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.ViewModels;
-using WinHue3.Views;
+using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using XYEditor = WinHue3.Functions.PropertyGrid.XYEditor;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
@@ -31,7 +30,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         private short? _satInc;
         private int? _hueInc;
         private short? _ctInc;
-        private decimal?[] _xyInc;
+        private decimal[] _xyInc;
         private ushort? _ct;
 
         /// <summary>
@@ -177,8 +176,9 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// XY increment.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("XY increment."),Category("Incrementors")]
-        public decimal?[] xy_inc
+        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("XY increment."),Category("Incrementors"), Editor(typeof(XYEditor), typeof(XYEditor))]
+        [XYEditor.MaxMin(0.5f, 0f)]
+        public decimal[] xy_inc
         {
             get => _xyInc;
             set => SetProperty(ref _xyInc,value);

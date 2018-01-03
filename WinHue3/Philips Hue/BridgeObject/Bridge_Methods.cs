@@ -41,7 +41,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres = Comm.SendRequest(new Uri(url), type, data);
             if (comres.Status == WebExceptionStatus.Success)
             {
-                if(type != WebRequestType.GET)
+                if(type != WebRequestType.Get)
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return comres.Data;
             }
@@ -62,7 +62,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), type, data);
             if (comres.Status == WebExceptionStatus.Success)
             {
-                if(type != WebRequestType.GET)
+                if(type != WebRequestType.Get)
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return comres.Data;
             }
@@ -78,7 +78,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
             
 
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl), WebRequestType.GET);
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl), WebRequestType.Get);
             if (comres.Status == WebExceptionStatus.Success)
             {
                 DataStore listObjets = Serializer.DeserializeToObject<DataStore>(comres.Data);
@@ -95,7 +95,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>A DataStore of objects from the bridge.</returns>
         public async Task<DataStore> GetBridgeDataStoreAsyncTask()
         {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl), WebRequestType.GET);
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl), WebRequestType.Get);
             if (comres.Status == WebExceptionStatus.Success)
             {
                 DataStore listObjets = Serializer.DeserializeToObject<DataStore>(comres.Data);
@@ -135,16 +135,15 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 case WebExceptionStatus.Timeout:
                     LastCommandMessages.AddMessage(new Error() {type = -1, address = url, description = "A Timeout occured." });
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 case WebExceptionStatus.ConnectFailure:
                     LastCommandMessages.AddMessage(new Error() {type = -1, address = url, description = "Unable to contact the bridge"});
-                    BridgeNotResponding?.Invoke(this, _e);
                     break;
                 default:
                     LastCommandMessages.AddMessage(new Error() { type = -2, address = url, description = "A unknown error occured." });
                     break;
             }
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this,url, exception));
         }
 
         public override string ToString()

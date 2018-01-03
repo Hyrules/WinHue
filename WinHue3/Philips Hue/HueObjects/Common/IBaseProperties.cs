@@ -33,7 +33,7 @@
 
         short? ct_inc { get; set; }
 
-        decimal?[] xy_inc { get; set; }
+        decimal[] xy_inc { get; set; }
 
         string ToString();
 

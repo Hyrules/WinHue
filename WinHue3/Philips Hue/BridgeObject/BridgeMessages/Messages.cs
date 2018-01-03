@@ -12,13 +12,13 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeMessages
             ListMessages = new List<IMessage>();
         }
 
-        public Messages(List<IMessage> msg)
+        public Messages(List<IMessage> msgs)
         {
             ListMessages = new List<IMessage>();
-            AddMessage(msg);
+            AddMessage(msgs);
         }
 
-        public List<IMessage> ListMessages { get; internal set; }
+        public List<IMessage> ListMessages { get; private set; }
         public bool Success => ListMessages.TrueForAll(x => x.GetType() == typeof(Success));
         public bool Error => ListMessages.TrueForAll(x => x.GetType() == typeof(Error));
         public Error LastError => ListMessages.LastOrDefault(x => x.GetType() == typeof(Error)) as Error;
@@ -26,16 +26,18 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeMessages
 
         public void AddMessage(List<IMessage> msg)
         {
+            if (msg == null) return;
             ListMessages.Clear();
             ListMessages.AddRange(msg);
-            OnMessageAdded?.Invoke(this,null);
+            OnMessageAdded?.Invoke(this,new MessageAddedEventArgs(msg));
         }
 
         public void AddMessage(IMessage msg)
         {
+            if (msg == null) return;
             ListMessages.Clear();
             ListMessages.Add(msg);
-            OnMessageAdded?.Invoke(this,null);
+            OnMessageAdded?.Invoke(this,new MessageAddedEventArgs(msg));
         }
 
         public override string ToString()
@@ -49,6 +51,25 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeMessages
         }
 
         public event Message OnMessageAdded;
-        public delegate void Message(object sender, EventArgs e);
+        public delegate void Message(object sender, MessageAddedEventArgs e);
+    }
+
+    public class MessageAddedEventArgs : EventArgs
+    {
+        public List<IMessage> Messages { get; private set; }
+
+        public MessageAddedEventArgs(List<IMessage> newmsgs)
+        {
+            Messages = new List<IMessage>();
+            if (newmsgs == null) return;
+            Messages.AddRange(newmsgs);
+        }
+
+        public MessageAddedEventArgs(IMessage newmsg)
+        {
+            Messages = new List<IMessage>();
+            if (newmsg == null) return;
+            Messages.Add(newmsg);
+        }
     }
 }

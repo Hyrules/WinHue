@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -70,6 +71,7 @@ namespace WinHue3.ExtensionMethods
                 throw new ArgumentException("ARGH!");
             return str.First().ToString().ToLower() + str.Substring(1);
         }
+
     }
 
     public static class ObjectExtensionMethods
@@ -116,23 +118,6 @@ namespace WinHue3.ExtensionMethods
 
     }
 
-    public static class StackHelper
-    {
-
-        public static PropertyInfo PeekOrDefault(this Stack<PropertyInfo> s)
-        {
-            return s.Count == 0 ? null : s.Peek();
-        }
-
-        public static void PushReverse(this Stack<PropertyInfo> s, List<PropertyInfo> list)
-        {
-            foreach (var l in list.ToArray().Reverse())
-            {
-                s.Push(l);
-            }
-        }
-    }
-
     public static class TypeExtensionMethods
     {
         public static string GetHueType(this Type type)
@@ -149,6 +134,11 @@ namespace WinHue3.ExtensionMethods
         public static List<PropertyInfo> GetListHueProperties(this Type type)
         {
             return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
+        }
+
+        public static bool HasHueProperties(this Type type)
+        {
+            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList().Count > 0;
         }
 
         public static PropertyInfo[] GetPublicProperties(this Type type)
@@ -224,6 +214,10 @@ namespace WinHue3.ExtensionMethods
             {
                 return;
             }
+
+            if(oc == null)
+                oc = new ObservableCollection<T>();
+
             foreach (var item in collection)
             {
                 oc.Add(item);

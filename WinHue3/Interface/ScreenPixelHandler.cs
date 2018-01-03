@@ -8,12 +8,12 @@ namespace WinHue3.Interface
     public static class ScreenPixelHandler 
     {
         [DllImport("user32.dll")]
-        static extern bool GetCursorPos(ref Point lpPoint);
+        private static extern bool GetCursorPos(ref Point lpPoint);
 
         [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-        static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
+        private static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
 
-        static Bitmap screenPixel;
+        static readonly Bitmap screenPixel;
 
         static ScreenPixelHandler()
         {

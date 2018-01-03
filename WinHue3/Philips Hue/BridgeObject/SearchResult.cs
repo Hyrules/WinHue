@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace WinHue3.Philips_Hue.BridgeObject
 {
-    [DataContract,Serializable]
+    [DataContract,Serializable,JsonConverter(typeof(SearchResultJsonConverter))]
     public class SearchResult
     {
         public Dictionary<string, string> listnewobjects { get; set; }
@@ -16,9 +16,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<string, string> kvp in listnewobjects)
+            if (listnewobjects != null)
             {
-                sb.AppendLine($"{kvp.Key} => {kvp.Value}");
+                foreach (KeyValuePair<string, string> kvp in listnewobjects)
+                {
+                    sb.AppendLine($"{kvp.Key} => {kvp.Value}");
+                }
             }
             return sb.ToString();
         }

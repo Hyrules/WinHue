@@ -1,0 +1,215 @@
+﻿<mahapps:MetroWindow
+        xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:creator="clr-namespace:WinHue3.Functions.Rules.Creator"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
+        xmlns:editor="clr-namespace:WinHue3.Functions.PropertyGrid"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:light="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
+        xmlns:group="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
+        xmlns:sensor="clr-namespace:WinHue3.Philips_Hue.HueObjects.NewSensorsObject"
+        xmlns:scene="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
+        xmlns:schedule="clr-namespace:WinHue3.Philips_Hue.HueObjects.ScheduleObject"
+        xmlns:rule="clr-namespace:WinHue3.Philips_Hue.HueObjects.RuleObject"
+        xmlns:rlink="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
+        xmlns:bridgeObjects="clr-namespace:WinHue3.Philips_Hue.BridgeObject.BridgeObjects"
+        xmlns:rules="clr-namespace:WinHue3.Functions.Rules"
+        x:Class="WinHue3.Functions.Rules.Creator.Form_RuleCreator"
+        mc:Ignorable="d"
+        Title="Rule Creator" Height="468.168" Width="719.952" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/rules.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+    <Window.Resources>
+        <xctk:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <creator:RuleCreatorViewModel/>
+    </Window.DataContext>
+    <Grid Margin="0,0,1,0">
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="623" mahapps:TextBoxHelper.Watermark="{x:Static resx:GUI.RuleCreatorForm_Name}"/>
+        <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708">
+            <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Conditions}">
+                <Grid>
+                    <ListView HorizontalAlignment="Left" Height="294" Margin="350,7,0,0" VerticalAlignment="Top" Width="342" ItemsSource="{Binding ListRuleConditions}" SelectedItem="{Binding SelectedRuleCondition }" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="1" behaviors:OnClickBehavior.Command="{Binding Condition_SelectRuleConditionCommand}" BorderBrush="#FFABADB3">
+                        <ListView.InputBindings>
+                            <KeyBinding Key="Escape" Command="{Binding Condition_ClearSelectedRuleConditionCommand}"/>
+                        </ListView.InputBindings>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="222"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding address}" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Padding="5,0,0,0"/>
+                                    <TextBlock Text="{Binding operator}" Grid.Column="0" Grid.Row="1" Padding="5,0,0,0"/>
+                                    <TextBlock Text="{Binding value}" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Padding="5,0,0,0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding operator}" Value="dx">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <Button Content="X" Background="Transparent" BorderBrush="Transparent" Width="20" Height="20" Grid.Column="1" Grid.Row="0" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.Condition_RemoveRuleConditionCommand}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="270,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding Condition_AddConditionCommand}"/>
+                    <controls:BindableTreeView x:Name="tvProperties" HorizontalAlignment="Left" Height="208" Margin="10,38,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="rules:HuePropertyTreeViewItem">
+                                <Setter Property="IsSelected" Value="True"/>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                    </controls:BindableTreeView>
+                    <ComboBox HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}" mahapps:TextBoxHelper.Watermark="(Choose the operator)">
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Delayed_Changed}" Tag="ddx"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_In}" Tag="in"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Not_In}" Tag="not in"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Stable}" Tag="stable"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Not_Stable}" Tag="not stable"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lower_Than}" Tag="lt"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Greater_Than}" Tag="gt"/>
+                    </ComboBox>
+                    <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}">
+                        <xctk:WatermarkTextBox.Style>
+                            <Style TargetType="{x:Type xctk:WatermarkTextBox}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ConditionOperator}" Value="dx">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </xctk:WatermarkTextBox.Style>
+                    </xctk:WatermarkTextBox>
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" Command="{Binding Condition_SelectConditionObjectTypeCommand}" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" mahapps:TextBoxHelper.Watermark="(Object Type)" Style="{StaticResource {x:Type ComboBox}}">
+                        <ComboBoxItem Content="Lights" Tag="{x:Type light:Light}" />
+                        <ComboBoxItem Content="Groups" Tag="{x:Type group:Group}"/>
+                        <ComboBoxItem Content="Sensors" Tag="{x:Type sensor:Sensor}"/>
+                        <ComboBoxItem Content="Scenes" Tag="{x:Type scene:Scene}"/>
+                        <ComboBoxItem Content="Schedules" Tag="{x:Type schedule:Schedule}"/>
+                        <ComboBoxItem Content="Resource Links" Tag="{x:Type rlink:Resourcelink}"/>
+                        <ComboBoxItem Content="Rule" Tag="{x:Type rule:Rule}"/>
+                        <ComboBoxItem Content="Config" Tag="{x:Type bridgeObjects:BridgeSettings}"/>
+                    </controls:CommandComboBox>
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="142,10,0,0" VerticalAlignment="Top" Width="203" ItemsSource="{Binding ListConditionHueObjects}" SelectedItem="{Binding SelectedConditionHueObject}" Command="{Binding Condition_SelectConditionHueObjectCommand}" mahapps:TextBoxHelper.Watermark="(Object)" Style="{StaticResource {x:Type ComboBox}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <Image Height="16" Source="{Binding Image}"></Image>
+                                    <TextBlock Text=" - "></TextBlock>
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </controls:CommandComboBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}">
+                <Grid>
+                    <ListView HorizontalAlignment="Left" Height="269" Margin="357,7,0,0" VerticalAlignment="Top" Width="335" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListRuleActions}" SelectedItem="{Binding SelectedRuleAction}" behaviors:OnClickBehavior.Command="{Binding Action_SelectRuleActionCommand}" BorderBrush="#FFABADB3" AutomationProperties.IsRowHeader="True" BorderThickness="1">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="222"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding address}" Grid.Column="0" Grid.Row="0"/>
+                                    <TextBlock Text="{Binding method}" Grid.Column="0" Grid.Row="1"/>
+                                    <TextBlock Text="{Binding body}" Grid.Column="0" Grid.Row="2"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <xctk:PropertyGrid x:Name="pg"  HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="342" Height="241" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding ActionProperties}" >
+                        <!--<i:Interaction.Behaviors>
+                            <creator:PropertyGridBehavior SelectedPropertyItem="{Binding RuleActionViewModel.SelectedProperty, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>-->
+
+                        <!--<xctk:PropertyGrid.EditorDefinitions>
+                            <xctk:EditorTemplateDefinition TargetProperties="xy">
+                                <xctk:EditorTemplateDefinition.EditingTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <Label Content="X"/>
+                                            <xctk:DecimalUpDown Text="{Binding Value[0]}" Minimum="0" Maximum="1" Increment="0.001"/>
+                                            <Label Content="Y"/>
+                                            <xctk:DecimalUpDown Text="{Binding Value[1]}" Minimum="0" Maximum="1" Increment="0.001"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </xctk:EditorTemplateDefinition.EditingTemplate>
+                            </xctk:EditorTemplateDefinition>
+                            <xctk:EditorTemplateDefinition TargetProperties="xy_inc">
+                                <xctk:EditorTemplateDefinition.EditingTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel >
+                                            <Label Content="X"/>
+                                            <xctk:DecimalUpDown Text="{Binding Value[0]}" Minimum="-0.5" Maximum="0.5" Increment="0.001"/>
+                                            <Label Content="Y"/>
+                                            <xctk:DecimalUpDown Text="{Binding Value[1]}" Minimum="-0.5" Maximum="0.5" Increment="0.001"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </xctk:EditorTemplateDefinition.EditingTemplate>
+                            </xctk:EditorTemplateDefinition>
+                        </xctk:PropertyGrid.EditorDefinitions>-->
+                    </xctk:PropertyGrid>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_AddToRuleActions}" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="342" Command="{Binding Action_AddActionCommand}" Height="30"/>
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="192" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" Command="{Binding Action_SelectActionObjectCommand}" mahapps:TextBoxHelper.Watermark="Object" Height="27" Style="{StaticResource {x:Type ComboBox}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <Image Height="16" Source="{Binding Image}"></Image>
+                                    <TextBlock Text=" - "></TextBlock>
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </controls:CommandComboBox>
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" Command="{Binding Action_SelectHueObjectTypeCommand}" mahapps:TextBoxHelper.Watermark="Object Type" Style="{StaticResource {x:Type ComboBox}}">
+                        <ComboBoxItem Content="Lights" Tag="{x:Type light:Light}"/>
+                        <ComboBoxItem Content="Groups" Tag="{x:Type group:Group}"/>
+                        <ComboBoxItem Content="Scenes" Tag="{x:Type scene:Scene}"/>
+                        <ComboBoxItem Content="Sensors" Tag="{x:Type sensor:Sensor}"/>
+
+                    </controls:CommandComboBox>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveUp}" HorizontalAlignment="Left" Margin="447,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_MoveUpRuleActionCommand}"/>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveDown}" HorizontalAlignment="Left" Margin="527,282,0,0" VerticalAlignment="Top" Width="85" Height="29" Command="{Binding Action_MoveDownRuleActionCommand}"/>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Delete}" HorizontalAlignment="Left" Margin="617,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_RemoveRuleActionCommand}" Background="Red"/>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" Margin="357,282,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Action_ClearRuleActionCommand}"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Name="btnSave" Content="{x:Static resx:GUI.RuleCreatorForm_Save}" HorizontalAlignment="Left" Margin="513,405,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnSave_Click" Style="{StaticResource AccentedSquareButtonStyle}" />
+        <Button Name="btnCancel" Content="{x:Static resx:GUI.RuleCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="608,406,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnCancel_Click"/>
+        <CheckBox Content="{x:Static resx:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="633,4,0,0" Height="23" Width="80" IsChecked="{Binding Enabled}" VerticalAlignment="Top"/>
+    </Grid>
+</mahapps:MetroWindow>
+
+    
+    

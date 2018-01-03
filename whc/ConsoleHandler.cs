@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using NDesk.Options;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
@@ -17,7 +18,6 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Settings;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 
@@ -35,6 +35,7 @@ namespace whc
         static OptionSet groupOpts;
         static OptionSet createGrOpts;
         static OptionSet sensorOpts;
+        private static ISensorStateBase sensorstate;
         static Group grp;
         static bool error;
         static State state;
@@ -42,7 +43,7 @@ namespace whc
         static string id;
         static bool noprompt;
         static bool nomsg;
-        static object sensorstate;
+  
 
         static ConsoleHandler()
         {
@@ -84,7 +85,7 @@ namespace whc
                     else
                         error = true;
                 }},             
-                {"sc|schedule=","Set the mode to schedule.", delegate(string v)
+  /*              {"sc|schedule=","Set the mode to schedule.", delegate(string v)
                 { 
                     if(cmd == Command.NONE)
                     {
@@ -93,7 +94,7 @@ namespace whc
                     }
                     else
                         error = true;
-                }},
+                }},*/
                 {"sn|scene=","Set the mode to scene.", delegate(string v) 
                 { 
                     if(cmd == Command.NONE)
@@ -569,7 +570,7 @@ namespace whc
                         {
                             if (state.xy_inc == null)
                             {
-                                state.xy_inc = new decimal?[2]{0,0};
+                                state.xy_inc = new decimal[2]{0,0};
                             }
                             state.xy[0]= x_inc;
                         }
@@ -618,7 +619,7 @@ namespace whc
                         {
                             if (state.xy_inc == null)
                             {
-                                state.xy_inc = new decimal?[2]{0,0};
+                                state.xy_inc = new decimal[2]{0,0};
                             }
                             state.xy[0]= y_inc;
                         }
@@ -654,6 +655,20 @@ namespace whc
                         error = true;
                     }
                 }},
+                {"bri_inc=","Brightness incrementor [-254-254]", delegate(string v)
+                {
+                    if (short.TryParse(v, out var bri_inc))
+                    {
+                        if (bri_inc >= -254 && bri_inc <= 254)
+                        {
+                            action.bri_inc = bri_inc;
+                        }
+                        else
+                        {
+                            WriteMessageToConsole("Error BRI incrementor must be between -254 to 254");
+                        }
+                    }
+                }},
                 {"sat=","Saturation of a group [0-254]", delegate(string v)
                 {
                     byte sat;
@@ -665,6 +680,20 @@ namespace whc
                         error = true;
                     }
                 }},
+                {"sat_inc=","Saturation incrementor [-254-254]", delegate(string v)
+                {
+                    if (short.TryParse(v, out var sat_inc))
+                    {
+                        if (sat_inc >= -254 && sat_inc <= 254)
+                        {
+                            action.sat_inc = sat_inc;
+                        }
+                        else
+                        {
+                            WriteMessageToConsole("Error SAT incrementor must be between -254 to 254");
+                        }
+                    }
+                }},
                 {"ct=" ,"Colortemp of a group [153-500]", delegate(string v)
                 {
                     ushort ct;
@@ -672,6 +701,20 @@ namespace whc
                         action.ct = ct;
                     else
                         WriteMessageToConsole("CT invalid value " + v);
+                }},
+                {"ct_inc=","Color Temperature incrementor [-500-500]", delegate(string v)
+                {
+                    if (short.TryParse(v, out var ct_inc))
+                    {
+                        if (ct_inc >= -500 && ct_inc <= 500)
+                        {
+                            action.ct_inc = ct_inc;
+                        }
+                        else
+                        {
+                            WriteMessageToConsole("Error CT incrementor must be between -500 to 500");
+                        }
+                    }
                 }},
                 {"hue=","Hue of a group [0-65534]", delegate(string v)
                 {
@@ -690,6 +733,20 @@ namespace whc
                     {
                         WriteMessageToConsole("HUE invalid value " + v);
                         error = true;
+                    }
+                }},
+                {"hue_inc=","Hue incrementor [-65534-65534]", delegate(string v)
+                {
+                    if (int.TryParse(v, out var hue_inc))
+                    {
+                        if (hue_inc >= -65534 && hue_inc <= 65534)
+                        {
+                            action.hue_inc = hue_inc;
+                        }
+                        else
+                        {
+                            WriteMessageToConsole("Error HUE incrementor must be between -65535 to 65535");
+                        }
                     }
                 }},
                 {"on:" ,"On state of a group (true or false)", delegate(string v)
@@ -761,6 +818,30 @@ namespace whc
                     }
                         
                 }},
+                {"x_inc=","X incrementor coordinate of a light [-0.500-0.500]", delegate(string v)
+                {
+                    if (decimal.TryParse(v, out var x_inc))
+                    {
+                        if (x_inc >= -0.500m && x_inc <= 0.500m)
+                        {
+                            if (action.xy_inc == null)
+                            {
+                                action.xy_inc = new decimal[2]{0,0};
+                            }
+                            action.xy[0]= x_inc;
+                        }
+                        else
+                        {
+                            WriteMessageToConsole("Error X incrementor invalid value " + v);
+                            error = true;
+                        }
+                    }
+                    else
+                    {
+                        WriteMessageToConsole("Error X incrementor invalid value " + v);
+                        error = true;
+                    }
+                }},
                 {"y=","Y coordinate of a group [0.000-1.000]", delegate(string v)
                 {
                     decimal y;
@@ -781,6 +862,30 @@ namespace whc
                     else
                     {
                         WriteMessageToConsole("Y invalid value " + v);
+                        error = true;
+                    }
+                }},
+                {"y_inc=","Y incrementor coordinate of a light [-0.500-0.500]", delegate(string v)
+                {
+                    if (decimal.TryParse(v, out var y_inc))
+                    {
+                        if (y_inc >= -0.500m && y_inc <= 0.500m)
+                        {
+                            if (action.xy_inc == null)
+                            {
+                                action.xy_inc = new decimal[2]{0,0};
+                            }
+                            action.xy[0]= y_inc;
+                        }
+                        else
+                        {
+                            WriteMessageToConsole("Error Y invalid value " + v);
+                            error = true;
+                        }
+                    }
+                    else
+                    {
+                        WriteMessageToConsole("Error Y invalid value " + v);
                         error = true;
                     }
                 }},
@@ -821,6 +926,7 @@ namespace whc
                         {
                             WriteMessageToConsole($"open invalid value {v} expecting true or false.");
                         }
+
                     }
 
                 },
@@ -1102,16 +1208,24 @@ namespace whc
 
         private static void SetSensorState()
         {
-            bool bresult = bridge.ChangeSensorState(id, sensorstate);
             
-            if (!bresult || error)
+            if (sensorstate == null)
             {
-                Console.WriteLine(@"An error occured while sending the sensor state to the bridge.");
-                Console.WriteLine(bridge.LastCommandMessages);
+                Console.WriteLine(@"Error : Please specify a sensor state.");
             }
             else
             {
-                Console.WriteLine("Sensor state sent succesfully to sensor : " + id);
+                bool bresult = bridge.ChangeSensorState(id, sensorstate);
+                if (!bresult || error)
+                {
+                    Console.WriteLine(@"An error occured while sending the sensor state to the bridge.");
+                    Console.WriteLine(bridge.LastCommandMessages);
+                }
+                else
+                {
+                    Console.WriteLine("Sensor state sent succesfully to sensor : " + id);
+                }
+
             }
 
         }

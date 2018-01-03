@@ -1,10 +1,7 @@
 ﻿using System.Globalization;
-using System.Reflection;
 using System.Windows.Data;
 using WinHue3.ExtensionMethods;
-using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
-using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3.Interface
 {

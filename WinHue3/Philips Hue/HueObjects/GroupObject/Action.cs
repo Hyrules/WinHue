@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 using WinHue3.Controls;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.ViewModels;
-using WinHue3.Views;
+using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using XYEditor = WinHue3.Functions.PropertyGrid.XYEditor;
 
 namespace WinHue3.Philips_Hue.HueObjects.GroupObject
 {
@@ -30,7 +30,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         private short? _satInc;
         private int? _hueInc;
         private short? _ctInc;
-        private decimal?[] _xyInc;
+        private decimal[] _xyInc;
         private ushort? _ct;
 
         /// <summary>
@@ -87,6 +87,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// Float color of the group.
         /// </summary>
         [HueProperty, DataMember(IsRequired = false),  Description("Color coordinates in CIE color space. ( float value between 0.000 and 1.000)"),Category("Properties"), Editor(typeof(XYEditor), typeof(XYEditor))]
+
         public decimal[] xy
         {
             get => _xy;
@@ -185,8 +186,9 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// XY increment.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("XY increment."),Category("Incrementors")]
-        public decimal?[] xy_inc
+        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("XY increment."),Category("Incrementors"), Editor(typeof(XYEditor), typeof(XYEditor))]
+        [XYEditor.MaxMin(0.5f,0f)]
+        public decimal[] xy_inc
         {
             get => _xyInc;
             set => SetProperty(ref _xyInc, value);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Philips_Hue.HueObjects.Common
