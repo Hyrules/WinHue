@@ -41,7 +41,7 @@ namespace WinHue3.Functions.Application_Settings
         private void ChangeThemeColor()
         {
             MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(MainSettingsModel.Themecolor), MahApps.Metro.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
-            Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(MainSettingsModel.Themecolor), Fluent.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
+            //Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(MainSettingsModel.Themecolor), Fluent.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
 
         }
     }
