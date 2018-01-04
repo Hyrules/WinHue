@@ -18,15 +18,15 @@ namespace WinHue3.LIFX
     {
 
         //*** HEADER ***
-        private byte[] header;
-        private byte[] destination;
-        private byte[] source;
-        private byte[] reservedfield1;
-        private byte ack;
-        private byte sequence;
-        private byte[] protocolheader;
-        private byte[] message;
-        private byte[] reservedfield2;
+        private byte[] _header;
+        private byte[] _destination;
+        private byte[] _source;
+        private byte[] _reservedfield1;
+        private byte   _ack;
+        private byte   _sequence;
+        private byte[] _protocolheader;
+        private byte[] _message;
+        private byte[] _reservedfield2;
 
         //*** PAYLOAD ***
 
@@ -34,15 +34,15 @@ namespace WinHue3.LIFX
 
         public LifxPacket()
         {
-            header = new byte[2];
-            destination = new byte[4];
-            source = new byte[4];
+            _header = new byte[2];
+            _destination = new byte[4];
+            _source = new byte[4];
             
-            reservedfield1 = new byte[6]; // MUST BE ZERO
-            ack = 0xFF;
-            sequence = 0xFF;
-            protocolheader = new byte[8]; // MUST BE ZERO
-            reservedfield2 = new byte[2]; // MUST BE ZERO
+            _reservedfield1 = new byte[6]; // MUST BE ZERO
+            _ack = 0xFF;
+            _sequence = 0xFF;
+            _protocolheader = new byte[8]; // MUST BE ZERO
+            _reservedfield2 = new byte[2]; // MUST BE ZERO
 
         }
 
