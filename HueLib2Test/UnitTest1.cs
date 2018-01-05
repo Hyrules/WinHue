@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -13,12 +14,39 @@ using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Utils;
 using WinHue3.Functions.Rules.Creator;
+using WinHue3.LIFX;
 
 namespace HueLib2Test
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
+        public void TestSendPacket()
+        {
+            byte[] b = new byte[4];
+            b = ToLittleEndian(13312);
+            b = BitConverter.GetBytes(13312).Reverse<byte>().ToArray();
+
+            LifxPacket packet = new LifxPacket();
+            packet.SetBytes(ref b, 13312 );
+            packet.SetMessageType(LifxComm.MessagesType.SetColor);
+            LifxComm.SendPacket(packet);
+        }
+
+        private byte[] ToLittleEndian(ushort value)
+        {
+            byte[] valbytes = BitConverter.GetBytes(value);
+            byte[] bytes = new byte[valbytes.Length];
+            
+            for (int i = 0; i <= bytes.Length - 1; i++)
+            {
+                bytes[i] = (byte)((ushort)value >> (i * 8));
+            }
+
+            return bytes;
+        }
+
         [TestMethod]
         public void TestDeserializer()
         {
