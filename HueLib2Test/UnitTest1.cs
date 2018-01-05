@@ -15,6 +15,8 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Utils;
 using WinHue3.Functions.Rules.Creator;
 using WinHue3.LIFX;
+using System.Net;
+using System.Text;
 
 namespace HueLib2Test
 {
@@ -24,14 +26,11 @@ namespace HueLib2Test
         [TestMethod]
         public void TestSendPacket()
         {
-            byte[] b = new byte[4];
-            b = ToLittleEndian(13312);
-            b = BitConverter.GetBytes(13312).Reverse<byte>().ToArray();
-
+            byte[] test = UTF8Encoding.UTF8.GetBytes("allo");
             LifxPacket packet = new LifxPacket();
-            packet.SetBytes(ref b, 13312 );
-            packet.SetMessageType(LifxComm.MessagesType.SetColor);
-            LifxComm.SendPacket(packet);
+            //packet.SetTargetIP(IPAddress.Parse("192.168.5.1"));
+           // packet.SetMessageType(LifxPacket.LightMessagesType.SetColor);
+           // LifxComm.SendPacket(packet);
         }
 
         private byte[] ToLittleEndian(ushort value)
@@ -87,11 +86,11 @@ namespace HueLib2Test
         [TestMethod]
         public void TestDecimalArray()
         {
-            State s = new State();
+           /* State s = new State();
             s.xy = new decimal[] {0.987m, 0.324m};
             object obj = Serializer.SerializeToJson(s.xy);
             bool test = obj is Array;
-            string xy = string.Join(",", s.xy);
+            string xy = string.Join(",", s.xy);*/
 
 
         }

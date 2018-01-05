@@ -8,163 +8,112 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Windows.Controls;
+using WinHue3.LIFX.Payloads;
+using WinHue3.LIFX.Responses;
 
 namespace WinHue3.LIFX
 {
     public static class LifxComm
     {
-        public enum MessagesType {
-            Get =0x65,
-            SetColor =0x66,
-            SetWaveForm =0x67,
-            SetWaveFormOptional =0x77,
-            State = 0x6B,
-            GetPower = 0x74,
-            SetPower = 0x75,
-            GetInfrared = 0x78,
-            StateInfrared = 0x79,
-            SetInfrared = 0x7A,
-            SetColorZones = 0x1F5,
-            GetcolorZones = 0x1F6,
-            StateZones = 0x1F7,
-            StateMultiZone = 0x1FA
-        };
-
-        private static UdpClient _udpclient;
+        private static UdpClient _udpClient;
 
         static LifxComm()
         {
-            _udpclient = new UdpClient();
+            _udpClient = new UdpClient();            
         }
 
-        public static async Task SendPacketAsync(LifxPacket packet)
+        private static async Task<LifxResponse> SendPacketAsync(IPAddress ip , LifxPacket packet)
         {
-            byte[] currentpacket = packet;
-            await _udpclient.SendAsync(currentpacket, currentpacket.Length);
+            byte[] currentPacket = packet;
+            IPEndPoint clientIp = new IPEndPoint(ip ?? IPAddress.Broadcast,56700);
+            if(clientIp.Address != IPAddress.Broadcast)
+            {
+                _udpClient.Connect(clientIp);             
+            }
+
+            await _udpClient.SendAsync(currentPacket, currentPacket.Length, clientIp);
+            
+            UdpReceiveResult udpAck = await _udpClient.ReceiveAsync();
+            UdpReceiveResult udpResponse = await _udpClient.ReceiveAsync();
+
+            LifxResponse response = new LifxResponse()
+            {
+                ack = new Acknowledgement(udpAck.Buffer),
+                data = udpResponse.Buffer,
+            };
+                     
+            _udpClient.Close();
+            return response;
         }
 
-        public static void SendPacket(LifxPacket packet)
+        /// <summary>
+        /// Set one or all lights to a specific color
+        /// </summary>
+        /// <param name="color">Color Hue from 0 to 65535</param>
+        /// <param name="bri">Brightness from 0 to 65535</param>
+        /// <param name="sat">Saturation from 0 to 65535</param>
+        /// <param name="kelvin">Saturation in kelvin from 0 (2500 Deg) to 65535 (9000 Deg)</param>
+        /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
+        /// <param name="ip">(Optional) Ip address of the targetted device</param>
+        /// <returns>State of the light</returns>
+        public static async Task<State> SetColorAsync(ushort color, ushort bri, ushort sat, ushort kelvin, uint transitiontime, IPAddress ip = null)
         {
-            byte[] currentpacket = packet;
-            _udpclient.Send(currentpacket, currentpacket.Length);
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_SetColor);
+            packet.Header.SetTargetIP(ip);
+            packet.Payload = new ColorPayload(color, bri, sat, kelvin, transitiontime);
+            LifxResponse response = await SendPacketAsync(ip,packet);
+            return new State(response.data);
+        }
+
+        /// <summary>
+        /// Set one or all lights to a specific color
+        /// </summary>
+        /// <param name="hsbk">Hue, saturation , brightness, kelvin color object</param>
+        /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
+        /// <param name="ip"></param>
+        /// <returns>(Optional) IP address of the targetted device</returns>
+        public static async Task<State> SetColorAsync(Hsbk hsbk, uint transitiontime, IPAddress ip = null)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_SetColor);
+            packet.Header.SetTargetIP(ip);
+            packet.Payload = new ColorPayload(hsbk, transitiontime);
+            LifxResponse response = await SendPacketAsync(ip, packet);
+            return new State(response.data);
+        }
+
+        /// <summary>
+        /// Set the power state of one or all light.
+        /// </summary>
+        /// <param name="level">Level between 0 and 65535</param>
+        /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
+        /// <param name="target">(Optional) Mac address of the targetted device</param>
+        /// <returns>The power level from 0 to 65535</returns>
+        public static async Task<ushort> SetPower(ushort level, uint transitiontime, IPAddress ip = null)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_SetPower);
+            packet.Header.SetTargetIP(ip);
+            packet.Payload = new PowerPayload(level, transitiontime);
+            LifxResponse response = await SendPacketAsync(ip, packet);
+            return BitConverter.ToUInt16(response.data,0);
+        }
+
+        /// <summary>
+        /// Get the state of the specified light
+        /// </summary>
+        /// <param name="ip">IP address of the light</param>
+        /// <returns>State of the light</returns>
+        public static async Task<State> GetState(IPAddress ip)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_Get);
+            packet.Header.SetTargetIP(ip);
+            packet.Header.SetSize(packet.Header.Length);
+            LifxResponse response = await SendPacketAsync(ip, packet);
+            return new State(response.data);
         }
     }
 
-    public class LifxPacket
-    {
-        // LIFX USES LITTLE ENDIAN THIS MEANS THAT THE MOST SIGNIFICAT BIT IS REVERSE (least significant byte is stored first)
-        // EG : color 
-
-        //*** FRAME HEADER ***
-        private byte[] _header;
-        private byte[] _uniqueid;
-
-        //*** FRAME ADDRESS ***
-        private byte[] _target;      
-        private byte[] _reservedfield1;
-        private byte[]  _ack;
-        private byte[]  _sequence;
-        private byte[] _protocolheader;
-        private byte[] _reservedfield2;
-        private byte[] _msgtype;
-        private byte[] _reservedfield3;
-
-        //*** PAYLOAD ***
-        private byte[] _color;
-        private byte[] _sat;
-        private byte[] _bri;
-        private byte[] _kelvin;
-        private byte[] _transition;
-        public LifxPacket()
-        {
-
-            _header   = new byte[4] { 0x00,0x00,0x34,0x00 };
-            _uniqueid = new byte[4] { 0x56,0x48,0x03,0x00 }; // WH30
-            _target   = new byte[8];
-            
-            _reservedfield1 = new byte[6]; // MUST BE ZERO
-            _ack = new byte[1] { 0x11 };
-            _sequence = new byte[1] { 0x00 };
-            _protocolheader = new byte[8]; // MUST BE ZERO
-            _msgtype = new byte[2];
-            _reservedfield2 = new byte[2]; // MUST BE ZERO
-            _reservedfield3 = new byte[2]; // MUST BE ZERO
-
-            _color = new byte[2];
-            _sat = new byte[2];
-            _bri = new byte[2];
-            _kelvin = new byte[2];
-            _transition = new byte[4];
-        }
-
-
-        private byte[] MakePacket(byte[] payload)
-        {
-            byte[] packet = new byte[42 + payload.Length];
-            
-            //**** FRAME HEADER
-            _header.CopyTo(packet,0); // 0 - 3
-            _uniqueid.CopyTo(packet,4); // 4 - 8
-            
-            //**** FRAME ADDRESS
-            _target.CopyTo(packet,9); // 9 - 16
-            _reservedfield1.CopyTo(packet,17); // 17 - 22 
-            _ack.CopyTo(packet, 23);
-            _sequence.CopyTo(packet,24);
-            _protocolheader.CopyTo(packet, 25);
-            _msgtype.CopyTo(packet,33);
-            _reservedfield2.CopyTo(packet,35);
-
-            //**** PAYLOAD 
-
-            payload.CopyTo(packet,43);
-
-            // SET FINAL SIZE
-
-            
-            
-
-            return packet;
-        }
-
-        public void SetColor(uint color, uint bri, uint sat, uint kelvin, uint transitiontime)
-        {
-            byte[] payload = new byte[8];
-            SetBytes(ref _color, color);
-            _color.CopyTo(payload, 0); // 0 -1
-            SetBytes(ref _sat, sat);
-            _sat.CopyTo(payload, 2); // 2 - 3
-            SetBytes(ref _bri, bri);
-            _bri.CopyTo(payload, 4); // 4 - 5
-            SetBytes(ref _kelvin, kelvin);
-            _kelvin.CopyTo(payload, 6); // 6 - 7
-            SetBytes(ref _transition, transitiontime);
-            _transition.CopyTo(payload, 8);
-        }
-
-        public void SetBytes(ref byte[] array, uint value)
-        {
-            BitConverter.GetBytes(value).Reverse().ToArray().CopyTo(array,0);
-        }
-
-        public void SetMessageType(LifxComm.MessagesType msgtype)
-        {
-            _msgtype[0] = (byte)msgtype;
-        }
-
-        public static implicit operator byte[](LifxPacket packet)
-        {
-            return new byte[2];
-        }
-
-        public void SetTargetIP(IPAddress ip)
-        {
-            _target = ip.GetAddressBytes();
-        }
-
-        public void SetTargetIP(String ip)
-        {
-            _target = IPAddress.Parse(ip).GetAddressBytes();
-        }
-    }
 }
