@@ -1,7 +1,8 @@
 ﻿<Application x:Class="WinHue3.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Startup="Application_Startup" >
+             Startup="Application_Startup"
+             xmlns:fluent="clr-namespace:Fluent;assembly=Fluent">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,6 +16,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Accents/Cyan.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
+            <!--<Color x:Key="{x:Static fluent:MetroColors.ThemeColorKey}">#D3D3D3</Color>-->
             <!--<SolidColorBrush x:Key="SliderThumb.Static.Foreground" Color="#FFE5E5E5"/>
             <SolidColorBrush x:Key="SliderThumb.MouseOver.Background" Color="#FFDCECFC"/>
             <SolidColorBrush x:Key="SliderThumb.MouseOver.Border" Color="#FF7Eb4EA"/>

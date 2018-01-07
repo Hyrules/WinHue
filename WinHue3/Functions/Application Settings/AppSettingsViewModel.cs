@@ -42,6 +42,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(MainSettingsModel.Themecolor), MahApps.Metro.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
             //Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(MainSettingsModel.Themecolor), Fluent.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
+            System.Windows.Media.Color accentColor = (System.Windows.Media.Color)MahApps.Metro.ThemeManager.GetAccent(MainSettingsModel.Themecolor).Resources["AccentColor"];
+
+            //[Fluent.MetroColors.ThemeColorKey] = MahApps.Metro.ThemeManager.GetAccent(MainSettingsModel.Themecolor).Resources["AccentColor"];
+            //Application.Current.Resources[Fluent.MetroColors.ThemeColorKey] = (System.Windows.Media.Color)MahApps.Metro.ThemeManager.GetAccent(MainSettingsModel.Themecolor).Resources["AccentColor"];
+            Application.Current.Resources["RibbonThemeColorBrush"] = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)MahApps.Metro.ThemeManager.GetAccent(MainSettingsModel.Themecolor).Resources["AccentColor"]);
+
 
         }
     }
