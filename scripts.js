@@ -2,6 +2,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
+
 $(document).ready(function() {
   $('.image-link').magnificPopup({
     type: 'image',
@@ -21,3 +22,18 @@ $(document).ready(function() {
   });
 });
 
+function datalol(reponse)
+{
+  alert(response)
+}
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
