@@ -8,7 +8,7 @@ namespace WinHue3.LIFX.Responses
 {
     public class LifxResponse
     {
-        public Acknowledgement ack { get; set; }
-        public byte[] data { get; set; }
+        public LifxPacket ack { get; set; }
+        public LifxPacket data { get; set; }
     }
 }

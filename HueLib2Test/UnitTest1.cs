@@ -17,6 +17,8 @@ using WinHue3.Functions.Rules.Creator;
 using WinHue3.LIFX;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
+using WinHue3.LIFX.Responses;
 
 namespace HueLib2Test
 {
@@ -26,11 +28,10 @@ namespace HueLib2Test
         [TestMethod]
         public void TestSendPacket()
         {
-            byte[] test = UTF8Encoding.UTF8.GetBytes("allo");
-            LifxPacket packet = new LifxPacket();
-            //packet.SetTargetIP(IPAddress.Parse("192.168.5.1"));
-           // packet.SetMessageType(LifxPacket.LightMessagesType.SetColor);
-           // LifxComm.SendPacket(packet);
+           // List<Tuple<byte[],byte[]>> devices = LifxComm.GetDevices();
+
+           // LifxLight light = new LifxLight(IPAddress.Parse("192.168.8.100"), new byte[]{ 0xd0,0x73,0xd5,0x24,0x8f,0xd2} );
+           // LifxResponse response = light.SetColor(41000, 65535, 65535, 32000, 1000);
         }
 
         private byte[] ToLittleEndian(ushort value)

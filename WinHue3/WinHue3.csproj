@@ -193,15 +193,27 @@
     <Compile Include="Functions\Schedules\NewCreator\ScheduleTypeItemSource.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewBehavior.cs" />
     <Compile Include="LIFX\Colors\Hsbk.cs" />
+    <Compile Include="LIFX\LifxDevice.cs" />
+    <Compile Include="LIFX\LifxLight.cs" />
     <Compile Include="LIFX\Payloads\PowerPayload.cs" />
-    <Compile Include="LIFX\Responses\Acknowledgement.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateHostFirmware .cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateInfo.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateLabel.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateGroup.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateLocation.cs" />
+    <Compile Include="LIFX\Responses\States\Light\StateBrightness.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateHostInfo.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StatePower.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateVersion.cs" />
     <Compile Include="LIFX\Responses\LifxResponse.cs" />
-    <Compile Include="LIFX\Responses\State.cs" />
+    <Compile Include="LIFX\Responses\States\Light\State.cs" />
     <Compile Include="LIFX\Payloads\ColorPayload.cs" />
     <Compile Include="LIFX\Header.cs" />
-    <Compile Include="LIFX\LifxComm.cs" />
+    <Compile Include="LIFX\Lifx.cs" />
     <Compile Include="LIFX\LifxPacket.cs" />
     <Compile Include="LIFX\Payloads\Payload.cs" />
+    <Compile Include="LIFX\Responses\CommMessage.cs" />
+    <Compile Include="LIFX\Responses\States\Device\StateService.cs" />
     <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
@@ -249,6 +261,7 @@
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\EffectItemSource.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\PortalState.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\SwUpdate.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\SwUpdate2.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\User.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\WhiteList.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge_Events.cs" />
@@ -850,7 +863,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

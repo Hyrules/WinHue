@@ -21,7 +21,7 @@ namespace WinHue3.LIFX
             _kelvin = new byte[2];
         }
 
-        public ushort Length => Convert.ToUInt16(_hue.Length + _sat.Length + _bri.Length + _kelvin.Length);
+        public int Length => _hue.Length + _sat.Length + _bri.Length + _kelvin.Length;
 
         public ushort Hue => BitConverter.ToUInt16(_hue, 0);
         public ushort Sat => BitConverter.ToUInt16(_sat, 0);
@@ -43,7 +43,15 @@ namespace WinHue3.LIFX
 
         public Hsbk(byte[] bytes)
         {
+            _hue = new byte[2];
+            _sat = new byte[2];
+            _bri = new byte[2];
+            _kelvin = new byte[2];
 
+            Array.Copy(bytes,0,_hue,0,_hue.Length);
+            Array.Copy(bytes,2,_sat,0,_sat.Length);
+            Array.Copy(bytes,4,_bri,0,_bri.Length);
+            Array.Copy(bytes,6,_kelvin,0,_kelvin.Length);
         }
 
         public byte[] GetBytes()

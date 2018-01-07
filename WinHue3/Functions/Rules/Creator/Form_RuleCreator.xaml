@@ -89,7 +89,7 @@
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lower_Than}" Tag="lt"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Greater_Than}" Tag="gt"/>
                     </ComboBox>
-                    <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}">
+                    <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}">
                         <xctk:WatermarkTextBox.Style>
                             <Style TargetType="{x:Type xctk:WatermarkTextBox}">
                                 <Setter Property="Visibility" Value="Visible"/>

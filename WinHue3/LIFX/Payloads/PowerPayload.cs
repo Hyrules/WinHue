@@ -25,6 +25,16 @@ namespace WinHue3.LIFX.Payloads
             BitConverter.GetBytes(duration).ToArray().CopyTo(_duration, 0);
         }
 
+        public PowerPayload(byte[] bytes)
+        {
+            _level = new byte[2];
+            _duration = new byte[4];
+            Array.Copy(bytes,0,_level,0,_level.Length);
+            Array.Copy(bytes,2,_duration,0,_duration.Length);
+        }
+
+        public override int Length => _level.Length + _duration.Length;
+
         public override byte[] GetBytes()
         {
             byte[] bytes = new byte[_level.Length + _duration.Length];

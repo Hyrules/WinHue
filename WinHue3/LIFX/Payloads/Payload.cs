@@ -8,8 +8,12 @@ namespace WinHue3.LIFX.Payloads
 {
     public abstract class Payload
     {
-        public ushort Length;
+        public abstract int Length { get; }
         public abstract byte[] GetBytes();
-        
+
+        public static implicit operator byte[](Payload payload)
+        {
+            return payload.GetBytes();
+        }
     }
 }

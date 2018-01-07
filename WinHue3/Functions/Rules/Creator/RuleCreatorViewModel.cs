@@ -487,9 +487,17 @@ namespace WinHue3.Functions.Rules.Creator
         private void SelectRuleCondition()
         {
             if (_selectedRuleCondition == null) return;
-            SelectedRuleConditionType = HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
-            SelectedConditionHueObject = ListConditionHueObjects.First(x => x.Id == _selectedRuleCondition.address.id);
-            if (SelectedConditionHueObject != null)
+            if (_selectedRuleCondition.address.objecttype != "config")
+            {
+                SelectedRuleConditionType = HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
+                SelectedConditionHueObject = ListConditionHueObjects.First(x => x.Id == _selectedRuleCondition.address.id);
+
+            }
+            else
+            {
+                SelectedRuleConditionType = typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings);
+            }
+            if (SelectedConditionHueObject != null || SelectedRuleConditionType == typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings))
             {
                 ConditionOperator = _selectedRuleCondition.@operator;
                 ConditionValue = _selectedRuleCondition.value;
@@ -507,8 +515,9 @@ namespace WinHue3.Functions.Rules.Creator
             }
             else
             {
-                MessageBox.Show(GlobalStrings.Rule_SelectedObjectDoesNotExists, GlobalStrings.Error,MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(GlobalStrings.Rule_SelectedObjectDoesNotExists, GlobalStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void ExpandAllNodes(HuePropertyTreeViewItem treeItem, string path)
@@ -522,8 +531,12 @@ namespace WinHue3.Functions.Rules.Creator
 
         private HuePropertyTreeViewItem ParseRuleForProperty(string address, HuePropertyTreeViewItem rtvi)
         {
-
-            if (rtvi.Address == new HueAddress(address)) return rtvi;
+            rtvi.IsSelected = false;
+            if (rtvi.Address == new HueAddress(address))
+            {
+                rtvi.IsSelected = true;
+                return rtvi;
+            }
             if (rtvi.Items.Count == 0) return null;
 
             foreach (HuePropertyTreeViewItem r in rtvi.Items)

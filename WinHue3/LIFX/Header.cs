@@ -74,8 +74,8 @@ namespace WinHue3.LIFX
         public Header()
         {
             _size = new byte[2];
-            _header = new byte[2] { 0x00, 0x34 };
-            _uniqueid = new byte[4] { 0x00, 0x03, 0x48, 0x56 }; // WH30 (reversed)
+            _header = new byte[2] { 0x00, 0x14 };
+            _uniqueid = new byte[4] { 0x30, 0x33, 0x48, 0x57 }; // WH30 (reversed)
             _target = new byte[8]; // MAC ADDRESS OF THE DEVICE OR ALL ZERO FOR ALL 
 
             _reservedfield1 = new byte[6]; // MUST BE ZERO
@@ -87,22 +87,65 @@ namespace WinHue3.LIFX
 
         }
 
+        public Header(byte[] bytes)
+        {
+            _size = new byte[2];
+            _header = new byte[2] { 0x00, 0x14 };
+            _uniqueid = new byte[4] { 0x30, 0x33, 0x48, 0x57 }; // WH30 (reversed)
+            _target = new byte[8]; // MAC ADDRESS OF THE DEVICE OR ALL ZERO FOR ALL 
+
+            _reservedfield1 = new byte[6]; // MUST BE ZERO
+            _ack = new byte[1] { 0x03 };
+            _sequence = new byte[1] { 0x00 };
+            _protocolheader = new byte[8]; // MUST BE ZERO
+            _msgtype = new byte[2];
+            _reservedfield2 = new byte[2]; // MUST BE ZERO
+
+            Array.Copy(bytes,0,_size,0,_size.Length);
+            Array.Copy(bytes,2,_header,0,_header.Length);
+            Array.Copy(bytes,4,_uniqueid,0,_uniqueid.Length);
+            Array.Copy(bytes,8,_target,0,_target.Length);
+            Array.Copy(bytes,16,_reservedfield1,0,_reservedfield1.Length);
+            Array.Copy(bytes,22,_ack,0,_ack.Length);
+            Array.Copy(bytes,23,_sequence,0,_sequence.Length);
+            Array.Copy(bytes,24,_protocolheader,0,_protocolheader.Length);
+            Array.Copy(bytes,32,_msgtype,0,_msgtype.Length);
+            Array.Copy(bytes,34,_reservedfield2,0,_reservedfield2.Length);
+
+        }
+
         public ushort Length => 
             Convert.ToUInt16(_size.Length + _header.Length + _uniqueid.Length + _target.Length + 
                 _reservedfield1.Length + _ack.Length + _sequence.Length + _protocolheader.Length + _msgtype.Length + _reservedfield2.Length);
 
-        public IPAddress Target => new IPAddress(_target.Reverse().ToArray());
+        public byte[] Target => _target.Reverse().ToArray();
         public MessageType MsgType => (MessageType)BitConverter.ToUInt16(_msgtype, 0);
+        public bool Ack => Convert.ToByte(_ack[0] & 0x02) == 0x02;
+        public bool Response => Convert.ToByte(_ack[0] & 0x01) == 0x01;
+        public bool Tagged => Convert.ToByte(_header[1] & 0x34) == 0x34;
+        public string UniqueID => Encoding.UTF8.GetString(_uniqueid.Reverse().ToArray());
+
 
         public void SetSize(ushort size)
         {
             BitConverter.GetBytes(size).ToArray().CopyTo(_size, 0);
         }
 
-        public byte[] SetTargetIP(IPAddress ip)
+        public void SetTagged(bool tagged)
         {
-            _target = ip.GetAddressBytes().Reverse().ToArray();
-            return _target;
+            if (tagged)
+            {
+                _header[1] = 0x34;
+            }
+            else
+            {
+                _header[1] = 0x14;
+            }
+        }
+
+        public void SetTargetMAC(byte[] mac)
+        {
+            mac.Reverse().ToArray().CopyTo(_target,0);            
         }
 
         public void SetMessageType(MessageType msgtype)
@@ -110,26 +153,56 @@ namespace WinHue3.LIFX
             BitConverter.GetBytes((ushort)msgtype).ToArray().CopyTo(_msgtype, 0);
         }
 
-        private byte[] GetHeader()
+        public void SetAck(bool ack)
         {
-            byte[] header = new byte[36];
+            if (ack)
+            {
+                _ack[0] = Convert.ToByte(_ack[0] | 0x02);
+            }
+            else
+            {
+                _ack[0] = Convert.ToByte(_ack[0] & 0x01);
+            }
+        }
+
+        public void SetResponse(bool resp)
+        {
+            if (resp)
+            {
+                _ack[0] = Convert.ToByte(_ack[0] | 0x01);
+            }
+            else
+            {
+                _ack[0] = Convert.ToByte(_ack[0] & 0x02);
+            }
+        }
+
+
+        public byte[] GetBytes()
+        {
+            byte[] bytes = new byte[Length];
 
             //**** FRAME HEADER
             // SIZE is 0 - 1 and is the size of the whole message (including size)
 
-            _header.CopyTo(header, 2); // 2 - 3
-            _uniqueid.CopyTo(header, 4); // 4 - 8
+            _header.CopyTo(bytes, 2); // 2 - 3
+            _uniqueid.CopyTo(bytes, 4); // 4 - 7
 
             //**** FRAME ADDRESS
-            _target.CopyTo(header, 9); // 9 - 16
-            _reservedfield1.CopyTo(header, 17); // 17 - 22 
-            _ack.CopyTo(header, 23);
-            _sequence.CopyTo(header, 24);
-            _protocolheader.CopyTo(header, 25);
-            _msgtype.CopyTo(header, 33);
-            _reservedfield2.CopyTo(header, 35);
+            _target.CopyTo(bytes, 8); // 8 - 15
+            _reservedfield1.CopyTo(bytes, 16); // 16 - 21
+            _ack.CopyTo(bytes, 22);
+            _sequence.CopyTo(bytes, 23);
+            _protocolheader.CopyTo(bytes, 24);
+            _msgtype.CopyTo(bytes, 32);
+            _reservedfield2.CopyTo(bytes, 33);
 
-            return header;
+            return bytes;
+        }
+
+        public static implicit operator byte[](Header header)
+        {
+            return header.GetBytes();
         }
     }
 }
