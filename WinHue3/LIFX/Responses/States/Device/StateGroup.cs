@@ -31,6 +31,13 @@ namespace WinHue3.LIFX.Responses.States.Device
             Array.Copy(bytes,48,_updatedat,0,_updatedat.Length);
         }
 
+        public StateGroup(Guid group, string label, DateTime timestamp)
+        {
+            _group = group.ToByteArray().Reverse().ToArray();
+            _label = Encoding.UTF8.GetBytes(label).Reverse().ToArray();
+            _updatedat = BitConverter.GetBytes((UInt64)updatedAt.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+        }
+
         public override int Length => _group.Length + _label.Length + _updatedat.Length;
 
         public override byte[] GetBytes()

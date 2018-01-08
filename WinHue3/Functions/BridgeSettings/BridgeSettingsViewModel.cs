@@ -67,7 +67,7 @@ namespace WinHue3.Functions.BridgeSettings
 
         private bool CanApplyNetworkSettings()
         {
-            return NetworkModel.Dhcp && NetworkModel.IsChanged;
+            return NetworkModel.IsChanged;
         }
 
         private async Task ApplyNetworkSettings()
