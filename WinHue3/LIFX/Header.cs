@@ -27,7 +27,7 @@ namespace WinHue3.LIFX
             Device_GetLabel = 23,
             Device_SetLabel = 24,
             Device_StateLabel = 25,
-            Device_GetVerion = 32,
+            Device_GetVersion = 32,
             Device_StateVersion = 33,
             Device_GetInfo = 34,
             Device_StateInfo = 35,

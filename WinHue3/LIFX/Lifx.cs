@@ -43,20 +43,20 @@ namespace WinHue3.LIFX
         /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
         /// <param name="target">(Optional) Mac address of the targetted device</param>
         /// <returns>The power level from 0 to 65535</returns>
-        public static async Task<CommMessage<LifxResponse>> SetPowerAllAsync(ushort level, uint transitiontime)
+        public static async Task<LifxCommMessage<LifxResponse>> SetPowerAllAsync(ushort level, uint transitiontime)
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Light_SetPower);
             packet.Header.SetTagged(true);
             packet.Payload = new PowerPayload(level, transitiontime);
-            CommMessage<LifxResponse> response = await Lifx.SendPacketAsync(IPAddress.Broadcast, packet);
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(IPAddress.Broadcast, packet);
             return response;
         }
 
         /// <summary>
         /// Get the list of LIFX devices on the network. Subscribe to event OnBroadcastComplete to get the devices.
         /// </summary>
-        public static CommMessage<Dictionary<IPAddress, StateService>> GetDevices()
+        public static LifxCommMessage<Dictionary<IPAddress, StateService>> GetDevices()
         {
             UdpClient udpClient = new UdpClient();
             udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
@@ -105,14 +105,14 @@ namespace WinHue3.LIFX
                 error = true;
             }
                       
-            return new CommMessage<Dictionary<IPAddress, StateService>>(exception,_listdevices,error);
+            return new LifxCommMessage<Dictionary<IPAddress, StateService>>(exception,_listdevices,error);
         }
 
         /// <summary>
         /// Get the list of LIFX lights asynchronously.
         /// </summary>
         /// <returns>The list of devices per IP</returns>
-        public static async Task<CommMessage<Dictionary<IPAddress, StateService>>> GetDevicesAsync()
+        public static async Task<LifxCommMessage<Dictionary<IPAddress, StateService>>> GetDevicesAsync()
         {
             UdpClient udpClient = new UdpClient();
             udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
@@ -177,10 +177,10 @@ namespace WinHue3.LIFX
                 error = true;
             }
 
-            return new CommMessage<Dictionary<IPAddress, StateService>>(exception, _listdevices, error);
+            return new LifxCommMessage<Dictionary<IPAddress, StateService>>(exception, _listdevices, error);
         }
 
-        public static async Task<CommMessage<LifxResponse>> SendPacketAsync(IPAddress ip, LifxPacket packet)
+        public static async Task<LifxCommMessage<LifxResponse>> SendPacketAsync(IPAddress ip, LifxPacket packet)
         {
             UdpClient udpClient = new UdpClient();
             byte[] currentPacket = packet;
@@ -243,11 +243,11 @@ namespace WinHue3.LIFX
                 error = true;
             }
 
-            return new CommMessage<LifxResponse>(exception,response,error);
+            return new LifxCommMessage<LifxResponse>(exception,response,error);
         }
 
         
-        public static CommMessage<LifxResponse> SendPacket(IPAddress ip, LifxPacket packet)
+        public static LifxCommMessage<LifxResponse> SendPacket(IPAddress ip, LifxPacket packet)
         {
             UdpClient udpClient = new UdpClient();
             udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
@@ -283,7 +283,7 @@ namespace WinHue3.LIFX
             }
 
             
-            return new CommMessage<LifxResponse>(exception,response,error);
+            return new LifxCommMessage<LifxResponse>(exception,response,error);
         }
 
    

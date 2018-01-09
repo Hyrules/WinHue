@@ -212,8 +212,10 @@
     <Compile Include="LIFX\Lifx.cs" />
     <Compile Include="LIFX\LifxPacket.cs" />
     <Compile Include="LIFX\Payloads\Payload.cs" />
-    <Compile Include="LIFX\Responses\CommMessage.cs" />
+    <Compile Include="LIFX\Responses\LifxCommMessage.cs" />
     <Compile Include="LIFX\Responses\States\Device\StateService.cs" />
+    <Compile Include="LIFX\Payloads\WaveformOptionalPayload.cs" />
+    <Compile Include="LIFX\Payloads\WaveformPayload.cs" />
     <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
@@ -863,7 +865,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

@@ -26,7 +26,7 @@ namespace WinHue3.LIFX
         public static async Task<LifxLight> CreateLight(IPAddress ip, byte[] mac)
         {
             LifxLight light = new LifxLight(ip,mac);
-            CommMessage<State> msg = await light.GetStateAsync();
+            LifxCommMessage<State> msg = await light.GetStateAsync();
             if (!msg.Error)
             {
                 light._state = msg.Data;
@@ -35,6 +35,7 @@ namespace WinHue3.LIFX
             return light;
         }
 
+        #region SET_COLOR
         /// <summary>
         /// Set one or all lights to a specific color
         /// </summary>
@@ -45,14 +46,14 @@ namespace WinHue3.LIFX
         /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
         /// <param name="ip">(Optional) Ip address of the targetted device</param>
         /// <returns>State of the light</returns>
-        public async Task<CommMessage<LifxResponse>> SetColorAsync(ushort color, ushort bri, ushort sat, ushort kelvin, uint transitiontime)
+        public async Task<LifxCommMessage<LifxResponse>> SetColorAsync(ushort color, ushort bri, ushort sat, ushort kelvin, uint transitiontime)
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Light_SetColor);
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             packet.Payload = new ColorPayload(color, bri, sat, kelvin, transitiontime);
-            CommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
             return response;
         }
 
@@ -63,14 +64,14 @@ namespace WinHue3.LIFX
         /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
         /// <param name="ip"></param>
         /// <returns>(Optional) IP address of the targetted device</returns>
-        public async Task<CommMessage<LifxResponse>> SetColorAsync(Hsbk hsbk, uint transitiontime)
+        public async Task<LifxCommMessage<LifxResponse>> SetColorAsync(Hsbk hsbk, uint transitiontime)
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Light_SetColor);
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             packet.Payload = new ColorPayload(hsbk, transitiontime);
-            CommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
             return response;
         }
 
@@ -84,14 +85,14 @@ namespace WinHue3.LIFX
         /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
         /// <param name="ip">(Optional) Ip address of the targetted device</param>
         /// <returns>State of the light</returns>
-        public CommMessage<LifxResponse> SetColor(ushort color, ushort bri, ushort sat, ushort kelvin, uint transitiontime)
+        public LifxCommMessage<LifxResponse> SetColor(ushort color, ushort bri, ushort sat, ushort kelvin, uint transitiontime)
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Light_SetColor);
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             packet.Payload = new ColorPayload(color, bri, sat, kelvin, transitiontime);
-            CommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
+            LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
             return response;
         }
 
@@ -102,41 +103,165 @@ namespace WinHue3.LIFX
         /// <param name="transitiontime">Transition time from 0 to 4,294,967,295</param>
         /// <param name="ip"></param>
         /// <returns>(Optional) IP address of the targetted device</returns>
-        public CommMessage<LifxResponse> SetColor(Hsbk hsbk, uint transitiontime)
+        public LifxCommMessage<LifxResponse> SetColor(Hsbk hsbk, uint transitiontime)
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Light_SetColor);
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             packet.Payload = new ColorPayload(hsbk, transitiontime);
-            CommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
+            LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
             return response;
         }
 
+        #endregion
+
+        #region SET_WAVEFORM
+
+        /// <summary>
+        /// Set the waveform of the light async.
+        /// </summary>
+        /// <param name="transient">Color does not persist</param>
+        /// <param name="color">Light end color</param>
+        /// <param name="period">Duration of a cycle in milliseconds</param>
+        /// <param name="cycles">Number of cycles</param>
+        /// <param name="skewratio">Waveform Skew, [-32768, 32767] scaled to [0, 1]</param>
+        /// <param name="waveform">Waveform to use for transition.</param>
+        /// <returns>Response</returns>
+        public async Task<LifxCommMessage<State>> SetWaveformAsync(bool transient, Hsbk color, uint period, float cycles, short skewratio, byte waveform)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_SetWaveForm);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            packet.Payload = new 
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
+            if(response.Error)
+            {
+                return new LifxCommMessage<State>(response.Ex, null, true);
+            }
+            else
+            {
+                LifxCommMessage<State> finalresponse = new LifxCommMessage<State>(response.Ex, (State)response.Data.data.Payload, response.Error);
+                return finalresponse;
+            }
+        }
+
+        /// <summary>
+        /// Set the waveform of the light.
+        /// </summary>
+        /// <param name="transient">Color does not persist</param>
+        /// <param name="color">Light end color</param>
+        /// <param name="period">Duration of a cycle in milliseconds</param>
+        /// <param name="cycles">Number of cycles</param>
+        /// <param name="skewratio">Waveform Skew, [-32768, 32767] scaled to [0, 1]</param>
+        /// <param name="waveform">Waveform to use for transition.</param>
+        /// <returns>Response</returns>
+        public LifxCommMessage<State> SetWaveform(bool transient, Hsbk color, uint period, float cycles, short skewration, byte waveform)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_SetWaveForm);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
+            if (response.Error)
+            {
+                return new LifxCommMessage<State>(response.Ex, null, true);
+            }
+            else
+            {
+                LifxCommMessage<State> finalresponse = new LifxCommMessage<State>(response.Ex, (State)response.Data.data.Payload, response.Error);
+                return finalresponse;
+            }
+        }
+
+        /// <summary>
+        /// Set the waveform of the light async.
+        /// </summary>
+        /// <param name="transient">Color does not persist</param>
+        /// <param name="color">Light end color</param>
+        /// <param name="period">Duration of a cycle in milliseconds</param>
+        /// <param name="cycles">Number of cycles</param>
+        /// <param name="skewratio">Waveform Skew, [-32768, 32767] scaled to [0, 1]</param>
+        /// <param name="waveform">Waveform to use for transition.</param>
+        /// <returns>Response</returns>
+        public async Task<LifxCommMessage<State>> SetWaveformOptionalAsync(bool transient, Hsbk color, uint period, float cycles, short skewratio, byte waveform)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_SetWaveFormOptional);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
+            if (response.Error)
+            {
+                return new LifxCommMessage<State>(response.Ex, null, true);
+            }
+            else
+            {
+                LifxCommMessage<State> finalresponse = new LifxCommMessage<State>(response.Ex, (State)response.Data.data.Payload, response.Error);
+                return finalresponse;
+            }
+        }
+
+        /// <summary>
+        /// Set the waveform of the light.
+        /// </summary>
+        /// <param name="transient">Color does not persist</param>
+        /// <param name="color">Light end color</param>
+        /// <param name="period">Duration of a cycle in milliseconds</param>
+        /// <param name="cycles">Number of cycles</param>
+        /// <param name="skewratio">Waveform Skew, [-32768, 32767] scaled to [0, 1]</param>
+        /// <param name="waveform">Waveform to use for transition.</param>
+        /// <returns>Response</returns>
+        public LifxCommMessage<State> SetWaveformOptional(bool transient, Hsbk color, uint period, float cycles, short skewration, byte waveform)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_SetWaveFormOptional);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
+            if (response.Error)
+            {
+                return new LifxCommMessage<State>(response.Ex, null, true);
+            }
+            else
+            {
+                LifxCommMessage<State> finalresponse = new LifxCommMessage<State>(response.Ex, (State)response.Data.data.Payload, response.Error);
+                return finalresponse;
+            }
+        }
+
+        #endregion
+
+        #region GET_STATE
         /// <summary>
         /// Get the state of the specified light
         /// </summary>
         /// <param name="ip">IP address of the light</param>
         /// <returns>State of the light</returns>
-        public async Task<CommMessage<State>> GetStateAsync()
+        public async Task<LifxCommMessage<State>> GetStateAsync()
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Light_Get);
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             packet.Header.SetSize(packet.Header.Length);
-            CommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
             if (response.Error)
             {
-                return new CommMessage<State>(response.Ex,null,true);
+                return new LifxCommMessage<State>(response.Ex,null,true);
             }
             else
             {
-                CommMessage<State> finalresponse = new CommMessage<State>(response.Ex, (State)response.Data.data.Payload, response.Error);
+                LifxCommMessage<State> finalresponse = new LifxCommMessage<State>(response.Ex, (State)response.Data.data.Payload, response.Error);
                 return finalresponse;
             }
            
         }
-
+        #endregion
     }
 }
