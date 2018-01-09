@@ -11,6 +11,7 @@ Fixed:
 - Bug when app would crash when editing an existing rule.
 - Bug where replacing condition would crash the app.
 - Bug where a crash would occur if you select a rule condition with a config proprerty.
+- Bug where user could not apply bridge settings.
 
 Added:
 - Change the order of the actions in the rule creator.

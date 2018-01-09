@@ -35,7 +35,7 @@ namespace WinHue3.LIFX.Responses.States.Device
         {
             _group = group.ToByteArray().Reverse().ToArray();
             _label = Encoding.UTF8.GetBytes(label).Reverse().ToArray();
-            _updatedat = BitConverter.GetBytes((UInt64)updatedAt.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+            _updatedat = BitConverter.GetBytes((UInt64) timestamp.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
         }
 
         public override int Length => _group.Length + _label.Length + _updatedat.Length;
