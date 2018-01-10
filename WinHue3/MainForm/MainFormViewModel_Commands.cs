@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -223,8 +224,8 @@ namespace WinHue3.MainForm
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new AsyncRelayCommand(param => OpenSettingsWindow());
-
         public ICommand QuitApplicationCommand => new RelayCommand(param => QuitApplication());
+        public ICommand FindLifxDevicesCommand => new RelayCommand(param => FindLifxDevices());
 
         //*************** Initialization Command *************
 

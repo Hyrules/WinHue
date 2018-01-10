@@ -1209,6 +1209,11 @@ namespace WinHue3.MainForm
 
         }
 
+        private void FindLifxDevices()
+        {
+           
+        }
+
         private async Task ClickObject()
         {
             if (SelectedObject != null)

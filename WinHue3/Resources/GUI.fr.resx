@@ -1497,4 +1497,7 @@
   <data name="RuleCreatorForm_Actions_Clear" xml:space="preserve">
     <value>Vider</value>
   </data>
+  <data name="MainForm_Menu_FindLifx" xml:space="preserve">
+    <value>Trouver les appareils LIFX</value>
+  </data>
 </root>
