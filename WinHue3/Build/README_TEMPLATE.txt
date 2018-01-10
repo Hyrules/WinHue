@@ -12,12 +12,14 @@ Fixed:
 - Bug where replacing condition would crash the app.
 - Bug where a crash would occur if you select a rule condition with a config proprerty.
 - Bug where user could not apply bridge settings.
+- BUg where adding a rule condition with DX was causing the program to serialize the empty value.
 
 Added:
 - Change the order of the actions in the rule creator.
 
 Changed:
 - Reverted to CommandCombobox to solve issues.
+- Adjusted the hue slider so it is near real hue color.
 
 Known Issues:
 - The ribbon does not match theme. (this is a feature not yet implemented in fluent ribbon)

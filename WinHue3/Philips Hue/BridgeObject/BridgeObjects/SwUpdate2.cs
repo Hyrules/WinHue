@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 {
-    class SwUpdate2
+    public class SwUpdate2
     {
     }
 }

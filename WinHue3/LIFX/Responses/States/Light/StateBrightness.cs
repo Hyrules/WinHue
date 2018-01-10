@@ -17,6 +17,11 @@ namespace WinHue3.LIFX.Responses.States.Light
             _brightness = bytes;
         }
 
+        public StateBrightness(ushort bri)
+        {
+            _brightness = BitConverter.GetBytes(bri);
+        }
+
         public override int Length => _brightness.Length;
         public ushort Brightness => BitConverter.ToUInt16(_brightness,0);
 

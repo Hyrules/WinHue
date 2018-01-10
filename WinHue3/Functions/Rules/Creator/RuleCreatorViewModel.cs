@@ -586,7 +586,7 @@ namespace WinHue3.Functions.Rules.Creator
                         ListRuleConditions.FirstOrDefault(x => x.address.ToString().Equals(SelectedConditionProperty.Address)));
             }
             if (result == DialogResult.Yes)
-                ListRuleConditions.Add(new RuleCondition() { address = SelectedConditionProperty.Address, @operator = ConditionOperator, value = ConditionValue });
+                ListRuleConditions.Add(new RuleCondition() { address = SelectedConditionProperty.Address, @operator = ConditionOperator, value = ConditionOperator == "dx" ? null : ConditionValue });
         }
 
         public List<HuePropertyTreeViewItem> ListConditionProperties

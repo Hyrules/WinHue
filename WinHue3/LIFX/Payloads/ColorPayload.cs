@@ -20,27 +20,20 @@ namespace WinHue3.LIFX.Payloads
             _duration = new byte[4];
         }
 
-        public ColorPayload(ushort color, ushort bri, ushort sat, ushort kelvin, uint transitiontime)
+        public ColorPayload(ushort color, ushort bri, ushort sat, ushort kelvin, uint transitiontime) : this()
         {
-            _reserved = new byte[1];
             _hsbk = new Hsbk(color, bri, sat, kelvin);
             _duration = BitConverter.GetBytes(transitiontime);
         }
 
-        public ColorPayload(Hsbk hsbk, uint transitiontime)
+        public ColorPayload(Hsbk hsbk, uint transitiontime) : this()
         {
-            _reserved = new byte[1];
             _hsbk = hsbk;
             _duration = BitConverter.GetBytes(transitiontime);
         }
 
         public override int Length => _reserved.Length + _hsbk.Length + _duration.Length;
         
-        private void SetBytes(ref byte[] array, uint value)
-        {
-            BitConverter.GetBytes(value).ToArray().CopyTo(array, 0);
-        }
-
         public override byte[] GetBytes()
         {
             byte[] bytes = new byte[Length];

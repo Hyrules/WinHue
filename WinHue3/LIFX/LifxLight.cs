@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WinHue3.LIFX.Payloads;
 using WinHue3.LIFX.Responses;
 using WinHue3.LIFX;
+using WinHue3.LIFX.Responses.States.Light;
 
 namespace WinHue3.LIFX
 {
@@ -135,7 +136,7 @@ namespace WinHue3.LIFX
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             packet.Header.SetSize(packet.Header.Length);
-            packet.Payload = new 
+            packet.Payload = new WaveformPayload();
             LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
             if(response.Error)
             {
@@ -262,6 +263,92 @@ namespace WinHue3.LIFX
             }
            
         }
+        #endregion
+
+        #region GET_SET_INFRARED
+
+
+        /// <summary>
+        /// Get the current maximum power level of the infrared channel.
+        /// </summary>
+        /// <returns>Response</returns>
+        public async Task<LifxCommMessage<StateBrightness>> GetInfraredAsync()       
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_GetInfrared);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
+            if (response.Error)
+            {
+                return new LifxCommMessage<StateBrightness>(response.Ex, null, true);
+            }
+            else
+            {
+                LifxCommMessage<StateBrightness> finalresponse = new LifxCommMessage<StateBrightness>(response.Ex, (StateBrightness)response.Data.data.Payload, response.Error);
+                return finalresponse;
+            }
+        }
+
+        /// <summary>
+        /// Get the current maximum power level of the infrared channel.
+        /// </summary>
+        /// <returns>Response</returns>
+        public LifxCommMessage<StateBrightness> GetInfrared()
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_GetInfrared);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
+            if (response.Error)
+            {
+                return new LifxCommMessage<StateBrightness>(response.Ex, null, true);
+            }
+            else
+            {
+                LifxCommMessage<StateBrightness> finalresponse = new LifxCommMessage<StateBrightness>(response.Ex, (StateBrightness)response.Data.data.Payload, response.Error);
+                return finalresponse;
+            }
+
+        }
+
+        /// <summary>
+        /// Set the infrared level.
+        /// </summary>
+        /// <param name="bri">Brightness level</param>
+        /// <returns>Response</returns>
+        public async Task<LifxCommMessage<LifxResponse>> SetInfraredAsync(ushort bri)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_GetInfrared);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            packet.Payload = new StateBrightness(bri);
+            LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
+            return response;
+        }
+
+        /// <summary>
+        /// Set the infrared level.
+        /// </summary>
+        /// <param name="bri">Brightness level</param>
+        /// <returns>Response</returns>
+        public LifxCommMessage<LifxResponse> SetInfrared(ushort bri)
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_GetInfrared);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            packet.Payload = new StateBrightness(bri);
+            LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
+            return response;
+        }
+
         #endregion
     }
 }
