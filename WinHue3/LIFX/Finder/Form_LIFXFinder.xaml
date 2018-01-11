@@ -5,21 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3.LIFX.Finder"
         xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:context="clr-namespace:WinHue3.LIFX.Finder"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.Form_LIFXFinder_Title}" Height="338.351" Width="549.004">
+        Title="{x:Static resx:GUI.Form_LIFXFinder_Title}" Height="338.351" Width="555.896" ResizeMode="NoResize">
+    <Window.DataContext>
+        <context:LifxFinderViewModel/>
+    </Window.DataContext>
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="46" Margin="7,5,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.Form_LIFXFinder_Warning}" VerticalAlignment="Top" Width="526"/>
-        <ListView HorizontalAlignment="Left" Height="124" Margin="10,56,0,0" VerticalAlignment="Top" Width="523">
+        <TextBox HorizontalAlignment="Left" Height="58" Margin="5,232,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.Form_LIFXFinder_Warning}" VerticalAlignment="Top" Width="448"/>
+        <ListView HorizontalAlignment="Left" Height="216" Margin="5,10,0,0" VerticalAlignment="Top" Width="528" BorderThickness="1" Background="White" BorderBrush="#FFC9C9C9">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Image}" Width="48"/>
-                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Name}" Width="150"/>
-                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_IP}" Width="100"/>
-                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_MAC}" Width="Auto"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Name}" DisplayMemberBinding="{Binding Label}" Width="150"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_IP}" DisplayMemberBinding="{Binding IP}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_MAC}" DisplayMemberBinding="{Binding MAC}" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="{x:Static resx:GUI.Form_LIFXFinder_Button_Find}" HorizontalAlignment="Left" Margin="458,185,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FindLifxDeviceCommand}"/>
+        <Button Content="{x:Static resx:GUI.Form_LIFXFinder_Button_Find}" HorizontalAlignment="Left" Margin="458,231,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FindLifxDeviceCommand}"/>
+        <Button Content="{x:Static resx:GUI.Form_LIFXFinder_Button_Done}" x:Name="btnDone" HorizontalAlignment="Left" Margin="458,263,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
 
     </Grid>
 </Window>

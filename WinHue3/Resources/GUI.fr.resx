@@ -1504,7 +1504,7 @@
     <value>Trouver des ampoules LIFX...</value>
   </data>
   <data name="Form_LIFXFinder_Warning" xml:space="preserve">
-    <value>Attention : Vous devez configurer les ampoules avec l'application LIFX avant de pouvoir utiliser les ampoules avec WinHue.</value>
+    <value>Attention : Vous devez configurer les appareils avec l'application LIFX avant de pouvoir utiliser les ampoules avec WinHue.</value>
   </data>
   <data name="Form_LIFXFinder_Button_Find" xml:space="preserve">
     <value>Trouver</value>
@@ -1520,5 +1520,8 @@
   </data>
   <data name="Form_LIFXFinder_MAC" xml:space="preserve">
     <value>Adresse MAC</value>
+  </data>
+  <data name="Form_LIFXFinder_Button_Done" xml:space="preserve">
+    <value>Terminer</value>
   </data>
 </root>

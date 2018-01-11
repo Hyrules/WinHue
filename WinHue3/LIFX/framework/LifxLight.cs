@@ -15,7 +15,7 @@ namespace WinHue3.LIFX
     {
         private State _state;
 
-        private LifxLight(IPAddress ip, byte[] mac) : base(ip, mac)
+        public LifxLight(IPAddress ip, byte[] mac) : base(ip, mac)
         {
 
         }

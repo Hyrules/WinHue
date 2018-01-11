@@ -196,30 +196,30 @@
       <DependentUpon>Form_LIFXFinder.xaml</DependentUpon>
     </Compile>
     <Compile Include="LIFX\Finder\LifxFinderViewModel.cs" />
-    <Compile Include="LIFX\framework\Colors\Hsbk.cs" />
-    <Compile Include="LIFX\framework\LifxDevice.cs" />
-    <Compile Include="LIFX\framework\LifxLight.cs" />
-    <Compile Include="LIFX\framework\Payloads\PowerPayload.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateHostFirmware .cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateInfo.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateLabel.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateGroup.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateLocation.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Light\StateBrightness.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateHostInfo.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StatePower.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateVersion.cs" />
-    <Compile Include="LIFX\framework\Responses\LifxResponse.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Light\State.cs" />
-    <Compile Include="LIFX\framework\Payloads\ColorPayload.cs" />
-    <Compile Include="LIFX\framework\Header.cs" />
-    <Compile Include="LIFX\framework\Lifx.cs" />
-    <Compile Include="LIFX\framework\LifxPacket.cs" />
-    <Compile Include="LIFX\framework\Payloads\Payload.cs" />
-    <Compile Include="LIFX\framework\Responses\LifxCommMessage.cs" />
-    <Compile Include="LIFX\framework\Responses\States\Device\StateService.cs" />
-    <Compile Include="LIFX\framework\Payloads\WaveformOptionalPayload.cs" />
-    <Compile Include="LIFX\framework\Payloads\WaveformPayload.cs" />
+    <Compile Include="LIFX\Framework\Colors\Hsbk.cs" />
+    <Compile Include="LIFX\Framework\LifxDevice.cs" />
+    <Compile Include="LIFX\Framework\LifxLight.cs" />
+    <Compile Include="LIFX\Framework\Payloads\PowerPayload.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostFirmware .cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLabel.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateGroup.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLocation.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\StateBrightness.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StatePower.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateVersion.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxResponse.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\State.cs" />
+    <Compile Include="LIFX\Framework\Payloads\ColorPayload.cs" />
+    <Compile Include="LIFX\Framework\Header.cs" />
+    <Compile Include="LIFX\Framework\Lifx.cs" />
+    <Compile Include="LIFX\Framework\LifxPacket.cs" />
+    <Compile Include="LIFX\Framework\Payloads\Payload.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxCommMessage.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateService.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformOptionalPayload.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformPayload.cs" />
     <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
@@ -873,7 +873,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

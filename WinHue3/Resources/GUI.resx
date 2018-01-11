@@ -1504,7 +1504,7 @@
     <value>Find LIFX Bulb...</value>
   </data>
   <data name="Form_LIFXFinder_Warning" xml:space="preserve">
-    <value>Warning : You need to onboard the bulb with the LIFX app first. WinHue won't find them otherwise.</value>
+    <value>Warning : You need to onboard the device with the LIFX app first. WinHue won't find them otherwise.</value>
   </data>
   <data name="Form_LIFXFinder_Button_Find" xml:space="preserve">
     <value>Detect</value>
@@ -1520,5 +1520,8 @@
   </data>
   <data name="Form_LIFXFinder_MAC" xml:space="preserve">
     <value>Mac Address</value>
+  </data>
+  <data name="Form_LIFXFinder_Button_Done" xml:space="preserve">
+    <value>Done</value>
   </data>
 </root>

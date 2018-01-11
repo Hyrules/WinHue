@@ -21,6 +21,9 @@ namespace WinHue3.LIFX
             _mac = mac;
         }
 
+        public IPAddress IP => _ip;
+        public byte[] MAC => _mac;
+
         #region GET_WIFI_INFO
         /// <summary>
         /// Get Wifi information async.

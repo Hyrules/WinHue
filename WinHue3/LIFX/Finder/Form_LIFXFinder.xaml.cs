@@ -19,9 +19,18 @@ namespace WinHue3.LIFX.Finder
     /// </summary>
     public partial class Form_LIFXFinder : Window
     {
+        LifxFinderViewModel _lfvm;
+
         public Form_LIFXFinder()
         {
             InitializeComponent();
+            _lfvm = this.DataContext as LifxFinderViewModel;    
+
+        }
+
+        private void btnDone_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
