@@ -1500,4 +1500,25 @@
   <data name="MainForm_Menu_FindLifx" xml:space="preserve">
     <value>Find LIFX Devices</value>
   </data>
+  <data name="Form_LIFXFinder_Title" xml:space="preserve">
+    <value>Find LIFX Bulb...</value>
+  </data>
+  <data name="Form_LIFXFinder_Warning" xml:space="preserve">
+    <value>Warning : You need to onboard the bulb with the LIFX app first. WinHue won't find them otherwise.</value>
+  </data>
+  <data name="Form_LIFXFinder_Button_Find" xml:space="preserve">
+    <value>Detect</value>
+  </data>
+  <data name="Form_LIFXFinder_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Form_LIFXFinder_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Form_LIFXFinder_IP" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="Form_LIFXFinder_MAC" xml:space="preserve">
+    <value>Mac Address</value>
+  </data>
 </root>

@@ -1,0 +1,25 @@
+﻿<Window x:Class="WinHue3.LIFX.Finder.Form_LIFXFinder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.LIFX.Finder"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        mc:Ignorable="d"
+        Title="{x:Static resx:GUI.Form_LIFXFinder_Title}" Height="338.351" Width="549.004">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Height="46" Margin="7,5,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.Form_LIFXFinder_Warning}" VerticalAlignment="Top" Width="526"/>
+        <ListView HorizontalAlignment="Left" Height="124" Margin="10,56,0,0" VerticalAlignment="Top" Width="523">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Image}" Width="48"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Name}" Width="150"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_IP}" Width="100"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_MAC}" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="{x:Static resx:GUI.Form_LIFXFinder_Button_Find}" HorizontalAlignment="Left" Margin="458,185,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FindLifxDeviceCommand}"/>
+
+    </Grid>
+</Window>
