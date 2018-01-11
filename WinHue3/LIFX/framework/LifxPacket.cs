@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.LIFX.Payloads;
-using WinHue3.LIFX.Responses;
-using WinHue3.LIFX.Responses.States.Device;
+using WinHue3.LIFX.Framework.Payloads;
+using WinHue3.LIFX.Framework.Responses.States.Device;
+using WinHue3.LIFX.Framework.Responses.States.Light;
 
-namespace WinHue3.LIFX
+namespace WinHue3.LIFX.Framework
 {
     public class LifxPacket
     {

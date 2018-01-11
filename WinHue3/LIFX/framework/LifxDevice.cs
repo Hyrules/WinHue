@@ -1,18 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using WinHue3.LIFX.Payloads;
-using WinHue3.LIFX.Responses;
-using WinHue3.LIFX.Responses.States.Device;
+using WinHue3.LIFX.Framework.Payloads;
+using WinHue3.LIFX.Framework.Responses;
+using WinHue3.LIFX.Framework.Responses.States.Device;
 
-namespace WinHue3.LIFX
+namespace WinHue3.LIFX.Framework
 {
+    [DataContract]
     public abstract class LifxDevice 
     {
+        [DataMember]
         protected IPAddress _ip;
+        [DataMember]
         protected byte[] _mac;
 
         protected LifxDevice(IPAddress ip, byte[] mac)
@@ -22,7 +24,7 @@ namespace WinHue3.LIFX
         }
 
         public IPAddress IP => _ip;
-        public byte[] MAC => _mac;
+        public string MAC => BitConverter.ToString(_mac.Reverse().ToArray(),0,6);
 
         #region GET_WIFI_INFO
         /// <summary>

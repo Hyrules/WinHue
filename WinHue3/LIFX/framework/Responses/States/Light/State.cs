@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using WinHue3.LIFX.Payloads;
+using WinHue3.LIFX.Framework.Colors;
+using WinHue3.LIFX.Framework.Payloads;
 
-namespace WinHue3.LIFX.Responses
+namespace WinHue3.LIFX.Framework.Responses.States.Light
 {
     public class State : Payload
     {

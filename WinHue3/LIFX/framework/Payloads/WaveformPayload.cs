@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.LIFX.Payloads;
+using WinHue3.LIFX.Framework.Colors;
 
-namespace WinHue3.LIFX.Responses.States.Light
+namespace WinHue3.LIFX.Framework.Payloads
 {
     public class WaveformPayload : Payload
     {

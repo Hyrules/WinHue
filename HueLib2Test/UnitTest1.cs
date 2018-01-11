@@ -18,7 +18,6 @@ using WinHue3.LIFX;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using WinHue3.LIFX.Responses;
 
 namespace HueLib2Test
 {

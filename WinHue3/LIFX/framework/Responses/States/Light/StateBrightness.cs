@@ -1,7 +1,7 @@
 ﻿using System;
-using WinHue3.LIFX.Payloads;
+using WinHue3.LIFX.Framework.Payloads;
 
-namespace WinHue3.LIFX.Responses.States.Light
+namespace WinHue3.LIFX.Framework.Responses.States.Light
 {
     public class StateBrightness : Payload
     {

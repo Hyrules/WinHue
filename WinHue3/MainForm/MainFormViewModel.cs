@@ -19,7 +19,6 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using HotKey = WinHue3.Functions.HotKeys.HotKey;
-using WinHue3.LIFX.Responses;
 
 namespace WinHue3.MainForm
 {

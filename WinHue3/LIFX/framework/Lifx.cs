@@ -1,39 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Configuration;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Threading;
-using WinHue3.LIFX.Payloads;
-using WinHue3.LIFX.Responses;
-using WinHue3.LIFX.Responses.States.Device;
+using WinHue3.LIFX.Framework.Payloads;
+using WinHue3.LIFX.Framework.Responses;
+using WinHue3.LIFX.Framework.Responses.States.Device;
 
-namespace WinHue3.LIFX
+namespace WinHue3.LIFX.Framework
 {
     public static class Lifx
     {      
 
-        private static int _timeout;
+        private static int _findTimeout;
+        private static int _recvTimeout;
+        private static int _sendTimeout;
 
         static Lifx()
         {
-            _timeout = 3000;
+            _findTimeout = 3000;
+            _recvTimeout = 3000;
+            _sendTimeout = 3000;
 
         }
 
-        public static int Timeout
+        public static int FindTimeout
         {
-            get { return _timeout; }
-            set { _timeout = value; }
+            get { return _findTimeout; }
+            set { _findTimeout = value; }
+        }
+
+        public static int RecvTimeout
+        {
+            get { return _recvTimeout; }
+            set { _recvTimeout = value; }
+        }
+
+        public static int SendTimeout
+        {
+            get { return _sendTimeout; }
+            set { _sendTimeout = value; }
         }
 
         /// <summary>
@@ -59,8 +66,8 @@ namespace WinHue3.LIFX
         public static LifxCommMessage<Dictionary<IPAddress, StateService>> GetDevices()
         {
             UdpClient udpClient = new UdpClient();
-            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
-            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket,SocketOptionName.SendTimeout,_timeout);
+            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, _recvTimeout);
+            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket,SocketOptionName.SendTimeout,_sendTimeout);
             Dictionary<IPAddress, StateService> _listdevices = new Dictionary<IPAddress, StateService>();
             bool error = false;
             Exception exception = null;
@@ -115,7 +122,7 @@ namespace WinHue3.LIFX
         public static async Task<LifxCommMessage<Dictionary<IPAddress, StateService>>> GetDevicesAsync()
         {
             UdpClient udpClient = new UdpClient();
-            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
+            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, _recvTimeout);
             udpClient.EnableBroadcast = true;
 
             Dictionary<IPAddress, StateService> _listdevices = new Dictionary<IPAddress, StateService>();
@@ -135,7 +142,7 @@ namespace WinHue3.LIFX
                     await udpClient.SendAsync(packet, packet.Length, new IPEndPoint(IPAddress.Broadcast, 56700));
                 });
 
-                if (await Task.WhenAny(send, Task.Delay(_timeout)) != send)
+                if (await Task.WhenAny(send, Task.Delay(_findTimeout)) != send)
                 {
                     error = true;
                     exception = new TimeoutException();
@@ -167,7 +174,7 @@ namespace WinHue3.LIFX
 
                     });
 
-                    await Task.WhenAny(receive, Task.Delay(_timeout));
+                    await Task.WhenAny(receive, Task.Delay(_findTimeout));
 
                 }
             }
@@ -196,7 +203,7 @@ namespace WinHue3.LIFX
                     await udpClient.SendAsync(packet, packet.Length,clientIp);
                 });
 
-                if (await Task.WhenAny(send, Task.Delay(_timeout)) != send)
+                if (await Task.WhenAny(send, Task.Delay(_findTimeout)) != send)
                 {
                     error = true;
                     exception = new TimeoutException();
@@ -213,7 +220,7 @@ namespace WinHue3.LIFX
                                 new LifxPacket(((UdpReceiveResult) await udpClient.ReceiveAsync()).Buffer);
                         });
 
-                        if (await Task.WhenAny(receive_ack, Task.Delay(_timeout)) != receive_ack)
+                        if (await Task.WhenAny(receive_ack, Task.Delay(_findTimeout)) != receive_ack)
                         {
                             error = true;
                             exception = new TimeoutException();
@@ -227,7 +234,7 @@ namespace WinHue3.LIFX
                             response.data = new LifxPacket(((UdpReceiveResult)await udpClient.ReceiveAsync()).Buffer);
                         });
 
-                        if (await Task.WhenAny(receive_resp, Task.Delay(_timeout)) != receive_resp)
+                        if (await Task.WhenAny(receive_resp, Task.Delay(_findTimeout)) != receive_resp)
                         {
                             error = true;
                             exception = new TimeoutException();
@@ -250,8 +257,8 @@ namespace WinHue3.LIFX
         public static LifxCommMessage<LifxResponse> SendPacket(IPAddress ip, LifxPacket packet)
         {
             UdpClient udpClient = new UdpClient();
-            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
-            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.SendTimeout, _timeout);
+            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, _recvTimeout);
+            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.SendTimeout, _sendTimeout);
 
             byte[] currentPacket = packet;
             LifxResponse response = new LifxResponse();

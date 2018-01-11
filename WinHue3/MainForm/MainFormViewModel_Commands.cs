@@ -68,7 +68,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                if (light.state.on == false) return false;
+                if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
             else if (SelectedObject is Group)
@@ -84,7 +84,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                if (light.state.on == false) return false;
+                if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
             else if (SelectedObject is Group)
@@ -100,7 +100,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                if (light.state.on == false) return false;
+                if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
             else if (SelectedObject is Group)
@@ -116,7 +116,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                if (light.state.on == false) return false;
+                if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
             else if (SelectedObject is Group)
@@ -132,7 +132,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light)
             {
                 Light light = ((Light)SelectedObject);
-                if (light.state.on == false) return false;
+                if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
             else if (SelectedObject is Group)

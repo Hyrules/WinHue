@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinHue3.Functions.Application_Settings.Settings;
 
 namespace WinHue3.LIFX.Finder
 {
@@ -30,6 +31,8 @@ namespace WinHue3.LIFX.Finder
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
+            WinHueSettings.lifx.ListDevices = _lfvm.Devices.ToList();
+            WinHueSettings.SaveLifx();
             this.Close();
         }
     }

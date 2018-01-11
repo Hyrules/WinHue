@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WinHue3.LIFX.Responses.States.Device
+namespace WinHue3.LIFX.Framework.Responses.States.Device
 {
     public class StateService
     {

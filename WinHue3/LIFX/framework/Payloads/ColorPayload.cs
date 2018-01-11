@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WinHue3.LIFX.Framework.Colors;
 
-namespace WinHue3.LIFX.Payloads
+namespace WinHue3.LIFX.Framework.Payloads
 {
     //*** PAYLOAD *** HSBK
     public class ColorPayload : Payload

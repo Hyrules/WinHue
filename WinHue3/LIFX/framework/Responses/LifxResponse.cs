@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WinHue3.LIFX.Responses
+﻿namespace WinHue3.LIFX.Framework.Responses
 {
     public class LifxResponse
     {

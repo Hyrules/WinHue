@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
+﻿using System.Net;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using WinHue3.LIFX.Payloads;
-using WinHue3.LIFX.Responses;
-using WinHue3.LIFX;
-using WinHue3.LIFX.Responses.States.Light;
+using WinHue3.LIFX.Framework.Colors;
+using WinHue3.LIFX.Framework.Payloads;
+using WinHue3.LIFX.Framework.Responses;
+using WinHue3.LIFX.Framework.Responses.States.Light;
 
-namespace WinHue3.LIFX
+namespace WinHue3.LIFX.Framework
 {
     public class LifxLight : LifxDevice
     {
@@ -22,6 +19,7 @@ namespace WinHue3.LIFX
 
         public Hsbk Color => _state.HSBK;
         public ushort Power => _state.Power;
+        [DataMember]
         public string Label => _state.Label;
 
         public static async Task<LifxLight> CreateLight(IPAddress ip, byte[] mac)

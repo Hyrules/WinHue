@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace WinHue3.LIFX
+namespace WinHue3.LIFX.Framework
 {
     public class Header
     {
