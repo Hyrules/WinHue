@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -13,12 +14,38 @@ using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Utils;
 using WinHue3.Functions.Rules.Creator;
+using WinHue3.LIFX;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HueLib2Test
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
+        public void TestSendPacket()
+        {
+           // List<Tuple<byte[],byte[]>> devices = LifxComm.GetDevices();
+
+           // LifxLight light = new LifxLight(IPAddress.Parse("192.168.8.100"), new byte[]{ 0xd0,0x73,0xd5,0x24,0x8f,0xd2} );
+           // LifxResponse response = light.SetColor(41000, 65535, 65535, 32000, 1000);
+        }
+
+        private byte[] ToLittleEndian(ushort value)
+        {
+            byte[] valbytes = BitConverter.GetBytes(value);
+            byte[] bytes = new byte[valbytes.Length];
+            
+            for (int i = 0; i <= bytes.Length - 1; i++)
+            {
+                bytes[i] = (byte)((ushort)value >> (i * 8));
+            }
+
+            return bytes;
+        }
+
         [TestMethod]
         public void TestDeserializer()
         {
@@ -59,11 +86,11 @@ namespace HueLib2Test
         [TestMethod]
         public void TestDecimalArray()
         {
-            State s = new State();
+           /* State s = new State();
             s.xy = new decimal[] {0.987m, 0.324m};
             object obj = Serializer.SerializeToJson(s.xy);
             bool test = obj is Array;
-            string xy = string.Join(",", s.xy);
+            string xy = string.Join(",", s.xy);*/
 
 
         }

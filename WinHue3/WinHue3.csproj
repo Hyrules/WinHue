@@ -173,6 +173,7 @@
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\BindableTreeView.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Functions\Application Settings\Settings\CustomLifxSettings.cs" />
     <Compile Include="Functions\Behaviors\CommandBehavior.cs" />
     <Compile Include="Functions\Behaviors\KeyUpBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
@@ -192,7 +193,34 @@
     <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorHeader.cs" />
     <Compile Include="Functions\Schedules\NewCreator\ScheduleTypeItemSource.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewBehavior.cs" />
-    <Compile Include="LIFX\LifxComm.cs" />
+    <Compile Include="LIFX\Finder\Form_LIFXFinder.xaml.cs">
+      <DependentUpon>Form_LIFXFinder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LIFX\Finder\LifxFinderViewModel.cs" />
+    <Compile Include="LIFX\Framework\Colors\Hsbk.cs" />
+    <Compile Include="LIFX\Framework\LifxDevice.cs" />
+    <Compile Include="LIFX\Framework\LifxLight.cs" />
+    <Compile Include="LIFX\Framework\Payloads\PowerPayload.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostFirmware .cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLabel.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateGroup.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLocation.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\StateBrightness.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StatePower.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateVersion.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxResponse.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\State.cs" />
+    <Compile Include="LIFX\Framework\Payloads\ColorPayload.cs" />
+    <Compile Include="LIFX\Framework\Header.cs" />
+    <Compile Include="LIFX\Framework\Lifx.cs" />
+    <Compile Include="LIFX\Framework\LifxPacket.cs" />
+    <Compile Include="LIFX\Framework\Payloads\Payload.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxCommMessage.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateService.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformOptionalPayload.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformPayload.cs" />
     <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
@@ -240,6 +268,7 @@
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\EffectItemSource.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\PortalState.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\SwUpdate.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\SwUpdate2.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\User.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\WhiteList.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge_Events.cs" />
@@ -464,6 +493,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Schedules\NewCreator\Controls\Sliders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LIFX\Finder\Form_LIFXFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

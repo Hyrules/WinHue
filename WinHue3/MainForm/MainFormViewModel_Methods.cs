@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,6 +56,9 @@ using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
+using WinHue3.LIFX;
+using WinHue3.LIFX.Finder;
+using State = WinHue3.Philips_Hue.HueObjects.LightObject.State;
 
 namespace WinHue3.MainForm
 {
@@ -100,7 +104,7 @@ namespace WinHue3.MainForm
                 log.Info("No update found on the bridge. Forcing the bridge to check online.");
                 await _selectedBridge.CheckOnlineForUpdateAsyncTask();
             }
-                      
+
         }
 
         private async Task ManageUsers()
@@ -687,6 +691,18 @@ namespace WinHue3.MainForm
             bp.hue = MainFormModel.SliderHue;
             bp.transitiontime = SliderTt;
 
+            if (_selectedObject is Light)
+            {
+                if (((Light) _selectedObject).state.on.GetValueOrDefault())
+                {
+                    
+                }
+                else
+                {
+
+                }
+            }
+
             bool result = await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
 
             if(!result)
@@ -1202,6 +1218,16 @@ namespace WinHue3.MainForm
         private void RssFeedMonSettings()
         {
 
+        }
+
+        private void FindLifxDevices()
+        {
+            Form_LIFXFinder lf = new Form_LIFXFinder
+            {
+                Owner = Application.Current.MainWindow
+            };
+
+            lf.ShowDialog();
         }
 
         private async Task ClickObject()

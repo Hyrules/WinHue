@@ -50,7 +50,6 @@ namespace WinHue3.Utils
         protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value)) return false;
-
             storage = value;
             RaisePropertyChanged(propertyName);
 
@@ -77,6 +76,7 @@ namespace WinHue3.Utils
         [NotifyPropertyChangedInvocator]
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
+            IsChanged = true;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -11,6 +12,7 @@ using MahApps.Metro.Controls;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys;
+using WinHue3.LIFX;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
@@ -37,6 +39,7 @@ namespace WinHue3.MainForm
         
         public MainFormViewModel()
         {
+            
             _ledTimer = new DispatcherTimer()
             {
                 Interval = new TimeSpan(0, 0, 0, 2)
@@ -60,7 +63,11 @@ namespace WinHue3.MainForm
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
-
+            
+            
+            //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
+            //light.SetColor(65535, 65535, 65535, 32768, 3000);
+            // LifxResponse p = light.SetPower(32000, 3000);
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)
