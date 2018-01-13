@@ -44,9 +44,7 @@
       <div class="row row-btm-pad">
         <div class="col-md-6">
         <h2>Introduction</h2>
-        {% for release in site.github.releases %}
-          * [{{ release.name }}]({{ release.html_url }})
-        {% endfor %}
+        <p>{{ site.github.releases[0].name }}</p>
         <p>WinHue is a desktop application that can control the Philips Hue lighting system. It is easy to install and use, and is one of the few fully-featured Hue apps on Windows.</p>
         <p>Plus, it's FREE!</p>
       </div>
