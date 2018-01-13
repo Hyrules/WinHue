@@ -15,8 +15,12 @@ body{
     background-color: #1a1a1a;
 }
 
+.footer-content{
+    font-size: 1em
+}
+
 .footer-content img{
-    height: 10px;
+    height: 1em;
     width: auto;
 }
 
