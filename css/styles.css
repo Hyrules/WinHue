@@ -13,7 +13,12 @@ body{
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
     background-color: #1a1a1a;
-  }
+}
+
+.footer-content img{
+    height: 1em;
+    width: auto;
+}
 
 .row-btm-pad{
     margin-bottom: 30px;
