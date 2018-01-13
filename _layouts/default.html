@@ -31,8 +31,10 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item disabled" href="">Source Code</a>
-                    <a class="dropdown-item" href="https://github.com/Hyrules/WinHue3/releases">All Downloads</a>
+                    <a class="dropdown-item" href="{{ site.github.releases[0].zipball_url }}">Source Code for {{ site.github.releases[0].name }} (.zip)</a>
+                    <a class="dropdown-item" href="{{ site.github.releases[0].tarball_url }}">Source Code for {{ site.github.releases[0].name }} (.tar)</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ site.github.releases_url }}">All Downloads</a>
                   </div>
                 </div>
                 <a class="btn btn-outline-light btn-lg rightmost" href="https://github.com/Hyrules/WinHue3" role="button">View on GitHub</a>
