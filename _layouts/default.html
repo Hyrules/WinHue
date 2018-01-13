@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <title>WinHue 3 by Hyrules</title>
+    <title>{{ site.github.project_title }} by {{ site.github.owner_name }}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,8 +22,8 @@
     <!-- Heading: Jumbotron -->
     <div class="jumbotron jumbotron-fluid vertical-center" id="gradient-header">
         <div class="container" id="jumboContent">
-            <h1 class="display-3" id="title">WinHue 3</h1>
-            <p>Controlling the Philips Hue lighting system from your Windows PC.</p>
+            <h1 class="display-3" id="title">{{ site.github.project_title }}</h1>
+            <p>{{ site.github.project_tagline }}</p>
             <p>
               <div class="btn-group">
                   <a class="btn btn-light btn-lg" href="{{ site.github.releases[0].assets[0].browser_download_url }}" role="button" data-toggle="tooltip" data-placement="bottom" title="{{ site.github.releases[0].name }}">Download WinHue</a>
@@ -44,7 +44,6 @@
       <div class="row row-btm-pad">
         <div class="col-md-6">
         <h2>Introduction</h2>
-        <p>{{ site.github.releases[0].name }}</p>
         <p>WinHue is a desktop application that can control the Philips Hue lighting system. It is easy to install and use, and is one of the few fully-featured Hue apps on Windows.</p>
         <p>Plus, it's FREE!</p>
       </div>
