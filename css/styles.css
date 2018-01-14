@@ -9,9 +9,9 @@ body{
 
 .footer{
     width: 100%;
-    height: 3em;
+    height: 5em;
     /* Set the fixed height of the footer here */
-    line-height: 3em; /* Vertically center the text there */
+    line-height: 5em; /* Vertically center the text there */
     background-color: #1a1a1a;
 }
 
@@ -121,7 +121,7 @@ body{
     #title {
         font-size: 3.5rem;
     }
-    /*.footer-content{
+    .footer-content{
         font-size: 0.8em
-    }*/
+    }
 }
