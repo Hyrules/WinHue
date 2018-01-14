@@ -97,11 +97,14 @@ body{
       padding: 0.75rem 1rem; } }
   
 @media screen and (min-width: 36em) and (max-width: 64em) {
-.btn {
-    padding: 0.6rem 0.9rem;} 
-#title {
-    font-size: 4.5rem; }
-}
+    .btn {
+        padding: 0.6rem 0.9rem;} 
+    #title {
+        font-size: 4.5rem; }
+    }
+    .footer-content{
+        font-size: 0.75em
+    }
 
 @media screen and (max-width: 36em) {
     .btn {
@@ -118,6 +121,6 @@ body{
         font-size: 3.5rem;
     }
     .footer-content{
-        font-size: 0.25em
+        font-size: 0.5em
     }
 }
