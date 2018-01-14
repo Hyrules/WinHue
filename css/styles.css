@@ -12,12 +12,14 @@ body{
     height: 3em;
     /* Set the fixed height of the footer here */
     line-height: 3em; /* Vertically center the text there */
-    
     background-color: #1a1a1a;
 }
 
 .footer-content{
-    font-size: 1em
+    font-size: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
 }
 
 .footer-content img{
@@ -119,7 +121,7 @@ body{
     #title {
         font-size: 3.5rem;
     }
-    .footer-content{
+    /*.footer-content{
         font-size: 0.8em
-    }
+    }*/
 }
