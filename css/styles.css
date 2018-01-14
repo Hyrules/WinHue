@@ -71,10 +71,10 @@ body{
     100%{background-position:0% 50%}
 }
 
-/*.btn {
+.header-btn {
     display: inline-block;
     margin-bottom: 1rem;
-}*/
+}
 
 .btn-group + .btn {
     margin-left: 1rem; }
@@ -113,7 +113,7 @@ body{
         padding: 0.75rem;
         font-size: 0.9rem;
     }
-    .btn, .btn-group {
+    .header-btn {
         display: block;
     }
     .btn + .btn {
