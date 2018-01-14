@@ -29,9 +29,20 @@ function convertToMB(){
   var n=num.slice(6);
   var number = Number(n);
   number = number/1024;
-  number = (number/1024).toFixed(2);
+  number = roundTo((number / 1024), 2);
   var numberString = String(number);
   element1.innerHTML = "Size: ".concat(numberString," MB");
+}
+
+function roundTo(n, digits) {
+  if (digits === undefined) {
+    digits = 0;
+  }
+
+  var multiplicator = Math.pow(10, digits);
+  n = parseFloat((n * multiplicator).toFixed(11));
+  var test =(Math.round(n) / multiplicator);
+  return +(test.toFixed(digits));
 }
 
 function datalol(reponse)
