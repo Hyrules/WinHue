@@ -29,7 +29,7 @@ function convertToMB(){
   var n=num.slice(6);
   var number = Number(n);
   number = number/1024;
-  number = number/1024;
+  number = (number/1024).toFixed(2);
   var numberString = String(number);
   element1.innerHTML = "Size: ".concat(numberString," MB");
 }
