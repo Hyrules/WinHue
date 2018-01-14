@@ -71,13 +71,24 @@ body{
     100%{background-position:0% 50%}
 }
 
-.header-btn {
+.btn {
     display: inline-block;
     margin-bottom: 1rem;
 }
 
 .btn-group + .btn {
     margin-left: 1rem; }
+
+.btn-flex {
+    display: flex;
+    align-items: stretch;
+    align-content: stretch;
+}
+    
+.btn-flex .btn:first-child {
+    flex-grow: 1;
+    text-align: left;
+}
 
 /*.btn-donate {
     border-color: #ffc439; background-color: #ffc439; color: white;
@@ -109,12 +120,10 @@ body{
 
 @media screen and (max-width: 36em) {
     .btn {
+        display: block;
         width: 100%;
         padding: 0.75rem;
         font-size: 0.9rem;
-    }
-    .header-btn {
-        display: block;
     }
     .btn + .btn {
         margin-top: 1rem;
