@@ -30,7 +30,7 @@ function convertToMB(){
   var number = Number(n);
   number = number/1024;
   number = roundTo((number / 1024), 2);
-  var numberString = String(number);
+  //var numberString = String(number);
   element1.innerHTML = "Size: ".concat(numberString," MB");
 }
 
