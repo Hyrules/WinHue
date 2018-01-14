@@ -32,8 +32,7 @@
                   </button>
                   <div class="dropdown-menu dropdown-menu-right">
                       <button class="dropdown-item" data-toggle="modal" data-target="#changelogModal">Changelog for {{ site.github.releases[0].name }}</button>
-                      <a class="dropdown-item" href="{{ site.github.releases[0].zipball_url }}">Source Code for {{ site.github.releases[0].name }} (.zip)</a>
-                    <a class="dropdown-item" href="{{ site.github.releases[0].tarball_url }}">Source Code for {{ site.github.releases[0].name }} (.tar)</a>
+                      <a class="dropdown-item" href="{{ site.github.releases[0].zipball_url }}">Source Code for {{ site.github.releases[0].name }}</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ site.github.releases_url }}">All Downloads</a>
                   </div>
@@ -162,7 +161,7 @@
         <div class="modal-body">
           <p>{{ site.github.releases[0].body }}</p>
           <hr>
-          <p class="text-muted" id="size-text">Size: {{ site.github.releases[0].assets[0].size }} B</p>
+          <p class="text-muted" id="size-text">Size: {{ site.github.releases[0].assets[0].size }}</p>
           <p class="text-muted">Downloads: {{ site.github.releases[0].assets[0].download_count }}</p>
         </div>
         <div class="modal-footer">
