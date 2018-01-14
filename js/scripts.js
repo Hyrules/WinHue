@@ -21,9 +21,9 @@ $(document).ready(function() {
     midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
   function convertToMB(){
-    var element1 = document.getElementById("download-text")
+    var element1 = document.getElementById("size-text")
     var num = element1.textContent;
-    var n=str.slice(6);
+    var n=num.slice(6);
     var number = Number(n);
     number = number/1024;
     number = number/1024;
