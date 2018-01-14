@@ -104,14 +104,20 @@ body{
 }
 
 @media screen and (max-width: 36em) {
-.btn {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 0.9rem; }
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
     .btn + .btn {
-    margin-top: 1rem;
-    margin-left: 0; }
+        margin-top: 1rem;
+        margin-left: 0;
+    }
     #title {
-        font-size: 3.5rem; }
+        font-size: 3.5rem;
+    }
+    .footer-content{
+        font-size: 0.25em
+    }
 }
