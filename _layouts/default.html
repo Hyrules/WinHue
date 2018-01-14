@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <title>{{ site.github.project_title }} by {{ site.github.owner_name }}</title>
+    <title>WinHue 3 by {{ site.github.owner_name }}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,22 +22,22 @@
     <!-- Heading: Jumbotron -->
     <div class="jumbotron jumbotron-fluid vertical-center" id="gradient-header">
         <div class="container" id="jumboContent">
-            <h1 class="display-3" id="title">{{ site.github.project_title }}</h1>
+            <h1 class="display-3" id="title">WinHue 3</h1>
             <p>{{ site.github.project_tagline }}</p>
             <p>
-              <div class="btn-group">
+              <div class="btn-group btn-flex btn-btm-pad">
                   <a class="btn btn-light btn-lg" href="{{ site.github.releases[0].assets[0].browser_download_url }}" role="button" data-toggle="tooltip" data-placement="bottom" title="{{ site.github.releases[0].name }}">Download WinHue</a>
                   <button type="button" class="btn btn-light btn-lg dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{ site.github.releases[0].zipball_url }}">Source Code for {{ site.github.releases[0].name }} (.zip)</a>
-                    <a class="dropdown-item" href="{{ site.github.releases[0].tarball_url }}">Source Code for {{ site.github.releases[0].name }} (.tar)</a>
+                      <button class="dropdown-item" data-toggle="modal" data-target="#changelogModal">Changelog for {{ site.github.releases[0].name }}</button>
+                      <button class="dropdown-item" data-toggle="modal" data-target="#srcCodeModal">Source Code for {{ site.github.releases[0].name }}</button>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ site.github.releases_url }}">All Downloads</a>
                   </div>
-                </div>
-                <a class="btn btn-outline-light btn-lg rightmost" href="https://github.com/Hyrules/WinHue3" role="button">View on GitHub</a>
+              </div>
+              <a class="btn btn-outline-light btn-lg rightmost header-btn btn-btm-pad" href="https://github.com/Hyrules/WinHue3" role="button">View on GitHub</a>
             </p>
         </div>
     </div>
@@ -147,6 +147,52 @@
           <span class="footer-content"><a href="{{ site.github.repository_url }}">{{ site.github.project_title }}</a> is maintained by <a href="{{ site.github.owner_url }}"><img src="{{ site.github.owner_gravatar_url }}"/> {{ site.github.owner_name }}</a>, with help from <a href="{{ site.github.contributors[1].html_url }}"><img src="{{ site.github.contributors[1].avatar_url }}"/> {{ site.github.contributors[1].login }}</a> ({{ site.github.contributors[1].contributions }}), <a href="{{ site.github.contributors[2].html_url }}"><img src="{{ site.github.contributors[2].avatar_url }}"/> {{ site.github.contributors[2].login }}</a> ({{ site.github.contributors[2].contributions }}) and <a href="{{ site.github.repository_url }}/graphs/contributors">others</a>.</span>
         </div>
     </footer>
+
+<!--Changelog Modal-->
+<div class="modal fade" id="changelogModal" tabindex="-1" role="dialog" aria-labelledby="changelogModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changelogModalLabel">Changelog for {{ site.github.releases[0].name }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ site.github.releases[0].body }}</p>
+          <hr>
+          <p class="text-muted" id="size-text">Size: {{ site.github.releases[0].assets[0].size }}</p>
+          <p class="text-muted">Downloads: {{ site.github.releases[0].assets[0].download_count }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Source Code Selector Modal-->
+  <div class="modal fade" id="srcCodeModal" tabindex="-1" role="dialog" aria-labelledby="srcCodeModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="srcCodeModalLabel">Source Code for {{ site.github.releases[0].name }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Which file type would you like to download?</p>
+            <a href="{{ site.github.releases[0].zipball_url }}">Zipball (.zip)</a>
+            <br>
+            <a href="{{ site.github.releases[0].tarball_url }}">Tarball (.tar)</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS, then other JS -->

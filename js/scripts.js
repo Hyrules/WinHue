@@ -2,7 +2,6 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-
 $(document).ready(function() {
   $('.image-link').magnificPopup({
     type: 'image',
@@ -20,20 +19,21 @@ $(document).ready(function() {
     closeOnContentClick: true,
     midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
+  convertToMB();
 });
+
+function convertToMB(){
+  var element1 = document.getElementById("size-text")
+  var num = element1.textContent;
+  var n=num.slice(6);
+  var number = Number(n);
+  number = number/1024;
+  number = (number / 1024).toFixed(2);
+  var numberString = String(number);
+  element1.innerHTML = "Size: ".concat(numberString," MB");
+}
 
 function datalol(reponse)
 {
   alert(response)
-}
-
-function httpGetAsync(theUrl, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
 }

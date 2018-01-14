@@ -7,16 +7,23 @@ body{
     font-family: 'Titillium Web', sans-serif;
 }
 
+.modal p,h5{
+    color:#000000
+}
+
 .footer{
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px; /* Vertically center the text there */
+    height: 5em;
+    line-height: 5em; /* Vertically center the text there */
     background-color: #1a1a1a;
 }
 
 .footer-content{
-    font-size: 1em
+    font-size: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
 }
 
 .footer-content img{
@@ -24,6 +31,7 @@ body{
     width: auto;
 }
 
+/*Random layout padding*/
 .row-btm-pad{
     margin-bottom: 30px;
 }
@@ -40,6 +48,7 @@ body{
     padding-left: 5px;
 }
 
+/*Draw Header Colour*/
 #gradient-header {
     background: linear-gradient(90deg,rgba(255,0,0,0.75), rgba(255, 128, 0, 0.75), rgba(255,255,0,0.75), rgba(0, 255, 0, 0.75), rgba(0,0,255,0.75), rgba(75,0,130,0.75), rgba(127,0,255,0.75));
     background-size: 1400% 1400%;
@@ -51,6 +60,7 @@ body{
     text-align: center;
 }
 
+/*Header Colour Animation*/
 @-webkit-keyframes AnimationName {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
@@ -67,13 +77,15 @@ body{
     100%{background-position:0% 50%}
 }
 
-.btn {
-    display: inline-block;
+
+.btn-btm-pad {
+   /*display: inline-block;*/
     margin-bottom: 1rem;
 }
 
-.btn + .btn {
+.btn-group + .btn {
     margin-left: 1rem; }
+
 
 /*.btn-donate {
     border-color: #ffc439; background-color: #ffc439; color: white;
@@ -91,27 +103,59 @@ body{
     border-color: #BF8400; background-color: #E6AB20; color: white;
 }*/
     
-
+/*when screen size large or above*/
 @media screen and (min-width: 64em) {
     .btn {
-      padding: 0.75rem 1rem; } }
-  
-@media screen and (min-width: 36em) and (max-width: 64em) {
-.btn {
-    padding: 0.6rem 0.9rem;} 
-#title {
-    font-size: 4.5rem; }
+      padding: 0.75rem 1rem;
+    }
+    #title {
+        font-size: 6rem;
+    }
 }
 
-@media screen and (max-width: 36em) {
-.btn {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 0.9rem; }
-    .btn + .btn {
-    margin-top: 1rem;
-    margin-left: 0; }
+/*when screen size medium*/
+@media screen and (min-width: 36em) and (max-width: 64em) {
+    .btn {
+        padding: 0.6rem 0.9rem;
+    } 
     #title {
-        font-size: 3.5rem; }
+        font-size: 5rem;
+    }
+}
+
+/*when screen size small*/
+@media screen and (max-width: 36em) {
+    /*Header button padding changes*/
+    .btn {
+        font-size: 1.1rem;
+        padding: 0.65rem;
+        
+    }
+    .header-btn{
+        display: block;
+    }
+    .btn-flex + .btn {
+        margin-left: 0;
+    }
+
+    #title {
+        font-size: 3.5rem;
+    }
+
+    /*Footer text size small*/
+    .footer-content{
+        font-size: 0.8em
+    }
+
+    /*Split download button block*/
+    .btn-flex {
+        display: flex;
+        align-items: stretch;
+        align-content: stretch;
+    }
+        
+    .btn-flex .btn:first-child {
+        flex-grow: 1;
+        text-align: center;
+    }
 }
