@@ -161,6 +161,9 @@
         </div>
         <div class="modal-body">
           <p>{{ site.github.releases[0].body }}</p>
+          <hr>
+          <p class="text-muted">Size: {{ site.github.releases[0].assets[0].size }}</p>
+          <p class="text-muted">Downloads: {{ site.github.releases[0].assets[0].download_count }}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
