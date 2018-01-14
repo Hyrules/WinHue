@@ -104,9 +104,6 @@ body{
     #title {
         font-size: 4.5rem; }
     }
-    .footer-content{
-        font-size: 0.9em
-    }
 
 @media screen and (max-width: 36em) {
     .btn {
