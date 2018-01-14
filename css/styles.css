@@ -79,16 +79,7 @@ body{
 .btn-group + .btn {
     margin-left: 1rem; }
 
-.btn-flex {
-    display: flex;
-    align-items: stretch;
-    align-content: stretch;
-}
-    
-.btn-flex .btn:first-child {
-    flex-grow: 1;
-    text-align: left;
-}
+
 
 /*.btn-donate {
     border-color: #ffc439; background-color: #ffc439; color: white;
@@ -120,13 +111,15 @@ body{
 
 @media screen and (max-width: 36em) {
     .btn {
-        display: block;
-        width: 100%;
-        padding: 0.75rem;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
+        padding: 0.65rem;
+        
     }
-    .btn + .btn {
-        margin-top: 1rem;
+    .header-btn{
+        display: block;
+    }
+    .btn-flex + .btn {
+        /*margin-top: 1rem;*/
         margin-left: 0;
     }
     #title {
@@ -134,5 +127,15 @@ body{
     }
     .footer-content{
         font-size: 0.8em
+    }
+    .btn-flex {
+        display: flex;
+        align-items: stretch;
+        align-content: stretch;
+    }
+        
+    .btn-flex .btn:first-child {
+        flex-grow: 1;
+        text-align: center;
     }
 }
