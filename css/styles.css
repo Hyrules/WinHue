@@ -10,7 +10,6 @@ body{
 .footer{
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 60px;
     line-height: 60px; /* Vertically center the text there */
     background-color: #1a1a1a;
 }
@@ -51,6 +50,7 @@ body{
     text-align: center;
 }
 
+/*Header Colour Animation CSS*/
 @-webkit-keyframes AnimationName {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
