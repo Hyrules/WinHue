@@ -71,12 +71,12 @@ body{
     100%{background-position:0% 50%}
 }
 
-.btn {
+/*.btn {
     display: inline-block;
     margin-bottom: 1rem;
-}
+}*/
 
-.btn + .btn {
+.btn-group + .btn {
     margin-left: 1rem; }
 
 /*.btn-donate {
