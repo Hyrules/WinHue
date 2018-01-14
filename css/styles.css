@@ -108,11 +108,13 @@ body{
     }
 
 @media screen and (max-width: 36em) {
-    .btn, .btn-group {
-        display: block;
+    .btn {
         width: 100%;
         padding: 0.75rem;
         font-size: 0.9rem;
+    }
+    .btn, .btn-group {
+        display: block;
     }
     .btn + .btn {
         margin-top: 1rem;
