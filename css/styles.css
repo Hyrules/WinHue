@@ -108,7 +108,7 @@ body{
     }
 
 @media screen and (max-width: 36em) {
-    .btn + .btn-group {
+    .btn, .btn-group {
         display: block;
         width: 100%;
         padding: 0.75rem;
