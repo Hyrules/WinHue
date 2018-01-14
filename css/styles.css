@@ -103,7 +103,7 @@ body{
         font-size: 4.5rem; }
     }
     .footer-content{
-        font-size: 0.75em
+        font-size: 0.9em
     }
 
 @media screen and (max-width: 36em) {
@@ -121,6 +121,6 @@ body{
         font-size: 3.5rem;
     }
     .footer-content{
-        font-size: 0.5em
+        font-size: 0.8em
     }
 }
