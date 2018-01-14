@@ -7,6 +7,10 @@ body{
     font-family: 'Titillium Web', sans-serif;
 }
 
+.modal p,h5{
+    color:#000000
+}
+
 .footer{
     width: 100%;
     /* Set the fixed height of the footer here */
@@ -74,8 +78,8 @@ body{
 }
 
 
-.btn {
-    display: inline-block;
+.btn-btm-pad {
+   /*display: inline-block;*/
     margin-bottom: 1rem;
 }
 
