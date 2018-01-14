@@ -2,7 +2,6 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-
 $(document).ready(function() {
   $('.image-link').magnificPopup({
     type: 'image',

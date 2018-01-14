@@ -32,7 +32,7 @@
                   </button>
                   <div class="dropdown-menu dropdown-menu-right">
                       <button class="dropdown-item" data-toggle="modal" data-target="#changelogModal">Changelog for {{ site.github.releases[0].name }}</button>
-                      <a class="dropdown-item" href="{{ site.github.releases[0].zipball_url }}">Source Code for {{ site.github.releases[0].name }}</a>
+                      <button class="dropdown-item" data-toggle="modal" data-target="#srcCodeModal">Source Code for {{ site.github.releases[0].name }}</button>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ site.github.releases_url }}">All Downloads</a>
                   </div>
@@ -170,6 +170,29 @@
       </div>
     </div>
   </div>
+
+  <!--Source Code Selector Modal-->
+  <div class="modal fade" id="srcCodeModal" tabindex="-1" role="dialog" aria-labelledby="srcCodeModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="srcCodeModalLabel">Source Code for {{ site.github.releases[0].name }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Which file type would you like to download?</p>
+            <a href="{{ site.github.releases[0].zipball_url }}">{{ site.github.releases[0].zipball_url }}</a>
+            <br>
+            <a href="{{ site.github.releases[0].tarball_url }}">{{ site.github.releases[0].tarball_url }}</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS, then other JS -->
