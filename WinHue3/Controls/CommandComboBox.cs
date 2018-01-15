@@ -6,13 +6,8 @@ using Xceed.Wpf.Toolkit;
 
 namespace WinHue3.Controls
 {
-    public class CommandComboBox : ComboBox, ICommandSource
+    public class CommandComboBox : WatermarkComboBox, ICommandSource
     {
-
-        public CommandComboBox() : base()
-        {
-
-        }
 
         public IInputElement CommandTarget
         {
@@ -29,7 +24,7 @@ namespace WinHue3.Controls
 
         public object CommandParameter
         {
-            get => (object)GetValue(CommandParameterProperty);
+            get => GetValue(CommandParameterProperty);
             set => SetValue(CommandParameterProperty, value);
         }
 
@@ -53,8 +48,8 @@ namespace WinHue3.Controls
                 "Command",
                 typeof(ICommand),
                 typeof(CommandComboBox),
-                new PropertyMetadata((ICommand)null,
-                new PropertyChangedCallback(CommandChanged)
+                new PropertyMetadata(null,
+                CommandChanged
                 ));
 
         // Command dependency property change callback.
@@ -94,19 +89,19 @@ namespace WinHue3.Controls
         private void CanExecuteChanged(object sender, EventArgs e)
         {
 
-            if (this.Command != null)
+            if (Command != null)
             {
-                RoutedCommand command = this.Command as RoutedCommand;
+                RoutedCommand command = Command as RoutedCommand;
 
                 // If a RoutedCommand.
                 if (command != null)
                 {
-                    this.IsEnabled = command.CanExecute(CommandParameter, CommandTarget);
+                    IsEnabled = command.CanExecute(CommandParameter, CommandTarget);
                 }
                 // If a not RoutedCommand.
                 else
                 {
-                    this.IsEnabled = Command.CanExecute(CommandParameter);
+                    IsEnabled = Command.CanExecute(CommandParameter);
                 }
             }
         }
@@ -115,7 +110,7 @@ namespace WinHue3.Controls
         {
             base.OnSelectionChanged(e);
 
-            if (this.Command == null) return;
+            if (Command == null) return;
             RoutedCommand command = Command as RoutedCommand;
 
             if (command != null)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
+﻿using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence;
@@ -12,7 +7,6 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {

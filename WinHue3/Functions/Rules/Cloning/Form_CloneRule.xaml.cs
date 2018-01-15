@@ -1,12 +1,11 @@
-﻿using MahApps.Metro.Controls;
-using System.Windows;
+﻿using System.Windows;
 
 namespace WinHue3.Functions.Rules.Cloning
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : MetroWindow
+    public partial class Window1 : Window
     {
         public Window1()
         {

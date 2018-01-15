@@ -26,64 +26,64 @@ namespace whc
     public static class ConsoleHandler
     {
   
-        static Bridge bridge;
-        internal enum Command { LIGHT, GROUP, SCENE, SCHEDULE, BRIDGE, NONE, CREATEGROUP, DELETEGROUP, SENSOR }
-        internal static Command cmd;
-        static OptionSet mainOpts;
-        static OptionSet objOpts;
-        static OptionSet lightOpts;
-        static OptionSet groupOpts;
-        static OptionSet createGrOpts;
-        static OptionSet sensorOpts;
-        private static ISensorStateBase sensorstate;
-        static Group grp;
-        static bool error;
-        static State state;
-        static Action action;
-        static string id;
-        static bool noprompt;
-        static bool nomsg;
+        static Bridge _bridge;
+        internal enum Command { Light, Group, Scene, Schedule, Bridge, None, Creategroup, Deletegroup, Sensor }
+        internal static Command Cmd;
+        static readonly OptionSet MainOpts;
+        static readonly OptionSet ObjOpts;
+        static readonly OptionSet LightOpts;
+        static readonly OptionSet GroupOpts;
+        static readonly OptionSet CreateGrOpts;
+        static readonly OptionSet SensorOpts;
+        private static ISensorStateBase _sensorstate;
+        static Group _grp;
+        static bool _error;
+        static State _state;
+        static Action _action;
+        static string _id;
+        static bool _noprompt;
+        static bool _nomsg;
   
 
         static ConsoleHandler()
         {
       
-            noprompt = false;
-            nomsg = false;
-            cmd = Command.NONE;
+            _noprompt = false;
+            _nomsg = false;
+            Cmd = Command.None;
             #region MAIN_OPTIONS           
-            mainOpts = new OptionSet
+            MainOpts = new OptionSet
             {
-                {"noprompt", "Set this option if you want to ignore prompts. (This will assume yes for all questions)", delegate(string v){noprompt = true;}},
-                {"nomsg","Cancel the output of messages from the bridge.(The application will not output anything) ", delegate(string v){nomsg = true;}}
+                {"noprompt", "Set this option if you want to ignore prompts. (This will assume yes for all questions)", delegate(string v){_noprompt = true;}},
+                {"nomsg","Cancel the output of messages from the bridge.(The application will not output anything) ", delegate(string v){_nomsg = true;}}
             };
             #endregion
             #region OBJECT_OPTIONS
-            objOpts = new OptionSet
+            ObjOpts = new OptionSet
             {
                 {"l|light=","Set the mode to light.", delegate(string v) 
                 { 
-                    if(cmd == Command.NONE)
+                    if(Cmd == Command.None)
                     {
-                        cmd = Command.LIGHT;
-                        error = !CheckIDType(v);
-                        id = v;
-                        state = new State();
+                        Cmd = Command.Light;
+                        _error = !CheckIdType(v);
+                        _id = v;
+                        _state = new State();
                     }
                     else
-                        error = true;
+                        _error = true;
                 }},
                 {"g|group=","Set the mode to group.", delegate(string v) 
                 { 
-                    if(cmd == Command.NONE)
+                    if(Cmd == Command.None)
                     {
-                        action = new Action();
-                        error = !CheckIDType(v);
-                        id = v;
-                        cmd = Command.GROUP;
+                        _action = new Action();
+                        _error = !CheckIdType(v);
+                        _id = v;
+                        Cmd = Command.Group;
                     }
                     else
-                        error = true;
+                        _error = true;
                 }},             
   /*              {"sc|schedule=","Set the mode to schedule.", delegate(string v)
                 { 
@@ -97,42 +97,42 @@ namespace whc
                 }},*/
                 {"sn|scene=","Set the mode to scene.", delegate(string v) 
                 { 
-                    if(cmd == Command.NONE)
+                    if(Cmd == Command.None)
                     {
-                        id = v;
+                        _id = v;
                         
-                        cmd = Command.SCENE;
+                        Cmd = Command.Scene;
                     }
                     else
-                        error = true;
+                        _error = true;
                 }},
                 {"ss|sensor=","Set the mode to sensor.", delegate(string v)
                 {
-                    if(cmd == Command.NONE)
+                    if(Cmd == Command.None)
                     {
-                        id = v;
-                        error = !CheckIDType(v);
-                        cmd = Command.SENSOR;
+                        _id = v;
+                        _error = !CheckIdType(v);
+                        Cmd = Command.Sensor;
                     }
                     else
-                        error = true;
+                        _error = true;
                 }},
                 {"cg|creategroup","Create a new group.", delegate(string v)
                 {
-                    grp = new Group();
-                    if (cmd == Command.NONE)
-                        cmd = Command.CREATEGROUP;
+                    _grp = new Group();
+                    if (Cmd == Command.None)
+                        Cmd = Command.Creategroup;
                     else
-                        error = true;
+                        _error = true;
                 }},
                 {"dg|deletegroup=","Delete the selected group", delegate(string v)
                 {
-                    if (cmd == Command.NONE)
+                    if (Cmd == Command.None)
                     {
-                        cmd = Command.DELETEGROUP;
-                        if(PromptYesNo() || noprompt)
+                        Cmd = Command.Deletegroup;
+                        if(PromptYesNo() || _noprompt)
                         {
-                            bool bresult = bridge.RemoveObject(new Group(){Id = v});
+                            bool bresult = _bridge.RemoveObject(new Group(){Id = v});
                             if (bresult)
                             {
 
@@ -143,15 +143,15 @@ namespace whc
                         }
                     }
                     else
-                        error = true;                   
+                        _error = true;                   
                 }},
                 {"dc|deleteschedule=","Delete the selected schedule", delegate(string v)
                 {
-                    if (cmd == Command.NONE)
+                    if (Cmd == Command.None)
                     {
-                        if(PromptYesNo() || noprompt)
+                        if(PromptYesNo() || _noprompt)
                         {
-                            bool bresult = bridge.RemoveObject(new Schedule(){Id = v});
+                            bool bresult = _bridge.RemoveObject(new Schedule(){Id = v});
                             if (bresult)
                             {
                                 WriteMessageToConsole($"Schedule {v} deleted succesfully.");
@@ -161,15 +161,15 @@ namespace whc
                         }
                     }
                     else
-                        error = true;                   
+                        _error = true;                   
                 }},
                 {"dl|deletelight=","Delete the selected light", delegate(string v)
                 {
-                    if (cmd == Command.NONE)
+                    if (Cmd == Command.None)
                     {
-                        if(PromptYesNo() || noprompt)
+                        if(PromptYesNo() || _noprompt)
                         {
-                            bool bresult = bridge.RemoveObject(new Light(){Id =v});         
+                            bool bresult = _bridge.RemoveObject(new Light(){Id =v});         
                             if (bresult)
                             {
                                 WriteMessageToConsole($"Light {v} deleted succesfully.");
@@ -179,15 +179,15 @@ namespace whc
                         }
                     }
                     else
-                        error = true;                   
+                        _error = true;                   
                 }},
                 {"do|deletesensor=","Delete the selected sensor", delegate(string v)
                 {
-                    if (cmd == Command.NONE)
+                    if (Cmd == Command.None)
                     {
-                        if(PromptYesNo() || noprompt)
+                        if(PromptYesNo() || _noprompt)
                         {
-                            bool bresult = bridge.RemoveObject(id,HueObjectType.sensors);
+                            bool bresult = _bridge.RemoveObject(_id,HueObjectType.sensors);
                             if (bresult)
                             {
                                 WriteMessageToConsole($"Sensor {v} deleted succesfully.");
@@ -197,15 +197,15 @@ namespace whc
                         }
                     }
                     else
-                        error = true;                   
+                        _error = true;                   
                 }},
                 {"dr|deleterule=","Delete the selected rule", delegate(string v)
                 {
-                    if (cmd == Command.NONE)
+                    if (Cmd == Command.None)
                     {
-                        if(PromptYesNo() || noprompt)
+                        if(PromptYesNo() || _noprompt)
                         {
-                            bool bresult = bridge.RemoveObject(new Rule() {Id = v});
+                            bool bresult = _bridge.RemoveObject(new Rule() {Id = v});
                             if (bresult)
                             {
                                 WriteMessageToConsole($"Rule {v} deleted succesfully.");
@@ -215,11 +215,11 @@ namespace whc
                         }
                     }
                     else
-                        error = true;                   
+                        _error = true;                   
                 }},
                 {"ll", "List the lights available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Light> bresult = bridge.GetListObjects<Light>();
+                    Dictionary<string,Light> bresult = _bridge.GetListObjects<Light>();
                     if(bresult != null)
                     {
                         Dictionary<string, Light> listLights = bresult;
@@ -236,7 +236,7 @@ namespace whc
                 }},
                 {"lg", "List the groups available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Group> bresult = bridge.GetListObjects<Group>();
+                    Dictionary<string,Group> bresult = _bridge.GetListObjects<Group>();
                     if(bresult != null)
                     {
                         Dictionary<string, Group> listgroups = bresult;
@@ -253,7 +253,7 @@ namespace whc
                 }},
                 {"ls", "List the scenes available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Scene> bresult = bridge.GetListObjects<Scene>();
+                    Dictionary<string,Scene> bresult = _bridge.GetListObjects<Scene>();
                     if(bresult != null)
                     {
                         Dictionary<string, Scene> listscenes = bresult;
@@ -270,7 +270,7 @@ namespace whc
                 }},
                 {"lc", "List the schedules available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Schedule> bresult = bridge.GetListObjects<Schedule>();
+                    Dictionary<string,Schedule> bresult = _bridge.GetListObjects<Schedule>();
                     if(bresult != null)
                     {
                         foreach(KeyValuePair<string,Schedule> kvp in bresult)
@@ -285,7 +285,7 @@ namespace whc
                 }},
                 {"lo", "List the sensors available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Sensor> bresult = bridge.GetListObjects<Sensor>();
+                    Dictionary<string,Sensor> bresult = _bridge.GetListObjects<Sensor>();
                     
                     if(bresult != null)
                     {
@@ -303,7 +303,7 @@ namespace whc
                 }},
                 {"lr", "List the rules available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Rule> bresult = bridge.GetListObjects<Rule>();
+                    Dictionary<string,Rule> bresult = _bridge.GetListObjects<Rule>();
 
                     if(bresult != null)
                     {
@@ -326,11 +326,11 @@ namespace whc
                     
                     if (isValidid && v != "0")
                     {
-                        Light bresult = bridge.GetObject<Light>(v);
+                        Light bresult = _bridge.GetObject<Light>(v);
                         if (bresult != null)
                         {
                             Light light = bresult;
-                            WriteMessageToConsole(light.state.ToString() ?? bridge.LastCommandMessages.ToString());
+                            WriteMessageToConsole(light.state.ToString() ?? _bridge.LastCommandMessages.ToString());
 
                         }
                         else
@@ -350,7 +350,7 @@ namespace whc
 
                     if (isValidid)
                     {
-                        Group bresult = bridge.GetObject<Group>(v);
+                        Group bresult = _bridge.GetObject<Group>(v);
                         if (bresult != null)
                         {
                             Group group = bresult;
@@ -372,26 +372,26 @@ namespace whc
             };
             #endregion
             #region LIGHT_OPTIONS
-            lightOpts = new OptionSet
+            LightOpts = new OptionSet
             {
                 {"bri=","Brightness of a light [0-254]", delegate(string v)
                 {
                     byte bri;
                     if (byte.TryParse(v, out bri))
-                        state.bri = bri;
+                        _state.bri = bri;
                     else
                     {
                         WriteMessageToConsole("Error BRI invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"bri_inc=","Brightness incrementor [-254-254]", delegate(string v)
                 {
-                    if (short.TryParse(v, out var bri_inc))
+                    if (short.TryParse(v, out var briInc))
                     {
-                        if (bri_inc >= -254 && bri_inc <= 254)
+                        if (briInc >= -254 && briInc <= 254)
                         {
-                            state.bri_inc = bri_inc;
+                            _state.bri_inc = briInc;
                         }
                         else
                         {
@@ -403,20 +403,20 @@ namespace whc
                 {
                     byte sat;
                     if (byte.TryParse(v, out sat))
-                        state.sat = sat;
+                        _state.sat = sat;
                     else
                     {
                         WriteMessageToConsole("Error SAT invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"sat_inc=","Saturation incrementor [-254-254]", delegate(string v)
                 {
-                    if (short.TryParse(v, out var sat_inc))
+                    if (short.TryParse(v, out var satInc))
                     {
-                        if (sat_inc >= -254 && sat_inc <= 254)
+                        if (satInc >= -254 && satInc <= 254)
                         {
-                            state.sat_inc = sat_inc;
+                            _state.sat_inc = satInc;
                         }
                         else
                         {
@@ -428,20 +428,20 @@ namespace whc
                 {
                     ushort ct;
                     if (ushort.TryParse(v, out ct))
-                        state.ct = ct;
+                        _state.ct = ct;
                     else
                     {
                         WriteMessageToConsole("Error CT invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"ct_inc=","Color Temperature incrementor [-500-500]", delegate(string v)
                 {
-                    if (short.TryParse(v, out var ct_inc))
+                    if (short.TryParse(v, out var ctInc))
                     {
-                        if (ct_inc >= -500 && ct_inc <= 500)
+                        if (ctInc >= -500 && ctInc <= 500)
                         {
-                            state.ct_inc = ct_inc;
+                            _state.ct_inc = ctInc;
                         }
                         else
                         {
@@ -455,26 +455,26 @@ namespace whc
                     if (ushort.TryParse(v, out hue))
                     {
                         if(hue >= 0 && hue <= 65535)
-                            state.hue = hue;
+                            _state.hue = hue;
                         else
                         {
                             WriteMessageToConsole("Error HUE invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Error HUE invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"hue_inc=","Hue incrementor [-65534-65534]", delegate(string v)
                 {
-                    if (int.TryParse(v, out var hue_inc))
+                    if (int.TryParse(v, out var hueInc))
                     {
-                        if (hue_inc >= -65534 && hue_inc <= 65534)
+                        if (hueInc >= -65534 && hueInc <= 65534)
                         {
-                            state.hue_inc = hue_inc;
+                            _state.hue_inc = hueInc;
                         }
                         else
                         {
@@ -486,17 +486,17 @@ namespace whc
                 {
                     if(v == null)
                     {
-                        Light bresult = bridge.GetObject<Light>(id);
+                        Light bresult = _bridge.GetObject<Light>(_id);
                         
                         if (bresult != null)
                         {
                             if(bresult.state.on != null && bresult.state.on.Value)
                             {
-                                state.on = false;
+                                _state.on = false;
                             }
                             else
                             {
-                                state.on = true;
+                                _state.on = true;
                             }
                         }
                         else
@@ -508,33 +508,33 @@ namespace whc
                     {
                         bool on;
                         if (bool.TryParse(v, out on))
-                            state.on = on;
+                            _state.on = on;
                         else
                         {
                             WriteMessageToConsole("Error ON invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                 }},
                 {"fx|effect=","Effect of a light [none,colorloop]", delegate(string v)
                 {
                     if (v == "colorloop" || v == "none")
-                        state.effect = v;
+                        _state.effect = v;
                     else
                     {
                         WriteMessageToConsole("Error EFFECT invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                         
                 }},
                 {"alert=","Brightness of a light [none,select,lselect]", delegate(string v)
                 {
                     if (v == "none" || v == "select" || v == "lselect")
-                        state.alert = v;
+                        _state.alert = v;
                     else
                     {
                         WriteMessageToConsole("ALERT invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"x=","x coordinate of a light [0.000-1.000]", delegate(string v)
@@ -544,46 +544,46 @@ namespace whc
                     {
                         if (x >= 0 && x <= 1)
                         {
-                            if (state.xy == null)
+                            if (_state.xy == null)
                             {
-                                state.xy = new decimal[2];                              
+                                _state.xy = new decimal[2];                              
                             }
-                            state.xy[0]= x;
+                            _state.xy[0]= x;
                         }
                         else
                         {
                             WriteMessageToConsole("Error X invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Error X invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"x_inc=","X incrementor coordinate of a light [-0.500-0.500]", delegate(string v)
                 {
-                    if (decimal.TryParse(v, out var x_inc))
+                    if (decimal.TryParse(v, out var xInc))
                     {
-                        if (x_inc >= -0.500m && x_inc <= 0.500m)
+                        if (xInc >= -0.500m && xInc <= 0.500m)
                         {
-                            if (state.xy_inc == null)
+                            if (_state.xy_inc == null)
                             {
-                                state.xy_inc = new decimal[2]{0,0};
+                                _state.xy_inc = new decimal[2]{0,0};
                             }
-                            state.xy[0]= x_inc;
+                            _state.xy[0]= xInc;
                         }
                         else
                         {
                             WriteMessageToConsole("Error X incrementor invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Error X incrementor invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"y=","Y coordinate of a light [0.000-1.000]", delegate(string v)
@@ -593,75 +593,75 @@ namespace whc
                     {
                         if (y >= 0 && y <= 1)
                         {
-                            if (state.xy == null)
+                            if (_state.xy == null)
                             {
-                                state.xy = new decimal[2];
+                                _state.xy = new decimal[2];
                             }
-                            state.xy[1] = y;
+                            _state.xy[1] = y;
                         }
                         else
                         {
                             WriteMessageToConsole("Error Y invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Error Y invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"y_inc=","Y incrementor coordinate of a light [-0.500-0.500]", delegate(string v)
                 {
-                    if (decimal.TryParse(v, out var y_inc))
+                    if (decimal.TryParse(v, out var yInc))
                     {
-                        if (y_inc >= -0.500m && y_inc <= 0.500m)
+                        if (yInc >= -0.500m && yInc <= 0.500m)
                         {
-                            if (state.xy_inc == null)
+                            if (_state.xy_inc == null)
                             {
-                                state.xy_inc = new decimal[2]{0,0};
+                                _state.xy_inc = new decimal[2]{0,0};
                             }
-                            state.xy[0]= y_inc;
+                            _state.xy[0]= yInc;
                         }
                         else
                         {
                             WriteMessageToConsole("Error Y invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Error Y invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"tt|transitiontime=","Transition time of the light", delegate(ushort v)
                 {
-                    state.transitiontime = v;
+                    _state.transitiontime = v;
                 }}
             };
             #endregion
             #region GROUP_OPTIONS
-            groupOpts = new OptionSet
+            GroupOpts = new OptionSet
             {
                 {"bri=","Brightness of a group [0-254]", delegate(string v)
                 {
                     byte bri;
                     if (byte.TryParse(v, out bri))
-                        action.bri = bri;
+                        _action.bri = bri;
                     else
                     {
                         WriteMessageToConsole("BRI invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"bri_inc=","Brightness incrementor [-254-254]", delegate(string v)
                 {
-                    if (short.TryParse(v, out var bri_inc))
+                    if (short.TryParse(v, out var briInc))
                     {
-                        if (bri_inc >= -254 && bri_inc <= 254)
+                        if (briInc >= -254 && briInc <= 254)
                         {
-                            action.bri_inc = bri_inc;
+                            _action.bri_inc = briInc;
                         }
                         else
                         {
@@ -673,20 +673,20 @@ namespace whc
                 {
                     byte sat;
                     if (byte.TryParse(v, out sat))
-                        action.sat = sat;
+                        _action.sat = sat;
                     else
                     {
                         WriteMessageToConsole("SAT invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"sat_inc=","Saturation incrementor [-254-254]", delegate(string v)
                 {
-                    if (short.TryParse(v, out var sat_inc))
+                    if (short.TryParse(v, out var satInc))
                     {
-                        if (sat_inc >= -254 && sat_inc <= 254)
+                        if (satInc >= -254 && satInc <= 254)
                         {
-                            action.sat_inc = sat_inc;
+                            _action.sat_inc = satInc;
                         }
                         else
                         {
@@ -698,17 +698,17 @@ namespace whc
                 {
                     ushort ct;
                     if (ushort.TryParse(v, out ct))
-                        action.ct = ct;
+                        _action.ct = ct;
                     else
                         WriteMessageToConsole("CT invalid value " + v);
                 }},
                 {"ct_inc=","Color Temperature incrementor [-500-500]", delegate(string v)
                 {
-                    if (short.TryParse(v, out var ct_inc))
+                    if (short.TryParse(v, out var ctInc))
                     {
-                        if (ct_inc >= -500 && ct_inc <= 500)
+                        if (ctInc >= -500 && ctInc <= 500)
                         {
-                            action.ct_inc = ct_inc;
+                            _action.ct_inc = ctInc;
                         }
                         else
                         {
@@ -722,26 +722,26 @@ namespace whc
                     if (ushort.TryParse(v, out hue))
                     {
                         if(hue <= 65535)
-                            action.hue = hue;
+                            _action.hue = hue;
                         else
                         {
                             WriteMessageToConsole("HUE invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("HUE invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"hue_inc=","Hue incrementor [-65534-65534]", delegate(string v)
                 {
-                    if (int.TryParse(v, out var hue_inc))
+                    if (int.TryParse(v, out var hueInc))
                     {
-                        if (hue_inc >= -65534 && hue_inc <= 65534)
+                        if (hueInc >= -65534 && hueInc <= 65534)
                         {
-                            action.hue_inc = hue_inc;
+                            _action.hue_inc = hueInc;
                         }
                         else
                         {
@@ -753,16 +753,16 @@ namespace whc
                 {
                     if(v == null)
                     {
-                        Group bresult = bridge.GetObject<Group>(id);
+                        Group bresult = _bridge.GetObject<Group>(_id);
                         if (bresult != null)
                         {
                             if(bresult.action.on != null && bresult.action.on.Value)
                             {
-                                action.on = false;
+                                _action.on = false;
                             }
                             else
                             {
-                                action.on = true;
+                                _action.on = true;
                             }
 
                         }
@@ -775,22 +775,22 @@ namespace whc
                     {
                         bool on;
                         if (bool.TryParse(v, out on))
-                            action.on = on;
+                            _action.on = on;
                         else
                         {
                             WriteMessageToConsole("ON invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                 }},
                 {"fx|effect=","Effect of a group [none,colorloop]", delegate(string v)
                 {
                     if (v == "colorloop" || v == "none")
-                        action.effect = v;
+                        _action.effect = v;
                     else
                     {
                         WriteMessageToConsole("EFFECT invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"x=","x coordinate of a group [0.000-1.000]", delegate(string v)
@@ -800,46 +800,46 @@ namespace whc
                     {
                         if (x >= 0 && x <= 1)
                         {
-                            if(action.xy == null)
-                                action.xy = new decimal[2];
+                            if(_action.xy == null)
+                                _action.xy = new decimal[2];
 
-                            action.xy[0] = x;
+                            _action.xy[0] = x;
                         }
                         else
                         {
                             WriteMessageToConsole("X invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("X invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                         
                 }},
                 {"x_inc=","X incrementor coordinate of a light [-0.500-0.500]", delegate(string v)
                 {
-                    if (decimal.TryParse(v, out var x_inc))
+                    if (decimal.TryParse(v, out var xInc))
                     {
-                        if (x_inc >= -0.500m && x_inc <= 0.500m)
+                        if (xInc >= -0.500m && xInc <= 0.500m)
                         {
-                            if (action.xy_inc == null)
+                            if (_action.xy_inc == null)
                             {
-                                action.xy_inc = new decimal[2]{0,0};
+                                _action.xy_inc = new decimal[2]{0,0};
                             }
-                            action.xy[0]= x_inc;
+                            _action.xy[0]= xInc;
                         }
                         else
                         {
                             WriteMessageToConsole("Error X incrementor invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Error X incrementor invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"y=","Y coordinate of a group [0.000-1.000]", delegate(string v)
@@ -849,68 +849,68 @@ namespace whc
                     {
                         if (y >= 0 && y <= 1)
                         {
-                            if(action.xy == null)
-                                action.xy = new decimal[2];
-                            action.xy[1] = y;
+                            if(_action.xy == null)
+                                _action.xy = new decimal[2];
+                            _action.xy[1] = y;
                         }
                         else
                         {
                             WriteMessageToConsole("Y invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Y invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"y_inc=","Y incrementor coordinate of a light [-0.500-0.500]", delegate(string v)
                 {
-                    if (decimal.TryParse(v, out var y_inc))
+                    if (decimal.TryParse(v, out var yInc))
                     {
-                        if (y_inc >= -0.500m && y_inc <= 0.500m)
+                        if (yInc >= -0.500m && yInc <= 0.500m)
                         {
-                            if (action.xy_inc == null)
+                            if (_action.xy_inc == null)
                             {
-                                action.xy_inc = new decimal[2]{0,0};
+                                _action.xy_inc = new decimal[2]{0,0};
                             }
-                            action.xy[0]= y_inc;
+                            _action.xy[0]= yInc;
                         }
                         else
                         {
                             WriteMessageToConsole("Error Y invalid value " + v);
-                            error = true;
+                            _error = true;
                         }
                     }
                     else
                     {
                         WriteMessageToConsole("Error Y invalid value " + v);
-                        error = true;
+                        _error = true;
                     }
                 }},
                 {"tt|transitiontime=","Transition time of the group", delegate(ushort v)
                 {
-                    action.transitiontime = v;
+                    _action.transitiontime = v;
                 }}
             };
             #endregion
             #region CREATE_GROUP_OPTIONS
-            createGrOpts = new OptionSet
+            CreateGrOpts = new OptionSet
             {
                 {"n|name=","Name of the new group",delegate(string v)
                 {
-                    grp.name = v;
+                    _grp.name = v;
                 }},
                 {"members=","ID of the lights in the group splitted by a comma. [eg:1,2,3]", delegate(string v)
                 {                  
-                    grp.lights.AddRange(v.Split(',').ToArray());
+                    _grp.lights.AddRange(v.Split(',').ToArray());
                 }}
             };
             #endregion
             #region SENSOR
 
-            sensorOpts = new OptionSet
+            SensorOpts = new OptionSet
             {
                 {"open=", "Open attribute of the sensor", delegate(string v)
                     {
@@ -920,7 +920,7 @@ namespace whc
                         if (bool.TryParse(v, out open))
                         {
                             ss.open = open;
-                            sensorstate = ss;
+                            _sensorstate = ss;
                         }
                         else
                         {
@@ -937,7 +937,7 @@ namespace whc
                         if (bool.TryParse(v, out flag))
                         {
                             fs.flag = flag;
-                            sensorstate = fs;
+                            _sensorstate = fs;
                         }
                         else
                         {
@@ -952,7 +952,7 @@ namespace whc
                         if (int.TryParse(v, out status))
                         {
                             gs.status = status;
-                            sensorstate = gs;
+                            _sensorstate = gs;
                         }
                         else
                         {
@@ -967,7 +967,7 @@ namespace whc
                         if (int.TryParse(v, out humidity))
                         {
                             hs.humidity = humidity;
-                            sensorstate = hs;
+                            _sensorstate = hs;
                         }
                         else
                         {
@@ -982,7 +982,7 @@ namespace whc
                         if (bool.TryParse(v, out presence))
                         {
                             ps.presence = presence;
-                            sensorstate = ps;
+                            _sensorstate = ps;
                         }
                         else
                         {
@@ -997,7 +997,7 @@ namespace whc
                         if(int.TryParse(v,out temperature))
                         {
                             ts.temperature = temperature;
-                            sensorstate = ts;
+                            _sensorstate = ts;
                         }
                         else
                         {
@@ -1030,47 +1030,47 @@ namespace whc
             {
                 try
                 {
-                    List<string> extra = mainOpts.Parse(args);
+                    List<string> extra = MainOpts.Parse(args);
 
                     if (!string.IsNullOrEmpty(WinHueSettings.bridges.DefaultBridge) && !string.IsNullOrWhiteSpace(WinHueSettings.bridges.DefaultBridge))
                     {
                         if(WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                         {
                             string ip = WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].ip;
-                            bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.bridges.DefaultBridge, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].swversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apikey);
-                            if (bridge != null && error == false)
+                            _bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.bridges.DefaultBridge, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].swversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apikey);
+                            if (_bridge != null && _error == false)
                             {
-                                extra = objOpts.Parse(extra);
-                                switch (cmd)
+                                extra = ObjOpts.Parse(extra);
+                                switch (Cmd)
                                 {
-                                    case Command.LIGHT:
-                                        extra = lightOpts.Parse(extra);
-                                        if (!error)
+                                    case Command.Light:
+                                        extra = LightOpts.Parse(extra);
+                                        if (!_error)
                                             SetLightState();
                                         break;
-                                    case Command.GROUP:
-                                        extra = groupOpts.Parse(extra);
-                                        if (!error)
+                                    case Command.Group:
+                                        extra = GroupOpts.Parse(extra);
+                                        if (!_error)
                                             SetGroupAction();
                                         break;
-                                    case Command.SCENE:
-                                        if (!error)
+                                    case Command.Scene:
+                                        if (!_error)
                                         {
-                                            bridge.ActivateScene(id);
-                                            WriteMessageToConsole($"Setting scene {id}...");                                    
+                                            _bridge.ActivateScene(_id);
+                                            WriteMessageToConsole($"Setting scene {_id}...");                                    
                                         }
                                         break;
-                                    case Command.SENSOR:
-                                        extra = sensorOpts.Parse(extra);
-                                        if (!error)
+                                    case Command.Sensor:
+                                        extra = SensorOpts.Parse(extra);
+                                        if (!_error)
                                         {
                                             SetSensorState();
                                             
                                         }
                                         break;
-                                    case Command.CREATEGROUP:
-                                        extra = createGrOpts.Parse(extra);
-                                        if (!error)
+                                    case Command.Creategroup:
+                                        extra = CreateGrOpts.Parse(extra);
+                                        if (!_error)
                                             CreateGroup();
                                         break;
                                     default:
@@ -1125,34 +1125,34 @@ namespace whc
             Console.WriteLine(@"Usage is : whc [Global Options] [Objet Options] [SubOptions]");
             Console.WriteLine("");
             Console.WriteLine(@"***** GLOBAL OPTIONS *******");
-            mainOpts.WriteOptionDescriptions(Console.Out);
+            MainOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine("");
             Console.WriteLine(@"****** OBJECT OPTIONS *******");
-            objOpts.WriteOptionDescriptions(Console.Out);
+            ObjOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine("");
             Console.WriteLine(@"***** CREATE GROUP ******");
-            createGrOpts.WriteOptionDescriptions(Console.Out);
+            CreateGrOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine("");
             Console.WriteLine(@"****** SUB OPTIONS *******");
             Console.WriteLine(@"For LIGHTS :");
-            lightOpts.WriteOptionDescriptions(Console.Out);
+            LightOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine(@"For GROUPS :");
-            groupOpts.WriteOptionDescriptions(Console.Out);
+            GroupOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine("");
             Console.WriteLine(@"****** SENSORS OPTIONS *******");
-            groupOpts.WriteOptionDescriptions(Console.Out);
+            GroupOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine(@"*** Rules, sensors, scenes, schedules cannot be created by console. Please use WinHue 3 desktop application to create them. ***");
             Console.WriteLine(@"*** You need to pair a bridge with WinHue gui before you send a command to the bridge for the first time.***");
         }
 
         private static void CreateGroup()
         {
-            if (grp.name != null && grp.lights != null)
+            if (_grp.name != null && _grp.lights != null)
             {
-                bool bresult = bridge.CreateObject(grp);
+                bool bresult = _bridge.CreateObject(_grp);
                 if(bresult)
                 {
-                    WriteMessageToConsole("Groupe named " + grp.name + " created succesfully");                    
+                    WriteMessageToConsole("Groupe named " + _grp.name + " created succesfully");                    
                 }
             }
             else
@@ -1161,25 +1161,25 @@ namespace whc
 
         private static void SetGroupAction()
         {
-            bool bresult = bridge.SetState(action, id);
+            bool bresult = _bridge.SetState(_action, _id);
             
-            if (!bresult || error)
+            if (!bresult || _error)
             {
                 WriteMessageToConsole("An error occured while sending the group state to the bridge.");
             }
             else
-                WriteMessageToConsole("Group action sent succesfully to group : " + id);
+                WriteMessageToConsole("Group action sent succesfully to group : " + _id);
         }
         
         private static void WriteMessageToConsole(string msg)
         {
-            if(nomsg == false)
+            if(_nomsg == false)
             {
                 Console.WriteLine(msg);
             }
         }
 
-        private static bool CheckIDType(string objectid)
+        private static bool CheckIdType(string objectid)
         {
             bool result = true;
             try
@@ -1195,35 +1195,35 @@ namespace whc
 
         private static void SetLightState()
         {
-            bool bresult = bridge.SetState(state, id);
+            bool bresult = _bridge.SetState(_state, _id);
             
-            if (!bresult || error)
+            if (!bresult || _error)
             {
                 Console.WriteLine(@"An error occured while sending the light state to the bridge.");
-                Console.WriteLine(bridge.LastCommandMessages);
+                Console.WriteLine(_bridge.LastCommandMessages);
             }
             else
-                Console.WriteLine("Light state sent succesfully to light : " + id);
+                Console.WriteLine("Light state sent succesfully to light : " + _id);
         }
 
         private static void SetSensorState()
         {
             
-            if (sensorstate == null)
+            if (_sensorstate == null)
             {
                 Console.WriteLine(@"Error : Please specify a sensor state.");
             }
             else
             {
-                bool bresult = bridge.ChangeSensorState(id, sensorstate);
-                if (!bresult || error)
+                bool bresult = _bridge.ChangeSensorState(_id, _sensorstate);
+                if (!bresult || _error)
                 {
                     Console.WriteLine(@"An error occured while sending the sensor state to the bridge.");
-                    Console.WriteLine(bridge.LastCommandMessages);
+                    Console.WriteLine(_bridge.LastCommandMessages);
                 }
                 else
                 {
-                    Console.WriteLine("Sensor state sent succesfully to sensor : " + id);
+                    Console.WriteLine("Sensor state sent succesfully to sensor : " + _id);
                 }
 
             }

@@ -19,12 +19,12 @@
                     <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Image}" Width="48"/>
                     <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Name}" DisplayMemberBinding="{Binding Label}" Width="150"/>
                     <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_IP}" DisplayMemberBinding="{Binding IP}" Width="100"/>
-                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_MAC}" DisplayMemberBinding="{Binding MAC}" Width="200"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_MAC}" DisplayMemberBinding="{Binding Mac}" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Button Content="{x:Static resx:GUI.Form_LIFXFinder_Button_Find}" HorizontalAlignment="Left" Margin="458,231,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FindLifxDeviceCommand}"/>
-        <Button Content="{x:Static resx:GUI.Form_LIFXFinder_Button_Done}" x:Name="btnDone" HorizontalAlignment="Left" Margin="458,263,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
+        <Button Content="{x:Static resx:GUI.Form_LIFXFinder_Button_Done}" x:Name="BtnDone" HorizontalAlignment="Left" Margin="458,263,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
 
     </Grid>
 </Window>

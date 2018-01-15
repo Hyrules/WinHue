@@ -61,7 +61,7 @@ Source: "{#Folder}log4net.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "{#Folder}Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}MahApps.Metro.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}MahApps.Metro.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}fr\*"; DestDir: "{app}\fr"; Flags: ignoreversion recursesubdirs createallsubdirs
 ;Source: "{#Folder}en\*"; DestDir: "{app}\en"; Flags: ignoreversion
 Source: "{#Folder}lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs

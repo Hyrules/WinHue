@@ -1,4 +1,4 @@
-﻿<mahapps:MetroWindow
+﻿<Window
         xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -34,12 +34,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="btnSet" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+        <Style TargetType="{x:Type Button}" x:Key="BtnSet" BasedOn="{StaticResource AccentedSquareButtonStyle}">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=tbLat, Path=(Validation.HasError)}" Value="True">
+                <DataTrigger Binding="{Binding ElementName=TbLat, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=tbLong, Path=(Validation.HasError)}" Value="True">
+                <DataTrigger Binding="{Binding ElementName=TbLong, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -47,17 +47,17 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="btnSet" Style="{StaticResource btnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click" Height="27"/>
-        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.DaylightForm_CancelButton}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click"/>
+        <Button x:Name="BtnSet" Style="{StaticResource BtnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click" Height="27"/>
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.DaylightForm_CancelButton}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Longitude}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="77"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Latitude}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="77"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_SunriseOffset}" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="92"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_SunsetOffset}" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
-        <Slider x:Name="slSunriseOffset" HorizontalAlignment="Left" Margin="141,72,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="2" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunriseOffset_ToolTip}" Value="{Binding Daylight.SunriseOffset}"/>
-        <Slider x:Name="slSunsetOffset" HorizontalAlignment="Left" Margin="141,95,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="3" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunsetOffset_ToolTip}" Value="{Binding Daylight.SunsetOffset}"/>
-        <Label Content="{Binding Value, ElementName=slSunriseOffset}" HorizontalAlignment="Left" Margin="102,64,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Value, ElementName=slSunsetOffset}" HorizontalAlignment="Left" Margin="102,89,0,0" VerticalAlignment="Top"/>
-        <xctk:WatermarkTextBox x:Name="tbLong" HorizontalAlignment="Left" Margin="141,9,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Longitude , ValidatesOnDataErrors=True ,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{W|E}" MaxLength="9" TabIndex="0" Width="120"/>
-        <xctk:WatermarkTextBox x:Name="tbLat" HorizontalAlignment="Left" Margin="141,38,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Latitude ,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{N|S}" MaxLength="9" TabIndex="1" Width="120" />
+        <Slider x:Name="SlSunriseOffset" HorizontalAlignment="Left" Margin="141,72,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="2" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunriseOffset_ToolTip}" Value="{Binding Daylight.SunriseOffset}"/>
+        <Slider x:Name="SlSunsetOffset" HorizontalAlignment="Left" Margin="141,95,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="3" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunsetOffset_ToolTip}" Value="{Binding Daylight.SunsetOffset}"/>
+        <Label Content="{Binding Value, ElementName=SlSunriseOffset}" HorizontalAlignment="Left" Margin="102,64,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Value, ElementName=SlSunsetOffset}" HorizontalAlignment="Left" Margin="102,89,0,0" VerticalAlignment="Top"/>
+        <xctk:WatermarkTextBox x:Name="TbLong" HorizontalAlignment="Left" Margin="141,9,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Longitude , ValidatesOnDataErrors=True ,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{W|E}" MaxLength="9" TabIndex="0" Width="120"/>
+        <xctk:WatermarkTextBox x:Name="TbLat" HorizontalAlignment="Left" Margin="141,38,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Latitude ,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{N|S}" MaxLength="9" TabIndex="1" Width="120" />
     </Grid>
-</mahapps:MetroWindow>
+</Window>

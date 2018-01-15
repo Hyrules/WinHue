@@ -1524,4 +1524,7 @@
   <data name="Form_LIFXFinder_Button_Done" xml:space="preserve">
     <value>Terminer</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_MinimizeToTray" xml:space="preserve">
+    <value>Minimizer dans le tirroir</value>
+  </data>
 </root>

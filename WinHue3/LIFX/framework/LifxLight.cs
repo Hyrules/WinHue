@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using WinHue3.LIFX.Framework.Colors;
 using WinHue3.LIFX.Framework.Payloads;
@@ -19,8 +18,7 @@ namespace WinHue3.LIFX.Framework
 
         public Hsbk Color => _state.HSBK;
         public ushort Power => _state.Power;
-        [DataMember]
-        public string Label => _state.Label;
+        public override string Label => _state.Label;
 
         public static async Task<LifxLight> CreateLight(IPAddress ip, byte[] mac)
         {

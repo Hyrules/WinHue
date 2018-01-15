@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using log4net.Repository.Hierarchy;
 using WinHue3.Logs;
@@ -50,7 +47,7 @@ namespace WinHue3
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");
+            Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version} started");
             Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated}");
             MainForm.MainWindow wnd = new MainForm.MainWindow(_fel);
          
@@ -64,8 +61,7 @@ namespace WinHue3
 
             MainWindow.Height = height;
             MainWindow.Width = width;
-            //MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), MahApps.Metro.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
-           // Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), Fluent.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+
             switch (WinHueSettings.settings.StartMode)
             {
                 case 0:

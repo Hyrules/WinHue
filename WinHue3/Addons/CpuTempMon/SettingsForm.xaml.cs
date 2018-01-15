@@ -46,8 +46,8 @@ namespace WinHue3.Addons.CpuTempMon
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.CPUTemp_SensorName = _cpuvm.SelectedSensor.Name;
-            Properties.Settings.Default.CPUTemp_gradientStartColor = slHueGradientStart.Value;
-            Properties.Settings.Default.CPUTemp_gradientStopColor = slHueGradientStop.Value;
+            Properties.Settings.Default.CPUTemp_gradientStartColor = SlHueGradientStart.Value;
+            Properties.Settings.Default.CPUTemp_gradientStopColor = SlHueGradientStop.Value;
             Properties.Settings.Default.CPUTemp_Saturation = _cpuvm.Sat;
             Properties.Settings.Default.CpuTemp_Brightness = _cpuvm.Bri;
 

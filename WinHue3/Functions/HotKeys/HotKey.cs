@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Web.Security;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Functions.HotKeys

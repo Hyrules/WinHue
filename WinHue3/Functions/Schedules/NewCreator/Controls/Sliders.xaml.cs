@@ -1,18 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace WinHue3.Functions.Schedules.NewCreator.Controls
 {
@@ -39,7 +27,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
         private static void HuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slHue.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlHue.Value = Convert.ToDouble(e.NewValue);
         }
 
         public int Bri
@@ -55,7 +43,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
         private static void BriPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slBri.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlBri.Value = Convert.ToDouble(e.NewValue);
         }
 
         public int Sat
@@ -71,7 +59,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
         private static void SatPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slSAT.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlSat.Value = Convert.ToDouble(e.NewValue);
         }
 
         public int Ct
@@ -87,7 +75,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
         private static void CtPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slCT.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlCt.Value = Convert.ToDouble(e.NewValue);
         }
 
         public int X
@@ -103,7 +91,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
         private static void XPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slX.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlX.Value = Convert.ToDouble(e.NewValue);
         }
 
         public int Y
@@ -119,7 +107,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
         private static void YPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slY.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlY.Value = Convert.ToDouble(e.NewValue);
         }
     }
 }

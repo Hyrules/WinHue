@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Rules.Validation;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
@@ -18,7 +17,6 @@ using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Utils;
-using Xceed.Wpf.Toolkit.PropertyGrid;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 

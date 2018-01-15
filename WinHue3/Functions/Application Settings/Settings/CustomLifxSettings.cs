@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.LIFX;
-using WinHue3.LIFX.Framework;
 
 namespace WinHue3.Functions.Application_Settings.Settings
 {
     public class CustomLifxSettings
     {
         [DataMember(EmitDefaultValue = true)]
-        public List<LifxDevice> ListDevices { get; set; }
+        public List<LifxSaveDevice> ListDevices { get; set; }
 
         [DataMember(EmitDefaultValue = true)]
         public int SendTimeout;
@@ -25,7 +19,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
 
         public CustomLifxSettings()
         {
-            ListDevices = new List<LifxDevice>();
+            ListDevices = new List<LifxSaveDevice>();
             SendTimeout = 3000;
             RecvTimeout = 3000;
             FindTimeout = 3000;

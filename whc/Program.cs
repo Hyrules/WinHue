@@ -9,7 +9,7 @@ namespace whc
         {
             try
             {
-                ConsoleHandler.ExecuteCommand(args.Any() ? args : new string[] {"-help"});
+                ConsoleHandler.ExecuteCommand(args.Any() ? args : new[] {"-help"});
             }
             catch(Exception ex)
             {

@@ -5,104 +5,112 @@ namespace WinHue3.Functions.Application_Settings
 {
     public class AppMainSettingsModel : ValidatableBindableBase
     {
-        private bool detectProxy;
-        private bool debug;
-        private bool showHidden;
-        private int upnpTimeout;
-        private int timeout;
-        private bool startWindows;
-        private string language;
-        private int startMode;
-        private bool checkupdate;
-        private bool checkforbridgeupdate;
-        private string theme;
-        private string themecolor;
+        private bool _detectProxy;
+        private bool _debug;
+        private bool _showHidden;
+        private int _upnpTimeout;
+        private int _timeout;
+        private bool _startWindows;
+        private string _language;
+        private int _startMode;
+        private bool _checkupdate;
+        private bool _checkforbridgeupdate;
+        private string _theme;
+        private string _themecolor;
+        private bool _minimizeToTray;
 
         public AppMainSettingsModel()
         {
-            detectProxy = WinHueSettings.settings.DetectProxy;
-            debug = WinHueSettings.settings.EnableDebug;
-            showHidden = WinHueSettings.settings.ShowHiddenScenes;
-            upnpTimeout = WinHueSettings.settings.UpnpTimeout;
-            timeout = WinHueSettings.settings.Timeout;
-            language = WinHueSettings.settings.Language;
-            startMode = WinHueSettings.settings.StartMode;
-            checkupdate = WinHueSettings.settings.CheckForUpdate;
-            checkforbridgeupdate = WinHueSettings.settings.CheckForBridgeUpdate;
-            theme = WinHueSettings.settings.Theme;
-            themecolor = WinHueSettings.settings.ThemeColor;
+            _detectProxy = WinHueSettings.settings.DetectProxy;
+            _debug = WinHueSettings.settings.EnableDebug;
+            _showHidden = WinHueSettings.settings.ShowHiddenScenes;
+            _upnpTimeout = WinHueSettings.settings.UpnpTimeout;
+            _timeout = WinHueSettings.settings.Timeout;
+            _language = WinHueSettings.settings.Language;
+            _startMode = WinHueSettings.settings.StartMode;
+            _checkupdate = WinHueSettings.settings.CheckForUpdate;
+            _checkforbridgeupdate = WinHueSettings.settings.CheckForBridgeUpdate;
+            _theme = WinHueSettings.settings.Theme;
+            _themecolor = WinHueSettings.settings.ThemeColor;
+            _minimizeToTray = WinHueSettings.settings.MinimizeToTray;
         }
 
         public bool StartWindows
         {
-            get => startWindows;
-            set => SetProperty(ref startWindows, value);
+            get => _startWindows;
+            set => SetProperty(ref _startWindows, value);
         }
 
         public bool CheckForBridgeUpdate
         {
-            get => checkforbridgeupdate;
-            set => SetProperty(ref checkforbridgeupdate, value);
+            get => _checkforbridgeupdate;
+            set => SetProperty(ref _checkforbridgeupdate, value);
         }
 
         public bool DetectProxy
         {
-            get => detectProxy;
-            set => SetProperty(ref detectProxy,value);
+            get => _detectProxy;
+            set => SetProperty(ref _detectProxy,value);
         }
 
         public bool Debug
         {
-            get => debug;
-            set => SetProperty(ref debug,value);
+            get => _debug;
+            set => SetProperty(ref _debug,value);
         }
 
         public bool ShowHidden
         {
-            get => showHidden;
-            set => SetProperty(ref showHidden,value);
+            get => _showHidden;
+            set => SetProperty(ref _showHidden,value);
         }
 
         public int UpnpTimeout
         {
-            get => upnpTimeout;
-            set => SetProperty(ref upnpTimeout,value);
+            get => _upnpTimeout;
+            set => SetProperty(ref _upnpTimeout,value);
         }
 
         public int Timeout
         {
-            get => timeout;
-            set => SetProperty(ref timeout,value);
+            get => _timeout;
+            set => SetProperty(ref _timeout,value);
         }
 
         public string Language
         {
-            get => language;
-            set => SetProperty(ref language,value);
+            get => _language;
+            set => SetProperty(ref _language,value);
         }
 
         public int StartMode
         {
-            get => startMode;
-            set => SetProperty(ref startMode,value);
+            get => _startMode;
+            set => SetProperty(ref _startMode,value);
         }
 
         public bool CheckUpdate
         {
-            get => checkupdate;
-            set => SetProperty(ref checkupdate,value);
+            get => _checkupdate;
+            set => SetProperty(ref _checkupdate,value);
         }
 
         public string Theme
         {
-            get => theme;
-            set => SetProperty(ref theme, value);
+            get => _theme;
+            set => SetProperty(ref _theme, value);
         }
 
         public string Themecolor
         {
-            get => themecolor;
-            set => SetProperty(ref themecolor,value);
+            get => _themecolor;
+            set => SetProperty(ref _themecolor,value);
+        }
+
+        public bool MinimizeToTray
+        {
+            get => _minimizeToTray;
+            set => SetProperty(ref _minimizeToTray,value);
         }
     }
 }

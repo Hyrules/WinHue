@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,7 +13,7 @@ namespace WinHue3.Functions.Scenes.View
     /// <summary>
     /// Interaction logic for Form_SceneMapping.xaml
     /// </summary>
-    public partial class Form_SceneMapping : MetroWindow
+    public partial class Form_SceneMapping : Window
     {
 
         private readonly SceneMappingViewModel _smv;
@@ -50,8 +49,8 @@ namespace WinHue3.Functions.Scenes.View
 
         private void dgListScenes_ItemsSourceChangeCompleted(object sender, EventArgs e)
         {
-            if (dgListScenes.Columns.Count < 1) return;
-            dgListScenes.Columns[0].Visible = false;
+            if (DgListScenes.Columns.Count < 1) return;
+            DgListScenes.Columns[0].Visible = false;
         }
 
     }

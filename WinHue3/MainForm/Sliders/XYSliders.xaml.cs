@@ -53,13 +53,13 @@ namespace WinHue3.MainForm.Sliders
         {
             YValue = e.NewValue;
             HueColorConverter.ColorFromXY(new CGPoint(XValue, YValue), _modelid);
-            recColorXY.Fill = new SolidColorBrush(HueColorConverter.ColorFromXY(new CGPoint((float) XValue,(float) YValue), _modelid));
+            RecColorXy.Fill = new SolidColorBrush(HueColorConverter.ColorFromXY(new CGPoint((float) XValue,(float) YValue), _modelid));
         }
 
         private void XSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             XValue = e.NewValue;
-            recColorXY.Fill = new SolidColorBrush(HueColorConverter.ColorFromXY(new CGPoint((float)XValue, (float)YValue), _modelid));
+            RecColorXy.Fill = new SolidColorBrush(HueColorConverter.ColorFromXY(new CGPoint((float)XValue, (float)YValue), _modelid));
         }
 
 
@@ -98,7 +98,7 @@ namespace WinHue3.MainForm.Sliders
         private static void XSliderLabelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             XYSliders control = (XYSliders)d;
-            control.lblXColorSpace.Content = e.NewValue;
+            control.LblXColorSpace.Content = e.NewValue;
         }
 
         public string YSliderLabel
@@ -113,7 +113,7 @@ namespace WinHue3.MainForm.Sliders
         private static void YSliderLabelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             XYSliders control = (XYSliders)d;
-            control.lblYColorSpace.Content = e.NewValue;
+            control.LblYColorSpace.Content = e.NewValue;
         }
 
         public double XValue

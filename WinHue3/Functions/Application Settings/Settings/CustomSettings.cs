@@ -28,6 +28,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             ThemeColor = "Cyan";
             Theme = "BaseLight";
             UseLastBriState = false;
+            MinimizeToTray = false;
         }
 
         [DataMember(EmitDefaultValue = true)]
@@ -70,6 +71,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public string Theme { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public bool UseLastBriState { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public bool MinimizeToTray { get; set; }
 
         public override string ToString()
         {

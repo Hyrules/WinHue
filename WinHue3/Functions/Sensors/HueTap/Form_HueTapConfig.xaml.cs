@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +12,7 @@ namespace WinHue3.Functions.Sensors.HueTap
     /// <summary>
     /// Interaction logic for Form_HueTapConfig.xaml
     /// </summary>
-    public partial class Form_HueTapConfig : MetroWindow
+    public partial class Form_HueTapConfig : Window
     {
         private Bridge _bridge;
         HueTapConfigViewModel tcvm;

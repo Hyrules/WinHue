@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WinHue3"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:wait="clr-namespace:WinHue3.MainForm.Wait"
         mc:Ignorable="d"
@@ -12,8 +11,8 @@
         <wait:WaitViewModel/>
     </Window.DataContext>
     <Grid OverridesDefaultStyle="True">
-        <ProgressBar x:Name="pbWait" HorizontalAlignment="Left" Height="20" Margin="10,71,0,0" VerticalAlignment="Top" Width="348" Maximum="{Binding WaitTime}" Value="{Binding pbValue}"/>
-        <TextBlock x:Name="tblMessage" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Message}" VerticalAlignment="Top" Height="56" Width="348"/>
+        <ProgressBar x:Name="PbWait" HorizontalAlignment="Left" Height="20" Margin="10,71,0,0" VerticalAlignment="Top" Width="348" Maximum="{Binding WaitTime}" Value="{Binding pbValue}"/>
+        <TextBlock x:Name="TblMessage" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Message}" VerticalAlignment="Top" Height="56" Width="348"/>
 
     </Grid>
 </Window>
