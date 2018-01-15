@@ -865,9 +865,14 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\refreshMetro5.ico" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Build\README_TEMPLATE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\settingsMetro.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

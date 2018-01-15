@@ -381,6 +381,16 @@ namespace WinHue3.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon refreshMetro5 {
+            get {
+                object obj = ResourceManager.GetObject("refreshMetro5", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap resettt {
@@ -497,6 +507,16 @@ namespace WinHue3.Properties {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon settingsMetro {
+            get {
+                object obj = ResourceManager.GetObject("settingsMetro", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
