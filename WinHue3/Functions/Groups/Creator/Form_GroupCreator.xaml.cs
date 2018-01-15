@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,7 +13,7 @@ namespace WinHue3.Functions.Groups.Creator
     /// <summary>
     /// Interaction logic for GroupCreator.xaml
     /// </summary>
-    public partial class Form_GroupCreator : MetroWindow
+    public partial class Form_GroupCreator : Window
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -60,7 +59,7 @@ namespace WinHue3.Functions.Groups.Creator
                 {
                     MessageBoxError.ShowLastErrorMessages(_bridge);
                 }
-                btnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
+                BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
         }
 

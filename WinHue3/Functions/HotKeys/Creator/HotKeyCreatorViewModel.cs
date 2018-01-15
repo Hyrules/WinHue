@@ -13,7 +13,6 @@ using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys.Validation;
 using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;

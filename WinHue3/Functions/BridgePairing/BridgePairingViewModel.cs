@@ -259,19 +259,19 @@ namespace WinHue3.Functions.BridgePairing
                 switch (AddManualBridge(bridge))
                 {
                     case AddManualBridgeResult.Success:
-                        log.Info($"Adding manual ip {fip.tbIPAddress}");
+                        log.Info($"Adding manual ip {fip.TbIpAddress}");
                         break;
                     case AddManualBridgeResult.Alreadyexists:
                         MessageBox.Show(GlobalStrings.Bridge_Already_Detected, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                        log.Error($"ip {fip.tbIPAddress} already exists.");
+                        log.Error($"ip {fip.TbIpAddress} already exists.");
                         break;
                     case AddManualBridgeResult.NotResponding:
                         MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                        log.Error($"Bridge at ip {fip.tbIPAddress} is not responding.");
+                        log.Error($"Bridge at ip {fip.TbIpAddress} is not responding.");
                         break;
                     default:
                         MessageBox.Show(GlobalStrings.Error_ErrorHasOccured, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                        log.Error($"Unknown error at ip {fip.tbIPAddress}");
+                        log.Error($"Unknown error at ip {fip.TbIpAddress}");
                         break;
                 }
 

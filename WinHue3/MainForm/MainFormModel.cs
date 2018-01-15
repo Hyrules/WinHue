@@ -1,4 +1,5 @@
-﻿using WinHue3.Utils;
+﻿using System.Windows;
+using WinHue3.Utils;
 
 namespace WinHue3.MainForm
 {
@@ -29,6 +30,7 @@ namespace WinHue3.MainForm
         private bool _on;
 
         private WinHueSortOrder _sort;
+        private WindowState _lastState;
 
         public MainFormModel()
         {
@@ -129,6 +131,12 @@ namespace WinHue3.MainForm
         {
             get => _on;
             set => SetProperty(ref _on,value); 
+        }
+
+        public WindowState LastWindowState
+        {
+            get { return _lastState; }
+            set { SetProperty(ref _lastState,value); }
         }
     }
 }

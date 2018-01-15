@@ -19,10 +19,11 @@ Added:
 
 Changed:
 - Reverted to CommandCombobox to solve issues.
-- Adjusted the hue slider so it is near real hue color.
+- Adjusted the hue slider so it is close to real hue color.
+- Minimize to tray option / button moved to application settings.
 
-Known Issues:
-- The ribbon does not match theme. (this is a feature not yet implemented in fluent ribbon)
+Removed:
+- Mahapp theme styling and dependencies. Will implement a styling system later.
 
 WIP:
 - Window Styling : Not everything matches perfectly.

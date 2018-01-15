@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.BridgeObject

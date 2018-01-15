@@ -1,23 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
-using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Utils;
 using WinHue3.Functions.Rules.Creator;
-using WinHue3.LIFX;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HueLib2Test
 {

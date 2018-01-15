@@ -1,4 +1,4 @@
-﻿using MahApps.Metro.Controls;
+﻿
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -11,7 +11,7 @@ namespace WinHue3.Functions.Renaming
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Form_RenameObject : MetroWindow
+    public partial class Form_RenameObject : Window
     {
         private readonly Bridge _bridge;
         private readonly IHueObject _obj;
@@ -22,13 +22,13 @@ namespace WinHue3.Functions.Renaming
             _bridge = bridge;
             _obj = obj;
             Title = string.Format(Title,  obj.name);
-            tbNewName.Text = obj.name;
+            TbNewName.Text = obj.name;
 
         }
 
         private void btnRename_Click(object sender, RoutedEventArgs e)
         {
-            _obj.name = tbNewName.Text;
+            _obj.name = TbNewName.Text;
             bool result = !_bridge.Virtual ? _bridge.RenameObject(_obj) : true;
             
             if (result)
@@ -45,7 +45,7 @@ namespace WinHue3.Functions.Renaming
 
         public string GetNewName()
         {
-            return tbNewName.Text;
+            return TbNewName.Text;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

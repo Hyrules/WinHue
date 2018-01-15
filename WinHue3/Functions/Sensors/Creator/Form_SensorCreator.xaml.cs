@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System.Windows;
+﻿using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Resources;
@@ -10,7 +9,7 @@ namespace WinHue3.Functions.Sensors.Creator
     /// <summary>
     /// Interaction logic for Form_SensorCreator.xaml
     /// </summary>
-    public partial class Form_SensorCreator : MetroWindow
+    public partial class Form_SensorCreator : Window
     {
         private SensorCreatorViewModel _scvm;
         private readonly Bridge _bridge;
@@ -27,7 +26,7 @@ namespace WinHue3.Functions.Sensors.Creator
                 _sensorId = obj.Id;
                 _scvm.Sensor = obj;
                 _editing = true;
-                btnCreate.Content = GUI.SensorCreatorForm_EditButton;
+                BtnCreate.Content = GUI.SensorCreatorForm_EditButton;
                 
             }
         }

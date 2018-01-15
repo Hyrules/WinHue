@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using MahApps.Metro.Controls;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.EventViewer;
@@ -23,7 +19,7 @@ namespace WinHue3.MainForm
     /// <summary>
     /// Main window.
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : Window
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Form_EventLog _fel;
@@ -40,8 +36,8 @@ namespace WinHue3.MainForm
             _mfvm = DataContext as MainFormViewModel;
             _mfvm.Eventlogform = _fel;
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
-             trayicon.Icon = Properties.Resources.icon;
-            _mfvm.SetToolbarTray(trayicon);
+             Trayicon.Icon = Properties.Resources.icon;
+            _mfvm.SetToolbarTray(Trayicon);
         }
 
 
@@ -60,9 +56,9 @@ namespace WinHue3.MainForm
         {
             // Set the new background color.
             if (lightlist.Count <= 0) return;
-            foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<Light>()
+            foreach (ListViewItem dependencyobject in (from item in LvMainObjects.Items.OfType<Light>()
                 where lightlist.Contains(item.Id)
-                select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
+                select this.LvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
                 dependencyobject.Background = new SolidColorBrush();
                 ((SolidColorBrush) dependencyobject.Background).Color =
@@ -73,9 +69,9 @@ namespace WinHue3.MainForm
         public void SetObjectBackground(List<IHueObject> objectlist)
         {
             if (objectlist.Count <= 0) return;
-            foreach (ListViewItem dependencyobject in (from item in lvMainObjects.Items.OfType<IHueObject>()
+            foreach (ListViewItem dependencyobject in (from item in LvMainObjects.Items.OfType<IHueObject>()
                                                        where objectlist.Contains(item)
-                                                       select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
+                                                       select this.LvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
                 dependencyobject.Background = new SolidColorBrush();
                 ((SolidColorBrush)dependencyobject.Background).Color =
@@ -86,11 +82,11 @@ namespace WinHue3.MainForm
         public void ClearBackgroundColor()
         {
             // Clear any background color
-            if (lvMainObjects.Items.Count == 0) return;
+            if (LvMainObjects.Items.Count == 0) return;
             foreach (
                 ListViewItem dependencyobject in
-                    (from object item in lvMainObjects.Items
-                        select this.lvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>()
+                    (from object item in LvMainObjects.Items
+                        select this.LvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>()
                 )
             {
                 dependencyobject.Background = null;
@@ -101,12 +97,12 @@ namespace WinHue3.MainForm
         {
             log.Debug("Clearing light bg color.");
             ClearBackgroundColor();
-            if (lvMainObjects.SelectedItem == null) return;
-            if (lvMainObjects.SelectedItem is Resourcelink)
+            if (LvMainObjects.SelectedItem == null) return;
+            if (LvMainObjects.SelectedItem is Resourcelink)
             {
-                Resourcelink rl = (Resourcelink) lvMainObjects.SelectedItem;
+                Resourcelink rl = (Resourcelink) LvMainObjects.SelectedItem;
                 List<IHueObject> listhue = new List<IHueObject>();
-                List<IHueObject> bo = new List<IHueObject>(lvMainObjects.Items.OfType<IHueObject>());
+                List<IHueObject> bo = new List<IHueObject>(LvMainObjects.Items.OfType<IHueObject>());
                 foreach (string s in rl.links)
                 {
                     string[] objbreak = s.Split('/');
@@ -119,18 +115,29 @@ namespace WinHue3.MainForm
                 return;
             }
 
-            if (!lvMainObjects.SelectedItem.HasProperty("lights")) return;
+            if (!LvMainObjects.SelectedItem.HasProperty("lights")) return;
             StringCollection list =
                 (StringCollection)
-                    lvMainObjects.SelectedItem.GetType().GetProperty("lights").GetValue(lvMainObjects.SelectedItem);
+                    LvMainObjects.SelectedItem.GetType().GetProperty("lights").GetValue(LvMainObjects.SelectedItem);
             log.Debug("Settings light BG color for lights : " + string.Join(",",list));
             SetLightBackground(list);
         }
 
         private void trayicon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            this.Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
+            Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
+
+            
         }
 
+        private void MainForm_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState != WindowState.Minimized) return;
+            if (!WinHueSettings.settings.MinimizeToTray) return;
+            this.WindowState = WindowState.Normal;    
+            Application.Current.MainWindow.Hide();
+
+
+        }
     }
 }

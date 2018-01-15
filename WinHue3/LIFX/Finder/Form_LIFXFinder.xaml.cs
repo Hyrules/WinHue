@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.LIFX.Framework;
 
 namespace WinHue3.LIFX.Finder
 {
@@ -31,7 +22,13 @@ namespace WinHue3.LIFX.Finder
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
-            WinHueSettings.lifx.ListDevices = _lfvm.Devices.ToList();
+            ObservableCollection<LifxDevice> dev = _lfvm.Devices;
+            foreach (LifxDevice l in dev)
+            {
+                if (WinHueSettings.lifx.ListDevices.Any(x => x.mac == l.Mac)) continue;
+                WinHueSettings.lifx.ListDevices.Add(new LifxSaveDevice(l.IP.ToString(), l.Mac,l.Label));
+            }
+            
             WinHueSettings.SaveLifx();
             this.Close();
         }

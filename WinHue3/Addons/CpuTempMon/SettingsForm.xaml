@@ -2,7 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:winHue3="clr-namespace:WinHue3"
     x:Class="WinHue3.Addons.CpuTempMon.Form_CpuTempMonitorSettings"
         xmlns:cputemp="clr-namespace:WinHue3.Addons.CpuTempMon"
         Title="Cpu Temp Monitor Settings..." Height="386" Width="473" ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
@@ -10,14 +9,14 @@
         <cputemp:CpuTempViewModel/>
     </Window.DataContext>
     <Grid>
-        <ToggleButton x:Name="btnTestGradient" Content="Test Gradient" HorizontalAlignment="Left" Margin="215,320,0,0" VerticalAlignment="Top" Width="75" Command="{Binding TestCpuTempCommand}"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="375,320,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="295,320,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.52,0.7" Click="btnSave_Click"/>
+        <ToggleButton x:Name="BtnTestGradient" Content="Test Gradient" HorizontalAlignment="Left" Margin="215,320,0,0" VerticalAlignment="Top" Width="75" Command="{Binding TestCpuTempCommand}"/>
+        <Button x:Name="BtnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="375,320,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <Button x:Name="BtnSave" Content="Save" HorizontalAlignment="Left" Margin="295,320,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.52,0.7" Click="btnSave_Click"/>
         <GroupBox Header="Gradient Settings" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Height="142" Width="440">
             <Grid>
                 <Label VerticalAlignment="Top" Margin="3,3,0,0" HorizontalAlignment="Left" Content="Lower Temp :" Width="78"/>
                 <Label VerticalAlignment="Top" Margin="3,65,0,0" HorizontalAlignment="Left" Content="Upper Temp :" Width="78"/>
-                <Slider x:Name="slHueGradientStart" Width="Auto" VerticalAlignment="Top" Value="{Binding LowerGradientColor}" Margin="3,31,2,0" Maximum="65535" IsSnapToTickEnabled="True" Height="21">
+                <Slider x:Name="SlHueGradientStart" Width="Auto" VerticalAlignment="Top" Value="{Binding LowerGradientColor}" Margin="3,31,2,0" Maximum="65535" IsSnapToTickEnabled="True" Height="21">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="1.0,0.5" StartPoint="0,0.5">
                             <GradientStop Color="#FFFF0000"/>
@@ -30,7 +29,7 @@
                         </LinearGradientBrush>
                     </Slider.Background>
                 </Slider>
-                <Slider x:Name="slHueGradientStop" Width="Auto" VerticalAlignment="Top" Margin="3,96,2,0" Maximum="65535" IsSnapToTickEnabled="True" Height="21" Value="{Binding UpperGradientColor}">
+                <Slider x:Name="SlHueGradientStop" Width="Auto" VerticalAlignment="Top" Margin="3,96,2,0" Maximum="65535" IsSnapToTickEnabled="True" Height="21" Value="{Binding UpperGradientColor}">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="1.0,0.5" StartPoint="0,0.5">
                             <GradientStop Color="#FFFF0000"/>
@@ -43,8 +42,8 @@
                         </LinearGradientBrush>
                     </Slider.Background>
                 </Slider>
-                <Label x:Name="lblGradientStartValue" Width="53" VerticalAlignment="Top" Margin="194,3,0,0" HorizontalAlignment="Left" Content="{Binding LowerGradientColor}"/>
-                <Label x:Name="lblGradientStopValue" Width="53" VerticalAlignment="Top" Margin="194,68,0,0" IsEnabled="{Binding IsChecked, ElementName=btnTestGradient}" HorizontalAlignment="Left" Content="{Binding UpperGradientColor}"/>
+                <Label x:Name="LblGradientStartValue" Width="53" VerticalAlignment="Top" Margin="194,3,0,0" HorizontalAlignment="Left" Content="{Binding LowerGradientColor}"/>
+                <Label x:Name="LblGradientStopValue" Width="53" VerticalAlignment="Top" Margin="194,68,0,0" IsEnabled="{Binding IsChecked, ElementName=BtnTestGradient}" HorizontalAlignment="Left" Content="{Binding UpperGradientColor}"/>
                 <xctk:IntegerUpDown VerticalAlignment="Top" Width="92" Value="{Binding UpperTemp}" Minimum="{Binding Value, ElementName=dudLowerTemp}" Margin="101,68,0,0" Maximum="125" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" ToolTip="Upper Temperature in Celsius" CultureInfo=""/>
                 <xctk:IntegerUpDown VerticalAlignment="Top" Width="92" Value="{Binding LowerTemp}" Minimum="0" Margin="101,5,0,0" Maximum="{Binding Value, ElementName=dudUpperTemp}" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" ToolTip="Lower Temperature in Celsius" CultureInfo=""/>
 
@@ -53,13 +52,13 @@
         <GroupBox Header="Cpu Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="59" Width="440">
             <Grid Margin="0,0,0,-2">
                 <Label VerticalAlignment="Top" Margin="10,7,0,0" HorizontalAlignment="Left" Content="Cpu to monitor :"/>
-                <ComboBox x:Name="cbListCpuSensors" Width="211" VerticalAlignment="Top" Margin="131,10,0,0" HorizontalAlignment="Left" SelectedItem="{Binding SelectedSensor}" ItemsSource="{Binding ListCpuSensors}" DisplayMemberPath="Name" IsEnabled="{Binding CanSelectSensor}"/>
-                <Label x:Name="lblCpuTemp" Width="75" VerticalAlignment="Top" Margin="349,8,0,0" HorizontalAlignment="Left" Content="{Binding CpuTemp}"/>
+                <ComboBox x:Name="CbListCpuSensors" Width="211" VerticalAlignment="Top" Margin="131,10,0,0" HorizontalAlignment="Left" SelectedItem="{Binding SelectedSensor}" ItemsSource="{Binding ListCpuSensors}" DisplayMemberPath="Name" IsEnabled="{Binding CanSelectSensor}"/>
+                <Label x:Name="LblCpuTemp" Width="75" VerticalAlignment="Top" Margin="349,8,0,0" HorizontalAlignment="Left" Content="{Binding CpuTemp}"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Light or Group Settings" HorizontalAlignment="Left" Margin="10,221,0,0" VerticalAlignment="Top" Width="440" Height="94">
             <Grid>
-                <ComboBox x:Name="cbObject" Width="305" VerticalAlignment="Top" Margin="113,7,0,0" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" SelectedItem="{Binding SelectedObject}" ItemsSource="{Binding ListLightGroups}" Height="29">
+                <ComboBox x:Name="CbObject" Width="305" VerticalAlignment="Top" Margin="113,7,0,0" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" SelectedItem="{Binding SelectedObject}" ItemsSource="{Binding ListLightGroups}" Height="29">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel VerticalAlignment="Center">
@@ -70,10 +69,10 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Label Content="Light or Group :" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="103"/>
-                <xctk:ByteUpDown x:Name="budBri" Width="89" VerticalAlignment="Top" Value="{Binding Bri}" Minimum="{Binding Value, ElementName=dudLowerTemp}" Margin="113,42,0,0" Maximum="254" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" ToolTip="Upper Temperature in Celsius" CultureInfo=""/>
+                <xctk:ByteUpDown x:Name="BudBri" Width="89" VerticalAlignment="Top" Value="{Binding Bri}" Minimum="{Binding Value, ElementName=dudLowerTemp}" Margin="113,42,0,0" Maximum="254" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" ToolTip="Upper Temperature in Celsius" CultureInfo=""/>
                 <Label Content="Brightness :" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="98"/>
                 <Label Content="Saturation :" HorizontalAlignment="Left" Margin="207,39,0,0" VerticalAlignment="Top" Width="76"/>
-                <xctk:ByteUpDown x:Name="budSat" Width="102" VerticalAlignment="Top" Value="{Binding Sat}" Minimum="{Binding Value, ElementName=dudLowerTemp}" Margin="316,42,0,0" Maximum="254" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" ToolTip="Upper Temperature in Celsius" CultureInfo=""/>
+                <xctk:ByteUpDown x:Name="BudSat" Width="102" VerticalAlignment="Top" Value="{Binding Sat}" Minimum="{Binding Value, ElementName=dudLowerTemp}" Margin="316,42,0,0" Maximum="254" IsEnabled="{Binding CanTest}" HorizontalAlignment="Left" ToolTip="Upper Temperature in Celsius" CultureInfo=""/>
 
             </Grid>
         </GroupBox>

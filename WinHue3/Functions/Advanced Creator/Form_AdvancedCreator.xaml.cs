@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
 
@@ -8,7 +7,7 @@ namespace WinHue3.Functions.Advanced_Creator
     /// <summary>
     /// Interaction logic for Form_AdvancedCreator.xaml
     /// </summary>
-    public partial class Form_AdvancedCreator : MetroWindow
+    public partial class Form_AdvancedCreator
     {
         private AdvancedCreatorViewModel _acvm;
 

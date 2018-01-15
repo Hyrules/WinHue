@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using WinHue3.Controls;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;

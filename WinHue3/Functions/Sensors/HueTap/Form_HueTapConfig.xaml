@@ -1,4 +1,4 @@
-﻿<mahapps:MetroWindow
+﻿<Window
     xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         x:Class="WinHue3.Functions.Sensors.HueTap.Form_HueTapConfig"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -54,39 +54,39 @@
     </Window.Resources>
     <Grid>
         <Image HorizontalAlignment="Left" Height="498" Margin="28,36,0,0" VerticalAlignment="Top" Width="502" Source="/WinHue3;component/Resources/HueTapFull.jpg" Tag="{Binding HueTapModel.Buttonid, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}"/>
-        <Button x:Name="btnTwo" Content="Button" HorizontalAlignment="Left" Width="117" Margin="106,216,0,0" VerticalAlignment="Top" Cursor="Hand" Command="{Binding BtnTwoCommand}" Background="{Binding HueTapModel.BtnTwoBG}" >
+        <Button x:Name="BtnTwo" Content="Button" HorizontalAlignment="Left" Width="117" Margin="106,216,0,0" VerticalAlignment="Top" Cursor="Hand" Command="{Binding BtnTwoCommand}" Background="{Binding HueTapModel.BtnTwoBG}" >
             <Button.Template>
                 <ControlTemplate>
                     <Ellipse Stroke="Black" StrokeThickness="0" Height="118" Width="117" Fill="{TemplateBinding Background}"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="btnFour" Content="Button" HorizontalAlignment="Left" Margin="329,212,0,0" VerticalAlignment="Top" Width="118" Cursor="Hand" Command="{Binding BtnFourCommand}" Background="{Binding HueTapModel.BtnFourBG}">
+        <Button x:Name="BtnFour" Content="Button" HorizontalAlignment="Left" Margin="329,212,0,0" VerticalAlignment="Top" Width="118" Cursor="Hand" Command="{Binding BtnFourCommand}" Background="{Binding HueTapModel.BtnFourBG}">
             <Button.Template>
                 <ControlTemplate>
                     <Ellipse Stroke="Black" StrokeThickness="0" Height="118" Width="117" Fill="{TemplateBinding Background}"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="btnThree" Content="Button" HorizontalAlignment="Left" Margin="220,326,0,0" VerticalAlignment="Top" Width="118" Cursor="Hand" Command="{Binding BtnThreeCommand}" Background="{Binding HueTapModel.BtnThreeBG}">
+        <Button x:Name="BtnThree" Content="Button" HorizontalAlignment="Left" Margin="220,326,0,0" VerticalAlignment="Top" Width="118" Cursor="Hand" Command="{Binding BtnThreeCommand}" Background="{Binding HueTapModel.BtnThreeBG}">
             <Button.Template>
                 <ControlTemplate>
                     <Ellipse Stroke="Black" StrokeThickness="0" Height="118" Width="117" Fill="{TemplateBinding Background}"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="btnOne" Content="Button" HorizontalAlignment="Left" Margin="218,125,0,0" VerticalAlignment="Top" Width="118" Cursor="Hand" Command="{Binding BtnOneCommand}" Background="{Binding HueTapModel.BtnOneBG}" ToolTip="This button represent the whole push button.">
+        <Button x:Name="BtnOne" Content="Button" HorizontalAlignment="Left" Margin="218,125,0,0" VerticalAlignment="Top" Width="118" Cursor="Hand" Command="{Binding BtnOneCommand}" Background="{Binding HueTapModel.BtnOneBG}" ToolTip="This button represent the whole push button.">
             <Button.Template>
                 <ControlTemplate>
                     <Ellipse Stroke="Gray" StrokeThickness="2" Height="118" Width="117" Fill="{TemplateBinding Background}"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="btnDone" Content="{x:Static resx:GUI.HueTapSetupForm_DoneButton}" HorizontalAlignment="Left" Margin="455,539,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" Height="23"/>
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.HueTapSetupForm_DoneButton}" HorizontalAlignment="Left" Margin="455,539,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" Height="23"/>
         <TextBlock Margin="0,12,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.HueTapSetupForm_TopMessage}" VerticalAlignment="Top" FontSize="18" Width="548" HorizontalAlignment="Left" TextAlignment="Center"/>
         <Label Content="Scene : " HorizontalAlignment="Left" Margin="28,536,0,0" VerticalAlignment="Top" Width="54"/>
-        <ComboBox x:Name="cbObject" HorizontalAlignment="Left" Margin="87,539,0,0" VerticalAlignment="Top" Width="177" DisplayMemberPath="name" ItemsSource="{Binding HueTapModel.ListScenes}" SelectedItem="{Binding SelectedScene, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}"/>
-        <Button x:Name="btnAssign" Content="{x:Static resx:GUI.HueTapSetupForm_AssignButton}" HorizontalAlignment="Left" Margin="373,539,0,0" VerticalAlignment="Top" Width="77" Height="23" Command="{Binding BtnAssignCommand}" IsEnabled="{Binding CanSave}"/>
+        <ComboBox x:Name="CbObject" HorizontalAlignment="Left" Margin="87,539,0,0" VerticalAlignment="Top" Width="177" DisplayMemberPath="name" ItemsSource="{Binding HueTapModel.ListScenes}" SelectedItem="{Binding SelectedScene, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}"/>
+        <Button x:Name="BtnAssign" Content="{x:Static resx:GUI.HueTapSetupForm_AssignButton}" HorizontalAlignment="Left" Margin="373,539,0,0" VerticalAlignment="Top" Width="77" Height="23" Command="{Binding BtnAssignCommand}" IsEnabled="{Binding CanSave}"/>
 
     </Grid>
-</mahapps:MetroWindow>
+</Window>
