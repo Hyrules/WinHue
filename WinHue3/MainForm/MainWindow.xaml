@@ -155,13 +155,13 @@
                     <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}" Icon="/WinHue3;component/Resources/resource.png" LargeIcon="/WinHue3;component/Resources/resource.png" SizeDefinition="Large,Middle,Small"/>
                     <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" Icon="/WinHue3;component/Resources/advanced.png" LargeIcon="/WinHue3;component/Resources/advanced.png" SizeDefinition="Large,Middle,Small"/>
                 </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}">
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeImageSource="/WinHue3;component/Resources/settings.png" Command="{Binding ChangeBridgeSettingsCommand}"/>
-                    <RibbonSplitButton Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" LargeImageSource="/WinHue3;component/Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" >
-                        <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" SmallImageSource="/WinHue3;component/Resources/update.png" Command="{Binding UpdateBridgeCommand}"/>
-                    </RibbonSplitButton>
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" LargeImageSource="/WinHue3;component/Resources/user.png" Command="{Binding ManageUsersCommand}" />
-                    <RibbonButton Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" LargeImageSource="/WinHue3;component/Resources/resettt.png" Command="{Binding ResetTransitionTimeCommand}"/>
+                <fluent:RibbonGroupBox Name="settings" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Icon="/WinHue3;component/Resources/settings.png">
+                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeIcon="/WinHue3;component/Resources/settingsMetro.ico" Command="{Binding ChangeBridgeSettingsCommand}" SizeDefinition="Large,Large,Large"/>
+                    <fluent:SplitButton Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" Icon="/WinHue3;component/Resources/UpdateSearch.png" LargeIcon="/WinHue3;component/Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" SizeDefinition="Large,Middle,Small">
+                        <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Icon="/WinHue3;component/Resources/update.png" Command="{Binding UpdateBridgeCommand}"/>
+                    </fluent:SplitButton>
+                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" Icon="/WinHue3;component/Resources/user.png" LargeIcon="/WinHue3;component/Resources/user.png" Command="{Binding ManageUsersCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" SizeDefinition="Large,Middle,Small"/>
+                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Icon="/WinHue3;component/Resources/resettt.png" LargeIcon="/WinHue3;component/Resources/resettt.png" Command="{Binding ResetTransitionTimeCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" SizeDefinition="Large,Middle,Small"/>
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Name="events" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}">
                     <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" LargeIcon="/WinHue3;component/Resources/eventlog.png"  Command="{Binding ShowEventLogCommand}" SizeDefinition="Large,Large,Large" KeyTip="E"/>
