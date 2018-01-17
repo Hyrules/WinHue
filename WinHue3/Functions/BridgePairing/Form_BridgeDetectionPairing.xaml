@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgePairing="clr-namespace:WinHue3.Functions.BridgePairing"
-        Title="Bridge Detection and Pairing..." Height="364.861" Width="635.634" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/bridge.png" BorderThickness="2">
+        Title="Bridge Detection and Pairing..." Height="364.861" Width="635.634" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/bridge.png">
     <Window.DataContext>
         <bridgePairing:BridgePairingViewModel/>
     </Window.DataContext>

@@ -325,15 +325,12 @@
                 </ListView.Resources>
                 <ListView.ContextMenu>
                     <ContextMenu x:Name="CmListView" IsTabStop="True">
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Toggle}" Command="{Binding DoubleClickObjectCommand}"/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim}">
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_10}" Command="{Binding ToggleDim10Command}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_25}" Command="{Binding ToggleDim25Command}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_50}" Command="{Binding ToggleDim50Command}"/>
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_75}" Command="{Binding ToggleDim75Command}"/>
                         </MenuItem>
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" x:Name="MnuEdit" Command="{Binding EditObjectCommand}"/>
                         <Separator/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" x:Name="MnuIdentify">
                             <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" x:Name="MnuIdentifyStop" Command="{Binding IdentifyStopCommand}"/>
@@ -363,8 +360,6 @@
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" x:Name="MnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
                         <Separator/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" x:Name="MnuRenameObject" Command="{Binding RenameObjectCommand}"/>
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" x:Name="MnuDeleteObject" Command="{Binding DeleteObjectCommand}"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.ItemsPanel>
@@ -464,7 +459,16 @@
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="462" VerticalAlignment="Top">
                     <Grid Height="65px">
                         <Label Content="Controls" HorizontalAlignment="Center" Width="350" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White"/>
-                        <ToggleButton Margin="10,27,320,10" Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip=""/>
+                        <ToggleButton Margin="10,27,320,10" Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off"/>
+                        <Button HorizontalAlignment="Left" Margin="315,30,0,0" VerticalAlignment="Top" Width="25" Padding="0" Height="25" ToolTip="Delete" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding DeleteObjectCommand}">
+                            <Image Source="/WinHue3;component/Resources/close_delete.png" />
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="52,30,0,0" VerticalAlignment="Top" Width="25" Height="25" BorderBrush="{x:Null}" Background="{x:Null}" ToolTip="Edit" Padding="0" Command="{Binding EditObjectCommand}">
+                            <Image Source="/WinHue3;component/Resources/edit.png" />
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="82,30,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" ToolTip="Rename" Command="{Binding RenameObjectCommand}">
+                            <Image Source="/WinHue3;component/Resources/rename.png"/>
+                        </Button>
                     </Grid>
                     <Separator></Separator>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" />
