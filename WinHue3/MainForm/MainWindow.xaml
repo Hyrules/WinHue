@@ -422,7 +422,7 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate>
-                                            <Expander IsExpanded="True"  >
+                                            <Expander IsExpanded="True"   >
                                                 <Expander.Header >
                                                     <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
                                                         <!--<Grid.Background>
