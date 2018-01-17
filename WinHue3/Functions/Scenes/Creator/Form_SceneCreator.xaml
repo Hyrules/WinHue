@@ -8,7 +8,7 @@
     xmlns:creator="clr-namespace:WinHue3.Functions.Scenes.Creator"
     xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
-    x:Name="FormSceneCreator" x:Class="WinHue3.Functions.Scenes.Creator.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/scenes.png" BorderThickness="2">
+    x:Name="FormSceneCreator" x:Class="WinHue3.Functions.Scenes.Creator.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/scenes.png">
     <Window.DataContext>
         <creator:SceneCreatorViewModel/>
     </Window.DataContext>
@@ -37,7 +37,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="BtnSave" BasedOn="{StaticResource AccentedSquareButtonStyle}" >
+        <Style TargetType="{x:Type Button}" x:Key="BtnSave">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=LbSelectedLights, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>

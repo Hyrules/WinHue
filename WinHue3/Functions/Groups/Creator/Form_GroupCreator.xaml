@@ -9,7 +9,7 @@
     xmlns:creator="clr-namespace:WinHue3.Functions.Groups.Creator"
     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
     x:Class="WinHue3.Functions.Groups.Creator.Form_GroupCreator"
-        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="600" MinWidth="800" BorderThickness="2">
+        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="600" MinWidth="800">
     <Window.Resources>
         <Style TargetType="{x:Type sliders:BindableListView}">
             <Setter Property="Validation.ErrorTemplate">

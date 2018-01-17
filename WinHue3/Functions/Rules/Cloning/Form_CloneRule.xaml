@@ -11,7 +11,7 @@
         xmlns:cloning="clr-namespace:WinHue3.Functions.Rules.Cloning"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.Form_CloneRule_Title}" Height="224.266" Width="311.742" ResizeMode="NoResize" BorderThickness="2">
+        Title="{x:Static resx:GUI.Form_CloneRule_Title}" Height="224.266" Width="311.742" ResizeMode="NoResize">
     <Window.DataContext>
         <cloning:CloneRuleViewModel/>
     </Window.DataContext>

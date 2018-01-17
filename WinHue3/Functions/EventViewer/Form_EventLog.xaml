@@ -4,7 +4,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:eventViewer="clr-namespace:WinHue3.Functions.EventViewer"
         x:Name="FormEventLogger" x:Class="WinHue3.Functions.EventViewer.Form_EventLog"
-    Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/eventlog.png" ResizeMode="CanResizeWithGrip" BorderThickness="2">
+    Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/eventlog.png" ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <eventViewer:EventViewerViewModel/>
     </Window.DataContext>

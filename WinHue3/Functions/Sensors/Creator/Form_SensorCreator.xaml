@@ -8,7 +8,7 @@
     xmlns:creator="clr-namespace:WinHue3.Functions.Sensors.Creator"
     x:Name="FormSensorCreator1" x:Class="WinHue3.Functions.Sensors.Creator.Form_SensorCreator"
     
-        Title="{x:Static resx:GUI.SensorCreatorForm_Title}" Height="301.175" Width="650.263" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.SensorCreatorForm_Title}" Height="301.175" Width="650.263" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.DataContext>
         <creator:SensorCreatorViewModel/>
     </Window.DataContext>
@@ -33,7 +33,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="BtnSave" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+        <Style TargetType="{x:Type Button}" x:Key="BtnSave">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding (Validation.HasError), ElementName=TbSensorName}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
