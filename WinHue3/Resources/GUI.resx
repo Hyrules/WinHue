@@ -1527,4 +1527,10 @@
   <data name="SettingsForm_Tab_MainSettings_MinimizeToTray" xml:space="preserve">
     <value>Minimize to Tray</value>
   </data>
+  <data name="PropertyGridForm_Title" xml:space="preserve">
+    <value>Properties of the selected object</value>
+  </data>
+  <data name="MainForm_Tab_View_PropertyGrid" xml:space="preserve">
+    <value>Property Grid</value>
+  </data>
 </root>

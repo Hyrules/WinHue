@@ -3,11 +3,13 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 using WinHue3.Functions.EventViewer;
+using WinHue3.Functions.PropertyGrid;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
 using WinHue3.Utils;
+using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace WinHue3.MainForm
 {
@@ -29,6 +31,7 @@ namespace WinHue3.MainForm
 
         public object IsMasterDebugger => System.Diagnostics.Debugger.IsAttached;
 
+        public Form_PropertyGrid PropertyGrid => _propertyGrid;
 
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated;
 

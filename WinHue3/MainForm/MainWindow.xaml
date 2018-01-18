@@ -18,7 +18,7 @@
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
     Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  
     ResizeMode="CanResizeWithGrip" x:Name="MainForm" BorderThickness="0" 
-    behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" StateChanged="MainForm_StateChanged"
+    behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" StateChanged="MainForm_StateChanged" Loaded="MainForm_Loaded"
     >
 
     <Window.Resources>
@@ -62,7 +62,7 @@
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <fluent:Ribbon x:Name="RbnMainRibbon" VerticalAlignment="Top" IsMinimized="False" DockPanel.Dock="Top" Grid.Row="0" Height="120" SelectedTabIndex="0" ScrollViewer.CanContentScroll="True" CanCustomizeQuickAccessToolBarItems="False" IsAutomaticCollapseEnabled="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" Margin="0,0,-0.333,0" Grid.RowSpan="2">
+        <fluent:Ribbon x:Name="RbnMainRibbon" VerticalAlignment="Top" IsMinimized="False" DockPanel.Dock="Top" Grid.Row="0" Height="120" SelectedTabIndex="0" ScrollViewer.CanContentScroll="True" CanCustomizeQuickAccessToolBarItems="False" IsAutomaticCollapseEnabled="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" Margin="0,0,-3,0" Grid.RowSpan="2">
             <fluent:Ribbon.Menu>
                 <fluent:Backstage>
                     <fluent:BackstageTabControl>
@@ -193,7 +193,9 @@
                         <ComboBoxItem Content="Ascending" Tag="{x:Static mainForm:WinHueSortOrder.Ascending}"/>
                         <ComboBoxItem Content="Descending" Tag="{x:Static mainForm:WinHueSortOrder.Descending}"/>
                     </fluent:ComboBox>
-
+                </fluent:RibbonGroupBox>
+                <fluent:RibbonGroupBox>
+                    <fluent:Button x:Name="PropertGrid" Command="{Binding ShowPropertyGridCommand}" LargeIcon="/WinHue3;component/Resources/propertygrid.png" Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}"/>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
             <fluent:RibbonTabItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -308,7 +310,7 @@
                       behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                       behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                       behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}">
-
+                      
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -358,8 +360,6 @@
                         </MenuItem>
                         <Separator/>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" x:Name="MnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" x:Name="MnuRenameObject" Command="{Binding RenameObjectCommand}"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.ItemsPanel>
@@ -456,17 +456,17 @@
                     <RowDefinition Height="auto" MinHeight="472"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="462" VerticalAlignment="Top">
+                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="462" VerticalAlignment="Top" Margin="0">
                     <Grid Height="65px">
                         <Label Content="Controls" HorizontalAlignment="Center" Width="350" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White"/>
-                        <ToggleButton Margin="10,27,320,10" Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off"/>
-                        <Button HorizontalAlignment="Left" Margin="315,30,0,0" VerticalAlignment="Top" Width="25" Padding="0" Height="25" ToolTip="Delete" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding DeleteObjectCommand}">
+                        <ToggleButton Margin="10,30,320,7" Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off"/>
+                        <Button HorizontalAlignment="Left" Margin="315,30,0,0" VerticalAlignment="Top" Width="25" Padding="0" Height="25" ToolTip="Delete" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding DeleteObjectCommand}" BorderThickness="0">
                             <Image Source="/WinHue3;component/Resources/close_delete.png" />
                         </Button>
-                        <Button HorizontalAlignment="Left" Margin="52,30,0,0" VerticalAlignment="Top" Width="25" Height="25" BorderBrush="{x:Null}" Background="{x:Null}" ToolTip="Edit" Padding="0" Command="{Binding EditObjectCommand}">
-                            <Image Source="/WinHue3;component/Resources/edit.png" />
+                        <Button HorizontalAlignment="Left" Margin="52,30,0,0" VerticalAlignment="Top" Width="25" Height="25" BorderBrush="{x:Null}" Background="Transparent" ToolTip="Edit" Padding="0" Command="{Binding EditObjectCommand}" BorderThickness="0">
+                            <Image Source="/WinHue3;component/Resources/edit.png"/>
                         </Button>
-                        <Button HorizontalAlignment="Left" Margin="82,30,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" ToolTip="Rename" Command="{Binding RenameObjectCommand}">
+                        <Button HorizontalAlignment="Left" Margin="82,30,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderBrush="Transparent" Padding="0" ToolTip="Rename" Command="{Binding RenameObjectCommand}" BorderThickness="0">
                             <Image Source="/WinHue3;component/Resources/rename.png"/>
                         </Button>
                     </Grid>
@@ -521,17 +521,6 @@
                     </Grid>
 
                 </StackPanel>
-                <xcad:DockingManager Margin="0,0,0,0.333" Grid.Row="1" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White">
-                    <xcad:LayoutRoot>
-                        <xcad:LayoutPanel>
-                            <xcad:LayoutAnchorablePane>
-                                <xcad:LayoutAnchorable Title="Properties" CanClose="False" CanHide="False" CanAutoHide="False">
-                                    <xctk:PropertyGrid x:Name="PgObject" ShowSummary="True" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" SnapsToDevicePixels="True" SelectedObject="{Binding SelectedObject}" Margin="0,0,0,2" VerticalContentAlignment="Stretch" IsReadOnly="True" Background="{x:Null}"  />
-                                </xcad:LayoutAnchorable>
-                            </xcad:LayoutAnchorablePane>
-                        </xcad:LayoutPanel>
-                    </xcad:LayoutRoot>
-                </xcad:DockingManager>
             </Grid>
         </Grid>
 

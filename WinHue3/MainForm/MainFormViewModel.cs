@@ -9,6 +9,7 @@ using Hardcodet.Wpf.TaskbarNotification;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys;
+using WinHue3.Functions.PropertyGrid;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
@@ -32,7 +33,8 @@ namespace WinHue3.MainForm
         private DispatcherTimer _ledTimer;
         private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
-        
+        private Form_PropertyGrid _propertyGrid;
+
         public MainFormViewModel()
         {
             
@@ -54,7 +56,7 @@ namespace WinHue3.MainForm
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;
-
+            _propertyGrid = new Form_PropertyGrid();
             Comm.Timeout = WinHueSettings.settings.Timeout;
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;

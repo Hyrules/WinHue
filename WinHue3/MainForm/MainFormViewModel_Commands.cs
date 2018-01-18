@@ -295,7 +295,7 @@ namespace WinHue3.MainForm
         public ICommand ViewBulbsCommand => new AsyncRelayCommand(param => ViewBulbs(), (param) => EnableButtons());
         public ICommand ViewGroupsCommand => new AsyncRelayCommand(param => ViewGroups(), (param) => EnableButtons());
         public ICommand SortListViewCommand => new AsyncRelayCommand(param => SortListView(), (param) => EnableButtons());
-
+        public ICommand ShowPropertyGridCommand => new RelayCommand(param => ShowPropertyGrid());
         //*************** StatusBar Commands ************************
         public ICommand ChangeBridgeCommand => new AsyncRelayCommand(param => ChangeBridge());
         public ICommand DoAppUpdateCommand=> new RelayCommand(param => DoAppUpdate());

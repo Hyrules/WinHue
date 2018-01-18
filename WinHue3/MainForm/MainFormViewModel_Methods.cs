@@ -1143,6 +1143,11 @@ namespace WinHue3.MainForm
             WinHueSettings.settings.Sort = MainFormModel.Sort;
         }
 
+        private void ShowPropertyGrid()
+        {
+            _propertyGrid.Show();
+        }
+
         #endregion
 
         #region HELP_TAB_METHODS
@@ -1237,6 +1242,7 @@ namespace WinHue3.MainForm
                         SelectedObject.GetType());
                     if (hr == null) return;
                     _selectedObject = hr;
+                    _propertyGrid.SelectedObject = hr;
                 }
             }
             SetMainFormModel();

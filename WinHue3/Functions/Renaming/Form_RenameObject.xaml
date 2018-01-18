@@ -5,7 +5,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:WinHue3.Resources"
-        Title="{x:Static resx:GUI.RenameObjectForm_Title}" Height="104" Width="373" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.RenameObjectForm_Title}" Height="104" Width="373" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid>
         <Label Content="{x:Static resx:GUI.RenameObjectForm_NewName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="72"/>
         <TextBox x:Name="TbNewName" HorizontalAlignment="Left" Height="23" Margin="87,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="261"/>

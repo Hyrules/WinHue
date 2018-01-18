@@ -2320,6 +2320,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property Grid.
+        /// </summary>
+        public static string MainForm_Tab_View_PropertyGrid {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_PropertyGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scenes Mapping.
         /// </summary>
         public static string MainForm_Tab_View_SceneMapping {
@@ -2550,6 +2559,15 @@ namespace WinHue3.Resources {
         public static string MoodCreatorForm_XYColorSpace {
             get {
                 return ResourceManager.GetString("MoodCreatorForm_XYColorSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Properties of the selected object.
+        /// </summary>
+        public static string PropertyGridForm_Title {
+            get {
+                return ResourceManager.GetString("PropertyGridForm_Title", resourceCulture);
             }
         }
         

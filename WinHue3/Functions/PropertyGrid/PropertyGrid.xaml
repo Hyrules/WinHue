@@ -1,0 +1,15 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Functions.PropertyGrid"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        x:Class="WinHue3.Functions.PropertyGrid.Form_PropertyGrid"
+        mc:Ignorable="d"
+        Title="{x:Static resx:GUI.PropertyGridForm_Title}" Height="600" Width="800" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
+    <Grid>
+        <xctk:PropertyGrid x:Name="PropertyGrid" Margin="0,0,0.333,-0.333"/>
+    </Grid>
+</Window>
