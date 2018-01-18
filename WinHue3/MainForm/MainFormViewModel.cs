@@ -48,6 +48,7 @@ namespace WinHue3.MainForm
             _ledTimer.Tick += _ledTimer_Tick;
             _lhk = new List<HotKeyHandle>();
             _listBridgeObjects = new ObservableCollection<IHueObject>();
+            _listBridgeObjects.CollectionChanged += _listBridgeObjects_CollectionChanged;
             _listBridges = new ObservableCollection<Bridge>();
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;
@@ -66,6 +67,16 @@ namespace WinHue3.MainForm
             //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
             //light.SetColor(65535, 65535, 65535, 32768, 3000);
             // LifxResponse p = light.SetPower(32000, 3000);
+        }
+
+        private void _listBridgeObjects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {            
+            RaisePropertyChanged("Lights");
+            RaisePropertyChanged("Groups");
+            RaisePropertyChanged("Sensors");
+            RaisePropertyChanged("Schedules");
+            RaisePropertyChanged("ResourceLinks");
+            RaisePropertyChanged("Scenes");
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)

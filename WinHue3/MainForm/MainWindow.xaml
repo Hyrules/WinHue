@@ -24,8 +24,33 @@
     <Window.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
-
-        <Style TargetType="{x:Type TextBlock}" x:Key="TbWrap">
+        <Style x:Key="TabHeaderStyle" TargetType="">
+            
+        </Style>
+        <ItemsPanelTemplate x:Key="HueIconPanelTemplate">
+            <!-- TODO: VALIDATE FUNCTIONNING -->
+            <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5">
+                <WrapPanel.Style>
+                    <Style TargetType="WrapPanel">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding visible}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </WrapPanel.Style>
+            </WrapPanel>
+        </ItemsPanelTemplate>
+        <Style x:Key="HueIconListViewItemStyle" TargetType="{x:Type ListViewItem}" >
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding visible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="TbWrap" TargetType="{x:Type TextBlock}" >
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="Width" Value="auto"/>
             <Style.Triggers>
@@ -35,7 +60,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="{x:Type TextBox}" x:Key="TbxWrap">
+        <Style x:Key="TbxWrap" TargetType="{x:Type TextBox}" >
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="Width" Value="auto"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -49,7 +74,25 @@
             </Style.Triggers>
 
         </Style>
-
+        <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
+            <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBox Text="{Binding name}" Style="{StaticResource TbxWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold" IsReadOnly="True"/>
+                <!--<TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>-->
+                <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource TbWrap}" TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </WrapPanel>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.DataContext>
@@ -295,7 +338,62 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
+            <TabControl TabStripPlacement="Left" Margin="0,0,0,-0.333">
+                <TabItem Header="Lights" FontWeight="Bold" FontSize="18" Margin="0">
+                    <ListView
+                        ItemTemplate="{StaticResource HueIcon}"
+                        ItemsPanel="{StaticResource HueIconPanelTemplate}"
+                        ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
+                        ItemsSource="{Binding Lights}" BorderBrush="White" BorderThickness="0">
+                        
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Groups" FontWeight="Bold" FontSize="18" Margin="0">
+                    <ListView
+                        ItemTemplate="{StaticResource HueIcon}"
+                        ItemsPanel="{StaticResource HueIconPanelTemplate}"
+                        ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
+                        ItemsSource="{Binding Groups}" BorderBrush="White" BorderThickness="0">
 
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Schedules" FontWeight="Bold" FontSize="18" Margin="0">
+                    <ListView
+                        ItemTemplate="{StaticResource HueIcon}"
+                        ItemsPanel="{StaticResource HueIconPanelTemplate}"
+                        ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
+                        ItemsSource="{Binding Schedules}" BorderBrush="White" BorderThickness="0">
+
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Sensors" FontWeight="Bold" FontSize="18" Margin="0">
+                    <ListView
+                        ItemTemplate="{StaticResource HueIcon}"
+                        ItemsPanel="{StaticResource HueIconPanelTemplate}"
+                        ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
+                        ItemsSource="{Binding Sensors}" BorderBrush="White" BorderThickness="0">
+
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Schedules" FontWeight="Bold" FontSize="18" Margin="0">
+                    <ListView
+                        ItemTemplate="{StaticResource HueIcon}"
+                        ItemsPanel="{StaticResource HueIconPanelTemplate}"
+                        ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
+                        ItemsSource="{Binding Schedules}" BorderBrush="White" BorderThickness="0">
+
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Resource Links" FontWeight="Bold" FontSize="18" Margin="0">
+                    <ListView
+                        ItemTemplate="{StaticResource HueIcon}"
+                        ItemsPanel="{StaticResource HueIconPanelTemplate}"
+                        ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
+                        ItemsSource="{Binding ResourceLinks}" BorderBrush="White" BorderThickness="0">
+
+                    </ListView>
+                </TabItem>
+            </TabControl>
             <ListView x:Name="LvMainObjects" HorizontalAlignment="Stretch" 
                       ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
@@ -309,8 +407,13 @@
                       behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
                       behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                       behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                      behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}">
-                      
+                      behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
+                      Visibility="Collapsed"
+                      ItemTemplate="{StaticResource HueIcon}"
+                      ItemsPanel="{StaticResource HueIconPanelTemplate}"
+                      ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
+                      >
+
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -362,54 +465,6 @@
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" x:Name="MnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
                     </ContextMenu>
                 </ListView.ContextMenu>
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <!-- TODO: VALIDATE FUNCTIONNING -->
-                        <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5">
-                            <WrapPanel.Style>
-                                <Style TargetType="WrapPanel">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding visible}" Value="False">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </WrapPanel.Style>
-                        </WrapPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding visible}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="common:IHueObject">
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBox Text="{Binding name}" Style="{StaticResource TbxWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold" IsReadOnly="True"/>
-                            <!--<TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>-->
-                            <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
-                                <TextBlock.Style>
-                                    <Style BasedOn="{StaticResource TbWrap}" TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
@@ -522,6 +577,7 @@
 
                 </StackPanel>
             </Grid>
+
         </Grid>
 
         <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="trayicon_TrayMouseDoubleClick" Margin="0,0,-0.333,0" Grid.RowSpan="2" >

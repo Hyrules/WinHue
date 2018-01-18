@@ -9,7 +9,14 @@ using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
 using WinHue3.Utils;
+using System.Linq;
 using Xceed.Wpf.Toolkit.PropertyGrid;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
+using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 
 namespace WinHue3.MainForm
 {
@@ -37,6 +44,18 @@ namespace WinHue3.MainForm
 
         public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
 
+        public ObservableCollection<Light> Lights => new ObservableCollection<Light>(_listBridgeObjects.OfType<Light>());
+
+        public ObservableCollection<Group> Groups => new ObservableCollection<Group>(_listBridgeObjects.OfType<Group>());
+
+        public ObservableCollection<Scene> Scenes => new ObservableCollection<Scene>(_listBridgeObjects.OfType<Scene>());
+
+        public ObservableCollection<Sensor> Sensors => new ObservableCollection<Sensor>(_listBridgeObjects.OfType<Sensor>());
+
+        public ObservableCollection<Schedule> Schedules => new ObservableCollection<Schedule>(_listBridgeObjects.OfType<Schedule>());
+
+       // public ObservableCollection<Resourcelink> ResourceLinks => new ObservableCollection<ResourceLink>(_listBridgeObjects.OfType<ResourceLink>());
+
         public ObservableCollection<IHueObject> ListBridgeObjects
         {
             get => _listBridgeObjects;
@@ -62,7 +81,15 @@ namespace WinHue3.MainForm
         public IHueObject SelectedObject
         {
             get => _selectedObject;
-            set => SetProperty(ref _selectedObject,value);
+            set {
+                SetProperty(ref _selectedObject, value);
+                RaisePropertyChanged("Lights");
+                RaisePropertyChanged("Groups");
+                RaisePropertyChanged("Sensors");
+                RaisePropertyChanged("Schedules");
+                RaisePropertyChanged("ResourceLinks");
+                RaisePropertyChanged("Scenes");
+            }
         }
 
         public Form_EventLog Eventlogform
