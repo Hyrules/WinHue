@@ -27,6 +27,8 @@ namespace WinHue3.MainForm
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
+        private bool _visibleTabs;
+
         //private bool _editName;
 
         [RefreshProperties(RefreshProperties.All)]
@@ -40,7 +42,7 @@ namespace WinHue3.MainForm
 
         public Form_PropertyGrid PropertyGrid => _propertyGrid;
 
-        private bool CanRunTempPlugin => UacHelper.IsProcessElevated;
+        private bool CanRunTempPlugin => UacHelper.IsProcessElevated();
 
         public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
 
@@ -54,7 +56,7 @@ namespace WinHue3.MainForm
 
         public ObservableCollection<Schedule> Schedules => new ObservableCollection<Schedule>(_listBridgeObjects.OfType<Schedule>());
 
-       // public ObservableCollection<Resourcelink> ResourceLinks => new ObservableCollection<ResourceLink>(_listBridgeObjects.OfType<ResourceLink>());
+        public ObservableCollection<Resourcelink> ResourceLinks => new ObservableCollection<Resourcelink>(_listBridgeObjects.OfType<Resourcelink>());
 
         public ObservableCollection<IHueObject> ListBridgeObjects
         {
@@ -150,5 +152,7 @@ namespace WinHue3.MainForm
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
+
+        public bool VisibleTabs { get => _visibleTabs; set => SetProperty(ref _visibleTabs,value); }
     }
 }

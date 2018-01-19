@@ -238,6 +238,12 @@
                 <fluent:RibbonGroupBox>
                     <fluent:Button x:Name="PropertGrid" Command="{Binding ShowPropertyGridCommand}" LargeIcon="/WinHue3;component/Resources/propertygrid.png" Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}"/>
                 </fluent:RibbonGroupBox>
+                <fluent:RibbonGroupBox>
+                    <fluent:ComboBox x:Name="RcbMainView" Header="Main View" IsEditable="False" SelectedValue="{Binding VisibleTabs}" SelectedValuePath="Tag">
+                        <ComboBoxItem Content="Tabs" Tag="True"/>
+                        <ComboBoxItem Content="List" Tag="False"/>
+                    </fluent:ComboBox>
+                </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
             <fluent:RibbonTabItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <fluent:RibbonGroupBox>
@@ -337,6 +343,16 @@
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
             <TabControl TabStripPlacement="Left" Margin="0,0,0,-0.333">
+                <TabControl.Style>
+                    <Style TargetType="TabControl">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VisibleTabs}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabControl.Style>
                 <TabItem Header="Lights" FontWeight="Bold" FontSize="18" Margin="0">
                     <ListView
                         ItemTemplate="{StaticResource HueIcon}"
@@ -396,8 +412,8 @@
                       ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       SelectedItem="{Binding SelectedObject}" 
-                      ContextMenuOpening="lvMainObjects_ContextMenuOpening" 
-                      SelectionChanged="lvMainObjects_SelectionChanged" 
+                      ContextMenuOpening="LvMainObjects_ContextMenuOpening" 
+                      SelectionChanged="LvMainObjects_SelectionChanged" 
                       SelectionMode="Single" 
                       VerticalContentAlignment="Stretch" Grid.Column="0" 
                       IsEnabled="{Binding EnableListView}" BorderThickness="0" 
@@ -406,12 +422,20 @@
                       behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                       behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                       behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                      Visibility="Collapsed"
                       ItemTemplate="{StaticResource HueIcon}"
                       ItemsPanel="{StaticResource HueIconPanelTemplate}"
                       ItemContainerStyle="{StaticResource HueIconListViewItemStyle}"
                       >
-
+                <ListView.Style>
+                    <Style TargetType="ListView">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VisibleTabs}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.Style>
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -578,7 +602,7 @@
 
         </Grid>
 
-        <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="trayicon_TrayMouseDoubleClick" Margin="0,0,-0.333,0" Grid.RowSpan="2" >
+        <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" Margin="0,0,-0.333,0" Grid.RowSpan="2" >
             <!--<tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Lights" x:Name="mnuLights"/>

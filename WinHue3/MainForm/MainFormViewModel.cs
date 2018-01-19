@@ -170,7 +170,7 @@ namespace WinHue3.MainForm
                             ApiKey = b.Value.apikey,
                             ApiVersion = b.Value.apiversion,
                             IpAddress = IPAddress.Parse(b.Value.ip),
-                            name = b.Value.name,
+                            Name = b.Value.name,
                             IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
                             SwVersion = b.Value.swversion,
                             Mac = b.Key

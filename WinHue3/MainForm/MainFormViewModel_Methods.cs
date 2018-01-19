@@ -72,10 +72,10 @@ namespace WinHue3.MainForm
                 if (bresult != null)
                 {
                     string newname = bresult.name;
-                    if (SelectedBridge.name != newname)
+                    if (SelectedBridge.Name != newname)
                     {
-                        SelectedBridge.name = newname;
-                        ListBridges[ListBridges.IndexOf(SelectedBridge)].name = newname;
+                        SelectedBridge.Name = newname;
+                        ListBridges[ListBridges.IndexOf(SelectedBridge)].Name = newname;
                         Bridge selbr = SelectedBridge;
                         SelectedBridge = null;
                         SelectedBridge = selbr;
@@ -123,11 +123,11 @@ namespace WinHue3.MainForm
                         apikey = br.ApiKey,
                         apiversion = br.ApiVersion,
                         swversion = br.SwVersion,
-                        name = br.name,
+                        name = br.Name,
                     };
                 else
                     WinHueSettings.bridges.BridgeInfo.Add(br.Mac,
-                        new BridgeSaveSettings { ip = br.IpAddress.ToString(), apikey = br.ApiKey, apiversion = br.ApiVersion, swversion = br.SwVersion, name = br.name });
+                        new BridgeSaveSettings { ip = br.IpAddress.ToString(), apikey = br.ApiKey, apiversion = br.ApiVersion, swversion = br.SwVersion, name = br.Name });
 
                 if (br.IsDefault) WinHueSettings.bridges.DefaultBridge = br.Mac;
             }
@@ -140,8 +140,10 @@ namespace WinHue3.MainForm
 
         private void CreateAdvanced()
         {
-            Form_AdvancedCreator fac = new Form_AdvancedCreator(SelectedBridge);
-            fac.Owner = Application.Current.MainWindow;
+            Form_AdvancedCreator fac = new Form_AdvancedCreator(SelectedBridge)
+            {
+                Owner = Application.Current.MainWindow,
+            };
             fac.OnObjectCreated += Fac_OnObjectCreated;
             fac.Show();
         }
@@ -830,9 +832,9 @@ namespace WinHue3.MainForm
         private void SetMainFormModel()
         {
             
-            if (_selectedObject is Light)
+            if (_selectedObject is Light light)
             {
-                Light light = (Light) _selectedObject;
+                light = (Light) _selectedObject;
                 
                 MainFormModel.SliderBri = light.state.bri ?? 0;
                 MainFormModel.SliderHue = light.state.hue ?? 0;
@@ -842,21 +844,21 @@ namespace WinHue3.MainForm
                 MainFormModel.SliderY = light.state.xy?[1] ?? 0;
                 MainFormModel.On = light.state.on ?? false;
             }
-            else if (_selectedObject is Group)
+            else if (_selectedObject is Group group)
             {
-                Group light = (Group)_selectedObject;
+                group = (Group)_selectedObject;
                 
-                MainFormModel.SliderBri = light.action.bri ?? 0;
-                MainFormModel.SliderHue = light.action.hue ?? 0;
-                MainFormModel.SliderSat = light.action.sat ?? 0;
-                MainFormModel.SliderCt = light.action.ct ?? 153;
-                MainFormModel.SliderX = light.action.xy?[0] ?? 0;
-                MainFormModel.SliderY = light.action.xy?[1] ?? 0;
-                MainFormModel.On = light.action.on ?? false;
+                MainFormModel.SliderBri = group.action.bri ?? 0;
+                MainFormModel.SliderHue = group.action.hue ?? 0;
+                MainFormModel.SliderSat = group.action.sat ?? 0;
+                MainFormModel.SliderCt = group.action.ct ?? 153;
+                MainFormModel.SliderX = group.action.xy?[0] ?? 0;
+                MainFormModel.SliderY = group.action.xy?[1] ?? 0;
+                MainFormModel.On = group.action.on ?? false;
             }
-            else if (_selectedObject is Scene)
+            else if (_selectedObject is Scene scene)
             {
-                Scene scene = (Scene) _selectedObject;
+                scene = (Scene) _selectedObject;
                 MainFormModel.On = scene.On;
             }
             else
@@ -927,9 +929,9 @@ namespace WinHue3.MainForm
                     await RefreshObject(_selectedObject);
                 }
             }
-            else if (_selectedObject is Sensor)
+            else if (_selectedObject is Sensor obj)
             {
-                Sensor obj = (Sensor)_selectedObject;
+                obj = (Sensor)_selectedObject;
                 switch (obj.modelid)
                 {
                     case "PHDL00":
@@ -1266,14 +1268,16 @@ namespace WinHue3.MainForm
 
         private void LoadVirtualBridge()
         {
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "Text files (*.txt)|*.txt";
+            OpenFileDialog fd = new OpenFileDialog
+            {
+                Filter = "Text files (*.txt)|*.txt"
+            };
             if (fd.ShowDialog() == DialogResult.OK)
             {
                 string file = File.ReadAllText(fd.FileName);
                 DataStore ds = JsonConvert.DeserializeObject<DataStore>(file);
                 List<IHueObject> hueobjects = HueObjectHelper.ProcessDataStore(ds);
-                Bridge vbridge = new Bridge() {Virtual = true, name = "Virtual Bridge", RequiredUpdate = false};
+                Bridge vbridge = new Bridge() {Virtual = true, Name = "Virtual Bridge", RequiredUpdate = false};
                 ListBridges.Add(vbridge);
                 SelectedBridge = vbridge;
                 ListBridgeObjects = new ObservableCollection<IHueObject>(hueobjects);

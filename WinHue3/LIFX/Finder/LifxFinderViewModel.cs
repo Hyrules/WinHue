@@ -18,7 +18,7 @@ namespace WinHue3.LIFX.Finder
         public LifxFinderViewModel()
         {
             _isFinding = false;
-            Devices = new ObservableCollection<LifxDevice>();
+            _devices = new ObservableCollection<LifxDevice>();
         }
 
         public ICommand FindLifxDeviceCommand => new AsyncRelayCommand(param => FindLifxDevice(), (param) => CanFindLifxDevice());

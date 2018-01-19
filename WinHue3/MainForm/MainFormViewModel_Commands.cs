@@ -64,9 +64,8 @@ namespace WinHue3.MainForm
         private bool CanHue()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light)
+            if (SelectedObject is Light light)
             {
-                Light light = ((Light)SelectedObject);
                 if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
@@ -80,9 +79,8 @@ namespace WinHue3.MainForm
         private bool CanBri()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light)
+            if (SelectedObject is Light light)
             {
-                Light light = ((Light)SelectedObject);
                 if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
@@ -96,9 +94,8 @@ namespace WinHue3.MainForm
         private bool CanCt()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light)
+            if (SelectedObject is Light light)
             {
-                Light light = ((Light)SelectedObject);
                 if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
@@ -112,9 +109,8 @@ namespace WinHue3.MainForm
         private bool CanSat()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light)
+            if (SelectedObject is Light light)
             {
-                Light light = ((Light)SelectedObject);
                 if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
@@ -128,9 +124,8 @@ namespace WinHue3.MainForm
         private bool CanXy()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light)
+            if (SelectedObject is Light light)
             {
-                Light light = ((Light)SelectedObject);
                 if (light.state.reachable == false) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
@@ -149,9 +144,8 @@ namespace WinHue3.MainForm
         private bool CanIdentify()
         {
             if (SelectedObject is Group) return true;
-            if (SelectedObject is Light)
+            if (SelectedObject is Light light)
             {
-                Light light = ((Light)SelectedObject);
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canalert;
             }
             return false;

@@ -5,7 +5,7 @@ using NAudio.Wave;
 
 namespace WinHue3.Addons.Clapper
 {
-    public class Clapper
+    public class Clapper : IDisposable
     {
         private float bigValue;
         WaveIn waveIn;
@@ -13,6 +13,8 @@ namespace WinHue3.Addons.Clapper
         private int clapcount = 0;
         private bool isrunning = false;
         DispatcherTimer dt = new DispatcherTimer();
+        private bool _disposed = false;
+
         public Clapper()
         {
             dt.Interval = new TimeSpan(0,0,0,0,5000);
@@ -42,7 +44,7 @@ namespace WinHue3.Addons.Clapper
             //load in the deviceinfo using the GetCapabilties function
 
             waveIn.DeviceNumber = 0;
-            waveIn.DataAvailable += new EventHandler<WaveInEventArgs>(waveIn_DataAvailable);
+            waveIn.DataAvailable += new EventHandler<WaveInEventArgs>(WaveIn_DataAvailable);
             int sampleRate = 8000; // 8 kHz
             int channels = 1; // mono
             waveIn.WaveFormat = new WaveFormat(sampleRate, channels);
@@ -63,7 +65,7 @@ namespace WinHue3.Addons.Clapper
 
         }
 
-        void waveIn_DataAvailable(object sender, WaveInEventArgs e)
+        void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
             float sample32 = 0;
             for (int index = 0; index < e.BytesRecorded; index += 5)
@@ -97,7 +99,24 @@ namespace WinHue3.Addons.Clapper
 
         }
 
-        
-       
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    Stop();
+                    waveIn.Dispose();
+                }
+
+                _disposed = true;
+            }
+        }
     }
 }

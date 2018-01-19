@@ -22,7 +22,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         private bool? _requiredUpdate;
         private bool _updateAvailable;
         private bool _virtual;
-
+        
         /// <summary>
         /// Api Key to access the bridge. If the application is not autorized the api key will not be set.
         /// </summary>
@@ -41,7 +41,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             set => SetProperty(ref _isdefault,value);
         }
 
-        public string name
+        public string Name
         {
             get => _name;
             set => SetProperty(ref _name, value);
@@ -83,7 +83,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             set => SetProperty(ref _ipAddress,value);
         }
 
-        public string LongName => $"{name} ({IpAddress})";
+        public string LongName => $"{Name} ({IpAddress})";
 
         /// <summary>
         /// Return the full url with IP Address and Api key to the bridge.

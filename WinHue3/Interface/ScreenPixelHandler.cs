@@ -7,11 +7,7 @@ namespace WinHue3.Interface
 {
     public static class ScreenPixelHandler 
     {
-        [DllImport("user32.dll")]
-        private static extern bool GetCursorPos(ref Point lpPoint);
 
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-        private static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
 
         static readonly Bitmap screenPixel;
 
@@ -27,7 +23,7 @@ namespace WinHue3.Interface
         public static System.Drawing.Color GetColorAtCursor()
         {
             Point cursor = new Point();
-            GetCursorPos(ref cursor);
+            NativeMethods.GetCursorPos(ref cursor);
             
             using (Graphics gdest = Graphics.FromImage(screenPixel))
             {
@@ -35,7 +31,7 @@ namespace WinHue3.Interface
                 {
                     IntPtr hSrcDC = gsrc.GetHdc();
                     IntPtr hDC = gdest.GetHdc();
-                    int retval = BitBlt(hDC, 0, 0, 1, 1, hSrcDC, cursor.X, cursor.Y, (int)CopyPixelOperation.SourceCopy);
+                    int retval = NativeMethods.BitBlt(hDC, 0, 0, 1, 1, hSrcDC, cursor.X, cursor.Y, (int)CopyPixelOperation.SourceCopy);
                     gdest.ReleaseHdc();
                     gsrc.ReleaseHdc();
                 }
@@ -44,6 +40,13 @@ namespace WinHue3.Interface
             return screenPixel.GetPixel(0, 0);
         }
 
+        internal static class NativeMethods
+        {
+            [DllImport("user32.dll")]
+            internal static extern bool GetCursorPos(ref Point lpPoint);
 
+            [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
+            internal static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
+        }
     }
 }

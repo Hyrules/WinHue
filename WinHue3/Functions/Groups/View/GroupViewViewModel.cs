@@ -12,13 +12,14 @@ using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Functions.Groups.View
 {
-    public class GroupViewViewModel : ValidatableBindableBase
+    public class GroupViewViewModel : ValidatableBindableBase, IDisposable
     {
         private List<Group> _groups;
         private List<Light> _lights;
         private DataTable _dt;
         private string _filter;
         private bool _reverse;
+        private bool _disposed = false;
 
         public GroupViewViewModel()
         {
@@ -221,5 +222,23 @@ namespace WinHue3.Functions.Groups.View
             }*/
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    _dt.Dispose();
+                }
+
+                _disposed = true;
+            }
+        }
     }
 }

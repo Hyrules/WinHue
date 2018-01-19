@@ -231,7 +231,7 @@ namespace WinHue3.Functions.BridgePairing
                 {
                     Bridge firstOrDefault = ListBridges.FirstOrDefault(x => x.Mac == kvp.Value.Mac);
                     if (firstOrDefault == null ||
-                        MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.name),
+                        MessageBox.Show(string.Format(GlobalStrings.Bridge_IP_Different, firstOrDefault.Name),
                             GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) !=
                         MessageBoxResult.Yes) continue;
                     int index = ListBridges.IndexOf(firstOrDefault);

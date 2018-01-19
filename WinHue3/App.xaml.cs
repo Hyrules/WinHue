@@ -48,7 +48,7 @@ namespace WinHue3
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version} started");
-            Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated}");
+            Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated()}");
             MainForm.MainWindow wnd = new MainForm.MainWindow(_fel);
          
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight

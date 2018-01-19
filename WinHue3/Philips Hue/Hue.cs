@@ -71,7 +71,7 @@ namespace WinHue3.Philips_Hue
                             BasicConfig bresult = bridge.GetBridgeBasicConfig();
                             if (bresult != null)
                             {
-                                log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
+                                log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
                                 newdetectedBridge.Add(dev.RootHostName, bresult);
                             }
 
@@ -110,7 +110,7 @@ namespace WinHue3.Philips_Hue
                             BasicConfig bresult = bridge.GetBridgeBasicConfig();
                             if (bresult != null)
                             {
-                                log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
+                                log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
                                 newdetectedBridge.Add(dev.internalipaddress, bresult);
                             }
                             
@@ -137,7 +137,7 @@ namespace WinHue3.Philips_Hue
                 Mac = kvp.Value.mac,
                 ApiVersion = kvp.Value.apiversion,
                 SwVersion = kvp.Value.swversion,
-                name = kvp.Value.name ?? ""
+                Name = kvp.Value.name ?? ""
             }).ToDictionary(p => p.Mac, p => p);
 
             // Process all bridges to get needed settings.
@@ -244,17 +244,17 @@ namespace WinHue3.Philips_Hue
                             if (!newlist.Any(y => Equals(y.Value.IpAddress, ipArray)))
                             {
 
-                                log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
+                                log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
                                 newlist.Add(desc.mac,bridge);
                             }
                             else
                             {
-                                log.Info($"Bridge {bridge.name} at {bridge.IpAddress} already in the list ignoring...");
+                                log.Info($"Bridge {bridge.Name} at {bridge.IpAddress} already in the list ignoring...");
                             }
                         }
                         else
                         {
-                            log.Info($"Bridge found : {bridge.name} at {bridge.IpAddress} ");
+                            log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
                             newlist.Add(desc.mac,bridge);
                         }
                         break;

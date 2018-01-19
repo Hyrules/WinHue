@@ -9,8 +9,7 @@ namespace WinHue3.Interface
 {
     public static class GDIManager
     {
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        private static extern bool DeleteObject(IntPtr hObject);
+
 
         public static ImageSource CreateImageSourceFromImage(Bitmap img)
         {
@@ -18,13 +17,19 @@ namespace WinHue3.Interface
             {
                 IntPtr pointer = img.GetHbitmap();
                 ImageSource imgsource = Imaging.CreateBitmapSourceFromHBitmap(pointer, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                DeleteObject(pointer);
+                NativeMethods.DeleteObject(pointer);
                 return imgsource;
             }
             catch (Exception)
             {
                 return null;
             }
+        }
+
+        internal static class NativeMethods
+        {
+            [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+            internal static extern bool DeleteObject(IntPtr hObject);
         }
     }
 }

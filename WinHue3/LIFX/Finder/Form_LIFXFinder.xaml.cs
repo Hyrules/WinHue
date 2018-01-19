@@ -20,7 +20,7 @@ namespace WinHue3.LIFX.Finder
 
         }
 
-        private void btnDone_Click(object sender, RoutedEventArgs e)
+        private void BtnDone_Click(object sender, RoutedEventArgs e)
         {
             ObservableCollection<LifxDevice> dev = _lfvm.Devices;
             foreach (LifxDevice l in dev)

@@ -42,7 +42,7 @@ namespace WinHue3.MainForm
         }
 
 
-        private void lvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private void LvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             if (_mfvm.SelectedObject == null) e.Handled = true;
         }
@@ -94,14 +94,14 @@ namespace WinHue3.MainForm
             }
         }
 
-        private void lvMainObjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LvMainObjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             log.Debug("Clearing light bg color.");
             ClearBackgroundColor();
             if (LvMainObjects.SelectedItem == null) return;
-            if (LvMainObjects.SelectedItem is Resourcelink)
+            if (LvMainObjects.SelectedItem is Resourcelink rl)
             {
-                Resourcelink rl = (Resourcelink) LvMainObjects.SelectedItem;
+                rl = (Resourcelink) LvMainObjects.SelectedItem;
                 List<IHueObject> listhue = new List<IHueObject>();
                 List<IHueObject> bo = new List<IHueObject>(LvMainObjects.Items.OfType<IHueObject>());
                 foreach (string s in rl.links)
@@ -124,7 +124,7 @@ namespace WinHue3.MainForm
             SetLightBackground(list);
         }
 
-        private void trayicon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
+        private void Trayicon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
         {
             Visibility = this.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
 

@@ -1533,4 +1533,7 @@
   <data name="MainForm_Tab_View_PropertyGrid" xml:space="preserve">
     <value>Tableau des propriétés</value>
   </data>
+  <data name="Mainform_Tab_Bridges" xml:space="preserve">
+    <value>Passerelles</value>
+  </data>
 </root>

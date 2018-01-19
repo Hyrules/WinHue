@@ -128,23 +128,24 @@ namespace WinHue3.Addons.RssFeedMonitor
     }
 
     [DataContract]
-    public class Monitor
+    public class Monitor : IDisposable
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [JsonIgnore] private DispatcherTimer timer;
         private WebClient wc;
         private bool silent;
+        private bool _disposed = false;
 
         [DataMember]
-        public string url { get; set; }
+        public string Url { get; set; }
 
         public Monitor()
         {
             timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan(0, 0, 0, 300);
-            conditions = new List<MonitorCondition>();
+            Conditions = new List<MonitorCondition>();
             wc = new WebClient();
             wc.DownloadStringCompleted += Wc_DownloadStringCompleted;
         }
@@ -162,10 +163,10 @@ namespace WinHue3.Addons.RssFeedMonitor
         public bool Running => timer.IsEnabled;
 
         [DataMember]
-        public List<MonitorCondition> conditions { get; set; }
+        public List<MonitorCondition> Conditions { get; set; }
 
         [DataMember]
-        public MonitorAction action { get; set; }
+        public MonitorAction Action { get; set; }
 
 
         public bool Silent
@@ -187,7 +188,7 @@ namespace WinHue3.Addons.RssFeedMonitor
         private void Timer_Tick(object sender, EventArgs e)
         {
             timer.Stop();
-            wc.DownloadStringAsync(new Uri(url));
+            wc.DownloadStringAsync(new Uri(Url));
 
         }
 
@@ -223,11 +224,11 @@ namespace WinHue3.Addons.RssFeedMonitor
         {
             bool conditionmet = false;
 
-            foreach (var c in conditions)
+            foreach (var c in Conditions)
             {
-                PropertyInfo pi = si.GetType().GetProperty(c.element);
+                PropertyInfo pi = si.GetType().GetProperty(c.Element);
 
-                switch (c.op)
+                switch (c.Op)
                 {
                     case MonitorCondition.OpType.Greater:
                         
@@ -245,11 +246,31 @@ namespace WinHue3.Addons.RssFeedMonitor
             }
 
             if(conditionmet)
-                OnConditionMet?.Invoke(this, new ConditionMetEventArgs(action));
+                OnConditionMet?.Invoke(this, new ConditionMetEventArgs(Action));
             
         }
 
-      //  public static bool FindConditionGreater()
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    StopMonitor();
+                    wc.Dispose();
+                }
+
+                _disposed = true;
+            }
+        }
+
+        //  public static bool FindConditionGreater()
 
         public delegate void ConditionMetHandler(object sender, ConditionMetEventArgs e);
         public event ConditionMetHandler OnConditionMet;
@@ -276,13 +297,13 @@ namespace WinHue3.Addons.RssFeedMonitor
         };
 
         [DataMember]
-        public string element { get; set; }
+        public string Element { get; set; }
 
         [DataMember]
-        public OpType op { get; set; }
+        public OpType Op { get; set; }
 
         [DataMember]
-        public string value { get; set; }
+        public string Value { get; set; }
     }
 
     public class ConditionMetEventArgs : EventArgs
