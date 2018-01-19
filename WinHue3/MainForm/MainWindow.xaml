@@ -342,7 +342,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <TabControl TabStripPlacement="Left" Margin="0,0,0,-0.333">
+            <TabControl TabStripPlacement="Left" Margin="0,0,0,-0.333" HorizontalContentAlignment="Left">
+                <TabControl.ItemContainerStyle>
+                    <Style TargetType="TabItem">
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </TabControl.ItemContainerStyle>
                 <TabControl.Style>
                     <Style TargetType="TabControl">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -353,7 +359,36 @@
                         </Style.Triggers>
                     </Style>
                 </TabControl.Style>
-                <TabItem Header="Lights" FontWeight="Bold" FontSize="18" Margin="0">
+                <TabItem Margin="0">
+                    <TabItem.Header>
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="Lights" FontWeight="Bold" FontSize="18"/>
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=IsSelected}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Button Grid.Row="0" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}" BorderThickness="0" Margin="10,0,0,0" />
+                                <Button Grid.Row="1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Command="{Binding AllOffCommand}" IsManipulationEnabled="True" BorderThickness="0" Margin="10,0,0,0"/>
+                            </Grid>
+                        </Grid>
+                    </TabItem.Header>
                     <ListView
                         ItemTemplate="{StaticResource HueIcon}"
                         ItemsPanel="{StaticResource HueIconPanelTemplate}"
