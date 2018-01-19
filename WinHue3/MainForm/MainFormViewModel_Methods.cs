@@ -233,7 +233,12 @@ namespace WinHue3.MainForm
                                 goto case WinHueSortOrder.Default;
                         }
                         CreateExpanders();
-
+                        RaisePropertyChanged("Lights");
+                        RaisePropertyChanged("Groups");
+                        RaisePropertyChanged("Sensors");
+                        RaisePropertyChanged("Schedules");
+                        RaisePropertyChanged("ResourceLinks");
+                        RaisePropertyChanged("Scenes");
                     }
                     else
                     {

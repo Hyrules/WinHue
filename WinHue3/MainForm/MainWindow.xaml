@@ -24,9 +24,7 @@
     <Window.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
-        <Style x:Key="TabHeaderStyle" TargetType="">
-            
-        </Style>
+
         <ItemsPanelTemplate x:Key="HueIconPanelTemplate">
             <!-- TODO: VALIDATE FUNCTIONNING -->
             <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5">
