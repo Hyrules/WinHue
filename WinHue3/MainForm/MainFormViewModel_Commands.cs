@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Reflection;
+using System.Windows.Input;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -59,6 +61,54 @@ namespace WinHue3.MainForm
         private bool CanSearchNewSensor()
         {
             return !_findsensortimer.IsEnabled ;
+        }
+
+        private void Expand(Type objecttype)
+        {
+            switch (objecttype)
+            {
+                case Type light when light == typeof(Light):
+                    break;
+                case Type group when group == typeof(Group):
+                    break;
+                case Type scene when scene == typeof(Scene):
+                    break;
+                case Type sensor when sensor == typeof(Sensor):
+                    break;
+                case Type schedule when schedule == typeof(Schedule):
+                    break;
+                case Type rl when rl == typeof(Resourcelink):
+                    break;
+                case Type rule when rule == typeof(Rule):
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+
+        private void Collapse(Type objecttype)
+        {
+            switch (objecttype)
+            {
+                case Type light when light == typeof(Light):
+                    break;
+                case Type group when group == typeof(Group):
+                    break;
+                case Type scene when scene == typeof(Scene):
+                    break;
+                case Type sensor when sensor == typeof(Sensor):
+                    break;
+                case Type schedule when schedule == typeof(Schedule):
+                    break;
+                case Type rl when rl == typeof(Resourcelink):
+                    break;
+                case Type rule when rule == typeof(Rule):
+                    break;
+                default:
+                    break;
+            }
         }
 
         private bool CanHue()
@@ -284,6 +334,8 @@ namespace WinHue3.MainForm
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new AsyncRelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());
         public ICommand ClickObjectCommand => new AsyncRelayCommand(param => ClickObject());
+        public ICommand ExpandCommand => new RelayCommand((param) => Expand((Type)param), (param) => EnableButtons());
+        public ICommand CollapseCommand => new RelayCommand((param) => Collapse((Type)param), (param) => EnableButtons());
         //*************** Views Commands ************************
         public ICommand ViewSceneMappingCommand => new AsyncRelayCommand(param => ViewSceneMapping(), (param) => EnableButtons());
         public ICommand ViewBulbsCommand => new AsyncRelayCommand(param => ViewBulbs(), (param) => EnableButtons());

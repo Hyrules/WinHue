@@ -27,7 +27,7 @@ namespace WinHue3.MainForm
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
-        private bool _visibleTabs;
+        private bool _visibleTabs = true;
 
         //private bool _editName;
 
@@ -45,18 +45,6 @@ namespace WinHue3.MainForm
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated();
 
         public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
-
-        public ObservableCollection<Light> Lights => new ObservableCollection<Light>(_listBridgeObjects.OfType<Light>());
-
-        public ObservableCollection<Group> Groups => new ObservableCollection<Group>(_listBridgeObjects.OfType<Group>());
-
-        public ObservableCollection<Scene> Scenes => new ObservableCollection<Scene>(_listBridgeObjects.OfType<Scene>());
-
-        public ObservableCollection<Sensor> Sensors => new ObservableCollection<Sensor>(_listBridgeObjects.OfType<Sensor>());
-
-        public ObservableCollection<Schedule> Schedules => new ObservableCollection<Schedule>(_listBridgeObjects.OfType<Schedule>());
-
-        public ObservableCollection<Resourcelink> ResourceLinks => new ObservableCollection<Resourcelink>(_listBridgeObjects.OfType<Resourcelink>());
 
         public ObservableCollection<IHueObject> ListBridgeObjects
         {
@@ -83,15 +71,7 @@ namespace WinHue3.MainForm
         public IHueObject SelectedObject
         {
             get => _selectedObject;
-            set {
-                SetProperty(ref _selectedObject, value);
-                RaisePropertyChanged("Lights");
-                RaisePropertyChanged("Groups");
-                RaisePropertyChanged("Sensors");
-                RaisePropertyChanged("Schedules");
-                RaisePropertyChanged("ResourceLinks");
-                RaisePropertyChanged("Scenes");
-            }
+            set => SetProperty(ref _selectedObject, value);
         }
 
         public Form_EventLog Eventlogform
