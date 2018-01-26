@@ -378,11 +378,59 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="118" />
+            <RowDefinition Height="81" />
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <fluent:Ribbon x:Name="RbnMainRibbon" VerticalAlignment="Top" IsMinimized="False" DockPanel.Dock="Top" Grid.Row="0" Height="120" SelectedTabIndex="0" ScrollViewer.CanContentScroll="True" CanCustomizeQuickAccessToolBarItems="False" IsAutomaticCollapseEnabled="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" Margin="0,0,-3,0" Grid.RowSpan="2">
+        <Menu Height="37" VerticalAlignment="Top">
+            <MenuItem >
+                <MenuItem.Header>
+                    <WrapPanel VerticalAlignment="Top">
+                        <Path  Data="M2,15.5L22,15.5 22,17.5 2,17.5 2,15.5z M2,10.5L22,10.5 22,12.5 2,12.5 2,10.5z M2,5.5L22,5.5 22,7.5 2,7.5 2,5.5z" Fill="black" Height="25"/>
+                        <Label Content="Menu" VerticalAlignment="Top" Padding="5,0" FontSize="17"></Label>
+                    </WrapPanel>
+                </MenuItem.Header>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" >
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/settings.png" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}" FontSize="17" >
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/pair-bridge.png" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_FindLifx}" Command="{Binding FindLifxDevicesCommand}" FontSize="17">
+                    <MenuItem.Icon>
+                        <Image></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" FontSize="17">
+                    <MenuItem.Style>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMasterDebugger}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Tools" FontSize="17">
+
+            </MenuItem>
+            <MenuItem Header="_View" FontSize="17">
+
+            </MenuItem>
+            <MenuItem Header="_Help" FontSize="17">
+
+            </MenuItem>
+        </Menu>
+        <fluent:Ribbon x:Name="RbnMainRibbon" VerticalAlignment="Top" IsMinimized="False" DockPanel.Dock="Top" Grid.Row="0" Height="23" SelectedTabIndex="0" ScrollViewer.CanContentScroll="True" CanCustomizeQuickAccessToolBarItems="False" IsAutomaticCollapseEnabled="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" Margin="0,0,-3,0" Visibility="Collapsed">
             <fluent:Ribbon.Menu>
                 <fluent:Backstage>
                     <fluent:BackstageTabControl>
@@ -463,6 +511,7 @@
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Name="refresh" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" >
                     <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}"  LargeIcon="/WinHue3;component/Resources/refreshMetro5.ico" Command="{Binding RefreshViewCommand}" SizeDefinition="Large,Large,Large"/>
+
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Name="creators" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}">
                     <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" LargeIcon="/WinHue3;component/Resources/HueGroupOn-Large.png"  Command="{Binding CreateGroupCommand}" SizeDefinition="Large,Large,Large"/>
@@ -522,7 +571,7 @@
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
         </fluent:Ribbon>
-        <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2" Margin="0,0.667,-0.333,0.333">
+        <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2" Margin="0,1,0,0">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -607,170 +656,11 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Grid.Row="1" Margin="0,2,-0.333,0.333">
+        <Grid Grid.Row="1" Margin="0,2,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Background="{StaticResource HeaderBackgroundBrush}" HorizontalAlignment="Stretch" CanVerticallyScroll="True">
-                <xctk:WatermarkTextBox Watermark="Search..." Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged }"/>
-                <Expander x:Name="ExpLights" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="{x:Static resx:GUI.ListView_lights}" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type lightObject:Light}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type lightObject:Light}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Style="{StaticResource LeftMenuButtonsStyle }" />
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Style="{StaticResource LeftMenuButtonsStyle}" />
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" Style="{StaticResource LeftMenuButtonsStyle}" />
-                    </WrapPanel>
-                </Expander>
-                <Expander x:Name="ExpGroups" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="{x:Static resx:GUI.ListView_groups}" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type groupObject:Group}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type groupObject:Group}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}" Style="{StaticResource LeftMenuButtonsStyle}" />
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" Style="{StaticResource LeftMenuButtonsStyle}" />
-                    </WrapPanel>
-                </Expander>
-                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="{x:Static resx:GUI.ListView_scenes}" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type sceneObject:Scene}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type sceneObject:Scene}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateSceneCommand}" />
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding ViewSceneMappingCommand}"></Button>
-                    </WrapPanel>
-                </Expander>
-                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="{x:Static resx:GUI.ListView_schedules}" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type scheduleObject:Schedule}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type scheduleObject:Schedule}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateScheduleCommand}" />
-                    </WrapPanel>
-                </Expander>
-                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="{x:Static resx:GUI.ListView_sensors}" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type newSensorsObject:Sensor}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type newSensorsObject:Sensor}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateSensorCommand}" />
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}"  ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}" Style="{StaticResource LeftMenuButtonsStyle}"/>
-                    </WrapPanel>
-                </Expander>
-                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="{x:Static resx:GUI.ListView_rules}" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateRuleCommand}" />
-                    </WrapPanel>
-                </Expander>
-                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="{x:Static resx:GUI.ListView_resourcelinks}" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateResourceLinkCommand}" />
-                    </WrapPanel>
-                </Expander>
-                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
-                    <Expander.Header>
-                        <WrapPanel >
-                            <Label Content="LIFX" Foreground="White"/>
-                        </WrapPanel>
-                    </Expander.Header>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-
-                    </WrapPanel>
-                </Expander>
-            </StackPanel>
-            <Button Grid.Column="0" Width="{Binding RelativeSource={RelativeSource AncestorType=WrapPanel}, Path=ActualWidth}" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" BorderThickness="0" Height="28" Background="{x:Null}" FontSize="16">
-                <WrapPanel VerticalAlignment="Top">
-                    <Path  Data="M2,15.5L22,15.5 22,17.5 2,17.5 2,15.5z M2,10.5L22,10.5 22,12.5 2,12.5 2,10.5z M2,5.5L22,5.5 22,7.5 2,7.5 2,5.5z" Fill="White" Height="25"/>
-                    <Label Content="Menu" VerticalAlignment="Top" Foreground="White" Padding="5,0"></Label>
-                </WrapPanel>
-            </Button>
             <ListView x:Name="LvMainObjects" 
                       ItemsSource="{Binding AllHueObjects, NotifyOnSourceUpdated=True}"  
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
@@ -779,13 +669,12 @@
                       SelectionChanged="LvMainObjects_SelectionChanged" 
                       SelectionMode="Single" 
                       VerticalContentAlignment="Stretch" Grid.Column="1" 
-                      IsEnabled="{Binding EnableListView}" BorderThickness="0" 
+                      IsEnabled="{Binding EnableListView}" 
                       behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
                       behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
                       behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                       behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                      behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                      
+                      behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"            
                       ItemsPanel="{StaticResource HueIconPanelTemplate}"
                       ItemContainerStyle="{StaticResource HueIconListViewItemStyle}" Grid.ColumnSpan="2" Margin="0.333,0,349.667,0"
                       >
@@ -987,7 +876,7 @@
 
         </Grid>
 
-        <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" Margin="0,0,-0.333,0" Grid.RowSpan="2" >
+        <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" Grid.RowSpan="2" >
             <!--<tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Lights" x:Name="mnuLights"/>
@@ -996,6 +885,78 @@
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>-->
         </tb:TaskbarIcon>
+        <ToolBarTray Height="45" Margin="0,37,0,0" VerticalAlignment="Top" Grid.RowSpan="2" IsLocked="True">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}">
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Touchlink}" Command="{Binding TouchLinkCommand}">
+                    <Image Source="/WinHue3;component/Resources/touchlink.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" Command="{Binding FindLightSerialCommand}" >
+                    <Image Source="/WinHue3;component/Resources/findserial.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}">
+                    <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32"/>
+                </Button>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}">
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Button}, Path=IsEnabled}" />
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Command="{Binding AllOffCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueGroupOff.png" Height="32"></Image>
+                </Button>
+
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}">
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">
+                    <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32"/>
+                </Button>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}">
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueGroupOn-Large.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}" Command="{Binding CreateSceneCommand}" >
+                    <Image Source="/WinHue3;component/Resources/scenes.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" Command="{Binding CreateScheduleCommand}" >
+                    <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" Command="{Binding CreateRuleCommand}">
+                    <Image Source="/WinHue3;component/Resources/rules.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}"  Command="{Binding CreateSensorCommand}" >
+                    <Image Source="/WinHue3;component/Resources/sensor.png" Height="32"/>
+                </Button>
+                <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}">
+                    <Image Source="/WinHue3;component/Resources/hotkeys.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}">
+                    <Image Source="/WinHue3;component/Resources/resource.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" >
+                    <Image Source="/WinHue3;component/Resources/advanced.png" Height="32"/>
+                </Button>
+
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}">
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" Command="{Binding ChangeBridgeSettingsCommand}" >
+                    <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32"/>
+                </Button>
+                <!--<SplitButton ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" Icon="" LargeIcon="/WinHue3;component/Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" SizeDefinition="Large,Middle,Small">
+                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Icon="/WinHue3;component/Resources/update.png" Command="{Binding UpdateBridgeCommand}"/>
+                </SplitButton>-->
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" Command="{Binding ManageUsersCommand}">
+                    <Image Source="/WinHue3;component/Resources/user.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Command="{Binding ResetTransitionTimeCommand}">
+                    <Image Source="/WinHue3;component/Resources/resettt.png" Height="32"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
 
     </Grid>
 
