@@ -10,6 +10,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
 using WinHue3.Utils;
 using System.Linq;
+using System.Windows.Data;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
@@ -28,8 +29,16 @@ namespace WinHue3.MainForm
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
         private bool _visibleTabs = true;
+        private CollectionViewSource _cvsHueObjects;
+        private string _filter;
 
-        //private bool _editName;
+        public ICollectionView AllHueObjects => _cvsHueObjects.View;
+
+        public string Filter
+        {
+            get { return _filter; }
+            set { SetProperty(ref _filter, value); _cvsHueObjects.View.Refresh(); }
+        }
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
@@ -134,5 +143,6 @@ namespace WinHue3.MainForm
         }
 
         public bool VisibleTabs { get => _visibleTabs; set => SetProperty(ref _visibleTabs,value); }
+
     }
 }

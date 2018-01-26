@@ -17,7 +17,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or false if the operation is successful (does not return if there is an update)</returns>
         public bool CheckOnlineForUpdate()
         {
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\": {\"checkforupdate\":true}}");
+            Version api = Version.Parse(ApiVersion);
+            Version limit = Version.Parse("1.20.0");
+            string swu = "swupdate";
+            if (api > limit)
+            {
+                swu = swu + "2";
+            }
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"" + swu + "\": {\"checkforupdate\":true}}");
             switch (comres.Status)
             {
                 case WebExceptionStatus.Success:
@@ -40,7 +47,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or false if the operation is successful (does not return if there is an update)</returns>
         public async Task<bool> CheckOnlineForUpdateAsyncTask()
         {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\": {\"checkforupdate\":true}}");
+            Version api = Version.Parse(ApiVersion);
+            Version limit = Version.Parse("1.20.0");
+            string swu = "swupdate";
+            if (api > limit)
+            {
+                swu = swu + "2";
+            }
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"" + swu + "\": {\"checkforupdate\":true}}");
             switch (comres.Status)
             {
                 case WebExceptionStatus.Success:

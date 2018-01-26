@@ -19,6 +19,7 @@
         xmlns:newSensorsObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.NewSensorsObject"
         xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
+        xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
@@ -34,8 +35,16 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="40,0,0,0"/>
+            <Setter Property="Padding" Value="35,0,0,0"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=WrapPanel}, Path=ActualWidth}"/>
+            <Setter Property="Template" Value="{DynamicResource ButtonBaseControlTemplate1}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="SideExpanderStyle" TargetType="Expander">
@@ -45,27 +54,13 @@
             <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=WrapPanel}, Path=ActualWidth}"/>
         </Style>
         <ItemsPanelTemplate x:Key="HueIconPanelTemplate">
-            <!-- TODO: VALIDATE FUNCTIONNING -->
             <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5">
-                <WrapPanel.Style>
-                    <Style TargetType="WrapPanel">
-                        <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding visible}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </WrapPanel.Style>
+
             </WrapPanel>
         </ItemsPanelTemplate>
+
         <Style x:Key="HueIconListViewItemStyle" TargetType="{x:Type ListViewItem}" >
-            <Setter Property="Visibility" Value="Visible"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding visible}" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </DataTrigger>
-            </Style.Triggers>
+
         </Style>
         <Style x:Key="TbWrap" TargetType="{x:Type TextBlock}" >
             <Setter Property="TextWrapping" Value="NoWrap"/>
@@ -91,11 +86,12 @@
             </Style.Triggers>
 
         </Style>
+
         <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
             <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-                <TextBox Text="{Binding name}" Style="{StaticResource TbxWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold" IsReadOnly="True"/>
-                <!--<TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource tbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>-->
+                <!--<TextBox Text="{Binding name}" Style="{StaticResource TbxWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold" IsReadOnly="True"/>-->
+                <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
                 <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
                     <TextBlock.Style>
                         <Style BasedOn="{StaticResource TbWrap}" TargetType="TextBlock">
@@ -347,6 +343,33 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="DeepSkyBlue"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
 
     <Window.DataContext>
@@ -491,12 +514,6 @@
                         <ComboBoxItem Content="Descending" Tag="{x:Static mainForm:WinHueSortOrder.Descending}"/>
                     </fluent:ComboBox>
                 </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox>
-                    <fluent:ComboBox x:Name="RcbMainView" Header="Main View" IsEditable="False" SelectedValue="{Binding VisibleTabs}" SelectedValuePath="Tag">
-                        <ComboBoxItem Content="Tabs" Tag="True"/>
-                        <ComboBoxItem Content="List" Tag="False"/>
-                    </fluent:ComboBox>
-                </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
             <fluent:RibbonTabItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <fluent:RibbonGroupBox>
@@ -592,12 +609,18 @@
         </StatusBar>
         <Grid Grid.Row="1" Margin="0,2,-0.333,0.333">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="175"/>
+                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Background="{StaticResource HeaderBackgroundBrush}" HorizontalAlignment="Stretch">
-                <Expander Header="Lights" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}">
+            <StackPanel Grid.Column="0" Background="{StaticResource HeaderBackgroundBrush}" HorizontalAlignment="Stretch" CanVerticallyScroll="True">
+                <xctk:WatermarkTextBox Watermark="Search..." Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged }"/>
+                <Expander x:Name="ExpLights" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="{x:Static resx:GUI.ListView_lights}" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Expanded">
                             <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type lightObject:Light}"/>
@@ -607,11 +630,17 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Style="{StaticResource LeftMenuButtonsStyle}" />
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Style="{StaticResource LeftMenuButtonsStyle }" />
                         <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Style="{StaticResource LeftMenuButtonsStyle}" />
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" Style="{StaticResource LeftMenuButtonsStyle}" />
                     </WrapPanel>
                 </Expander>
-                <Expander Header="Groups" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}">
+                <Expander x:Name="ExpGroups" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="{x:Static resx:GUI.ListView_groups}" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Expanded">
                             <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type groupObject:Group}"/>
@@ -621,10 +650,16 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <WrapPanel >
-                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}" Style="{StaticResource LeftMenuButtonsStyle}"/>
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}" Style="{StaticResource LeftMenuButtonsStyle}" />
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" Style="{StaticResource LeftMenuButtonsStyle}" />
                     </WrapPanel>
                 </Expander>
-                <Expander Header="Scenes" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}">
+                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="{x:Static resx:GUI.ListView_scenes}" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Expanded">
                             <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type sceneObject:Scene}"/>
@@ -634,10 +669,16 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <WrapPanel >
-
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateSceneCommand}" />
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding ViewSceneMappingCommand}"></Button>
                     </WrapPanel>
                 </Expander>
-                <Expander Header="Schedules" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}">
+                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="{x:Static resx:GUI.ListView_schedules}" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Expanded">
                             <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type scheduleObject:Schedule}"/>
@@ -647,10 +688,15 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <WrapPanel >
-
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateScheduleCommand}" />
                     </WrapPanel>
                 </Expander>
-                <Expander Header="Sensors" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}">
+                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="{x:Static resx:GUI.ListView_sensors}" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Expanded">
                             <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type newSensorsObject:Sensor}"/>
@@ -660,10 +706,52 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <WrapPanel >
-
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateSensorCommand}" />
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}"  ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}" Style="{StaticResource LeftMenuButtonsStyle}"/>
                     </WrapPanel>
                 </Expander>
-                <Expander Header="Rules" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}">
+                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="{x:Static resx:GUI.ListView_rules}" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Expanded">
+                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Collapsed">
+                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <WrapPanel >
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateRuleCommand}" />
+                    </WrapPanel>
+                </Expander>
+                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="{x:Static resx:GUI.ListView_resourcelinks}" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Expanded">
+                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Collapsed">
+                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <WrapPanel >
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}" Style="{StaticResource LeftMenuButtonsStyle}" Command="{Binding CreateResourceLinkCommand}" />
+                    </WrapPanel>
+                </Expander>
+                <Expander Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}" IsExpanded="True">
+                    <Expander.Header>
+                        <WrapPanel >
+                            <Label Content="LIFX" Foreground="White"/>
+                        </WrapPanel>
+                    </Expander.Header>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Expanded">
                             <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
@@ -676,20 +764,6 @@
 
                     </WrapPanel>
                 </Expander>
-                <Expander Header="ResourceLinks" Style="{StaticResource SideExpanderStyle}" Template="{DynamicResource ExpanderControlTemplate1}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Expanded">
-                            <i:InvokeCommandAction Command="{Binding ExpandCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Collapsed">
-                            <i:InvokeCommandAction Command="{Binding CollapseCommand}" CommandParameter="{x:Type ruleObject:Rule}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel >
-
-                    </WrapPanel>
-                </Expander>
-
             </StackPanel>
             <Button Grid.Column="0" Width="{Binding RelativeSource={RelativeSource AncestorType=WrapPanel}, Path=ActualWidth}" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" BorderThickness="0" Height="28" Background="{x:Null}" FontSize="16">
                 <WrapPanel VerticalAlignment="Top">
@@ -698,7 +772,7 @@
                 </WrapPanel>
             </Button>
             <ListView x:Name="LvMainObjects" 
-                      ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  
+                      ItemsSource="{Binding AllHueObjects, NotifyOnSourceUpdated=True}"  
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       SelectedItem="{Binding SelectedObject}" 
                       ContextMenuOpening="LvMainObjects_ContextMenuOpening" 
@@ -711,10 +785,11 @@
                       behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                       behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                       behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                      ItemTemplate="{StaticResource HueIcon}"
+                      
                       ItemsPanel="{StaticResource HueIconPanelTemplate}"
                       ItemContainerStyle="{StaticResource HueIconListViewItemStyle}" Grid.ColumnSpan="2" Margin="0.333,0,349.667,0"
                       >
+
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Triggers>
@@ -728,6 +803,43 @@
                             </EventTrigger>
                         </Style.Triggers>
                     </Style>
+
+                    <DataTemplate DataType="{x:Type lightObject:Light}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{StaticResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type groupObject:Group}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{StaticResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ruleObject:Rule}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{StaticResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type newSensorsObject:Sensor}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{StaticResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type scheduleObject:Schedule}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{StaticResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type resourcelinkObject:Resourcelink}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{StaticResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type sceneObject:Scene}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{StaticResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+
                 </ListView.Resources>
                 <ListView.ContextMenu>
                     <ContextMenu x:Name="CmListView" IsTabStop="True">
@@ -773,15 +885,9 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate>
-                                            <Expander IsExpanded="True"   >
+                                            <Expander IsExpanded="True">
                                                 <Expander.Header >
                                                     <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
-                                                        <!--<Grid.Background>
-                                                            <LinearGradientBrush>
-                                                                <GradientStop Color="White" />
-                                                                <GradientStop Color="Gray" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Grid.Background>-->
                                                         <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
                                                     </Grid>
                                                 </Expander.Header>

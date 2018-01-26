@@ -258,6 +258,9 @@ namespace WinHue3.MainForm
             {
                 log.Info("Virtual Bridge detected. Will skip refresh.");
             }
+
+            _cvsHueObjects.Source = _listBridgeObjects;
+            RaisePropertyChanged("AllHueObjects");
             Cursor_Tools.ShowNormalCursor();
         }
 

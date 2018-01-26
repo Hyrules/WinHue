@@ -39,6 +39,7 @@ namespace WinHue3.MainForm
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              Trayicon.Icon = Properties.Resources.icon;
             _mfvm.SetToolbarTray(Trayicon);
+            
         }
 
 

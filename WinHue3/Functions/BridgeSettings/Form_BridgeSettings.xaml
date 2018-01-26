@@ -113,7 +113,7 @@
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="90"/>
                     <Label x:Name="LblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="289"/>
                     <CheckBox x:Name="ChbNotify" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Notify}" IsChecked="{Binding SoftwareModel.Notify,Mode=OneWay}" HorizontalAlignment="Left" Margin="11,114,0,0" VerticalAlignment="Top" Width="89" IsHitTestVisible="False"/>
-                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="11,228,0,0" VerticalAlignment="Top" Width="170" Command="{Binding ForceCheckUpdateCommand}"/>
+                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="5,257,0,0" VerticalAlignment="Top" Width="170" Command="{Binding ForceCheckUpdateCommand}"/>
                 </Grid>
             </TabItem>
         </TabControl>
