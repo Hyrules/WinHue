@@ -1798,6 +1798,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à _File.
+        /// </summary>
+        public static string MainForm_Menu_File {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Find LIFX Devices.
         /// </summary>
         public static string MainForm_Menu_FindLifx {

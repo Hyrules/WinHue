@@ -1536,4 +1536,7 @@
   <data name="Mainform_Tab_Bridges" xml:space="preserve">
     <value>Bridges</value>
   </data>
+  <data name="MainForm_Menu_File" xml:space="preserve">
+    <value>_File</value>
+  </data>
 </root>

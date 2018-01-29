@@ -383,13 +383,7 @@
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
         <Menu Height="37" VerticalAlignment="Top">
-            <MenuItem >
-                <MenuItem.Header>
-                    <WrapPanel VerticalAlignment="Top">
-                        <Path  Data="M2,15.5L22,15.5 22,17.5 2,17.5 2,15.5z M2,10.5L22,10.5 22,12.5 2,12.5 2,10.5z M2,5.5L22,5.5 22,7.5 2,7.5 2,5.5z" Fill="black" Height="25"/>
-                        <Label Content="Menu" VerticalAlignment="Top" Padding="5,0" FontSize="17"></Label>
-                    </WrapPanel>
-                </MenuItem.Header>
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/settings.png" Height="24"/>
@@ -420,14 +414,79 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Tools" FontSize="17">
-
+            <MenuItem Header="_Edit" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim}">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_10}" Command="{Binding ToggleDim10Command}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_25}" Command="{Binding ToggleDim25Command}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_50}" Command="{Binding ToggleDim50Command}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_75}" Command="{Binding ToggleDim75Command}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" Command="{Binding IdentifyStopCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" Command="{Binding IdentifyLongCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" Command="{Binding IdentifyShortCommand}"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Effects}">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Colorloop}" Command="{Binding ColorloopCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" Command="{Binding NoEffectCommand}"/>
+                </MenuItem>
+                <!--<MenuItem Header="Strobe" Command="{Binding StrobeCommand}"/>-->
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" Command="{Binding SensitivityHighCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" Command="{Binding SensitivityMediumCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Low}" Command="{Binding SensitivityLowCommand}"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_QuickClone}" Command="{Binding QuickCloneCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" Command="{Binding CloneCommand}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" Command="{Binding ReplaceCurrentStateCommand}" />
             </MenuItem>
-            <MenuItem Header="_View" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/cputemp.png" Height="16"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}">
 
+                    </MenuItem>
+                </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Help" FontSize="17">
-
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/SceneMapping.png" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/BulbView.png" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/GroupView.png" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" >
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/WebSite.png" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" Command="{Binding OpenWinHueSupportCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/WinHue3;component/Resources/Help.png" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <fluent:Ribbon x:Name="RbnMainRibbon" VerticalAlignment="Top" IsMinimized="False" DockPanel.Dock="Top" Grid.Row="0" Height="23" SelectedTabIndex="0" ScrollViewer.CanContentScroll="True" CanCustomizeQuickAccessToolBarItems="False" IsAutomaticCollapseEnabled="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" Margin="0,0,-3,0" Visibility="Collapsed">
@@ -730,44 +789,7 @@
                     </DataTemplate>
 
                 </ListView.Resources>
-                <ListView.ContextMenu>
-                    <ContextMenu x:Name="CmListView" IsTabStop="True">
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim}">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_10}" Command="{Binding ToggleDim10Command}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_25}" Command="{Binding ToggleDim25Command}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_50}" Command="{Binding ToggleDim50Command}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_75}" Command="{Binding ToggleDim75Command}"/>
-                        </MenuItem>
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" x:Name="MnuIdentify">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" x:Name="MnuIdentifyStop" Command="{Binding IdentifyStopCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" x:Name="MnuIdentifyLong" Command="{Binding IdentifyLongCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" x:Name="MnuIdentifyShort" Command="{Binding IdentifyShortCommand}"/>
-                        </MenuItem>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Effects}">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Colorloop}" x:Name="MnuColorloop" Command="{Binding ColorloopCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" x:Name="MnuEffectNone" Command="{Binding NoEffectCommand}"/>
-                        </MenuItem>
-                        <!--<MenuItem Header="Strobe" Command="{Binding StrobeCommand}"/>-->
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}" x:Name="MnuSensitivity">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" x:Name="MnuSensivityHigh" Command="{Binding SensitivityHighCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" x:Name="MnuSensivityMed" Command="{Binding SensitivityMediumCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Low}" x:Name="MnuSensivityLow" Command="{Binding SensitivityLowCommand}"/>
-                        </MenuItem>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" x:Name="MnuCloning">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_QuickClone}" x:Name="MnuQuickClone" Command="{Binding QuickCloneCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" x:Name="MnuClone" Command="{Binding CloneCommand}"/>
-                        </MenuItem>
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" x:Name="MnuCopyToJsonRaw" Command="{Binding CopyToJsonRawCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" x:Name="MnuCopyToJson" Command="{Binding CopyToJsonCommand}"/>
-                        </MenuItem>
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" x:Name="MnuReplaceState" Command="{Binding ReplaceCurrentStateCommand}" />
-                    </ContextMenu>
-                </ListView.ContextMenu>
-                <ListView.GroupStyle>
+                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
                             <Style TargetType="{x:Type GroupItem}">
@@ -954,6 +976,11 @@
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Command="{Binding ResetTransitionTimeCommand}">
                     <Image Source="/WinHue3;component/Resources/resettt.png" Height="32"/>
+                </Button>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}">
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" Command="{Binding ShowEventLogCommand}">
+                    <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>

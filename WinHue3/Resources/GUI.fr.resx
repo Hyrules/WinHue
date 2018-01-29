@@ -1536,4 +1536,7 @@
   <data name="Mainform_Tab_Bridges" xml:space="preserve">
     <value>Passerelles</value>
   </data>
+  <data name="MainForm_Menu_File" xml:space="preserve">
+    <value>_Fichier</value>
+  </data>
 </root>
