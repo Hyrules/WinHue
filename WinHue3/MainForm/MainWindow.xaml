@@ -31,6 +31,7 @@
     <Window.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <Style x:Key="LeftMenuButtonsStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
@@ -382,24 +383,24 @@
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <Menu Height="37" VerticalAlignment="Top">
+        <Menu Height="26" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
             <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" >
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" >
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/settings.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}" FontSize="17" >
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}" FontSize="17" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/pair-bridge.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_FindLifx}" Command="{Binding FindLifxDevicesCommand}" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_FindLifx}" Command="{Binding FindLifxDevicesCommand}" FontSize="17" Foreground="Black">
                     <MenuItem.Icon>
                         <Image></Image>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" FontSize="17" Foreground="Black">
                     <MenuItem.Style>
                         <Style TargetType="MenuItem">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -412,45 +413,45 @@
                     </MenuItem.Style>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17"></MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17" Foreground="Black"/>
             </MenuItem>
             <MenuItem Header="_Edit" FontSize="17">
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim}">
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_10}" Command="{Binding ToggleDim10Command}"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_25}" Command="{Binding ToggleDim25Command}"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_50}" Command="{Binding ToggleDim50Command}"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_75}" Command="{Binding ToggleDim75Command}"/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim}" Foreground="Black">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_10}" Command="{Binding ToggleDim10Command}" Foreground="Black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_25}" Command="{Binding ToggleDim25Command}" Foreground="Black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_50}" Command="{Binding ToggleDim50Command}" Foreground="Black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_75}" Command="{Binding ToggleDim75Command}" Foreground="Black"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Identify}" Foreground="Black">
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" Command="{Binding IdentifyStopCommand}"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" Command="{Binding IdentifyLongCommand}"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Long}" Command="{Binding IdentifyLongCommand}" />
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Short}" Command="{Binding IdentifyShortCommand}"/>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Effects}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Effects}" Foreground="Black">
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Colorloop}" Command="{Binding ColorloopCommand}"/>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_None}" Command="{Binding NoEffectCommand}"/>
                 </MenuItem>
                 <!--<MenuItem Header="Strobe" Command="{Binding StrobeCommand}"/>-->
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity}" Foreground="Black">
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_High}" Command="{Binding SensitivityHighCommand}"/>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Medium}" Command="{Binding SensitivityMediumCommand}"/>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensitivity_Low}" Command="{Binding SensitivityLowCommand}"/>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" Foreground="Black">
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_QuickClone}" Command="{Binding QuickCloneCommand}"/>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Clone}" Command="{Binding CloneCommand}"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}" Foreground="Black">
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" Command="{Binding ReplaceCurrentStateCommand}" />
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" Command="{Binding ReplaceCurrentStateCommand}" Foreground="Black"/>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/cputemp.png" Height="16"/>
                     </MenuItem.Icon>
@@ -460,29 +461,38 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17">
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/SceneMapping.png" Height="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/BulbView.png" Height="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/GroupView.png" Height="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
+                <MenuItem Header="Toolbars" Foreground="Black">
+                    <MenuItem IsCheckable="True" x:Name="mnuSearch" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" IsChecked="True"/>
+                    <MenuItem IsCheckable="True" x:Name="mnuCommands" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" IsChecked="True"/>
+                    <MenuItem IsCheckable="True" x:Name="mnuRefresh" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" IsChecked="True"/>
+                    <MenuItem IsCheckable="True" x:Name="mnuCreators" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" IsChecked="True"/>
+                    <MenuItem IsCheckable="True" x:Name="mnuSettings" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" IsChecked="True"/>
+                    <MenuItem IsCheckable="True" x:Name="mnuEvents" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" IsChecked="True"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" >
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/WebSite.png" Height="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" Command="{Binding OpenWinHueSupportCommand}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" Command="{Binding OpenWinHueSupportCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/Help.png" Height="16"/>
                     </MenuItem.Icon>
@@ -715,7 +725,7 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Grid.Row="1" Margin="0,2,0,0">
+        <Grid Margin="0,71,0,0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
@@ -789,7 +799,7 @@
                     </DataTemplate>
 
                 </ListView.Resources>
-                 <ListView.GroupStyle>
+                <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
                             <Style TargetType="{x:Type GroupItem}">
@@ -907,8 +917,8 @@
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>-->
         </tb:TaskbarIcon>
-        <ToolBarTray Height="45" Margin="0,37,0,0" VerticalAlignment="Top" Grid.RowSpan="2" IsLocked="True">
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}">
+        <ToolBarTray Height="45" Margin="0,26,0,0" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding ElementName=mnuSearch, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
                     <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32"/>
                 </Button>
@@ -922,7 +932,7 @@
                     <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32"/>
                 </Button>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding ElementName=mnuCommands, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Button}, Path=IsEnabled}" />
                 </Button>
@@ -931,12 +941,12 @@
                 </Button>
 
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding ElementName=mnuRefresh, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">
                     <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32"/>
                 </Button>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" Visibility="{Binding ElementName=mnuCreators, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOn-Large.png" Height="32"/>
                 </Button>
@@ -964,7 +974,7 @@
                 </Button>
 
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Visibility="{Binding ElementName=mnuSettings, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" Command="{Binding ChangeBridgeSettingsCommand}" >
                     <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32"/>
                 </Button>
@@ -978,7 +988,7 @@
                     <Image Source="/WinHue3;component/Resources/resettt.png" Height="32"/>
                 </Button>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding ElementName=mnuEvents, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" Command="{Binding ShowEventLogCommand}">
                     <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32"/>
                 </Button>

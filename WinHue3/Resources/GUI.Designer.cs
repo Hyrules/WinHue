@@ -2383,6 +2383,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Toolbars.
+        /// </summary>
+        public static string MainForm_Tab_View_Toolbars {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_Toolbars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Wrap Object Text.
         /// </summary>
         public static string MainForm_Tab_View_WrapText {

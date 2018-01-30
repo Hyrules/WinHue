@@ -1539,4 +1539,7 @@
   <data name="MainForm_Menu_File" xml:space="preserve">
     <value>_File</value>
   </data>
+  <data name="MainForm_Tab_View_Toolbars" xml:space="preserve">
+    <value>Toolbars</value>
+  </data>
 </root>
