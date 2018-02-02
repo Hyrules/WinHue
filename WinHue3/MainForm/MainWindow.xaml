@@ -579,7 +579,7 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <controls:CommandComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" Command="{Binding ChangeBridgeCommand}">
+                    <controls:CommandComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" Command="{Binding ChangeBridgeCommand}">
                         <controls:CommandComboBox.Style>
                             <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
