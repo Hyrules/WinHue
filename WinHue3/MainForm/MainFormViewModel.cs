@@ -62,25 +62,9 @@ namespace WinHue3.MainForm
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
-            _cvsHueObjects = new CollectionViewSource {};
-            _cvsHueObjects.Filter += _cvsHueObjects_Filter;
             //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
             //light.SetColor(65535, 65535, 65535, 32768, 3000);
             // LifxResponse p = light.SetPower(32000, 3000);
-        }
-
-        private void _cvsHueObjects_Filter(object sender, FilterEventArgs e)
-        {
-            IHueObject obj = (IHueObject) e.Item;
-
-            if (string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0)
-            {
-                e.Accepted = true;
-            }
-            else
-            {
-                e.Accepted = obj.name.ToLower().Contains(Filter.ToLower());
-            }
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)

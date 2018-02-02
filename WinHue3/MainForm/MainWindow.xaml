@@ -11,7 +11,6 @@
         xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
         xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-        xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:ruleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.RuleObject"
         xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
@@ -29,6 +28,13 @@
     >
 
     <Window.Resources>
+        <Style x:Key="ImageEnabled" TargetType="Image">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.50"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -383,7 +389,7 @@
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <Menu Height="26" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
+        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
             <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" Foreground="Black" >
                     <MenuItem.Icon>
@@ -416,6 +422,10 @@
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17" Foreground="Black"/>
             </MenuItem>
             <MenuItem Header="_Edit" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}" Foreground="Black"/>
+                <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim}" Foreground="Black">
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_10}" Command="{Binding ToggleDim10Command}" Foreground="Black"/>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ToggleDim_25}" Command="{Binding ToggleDim25Command}" Foreground="Black"/>
@@ -449,6 +459,8 @@
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" Command="{Binding ReplaceCurrentStateCommand}" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Foreground="Black" Background="Red"/>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}" Foreground="Black">
@@ -477,7 +489,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Toolbars" Foreground="Black">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_Toolbars}" Foreground="Black">
                     <MenuItem IsCheckable="True" x:Name="mnuSearch" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" IsChecked="True"/>
                     <MenuItem IsCheckable="True" x:Name="mnuCommands" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" IsChecked="True"/>
                     <MenuItem IsCheckable="True" x:Name="mnuRefresh" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" IsChecked="True"/>
@@ -499,147 +511,6 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <fluent:Ribbon x:Name="RbnMainRibbon" VerticalAlignment="Top" IsMinimized="False" DockPanel.Dock="Top" Grid.Row="0" Height="23" SelectedTabIndex="0" ScrollViewer.CanContentScroll="True" CanCustomizeQuickAccessToolBarItems="False" IsAutomaticCollapseEnabled="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" Margin="0,0,-3,0" Visibility="Collapsed">
-            <fluent:Ribbon.Menu>
-                <fluent:Backstage>
-                    <fluent:BackstageTabControl>
-                        <fluent:BackstageTabItem Header="Menu">
-                            <Grid Margin="50">
-                                <WrapPanel>
-                                    <Image Height="64" Source="/WinHue3;component/Resources/HueGroupOn-Large.png"/>
-                                    <TextBlock Text="WinHue 3" FontSize="64" FontWeight="Bold" Padding="10,0,0,0" />
-                                </WrapPanel>
-                                <TextBlock Text="{Binding Version}" FontWeight="Bold" FontSize="30" Margin="0,74,0,0"/>
-                                <TextBlock Margin="0,114,0,0" Foreground="Black">
-                                    <TextBlock.Text>
-                                        by Pascal Pharand (Hyrules)
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Margin="0,134,0,0" >
-                                    <TextBlock.Text>
-                                        Creative Commons Attribution Non-Commercial License V2.0.
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Grid>
-                        </fluent:BackstageTabItem>
-                        <fluent:BackstageTabItem Header="Help">
-                            <Grid Margin="50">
-                                <WrapPanel>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Help" FontFamily="Segoe UI Light" FontSize="48" Margin="0,0,0,10"/>
-                                        <StackPanel Orientation="Horizontal" Margin="0,10">
-                                            <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" LargeIcon="/WinHue3;component/Resources/WebSite.png" Command="{Binding OpenWinHueWebsiteCommand}" Style="{DynamicResource ButtonBackstageStyle}" Height="86" Width="84"/>
-                                            <StackPanel Orientation="Vertical" Margin="15,0,0,0">
-                                                <TextBlock FontFamily="Segoe UI Light" FontSize="22" Margin="0,0,0,5">Official Website</TextBlock>
-                                                <TextBlock>Visit the WinHue website.</TextBlock>
-                                            </StackPanel>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="0,10">
-                                            <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" LargeIcon="/WinHue3;component/Resources/Help.png" Command="{Binding OpenWinHueSupportCommand}" Style="{DynamicResource ButtonBackstageStyle}" Width="86" Height="84"/>
-                                            <StackPanel Orientation="Vertical" Margin="15,0,0,0">
-                                                <TextBlock FontFamily="Segoe UI Light" FontSize="22" Margin="0,0,0,5">Request Help</TextBlock>
-                                                <TextBlock>Submit bug reports, request features or ask a question on our GitHub issues forum.</TextBlock>
-                                            </StackPanel>
-                                        </StackPanel>
-
-                                    </StackPanel>
-                                </WrapPanel>
-
-                            </Grid>
-                        </fluent:BackstageTabItem>
-                        <fluent:Button Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}"/>
-                        <fluent:Button Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}"/>
-                        <fluent:Button Header="{x:Static resx:GUI.MainForm_Menu_FindLifx}" Command="{Binding FindLifxDevicesCommand}"/>
-                        <fluent:Button Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" Foreground="White">
-                            <fluent:Button.Style>
-                                <Style TargetType="fluent:Button" BasedOn="{StaticResource {x:Type fluent:Button}}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMasterDebugger}" Value="True">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </fluent:Button.Style>
-                        </fluent:Button>
-                        <fluent:SeparatorTabItem/>
-                        <fluent:Button Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}"/>
-                    </fluent:BackstageTabControl>
-                </fluent:Backstage>
-            </fluent:Ribbon.Menu>
-            <fluent:RibbonTabItem Header="{x:Static resx:GUI.MainForm_Tab_Home}" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsSelected="True" IsOpen="True" ReduceOrder="creators,search,settings,search,search,creators,settings,settings">
-                <fluent:RibbonGroupBox Name="search" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Icon="/WinHue3;component/Resources/HueLightSearch.png">
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" LargeIcon="/WinHue3;component/Resources/HueLightSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}" SizeDefinition="Large,Large,Large"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Touchlink}" Command="{Binding TouchLinkCommand}" HorizontalAlignment="Left" Icon="/WinHue3;component/Resources/touchlink.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Touchlink}" SizeDefinition="Middle,Middle,Small"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" Command="{Binding FindLightSerialCommand}" HorizontalAlignment="Left" Icon="/WinHue3;component/Resources/findserial.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" SizeDefinition="Middle,Middle,Small"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Icon="/WinHue3;component/Resources/SensorSearch.png" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}" SizeDefinition="Middle,Middle,Small"/>
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Name="commands" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}">
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" LargeIcon="/WinHue3;component/Resources/HueGroupOn-Large.png" Command="{Binding AllOnCommand}" SizeDefinition="Large,Middle,Middle"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Icon="/WinHue3;component/Resources/HueGroupOff-Large.png" LargeIcon="/WinHue3;component/Resources/HueGroupOff-Large.png" Command="{Binding AllOffCommand}" IsManipulationEnabled="True" SizeDefinition="Large,Middle,Middle"/>
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Name="refresh" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" >
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}"  LargeIcon="/WinHue3;component/Resources/refreshMetro5.ico" Command="{Binding RefreshViewCommand}" SizeDefinition="Large,Large,Large"/>
-
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Name="creators" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}">
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" LargeIcon="/WinHue3;component/Resources/HueGroupOn-Large.png"  Command="{Binding CreateGroupCommand}" SizeDefinition="Large,Large,Large"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}"  LargeIcon="/WinHue3;component/Resources/scenes.png"  Command="{Binding CreateSceneCommand}" SizeDefinition="Large,Large,Large"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" LargeIcon="/WinHue3;component/Resources/SchedulesLarge.png"  Command="{Binding CreateScheduleCommand}" SizeDefinition="Large,Large,Large"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" LargeIcon="/WinHue3;component/Resources/rules.png"  Command="{Binding CreateRuleCommand}" SizeDefinition="Large,Large,Large"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}" LargeIcon="/WinHue3;component/Resources/sensor.png"  Command="{Binding CreateSensorCommand}" SizeDefinition="Large,Large,Large"/>
-                    <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}" Icon="/WinHue3;component/Resources/hotkeys.png" LargeIcon="/WinHue3;component/Resources/hotkeys.png" SizeDefinition="Large,Middle,Small"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}" Icon="/WinHue3;component/Resources/resource.png" LargeIcon="/WinHue3;component/Resources/resource.png" SizeDefinition="Large,Middle,Small"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" Icon="/WinHue3;component/Resources/advanced.png" LargeIcon="/WinHue3;component/Resources/advanced.png" SizeDefinition="Large,Middle,Small"/>
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Name="settings" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Icon="/WinHue3;component/Resources/settings.png">
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" LargeIcon="/WinHue3;component/Resources/settingsMetro.ico" Command="{Binding ChangeBridgeSettingsCommand}" SizeDefinition="Large,Large,Large"/>
-                    <fluent:SplitButton Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" Icon="/WinHue3;component/Resources/UpdateSearch.png" LargeIcon="/WinHue3;component/Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" SizeDefinition="Large,Middle,Small">
-                        <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Icon="/WinHue3;component/Resources/update.png" Command="{Binding UpdateBridgeCommand}"/>
-                    </fluent:SplitButton>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" Icon="/WinHue3;component/Resources/user.png" LargeIcon="/WinHue3;component/Resources/user.png" Command="{Binding ManageUsersCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" SizeDefinition="Large,Middle,Small"/>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Icon="/WinHue3;component/Resources/resettt.png" LargeIcon="/WinHue3;component/Resources/resettt.png" Command="{Binding ResetTransitionTimeCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" SizeDefinition="Large,Middle,Small"/>
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Name="events" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}">
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" LargeIcon="/WinHue3;component/Resources/eventlog.png"  Command="{Binding ShowEventLogCommand}" SizeDefinition="Large,Large,Large" KeyTip="E"/>
-                </fluent:RibbonGroupBox>
-
-            </fluent:RibbonTabItem>
-            <fluent:RibbonTabItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}">
-                <fluent:RibbonGroupBox Header="Tools" Width="auto">
-                    <fluent:SplitButton Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}"  LargeIcon="/WinHue3;component/Resources/cputemp.png" ToolTip="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon_Tooltip}" >
-                        <fluent:Button Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
-                    </fluent:SplitButton>
-                    <!--<RibbonSplitButton Label="{x:Static resx:GUI.MainForm_ToolsTab_RssFeed}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"  Command="{Binding RssFeedMonCommand}" LargeImageSource="Resources/rss.png" >
-                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
-                    </RibbonSplitButton>-->
-                    <!--<RibbonSplitButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Clapper}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding ClapperCommand}"  LargeImageSource="Resources/rss.png" IsEnabled="False" >
-                        <RibbonButton Label="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding RssFeedMonSettingsCommand}"/>
-                    </RibbonSplitButton>-->
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox x:Name="RgViews" Header="Views" Width="auto">
-                    <fluent:Button x:Name="BtnScenesMapping" Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" LargeIcon="/WinHue3;component/Resources/SceneMapping.png"/>
-                    <fluent:Button x:Name="BtnBulbView" Header="{x:Static resx:GUI.MainForm_Tab_View_BulbsView}" Command="{Binding ViewBulbsCommand}" LargeIcon="/WinHue3;component/Resources/BulbView.png" />
-                    <fluent:Button x:Name="BtnGroupView" Header="{x:Static resx:GUI.MainForm_Tab_View_GroupsView}" Command="{Binding ViewGroupsCommand}" LargeIcon="/WinHue3;component/Resources/GroupView.png"/>
-                </fluent:RibbonGroupBox>
-            </fluent:RibbonTabItem>
-            <fluent:RibbonTabItem Header="{x:Static resx:GUI.MainForm_Tab_View}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <fluent:RibbonGroupBox x:Name="RgViewSort" Width="auto" Header="{x:Static resx:GUI.MainForm_Tab_View_Sorting}">
-                    <fluent:ComboBox x:Name="RbcSorting" Header="Sort" IsEditable="False" SelectedValue="{Binding MainFormModel.Sort}" SelectedValuePath="Tag" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding SortListViewCommand}">
-                        <ComboBoxItem Content="Defaut" Tag="{x:Static mainForm:WinHueSortOrder.Default}"/>
-                        <ComboBoxItem Content="Ascending" Tag="{x:Static mainForm:WinHueSortOrder.Ascending}"/>
-                        <ComboBoxItem Content="Descending" Tag="{x:Static mainForm:WinHueSortOrder.Descending}"/>
-                    </fluent:ComboBox>
-                </fluent:RibbonGroupBox>
-            </fluent:RibbonTabItem>
-            <fluent:RibbonTabItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <fluent:RibbonGroupBox>
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" x:Name="BtnWebsite" LargeIcon="/WinHue3;component/Resources/WebSite.png" Command="{Binding OpenWinHueWebsiteCommand}" />
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Help_Forum}" x:Name="BtnSupportForum" LargeIcon="/WinHue3;component/Resources/Help.png" Command="{Binding OpenWinHueSupportCommand}"/>
-                </fluent:RibbonGroupBox>
-            </fluent:RibbonTabItem>
-        </fluent:Ribbon>
         <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2" Margin="0,1,0,0">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -725,16 +596,15 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Margin="0,71,0,0" Grid.RowSpan="2">
+        <Grid Margin="0,76,0,0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name="LvMainObjects" 
-                      ItemsSource="{Binding AllHueObjects, NotifyOnSourceUpdated=True}"  
+                      ItemsSource="{Binding ListBridgeObjects, NotifyOnSourceUpdated=True}"  
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       SelectedItem="{Binding SelectedObject}" 
-                      ContextMenuOpening="LvMainObjects_ContextMenuOpening" 
                       SelectionChanged="LvMainObjects_SelectionChanged" 
                       SelectionMode="Single" 
                       VerticalContentAlignment="Stretch" Grid.Column="1" 
@@ -842,15 +712,6 @@
                     <Grid Height="65px">
                         <Label Content="Controls" HorizontalAlignment="Center" Width="350" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White"/>
                         <ToggleButton Margin="10,30,320,7" Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off"/>
-                        <Button HorizontalAlignment="Left" Margin="315,30,0,0" VerticalAlignment="Top" Width="25" Padding="0" Height="25" ToolTip="Delete" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding DeleteObjectCommand}" BorderThickness="0">
-                            <Image Source="/WinHue3;component/Resources/close_delete.png" />
-                        </Button>
-                        <Button HorizontalAlignment="Left" Margin="52,30,0,0" VerticalAlignment="Top" Width="25" Height="25" BorderBrush="{x:Null}" Background="Transparent" ToolTip="Edit" Padding="0" Command="{Binding EditObjectCommand}" BorderThickness="0">
-                            <Image Source="/WinHue3;component/Resources/edit.png"/>
-                        </Button>
-                        <Button HorizontalAlignment="Left" Margin="82,30,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderBrush="Transparent" Padding="0" ToolTip="Rename" Command="{Binding RenameObjectCommand}" BorderThickness="0">
-                            <Image Source="/WinHue3;component/Resources/rename.png"/>
-                        </Button>
                     </Grid>
 
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
@@ -913,80 +774,80 @@
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>-->
         </tb:TaskbarIcon>
-        <ToolBarTray Height="45" Margin="0,26,0,0" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
+        <ToolBarTray Height="45" Margin="0,31,0,0" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding ElementName=mnuSearch, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Touchlink}" Command="{Binding TouchLinkCommand}">
-                    <Image Source="/WinHue3;component/Resources/touchlink.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/touchlink.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" Command="{Binding FindLightSerialCommand}" >
-                    <Image Source="/WinHue3;component/Resources/findserial.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/findserial.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}">
-                    <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding ElementName=mnuCommands, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Button}, Path=IsEnabled}" />
+                    <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Command="{Binding AllOffCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueGroupOff.png" Height="32"></Image>
+                    <Image Source="/WinHue3;component/Resources/HueGroupOff.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
 
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding ElementName=mnuRefresh, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">
-                    <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" Visibility="{Binding ElementName=mnuCreators, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueGroupOn-Large.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/HueGroupOn-Large.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}" Command="{Binding CreateSceneCommand}" >
-                    <Image Source="/WinHue3;component/Resources/scenes.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/scenes.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" Command="{Binding CreateScheduleCommand}" >
-                    <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" Command="{Binding CreateRuleCommand}">
-                    <Image Source="/WinHue3;component/Resources/rules.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/rules.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}"  Command="{Binding CreateSensorCommand}" >
-                    <Image Source="/WinHue3;component/Resources/sensor.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/sensor.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}">
-                    <Image Source="/WinHue3;component/Resources/hotkeys.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/hotkeys.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}">
-                    <Image Source="/WinHue3;component/Resources/resource.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/resource.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" >
-                    <Image Source="/WinHue3;component/Resources/advanced.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/advanced.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
 
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Visibility="{Binding ElementName=mnuSettings, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" Command="{Binding ChangeBridgeSettingsCommand}" >
-                    <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <!--<SplitButton ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" Icon="" LargeIcon="/WinHue3;component/Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" SizeDefinition="Large,Middle,Small">
                     <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Icon="/WinHue3;component/Resources/update.png" Command="{Binding UpdateBridgeCommand}"/>
                 </SplitButton>-->
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" Command="{Binding ManageUsersCommand}">
-                    <Image Source="/WinHue3;component/Resources/user.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/user.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Command="{Binding ResetTransitionTimeCommand}">
-                    <Image Source="/WinHue3;component/Resources/resettt.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/resettt.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding ElementName=mnuEvents, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" Command="{Binding ShowEventLogCommand}">
-                    <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32"/>
+                    <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>

@@ -433,7 +433,7 @@
     <value>Un fichier Ambiance ayant ce nom existe déjà. L'écraser ?</value>
   </data>
   <data name="Moods_Delete" xml:space="preserve">
-    <value>Êtes-vous certains de vouloir supprimer ce mood ?</value>
+    <value>Êtes-vous certain de vouloir supprimer ce mood ?</value>
   </data>
   <data name="Moods_Missing_Name" xml:space="preserve">
     <value>Aucun nom saisie pour le mood. Veuillez saisir un nom.</value>

@@ -232,6 +232,9 @@ namespace WinHue3.Functions.Rules.Creator
                     ListHueObjects = _listAvailableHueObject.OfType<Scene>().ToList<IHueObject>();
 
                     break;
+                case Type schedule when schedule == typeof(Schedule):
+                    ListHueObjects = _listAvailableHueObject.OfType<Schedule>().ToList<IHueObject>();
+                    break;
                 default:
                     ListHueObjects = null;
                     break;
@@ -298,6 +301,17 @@ namespace WinHue3.Functions.Rules.Creator
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == sb.scene);
                         ActionProperties = sb;
+                    }
+                    else
+                    {
+                        MessageBox.Show(GlobalStrings.Rule_SelectedObjectDoesNotExists, GlobalStrings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    break;
+                case "schedules":
+                    SelectedHueObjectType = typeof(Schedule);
+                    if(_listHueObjects.Exists(x => x.Id == ha.id))
+                    {
+                        SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
                     }
                     else
                     {

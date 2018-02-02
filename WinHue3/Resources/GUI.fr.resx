@@ -544,7 +544,7 @@
     <value>Copier comme JSON</value>
   </data>
   <data name="MainForm_ListView_Context_Delete" xml:space="preserve">
-    <value>Effacer...</value>
+    <value>Supprimer</value>
   </data>
   <data name="MainForm_ListView_Context_Edit" xml:space="preserve">
     <value>Modifier...</value>

@@ -29,16 +29,6 @@ namespace WinHue3.MainForm
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
         private bool _visibleTabs = true;
-        private CollectionViewSource _cvsHueObjects;
-        private string _filter;
-
-        public ICollectionView AllHueObjects => _cvsHueObjects.View;
-
-        public string Filter
-        {
-            get { return _filter; }
-            set { SetProperty(ref _filter, value); _cvsHueObjects.View.Refresh(); }
-        }
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge

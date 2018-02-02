@@ -10,46 +10,59 @@
         xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:comm="clr-namespace:WinHue3.Philips_Hue.Communication"
         xmlns:advancedCreator="clr-namespace:WinHue3.Functions.Advanced_Creator"
-        xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner" Name="Window">
     <Window.DataContext>
         <advancedCreator:AdvancedCreatorViewModel/>
     </Window.DataContext>
     <Grid x:Name="DockPanel">
-        <fluent:Ribbon x:Name="Ribbon" Width="auto" CanMinimize="False">
-            <fluent:RibbonTabItem Header="{x:Static resx:GUI.Form_AdvancedCreator_Templates}" >
-                <fluent:RibbonGroupBox Header="{x:Static resx:GUI.Form_AdvancedCreator_Templates}">
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_RuleTemplate}" LargeImageSource="/WinHue3;component/Resources/rules.png" Command="{Binding CreateRuleTemplateCommand}"  />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SensorTemplate}" LargeImageSource="/WinHue3;component/Resources/sensor.png" Command="{Binding CreateSensorTemplateCommand}" />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_ResourceLinkTemplate}" LargeImageSource="/WinHue3;component/Resources/resource.png" Command="{Binding CreateResourceLinkTemplateCommand }" />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_GroupTemplate}" LargeImageSource="/WinHue3;component/Resources/HueGroupOn.png" Command="{Binding CreateGroupTemplateCommand}" />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_ScheduleTemplate}" LargeImageSource="/WinHue3;component/Resources/SchedulesLarge.png" Command="{Binding CreateScheduleTemplateCommand}" />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneTemplate}" LargeImageSource="/WinHue3;component/Resources/scenes.png" Command="{Binding CreateSceneTemplateCommand}" />
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_SceneLightTemplate}" LargeImageSource="/WinHue3;component/Resources/scenes.png" Command="{Binding CreateSceneStateCommand}" />
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Header="{x:Static resx:GUI.Form_AdvancedCreator_Actions}">
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_Clear}" LargeImageSource="/WinHue3;component/Resources/1493782199_draft.png" Command="{Binding ClearTemplateCommand}"/>
-                    <RibbonButton Label="{x:Static resx:GUI.Form_AdvancedCreator_Send}" LargeImageSource="/WinHue3;component/Resources/bridge.png" Command="{Binding SendCommand}" />
-                </fluent:RibbonGroupBox>
-
-            </fluent:RibbonTabItem>
-
-        </fluent:Ribbon>
-        <Button Margin="0,118,0,0" Command="{Binding SetBridgeUrlCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Width="29" Height="29" VerticalAlignment="Top">
+        <ToolBarTray>
+            <ToolBar Header="{x:Static resx:GUI.Form_AdvancedCreator_Templates}">
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_RuleTemplate}" Command="{Binding CreateRuleTemplateCommand}"  >
+                    <Image Source="/WinHue3;component/Resources/rules.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_SensorTemplate}" Command="{Binding CreateSensorTemplateCommand}">
+                    <Image Source="/WinHue3;component/Resources/sensor.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_ResourceLinkTemplate}" Command="{Binding CreateResourceLinkTemplateCommand }" >
+                    <Image Source="/WinHue3;component/Resources/resource.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_GroupTemplate}" Command="{Binding CreateGroupTemplateCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_ScheduleTemplate}" Command="{Binding CreateScheduleTemplateCommand}">
+                    <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_SceneTemplate}" Command="{Binding CreateSceneTemplateCommand}">
+                    <Image Source="/WinHue3;component/Resources/scenes.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_SceneLightTemplate}" Command="{Binding CreateSceneStateCommand}">
+                    <Image Source="/WinHue3;component/Resources/scenes.png" Height="32"/>
+                </Button>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.Form_AdvancedCreator_Actions}">
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_Clear}" Command="{Binding ClearTemplateCommand}">
+                    <Image Source="/WinHue3;component/Resources/1493782199_draft.png" Height="32"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_Send}" Command="{Binding SendCommand}">
+                    <Image Source="/WinHue3;component/Resources/bridge.png" Height="32"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <Button Margin="0,46,0,0" Command="{Binding SetBridgeUrlCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Width="29" Height="29" VerticalAlignment="Top">
             <Button.Content>
-                <Image Source="/WinHue3;component/Resources/bridge.png" HorizontalAlignment="Left" Width="22"  Margin="-4,-4,0,-0.333" Height="23" VerticalAlignment="Top"/>
+                <Image Source="/WinHue3;component/Resources/bridge.png" HorizontalAlignment="Left" Width="22"  Margin="0,0,0,-0.333" Height="23" VerticalAlignment="Top"/>
             </Button.Content>
         </Button>
 
-        <xctk:WatermarkTextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,118,97.333,0" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}" />
-        <ComboBox Margin="0,118,0.333,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content">
+        <xctk:WatermarkTextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,46,97,0" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}" />
+        <ComboBox Margin="0,46,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content">
             <ComboBoxItem Content="POST" Tag="{x:Static comm:WebRequestType.Post}"/>
             <ComboBoxItem Content="PUT" Tag="{x:Static comm:WebRequestType.Put}"/>
             <ComboBoxItem Content="DELETE" Tag="{x:Static comm:WebRequestType.Delete}"/>
             <ComboBoxItem Content="GET" Tag="{x:Static comm:WebRequestType.Get}"/>
         </ComboBox>
-        <avalonedit:TextEditor ShowLineNumbers="True" Margin="0,146,0.333,19.667" >
+        <avalonedit:TextEditor ShowLineNumbers="True" Margin="0,80,0,20" >
             <i:Interaction.Behaviors>
                 <controls:AvalonEditBehaviour  EditorText="{Binding Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </i:Interaction.Behaviors>

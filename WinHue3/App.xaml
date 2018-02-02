@@ -4,11 +4,6 @@
              Startup="Application_Startup" >
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!--Attach Default Fluent Control's Theme-->
-                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
-
-            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="AnimatedSwitch" TargetType="{x:Type ToggleButton}">
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="Background" Value="#FAFAFB" />

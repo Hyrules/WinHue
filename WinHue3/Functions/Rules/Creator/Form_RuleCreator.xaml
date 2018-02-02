@@ -179,7 +179,7 @@
                         </xctk:PropertyGrid.EditorDefinitions>-->
                     </xctk:PropertyGrid>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_AddToRuleActions}" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="342" Command="{Binding Action_AddActionCommand}" Height="30"/>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="192" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" Command="{Binding Action_SelectActionObjectCommand}" Watermark="Object" Height="27" Style="{StaticResource {x:Type ComboBox}}">
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="192" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" Command="{Binding Action_SelectActionObjectCommand}" Watermark="Object" Height="23" Style="{StaticResource {x:Type ComboBox}}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
@@ -190,17 +190,17 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </controls:CommandComboBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" Command="{Binding Action_SelectHueObjectTypeCommand}" Watermark="Object Type" Style="{StaticResource {x:Type ComboBox}}">
-                        <ComboBoxItem Content="Lights" Tag="{x:Type light:Light}"/>
-                        <ComboBoxItem Content="Groups" Tag="{x:Type group:Group}"/>
-                        <ComboBoxItem Content="Scenes" Tag="{x:Type scene:Scene}"/>
-                        <ComboBoxItem Content="Sensors" Tag="{x:Type sensor:Sensor}"/>
-
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" Command="{Binding Action_SelectHueObjectTypeCommand}" Watermark="Object Type" Style="{StaticResource {x:Type ComboBox}}" Height="23">
+                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_lights}" Tag="{x:Type light:Light}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_groups}" Tag="{x:Type group:Group}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_scenes}" Tag="{x:Type scene:Scene}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_sensors}" Tag="{x:Type sensor:Sensor}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_schedules}" Tag="{x:Type schedule:Schedule}"/>
                     </controls:CommandComboBox>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveUp}" HorizontalAlignment="Left" Margin="447,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_MoveUpRuleActionCommand}"/>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveDown}" HorizontalAlignment="Left" Margin="527,282,0,0" VerticalAlignment="Top" Width="85" Height="29" Command="{Binding Action_MoveDownRuleActionCommand}"/>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Delete}" HorizontalAlignment="Left" Margin="617,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_RemoveRuleActionCommand}" Background="Red"/>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" Margin="357,282,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Action_ClearRuleActionCommand}"/>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" Margin="357,282,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Action_ClearRuleActionCommand}" Height="29"/>
 
                 </Grid>
             </TabItem>
