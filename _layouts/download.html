@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./assets/magnific-popup/popup-styles.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/default.css">
+    <link rel="stylesheet" href="./css/download.css">
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700" rel="stylesheet">
     <!-- Page Icons: 1. Chrome and Opera -->
@@ -23,109 +23,22 @@
     <meta name="theme-color" content="#000000">
   </head>
   <body>
-    <!-- Heading: Jumbotron -->
     <div class="jumbotron jumbotron-fluid vertical-center" id="gradient-header">
-        <div class="container" id="jumboContent">
-            <h1 class="display-3" id="title">WinHue 3</h1>
-            <p>{{ site.github.project_tagline }}</p>
-            <p>
-              <div class="btn-group btn-flex btn-btm-pad">
-                  <a class="btn btn-light btn-lg" href="{{ site.github.releases[0].assets[0].browser_download_url }}" role="button" data-toggle="tooltip" data-placement="bottom" title="{{ site.github.releases[0].name }}" onclick="thanks()">Download WinHue</a>
-                  <button type="button" class="btn btn-light btn-lg dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                      <button class="dropdown-item" data-toggle="modal" data-target="#changelogModal">Changelog for {{ site.github.releases[0].name }}</button>
-                      <button class="dropdown-item" data-toggle="modal" data-target="#srcCodeModal">Source Code for {{ site.github.releases[0].name }}</button>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ site.github.releases_url }}">All Downloads</a>
-                  </div>
-              </div>
-              <a class="btn btn-outline-light btn-lg rightmost header-btn btn-btm-pad" href="{{ site.github.repository_url }}" role="button">View on GitHub</a>
-            </p>
-        </div>
+      <div class="container" id="jumboContent">
+          <h1 class="display-3" id="title">Thank You</h1>
+          <p>Thank you for downloading WinHue!</p>
+      </div>
     </div>
     <!-- Main Content -->
     <div class="container">
       <div class="row row-btm-pad">
         <div class="col-md-6">
-        <h2>Introduction</h2>
-        <p>WinHue is a desktop application that can control the Philips Hue lighting system. It is easy to install and use, and is one of the few fully-featured Hue apps on Windows.</p>
-        <p>Plus, it's FREE!</p>
-      </div>
+          <h2>Support</h2>
+          <p>If you have any questions, please visit our <a href="{{ site.github.issues_url }}">issues forum</a> and we'll help you sort it out.</p>
+          <p>If you discover a bug, please include the log file when reporting it. This will help us to define the nature of the error quickly.</p>
+        </div>
         <div class="col-md-6">
-          <a class="image-link" href="./assets/mainWindow.png" data-effect="mfp-zoom-in">
-            <img src="./assets/mainWindow.png"  class="img-fluid" alt="The main window of WinHue.">
-          </a>
-        </div>
-      </div>
-      <div class="row row-btm-pad">
-        <div class="col-md-6 order-md-2">
-          <h2>Edit Everything</h2>
-          <p>Many items on the Hue bridge can be created, modified and deleted. These include:</p>
-          <ul>
-            <li>Groups</li>
-            <li>Schedules</li>
-            <li>Scenes</li>
-            <li>Rules</li>
-            <li>Sensors</li>
-            <li>More!</li>
-          </ul>
-          <p>Timer and schedules can also be set to recurr at certain times!</p>
-        </div>
-        <div class="col-md-6 order-md-1">
-          <div class="row row-gall-pad">
-            <div class="col-6 col-gall-l">
-                <a class="image-link" href="./assets/createSchedules.png" data-effect="mfp-zoom-in">
-                  <img src="./assets/createSchedules.png"  class="img-fluid" alt="Creating schedules with WinHue.">
-                </a>
-            </div>
-            <div class="col-6 col-gall-r">
-                <a class="image-link" href="./assets/groupCreator.png" data-effect="mfp-zoom-in">
-                  <img src="./assets/groupCreator.png"  class="img-fluid" alt="The group creator dialog.">
-                </a>
-            </div>
-          </div>
-          <div class="row">
-              <div class="col-6 col-gall-l">
-                  <a class="image-link" href="./assets/ruleCreator.png" data-effect="mfp-zoom-in">
-                    <img src="./assets/ruleCreator.png"  class="img-fluid" alt="The rule creator dialog.">
-                  </a>
-              </div>
-              <div class="col-6 col-gall-r">
-                  <a class="image-link" href="./assets/createScenes.png" data-effect="mfp-zoom-in">
-                    <img src="./assets/createScenes.png"  class="img-fluid" alt="Creating scenes with WinHue.">
-                  </a>
-              </div>
-          </div>
-        </div>
-      </div>
-      <div class="row row-btm-pad">
-          <div class="col-md-6">
-            <h2>Full Control</h2>
-            <p>WinHue allows ultimate control of lights and groups.</p>
-            <ul>
-              <li>Name</li>
-              <li>Color</li>
-              <li>Brightness</li>
-              <li>White Temperature</li>
-              <li>Saturation</li>
-            </ul>
-            <p>Quick and easy setup with support for multiple bridges means you'll be up and running with little more than a tap of the push-link button on your bridge.</p>
-          </div>
-          <div class="col-md-6">
-              <a class="image-link" href="./assets/pairing.png" data-effect="mfp-zoom-in">
-                <img src="./assets/pairing.png" class="img-fluid" alt="WinHue pairing dialog and process.">
-              </a>
-          </div>
-        </div>
-        <div class="row row-btm-pad">
-            <div class="col-md-6 order-md-2">
-              <h2>And Finally...</h2>
-              <p>WinHue also has a fully-featured console application bundled with the installer.</p>
-              <h3>Support and Contact</h3>
-              <p>Having trouble with WinHue? Check out our <a href="{{ site.github.issues_url }}">issues forum</a> and we'll help you sort it out.</p>
-              <h3>Donate</h3>
+          <h2>Donate</h2>
               <p>If you like WinHue 3, please consider donating. I will always offer WinHue for free and donations keep me encouraged to continue its developement. Thanks!</p>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
@@ -139,64 +52,18 @@
                 ">
                 <input class="btn btn-secondary" type="submit" value="Donate Any Amount" name="submit" alt="PayPal - The safer, easier way to pay online!">
               </form>
-            </div>
-            <div class="col-md-6 order-md-1 d-none d-md-block">
-                <img src="./assets/group_on.png" class="img-fluid" alt="WinHue pairing dialog and process.">
-            </div>
-          </div>
-    </div>
+        </div>
+      </div>
+      <div class="row row-btm-pad">
+        <a href="./">Return to main page</a>
+        </div>  
+  </div>
 
     <footer class="footer">
         <div class="container">
           <span class="footer-content"><a href="{{ site.github.repository_url }}">{{ site.github.project_title }}</a> is maintained by <a href="{{ site.github.owner_url }}"><img src="{{ site.github.owner_gravatar_url }}"/> {{ site.github.owner_name }}</a>, with help from <a href="{{ site.github.contributors[1].html_url }}"><img src="{{ site.github.contributors[1].avatar_url }}"/> {{ site.github.contributors[1].login }}</a> ({{ site.github.contributors[1].contributions }}), <a href="{{ site.github.contributors[2].html_url }}"><img src="{{ site.github.contributors[2].avatar_url }}"/> {{ site.github.contributors[2].login }}</a> ({{ site.github.contributors[2].contributions }}) and <a href="{{ site.github.repository_url }}/graphs/contributors">others</a>.</span>
         </div>
     </footer>
-
-<!--Changelog Modal-->
-<div class="modal fade" id="changelogModal" tabindex="-1" role="dialog" aria-labelledby="changelogModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="changelogModalLabel">Changelog for {{ site.github.releases[0].name }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>{{ site.github.releases[0].body }}</p>
-          <hr>
-          <p class="text-muted" id="size-text">Size: {{ site.github.releases[0].assets[0].size }}</p>
-          <p class="text-muted">Downloads: {{ site.github.releases[0].assets[0].download_count }}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--Source Code Selector Modal-->
-  <div class="modal fade" id="srcCodeModal" tabindex="-1" role="dialog" aria-labelledby="srcCodeModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="srcCodeModalLabel">Source Code for {{ site.github.releases[0].name }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Which file type would you like to download?</p>
-            <a href="{{ site.github.releases[0].zipball_url }}">Zipball (.zip)</a>
-            <br>
-            <a href="{{ site.github.releases[0].tarball_url }}">Tarball (.tar)</a>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Cancel">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS, then other JS -->
