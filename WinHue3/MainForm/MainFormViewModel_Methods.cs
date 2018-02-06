@@ -167,6 +167,11 @@ namespace WinHue3.MainForm
                     if (hr != null)
                     {
                         List<IHueObject> listobj = hr;
+
+                        if (!WinHueSettings.settings.ShowHiddenScenes)
+                        {
+                            hr.RemoveAll(x => x.GetType() == typeof(Scene) && x.name.StartsWith("HIDDEN"));
+                        }
                         ObservableCollection<IHueObject> newlist = new ObservableCollection<IHueObject>();
 
                         switch (MainFormModel.Sort)
@@ -184,7 +189,7 @@ namespace WinHue3.MainForm
                                     orderby item.name
                                     select item);
                                 newlist.AddRange(from item in listobj
-                                    where item is Schedule
+                                    where item is Schedule 
                                     orderby item.name
                                     select item);
                                 newlist.AddRange(from item in listobj
@@ -235,12 +240,7 @@ namespace WinHue3.MainForm
                                 goto case WinHueSortOrder.Default;
                         }
                         CreateExpanders();
-                        RaisePropertyChanged("Lights");
-                        RaisePropertyChanged("Groups");
-                        RaisePropertyChanged("Sensors");
-                        RaisePropertyChanged("Schedules");
-                        RaisePropertyChanged("ResourceLinks");
-                        RaisePropertyChanged("Scenes");
+
                     }
                     else
                     {

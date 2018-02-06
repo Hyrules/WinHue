@@ -596,7 +596,7 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Margin="0,76,0,0" Grid.RowSpan="2">
+        <Grid Margin="0,76,-0.333,0.333" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
@@ -607,7 +607,7 @@
                       SelectedItem="{Binding SelectedObject}" 
                       SelectionChanged="LvMainObjects_SelectionChanged" 
                       SelectionMode="Single" 
-                      VerticalContentAlignment="Stretch" Grid.Column="1" 
+                      VerticalContentAlignment="Stretch" Grid.Column="0" 
                       IsEnabled="{Binding EnableListView}" 
                       behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
                       behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
@@ -615,7 +615,8 @@
                       behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                       behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"            
                       ItemsPanel="{StaticResource HueIconPanelTemplate}"
-                      ItemContainerStyle="{StaticResource HueIconListViewItemStyle}" Grid.ColumnSpan="2" Margin="0.333,0,349.667,0"
+                      ItemContainerStyle="{StaticResource HueIconListViewItemStyle}" Grid.ColumnSpan="2"
+                      Margin="0,0,349.667,0"
                       >
 
                 <ListView.Resources>
@@ -704,7 +705,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" MinHeight="472"/>
                 </Grid.RowDefinitions>

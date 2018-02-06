@@ -473,13 +473,13 @@ namespace WinHue3.Functions.Rules.Creator
 
                     break;
                 case Type sched when sched == typeof(Schedule):
-                    ListConditionHueObjects = _listConditionHueObjects.OfType<Schedule>().ToList<IHueObject>();
+                    ListConditionHueObjects = _listAvailableHueObject.OfType<Schedule>().ToList<IHueObject>();
                     break;
                 case Type rule when rule == typeof(Rule):
-                    ListConditionHueObjects = _listConditionHueObjects.OfType<Rule>().ToList<IHueObject>();
+                    ListConditionHueObjects = _listAvailableHueObject.OfType<Rule>().ToList<IHueObject>();
                     break;
                 case Type rl when rl == typeof(Resourcelink):
-                    ListConditionHueObjects = _listConditionHueObjects.OfType<Resourcelink>().ToList<IHueObject>();
+                    ListConditionHueObjects = _listAvailableHueObject.OfType<Resourcelink>().ToList<IHueObject>();
                     break;
                 case Type brs when brs == typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings):
                     ListConditionProperties = TreeViewHelper.BuildPropertiesTree(_bs, "/config", "Config").ToList();
