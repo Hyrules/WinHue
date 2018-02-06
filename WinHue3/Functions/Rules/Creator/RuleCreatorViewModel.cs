@@ -203,6 +203,12 @@ namespace WinHue3.Functions.Rules.Creator
                 ActionProperties = sb;
 
             }
+            else if(_selectedHueObjectType == typeof(Schedule))
+            {
+                ActionProperties = new Schedule();
+                CurrentPath = $"/schedules/{SelectedHueObject.Id}";
+                
+            }
 
         }
 
