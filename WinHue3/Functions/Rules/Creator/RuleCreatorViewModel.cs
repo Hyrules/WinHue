@@ -317,7 +317,9 @@ namespace WinHue3.Functions.Rules.Creator
                     SelectedHueObjectType = typeof(Schedule);
                     if(_listHueObjects.Exists(x => x.Id == ha.id))
                     {
+                        Schedule sc = Serializer.DeserializeToObject<Schedule>(SelectedRuleAction.body);
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
+                        ActionProperties = sc;
                     }
                     else
                     {

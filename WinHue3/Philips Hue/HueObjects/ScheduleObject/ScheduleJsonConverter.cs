@@ -69,11 +69,18 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 newSchedule.autodelete = obj["autodelete"].Value<bool>();
             if (obj["description"] != null)
                 newSchedule.description = obj["description"].Value<string>();
+
             if (obj["localtime"] != null)
+            {
                 newSchedule.localtime = obj["localtime"].Value<string>();
-            if (newSchedule.localtime == null)
-                newSchedule.localtime = obj["time"].Value<string>();
-            if (newSchedule.localtime.Contains(" ")) newSchedule.localtime = newSchedule.localtime.Replace(" ","T"); // Bypass a stupid function of JSON.Net that parses dates
+                if (newSchedule.localtime.Contains(" ")) newSchedule.localtime = newSchedule.localtime.Replace(" ", "T"); // Bypass a stupid function of JSON.Net that parses dates
+            }
+            else
+            {
+                if(obj["time"] != null)
+                    newSchedule.localtime = obj["time"]?.Value<string>();
+            }
+                
                
             if (obj["recycle"] != null)
                 newSchedule.recycle = obj["recycle"].Value<bool>();
