@@ -473,6 +473,8 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
+                <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/SceneMapping.png" Height="16"/>
@@ -497,6 +499,8 @@
                     <MenuItem IsCheckable="True" x:Name="mnuSettings" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" IsChecked="True"/>
                     <MenuItem IsCheckable="True" x:Name="mnuEvents" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" IsChecked="True"/>
                 </MenuItem>
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" Foreground="Black" >
@@ -670,6 +674,19 @@
                     </DataTemplate>
 
                 </ListView.Resources>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}"/>
+                        <Separator/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
