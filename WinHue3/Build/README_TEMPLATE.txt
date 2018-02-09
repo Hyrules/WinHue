@@ -12,13 +12,15 @@ Fixed:
 - Bug where replacing condition would crash the app.
 - Bug where a crash would occur if you select a rule condition with a config proprerty.
 - Bug where user could not apply bridge settings.
-- BUg where adding a rule condition with DX was causing the program to serialize the empty value.
+- Bug where adding a rule condition with DX was causing the program to serialize the empty value.
+- Bug where user could not edit rule with action on schedule
 
 Added:
 - Change the order of the actions in the rule creator.
 - New icon for refresh and bridge settings
 - New tab in menu for Help, maybe to replace Help tab in ribbon to make the program more in line with how Office and other programs place the help menu. (banksio)
 - Moved the delete button, rename button, edit button from context menu to right panel.
+- Missing rule creator action on schedule.
 
 Changed:
 - Reverted to CommandCombobox to solve issues.

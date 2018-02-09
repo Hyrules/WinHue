@@ -68,8 +68,8 @@ Source: "{#Folder}lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recur
 Source: "{#Folder}naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}fluent.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}ControlzEx.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}fluent.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}ControlzEx.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
