@@ -56,6 +56,7 @@ using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
 using WinHue3.LIFX.Finder;
 using State = WinHue3.Philips_Hue.HueObjects.LightObject.State;
+using WinHue3.Functions.Schedules.NewCreator;
 
 namespace WinHue3.MainForm
 {
@@ -461,7 +462,7 @@ namespace WinHue3.MainForm
 
         private async Task CreateSchedule()
         {
-            Form_ScheduleCreator fscc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
+            /*Form_ScheduleCreator fscc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
             await fscc.Initialize(SelectedBridge, _selectedObject );
             log.Debug($@"Opening the schedule creator window passing bridge {SelectedBridge.IpAddress} ");
             if (fscc.ShowDialog() != true) return;
@@ -474,11 +475,11 @@ namespace WinHue3.MainForm
             else
             {
                 MessageBoxError.ShowLastErrorMessages(SelectedBridge);
-            }
-            /*
+            }*/
+            
             Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow};
-            await fscc.Initialize();
-            fscc.ShowDialog();*/
+          //  await fscc.Initialize();
+            fscc.ShowDialog();
 
         }
 

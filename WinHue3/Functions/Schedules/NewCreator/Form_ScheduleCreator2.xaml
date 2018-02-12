@@ -8,7 +8,8 @@
         xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
         xmlns:slider ="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
+    xmlns:controls="clr-namespace:WinHue3.Controls"
+    x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="424.841" Width="712.986">
     <Window.Resources>
@@ -27,10 +28,10 @@
 
 
         <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="339" Width="334" Background="{DynamicResource SliderThumb.Disabled.Border}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="339">
+        <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="339" Command="{Binding ChangeContentCommand}" Selected="{Binding Content}">
             <ComboBoxItem Content="Sliders"></ComboBoxItem>
             <ComboBoxItem Content="Sensors"></ComboBoxItem>
-        </ComboBox>
+        </controls:CommandComboBox>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,354,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="533,354,0,0" VerticalAlignment="Top" Width="75"/>
         <xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="339" Kind="Local" Format="Custom" Value="{Binding Header.Datetime}"  >
