@@ -478,7 +478,7 @@ namespace WinHue3.MainForm
             }*/
             
             Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow};
-          //  await fscc.Initialize();
+            await fscc.Initialize();
             fscc.ShowDialog();
 
         }

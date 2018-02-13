@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
@@ -16,9 +17,9 @@ namespace WinHue3.Functions.Schedules.NewCreator
             
         }
 
-        public void Initialize()
+        public async Task Initialize()
         {
-            _scvm.Initialize();
+            await _scvm.Initialize();
         }
     }
 }

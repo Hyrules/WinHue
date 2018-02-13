@@ -4,23 +4,27 @@ using WinHue3.Utils;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
+    public enum ContentTypeVm { Sensor, Sliders };
+
     public class ScheduleCreatorViewModel : ValidatableBindableBase
     {
-        public enum ContentType { Sensor, Sliders };
+        
 
         private ValidatableBindableBase _selectedViewModel;
 
         private ScheduleCreatorHeader _header;
-        private ContentType _content;
+        private ContentTypeVm _content;
 
         public ScheduleCreatorViewModel()
         {
             _header = new ScheduleCreatorHeader();
             _selectedViewModel = new ScheduleCreatorSlidersViewModel();
+            _content = ContentTypeVm.Sliders;
         }
 
         public async Task Initialize()
         {
+            
 
         }
 
@@ -38,11 +42,11 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public ICommand ChangeContentCommand => new RelayCommand(param => ChangeContent());
 
-        public ContentType Content { get => _content; set => SetProperty(ref _content,value); }
+        public ContentTypeVm Content { get => _content; set => SetProperty(ref _content,value); }
 
         private void ChangeContent()
         {
-            if (Content == ContentType.Sliders)
+            if (Content == ContentTypeVm.Sliders)
                 SelectedViewModel = new ScheduleCreatorSlidersViewModel();
             else
                 SelectedViewModel = new ScheduleCreatorSensorsViewModel();
