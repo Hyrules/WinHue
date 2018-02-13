@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Xceed.Wpf.Toolkit;
 
 namespace WinHue3.Functions.Schedules.NewCreator.Controls
 {
@@ -109,5 +110,27 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             Sliders sliders = d as Sliders;
             sliders.SlY.Value = Convert.ToDouble(e.NewValue);
         }
+
+        public int TT
+        {
+            get { return (int)GetValue(TransitionTimeProperty); }
+            set { SetValue(TransitionTimeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TransitionTimeProperty =
+            DependencyProperty.Register("TT", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TTPropertyChangedCallback));
+
+        private static void TTPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            IntegerUpDown iud = d as IntegerUpDown;
+            iud.Value = Convert.ToInt32(e.NewValue);
+        }
     }
+
+
+
+
+
+
 }
