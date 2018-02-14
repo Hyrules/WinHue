@@ -14,7 +14,7 @@
     x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="453.841" Width="712.986" WindowStartupLocation="CenterOwner">
-    
+
     <Window.Resources>
         <converters:DoubleToUShortConverter x:Key="DoubleToUShortConverter"/>
         <converters:DoubleToByteConverter x:Key="DoubleToByteConverter"/>
@@ -39,13 +39,13 @@
     </Window.DataContext>
     <Grid>
         <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="366" Width="334" />
-        <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="339" Command="{Binding ChangeContentCommand}" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
+        <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="128" Command="{Binding ChangeContentCommand}" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
             <ComboBoxItem Content="Sliders" Tag="{x:Static local:ContentTypeVm.Sliders }"/>
             <ComboBoxItem Content="Sensors" Tag="{x:Static local:ContentTypeVm.Sensor }"/>
         </controls:CommandComboBox>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,392,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="533,392,0,0" VerticalAlignment="Top" Width="75"/>
-        <!--<xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="339" Kind="Local" Format="Custom" Value="{Binding Header.Datetime}"  >
+        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="197,101,0,0" VerticalAlignment="Top" Width="152" Kind="Local" Format="Custom" Value="{Binding Header.Datetime}"  >
             <xctk:DateTimePicker.Style>
                 <Style TargetType="xctk:DateTimePicker">
                     <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss"/>
@@ -60,7 +60,7 @@
                     </Style.Triggers>
                 </Style>
             </xctk:DateTimePicker.Style>
-        </xctk:DateTimePicker>-->
+        </xctk:DateTimePicker>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
         <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type">
@@ -68,6 +68,7 @@
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}" Tag="alarm"/>
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}" Tag="timer" />
         </xctk:WatermarkComboBox>
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="143,354,0,0" VerticalAlignment="Top" Width="206" ItemsSource="{Binding }"/>
 
     </Grid>
 </Window>
