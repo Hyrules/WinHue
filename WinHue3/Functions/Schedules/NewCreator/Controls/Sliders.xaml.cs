@@ -15,7 +15,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             InitializeComponent();
         }
 
-        public int Hue
+        public int HueValue
         {
             get { return (int)GetValue(HueProperty); }
             set { SetValue(HueProperty, value); }
@@ -23,7 +23,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for Hue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HueProperty =
-            DependencyProperty.Register("Hue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, HuePropertyChangedCallback));
+            DependencyProperty.Register("HueValue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, HuePropertyChangedCallback));
 
         private static void HuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -31,7 +31,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             sliders.SlHue.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Bri
+        public int BriValue
         {
             get { return (int)GetValue(BriProperty); }
             set { SetValue(BriProperty, value); }
@@ -39,7 +39,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for Bri.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BriProperty =
-            DependencyProperty.Register("Bri", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, BriPropertyChangedCallback));
+            DependencyProperty.Register("BriValue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, BriPropertyChangedCallback));
 
         private static void BriPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -47,7 +47,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             sliders.SlBri.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Sat
+        public int SatValue
         {
             get { return (int)GetValue(SatProperty); }
             set { SetValue(SatProperty, value); }
@@ -55,7 +55,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for Sat.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SatProperty =
-            DependencyProperty.Register("Sat", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SatPropertyChangedCallback));
+            DependencyProperty.Register("SatValue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SatPropertyChangedCallback));
 
         private static void SatPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -63,7 +63,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             sliders.SlSat.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Ct
+        public int CtValue
         {
             get { return (int)GetValue(CtProperty); }
             set { SetValue(CtProperty, value); }
@@ -71,7 +71,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for Ct.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CtProperty =
-            DependencyProperty.Register("Ct", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, CtPropertyChangedCallback));
+            DependencyProperty.Register("CtValue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, CtPropertyChangedCallback));
 
         private static void CtPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -79,7 +79,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             sliders.SlCt.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int X
+        public int XValue
         {
             get { return (int)GetValue(XProperty); }
             set { SetValue(XProperty, value); }
@@ -87,7 +87,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for X.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty XProperty =
-            DependencyProperty.Register("X", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, XPropertyChangedCallback));
+            DependencyProperty.Register("XValue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, XPropertyChangedCallback));
 
         private static void XPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -95,7 +95,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             sliders.SlX.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Y
+        public int YValue
         {
             get { return (int)GetValue(YProperty); }
             set { SetValue(YProperty, value); }
@@ -103,7 +103,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for Y.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YProperty =
-            DependencyProperty.Register("Y", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, YPropertyChangedCallback));
+            DependencyProperty.Register("YValue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, YPropertyChangedCallback));
 
         private static void YPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -111,7 +111,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             sliders.SlY.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int TT
+        public int TTValue
         {
             get { return (int)GetValue(TransitionTimeProperty); }
             set { SetValue(TransitionTimeProperty, value); }
@@ -119,12 +119,47 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TransitionTimeProperty =
-            DependencyProperty.Register("TT", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TTPropertyChangedCallback));
+            DependencyProperty.Register("TTValue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TtPropertyChangedCallback));
 
-        private static void TTPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void TtPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            IntegerUpDown iud = d as IntegerUpDown;
-            iud.Value = Convert.ToInt32(e.NewValue);
+            Sliders sliders = d as Sliders;
+            sliders.iudTT.Value = Convert.ToInt32(e.NewValue);
+        }
+
+        private void SlHue_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            HueValue = Convert.ToInt32(e.NewValue);
+        }
+
+        private void SlBri_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            BriValue = Convert.ToInt32(e.NewValue);
+        }
+
+        private void SlCt_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            CtValue = Convert.ToInt32(e.NewValue);
+        }
+
+        private void SlSat_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            SatValue = Convert.ToInt32(e.NewValue);
+        }
+
+        private void SlX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            XValue = Convert.ToInt32(e.NewValue);
+        }
+
+        private void SlY_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            YValue = Convert.ToInt32(e.NewValue);
+        }
+
+        private void iudTT_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TTValue = Convert.ToInt32(e.NewValue);
         }
     }
 

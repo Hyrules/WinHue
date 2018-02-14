@@ -9,14 +9,26 @@
         xmlns:slider ="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:enum="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
-    
+        xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:controls="clr-namespace:WinHue3.Controls"
     x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="453.841" Width="712.986">
+        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="453.841" Width="712.986" WindowStartupLocation="CenterOwner">
+    
     <Window.Resources>
+        <converters:DoubleToUShortConverter x:Key="DoubleToUShortConverter"/>
+        <converters:DoubleToByteConverter x:Key="DoubleToByteConverter"/>
+        <converters:SliderToXYConverter x:Key="DoubleToXyConverter"/>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSlidersViewModel}" >
-            <slider:Sliders Hue="{Binding Hue, Mode=TwoWay}"/>
+            <slider:Sliders 
+                HueValue="{Binding Hue, Mode=TwoWay, Converter={StaticResource DoubleToUShortConverter}}" 
+                BriValue="{Binding Bri, Mode=TwoWay, Converter={StaticResource DoubleToByteConverter}}"
+                CtValue="{Binding Ct, Mode=TwoWay, Converter={StaticResource DoubleToUShortConverter}}"
+                SatValue="{Binding Sat, Mode=TwoWay, Converter={StaticResource DoubleToByteConverter}}"
+                XValue="{Binding X, Mode=TwoWay, Converter={StaticResource DoubleToXyConverter}}"
+                YValue="{Binding Y, Mode=TwoWay, Converter={StaticResource DoubleToXyConverter}}"
+                TTValue="{Binding Tt, Mode=TwoWay, Converter={StaticResource DoubleToUShortConverter}}"
+                />
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSensorsViewModel}">
             <xctk:PropertyGrid ></xctk:PropertyGrid>
@@ -26,7 +38,7 @@
         <local:ScheduleCreatorViewModel/>
     </Window.DataContext>
     <Grid>
-        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="366" Width="334" Background="{DynamicResource SliderThumb.Disabled.Border}"/>
+        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="366" Width="334" />
         <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="339" Command="{Binding ChangeContentCommand}" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
             <ComboBoxItem Content="Sliders" Tag="{x:Static local:ContentTypeVm.Sliders }"/>
             <ComboBoxItem Content="Sensors" Tag="{x:Static local:ContentTypeVm.Sensor }"/>

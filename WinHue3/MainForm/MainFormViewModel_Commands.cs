@@ -282,7 +282,7 @@ namespace WinHue3.MainForm
         public ICommand RefreshViewCommand => new AsyncRelayCommand(param => RefreshView(), (param) => EnableButtons());
         public ICommand CreateGroupCommand => new AsyncRelayCommand(param => CreateGroup(), (param) => EnableButtons());
         public ICommand CreateSceneCommand => new AsyncRelayCommand(param => CreateScene(), (param) => EnableButtons());
-        public ICommand CreateScheduleCommand => new AsyncRelayCommand(param => CreateSchedule(), (param) => EnableButtons() && CanSchedule());
+        public ICommand CreateScheduleCommand => new AsyncRelayCommand(param => CreateSchedule(), (param) => EnableButtons());
         public ICommand CreateRuleCommand => new AsyncRelayCommand(param => CreateRule(), (param) => EnableButtons());
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor(), (param) => EnableButtons());
         public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(), (param) => EnableButtons());

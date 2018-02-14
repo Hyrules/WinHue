@@ -8,8 +8,10 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private byte? _bri;
         private byte? _sat;
         private ushort? _ct;
-        private decimal? x;
-        private decimal? y;
+        private decimal? _x;
+        private decimal? _y;
+        private ushort? _tt;
+    
 
         public ScheduleCreatorSlidersViewModel()
         {
@@ -42,14 +44,20 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public decimal? X
         {
-            get => x;
-            set => SetProperty(ref x ,value);
+            get => _x;
+            set => SetProperty(ref _x ,value);
         }
 
         public decimal? Y
         {
-            get => y;
-            set => SetProperty(ref y, value);
+            get => _y;
+            set => SetProperty(ref _y, value);
+        }
+
+        public ushort? Tt
+        {
+            get => _tt;
+            set => SetProperty(ref _tt, value);
         }
     }
 }
