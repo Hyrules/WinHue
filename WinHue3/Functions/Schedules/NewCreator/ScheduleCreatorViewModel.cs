@@ -10,11 +10,12 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
-    public enum ContentTypeVm { Sensor, Sliders };
+    public enum ContentTypeVm { Sensor, Sliders, Schedule };
 
     public class ScheduleCreatorViewModel : ValidatableBindableBase
     {
@@ -24,8 +25,24 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private Bridge _bridge;
         private ScheduleCreatorHeader _header;
         private ContentTypeVm _content;
-        private DataStore _ds;
         private List<IHueObject> _currentHueObjectList;
+        private IHueObject _selectHueObject;
+
+        public ICommand SelectTargetObject => new RelayCommand(param => SelectTarget());
+
+        private void SelectTarget()
+        {
+            if (SelectedTarget is Sensor)
+            {
+                ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
+                _scvm.SelectedObject = HueSensorStateFactory.CreateSensorStateFromSensorType(((Sensor)SelectedTarget).type);
+            }
+            else if(SelectedTarget is Schedule)
+            {
+                ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
+                _scvm.SelectedObject = new Schedule();
+            }
+        }
 
         public ScheduleCreatorViewModel()
         {
@@ -63,8 +80,14 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public ObservableCollection<IHueObject> ListTargetHueObject
         {
-            get { return _listTargetHueObject; }
-            set { SetProperty(ref _listTargetHueObject,value); }
+            get => _listTargetHueObject;
+            set => SetProperty(ref _listTargetHueObject,value);
+        }
+
+        public IHueObject SelectedTarget
+        {
+            get => _selectHueObject;
+            set => SetProperty(ref _selectHueObject,value);
         }
 
         private void ChangeContent()
@@ -78,14 +101,20 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
                 ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
             }
-            else
+            else if (Content == ContentTypeVm.Sensor)
             {
-                SelectedViewModel = new ScheduleCreatorSensorsViewModel();
+                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
                 ListTargetHueObject = new ObservableCollection<IHueObject>();
                 if (_currentHueObjectList == null) return;
-                ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Sensor).ToList());
+                ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Sensor).Where(x => ((Sensor)x).type.Contains("CLIP")).ToList());
             }
-                
+            else
+            {
+                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+                ListTargetHueObject = new ObservableCollection<IHueObject>();
+                if (_currentHueObjectList == null) return;
+                ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Schedule).ToList());
+            }
         }
 
     }

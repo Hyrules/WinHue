@@ -17,8 +17,8 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         public int HueValue
         {
-            get { return (int)GetValue(HueProperty); }
-            set { SetValue(HueProperty, value); }
+            get => (int)GetValue(HueProperty);
+            set => SetValue(HueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Hue.  This enables animation, styling, binding, etc...
@@ -33,8 +33,8 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         public int BriValue
         {
-            get { return (int)GetValue(BriProperty); }
-            set { SetValue(BriProperty, value); }
+            get => (int)GetValue(BriProperty);
+            set => SetValue(BriProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Bri.  This enables animation, styling, binding, etc...
@@ -49,8 +49,8 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         public int SatValue
         {
-            get { return (int)GetValue(SatProperty); }
-            set { SetValue(SatProperty, value); }
+            get => (int)GetValue(SatProperty);
+            set => SetValue(SatProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Sat.  This enables animation, styling, binding, etc...
@@ -65,8 +65,8 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         public int CtValue
         {
-            get { return (int)GetValue(CtProperty); }
-            set { SetValue(CtProperty, value); }
+            get => (int)GetValue(CtProperty);
+            set => SetValue(CtProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Ct.  This enables animation, styling, binding, etc...
@@ -81,8 +81,8 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         public int XValue
         {
-            get { return (int)GetValue(XProperty); }
-            set { SetValue(XProperty, value); }
+            get => (int)GetValue(XProperty);
+            set => SetValue(XProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for X.  This enables animation, styling, binding, etc...
@@ -97,8 +97,8 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         public int YValue
         {
-            get { return (int)GetValue(YProperty); }
-            set { SetValue(YProperty, value); }
+            get => (int)GetValue(YProperty);
+            set => SetValue(YProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Y.  This enables animation, styling, binding, etc...
@@ -113,8 +113,8 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         public int TTValue
         {
-            get { return (int)GetValue(TransitionTimeProperty); }
-            set { SetValue(TransitionTimeProperty, value); }
+            get => (int)GetValue(TransitionTimeProperty);
+            set => SetValue(TransitionTimeProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...

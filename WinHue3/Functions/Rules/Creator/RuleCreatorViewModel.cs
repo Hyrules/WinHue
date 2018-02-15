@@ -562,11 +562,9 @@ namespace WinHue3.Functions.Rules.Creator
             foreach (HuePropertyTreeViewItem r in rtvi.Items)
             {
                 HuePropertyTreeViewItem nrt = ParseRuleForProperty(address, r);
-                if (nrt != null)
-                {
-                    nrt.IsSelected = true;
-                    return nrt;
-                }
+                if (nrt == null) continue;
+                nrt.IsSelected = true;
+                return nrt;
             }
 
             return null;
