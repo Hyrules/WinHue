@@ -11,6 +11,7 @@
         xmlns:enum="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
         xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:controls="clr-namespace:WinHue3.Controls"
+    xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
     x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="453.841" Width="712.986" WindowStartupLocation="CenterOwner">
@@ -19,6 +20,7 @@
         <converters:DoubleToUShortConverter x:Key="DoubleToUShortConverter"/>
         <converters:DoubleToByteConverter x:Key="DoubleToByteConverter"/>
         <converters:SliderToXYConverter x:Key="DoubleToXyConverter"/>
+        <converters:ScheduleMaskConverter x:Key="ScheduleMaskConverter"/>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSlidersViewModel}" >
             <slider:Sliders 
                 HueValue="{Binding Hue, Mode=TwoWay, Converter={StaticResource DoubleToUShortConverter}}" 
@@ -33,42 +35,94 @@
         <DataTemplate DataType="{x:Type local:ScheduleCreatorSensorsViewModel}">
             <xctk:PropertyGrid ></xctk:PropertyGrid>
         </DataTemplate>
+        <Style TargetType="{x:Type CheckBox}" x:Key="AutoDeleteHide">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedType}" Value="W">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="T">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedType}" Value="PT">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <local:ScheduleCreatorViewModel/>
     </Window.DataContext>
     <Grid>
         <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="366" Width="334" />
-        <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" Width="128" Command="{Binding ChangeContentCommand}" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
+        <controls:CommandComboBox x:Name="cbScheduleType"  HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="167" Command="{Binding ChangeContentCommand}" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
             <ComboBoxItem Content="Sliders" Tag="{x:Static local:ContentTypeVm.Sliders }"/>
             <ComboBoxItem Content="Sensors" Tag="{x:Static local:ContentTypeVm.Sensor }"/>
         </controls:CommandComboBox>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,392,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="533,392,0,0" VerticalAlignment="Top" Width="75"/>
-        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="197,101,0,0" VerticalAlignment="Top" Width="152" Kind="Local" Format="Custom" Value="{Binding Header.Datetime}"  >
-            <xctk:DateTimePicker.Style>
-                <Style TargetType="xctk:DateTimePicker">
-                    <Setter Property="FormatString" Value="yyyy-MM-dd HH:mm:ss"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Header.ScheduleType}" Value="timer">
-                            <Setter Property="FormatString" Value="HH:mm:ss"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Header.ScheduleType}" Value="alarm">
-                            <Setter Property="FormatString" Value="HH:mm:ss"/>
-                        </DataTrigger>
-
-                    </Style.Triggers>
-                </Style>
-            </xctk:DateTimePicker.Style>
-        </xctk:DateTimePicker>
+        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="167" Kind="Local" Value="{Binding Header.Datetime}" CultureInfo="en-VG" Format="SortableDateTime"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
-        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type">
+        <xctk:WatermarkComboBox x:Name="wcbScheduleType"  HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type">
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}" Tag="schedule"/>
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}" Tag="alarm"/>
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}" Tag="timer" />
         </xctk:WatermarkComboBox>
-        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="143,354,0,0" VerticalAlignment="Top" Width="206" ItemsSource="{Binding }"/>
+        <xctk:CheckComboBox HorizontalAlignment="Left" Height="20" Margin="182,101,0,0" VerticalAlignment="Top" Width="167">
+            <xctk:CheckComboBox.Style>
+                <Style TargetType="xctk:CheckComboBox">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=wcbScheduleType, Path=SelectedValue }" Value="alarm">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+
+                </Style>
+            </xctk:CheckComboBox.Style>
+            <xctk:CheckComboBox.SelectedValue>
+                <Binding Path="ScheduleMask" Converter="{StaticResource ScheduleMaskConverter}" ValidatesOnDataErrors="True" ValidatesOnNotifyDataErrors="True" UpdateSourceTrigger="PropertyChanged" />
+            </xctk:CheckComboBox.SelectedValue>
+            <TextBlock x:Name="Mon" Text="{x:Static resx:GUI.ScheduleCreatorForm_Monday}"/>
+            <TextBlock x:Name="Tue" Text="{x:Static resx:GUI.ScheduleCreatorForm_Tuesday}"/>
+            <TextBlock x:Name="Wed" Text="{x:Static resx:GUI.ScheduleCreatorForm_Wednesday}"/>
+            <TextBlock x:Name="Thu" Text="{x:Static resx:GUI.ScheduleCreatorForm_Thursday}"/>
+            <TextBlock x:Name="Fri" Text="{x:Static resx:GUI.ScheduleCreatorForm_Friday}"/>
+            <TextBlock x:Name="Sat" Text="{x:Static resx:GUI.ScheduleCreatorForm_Saturday}"/>
+            <TextBlock x:Name="Sun" Text="{x:Static resx:GUI.ScheduleCreatorForm_Sunday}"/>
+        </xctk:CheckComboBox>
+        <CheckBox x:Name="ChbOn" IsChecked="{Binding Body.on}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below." IsEnabled="{Binding CanSetSettings}" Width="152"/>
+        <CheckBox x:Name="ChbRandomize" IsChecked="{Binding ScheduleModel.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="167,350,0,0" VerticalAlignment="Top" Width="182" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
+        <CheckBox x:Name="ChbAutodelete" Style="{StaticResource AutoDeleteHide}" IsChecked="{Binding ScheduleModel.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="10,370,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True" Width="152"/>
+        <CheckBox x:Name="ChbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="167,370,0,0" VerticalAlignment="Top" IsChecked="{Binding ScheduleModel.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not." Width="182"/>
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="182,126,0,0" VerticalAlignment="Top" Width="167" SelectedValuePath="Tag" SelectedValue="{Binding Effect}" Watermark="Effect">
+            <xctk:WatermarkComboBox.Style>
+                <Style TargetType="xctk:WatermarkComboBox">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=cbScheduleType, Path=SelectedValue}" Value="{x:Static local:ContentTypeVm.Sliders }">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </xctk:WatermarkComboBox.Style>
+            <ComboBoxItem Content="None" Tag="1"/>
+            <ComboBoxItem Content="Identify Long" Tag="2"/>
+            <ComboBoxItem Content="Identify Short" Tag="3"/>
+            <ComboBoxItem Content="Color loop" Tag="4"/>
+        </xctk:WatermarkComboBox>
+        <ListBox HorizontalAlignment="Left" Height="190" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" ItemsSource="{Binding ListTargetHueObject}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="common:IHueObject">
+                    <WrapPanel>
+                        <Image Source="{Binding Image}" Height="32"/>
+                        <Label Content="{Binding name }"/>
+                    </WrapPanel>
+                    
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
     </Grid>
 </Window>

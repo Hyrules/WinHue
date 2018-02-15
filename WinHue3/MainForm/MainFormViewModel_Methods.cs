@@ -477,7 +477,7 @@ namespace WinHue3.MainForm
                 MessageBoxError.ShowLastErrorMessages(SelectedBridge);
             }*/
             
-            Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow};
+            Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2(SelectedBridge) { Owner = Application.Current.MainWindow};
             await fscc.Initialize();
             fscc.ShowDialog();
 
