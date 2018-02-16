@@ -73,7 +73,7 @@
         </controls:CommandComboBox>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,392,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="533,392,0,0" VerticalAlignment="Top" Width="75"/>
-        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="167" Kind="Local" Value="{Binding Header.Datetime}" CultureInfo="en-VG" Format="SortableDateTime"/>
+        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="167" Kind="Local" Value="{Binding Header.Datetime}" Format="SortableDateTime"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
         <xctk:WatermarkComboBox x:Name="wcbScheduleType"  HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type">

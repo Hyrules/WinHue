@@ -1,0 +1,26 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Functions.Animations"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.Animations.Form_Animations"
+        mc:Ignorable="d"
+        Title="Form_Animations" Height="539" Width="938">
+    <Grid Margin="0,0,2,2">
+        <ListBox HorizontalAlignment="Left" Height="438" Margin="590,23,0,0" VerticalAlignment="Top" Width="316"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="831,466,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="751,466,0,0" VerticalAlignment="Top" Width="75"/>
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,79,0,0" VerticalAlignment="Top" Width="295" Watermark="(Action)">
+            <ComboBoxItem Content="Wait"/>
+            <ComboBoxItem Content="Set a light or group"/>
+        </xctk:WatermarkComboBox>
+
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="26,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="295" Watermark="(Name)"/>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="26,51,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="295" Watermark="(Description)"/>
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,106,0,0" VerticalAlignment="Top" Width="295">
+
+        </xctk:WatermarkComboBox>
+
+    </Grid>
+</Window>
