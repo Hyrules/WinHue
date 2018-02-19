@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:WinHue3.Functions.Animations"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.Animations.Form_Animations"
         mc:Ignorable="d"
-        Title="Form_Animations" Height="539" Width="938">
+        Title="Form_Animations" Height="539" Width="682">
     <Grid Margin="0,0,2,2">
-        <ListBox HorizontalAlignment="Left" Height="438" Margin="590,23,0,0" VerticalAlignment="Top" Width="316"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="831,466,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="751,466,0,0" VerticalAlignment="Top" Width="75"/>
+        <ListBox HorizontalAlignment="Left" Height="408" Margin="326,23,0,0" VerticalAlignment="Top" Width="316" ItemsSource="{Binding Steps}"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="567,466,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="487,466,0,0" VerticalAlignment="Top" Width="75"/>
         <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,79,0,0" VerticalAlignment="Top" Width="295" Watermark="(Action)">
             <ComboBoxItem Content="Wait"/>
             <ComboBoxItem Content="Set a light or group"/>
@@ -18,9 +18,15 @@
 
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="26,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="295" Watermark="(Name)"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="26,51,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="295" Watermark="(Description)"/>
-        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,106,0,0" VerticalAlignment="Top" Width="295">
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,106,0,0" VerticalAlignment="Top" Width="295" ItemsSource="{Binding StepObject}" Watermark="(Step Object)"/>
 
-        </xctk:WatermarkComboBox>
+
+        <xctk:PropertyGrid HorizontalAlignment="Left" Margin="26,133,0,0" VerticalAlignment="Top" Height="298" Width="295" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding StepObjectProperty}"/>
+        <Button Content="Add Step" HorizontalAlignment="Left" Margin="26,436,0,0" VerticalAlignment="Top" Width="295"/>
+        <Button Content="Move Up" HorizontalAlignment="Left" Margin="326,436,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Move Down" HorizontalAlignment="Left" Margin="406,436,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="487,436,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="567,436,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>
