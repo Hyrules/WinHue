@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
              xmlns:converters="clr-namespace:WinHue3.Functions.Converters" xmlns:resources="clr-namespace:WinHue3.Resources" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.Schedules.NewCreator.Controls.Sliders"
-             mc:Ignorable="d" Width="317.757" Height="370.849">
+             mc:Ignorable="d" Width="317.757" Height="398.444">
     <UserControl.Resources>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
         <converters:DoubleToByteConverter x:Key="SliderToByteConverter"/>
@@ -66,6 +66,12 @@
         <Label Content="{x:Static resources:GUI.MainForm_Sliders_TransitionTime}" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" Width="298" HorizontalContentAlignment="Center" />
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="139,333,0,0" VerticalAlignment="Top" Width="169"/>
         <xctk:IntegerUpDown x:Name="iudTT"  HorizontalAlignment="Left" Margin="19,335,0,0" VerticalAlignment="Top" Width="115" Maximum="65535" Minimum="-1" Value="-1" ValueChanged="iudTT_ValueChanged" />
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="19,366,0,0" VerticalAlignment="Top" Width="281" Watermark="(Effect)" SelectedValuePath="Tag" SelectedValue="{x:Null}">
+            <ComboBoxItem Content="(Effect)" Tag="{x:Null}"/>
+            <ComboBoxItem Content="None" Tag="none"/>
+            <ComboBoxItem Content="Identify Long (long blink)" Tag="lselect"/>
+            <ComboBoxItem Content="Identify Short (short blink)" Tag="select"/>
+        </xctk:WatermarkComboBox>
 
     </Grid>
 </UserControl>

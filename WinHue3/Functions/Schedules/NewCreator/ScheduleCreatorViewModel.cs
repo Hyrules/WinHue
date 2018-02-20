@@ -15,7 +15,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
-    public enum ContentTypeVm { Sensor, Sliders, Schedule };
+    public enum ContentTypeVm { Light, Sensor, Group, Schedule };
 
     public class ScheduleCreatorViewModel : ValidatableBindableBase
     {
@@ -63,7 +63,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
         {
             _header = new ScheduleCreatorHeader();
             _selectedViewModel = new ScheduleCreatorSlidersViewModel();
-            _content = ContentTypeVm.Sliders;
+            _content = ContentTypeVm.Light;
             _effect = "none";
             _dateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
         }
@@ -75,7 +75,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             ListTargetHueObject = new ObservableCollection<IHueObject>();
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList()); 
-            ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
+           
 
         }
 
@@ -121,29 +121,28 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         private void ChangeContent()
         {
+            SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+            ListTargetHueObject = new ObservableCollection<IHueObject>();
+            if (_currentHueObjectList == null) return;
 
-            if (Content == ContentTypeVm.Sliders)
+            switch (Content)
             {
-                SelectedViewModel = new ScheduleCreatorSlidersViewModel();
-                ListTargetHueObject = new ObservableCollection<IHueObject>();
-                if (_currentHueObjectList == null) return;
-                ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
-                ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
+                case ContentTypeVm.Light:
+                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
+                    break;
+                case ContentTypeVm.Group:
+                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
+                    break;
+                case ContentTypeVm.Schedule:
+                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Schedule).ToList());
+                    break;
+                case ContentTypeVm.Sensor:
+                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Sensor).Where(x => ((Sensor)x).type.Contains("CLIP")).ToList());
+                    break;
+                default:
+                    break;
             }
-            else if (Content == ContentTypeVm.Sensor)
-            {
-                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
-                ListTargetHueObject = new ObservableCollection<IHueObject>();
-                if (_currentHueObjectList == null) return;
-                ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Sensor).Where(x => ((Sensor)x).type.Contains("CLIP")).ToList());
-            }
-            else
-            {
-                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
-                ListTargetHueObject = new ObservableCollection<IHueObject>();
-                if (_currentHueObjectList == null) return;
-                ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Schedule).ToList());
-            }
+
         }
 
     }

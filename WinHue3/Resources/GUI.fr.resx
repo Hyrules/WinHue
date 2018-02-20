@@ -961,7 +961,7 @@
     <value>Lundi</value>
   </data>
   <data name="ScheduleCreatorForm_Name" xml:space="preserve">
-    <value>Nom :</value>
+    <value>Nom</value>
   </data>
   <data name="ScheduleCreatorForm_Name_Tooltip" xml:space="preserve">
     <value>La passerelle va générer automatiquement un nom s'il n'est pas spécifié.</value>

@@ -16,7 +16,7 @@
     xmlns:utils="clr-namespace:WinHue3.Utils"
     x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="453.841" Width="712.986" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="502.841" Width="712.986" WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
         <converters:DoubleToUShortConverter x:Key="DoubleToUShortConverter"/>
@@ -55,7 +55,7 @@
         <local:ScheduleCreatorViewModel/>
     </Window.DataContext>
     <Grid>
-        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="366" Width="334">
+        <ContentControl Content="{Binding SelectedViewModel}" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Height="426" Width="334">
             <ContentControl.Style>
                 <Style TargetType="ContentControl">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -68,12 +68,13 @@
             </ContentControl.Style>
         </ContentControl>
         <controls:CommandComboBox x:Name="cbScheduleType"  HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="167" Command="{Binding ChangeContentCommand}" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
-            <ComboBoxItem Content="Sliders" Tag="{x:Static local:ContentTypeVm.Sliders }"/>
-            <ComboBoxItem Content="Sensors" Tag="{x:Static local:ContentTypeVm.Sensor }"/>
-            <ComboBoxItem Content="Schedules" Tag="{x:Static local:ContentTypeVm.Schedule }"/>
+            <ComboBoxItem Content="Lights" Tag="{x:Static local:ContentTypeVm.Light}"/>
+            <ComboBoxItem Content="Group" Tag="{x:Static local:ContentTypeVm.Group}"/>
+            <ComboBoxItem Content="Sensors" Tag="{x:Static local:ContentTypeVm.Sensor}"/>
+            <ComboBoxItem Content="Schedules" Tag="{x:Static local:ContentTypeVm.Schedule}"/>
         </controls:CommandComboBox>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,392,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="533,392,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,441,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="533,441,0,0" VerticalAlignment="Top" Width="75"/>
 
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
@@ -105,26 +106,28 @@
             <TextBlock x:Name="Sat" Text="{x:Static resx:GUI.ScheduleCreatorForm_Saturday}"/>
             <TextBlock x:Name="Sun" Text="{x:Static resx:GUI.ScheduleCreatorForm_Sunday}"/>
         </xctk:CheckComboBox>
-        <CheckBox x:Name="ChbOn" IsChecked="{Binding Header.On}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below." IsEnabled="{Binding CanSetSettings}" Width="152"/>
-        <CheckBox x:Name="ChbRandomize" IsChecked="{Binding Header.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="167,350,0,0" VerticalAlignment="Top" Width="182" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
-        <CheckBox x:Name="ChbAutodelete" Style="{StaticResource AutoDeleteHide}" IsChecked="{Binding Header.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="10,370,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True" Width="152" />
-        <CheckBox x:Name="ChbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="167,370,0,0" VerticalAlignment="Top" IsChecked="{Binding Header.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not." Width="182"/>
+        <CheckBox x:Name="ChbOn" IsChecked="{Binding Header.On}" Content="{x:Static resx:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="10,400,0,0" VerticalAlignment="Top" ToolTip="Set the light ON or OFF. Setting the light off will automatically disable the settings below." IsEnabled="{Binding CanSetSettings}" Width="152"/>
+        <CheckBox x:Name="ChbRandomize" IsChecked="{Binding Header.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="167,400,0,0" VerticalAlignment="Top" Width="182" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
+        <CheckBox x:Name="ChbAutodelete" Style="{StaticResource AutoDeleteHide}" IsChecked="{Binding Header.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="10,420,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True" Width="152" />
+        <CheckBox x:Name="ChbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="167,420,0,0" VerticalAlignment="Top" IsChecked="{Binding Header.Enabled}" ToolTip="Optional. If the schedule is enabled upon start or not." Width="182"/>
         <xctk:WatermarkComboBox x:Name="wcbEffect" HorizontalAlignment="Left" Margin="182,126,0,0" VerticalAlignment="Top" Width="167" SelectedValuePath="Tag" SelectedValue="{Binding Effect}" Watermark="Effect">
             <xctk:WatermarkComboBox.Style>
                 <Style TargetType="xctk:WatermarkComboBox">
                     <Setter Property="Visibility" Value="Collapsed"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=cbScheduleType, Path=SelectedValue}" Value="{x:Static local:ContentTypeVm.Sliders }">
+                        <DataTrigger Binding="{Binding ElementName=cbScheduleType, Path=SelectedValue}" Value="{x:Static local:ContentTypeVm.Light }">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-
+                        <DataTrigger Binding="{Binding ElementName=cbScheduleType, Path=SelectedValue}" Value="{x:Static local:ContentTypeVm.Group }">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </xctk:WatermarkComboBox.Style>
             <ComboBoxItem Content="None" Tag="none"/>
             <ComboBoxItem Content="Color loop" Tag="colorloop"/>
         </xctk:WatermarkComboBox>
-        <ListBox HorizontalAlignment="Left" Height="190" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" SelectedItem="{Binding SelectedTarget}" ItemsSource="{Binding ListTargetHueObject}">
+        <ListBox HorizontalAlignment="Left" Height="240" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" SelectedItem="{Binding SelectedTarget}" ItemsSource="{Binding ListTargetHueObject}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding SelectTargetObject}"/>
@@ -136,7 +139,7 @@
                         <Image Source="{Binding Image}" Height="32"/>
                         <Label Content="{Binding name }"/>
                     </WrapPanel>
-                    
+
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
