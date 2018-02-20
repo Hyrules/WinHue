@@ -13,6 +13,7 @@
     xmlns:controls="clr-namespace:WinHue3.Controls"
     xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:utils="clr-namespace:WinHue3.Utils"
     x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="453.841" Width="712.986" WindowStartupLocation="CenterOwner">
@@ -59,7 +60,7 @@
                 <Style TargetType="ContentControl">
                     <Setter Property="IsEnabled" Value="False"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=wcbEffect, Path=SelectedValue}" Value="1">
+                        <DataTrigger Binding="{Binding ElementName=wcbEffect, Path=SelectedValue}" Value="none">
                             <Setter Property="IsEnabled" Value="True"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -73,14 +74,14 @@
         </controls:CommandComboBox>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="613,392,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="533,392,0,0" VerticalAlignment="Top" Width="75"/>
-        <xctk:DateTimePicker HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="167" Kind="Local" Value="{Binding Header.Datetime}" Format="SortableDateTime"/>
+
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
-        <xctk:WatermarkComboBox x:Name="wcbScheduleType"  HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type">
+        <controls:CommandComboBox x:Name="wcbScheduleType"  HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type" Command="{Binding ChangeDateTimeFormat}">
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}" Tag="schedule"/>
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}" Tag="alarm"/>
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}" Tag="timer" />
-        </xctk:WatermarkComboBox>
+        </controls:CommandComboBox>
         <xctk:CheckComboBox HorizontalAlignment="Left" Height="20" Margin="182,101,0,0" VerticalAlignment="Top" Width="167">
             <xctk:CheckComboBox.Style>
                 <Style TargetType="xctk:CheckComboBox">
@@ -120,10 +121,8 @@
                     </Style.Triggers>
                 </Style>
             </xctk:WatermarkComboBox.Style>
-            <ComboBoxItem Content="None" Tag="1"/>
-            <ComboBoxItem Content="Identify Long" Tag="2"/>
-            <ComboBoxItem Content="Identify Short" Tag="3"/>
-            <ComboBoxItem Content="Color loop" Tag="4"/>
+            <ComboBoxItem Content="None" Tag="none"/>
+            <ComboBoxItem Content="Color loop" Tag="colorloop"/>
         </xctk:WatermarkComboBox>
         <ListBox HorizontalAlignment="Left" Height="190" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" SelectedItem="{Binding SelectedTarget}" ItemsSource="{Binding ListTargetHueObject}">
             <i:Interaction.Triggers>
@@ -141,6 +140,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <xctk:DateTimePickerBase HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="167" Format="Custom" FormatString="{Binding DateTimeFormat}" Value="{Binding Header.Datetime}" Maximum="12/31/2036 23:59:00"/>
 
     </Grid>
 </Window>

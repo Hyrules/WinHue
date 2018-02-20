@@ -22,8 +22,8 @@ namespace WinHue3.Functions.Schedules.NewCreator
             _datetime = DateTime.Now;
             _datetime += new TimeSpan(0,10,0);
             _enabled = "enabled";
-            _scheduletype = "Schedule";
-            
+            _scheduletype = "schedule";
+            _on = true;
         }
 
         [PropertyOrder(1)]

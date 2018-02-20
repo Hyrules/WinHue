@@ -27,8 +27,23 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private ContentTypeVm _content;
         private List<IHueObject> _currentHueObjectList;
         private IHueObject _selectHueObject;
+        private string _effect;
+        private string _dateTimeFormat;
 
         public ICommand SelectTargetObject => new RelayCommand(param => SelectTarget());
+        public ICommand ChangeDateTimeFormat => new RelayCommand(param => ChangeDateTime());
+
+        private void ChangeDateTime()
+        {
+            if (Header.ScheduleType == "alarm" || Header.ScheduleType == "timer")
+            {
+                DateTimeFormat = "HH:mm:ss";
+            }
+            else
+            {
+                DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+            }
+        }
 
         private void SelectTarget()
         {
@@ -49,6 +64,8 @@ namespace WinHue3.Functions.Schedules.NewCreator
             _header = new ScheduleCreatorHeader();
             _selectedViewModel = new ScheduleCreatorSlidersViewModel();
             _content = ContentTypeVm.Sliders;
+            _effect = "none";
+            _dateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
         }
 
         public async Task Initialize(Bridge bridge)
@@ -88,6 +105,18 @@ namespace WinHue3.Functions.Schedules.NewCreator
         {
             get => _selectHueObject;
             set => SetProperty(ref _selectHueObject,value);
+        }
+
+        public string Effect
+        {
+            get { return _effect; }
+            set { SetProperty(ref _effect,value); }
+        }
+
+        public string DateTimeFormat
+        {
+            get { return _dateTimeFormat; }
+            set { SetProperty(ref _dateTimeFormat,value); }
         }
 
         private void ChangeContent()
