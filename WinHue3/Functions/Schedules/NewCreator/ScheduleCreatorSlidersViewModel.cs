@@ -11,7 +11,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private decimal? _x;
         private decimal? _y;
         private ushort? _tt;
-    
+        private string _effect;
 
         public ScheduleCreatorSlidersViewModel()
         {
@@ -58,6 +58,12 @@ namespace WinHue3.Functions.Schedules.NewCreator
         {
             get => _tt;
             set => SetProperty(ref _tt, value);
+        }
+
+        public string Effect
+        {
+            get => _effect;
+            set => SetProperty(ref _effect, value);
         }
     }
 }

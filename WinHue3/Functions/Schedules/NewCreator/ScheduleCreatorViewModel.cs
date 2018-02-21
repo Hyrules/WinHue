@@ -6,6 +6,7 @@ using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -31,6 +32,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private string _dateTimeFormat;
         private string _smask;
         private int _repetitions;
+        private HueAddress _adrTarget;
 
         public ICommand SelectTargetObject => new RelayCommand(param => SelectTarget());
         public ICommand ChangeDateTimeFormat => new RelayCommand(param => ChangeDateTime());
@@ -91,10 +93,28 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 status = Header.Enabled,
             };
 
-            string time = BuildScheduleTime();
+            sc.localtime = BuildScheduleTime();
 
-            //sc.localtime = Header.Datetime;
+            sc.command = new Command
+            {
+                address = AdrTarget,
+                method = "PUT",                
+            };
 
+            string body = string.Empty;
+            
+            if(_selectedViewModel is ScheduleCreatorPropertyGridViewModel)
+            {
+                ScheduleCreatorPropertyGridViewModel scpg = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
+                body = Serializer.SerializeToJson(scpg.SelectedObject); 
+            }
+            else if(_selectedViewModel is ScheduleCreatorSlidersViewModel)
+            {
+                ScheduleCreatorSlidersViewModel scsv = _selectedViewModel as ScheduleCreatorSlidersViewModel;
+                body = Serializer.SerializeToJson(scsv);
+            }
+
+            sc.command.body = body;
 
             return sc;
         }
@@ -172,6 +192,8 @@ namespace WinHue3.Functions.Schedules.NewCreator
             get { return _repetitions; }
             set { SetProperty(ref _repetitions,value); }
         }
+
+        public HueAddress AdrTarget { get => _adrTarget; set => SetProperty(ref _adrTarget,value); }
 
         private void ChangeContent()
         {
