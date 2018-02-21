@@ -24,5 +24,15 @@ namespace WinHue3.Functions.Schedules.NewCreator
         {
             await _scvm.Initialize(_bridge);
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

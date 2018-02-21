@@ -16,13 +16,14 @@ namespace WinHue3.Functions.Schedules.NewCreator
         public bool? _randomize;
         public string _enabled;
         public string _scheduletype;
+        public bool? _recycle;
 
         public ScheduleCreatorHeader()
         {
             _datetime = DateTime.Now;
             _datetime += new TimeSpan(0,10,0);
             _enabled = "enabled";
-            _scheduletype = "schedule";
+            _scheduletype = "T";
             _on = true;
         }
 
@@ -90,5 +91,11 @@ namespace WinHue3.Functions.Schedules.NewCreator
             set { SetProperty(ref _enabled,value); }
         }
 
+        [Category("Schedule Settings"), Description("Recycle the schedule."), ItemsSource(typeof(EnabledItemSource))]
+        public bool? Recycle
+        {
+            get { return _recycle; }
+            set { SetProperty(ref _recycle, value); }
+        }
     }
 }
