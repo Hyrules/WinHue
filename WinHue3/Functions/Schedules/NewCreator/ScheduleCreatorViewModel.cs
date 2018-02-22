@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,12 +12,13 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
-    public enum ContentTypeVm { Light, Sensor, Group, Schedule };
+    public enum ContentTypeVm { Light, Sensor, Group, Schedule, Scene };
 
     public class ScheduleCreatorViewModel : ValidatableBindableBase
     {
@@ -27,15 +29,30 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private ScheduleCreatorHeader _header;
         private ContentTypeVm _content;
         private List<IHueObject> _currentHueObjectList;
-        private IHueObject _selectHueObject;
+        private IHueObject _selectedHueObject;
         private string _effect;
         private string _dateTimeFormat;
         private string _smask;
         private int _repetitions;
         private HueAddress _adrTarget;
+        private bool _propGridLG;
 
         public ICommand SelectTargetObject => new RelayCommand(param => SelectTarget());
         public ICommand ChangeDateTimeFormat => new RelayCommand(param => ChangeDateTime());
+        public ICommand UsePropertyGridLGCommand => new RelayCommand(param => UsePropertyGridLG());
+
+        private void UsePropertyGridLG()
+        {
+            if (Content != ContentTypeVm.Light && Content != ContentTypeVm.Group) return;
+            if (_selectedViewModel is ScheduleCreatorSlidersViewModel)
+            {
+                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+            }
+            else
+            {
+                SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+            }
+        }
 
         private void ChangeDateTime()
         {
@@ -51,6 +68,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         private void SelectTarget()
         {
+
             if (SelectedTarget is Sensor)
             {
                 ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
@@ -61,10 +79,55 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
                 _scvm.SelectedObject = new Schedule();
             }
+
+            if (SelectedTarget is Light || SelectedTarget is Group)
+            {
+                ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
+                _scvm.SelectedObject = new State();
+            }
+
+            if (SelectedTarget == null) return;
+
+            AdrTarget = new HueAddress();
+            AdrTarget.api = "api";
+            AdrTarget.key = _bridge.ApiKey;
+
+            switch (_content)
+            {
+                case ContentTypeVm.Light:
+                    AdrTarget.objecttype = "lights";
+                    AdrTarget.property = "state";
+                    AdrTarget.id = SelectedTarget.Id;
+                    
+                    break;
+                case ContentTypeVm.Group:
+                    AdrTarget.objecttype = "groups";
+                    AdrTarget.property = "action";
+                    AdrTarget.id = SelectedTarget.Id;
+                    break;
+                case ContentTypeVm.Sensor:
+                    AdrTarget.objecttype = "sensors";
+                    AdrTarget.id = SelectedTarget.Id;
+                    AdrTarget.property = "state";
+                    break;
+                case ContentTypeVm.Schedule:
+                    AdrTarget.objecttype = "schedules";
+                    AdrTarget.id = SelectedTarget.Id;
+                    break;
+                case ContentTypeVm.Scene:
+                    AdrTarget.objecttype = "groups";
+                    AdrTarget.id = "0";
+                    AdrTarget.property = "action";
+                    break;
+                default:
+                    break;
+            }
+            
         }
 
         public ScheduleCreatorViewModel()
         {
+            ListTargetHueObject = new ObservableCollection<IHueObject>();
             _header = new ScheduleCreatorHeader();
             _selectedViewModel = new ScheduleCreatorSlidersViewModel();
             _content = ContentTypeVm.Light;
@@ -73,14 +136,23 @@ namespace WinHue3.Functions.Schedules.NewCreator
             _smask = "000";
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize(Bridge bridge, Schedule schedule = null)
         {
             _bridge = bridge;
             _currentHueObjectList = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
-            ListTargetHueObject = new ObservableCollection<IHueObject>();
+            
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
+
+            if (schedule == null) return;
+
+            Header.Autodelete = schedule.autodelete;
+           // Header.Datetime = schedule.localtime;
+            Header.Description = schedule.description;
+            Header.Name = schedule.name;
+         
         }
+
 
         public Schedule GetSchedule()
         {
@@ -91,14 +163,12 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 description = Header.Description,
                 recycle = Header.Recycle,
                 status = Header.Enabled,
-            };
-
-            sc.localtime = BuildScheduleTime();
-
-            sc.command = new Command
-            {
-                address = AdrTarget,
-                method = "PUT",                
+                localtime = BuildScheduleTime(),
+                command = new Command
+                {
+                    address = AdrTarget,
+                    method = "PUT",
+                },
             };
 
             string body = string.Empty;
@@ -165,49 +235,71 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public IHueObject SelectedTarget
         {
-            get => _selectHueObject;
-            set => SetProperty(ref _selectHueObject,value);
+            get => _selectedHueObject;
+            set => SetProperty(ref _selectedHueObject,value);
         }
 
         public string Effect
         {
-            get { return _effect; }
-            set { SetProperty(ref _effect,value); }
+            get => _effect;
+            set => SetProperty(ref _effect,value);
         }
 
         public string DateTimeFormat
         {
-            get { return _dateTimeFormat; }
-            set { SetProperty(ref _dateTimeFormat,value); }
+            get => _dateTimeFormat;
+            set => SetProperty(ref _dateTimeFormat,value);
         }
 
         public string ScheduleMask
         {
-            get { return _smask; }
-            set { SetProperty(ref _smask,value); }
+            get => _smask;
+            set => SetProperty(ref _smask,value);
         }
 
         public int Repetitions
         {
-            get { return _repetitions; }
-            set { SetProperty(ref _repetitions,value); }
+            get => _repetitions;
+            set => SetProperty(ref _repetitions,value);
         }
 
         public HueAddress AdrTarget { get => _adrTarget; set => SetProperty(ref _adrTarget,value); }
 
+        public bool PropGridLG
+        {
+            get => _propGridLG;
+            set => SetProperty(ref _propGridLG,value);
+        }
+
         private void ChangeContent()
         {
-            ListTargetHueObject = new ObservableCollection<IHueObject>();
+            ListTargetHueObject.Clear();
+            
             if (_currentHueObjectList == null) return;
 
             switch (Content)
             {
                 case ContentTypeVm.Light:
-                    SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+                    if (PropGridLG)
+                    {
+                        SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+                    }
+                    else
+                    {
+                        SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+                    }                    
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
                     break;
                 case ContentTypeVm.Group:
-                    SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+                    if (PropGridLG)
+                    {
+                        SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+                    }
+                    else
+                    {
+                        SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+                    }
+
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
                     break;
                 case ContentTypeVm.Schedule:
@@ -217,6 +309,9 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 case ContentTypeVm.Sensor:
                     SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Sensor).Where(x => ((Sensor)x).type.Contains("CLIP")).ToList());
+                    break;
+                case ContentTypeVm.Scene:
+                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Scene).ToList());
                     break;
                 default:
                     break;

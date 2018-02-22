@@ -143,6 +143,38 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             Sliders sliders = d as Sliders;
             sliders.wcbEffect.SelectedValue = e.NewValue;
         }
+
+        public string HueAlert
+        {
+            get { return (string)GetValue(HueAlertProperty); }
+            set { SetValue(HueAlertProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HueAlert.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HueAlertProperty =
+            DependencyProperty.Register("HueAlert", typeof(string), typeof(Sliders), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, AlertPropertyChangedCallback));
+
+        private static void AlertPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Sliders sliders = d as Sliders;
+            sliders.wcbAlert.SelectedValue = e.NewValue;
+        }
+
+        public bool? On
+        {
+            get { return (bool?)GetValue(OnProperty); }
+            set { SetValue(OnProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for On.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OnProperty =
+            DependencyProperty.Register("On", typeof(bool?), typeof(Sliders), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPropertyChangedCallback));
+
+        private static void OnPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Sliders sliders = d as Sliders;
+            sliders.chbOn.IsChecked = (bool?)e.NewValue;
+        }
     }
 
 

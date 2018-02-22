@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
              xmlns:converters="clr-namespace:WinHue3.Functions.Converters" xmlns:resources="clr-namespace:WinHue3.Resources" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.Schedules.NewCreator.Controls.Sliders"
-             mc:Ignorable="d" Width="317.757" Height="398.444" Name="sliders">
+             mc:Ignorable="d" Width="317.757" Height="455.778" Name="sliders">
     <UserControl.Resources>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
         <converters:DoubleToByteConverter x:Key="SliderToByteConverter"/>
@@ -14,7 +14,7 @@
     </UserControl.Resources>
 
     <Grid>
-        
+
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Left" Margin="5,6,0,0" Width="308" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
         <Slider x:Name="SlHue" Height="22" VerticalAlignment="Top" Maximum="65535" Margin="5,31,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding ElementName=sliders, Path=HueValue}" >
             <Slider.Background>
@@ -65,13 +65,19 @@
         <Slider x:Name="SlY" Maximum="1" Margin="5,280,0,0" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Minimum="-0.001" IsMoveToPointEnabled="True" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" Value="{Binding ElementName=sliders,Path=YValue}"/>
         <Label Content="{x:Static resources:GUI.MainForm_Sliders_TransitionTime}" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" Width="298" HorizontalContentAlignment="Center" />
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="139,333,0,0" VerticalAlignment="Top" Width="169"/>
-        <xctk:IntegerUpDown x:Name="iudTT"  HorizontalAlignment="Left" Margin="19,335,0,0" VerticalAlignment="Top" Width="115" Maximum="65535" Minimum="-1" Value="{Binding ElementName=sliders,Path=TTValue}"/>
-        <xctk:WatermarkComboBox x:Name="wcbEffect"  HorizontalAlignment="Left" Margin="19,366,0,0" VerticalAlignment="Top" Width="281" Watermark="(Effect)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueEffect}">
-            <ComboBoxItem Content="(Effect)" Tag="{x:Null}"/>
+        <xctk:IntegerUpDown x:Name="iudTT"  HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Width="124" Maximum="65535" Minimum="-1" Value="{Binding ElementName=sliders,Path=TTValue}"/>
+        <xctk:WatermarkComboBox x:Name="wcbAlert"  HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="298" Watermark="(Alert)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueEffect}">
+            <ComboBoxItem Content="(Alert)" Tag="{x:Null}"/>
             <ComboBoxItem Content="None" Tag="none"/>
             <ComboBoxItem Content="Identify Long (long blink)" Tag="lselect"/>
             <ComboBoxItem Content="Identify Short (short blink)" Tag="select"/>
         </xctk:WatermarkComboBox>
+        <xctk:WatermarkComboBox x:Name="wcbEffect"  HorizontalAlignment="Left" Margin="10,393,0,0" VerticalAlignment="Top" Width="298" Watermark="(Effect)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueAlert}">
+            <ComboBoxItem Content="(Effect)" Tag="{x:Null}"/>
+            <ComboBoxItem Content="None" Tag="none"/>
+            <ComboBoxItem Content="Color loop" Tag="colorloop"/>
+        </xctk:WatermarkComboBox>
+        <CheckBox x:Name="chbOn" IsChecked="{Binding ElementName=sliders, Path=On}" Content="{x:Static resources:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="10,431,0,0" VerticalAlignment="Top" IsThreeState="True"/>
 
     </Grid>
 </UserControl>

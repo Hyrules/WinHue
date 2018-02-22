@@ -2,6 +2,7 @@
 using System.Windows;
 using WinHue3.Functions.BridgePairing;
 using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
@@ -32,7 +33,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            
+            Schedule sc = _scvm.GetSchedule();
         }
     }
 }

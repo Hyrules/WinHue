@@ -1,4 +1,6 @@
-﻿using WinHue3.Utils;
+﻿using System;
+using System.Runtime.Serialization;
+using WinHue3.Utils;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
@@ -12,58 +14,71 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private decimal? _y;
         private ushort? _tt;
         private string _effect;
-
+        private string _alert;
+        private bool? _on;
         public ScheduleCreatorSlidersViewModel()
         {
 
         }
 
-        public ushort? Hue
+        public bool? on
+        {
+            get => _on;
+            set => SetProperty(ref _on, value);
+        }
+
+        public ushort? hue
         {
             get => _hue;
             set => SetProperty(ref _hue,value);
         }
 
-        public byte? Bri
+        public byte? bri
         {
             get => _bri;
             set => SetProperty(ref _bri,value);
         }
 
-        public byte? Sat
+        public byte? sat
         {
             get => _sat;
             set => SetProperty(ref _sat,value);
         }
-
-        public ushort? Ct
+        
+        public ushort? ct
         {
             get => _ct;
             set => SetProperty(ref _ct,value);
         }
 
-        public decimal? X
+        public decimal? x
         {
             get => _x;
             set => SetProperty(ref _x ,value);
         }
 
-        public decimal? Y
+        public decimal? y
         {
             get => _y;
             set => SetProperty(ref _y, value);
         }
 
-        public ushort? Tt
+        public ushort? tt
         {
             get => _tt;
             set => SetProperty(ref _tt, value);
         }
 
-        public string Effect
+        public string effect
         {
             get => _effect;
             set => SetProperty(ref _effect, value);
+        }
+
+        public string alert
+        {
+            get => _alert;
+            set => SetProperty(ref _alert, value);
         }
     }
 }
