@@ -97,8 +97,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 case ContentTypeVm.Light:
                     AdrTarget.objecttype = "lights";
                     AdrTarget.property = "state";
-                    AdrTarget.id = SelectedTarget.Id;
-                    
+                    AdrTarget.id = SelectedTarget.Id;                   
                     break;
                 case ContentTypeVm.Group:
                     AdrTarget.objecttype = "groups";
@@ -276,38 +275,27 @@ namespace WinHue3.Functions.Schedules.NewCreator
             ListTargetHueObject.Clear();
             
             if (_currentHueObjectList == null) return;
+            if((Content == ContentTypeVm.Light || Content == ContentTypeVm.Group) && !PropGridLG)
+            {
+                SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+            }
+            else
+            {
+                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+            }
 
             switch (Content)
             {
-                case ContentTypeVm.Light:
-                    if (PropGridLG)
-                    {
-                        SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
-                    }
-                    else
-                    {
-                        SelectedViewModel = new ScheduleCreatorSlidersViewModel();
-                    }                    
+                case ContentTypeVm.Light:              
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
                     break;
                 case ContentTypeVm.Group:
-                    if (PropGridLG)
-                    {
-                        SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
-                    }
-                    else
-                    {
-                        SelectedViewModel = new ScheduleCreatorSlidersViewModel();
-                    }
-
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
                     break;
                 case ContentTypeVm.Schedule:
-                    SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Schedule).ToList());
                     break;
                 case ContentTypeVm.Sensor:
-                    SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Sensor).Where(x => ((Sensor)x).type.Contains("CLIP")).ToList());
                     break;
                 case ContentTypeVm.Scene:

@@ -89,10 +89,10 @@
         <xctk:CheckComboBox HorizontalAlignment="Left" Height="20" Margin="199,101,0,0" VerticalAlignment="Top" Width="150" DisplayMemberPath="Text" ValueMemberPath="Name">
             <xctk:CheckComboBox.Style>
                 <Style TargetType="xctk:CheckComboBox">
-                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="IsEnabled" Value="false"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=wcbScheduleType, Path=SelectedValue }" Value="W">
-                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="IsEnabled" Value="True"/>
                         </DataTrigger>
                     </Style.Triggers>
 
@@ -132,17 +132,17 @@
         <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="152,101,0,0" VerticalAlignment="Top" Width="42" Minimum="0" Maximum="99" Value="{Binding Repetitions}" ToolTip="Number of repetitions. Leave to 0 if you don't want to repeat.">
             <xctk:IntegerUpDown.Style>
                 <Style TargetType="xctk:IntegerUpDown">
-                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Setter Property="IsEnabled" Value="False"></Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Header.ScheduleType}" Value="PT">
-                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="IsEnabled" Value="True"/>
                         </DataTrigger>
 
                     </Style.Triggers>
                 </Style>
             </xctk:IntegerUpDown.Style>
         </xctk:IntegerUpDown>
-        <CheckBox Content="Use Property Grid for Lights/Groups" IsChecked="{Binding PropGridLG}" HorizontalAlignment="Left" Margin="319,488,0,0" VerticalAlignment="Top" Command="{Binding UsePropertyGridLGCommand}"/>
+        <CheckBox Content="Use Property Grid for Lights/Groups" IsChecked="{Binding PropGridLG}" HorizontalAlignment="Left" Margin="10,485,0,0" VerticalAlignment="Top" Command="{Binding UsePropertyGridLGCommand}"/>
 
     </Grid>
 </Window>
