@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using log4net.Core;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
@@ -63,6 +64,41 @@ namespace WinHue3.Functions.Schedules.NewCreator
             else
             {
                 DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+            }
+        }
+
+        public void EditSchedule(Schedule sc)
+        {
+
+            string[] dt;
+            if (sc.localtime.Contains("A"))
+            {
+                Header.Randomize = true;
+                dt = sc.localtime.Split('A');
+            }
+            else
+            {
+                dt = new string[1];
+                dt[0] = sc.localtime;
+            }
+
+            if (dt.Length == 0) return;
+
+            if (sc.localtime.Contains("PT"))
+            {
+                Header.ScheduleType = "PT";
+                string time = dt[0].Replace("PT", "");
+                Header.Datetime
+            }
+            else if (sc.localtime.Contains("W"))
+            {
+                Header.ScheduleType = "W";
+                //string time = dt[0].Substring()
+            }
+            else
+            {
+                Header.ScheduleType = "T";
+                Header.Datetime = DateTime.Parse(dt[0]);
             }
         }
 

@@ -34,6 +34,7 @@
                 TTValue="{Binding tt, Mode=TwoWay, Converter={StaticResource DoubleToUShortConverter}}"
                 HueEffect="{Binding effect, Mode=TwoWay}"
                 HueAlert="{Binding alert, Mode=TwoWay}"
+                On="{Binding on, Mode=TwoWay}"
                 />
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:ScheduleCreatorPropertyGridViewModel}">
