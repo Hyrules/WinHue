@@ -18,6 +18,20 @@ namespace HueLib2Test
     public class UnitTest1
     {
         [TestMethod]
+        public void TestRegex()
+        {
+            Regex timerRegex = new Regex(@"(R(\d\d)//?)?PT(\d\d:\d\d:\d\d)A?(\d\d:\d\d:\d\d)?");
+            Match mc = timerRegex.Match("PT00:12:34");
+
+            Regex alarmRegex = new Regex(@"(W(\d\d\d)//?)?T(\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d))?");
+            Match mc2 = alarmRegex.Match("W064/T11:22:33");
+
+            Regex scheduleRegex = new Regex(@"(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d)A?(\d\d:\d\d:\d\d)?");
+            Match mc3 = scheduleRegex.Match("2013-12-31T00:11:33:55");
+
+        }
+
+        [TestMethod]
         public void TestSendPacket()
         {
            // List<Tuple<byte[],byte[]>> devices = LifxComm.GetDevices();

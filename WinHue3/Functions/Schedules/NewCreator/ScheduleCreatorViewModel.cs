@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using log4net.Core;
@@ -69,36 +70,56 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public void EditSchedule(Schedule sc)
         {
-
-            string[] dt;
-            if (sc.localtime.Contains("A"))
-            {
-                Header.Randomize = true;
-                dt = sc.localtime.Split('A');
-            }
-            else
-            {
-                dt = new string[1];
-                dt[0] = sc.localtime;
-            }
-
-            if (dt.Length == 0) return;
+            Header.Description = sc.description;
+            Header.Name = sc.name;
+            Header.Recycle = sc.recycle;
+            Header.Autodelete = sc.autodelete;
+            Header.Enabled = sc.status;
+            //sc.command.address.objecttype
 
             if (sc.localtime.Contains("PT"))
             {
                 Header.ScheduleType = "PT";
-                string time = dt[0].Replace("PT", "");
-                Header.Datetime
+                Regex timerRegex = new Regex(@"(R(\d\d)//?)?PT(\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d)?)?");
+                Match mc = timerRegex.Match(sc.localtime);
+                Header.Datetime = DateTime.Parse(mc.Groups[3].Value);
+
+                if (mc.Groups[2].Value != string.Empty)
+                {
+                    Repetitions = Convert.ToInt32(mc.Groups[2].Value);
+                }
+
+                if(mc.Groups[4].Value != string.Empty)
+                {
+                    Header.Randomize = true;
+                }
             }
             else if (sc.localtime.Contains("W"))
             {
                 Header.ScheduleType = "W";
-                //string time = dt[0].Substring()
+                Regex alarmRegex = new Regex(@"(W(\d\d\d)//?)?T(\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d))?");
+                Match mc = alarmRegex.Match(sc.localtime);
+                if(mc.Groups[2].Value != string.Empty)
+                {
+                    Header.ScheduleType = mc.Groups[2].Value;
+                }
+
+                if (mc.Groups[5].Value != string.Empty)
+                {
+                    Header.Randomize = true;
+                }
             }
             else
             {
                 Header.ScheduleType = "T";
-                Header.Datetime = DateTime.Parse(dt[0]);
+                Regex scheduleRegex = new Regex(@"(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d)?)?");
+                Match mc = scheduleRegex.Match(sc.localtime);
+                Header.Datetime = DateTime.Parse(mc.Groups[1].Value);
+
+                if (mc.Groups[3].Value != string.Empty)
+                {
+                    Header.Randomize = true;
+                }
             }
         }
 
@@ -116,7 +137,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 _scvm.SelectedObject = new Schedule();
             }
 
-            if (SelectedTarget is Light || SelectedTarget is Group)
+            if (SelectedTarget is Light || SelectedTarget is Philips_Hue.HueObjects.GroupObject.Group)
             {
                 ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
                 _scvm.SelectedObject = new State();
@@ -326,7 +347,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
                     break;
                 case ContentTypeVm.Group:
-                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
+                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Philips_Hue.HueObjects.GroupObject.Group).ToList());
                     break;
                 case ContentTypeVm.Schedule:
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Schedule).ToList());
