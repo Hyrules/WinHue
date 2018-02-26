@@ -756,4 +756,7 @@
   <data name="Rule_SelectedObjectDoesNotExists" xml:space="preserve">
     <value>Désolé l'objet sélection est introuvable. Existe t'il toujours ?</value>
   </data>
+  <data name="Object_Does_Not_Exists" xml:space="preserve">
+    <value>Désolé l'objet sélection est introuvable. Existe t'il toujours ?</value>
+  </data>
 </root>

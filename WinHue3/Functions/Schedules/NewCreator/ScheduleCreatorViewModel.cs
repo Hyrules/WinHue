@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using log4net.Core;
 using WinHue3.ExtensionMethods;
@@ -17,6 +19,7 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
+using Group = WinHue3.Philips_Hue.HueObjects.GroupObject.Group;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
@@ -101,7 +104,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 Match mc = alarmRegex.Match(sc.localtime);
                 if(mc.Groups[2].Value != string.Empty)
                 {
-                    Header.ScheduleType = mc.Groups[2].Value;
+                    ScheduleMask = mc.Groups[2].Value;
                 }
 
                 if (mc.Groups[5].Value != string.Empty)
@@ -112,35 +115,77 @@ namespace WinHue3.Functions.Schedules.NewCreator
             else
             {
                 Header.ScheduleType = "T";
-                Regex scheduleRegex = new Regex(@"(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d)?)?");
+                Regex scheduleRegex = new Regex(@"(.*)(A(\d\d:\d\d:\d\d)?)?");
                 Match mc = scheduleRegex.Match(sc.localtime);
-                Header.Datetime = DateTime.Parse(mc.Groups[1].Value);
+                Header.Datetime = DateTime.Parse(mc.Groups[1].Value, CultureInfo.InvariantCulture);
 
                 if (mc.Groups[3].Value != string.Empty)
                 {
                     Header.Randomize = true;
                 }
             }
+
+            if (sc.command?.address?.objecttype == null) return;
+
+            switch (sc.command.address.objecttype)
+            {
+                case "lights":
+                    Content = ContentTypeVm.Light;
+                    break;
+                case "groups":
+                    Content = ContentTypeVm.Group;
+                    break;
+                case "schedule":
+                    Content = ContentTypeVm.Schedule;
+                    break;
+                case "scene":
+                    Content = ContentTypeVm.Schedule;
+                    break;
+                case "sensor":
+                    Content = ContentTypeVm.Sensor;
+                    break;
+                default:
+                    break;
+            }
+
+            SelectedTarget = _listTargetHueObject.FirstOrDefault(x => x.Id == sc.command.address.id);
+
+            if (SelectedTarget == null)
+            {
+                MessageBox.Show(GlobalStrings.Object_Does_Not_Exists, GlobalStrings.Error, MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            else
+            {
+                
+
+            }
         }
 
         private void SelectTarget()
         {
 
-            if (SelectedTarget is Sensor)
+            switch (SelectedTarget)
             {
-                ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                _scvm.SelectedObject = HueSensorStateFactory.CreateSensorStateFromSensorType(((Sensor)SelectedTarget).type);
-            }
-            else if(SelectedTarget is Schedule)
-            {
-                ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                _scvm.SelectedObject = new Schedule();
-            }
-
-            if (SelectedTarget is Light || SelectedTarget is Philips_Hue.HueObjects.GroupObject.Group)
-            {
-                ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                _scvm.SelectedObject = new State();
+                case Sensor _:
+                {
+                    ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
+                    _scvm.SelectedObject = HueSensorStateFactory.CreateSensorStateFromSensorType(((Sensor)SelectedTarget).type);
+                    break;
+                }
+                case Schedule _:
+                {
+                    ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
+                    _scvm.SelectedObject = new Schedule();
+                    break;
+                }
+                case Light _:
+                case Group _:
+                {
+                    ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
+                    _scvm.SelectedObject = new State();
+                    break;
+                }
             }
 
             if (SelectedTarget == null) return;

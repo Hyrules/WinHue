@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -59,6 +60,10 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         {
             serializer.DateParseHandling = DateParseHandling.None;
             serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+            serializer.DateFormatString = "yyyy-MM-dd";
+            reader.DateFormatString = "yyyy-MM-dd";
+            reader.DateParseHandling = DateParseHandling.None;
+      
             JObject obj = serializer.Deserialize<JObject>(reader);
             Schedule newSchedule = new Schedule();
             if(obj["name"] != null)

@@ -477,8 +477,8 @@ namespace WinHue3.MainForm
                 MessageBoxError.ShowLastErrorMessages(SelectedBridge);
             }*/
             
-            Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2(SelectedBridge) { Owner = Application.Current.MainWindow};
-            await fscc.Initialize();
+            Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow};
+            await fscc.Initialize(SelectedBridge);
             fscc.ShowDialog();
 
         }
@@ -924,8 +924,9 @@ namespace WinHue3.MainForm
             }
             else if (_selectedObject is Schedule)
             {
-                Form_ScheduleCreator fsc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
-                await fsc.Initialize(SelectedBridge, SelectedObject);
+                Form_ScheduleCreator2 fsc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow };
+                await fsc.Initialize(SelectedBridge);
+                fsc.EditSchedule(SelectedObject as Schedule);
                 if (fsc.ShowDialog() == true)
                 {
                     await RefreshObject(_selectedObject);

@@ -747,4 +747,7 @@
   <data name="Rule_SelectedObjectDoesNotExists" xml:space="preserve">
     <value>Sorry the selected object not found. Does it still exists ?</value>
   </data>
+  <data name="Object_Does_Not_Exists" xml:space="preserve">
+    <value>Unable to find the object ? Does it still exists ?</value>
+  </data>
 </root>
