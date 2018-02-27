@@ -115,7 +115,7 @@
         <CheckBox x:Name="ChbRandomize" IsChecked="{Binding Header.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="167,439,0,0" VerticalAlignment="Top" Width="182" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
         <CheckBox x:Name="ChbAutodelete" Style="{StaticResource AutoDeleteHide}" IsChecked="{Binding Header.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="10,439,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True" Width="152" />
         <CheckBox x:Name="ChbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="10,459,0,0" VerticalAlignment="Top" IsChecked="{Binding Header.Enabled, Converter={StaticResource BoolToEnabledConverter}}" ToolTip="Optional. If the schedule is enabled upon start or not." Width="182"/>
-        <sliders:BindableListView HorizontalAlignment="Left" Height="279" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" SelectedItem="{Binding SelectedTarget}" ItemsSource="{Binding ListTargetHueObject}">
+        <sliders:BindableListView HorizontalAlignment="Left" Height="279" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" SelectedItemsList="{Binding SelectedTarget}" ItemsSource="{Binding ListTargetHueObject}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding SelectTargetObject}"/>
