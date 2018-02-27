@@ -157,14 +157,33 @@ namespace WinHue3.Functions.Schedules.NewCreator
             }
             else
             {
-                
+                switch (SelectedTarget)
+                {
+                    case Sensor _:
+                    {
+                        ((ScheduleCreatorPropertyGridViewModel) _selectedViewModel).SelectedObject =
+                            Serializer.DeserializeToObject(sc.command.body,HueSensorStateFactory.CreateSensorStateFromSensorType(((Sensor)SelectedTarget).type).GetType());
+                        break;
+                    }
+                    case Schedule _:
+                    {
 
+                        break;
+                    }
+                    case Light _:
+                    case Group _:
+                    {
+                        _selectedViewModel =
+                            Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(sc.command.body);
+
+                        break;
+                    }
+                }
             }
         }
 
-        private void SelectTarget()
+        private void SetViewModel()
         {
-
             switch (SelectedTarget)
             {
                 case Sensor _:
@@ -182,17 +201,24 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 case Light _:
                 case Group _:
                 {
-                    ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                    _scvm.SelectedObject = new State();
+                    ScheduleCreatorSlidersViewModel _scvm = _selectedViewModel as ScheduleCreatorSlidersViewModel;
+                    
                     break;
                 }
             }
+        }
+
+        private void SelectTarget()
+        {
+            SetViewModel();
 
             if (SelectedTarget == null) return;
 
-            AdrTarget = new HueAddress();
-            AdrTarget.api = "api";
-            AdrTarget.key = _bridge.ApiKey;
+            AdrTarget = new HueAddress
+            {
+                api = "api",
+                key = _bridge.ApiKey
+            };
 
             switch (_content)
             {

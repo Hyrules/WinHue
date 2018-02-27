@@ -33,7 +33,7 @@
                 SatValue="{Binding sat, Mode=TwoWay, Converter={StaticResource DoubleToByteConverter}}"
                 XValue="{Binding x, Mode=TwoWay, Converter={StaticResource DoubleToXyConverter}}"
                 YValue="{Binding y, Mode=TwoWay, Converter={StaticResource DoubleToXyConverter}}"
-                TTValue="{Binding tt, Mode=TwoWay, Converter={StaticResource DoubleToUShortConverter}}"
+                TTValue="{Binding transitiontime, Mode=TwoWay, Converter={StaticResource DoubleToUShortConverter}}"
                 HueEffect="{Binding effect, Mode=TwoWay}"
                 HueAlert="{Binding alert, Mode=TwoWay}"
                 On="{Binding on, Mode=TwoWay}"
@@ -115,7 +115,7 @@
         <CheckBox x:Name="ChbRandomize" IsChecked="{Binding Header.Randomize}" Content="{x:Static resx:GUI.ScheduleCreatorForm_Randomize}" HorizontalAlignment="Left" Margin="167,439,0,0" VerticalAlignment="Top" Width="182" ToolTip="Randomize the execution time of the schedule between 1 and 59 minutes."/>
         <CheckBox x:Name="ChbAutodelete" Style="{StaticResource AutoDeleteHide}" IsChecked="{Binding Header.Autodelete}"  Content="{x:Static resx:GUI.ScheduleCreatorForm_Autodelete}" HorizontalAlignment="Left" Margin="10,439,0,0" VerticalAlignment="Top" ToolTip="Optional. Schedule autodelete itself upon execution. (3 States)" IsThreeState="True" Width="152" />
         <CheckBox x:Name="ChbEnabled" Content="{x:Static resx:GUI.ScheduleCreatorForm_Enable}" HorizontalAlignment="Left" Margin="10,459,0,0" VerticalAlignment="Top" IsChecked="{Binding Header.Enabled, Converter={StaticResource BoolToEnabledConverter}}" ToolTip="Optional. If the schedule is enabled upon start or not." Width="182"/>
-        <sliders:BindableListView HorizontalAlignment="Left" Height="279" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" SelectedItemsList="{Binding SelectedTarget}" ItemsSource="{Binding ListTargetHueObject}">
+        <ListView HorizontalAlignment="Left" Height="279" Margin="10,155,0,0" VerticalAlignment="Top" Width="339" SelectedItem="{Binding SelectedTarget}" ItemsSource="{Binding ListTargetHueObject}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding SelectTargetObject}"/>
@@ -127,10 +127,9 @@
                         <Image Source="{Binding Image}" Height="32"/>
                         <Label Content="{Binding name }"/>
                     </WrapPanel>
-
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </sliders:BindableListView>
+        </ListView>
         <xctk:DateTimePickerBase HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="137" Format="Custom" FormatString="{Binding DateTimeFormat}" Value="{Binding Header.Datetime}" Maximum="12/31/2036 23:59:00"/>
         <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="152,101,0,0" VerticalAlignment="Top" Width="42" Minimum="0" Maximum="99" Value="{Binding Repetitions}" ToolTip="Number of repetitions. Leave to 0 if you don't want to repeat.">
             <xctk:IntegerUpDown.Style>
