@@ -167,14 +167,21 @@ namespace WinHue3.Functions.Schedules.NewCreator
                     }
                     case Schedule _:
                     {
-
+                        ((ScheduleCreatorPropertyGridViewModel)_selectedViewModel).SelectedObject = Serializer.DeserializeToObject<Schedule>(sc.command.body);
                         break;
                     }
                     case Light _:
                     case Group _:
                     {
-                        _selectedViewModel =
-                            Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(sc.command.body);
+                        if(_propGridLG)
+                        {
+                            ((ScheduleCreatorPropertyGridViewModel)_selectedViewModel).SelectedObject = Serializer.DeserializeToObject<State>(sc.command.body);
+                        }
+                        else
+                        {
+                            _selectedViewModel = Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(sc.command.body);
+
+                        }
 
                         break;
                     }
