@@ -51,11 +51,14 @@ namespace WinHue3.Functions.Schedules.NewCreator
             if (Content != ContentTypeVm.Light && Content != ContentTypeVm.Group) return;
             if (_selectedViewModel is ScheduleCreatorSlidersViewModel)
             {
+                string json = Serializer.SerializeToJson(SelectedViewModel);
                 SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+                ((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject = Serializer.DeserializeToObject<State>(json);
             }
             else
             {
-                SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+                string json = Serializer.SerializeToJson(((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject);
+                SelectedViewModel = Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(json);
             }
         }
 
@@ -115,6 +118,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             else
             {
                 Header.ScheduleType = "T";
+
                 Regex scheduleRegex = new Regex(@"(.*)(A(\d\d:\d\d:\d\d)?)?");
                 Match mc = scheduleRegex.Match(sc.localtime);
                 Header.Datetime = DateTime.Parse(mc.Groups[1].Value, CultureInfo.InvariantCulture);
@@ -170,6 +174,11 @@ namespace WinHue3.Functions.Schedules.NewCreator
                         ((ScheduleCreatorPropertyGridViewModel)_selectedViewModel).SelectedObject = Serializer.DeserializeToObject<Schedule>(sc.command.body);
                         break;
                     }
+                    case Scene _:
+                    {
+                        SelectedViewModel = null;
+                        break;
+                    }
                     case Light _:
                     case Group _:
                     {
@@ -179,8 +188,9 @@ namespace WinHue3.Functions.Schedules.NewCreator
                         }
                         else
                         {
-                            _selectedViewModel = Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(sc.command.body);
-
+                            SelectedViewModel = Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(sc.command.body);
+                            if (SelectedViewModel == null)
+                                SetEmptyViewModel();
                         }
 
                         break;
@@ -189,27 +199,38 @@ namespace WinHue3.Functions.Schedules.NewCreator
             }
         }
 
-        private void SetViewModel()
+        private void SetEmptyViewModel()
         {
             switch (SelectedTarget)
             {
                 case Sensor _:
                 {
-                    ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                    _scvm.SelectedObject = HueSensorStateFactory.CreateSensorStateFromSensorType(((Sensor)SelectedTarget).type);
+                    SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+                    ((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject = HueSensorStateFactory.CreateSensorStateFromSensorType(((Sensor)SelectedTarget).type);
                     break;
                 }
                 case Schedule _:
                 {
-                    ScheduleCreatorPropertyGridViewModel _scvm = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                    _scvm.SelectedObject = new Schedule();
+                    SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+                    ((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject = new Schedule();
+                    break;
+                }
+                case Scene _:
+                {
+                    SelectedViewModel = null;
                     break;
                 }
                 case Light _:
                 case Group _:
                 {
-                    ScheduleCreatorSlidersViewModel _scvm = _selectedViewModel as ScheduleCreatorSlidersViewModel;
-                    
+                    if (_propGridLG)
+                    {
+                        ((ScheduleCreatorPropertyGridViewModel)_selectedViewModel).SelectedObject = new State();
+                    }
+                    else
+                    {
+                        SelectedViewModel = new ScheduleCreatorSlidersViewModel();
+                    }
                     break;
                 }
             }
@@ -217,7 +238,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         private void SelectTarget()
         {
-            SetViewModel();
+            SetEmptyViewModel();
 
             if (SelectedTarget == null) return;
 
@@ -414,9 +435,13 @@ namespace WinHue3.Functions.Schedules.NewCreator
             {
                 SelectedViewModel = new ScheduleCreatorSlidersViewModel();
             }
-            else
+            else if(Content == ContentTypeVm.Schedule || Content == ContentTypeVm.Sensor)
             {
                 SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+            }
+            else
+            {
+                SelectedViewModel = null;
             }
 
             switch (Content)
@@ -425,7 +450,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
                     break;
                 case ContentTypeVm.Group:
-                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Philips_Hue.HueObjects.GroupObject.Group).ToList());
+                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Group).ToList());
                     break;
                 case ContentTypeVm.Schedule:
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Schedule).ToList());
