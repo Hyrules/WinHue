@@ -11,6 +11,7 @@ namespace WinHue3.Functions.Application_Settings
         private byte _defaultLightBri;
         private byte _defaultGroupBri;
         private bool _lastState;
+        private int _slidersBehavior;
 
         public AppDefaultsModel()
         {
@@ -20,6 +21,7 @@ namespace WinHue3.Functions.Application_Settings
             _defaultLightBri = WinHueSettings.settings.DefaultBriLight;
             _defaultGroupBri = WinHueSettings.settings.DefaultBriGroup;
             _lastState = WinHueSettings.settings.UseLastBriState;
+            _slidersBehavior = WinHueSettings.settings.SlidersBehavior;
         }
 
         public ushort? AllOnTt
@@ -56,6 +58,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _lastState;
             set => SetProperty(ref _lastState, value);
+        }
+
+        public int SlidersBehavior
+        {
+            get => _slidersBehavior;
+            set => SetProperty(ref _slidersBehavior,value);
         }
     }
 }

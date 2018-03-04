@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Threading;
 using Hardcodet.Wpf.TaskbarNotification;
-using MahApps.Metro.Controls;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys;
+using WinHue3.Functions.PropertyGrid;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
@@ -34,9 +34,11 @@ namespace WinHue3.MainForm
         private DispatcherTimer _ledTimer;
         private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
-        
+        private Form_PropertyGrid _propertyGrid;
+
         public MainFormViewModel()
         {
+            
             _ledTimer = new DispatcherTimer()
             {
                 Interval = new TimeSpan(0, 0, 0, 2)
@@ -55,12 +57,14 @@ namespace WinHue3.MainForm
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;
-
+            _propertyGrid = new Form_PropertyGrid();
             Comm.Timeout = WinHueSettings.settings.Timeout;
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
-
+            //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
+            //light.SetColor(65535, 65535, 65535, 32768, 3000);
+            // LifxResponse p = light.SetPower(32000, 3000);
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)
@@ -154,7 +158,7 @@ namespace WinHue3.MainForm
                             ApiKey = b.Value.apikey,
                             ApiVersion = b.Value.apiversion,
                             IpAddress = IPAddress.Parse(b.Value.ip),
-                            name = b.Value.name,
+                            Name = b.Value.name,
                             IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
                             SwVersion = b.Value.swversion,
                             Mac = b.Key
@@ -185,7 +189,6 @@ namespace WinHue3.MainForm
                         {
                             if (!br.IsDefault) continue;
                             SelectedBridge = br;
-                            SelectedBridge.CheckOnlineForUpdate();
                         }
                         else
                         {
@@ -196,7 +199,6 @@ namespace WinHue3.MainForm
                     {
                         if (!br.IsDefault) continue;
                         SelectedBridge = br;
-                        SelectedBridge.CheckOnlineForUpdate();
                     }
                 }
 

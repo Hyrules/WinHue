@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -9,7 +8,7 @@ namespace WinHue3.Functions.Scenes.Creator.ColorPicker
     /// <summary>
     /// Interaction logic for Form_SelectColorFromImage.xaml
     /// </summary>
-    public partial class Form_SelectColorFromImage : MetroWindow
+    public partial class Form_SelectColorFromImage : Window
     {
         private ColorFromImageViewModel cfiv;
 

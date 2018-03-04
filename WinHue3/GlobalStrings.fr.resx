@@ -433,7 +433,7 @@
     <value>Un fichier Ambiance ayant ce nom existe déjà. L'écraser ?</value>
   </data>
   <data name="Moods_Delete" xml:space="preserve">
-    <value>Êtes-vous certains de vouloir supprimer ce mood ?</value>
+    <value>Êtes-vous certain de vouloir supprimer ce mood ?</value>
   </data>
   <data name="Moods_Missing_Name" xml:space="preserve">
     <value>Aucun nom saisie pour le mood. Veuillez saisir un nom.</value>
@@ -755,5 +755,11 @@
   </data>
   <data name="Rule_SelectedObjectDoesNotExists" xml:space="preserve">
     <value>Désolé l'objet sélection est introuvable. Existe t'il toujours ?</value>
+  </data>
+  <data name="Object_Does_Not_Exists" xml:space="preserve">
+    <value>Désolé l'objet sélection est introuvable. Existe t'il toujours ?</value>
+  </data>
+  <data name="CheckingForUpdate" xml:space="preserve">
+    <value>Virification de mise à jour en cours. Veuillez svp revenir plus tard afin de voir si de nouvelles MAJ sont disponibles.</value>
   </data>
 </root>

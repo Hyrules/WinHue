@@ -1,4 +1,4 @@
-﻿<mahapps:MetroWindow
+﻿<Window
     xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         x:Class="WinHue3.Functions.Lights.Finder.Form_AddLightSerial"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,7 +8,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:finder="clr-namespace:WinHue3.Functions.Lights.Finder"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.AddLightSerialForm_Title}" Height="189.669" Width="401.444" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.AddLightSerialForm_Title}" Height="189.669" Width="401.444" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
     <Window.DataContext>
         <finder:AddLightSerialViewModel/>
     </Window.DataContext>
@@ -16,8 +16,8 @@
         
         <TextBox HorizontalAlignment="Left" Height="66" Margin="10,48,0,0" TextWrapping="Wrap" Text="{Binding ListSerials, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="361" VerticalScrollBarVisibility="Visible"/>
         <TextBlock Text="{x:Static resx:GUI.AddLightSerialForm_Message}" HorizontalAlignment="Left" Height="38" Margin="10,10,0,0" VerticalAlignment="Top" Width="361" TextWrapping="WrapWithOverflow"/>
-        <Button x:Name="btnFind" Content="{x:Static resx:GUI.AddLightSerialForm_Seach}" HorizontalAlignment="Left" Margin="216,119,0,0" VerticalAlignment="Top" Width="75" Click="btnFind_Click"/>
-        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.AddLightSerialForm_Cancel}" HorizontalAlignment="Left" Margin="296,119,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <Button x:Name="BtnFind" Content="{x:Static resx:GUI.AddLightSerialForm_Seach}" HorizontalAlignment="Left" Margin="216,119,0,0" VerticalAlignment="Top" Width="75" Click="btnFind_Click"/>
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.AddLightSerialForm_Cancel}" HorizontalAlignment="Left" Margin="296,119,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
 
     </Grid>
-</mahapps:MetroWindow>
+</Window>

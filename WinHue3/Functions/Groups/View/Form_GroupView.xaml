@@ -1,4 +1,4 @@
-﻿<mahapps:MetroWindow
+﻿<Window
     xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,20 +10,20 @@
     xmlns:view="clr-namespace:WinHue3.Functions.Groups.View"
     x:Class="WinHue3.Functions.Groups.View.Form_GroupView"
     mc:Ignorable="d"
-        Title="{x:Static resx:GUI.Form_GroupView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.Form_GroupView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <view:GroupViewViewModel/>
     </Window.DataContext>
     <Grid>
         <ToolBarTray Margin="0,0,0,430.667">
-            <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Margin="0,0,-212,-16.333" VerticalAlignment="Top" Height="29" Width="auto">
+            <ToolBar x:Name="ToolBar" HorizontalAlignment="Left" Margin="0,0,-212,-16.333" VerticalAlignment="Top" Height="29" Width="auto">
                 <Button Command="{Binding RefreshMappingCommand}" ToolTip="{x:Static resx:GUI.Form_SceneMapping_RefreshTooltip}">
                     <Image Source="/WinHue3;component/Resources/1409707765_reload.png" />
                 </Button>
                 <Separator/>
-                <xctk:WatermarkTextBox x:Name="tbFilter" Width="180" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="1" Watermark="Filter data here..." />
+                <xctk:WatermarkTextBox x:Name="TbFilter" Width="180" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="1" Watermark="Filter data here..." />
                 <Separator/>
-                <CheckBox x:Name="checkbox" Content="{x:Static resx:GUI.Form_BulbsViewView_Reverse}" Height="24" VerticalAlignment="Top" IsChecked="{Binding Reverse}" Width="81"/>
+                <CheckBox x:Name="Checkbox" Content="{x:Static resx:GUI.Form_BulbsViewView_Reverse}" Height="24" VerticalAlignment="Top" IsChecked="{Binding Reverse}" Width="81"/>
             </ToolBar>
         </ToolBarTray>
 
@@ -35,4 +35,4 @@
         </xcdg:DataGridControl>
 
     </Grid>
-</mahapps:MetroWindow>
+</Window>

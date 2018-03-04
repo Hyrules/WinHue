@@ -91,7 +91,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Status of the schedule.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Command of the schedule")]
+        [HueProperty, DataMember, Category("Schedule Properties"), Description("Command of the schedule"), ItemsSource(typeof(StatusItemsSource))]
         public string status
         {
             get => _status;

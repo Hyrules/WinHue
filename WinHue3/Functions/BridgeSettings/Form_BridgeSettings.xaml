@@ -1,13 +1,11 @@
-﻿<mahapps:MetroWindow
-    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:local="clr-namespace:WinHue3"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgeSettings="clr-namespace:WinHue3.Functions.BridgeSettings"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
-        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="487.721" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.DataContext>
         <bridgeSettings:BridgeSettingsViewModel/>
     </Window.DataContext>
@@ -32,92 +30,128 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="btnApplyNetwork" BasedOn="{StaticResource {x:Type Button}}">
+        <Style TargetType="{x:Type Button}" x:Key="BtnApplyNetwork" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=tbIPAddress, Path=(Validation.HasError)}" Value="True">
+                <DataTrigger Binding="{Binding ElementName=TbIpAddress, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=tbNetmask, Path=(Validation.HasError)}" Value="True">
+                <DataTrigger Binding="{Binding ElementName=TbNetmask, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=tbGateway, Path=(Validation.HasError)}" Value="True">
+                <DataTrigger Binding="{Binding ElementName=TbGateway, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=tbProxyAddress, Path=(Validation.HasError)}" Value="True">
+                <DataTrigger Binding="{Binding ElementName=TbProxyAddress, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="btnDone" Content="{x:Static resx:GUI.BridgeSettingsForm_DoneButton}" HorizontalAlignment="Left" Margin="398,316,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." Style="{StaticResource AccentedSquareButtonStyle}"/>
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.BridgeSettingsForm_DoneButton}" HorizontalAlignment="Left" Margin="398,316,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." IsEnabled="{Binding CanClose}" />
         <TabControl HorizontalAlignment="Left" Height="311" VerticalAlignment="Top" Width="483">
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings}">
-                <Grid>
+                <Grid >
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_UTC}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblTime" Content="{Binding GeneralModel.Utc}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="LblTime" Content="{Binding GeneralModel.Utc}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_SwVersion}" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblSwVersion" Content="{Binding GeneralModel.Swversion}" HorizontalAlignment="Left" Margin="121,134,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="LblSwVersion" Content="{Binding GeneralModel.Swversion}" HorizontalAlignment="Left" Margin="121,134,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ZigBeeChannel}" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblZigbee" Content="{Binding GeneralModel.Zigbeechannel}" HorizontalAlignment="Left" Height="26" Margin="121,196,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="LblZigbee" Content="{Binding GeneralModel.Zigbeechannel}" HorizontalAlignment="Left" Height="26" Margin="121,196,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LocalTime}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblLocalTime" Content="{Binding GeneralModel.Localtime}" HorizontalAlignment="Left" Margin="121,72,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="LblLocalTime" Content="{Binding GeneralModel.Localtime}" HorizontalAlignment="Left" Margin="121,72,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ApiVersion}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="lblApiVersion" Content="{Binding GeneralModel.Apiversion}" HorizontalAlignment="Left" Margin="121,165,0,0" VerticalAlignment="Top" Width="213"/>
+                    <Label x:Name="LblApiVersion" Content="{Binding GeneralModel.Apiversion}" HorizontalAlignment="Left" Margin="121,165,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LinkButtonState}" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="lblLinkButton" Content="{Binding GeneralModel.Linkstate}" HorizontalAlignment="Left" Margin="121,227,0,0" VerticalAlignment="Top" Width="210"/>
+                    <Label x:Name="LblLinkButton" Content="{Binding GeneralModel.Linkstate}" HorizontalAlignment="Left" Margin="121,227,0,0" VerticalAlignment="Top" Width="210"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Timezone}" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="106"/>
-                    <ComboBox x:Name="cbTimezones" HorizontalAlignment="Left" Margin="121,107,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}"/>
-                    <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" mahapps:TextBoxHelper.Watermark="Optional"/>
-                    <Button x:Name="btnApplyGeneralSettings" Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}"/>
+                    <ComboBox x:Name="CbTimezones" HorizontalAlignment="Left" Margin="121,107,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}"/>
+                    <xctk:WatermarkTextBox x:Name="TbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" Watermark="Optional"/>
+                    <Button x:Name="BtnApplyGeneralSettings" Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings}">
                 <Grid>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_MAC}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="lblMac"  Content="{Binding NetworkModel.Mac}" HorizontalAlignment="Left" Margin="107,20,0,0" VerticalAlignment="Top" Width="155"/>
+                    <Label x:Name="LblMac"  Content="{Binding NetworkModel.Mac}" HorizontalAlignment="Left" Margin="107,20,0,0" VerticalAlignment="Top" Width="155"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_IPAddress}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="92" />
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Netmask}" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Gateway}" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress}" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top"/>
-                    <xctk:IntegerUpDown x:Name="nudProxyPort" HorizontalAlignment="Left" Margin="107,192,0,0" VerticalAlignment="Top" Width="71" Maximum="65535" Minimum="0" Value="{Binding NetworkModel.Proxyport}" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <xctk:IntegerUpDown x:Name="NudProxyPort" HorizontalAlignment="Left" Margin="107,192,0,0" VerticalAlignment="Top" Width="71" Maximum="65535" Minimum="0" Value="{Binding NetworkModel.Proxyport}" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyPort}" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="92"/>
-                    <CheckBox x:Name="chbDHCP" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Left" Margin="336,26,0,0" VerticalAlignment="Top" Width="125" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click"/>
-                    <TextBox x:Name="tbIPAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 192.168.1.123" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" />
-                    <TextBox x:Name="tbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 255.255.255.0" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <TextBox x:Name="tbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 192.168.1.1" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <TextBox x:Name="tbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" mahapps:TextBoxHelper.Watermark="eg. 192.168.1.2" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <Button x:Name="btnApplyNetworkSettings" Style="{StaticResource btnApplyNetwork}"  Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75"/>
+                    <CheckBox x:Name="ChbDhcp" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Left" Margin="336,26,0,0" VerticalAlignment="Top" Width="125" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click"/>
+                    <xctk:WatermarkTextBox x:Name="TbIpAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.123" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" />
+                    <xctk:WatermarkTextBox x:Name="TbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 255.255.255.0" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <xctk:WatermarkTextBox x:Name="TbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.1" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <xctk:WatermarkTextBox x:Name="TbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.2" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <Button x:Name="BtnApplyNetworkSettings" Style="{StaticResource BtnApplyNetwork}"  Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus}">
                 <Grid>
-                    <CheckBox x:Name="chbPortalService" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_PortalService}" IsChecked="{Binding PortalModel.Portalservice,Mode=OneWay}" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" IsHitTestVisible="False" ToolTip="This option cannot be modified." Width="211"/>
+                    <CheckBox x:Name="ChbPortalService" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_PortalService}" IsChecked="{Binding PortalModel.Portalservice,Mode=OneWay}" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" IsHitTestVisible="False" ToolTip="This option cannot be modified." Width="211"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Connection}" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label x:Name="lblPortalConnection" Content="{Binding PortalModel.Connection}" HorizontalAlignment="Left" Margin="134,52,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="LblPortalConnection" Content="{Binding PortalModel.Connection}" HorizontalAlignment="Left" Margin="134,52,0,0" VerticalAlignment="Top" Width="333"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_SignedOn}" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Width="119"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Incoming}" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="119"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Outgoing}" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="119"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Communication}" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label x:Name="lblSignedon" Content="{Binding PortalModel.Signedon}" HorizontalAlignment="Left" Margin="134,83,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="lblIncoming" Content="{Binding PortalModel.Incoming}" HorizontalAlignment="Left" Margin="134,114,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="lblOutgoing" Content="{Binding PortalModel.Outgoing}" HorizontalAlignment="Left" Margin="134,145,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="lblComm" Content="{Binding PortalModel.Communication}" HorizontalAlignment="Left" Margin="134,176,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="LblSignedon" Content="{Binding PortalModel.Signedon}" HorizontalAlignment="Left" Margin="134,83,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="LblIncoming" Content="{Binding PortalModel.Incoming}" HorizontalAlignment="Left" Margin="134,114,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="LblOutgoing" Content="{Binding PortalModel.Outgoing}" HorizontalAlignment="Left" Margin="134,145,0,0" VerticalAlignment="Top" Width="333"/>
+                    <Label x:Name="LblComm" Content="{Binding PortalModel.Communication}" HorizontalAlignment="Left" Margin="134,176,0,0" VerticalAlignment="Top" Width="333"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate}">
-                <Grid>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_URL}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="lblURL" Content="{Binding SoftwareModel.Url}" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="289"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Text}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="lblText" Content="{Binding SoftwareModel.Text}" HorizontalAlignment="Left" Margin="100,41,0,0" VerticalAlignment="Top" Width="289"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="lblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="289"/>
-                    <CheckBox x:Name="chbNotify" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Notify}" IsChecked="{Binding SoftwareModel.Notify,Mode=OneWay}" HorizontalAlignment="Left" Margin="11,114,0,0" VerticalAlignment="Top" Width="89" IsHitTestVisible="False"/>
-                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="11,228,0,0" VerticalAlignment="Top" Width="170" Command="{Binding ForceCheckUpdateCommand}"/>
+                <Grid Margin="0,0,-0.333,-0.333">
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="9,8,0,0" VerticalAlignment="Top" Width="90"/>
+                    <Label x:Name="LblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="99,8,0,0" VerticalAlignment="Top" Width="289" Height="26"/>
+                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="10,224,0,0" Width="170" Command="{Binding ForceCheckUpdateCommand}" VerticalContentAlignment="Top" Height="20" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="chbAutoInstall"  Content="" HorizontalAlignment="Left" Margin="103,45,0,0" VerticalAlignment="Top" IsChecked="{Binding SoftwareModel.AutoUpdate}" IsEnabled="{Binding CanAutoInstall}"/>
+                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Width="75" Margin="392,224,10,0" Command="{Binding ApplyUpdateSettingsCommand}" Height="20" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
+                    <xctk:DateTimePickerBase HorizontalAlignment="Left" Margin="104,75,0,0" VerticalAlignment="Top" Width="70" Format="Custom" Value="{Binding SoftwareModel.UpdateTime}" FormatString="HH:mm:ss">
+                        <xctk:DateTimePickerBase.Style>
+                            <Style TargetType="xctk:DateTimePickerBase">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=chbAutoInstall, Path=IsChecked}" Value="True">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </xctk:DateTimePickerBase.Style>
+                    </xctk:DateTimePickerBase>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_UpdateTime}" Margin="9,70,0,0" Width="90" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Height="26" VerticalAlignment="Top"/>
+                    <ProgressBar HorizontalAlignment="Left" Height="15" Margin="10,200,0,0" VerticalAlignment="Top" Width="457" Maximum="179" Value="{Binding UpdateProgress}"/>
+                    <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Command="{Binding UpdateBridgeFirmwareCommand}" HorizontalAlignment="Left" Margin="185,224,0,0" VerticalAlignment="Top" Width="103"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_AutoInstall}" HorizontalAlignment="Left" Margin="9,39,0,0" VerticalAlignment="Top" Width="89"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastUpdate}" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="89"/>
+                    <Label Content="{Binding SoftwareModel.LastUpdate}" HorizontalAlignment="Left" Margin="104,101,0,0" VerticalAlignment="Top" Width="151"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastCheck}" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="89"/>
+                    <Label Content="{Binding SoftwareModel.LastChange}" HorizontalAlignment="Left" Margin="104,132,0,0" VerticalAlignment="Top" Width="151"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Capabilities_Title}">
+                <TabItem.Style>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Capabilities}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                <Grid Background="#FFE5E5E5">
+                    <xctk:PropertyGrid Margin="0,0,-0.333,-0.333" ShowSearchBox="False" ShowSortOptions="False" SelectedObject="{Binding Capabilities}"/>
+
+                </Grid>
+
+            </TabItem>
+
+
         </TabControl>
     </Grid>
-</mahapps:MetroWindow>
+</Window>

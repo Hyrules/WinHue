@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit.PropertyGrid;
+using Xceed.Wpf.Toolkit;
 
 namespace WinHue3.Functions.Schedules.NewCreator.Controls
 {
@@ -26,100 +15,171 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             InitializeComponent();
         }
 
-        public int Hue
+        public double HueValue
         {
-            get { return (int)GetValue(HueProperty); }
-            set { SetValue(HueProperty, value); }
+            get => (double)GetValue(HueProperty);
+            set => SetValue(HueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Hue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HueProperty =
-            DependencyProperty.Register("Hue", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, HuePropertyChangedCallback));
+            DependencyProperty.Register("HueValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(-1d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, HuePropertyChangedCallback));
 
         private static void HuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slHue.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlHue.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Bri
+        public double BriValue
         {
-            get { return (int)GetValue(BriProperty); }
-            set { SetValue(BriProperty, value); }
+            get => (double)GetValue(BriProperty);
+            set => SetValue(BriProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Bri.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BriProperty =
-            DependencyProperty.Register("Bri", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, BriPropertyChangedCallback));
+            DependencyProperty.Register("BriValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(-1d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, BriPropertyChangedCallback));
 
         private static void BriPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slBri.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlBri.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Sat
+        public double SatValue
         {
-            get { return (int)GetValue(SatProperty); }
-            set { SetValue(SatProperty, value); }
+            get => (double)GetValue(SatProperty);
+            set => SetValue(SatProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Sat.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SatProperty =
-            DependencyProperty.Register("Sat", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SatPropertyChangedCallback));
+            DependencyProperty.Register("SatValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(-1d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SatPropertyChangedCallback));
 
         private static void SatPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slSAT.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlSat.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Ct
+        public double CtValue
         {
-            get { return (int)GetValue(CtProperty); }
-            set { SetValue(CtProperty, value); }
+            get => (double)GetValue(CtProperty);
+            set => SetValue(CtProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Ct.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CtProperty =
-            DependencyProperty.Register("Ct", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, CtPropertyChangedCallback));
+            DependencyProperty.Register("CtValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(152d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, CtPropertyChangedCallback));
 
         private static void CtPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slCT.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlCt.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int X
+        public double XValue
         {
-            get { return (int)GetValue(XProperty); }
-            set { SetValue(XProperty, value); }
+            get => (double)GetValue(XProperty);
+            set => SetValue(XProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for X.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty XProperty =
-            DependencyProperty.Register("X", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, XPropertyChangedCallback));
+            DependencyProperty.Register("XValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(-0.001d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, XPropertyChangedCallback));
 
         private static void XPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slX.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlX.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public int Y
+        public double YValue
         {
-            get { return (int)GetValue(YProperty); }
-            set { SetValue(YProperty, value); }
+            get => (double)GetValue(YProperty);
+            set => SetValue(YProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Y.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YProperty =
-            DependencyProperty.Register("Y", typeof(int), typeof(Sliders), new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, YPropertyChangedCallback));
+            DependencyProperty.Register("YValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(-0.001d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, YPropertyChangedCallback));
 
         private static void YPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.slY.Value = Convert.ToDouble(e.NewValue);
+            sliders.SlY.Value = Convert.ToDouble(e.NewValue);
+        }
+
+        public double TTValue
+        {
+            get => (double)GetValue(TransitionTimeProperty);
+            set => SetValue(TransitionTimeProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TransitionTimeProperty =
+            DependencyProperty.Register("TTValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(-1d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TtPropertyChangedCallback));
+
+        private static void TtPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Sliders sliders = d as Sliders;
+            sliders.iudTT.Value = Convert.ToInt32(e.NewValue);
+        }
+
+
+        public string HueEffect
+        {
+            get { return (string)GetValue(HueEffectProperty); }
+            set { SetValue(HueEffectProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HueEffect.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HueEffectProperty =
+            DependencyProperty.Register("HueEffect", typeof(string), typeof(Sliders), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, EffectPropertyChangedCallback));
+
+        private static void EffectPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Sliders sliders = d as Sliders;
+            sliders.wcbEffect.SelectedValue = e.NewValue;
+        }
+
+        public string HueAlert
+        {
+            get { return (string)GetValue(HueAlertProperty); }
+            set { SetValue(HueAlertProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HueAlert.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HueAlertProperty =
+            DependencyProperty.Register("HueAlert", typeof(string), typeof(Sliders), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, AlertPropertyChangedCallback));
+
+        private static void AlertPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Sliders sliders = d as Sliders;
+            sliders.wcbAlert.SelectedValue = e.NewValue;
+        }
+
+        public bool? On
+        {
+            get { return (bool?)GetValue(OnProperty); }
+            set { SetValue(OnProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for On.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OnProperty =
+            DependencyProperty.Register("On", typeof(bool?), typeof(Sliders), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPropertyChangedCallback));
+
+        private static void OnPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Sliders sliders = d as Sliders;
+            sliders.chbOn.IsChecked = (bool?)e.NewValue;
         }
     }
+
+
+
+
+
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -59,6 +60,10 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         {
             serializer.DateParseHandling = DateParseHandling.None;
             serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+            serializer.DateFormatString = "yyyy-MM-dd";
+            reader.DateFormatString = "yyyy-MM-dd";
+            reader.DateParseHandling = DateParseHandling.None;
+      
             JObject obj = serializer.Deserialize<JObject>(reader);
             Schedule newSchedule = new Schedule();
             if(obj["name"] != null)
@@ -69,11 +74,18 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 newSchedule.autodelete = obj["autodelete"].Value<bool>();
             if (obj["description"] != null)
                 newSchedule.description = obj["description"].Value<string>();
+
             if (obj["localtime"] != null)
+            {
                 newSchedule.localtime = obj["localtime"].Value<string>();
-            if (newSchedule.localtime == null)
-                newSchedule.localtime = obj["time"].Value<string>();
-            if (newSchedule.localtime.Contains(" ")) newSchedule.localtime = newSchedule.localtime.Replace(" ","T"); // Bypass a stupid function of JSON.Net that parses dates
+                if (newSchedule.localtime.Contains(" ")) newSchedule.localtime = newSchedule.localtime.Replace(" ", "T"); // Bypass a stupid function of JSON.Net that parses dates
+            }
+            else
+            {
+                if(obj["time"] != null)
+                    newSchedule.localtime = obj["time"]?.Value<string>();
+            }
+                
                
             if (obj["recycle"] != null)
                 newSchedule.recycle = obj["recycle"].Value<bool>();

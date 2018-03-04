@@ -10,7 +10,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.Addons.CpuTempMon
 {
-    public class CpuTemp : ValidatableBindableBase
+    public class CpuTemp : ValidatableBindableBase, IDisposable
     {
         private float? _temperature;
         private ObservableCollection<ISensor> _cpuSensors;
@@ -19,7 +19,7 @@ namespace WinHue3.Addons.CpuTempMon
         private readonly Computer comp;
         private readonly BackgroundWorker bgwOpen;
         private bool _working = false;
-
+        private bool _disposed = false;
 
         public string PollSensorName
         {
@@ -50,16 +50,16 @@ namespace WinHue3.Addons.CpuTempMon
             
             comp = new Computer();
             timer = new DispatcherTimer();
-            timer.Tick += timer_Tick;
+            timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan(0, 0, pollingInterval);
             comp.CPUEnabled = true;
             bgwOpen = new BackgroundWorker();
-            bgwOpen.DoWork += bgwOpen_DoWork;
+            bgwOpen.DoWork += BgwOpen_DoWork;
            
             _pollSensorName = "CPU Package";
         }
 
-        void bgwOpen_DoWork(object sender, DoWorkEventArgs e)
+        void BgwOpen_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace WinHue3.Addons.CpuTempMon
             comp.Close();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             UpdateSensors();
             int cpuPackage = CpuSensors.FindIndex(sensor => sensor.Name == PollSensorName);
@@ -118,6 +118,26 @@ namespace WinHue3.Addons.CpuTempMon
                 CpuSensors = new ObservableCollection<ISensor>(sensors);
             }
             OnSensorUpdated?.Invoke(this, new EventArgs());
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    Stop();
+                    bgwOpen.Dispose();
+                }
+
+                _disposed = true;
+            }
         }
     }
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using MahApps.Metro.Controls;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Interface;
@@ -25,7 +24,7 @@ namespace WinHue3.Functions.ResourceLinks
     /// <summary>
     /// Interaction logic for Form_ResourceLinksCreator.xaml
     /// </summary>
-    public partial class Form_ResourceLinksCreator : MetroWindow
+    public partial class Form_ResourceLinksCreator : Window
     {
         private ResourceLinkCreatorViewModel rlcvm;
         private Bridge _bridge;

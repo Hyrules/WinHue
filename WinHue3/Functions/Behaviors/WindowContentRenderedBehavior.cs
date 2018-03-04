@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using MahApps.Metro.Controls;
 
 namespace WinHue3.Functions.Behaviors
 {
@@ -28,7 +22,7 @@ namespace WinHue3.Functions.Behaviors
 
         private static void OnWindowsContentRenderedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is MetroWindow window)) return;
+            if (!(d is Window window)) return;
 
             if ((e.NewValue != null) && (e.OldValue == null))
             {

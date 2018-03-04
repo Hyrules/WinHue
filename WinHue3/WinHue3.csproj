@@ -74,12 +74,6 @@
     <StartupObject>WinHue3.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ControlzEx, Version=2.2.0.4, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.2.0.4\lib\net45\ControlzEx.dll</HintPath>
-    </Reference>
-    <Reference Include="Fluent, Version=5.0.2.46, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fluent.Ribbon.5.0.2.46\lib\net45\Fluent.dll</HintPath>
-    </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
@@ -90,9 +84,6 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="ManagedUPnP">
       <HintPath>..\packages\ManagedUPnP\ManagedUPnP.dll</HintPath>
@@ -105,8 +96,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenHardwareMonitorLib">
       <HintPath>..\packages\OpenHardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
@@ -128,8 +119,8 @@
     <Reference Include="system.windows.controls.ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.2.0.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Interactivity\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml" />
@@ -147,6 +138,15 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.DataGrid, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
@@ -172,12 +172,23 @@
     <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\BindableTreeView.cs" />
+    <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Functions\Animations\AnimationCreatorViewModel.cs" />
+    <Compile Include="Functions\Animations\Form_Animations.xaml.cs">
+      <DependentUpon>Form_Animations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\Application Settings\Settings\CustomLifxSettings.cs" />
+    <Compile Include="Functions\Application Settings\Settings\LifxSaveDevice.cs" />
     <Compile Include="Functions\Behaviors\CommandBehavior.cs" />
     <Compile Include="Functions\Behaviors\KeyUpBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\WindowContentRenderedBehavior.cs" />
+    <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\PropertyGrid\ListStringEditor\ListStringEditor.cs" />
+    <Compile Include="Functions\PropertyGrid\PropertyGrid.xaml.cs">
+      <DependentUpon>PropertyGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
@@ -191,6 +202,34 @@
     <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorHeader.cs" />
     <Compile Include="Functions\Schedules\NewCreator\ScheduleTypeItemSource.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewBehavior.cs" />
+    <Compile Include="LIFX\Finder\Form_LIFXFinder.xaml.cs">
+      <DependentUpon>Form_LIFXFinder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LIFX\Finder\LifxFinderViewModel.cs" />
+    <Compile Include="LIFX\Framework\Colors\Hsbk.cs" />
+    <Compile Include="LIFX\Framework\LifxDevice.cs" />
+    <Compile Include="LIFX\Framework\LifxLight.cs" />
+    <Compile Include="LIFX\Framework\Payloads\PowerPayload.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostFirmware .cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLabel.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateGroup.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLocation.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\StateBrightness.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StatePower.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateVersion.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxResponse.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\State.cs" />
+    <Compile Include="LIFX\Framework\Payloads\ColorPayload.cs" />
+    <Compile Include="LIFX\Framework\Header.cs" />
+    <Compile Include="LIFX\Framework\Lifx.cs" />
+    <Compile Include="LIFX\Framework\LifxPacket.cs" />
+    <Compile Include="LIFX\Framework\Payloads\Payload.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxCommMessage.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateService.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformOptionalPayload.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformPayload.cs" />
     <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
@@ -222,7 +261,7 @@
     <Compile Include="Functions\Schedules\NewCreator\Form_ScheduleCreator2.xaml.cs">
       <DependentUpon>Form_ScheduleCreator2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorSensorsViewModel.cs" />
+    <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorPropertyGridViewModel.cs" />
     <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorSlidersViewModel.cs" />
     <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorViewModel.cs" />
     <Compile Include="Functions\User Management\ManageUsersModel.cs" />
@@ -232,12 +271,15 @@
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\Backup.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\BasicConfig.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\BridgeSettings.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\Capabilities.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\ColormodeItemSource.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\DataStore.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\Description.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\EffectItemSource.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\InternetServices.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\PortalState.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\SwUpdate.cs" />
+    <Compile Include="Philips Hue\BridgeObject\BridgeObjects\SwUpdate2.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\User.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\WhiteList.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge_Events.cs" />
@@ -302,6 +344,7 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleConditionCollection.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionCollection.cs" />
+    <Compile Include="Philips Hue\HueObjects\ScheduleObject\StatusItemsSource.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomHotkeys.cs" />
@@ -457,11 +500,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Functions\Animations\Form_Animations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\PropertyGrid\PropertyGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Functions\PropertyGrid\XYEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Schedules\NewCreator\Controls\Sliders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LIFX\Finder\Form_LIFXFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -658,6 +713,8 @@
     <Resource Include="Resources\Motion.png" />
     <Resource Include="Resources\rules.png" />
     <Resource Include="Resources\HueTap.png" />
+    <None Include="Build\process_installer.ps1" />
+    <None Include="Build\process_readme.ps1" />
     <None Include="Resources\LCT001_on.png" />
     <None Include="Resources\LCT001_off.png" />
     <Resource Include="Resources\HueLight_unr.png" />
@@ -830,6 +887,25 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\refreshMetro5.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Build\README_TEMPLATE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\settingsMetro.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rename.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\propertygrid.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
@@ -837,7 +913,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)lights" "$(TargetDir)lights" /e /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(SolutionDir)lights\*" "$(TargetDir)lights\*" /e /y
+powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Build\process_readme.ps1" "$(SolutionDir)WinHue3\Build\README_TEMPLATE.txt" "$(TargetDir)WinHue3.exe"
+powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Build\process_installer.ps1" "$(SolutionDir)inno\installer_template.iss" "$(SolutionDir)WinHue3\\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

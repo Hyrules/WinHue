@@ -250,6 +250,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Install.
+        /// </summary>
+        public static string BridgeSettingsForm_AutoInstall {
+            get {
+                return ResourceManager.GetString("BridgeSettingsForm_AutoInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string BridgeSettingsForm_DoneButton {
@@ -264,6 +273,24 @@ namespace WinHue3.Resources {
         public static string BridgeSettingsForm_ForceCheckUpdate {
             get {
                 return ResourceManager.GetString("BridgeSettingsForm_ForceCheckUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Change.
+        /// </summary>
+        public static string BridgeSettingsForm_LastCheck {
+            get {
+                return ResourceManager.GetString("BridgeSettingsForm_LastCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Update.
+        /// </summary>
+        public static string BridgeSettingsForm_LastUpdate {
+            get {
+                return ResourceManager.GetString("BridgeSettingsForm_LastUpdate", resourceCulture);
             }
         }
         
@@ -615,6 +642,15 @@ namespace WinHue3.Resources {
         public static string BridgeSettingsForm_Title {
             get {
                 return ResourceManager.GetString("BridgeSettingsForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update time.
+        /// </summary>
+        public static string BridgeSettingsForm_UpdateTime {
+            get {
+                return ResourceManager.GetString("BridgeSettingsForm_UpdateTime", resourceCulture);
             }
         }
         
@@ -1074,6 +1110,78 @@ namespace WinHue3.Resources {
         public static string Form_HotKeyCreator_Warning_Generic {
             get {
                 return ResourceManager.GetString("Form_HotKeyCreator_Warning_Generic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string Form_LIFXFinder_Button_Done {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_Button_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detect.
+        /// </summary>
+        public static string Form_LIFXFinder_Button_Find {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_Button_Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string Form_LIFXFinder_Image {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Address.
+        /// </summary>
+        public static string Form_LIFXFinder_IP {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_IP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mac Address.
+        /// </summary>
+        public static string Form_LIFXFinder_MAC {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_MAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Form_LIFXFinder_Name {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find LIFX Bulb....
+        /// </summary>
+        public static string Form_LIFXFinder_Title {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning : You need to onboard the device with the LIFX app first. WinHue won&apos;t find them otherwise..
+        /// </summary>
+        public static string Form_LIFXFinder_Warning {
+            get {
+                return ResourceManager.GetString("Form_LIFXFinder_Warning", resourceCulture);
             }
         }
         
@@ -1726,6 +1834,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _File.
+        /// </summary>
+        public static string MainForm_Menu_File {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find LIFX Devices.
+        /// </summary>
+        public static string MainForm_Menu_FindLifx {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_FindLifx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit.
         /// </summary>
         public static string MainForm_Menu_Quit {
@@ -1884,6 +2010,15 @@ namespace WinHue3.Resources {
         public static string MainForm_StatusBar_ToolTip_UpdateAvailable {
             get {
                 return ResourceManager.GetString("MainForm_StatusBar_ToolTip_UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bridges.
+        /// </summary>
+        public static string Mainform_Tab_Bridges {
+            get {
+                return ResourceManager.GetString("Mainform_Tab_Bridges", resourceCulture);
             }
         }
         
@@ -2239,6 +2374,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property Grid.
+        /// </summary>
+        public static string MainForm_Tab_View_PropertyGrid {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_PropertyGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scenes Mapping.
         /// </summary>
         public static string MainForm_Tab_View_SceneMapping {
@@ -2271,6 +2415,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_View_TextBehavior {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View_TextBehavior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toolbars.
+        /// </summary>
+        public static string MainForm_Tab_View_Toolbars {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_Toolbars", resourceCulture);
             }
         }
         
@@ -2473,6 +2626,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Properties of the selected object.
+        /// </summary>
+        public static string PropertyGridForm_Title {
+            get {
+                return ResourceManager.GetString("PropertyGridForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string RenameObjectForm_CancelButton {
@@ -2635,7 +2797,43 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to current properties.
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_Clear {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_Delete {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Down.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_MoveDown {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Up.
+        /// </summary>
+        public static string RuleCreatorForm_Actions_MoveUp {
+            get {
+                return ResourceManager.GetString("RuleCreatorForm_Actions_MoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string RuleCreatorForm_Add {
             get {
@@ -3355,11 +3553,29 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Property Grid for Lights/Groups.
+        /// </summary>
+        public static string ScheduleCreatorForm_PropertyGrid {
+            get {
+                return ResourceManager.GetString("ScheduleCreatorForm_PropertyGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Randomize.
         /// </summary>
         public static string ScheduleCreatorForm_Randomize {
             get {
                 return ResourceManager.GetString("ScheduleCreatorForm_Randomize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recycle.
+        /// </summary>
+        public static string ScheduleCreatorForm_Recycle {
+            get {
+                return ResourceManager.GetString("ScheduleCreatorForm_Recycle", resourceCulture);
             }
         }
         
@@ -3751,6 +3967,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Capabilities.
+        /// </summary>
+        public static string SettingsForm_Tab_Capabilities_Title {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Capabilities_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Defaults.
         /// </summary>
         public static string SettingsForm_Tab_Defaults {
@@ -3814,6 +4039,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sliders.
+        /// </summary>
+        public static string SettingsForm_Tab_Defaults_SliderTitle {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_Defaults_SliderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transition Time.
         /// </summary>
         public static string SettingsForm_Tab_Defaults_TransitionTime {
@@ -3828,6 +4062,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always use the property grid when creating schedule.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_AlwaysUsePropGrid {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_AlwaysUsePropGrid", resourceCulture);
             }
         }
         
@@ -3945,6 +4188,15 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Language {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize to Tray.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_MinimizeToTray {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_MinimizeToTray", resourceCulture);
             }
         }
         

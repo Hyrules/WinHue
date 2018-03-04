@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.BridgeObject;
@@ -11,7 +10,7 @@ namespace WinHue3.Functions.Lights.View
     /// <summary>
     /// Interaction logic for Form_BulbsView.xaml
     /// </summary>
-    public partial class Form_BulbsView : MetroWindow
+    public partial class Form_BulbsView : Window
     {
         private BulbsViewViewModel _bvv;
         private Bridge _bridge;

@@ -3,11 +3,21 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 using WinHue3.Functions.EventViewer;
+using WinHue3.Functions.PropertyGrid;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
 using WinHue3.Utils;
+using System.Linq;
+using System.Windows.Data;
+using Xceed.Wpf.Toolkit.PropertyGrid;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
+using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 
 namespace WinHue3.MainForm
 {
@@ -18,7 +28,8 @@ namespace WinHue3.MainForm
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
-        //private bool _editName;
+        private bool _visibleTabs = true;
+        private IBaseProperties _newstate;
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
@@ -29,8 +40,9 @@ namespace WinHue3.MainForm
 
         public object IsMasterDebugger => System.Diagnostics.Debugger.IsAttached;
 
+        public Form_PropertyGrid PropertyGrid => _propertyGrid;
 
-        private bool CanRunTempPlugin => UacHelper.IsProcessElevated;
+        private bool CanRunTempPlugin => UacHelper.IsProcessElevated();
 
         public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
 
@@ -59,7 +71,7 @@ namespace WinHue3.MainForm
         public IHueObject SelectedObject
         {
             get => _selectedObject;
-            set => SetProperty(ref _selectedObject,value);
+            set => SetProperty(ref _selectedObject, value);
         }
 
         public Form_EventLog Eventlogform
@@ -120,5 +132,8 @@ namespace WinHue3.MainForm
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
+
+        public bool VisibleTabs { get => _visibleTabs; set => SetProperty(ref _visibleTabs,value); }
+
     }
 }

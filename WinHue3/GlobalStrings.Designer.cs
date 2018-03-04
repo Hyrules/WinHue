@@ -331,6 +331,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking for new updates. Please come back later to see if new updates are available..
+        /// </summary>
+        public static string CheckingForUpdate {
+            get {
+                return ResourceManager.GetString("CheckingForUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color temperature cannot be selected at the same time as Hue or Saturation. .
         /// </summary>
         public static string ColorTempWarning {
@@ -1146,6 +1155,15 @@ namespace WinHue3 {
         public static string Not_Connected {
             get {
                 return ResourceManager.GetString("Not_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to find the object ? Does it still exists ?.
+        /// </summary>
+        public static string Object_Does_Not_Exists {
+            get {
+                return ResourceManager.GetString("Object_Does_Not_Exists", resourceCulture);
             }
         }
         

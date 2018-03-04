@@ -80,6 +80,11 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
         [HueProperty, DataMember]
         public SwUpdate swupdate { get; set; }
         /// <summary>
+        /// Contains information related to software updates. V2
+        /// </summary>
+        [HueProperty, DataMember]
+        public SwUpdate2 swupdate2 { get; set; }
+        /// <summary>
         /// Indicates whether the link button has been pressed within the last 30 seconds.
         /// </summary>
         [HueProperty, DataMember(EmitDefaultValue = false)]

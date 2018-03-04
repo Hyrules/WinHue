@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -12,7 +11,7 @@ namespace WinHue3.Functions.Scenes.Creator
     /// <summary>
     /// Interaction logic for SceneCreator.xaml
     /// </summary>
-    public partial class Form_SceneCreator : MetroWindow
+    public partial class Form_SceneCreator : Window
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

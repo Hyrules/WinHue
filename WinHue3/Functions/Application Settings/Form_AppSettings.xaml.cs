@@ -2,8 +2,6 @@
 using System.IO;
 using System.Windows;
 using IWshRuntimeLibrary;
-using MahApps.Metro.Controls;
-using Microsoft.Win32;
 using WinHue3.Functions.Application_Settings.Settings;
 using File = System.IO.File;
 
@@ -12,7 +10,7 @@ namespace WinHue3.Functions.Application_Settings
     /// <summary>
     /// Interaction logic for AppSettings.xaml
     /// </summary>
-    public partial class Form_AppSettings : MetroWindow
+    public partial class Form_AppSettings
     {
  
         private AppSettingsViewModel _appSettingsViewModel;
@@ -46,9 +44,10 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.StartMode = _appSettingsViewModel.MainSettingsModel.StartMode;
             WinHueSettings.settings.CheckForUpdate = _appSettingsViewModel.MainSettingsModel.CheckUpdate;
             WinHueSettings.settings.CheckForBridgeUpdate = _appSettingsViewModel.MainSettingsModel.CheckForBridgeUpdate;
-            WinHueSettings.settings.ThemeColor = _appSettingsViewModel.MainSettingsModel.Themecolor;
-            WinHueSettings.settings.Theme = _appSettingsViewModel.MainSettingsModel.Theme;
             WinHueSettings.settings.UseLastBriState = _appSettingsViewModel.DefaultModel.UseLastBriState;
+            WinHueSettings.settings.MinimizeToTray = _appSettingsViewModel.MainSettingsModel.MinimizeToTray;
+            WinHueSettings.settings.UsePropertyGrid = _appSettingsViewModel.MainSettingsModel.UsePropGrid;
+            WinHueSettings.settings.SlidersBehavior = _appSettingsViewModel.DefaultModel.SlidersBehavior;
 
             string pathtostartupfile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "WinHue3.lnk");
 
@@ -84,7 +83,7 @@ namespace WinHue3.Functions.Application_Settings
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), MahApps.Metro.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+            
            // Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), Fluent.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
             
             Close();

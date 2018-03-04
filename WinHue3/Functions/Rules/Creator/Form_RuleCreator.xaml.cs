@@ -1,4 +1,4 @@
-﻿using MahApps.Metro.Controls;
+﻿
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
@@ -10,7 +10,7 @@ namespace WinHue3.Functions.Rules.Creator
     /// <summary>
     /// Interaction logic for Form_RuleCreator.xaml
     /// </summary>
-    public partial class Form_RuleCreator : MetroWindow
+    public partial class Form_RuleCreator : Window
     {
         private RuleCreatorViewModel _rcvm;
         private Bridge _bridge;

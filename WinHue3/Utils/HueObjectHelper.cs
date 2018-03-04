@@ -1135,9 +1135,10 @@ namespace WinHue3.Utils
         /// <param name="bridge">Bridge to get the information from.</param>
         /// <param name="obj">Object to toggle.</param>
         /// <param name="tt">Transition Time (Optional)</param>
-        /// <param name="dimvalue">Value for the dim</param>
+        /// <param name="dimvalue">Value for the dim (Optional)</param>
+        /// <param name="state">New state at toggle (Optional)</param>
         /// <returns>The new image of the object.</returns>
-        public static async Task<ImageSource> ToggleObjectOnOffStateAsyncTask(Bridge bridge, IHueObject obj, ushort? tt = null, byte? dimvalue = null)
+        public static async Task<ImageSource> ToggleObjectOnOffStateAsyncTask(Bridge bridge, IHueObject obj, ushort? tt = null, byte? dimvalue = null, IBaseProperties state = null)
         {
             ImageSource hr = null;
             if (obj is Light)
@@ -1167,15 +1168,25 @@ namespace WinHue3.Utils
                     {
                         log.Debug("Toggling light state : ON");
 
-                        State newstate = new State()
-                        {
-                            on = true,
-                            transitiontime = tt
-                        };
+                        State newstate;
 
-                        if (!WinHueSettings.settings.UseLastBriState)
+                        if (WinHueSettings.settings.SlidersBehavior == 0)
                         {
-                            newstate.bri = dimvalue ?? WinHueSettings.settings.DefaultBriLight;
+                            newstate = new State()
+                            {
+                                on = true,
+                                transitiontime = tt
+                            }; ;
+                            if (!WinHueSettings.settings.UseLastBriState)
+                            {
+                                newstate.bri = dimvalue ?? WinHueSettings.settings.DefaultBriLight;
+                            }
+                        }
+                        else
+                        {
+                            newstate = state as State ?? new State();
+                            newstate.on = true;
+                            newstate.transitiontime = tt;
                         }
 
                         bool bsetlightstate = await bridge.SetStateAsyncTask(newstate, obj.Id);
@@ -1211,15 +1222,26 @@ namespace WinHue3.Utils
                 {
                     log.Debug("Toggling group state : OFF");
 
-                    Action newaction = new Action()
-                    {
-                        on = true,
-                        transitiontime = tt
-                    };
+                    Action newaction;
 
-                    if (!WinHueSettings.settings.UseLastBriState)
+                    if (WinHueSettings.settings.SlidersBehavior == 0)
                     {
-                        newaction.bri = dimvalue ?? WinHueSettings.settings.DefaultBriGroup;
+                        newaction = new Action()
+                        {
+                            on = true,
+                            transitiontime = tt
+                        };
+
+                        if (!WinHueSettings.settings.UseLastBriState)
+                        {
+                            newaction.bri = dimvalue ?? WinHueSettings.settings.DefaultBriGroup;
+                        }
+                    }
+                    else
+                    {
+                        newaction = state as Action ?? new Action();
+                        newaction.on = true;
+                        newaction.transitiontime = tt;
                     }
 
                     bool bsetgroupstate = await bridge.SetStateAsyncTask(newaction, obj.Id);

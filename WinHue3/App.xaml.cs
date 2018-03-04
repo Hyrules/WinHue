@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using log4net.Repository.Hierarchy;
 using WinHue3.Logs;
@@ -29,7 +26,7 @@ namespace WinHue3
         public App()
         {
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            //AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Hierarchy hier = log4net.LogManager.GetRepository() as Hierarchy;
 
             if (hier != null)
@@ -50,8 +47,8 @@ namespace WinHue3
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version.ToString()} started");
-            Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated}");
+            Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version} started");
+            Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated()}");
             MainForm.MainWindow wnd = new MainForm.MainWindow(_fel);
          
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
@@ -64,8 +61,7 @@ namespace WinHue3
 
             MainWindow.Height = height;
             MainWindow.Width = width;
-            //MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, MahApps.Metro.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), MahApps.Metro.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
-           // Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), Fluent.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
+
             switch (WinHueSettings.settings.StartMode)
             {
                 case 0:
