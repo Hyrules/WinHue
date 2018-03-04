@@ -1,5 +1,5 @@
 ---
-title: My page
+title: WinHue 3 Homepage
 layout: default
 ---
 
