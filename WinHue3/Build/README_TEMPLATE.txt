@@ -14,6 +14,7 @@ Fixed:
 - Bug where user could not apply bridge settings.
 - Bug where adding a rule condition with DX was causing the program to serialize the empty value.
 - Bug where user could not edit rule with action on schedule
+- Bug in the schedule creator that inverted the effect and alert.
 
 Added:
 - Change the order of the actions in the rule creator.
@@ -23,7 +24,7 @@ Added:
 - Missing rule creator action on schedule.
 - New schedule creator. 
 - List bridge capabilities. if firmware version is greater than 1.15.
-- Settings to change slider behaviors. Disabled when light is off and toggle on only or Enabled when light is off / apply when turned on.
+- Settings to change slider behaviors. Disabled when light is of and toggle on only or Enabled when light is off / apply when turned on.
 
 Changed:
 - Reverted to CommandCombobox to solve issues.

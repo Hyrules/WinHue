@@ -68,13 +68,13 @@
         <Label Content="{x:Static resources:GUI.MainForm_Sliders_TransitionTime}" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" Width="298" HorizontalContentAlignment="Center" />
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="139,333,0,0" VerticalAlignment="Top" Width="169"/>
         <xctk:IntegerUpDown x:Name="iudTT"  HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Width="124" Maximum="65535" Minimum="-1" Value="{Binding ElementName=sliders,Path=TTValue}"/>
-        <xctk:WatermarkComboBox x:Name="wcbAlert"  HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="298" Watermark="(Alert)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueEffect}">
+        <xctk:WatermarkComboBox x:Name="wcbAlert"  HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="298" Watermark="(Alert)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueAlert}">
             <ComboBoxItem Content="(Alert)" Tag="{x:Null}"/>
             <ComboBoxItem Content="None" Tag="none"/>
             <ComboBoxItem Content="Identify Long (long blink)" Tag="lselect"/>
             <ComboBoxItem Content="Identify Short (short blink)" Tag="select"/>
         </xctk:WatermarkComboBox>
-        <xctk:WatermarkComboBox x:Name="wcbEffect"  HorizontalAlignment="Left" Margin="10,393,0,0" VerticalAlignment="Top" Width="298" Watermark="(Effect)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueAlert}">
+        <xctk:WatermarkComboBox x:Name="wcbEffect"  HorizontalAlignment="Left" Margin="10,393,0,0" VerticalAlignment="Top" Width="298" Watermark="(Effect)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueEffect}">
             <ComboBoxItem Content="(Effect)" Tag="{x:Null}"/>
             <ComboBoxItem Content="None" Tag="none"/>
             <ComboBoxItem Content="Color loop" Tag="colorloop"/>
