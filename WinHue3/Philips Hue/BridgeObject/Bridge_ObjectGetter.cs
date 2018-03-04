@@ -11,7 +11,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
 {
     public partial class Bridge
     {
-
         /// <summary>
         /// Get the specified object freom the bridge in async.
         /// </summary>

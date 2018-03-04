@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
-             xmlns:converters="clr-namespace:WinHue3.Functions.Converters" xmlns:resources="clr-namespace:WinHue3.Resources" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.Schedules.NewCreator.Controls.Sliders"
+             xmlns:converters="clr-namespace:WinHue3.Functions.Converters" xmlns:resources="clr-namespace:WinHue3.Resources" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+    x:Class="WinHue3.Functions.Schedules.NewCreator.Controls.Sliders"
              mc:Ignorable="d" Width="317.757" Height="455.778" Name="sliders">
     <UserControl.Resources>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
@@ -16,22 +18,22 @@
     <Grid>
 
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Left" Margin="5,6,0,0" Width="308" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Slider x:Name="SlHue" Height="22" VerticalAlignment="Top" Maximum="65535" Margin="5,31,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding ElementName=sliders, Path=HueValue}" >
+        <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Maximum="65535" Margin="5,31,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding ElementName=sliders, Path=HueValue}" >
             <Slider.Background>
-                <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" >
+                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                     <GradientStop Color="#FFFF0000" />
-                    <GradientStop Color="#FEFFFF00" Offset="0.167" />
-                    <GradientStop Color="#FE00FF00" Offset="0.333" />
-                    <GradientStop Color="#FE00FFFF" Offset="0.5" />
-                    <GradientStop Color="#FE0000FF" Offset="0.667" />
-                    <GradientStop Color="#FEFF00FF" Offset="0.833" />
-                    <GradientStop Color="#FFFF0000" Offset="1.0" />
+                    <GradientStop Color="#FEFFFF00" Offset="0.195" />
+                    <GradientStop Color="#FE00FF00" Offset="0.389" />
+                    <GradientStop Color="#FE00FFFF" Offset="0.5"   />
+                    <GradientStop Color="#FE0000FF" Offset="0.715" />
+                    <GradientStop Color="#FEFF00FF" Offset="0.856" />
+                    <GradientStop Color="#FFFF0000" Offset="1.0"   />
                 </LinearGradientBrush>
             </Slider.Background>
             <Slider.Style>
                 <Style/>
             </Slider.Style>
-        </Slider>
+        </sliders:BindableHueSlider>
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_Brightness}" HorizontalAlignment="Left" Margin="5,54,0,0" Width="308" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
         <Slider x:Name="SlBri"  Height="22" VerticalAlignment="Top" Maximum="254" Margin="5,79,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" Minimum="-1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding ElementName=sliders,Path=BriValue}">
             <Slider.Background>

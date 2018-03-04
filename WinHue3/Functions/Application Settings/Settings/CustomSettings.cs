@@ -29,6 +29,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
             Theme = "BaseLight";
             UseLastBriState = false;
             MinimizeToTray = false;
+            UsePropertyGrid = false;
+            SlidersBehavior = 0;
         }
 
         [DataMember(EmitDefaultValue = true)]
@@ -73,6 +75,10 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public bool UseLastBriState { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public bool MinimizeToTray { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public bool UsePropertyGrid { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public int SlidersBehavior { get; set; }
 
         public override string ToString()
         {

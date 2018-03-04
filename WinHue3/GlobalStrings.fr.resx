@@ -759,4 +759,7 @@
   <data name="Object_Does_Not_Exists" xml:space="preserve">
     <value>Désolé l'objet sélection est introuvable. Existe t'il toujours ?</value>
   </data>
+  <data name="CheckingForUpdate" xml:space="preserve">
+    <value>Virification de mise à jour en cours. Veuillez svp revenir plus tard afin de voir si de nouvelles MAJ sont disponibles.</value>
+  </data>
 </root>

@@ -1,29 +1,19 @@
-﻿using WinHue3.Utils;
+﻿using System;
+using WinHue3.Utils;
 
 namespace WinHue3.Functions.BridgeSettings
 {
     public class BridgeSettingsSoftwareModel : ValidatableBindableBase
     {
-        private string _url;
-        private string _text;
         private string _updatestate;
-        private bool _notify;
+        private bool _autoUpdate;
+        private DateTime _updateTime;
+        private string _lastChange;
+        private string _lastUpdate;
 
         public BridgeSettingsSoftwareModel()
         {
-            
-        }
-
-        public string Url
-        {
-            get => _url;
-            set => SetProperty(ref _url,value);
-        }
-
-        public string Text
-        {
-            get => _text;
-            set => SetProperty(ref _text,value);
+            _updatestate = "unknown";
         }
 
         public string Updatestate
@@ -32,10 +22,28 @@ namespace WinHue3.Functions.BridgeSettings
             set => SetProperty(ref _updatestate,value);
         }
 
-        public bool Notify
+        public bool AutoUpdate
         {
-            get => _notify;
-            set => SetProperty(ref _notify,value);
+            get => _autoUpdate;
+            set => SetProperty(ref _autoUpdate,value);
+        }
+
+        public DateTime UpdateTime
+        {
+            get => _updateTime;
+            set => SetProperty(ref _updateTime,value);
+        }
+
+        public string LastChange
+        {
+            get => _lastChange;
+            set => SetProperty(ref _lastChange,value);
+        }
+
+        public string LastUpdate
+        {
+            get => _lastUpdate;
+            set => SetProperty(ref _lastUpdate,value);
         }
     }
 }

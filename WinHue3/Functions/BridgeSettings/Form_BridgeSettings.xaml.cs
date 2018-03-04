@@ -51,5 +51,10 @@ namespace WinHue3.Functions.BridgeSettings
            /* if (_bsv == null)
                 Close();*/
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_bsvm.CanClose == false) e.Cancel = true;
+        }
     }
 }

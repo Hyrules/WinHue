@@ -9,7 +9,7 @@
     xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:applicationSettings="clr-namespace:WinHue3.Functions.Application_Settings"
     xmlns:models="clr-namespace:WinHue3.MainForm"
-    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="499.603" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" >
+    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="510.163" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" >
     <Window.Resources>
         <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
         <Style TargetType="xctk:ByteUpDown" x:Key="BriLastState">
@@ -52,6 +52,7 @@
                         <TextBlock Text="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_NoCheckBridgeVersion}" TextWrapping="Wrap" Width="436" Height="33"/>
                     </CheckBox>
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_MinimizeToTray}" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="286" IsChecked="{Binding MainSettingsModel.MinimizeToTray}"/>
+                    <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" Margin="10,317,20,3.667" IsChecked="{Binding MainSettingsModel.UsePropGrid}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
@@ -65,7 +66,7 @@
                             <Label x:Name="Label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="220"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox3" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}" HorizontalAlignment="Left" Margin="5,159,0,0" VerticalAlignment="Top" Height="123" Width="251">
+                    <GroupBox x:Name="GroupBox3" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}" HorizontalAlignment="Left" Margin="5,159,0,0" VerticalAlignment="Top" Height="123" Width="167">
                         <Grid>
                             <TextBlock x:Name="Label3" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="33" TextWrapping="Wrap" TextAlignment="Center"/>
                             <xctk:IntegerUpDown x:Name="NudTt" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" Width="143" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}"/>
@@ -83,7 +84,12 @@
                             <CheckBox x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" Width="78" Margin="10,80,110.667,9.667" />
                         </Grid>
                     </GroupBox>
-
+                    <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_SliderTitle}" Margin="177,160,6,56.667">
+                        <ComboBox HorizontalAlignment="Left" Margin="0,22,-2.333,0" VerticalAlignment="Top" Width="285" SelectedValuePath="Tag" SelectedValue="{Binding DefaultModel.SlidersBehavior}">
+                            <ComboBoxItem Content="Disabled when object is off / Only Toggle On" Tag="0"/>
+                            <ComboBoxItem Content="Can changed when off / Apply at toggle On" Tag="1"/>
+                        </ComboBox>
+                    </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" HorizontalAlignment="Left"  VerticalAlignment="Top">
@@ -101,7 +107,7 @@
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Grid>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="60"/>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}" Command="{Binding ChangeThemeCommand}" Style="{StaticResource {x:Type ComboBox}}" >
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}"  Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
                         <ComboBoxItem Content="Red" Tag="Red"/>
                         <ComboBoxItem Content="Green" Tag="Green"/>
                         <ComboBoxItem Content="Blue" Tag="Blue"/>
@@ -126,13 +132,15 @@
                         <ComboBoxItem Content="Taupe" Tag="Taupe"/>
                         <ComboBoxItem Content="Sienna" Tag="Sienna"/>
                     </controls:CommandComboBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Command="{Binding ChangeThemeCommand}" Style="{StaticResource {x:Type ComboBox}}" >
+                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
                         <ComboBoxItem Content="BaseLight"></ComboBoxItem>
                         <ComboBoxItem Content="BaseDark"></ComboBoxItem>
                     </controls:CommandComboBox>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
+
+
         </TabControl>
 
     </Grid>

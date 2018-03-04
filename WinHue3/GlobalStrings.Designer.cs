@@ -331,6 +331,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking for new updates. Please come back later to see if new updates are available..
+        /// </summary>
+        public static string CheckingForUpdate {
+            get {
+                return ResourceManager.GetString("CheckingForUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color temperature cannot be selected at the same time as Hue or Saturation. .
         /// </summary>
         public static string ColorTempWarning {

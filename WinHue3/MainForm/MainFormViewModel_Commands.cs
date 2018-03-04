@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Input;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -20,6 +21,11 @@ namespace WinHue3.MainForm
             return SelectedBridge != null && EnableListView.GetValueOrDefault(false);
         }
 
+        private bool CanBridgeSettings()
+        {
+            return SelectedBridge != null;
+        }
+
         private bool IsObjectSelected()
         {
             return SelectedObject != null;
@@ -30,8 +36,6 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
             if (SelectedObject is Scene && ((Scene) SelectedObject).version == 1) return false;
-            if (SelectedObject is Schedule &&
-                ((Schedule) SelectedObject).command.address.objecttype == "sensors") return false;
             return !(SelectedObject is Light);
         }
 
@@ -117,6 +121,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light light)
             {
                 if (light.state.reachable == false) return false;
+                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
             else if (SelectedObject is Group)
@@ -132,6 +137,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light light)
             {
                 if (light.state.reachable == false) return false;
+                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
             else if (SelectedObject is Group)
@@ -147,6 +153,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light light)
             {
                 if (light.state.reachable == false) return false;
+                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
             else if (SelectedObject is Group)
@@ -162,6 +169,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light light)
             {
                 if (light.state.reachable == false) return false;
+                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
             else if (SelectedObject is Group)
@@ -177,6 +185,7 @@ namespace WinHue3.MainForm
             if (SelectedObject is Light light)
             {
                 if (light.state.reachable == false) return false;
+                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
             else if (SelectedObject is Group)
@@ -278,7 +287,7 @@ namespace WinHue3.MainForm
         public ICommand CheckForUpdateCommand => new AsyncRelayCommand(param => CheckForBridgeUpdate(), (param) => EnableButtons());
         public ICommand UpdateBridgeCommand => new AsyncRelayCommand(param => DoBridgeUpdate(), (param) => EnableButtons() && CanUpdateBridge());
         public ICommand ManageUsersCommand => new AsyncRelayCommand(param => ManageUsers(), (param) => EnableButtons());
-        public ICommand ChangeBridgeSettingsCommand => new AsyncRelayCommand(param => ChangeBridgeSettings(), (param) => EnableButtons());
+        public ICommand ChangeBridgeSettingsCommand => new AsyncRelayCommand(param => ChangeBridgeSettings(), (param) => CanBridgeSettings());
         public ICommand RefreshViewCommand => new AsyncRelayCommand(param => RefreshView(), (param) => EnableButtons());
         public ICommand CreateGroupCommand => new AsyncRelayCommand(param => CreateGroup(), (param) => EnableButtons());
         public ICommand CreateSceneCommand => new AsyncRelayCommand(param => CreateScene(), (param) => EnableButtons());

@@ -144,8 +144,8 @@
                 </Style>
             </xctk:IntegerUpDown.Style>
         </xctk:IntegerUpDown>
-        <CheckBox Content="Use Property Grid for Lights/Groups" IsChecked="{Binding PropGridLG}" HorizontalAlignment="Left" Margin="10,493,0,0" VerticalAlignment="Top" Command="{Binding UsePropertyGridLGCommand}"/>
-        <CheckBox Content="Recycle" HorizontalAlignment="Left" Margin="167,459,0,0" VerticalAlignment="Top" Width="182" IsChecked="{Binding Header.Recycle}" IsThreeState="True"/>
+        <CheckBox Content="{x:Static resx:GUI.ScheduleCreatorForm_PropertyGrid}" IsChecked="{Binding PropGridLG}" HorizontalAlignment="Left" Margin="10,493,0,0" VerticalAlignment="Top" Command="{Binding UsePropertyGridLGCommand}"/>
+        <CheckBox Content="{x:Static resx:GUI.ScheduleCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="167,459,0,0" VerticalAlignment="Top" Width="182" IsChecked="{Binding Header.Recycle}" IsThreeState="True"/>
 
     </Grid>
 </Window>

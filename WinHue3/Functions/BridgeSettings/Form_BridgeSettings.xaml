@@ -5,7 +5,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgeSettings="clr-namespace:WinHue3.Functions.BridgeSettings"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
-        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="378" Width="487.721" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded">
+        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.DataContext>
         <bridgeSettings:BridgeSettingsViewModel/>
     </Window.DataContext>
@@ -48,10 +48,10 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.BridgeSettingsForm_DoneButton}" HorizontalAlignment="Left" Margin="398,316,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." />
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.BridgeSettingsForm_DoneButton}" HorizontalAlignment="Left" Margin="398,316,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." IsEnabled="{Binding CanClose}" />
         <TabControl HorizontalAlignment="Left" Height="311" VerticalAlignment="Top" Width="483">
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings}">
-                <Grid>
+                <Grid >
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_UTC}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="106"/>
                     <Label x:Name="LblTime" Content="{Binding GeneralModel.Utc}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
@@ -105,17 +105,53 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate}">
-                <Grid>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_URL}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="LblUrl" Content="{Binding SoftwareModel.Url}" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="289"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Text}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="LblText" Content="{Binding SoftwareModel.Text}" HorizontalAlignment="Left" Margin="100,41,0,0" VerticalAlignment="Top" Width="289"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="LblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="289"/>
-                    <CheckBox x:Name="ChbNotify" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_Notify}" IsChecked="{Binding SoftwareModel.Notify,Mode=OneWay}" HorizontalAlignment="Left" Margin="11,114,0,0" VerticalAlignment="Top" Width="89" IsHitTestVisible="False"/>
-                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="5,257,0,0" VerticalAlignment="Top" Width="170" Command="{Binding ForceCheckUpdateCommand}"/>
+                <Grid Margin="0,0,-0.333,-0.333">
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="9,8,0,0" VerticalAlignment="Top" Width="90"/>
+                    <Label x:Name="LblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="99,8,0,0" VerticalAlignment="Top" Width="289" Height="26"/>
+                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="10,224,0,0" Width="170" Command="{Binding ForceCheckUpdateCommand}" VerticalContentAlignment="Top" Height="20" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="chbAutoInstall"  Content="" HorizontalAlignment="Left" Margin="103,45,0,0" VerticalAlignment="Top" IsChecked="{Binding SoftwareModel.AutoUpdate}" IsEnabled="{Binding CanAutoInstall}"/>
+                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Width="75" Margin="392,224,10,0" Command="{Binding ApplyUpdateSettingsCommand}" Height="20" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
+                    <xctk:DateTimePickerBase HorizontalAlignment="Left" Margin="104,75,0,0" VerticalAlignment="Top" Width="70" Format="Custom" Value="{Binding SoftwareModel.UpdateTime}" FormatString="HH:mm:ss">
+                        <xctk:DateTimePickerBase.Style>
+                            <Style TargetType="xctk:DateTimePickerBase">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=chbAutoInstall, Path=IsChecked}" Value="True">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </xctk:DateTimePickerBase.Style>
+                    </xctk:DateTimePickerBase>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_UpdateTime}" Margin="9,70,0,0" Width="90" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Height="26" VerticalAlignment="Top"/>
+                    <ProgressBar HorizontalAlignment="Left" Height="15" Margin="10,200,0,0" VerticalAlignment="Top" Width="457" Maximum="179" Value="{Binding UpdateProgress}"/>
+                    <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Command="{Binding UpdateBridgeFirmwareCommand}" HorizontalAlignment="Left" Margin="185,224,0,0" VerticalAlignment="Top" Width="103"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_AutoInstall}" HorizontalAlignment="Left" Margin="9,39,0,0" VerticalAlignment="Top" Width="89"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastUpdate}" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="89"/>
+                    <Label Content="{Binding SoftwareModel.LastUpdate}" HorizontalAlignment="Left" Margin="104,101,0,0" VerticalAlignment="Top" Width="151"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastCheck}" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="89"/>
+                    <Label Content="{Binding SoftwareModel.LastChange}" HorizontalAlignment="Left" Margin="104,132,0,0" VerticalAlignment="Top" Width="151"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Capabilities_Title}">
+                <TabItem.Style>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Capabilities}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                <Grid Background="#FFE5E5E5">
+                    <xctk:PropertyGrid Margin="0,0,-0.333,-0.333" ShowSearchBox="False" ShowSortOptions="False" SelectedObject="{Binding Capabilities}"/>
+
+                </Grid>
+
+            </TabItem>
+
+
         </TabControl>
     </Grid>
 </Window>

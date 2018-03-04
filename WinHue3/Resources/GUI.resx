@@ -1542,4 +1542,31 @@
   <data name="MainForm_Tab_View_Toolbars" xml:space="preserve">
     <value>Toolbars</value>
   </data>
+  <data name="ScheduleCreatorForm_PropertyGrid" xml:space="preserve">
+    <value>Use Property Grid for Lights/Groups</value>
+  </data>
+  <data name="ScheduleCreatorForm_Recycle" xml:space="preserve">
+    <value>Recycle</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_AlwaysUsePropGrid" xml:space="preserve">
+    <value>Always use the property grid when creating schedule</value>
+  </data>
+  <data name="SettingsForm_Tab_Capabilities_Title" xml:space="preserve">
+    <value>Capabilities</value>
+  </data>
+  <data name="BridgeSettingsForm_AutoInstall" xml:space="preserve">
+    <value>Auto Install</value>
+  </data>
+  <data name="BridgeSettingsForm_UpdateTime" xml:space="preserve">
+    <value>Update time</value>
+  </data>
+  <data name="BridgeSettingsForm_LastUpdate" xml:space="preserve">
+    <value>Last Update</value>
+  </data>
+  <data name="BridgeSettingsForm_LastCheck" xml:space="preserve">
+    <value>Last Change</value>
+  </data>
+  <data name="SettingsForm_Tab_Defaults_SliderTitle" xml:space="preserve">
+    <value>Sliders</value>
+  </data>
 </root>

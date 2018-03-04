@@ -401,11 +401,11 @@
                         <Image Source="/WinHue3;component/Resources/pair-bridge.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_FindLifx}" Command="{Binding FindLifxDevicesCommand}" FontSize="17" Foreground="Black">
+                <!--<MenuItem Header="{x:Static resx:GUI.MainForm_Menu_FindLifx}" Command="{Binding FindLifxDevicesCommand}" FontSize="17" Foreground="Black">
                     <MenuItem.Icon>
                         <Image></Image>
                     </MenuItem.Icon>
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" FontSize="17" Foreground="Black">
                     <MenuItem.Style>
                         <Style TargetType="MenuItem">
@@ -727,10 +727,6 @@
                     <RowDefinition Height="auto" MinHeight="472"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0">
-                    <Grid Height="65px">
-                        <Label Content="Controls" HorizontalAlignment="Center" Width="350" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White"/>
-                        <ToggleButton Margin="10,30,320,7" Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off"/>
-                    </Grid>
 
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
                     <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="-1" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
@@ -807,14 +803,14 @@
                     <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding ElementName=mnuCommands, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding ElementName=mnuCommands, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}" Padding="0,0,12,0">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Command="{Binding AllOffCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOff.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-
+                <ToggleButton Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off" Padding="2" Margin="6,0,4,0" IsChecked="{Binding MainFormModel.On}"/>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding ElementName=mnuRefresh, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">

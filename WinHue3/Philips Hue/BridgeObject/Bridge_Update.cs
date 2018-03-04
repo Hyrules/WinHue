@@ -10,7 +10,26 @@ namespace WinHue3.Philips_Hue.BridgeObject
 {
     public partial class Bridge
     {
-
+        public async Task<bool> SetAutoInstallAsyncTask(autoinstall autoinstall)
+        {
+            Version api = Version.Parse(ApiVersion);
+            Version limit = Version.Parse("1.20.0");
+            if (api < limit) return false;
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate2\": {\"autoinstall\" : "+Serializer.SerializeToJson(autoinstall)+"}}");
+            switch (comres.Status)
+            {
+                case WebExceptionStatus.Success:
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                case WebExceptionStatus.Timeout:
+                    LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "A Timeout occured.", type = 65535 });
+                    break;
+                default:
+                    LastCommandMessages.AddMessage(new Error() { address = BridgeUrl + "/config", description = "An unknown error occured.", type = 65535 });
+                    break;
+            }
+            return false;
+        }
         /// <summary>
         /// Force the bridge to check online for an update.
         /// </summary>
@@ -50,11 +69,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
             Version api = Version.Parse(ApiVersion);
             Version limit = Version.Parse("1.20.0");
             string swu = "swupdate";
+
             if (api > limit)
             {
                 swu = swu + "2";
             }
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"" + swu + "\": {\"checkforupdate\":true}}");
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"" + swu + "\": {\"checkforupdate\": true}}");
             switch (comres.Status)
             {
                 case WebExceptionStatus.Success:
@@ -71,7 +91,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
 
         /// <summary>
-        /// Check if there is an update available on the bridge.
+        /// Check if there is an update available on the bridge . (Does not force the bridge to check for an update)
         /// </summary>
         /// <returns>Software Update or null.</returns>
         public bool CheckUpdateAvailable()
@@ -102,7 +122,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
 
         /// <summary>
-        /// Check if there is an update available on the bridge async.
+        /// Check if there is an update available on the bridge async. (Does not force the bridge to check for an update)
         /// </summary>
         /// <returns>Software Update or null.</returns>
         public async Task<bool> CheckUpdateAvailableAsyncTask()
@@ -143,8 +163,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or False command sent succesfully.</returns>
         public bool UpdateBridge()
         {
-          
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\":" + Serializer.SerializeToJson(new SwUpdate() { updatestate = 3 }) + "}");
+            Version api = Version.Parse(ApiVersion);
+            Version limit = Version.Parse("1.20.0");
+
+            string updatestring = "";
+            updatestring = api > limit ? "{\"swupdate2\": {\"install\": true}}" : "{\"swupdate\":{\"updatestate\":3}}";
+            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl + "/config"), WebRequestType.Put, updatestring);
 
             switch (comres.Status)
             {
@@ -168,8 +192,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or False command sent succesfully.</returns>
         public async Task<bool> UpdateBridgeAsyncTask()
         {
+            Version api = Version.Parse(ApiVersion);
+            Version limit = Version.Parse("1.20.0");
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate\":" + Serializer.SerializeToJson(new SwUpdate() { updatestate = 3 }) + "}");
+            string updatestring = "";
+            updatestring = api > limit ? "{\"swupdate2\": {\"install\": true}}" : "{\"swupdate\":{\"updatestate\":3}}";
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, updatestring);
 
             switch (comres.Status)
             {

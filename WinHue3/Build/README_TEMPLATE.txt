@@ -21,6 +21,9 @@ Added:
 - New tab in menu for Help, maybe to replace Help tab in ribbon to make the program more in line with how Office and other programs place the help menu. (banksio)
 - Moved the delete button, rename button, edit button from context menu to right panel.
 - Missing rule creator action on schedule.
+- New schedule creator. 
+- List bridge capabilities. if firmware version is greater than 1.15.
+- Settings to change slider behaviors. Disabled when light is off and toggle on only or Enabled when light is off / apply when turned on.
 
 Changed:
 - Reverted to CommandCombobox to solve issues.
@@ -28,12 +31,12 @@ Changed:
 - Minimize to tray option / button moved to application settings. (banksio)
 - Ribbonbuttons to fluent buttons (banksio)
 - Moved the property grid to it's own window and added a property grid button in the view tab.
+- Updated the update system for the bridge. Updates are now done from the Bridge Settings Window and allow updates from bridge version 1.20 and greater.
 
 Removed:
 - Mahapp theme styling and dependencies. Will implement a styling system later.
 
 WIP:
-- Window Styling : Not everything matches perfectly.
 - Animation creator. (Not Available yet)
 - Rss feed monitor plugin. (Not Available yet)
 - Clapper monitor. (Not Available yet)

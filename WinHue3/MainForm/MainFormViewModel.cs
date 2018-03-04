@@ -189,7 +189,6 @@ namespace WinHue3.MainForm
                         {
                             if (!br.IsDefault) continue;
                             SelectedBridge = br;
-                            SelectedBridge.CheckOnlineForUpdate();
                         }
                         else
                         {
@@ -200,7 +199,6 @@ namespace WinHue3.MainForm
                     {
                         if (!br.IsDefault) continue;
                         SelectedBridge = br;
-                        SelectedBridge.CheckOnlineForUpdate();
                     }
                 }
 

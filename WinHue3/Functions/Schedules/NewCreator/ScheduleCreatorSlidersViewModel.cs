@@ -23,7 +23,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public ScheduleCreatorSlidersViewModel()
         {
-
+            on = true;
         }
 
         [JsonProperty]

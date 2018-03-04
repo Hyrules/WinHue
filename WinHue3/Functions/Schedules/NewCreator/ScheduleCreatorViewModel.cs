@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using log4net.Core;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
@@ -20,6 +21,7 @@ using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
 using Group = WinHue3.Philips_Hue.HueObjects.GroupObject.Group;
+using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
@@ -81,12 +83,11 @@ namespace WinHue3.Functions.Schedules.NewCreator
             Header.Recycle = sc.recycle;
             Header.Autodelete = sc.autodelete;
             Header.Enabled = sc.status;
-            //sc.command.address.objecttype
 
             if (sc.localtime.Contains("PT"))
             {
                 Header.ScheduleType = "PT";
-                Regex timerRegex = new Regex(@"(R(\d\d)//?)?PT(\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d)?)?");
+                Regex timerRegex = new Regex(@"(^R(\d{2})\/?)?PT(\d\d:\d\d:\d\d)(A\d\d:\d\d:\d\d)?$");
                 Match mc = timerRegex.Match(sc.localtime);
                 Header.Datetime = DateTime.Parse(mc.Groups[3].Value);
 
@@ -103,14 +104,15 @@ namespace WinHue3.Functions.Schedules.NewCreator
             else if (sc.localtime.Contains("W"))
             {
                 Header.ScheduleType = "W";
-                Regex alarmRegex = new Regex(@"(W(\d\d\d)//?)?T(\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d))?");
+                Regex alarmRegex = new Regex(@"(^W(\d{3})//?)T(\d{2}:\d{2}:\d{2})(A\d{2}:\d{2}:\d{2})?$");
                 Match mc = alarmRegex.Match(sc.localtime);
+                Header.Datetime = DateTime.Parse(mc.Groups[3].Value);
                 if(mc.Groups[2].Value != string.Empty)
                 {
                     ScheduleMask = mc.Groups[2].Value;
                 }
 
-                if (mc.Groups[5].Value != string.Empty)
+                if (mc.Groups[4].Value != string.Empty)
                 {
                     Header.Randomize = true;
                 }
@@ -119,11 +121,11 @@ namespace WinHue3.Functions.Schedules.NewCreator
             {
                 Header.ScheduleType = "T";
 
-                Regex scheduleRegex = new Regex(@"(.*)(A(\d\d:\d\d:\d\d)?)?");
+                Regex scheduleRegex = new Regex(@"^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(A\d{2}:\d{2}:\d{2})?$");
                 Match mc = scheduleRegex.Match(sc.localtime);
                 Header.Datetime = DateTime.Parse(mc.Groups[1].Value, CultureInfo.InvariantCulture);
 
-                if (mc.Groups[3].Value != string.Empty)
+                if (mc.Groups[2].Value != string.Empty)
                 {
                     Header.Randomize = true;
                 }
@@ -131,28 +133,40 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
             if (sc.command?.address?.objecttype == null) return;
 
-            switch (sc.command.address.objecttype)
+            if (!sc.command.body.Contains("scene"))
+            {            
+                switch (sc.command.address.objecttype)
+                {
+                    case "lights":
+                        Content = ContentTypeVm.Light;
+                        break;
+                    case "groups":
+                        Content = ContentTypeVm.Group;
+                        break;
+                    case "schedules":
+                        Content = ContentTypeVm.Schedule;
+                        break;
+                    case "sensors":
+                        Content = ContentTypeVm.Sensor;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
             {
-                case "lights":
-                    Content = ContentTypeVm.Light;
-                    break;
-                case "groups":
-                    Content = ContentTypeVm.Group;
-                    break;
-                case "schedule":
-                    Content = ContentTypeVm.Schedule;
-                    break;
-                case "scene":
-                    Content = ContentTypeVm.Schedule;
-                    break;
-                case "sensor":
-                    Content = ContentTypeVm.Sensor;
-                    break;
-                default:
-                    break;
+                Content = ContentTypeVm.Scene;
             }
 
-            SelectedTarget = _listTargetHueObject.FirstOrDefault(x => x.Id == sc.command.address.id);
+            if (Content != ContentTypeVm.Scene)
+            {
+                SelectedTarget = _listTargetHueObject.FirstOrDefault(x => x.Id == sc.command.address.id);
+            }
+            else
+            {
+                Action scene = Serializer.DeserializeToObject<Action>(sc.command.body);
+                SelectedTarget = _listTargetHueObject.FirstOrDefault(x => x.Id == scene.scene);
+            }
 
             if (SelectedTarget == null)
             {
@@ -266,8 +280,9 @@ namespace WinHue3.Functions.Schedules.NewCreator
                     AdrTarget.property = "state";
                     break;
                 case ContentTypeVm.Schedule:
-                    AdrTarget.objecttype = "schedules";
-                    AdrTarget.id = SelectedTarget.Id;
+                    AdrTarget.objecttype = "groups";
+                    AdrTarget.id = "0";
+                    AdrTarget.property = "action";
                     break;
                 case ContentTypeVm.Scene:
                     AdrTarget.objecttype = "groups";
@@ -282,32 +297,32 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public ScheduleCreatorViewModel()
         {
+            _propGridLG = WinHueSettings.settings.UsePropertyGrid;
             ListTargetHueObject = new ObservableCollection<IHueObject>();
-            _header = new ScheduleCreatorHeader();
-            _selectedViewModel = new ScheduleCreatorSlidersViewModel();
+            _header = new ScheduleCreatorHeader();            
             _content = ContentTypeVm.Light;
             _effect = "none";
             _dateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
             _smask = "000";
+            if (_propGridLG)
+            {
+                _selectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+            }
+            else
+            {
+                _selectedViewModel = new ScheduleCreatorSlidersViewModel();
+            }
         }
 
-        public async Task Initialize(Bridge bridge, Schedule schedule = null)
+        public async Task Initialize(Bridge bridge)
         {
             _bridge = bridge;
             _currentHueObjectList = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
             
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
-
-            if (schedule == null) return;
-
-            Header.Autodelete = schedule.autodelete;
-           // Header.Datetime = schedule.localtime;
-            Header.Description = schedule.description;
-            Header.Name = schedule.name;
          
         }
-
 
         public Schedule GetSchedule()
         {
@@ -338,6 +353,11 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 ScheduleCreatorSlidersViewModel scsv = _selectedViewModel as ScheduleCreatorSlidersViewModel;
                 body = Serializer.SerializeToJson(scsv);
             }
+            else
+            {
+                body = Serializer.SerializeToJson(
+                    new Philips_Hue.HueObjects.GroupObject.Action() {scene = SelectedTarget.Id});
+            }
 
             sc.command.body = body;
 
@@ -361,6 +381,12 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 default:
                     break;
                 
+            }
+
+            if (Header.Randomize.GetValueOrDefault())
+            {
+                Random rdm = new Random();
+                time = time + $"A00:{rdm.Next(59):D2}:{rdm.Next(59):D2}";
             }
 
             return time;
@@ -431,17 +457,18 @@ namespace WinHue3.Functions.Schedules.NewCreator
             ListTargetHueObject.Clear();
             
             if (_currentHueObjectList == null) return;
+
             if((Content == ContentTypeVm.Light || Content == ContentTypeVm.Group) && !PropGridLG)
             {
                 SelectedViewModel = new ScheduleCreatorSlidersViewModel();
             }
-            else if(Content == ContentTypeVm.Schedule || Content == ContentTypeVm.Sensor)
+            else if(Content == ContentTypeVm.Scene)
             {
-                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
+                SelectedViewModel = null;
             }
             else
             {
-                SelectedViewModel = null;
+                SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
             }
 
             switch (Content)
@@ -459,11 +486,15 @@ namespace WinHue3.Functions.Schedules.NewCreator
                     ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Sensor).Where(x => ((Sensor)x).type.Contains("CLIP")).ToList());
                     break;
                 case ContentTypeVm.Scene:
-                    ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Scene).ToList());
+                    List<IHueObject> scenes = _currentHueObjectList.Where(x => x is Scene).ToList();
+                    if (!WinHueSettings.settings.ShowHiddenScenes) scenes.RemoveAll(x => x.name.StartsWith("HIDDEN"));
+                    ListTargetHueObject.AddRange(scenes);
                     break;
                 default:
                     break;
             }
+
+
 
         }
 

@@ -18,6 +18,7 @@ namespace WinHue3.Functions.Application_Settings
         private string _theme;
         private string _themecolor;
         private bool _minimizeToTray;
+        private bool _usePropGrid;
 
         public AppMainSettingsModel()
         {
@@ -33,6 +34,7 @@ namespace WinHue3.Functions.Application_Settings
             _theme = WinHueSettings.settings.Theme;
             _themecolor = WinHueSettings.settings.ThemeColor;
             _minimizeToTray = WinHueSettings.settings.MinimizeToTray;
+            _usePropGrid = WinHueSettings.settings.UsePropertyGrid;
         }
 
         public bool StartWindows
@@ -111,6 +113,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _minimizeToTray;
             set => SetProperty(ref _minimizeToTray,value);
+        }
+
+        public bool UsePropGrid
+        {
+            get => _usePropGrid;
+            set => SetProperty(ref _usePropGrid,value);
         }
     }
 }

@@ -8,8 +8,48 @@ using WinHue3.Philips_Hue.Communication;
 
 namespace WinHue3.Philips_Hue.BridgeObject
 {
+
     public partial class Bridge
     {
+        /// <summary>
+        /// Get Bridge Capabilities Async
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Capabilities> GetBridgeCapabilitiesAsyncTask()
+        {
+            Version api = Version.Parse(ApiVersion);
+            Version limit = Version.Parse("1.15.0");
+            if (api < limit) return null;
+            string url = BridgeUrl + "/capabilities";
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
+
+            if (comres.Status == WebExceptionStatus.Success)
+            {
+                Capabilities cap = Serializer.DeserializeToObject<Capabilities>(comres.Data);
+                return cap;
+            }
+            ProcessCommandFailure(url, comres.Status);
+            return null;
+        }
+    
+        /// <summary>
+        /// Get Bridge capabilities
+        /// </summary>
+        /// <returns></returns>
+        public Capabilities GetBridgeCapabilities()
+        {
+            string url = BridgeUrl + "/capabilities";
+            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
+
+            if (comres.Status == WebExceptionStatus.Success)
+            {
+                Capabilities cap = Serializer.DeserializeToObject<Capabilities>(comres.Data);
+                return cap;
+            }
+            ProcessCommandFailure(url, comres.Status);
+            return null;
+        }
+
         /// <summary>
         /// Try to contact the specified bridge to get the basic config.
         /// </summary>
@@ -320,21 +360,30 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>a list of all the timezones supported by the bridge.</returns>
         public async Task<List<string>> GetTimeZonesAsyncTask()
         {
-
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/info/timezones"), WebRequestType.Get);
-
-            if (comres.Status == WebExceptionStatus.Success)
+            Version api = Version.Parse(ApiVersion);
+            Version limit = Version.Parse("1.15.0");
+            if (api > limit)
             {
-                List<string> timezones = Serializer.DeserializeToObject<List<string>>(comres.Data);
-                if (timezones != null)
+                Capabilities cap = await GetBridgeCapabilitiesAsyncTask();
+                return cap?.timezones.values;
+            }
+            else
+            {
+                CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/info/timezones"), WebRequestType.Get);
+
+                if (comres.Status == WebExceptionStatus.Success)
                 {
-                    return timezones;
+                    List<string> timezones = Serializer.DeserializeToObject<List<string>>(comres.Data);
+                    if (timezones != null)
+                    {
+                        return timezones;
+                    }
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return null;
                 }
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                ProcessCommandFailure(BridgeUrl + "/info/timezones", comres.Status);
                 return null;
             }
-            ProcessCommandFailure(BridgeUrl + "/info/timezones", comres.Status);
-            return null;
 
         }
     }

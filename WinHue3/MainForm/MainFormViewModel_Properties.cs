@@ -29,7 +29,8 @@ namespace WinHue3.MainForm
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
         private bool _visibleTabs = true;
-        
+        private IBaseProperties _newstate;
+
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
         {

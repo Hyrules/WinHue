@@ -750,4 +750,7 @@
   <data name="Object_Does_Not_Exists" xml:space="preserve">
     <value>Unable to find the object ? Does it still exists ?</value>
   </data>
+  <data name="CheckingForUpdate" xml:space="preserve">
+    <value>Checking for new updates. Please come back later to see if new updates are available.</value>
+  </data>
 </root>
