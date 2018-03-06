@@ -1569,4 +1569,16 @@
   <data name="SettingsForm_Tab_Defaults_SliderTitle" xml:space="preserve">
     <value>Sliders</value>
   </data>
+  <data name="MainForm_ListView_Context_Sensor" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetFlag" xml:space="preserve">
+    <value>Set Flag</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Sensors" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
 </root>

@@ -1569,4 +1569,16 @@
   <data name="SettingsForm_Tab_Defaults_SliderTitle" xml:space="preserve">
     <value>Bouton Glissoir</value>
   </data>
+  <data name="MainForm_ListView_Context_Sensor" xml:space="preserve">
+    <value>Capteurs</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetFlag" xml:space="preserve">
+    <value>Definir le capteur</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Sensors" xml:space="preserve">
+    <value>Capteurs</value>
+  </data>
 </root>

@@ -460,6 +460,24 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" Command="{Binding ReplaceCurrentStateCommand}" Foreground="Black"/>
                 <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}">
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetFlag}" IsCheckable="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding CheckFlagCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem >
+                        <MenuItem.Header>
+                            <WrapPanel>
+                                <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetStatus}" Padding="0,5,5,5"></Label>
+                                <xctk:IntegerUpDown Minimum="0" Maximum="65518" Width="78" ></xctk:IntegerUpDown>
+                            </WrapPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Foreground="Black" Background="Red"/>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
@@ -498,6 +516,7 @@
                     <MenuItem IsCheckable="True" x:Name="mnuCreators" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" IsChecked="True"/>
                     <MenuItem IsCheckable="True" x:Name="mnuSettings" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" IsChecked="True"/>
                     <MenuItem IsCheckable="True" x:Name="mnuEvents" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" IsChecked="True"/>
+                    <MenuItem IsCheckable="True" x:Name="mnuSensorOp" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Sensors}" IsChecked="false"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>
@@ -790,6 +809,7 @@
         </tb:TaskbarIcon>
         <ToolBarTray Height="45" Margin="0,31,0,0" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding ElementName=mnuSearch, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
                     <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
@@ -803,7 +823,24 @@
                     <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}" Visibility="{Binding ElementName=mnuSensorOp, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Separator/>
+                <WrapPanel>
+                    <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetStatus}" Height="24" VerticalContentAlignment="Center" Padding="2,2,5,5"/>
+                    <xctk:IntegerUpDown Height="24" Padding="5,0,0,0" Minimum="0" Maximum="65535" Margin="0,7,0,7.667" Width="79" Value="{Binding SensorStatus}" IsEnabled="{Binding ElementName=btnSetStatus, Path=IsEnabled}"/>
+                    <Button x:Name="btnSetStatus"  BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding SetSensorStatusCommand}" >
+                        <Image Source="/WinHue3;component/Resources/1464410361_check.png" Height="24"></Image>
+                    </Button>
+                </WrapPanel>
+                <Separator></Separator>
+                <WrapPanel>
+                    <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetFlag}" Height="26" VerticalContentAlignment="Center" Padding="5" Margin="0,5,0,0"></Label>
+                    <CheckBox Margin="2,12,5,5" IsChecked="{Binding SensorFlag}" Command="{Binding SetSensorFlagCommand}" />
+                </WrapPanel>
+                
+            </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding ElementName=mnuCommands, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}" Padding="0,0,12,0">
+                <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
@@ -813,6 +850,7 @@
                 <ToggleButton Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off" Padding="2" Margin="6,0,4,0" IsChecked="{Binding MainFormModel.On}"/>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding ElementName=mnuRefresh, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">
                     <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
@@ -846,6 +884,7 @@
 
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Visibility="{Binding ElementName=mnuSettings, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" Command="{Binding ChangeBridgeSettingsCommand}" >
                     <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
@@ -860,6 +899,7 @@
                 </Button>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding ElementName=mnuEvents, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" Command="{Binding ShowEventLogCommand}">
                     <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>

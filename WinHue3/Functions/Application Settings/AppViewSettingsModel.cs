@@ -17,7 +17,6 @@ namespace WinHue3.Functions.Application_Settings
             _wrap = WinHueSettings.settings.WrapText;
         }
 
-
         public WinHueSortOrder Sort
         {
             get => _sort;

@@ -8,9 +8,10 @@ Both are available at Microsoft's website.
 
 Fixed:
 - Bug in the rule creator that crashed the app when editing a rule that used an object that does not exist anymore.
+- Bug in sensor creator where the default flag sensor would not have a propert config show in the property grid.
 
 Added:
-- 
+- Quick sensor flag and generic modification. Sensor toolbar is hidden by default.
 
 Changed:
 - Can create rule condition and action on same property.

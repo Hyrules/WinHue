@@ -273,6 +273,18 @@ namespace WinHue3.MainForm
             return true;
         }
 
+        private bool CanSetSensorStatus()
+        {
+            if (!(SelectedObject is Sensor)) return false;
+            return ((Sensor)SelectedObject).type == "CLIPGenericStatus";
+        }
+
+        private bool CanSetSensorFlag()
+        {
+            if (!(SelectedObject is Sensor)) return false;
+            return ((Sensor)SelectedObject).type == "CLIPGenericFlag";
+        }
+
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new AsyncRelayCommand(param => OpenSettingsWindow());
@@ -339,6 +351,8 @@ namespace WinHue3.MainForm
         public ICommand ToggleDim25Command => new AsyncRelayCommand(param => OnDim(64), (param) => CanToggleDim());
         public ICommand ToggleDim50Command => new AsyncRelayCommand(param => OnDim(128), (param) => CanToggleDim());
         public ICommand ToggleDim75Command => new AsyncRelayCommand(param => OnDim(191), (param) => CanToggleDim());
+        public ICommand SetSensorStatusCommand => new AsyncRelayCommand(param => SetSensorStatus(), (param) => CanSetSensorStatus());
+        public ICommand SetSensorFlagCommand => new AsyncRelayCommand(param => SetSensorFlag(), (param)=> CanSetSensorFlag());
 
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new AsyncRelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());

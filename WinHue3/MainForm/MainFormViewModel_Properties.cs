@@ -16,6 +16,8 @@ using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 
@@ -30,6 +32,8 @@ namespace WinHue3.MainForm
         private ushort? _sliderTT;
         private bool _visibleTabs = true;
         private IBaseProperties _newstate;
+        private int _sensorStatus;
+        private bool _sensorFlag;
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
@@ -50,6 +54,18 @@ namespace WinHue3.MainForm
         {
             get => _listBridgeObjects;
             set { SetProperty(ref _listBridgeObjects, value); RaisePropertyChanged("MultiBridgeCB");}
+        }
+
+        public int SensorStatus
+        {
+            get => _sensorStatus;
+            set => SetProperty(ref _sensorStatus, value);
+        }
+
+        public bool SensorFlag
+        {
+            get => _sensorFlag;
+            set => SetProperty(ref _sensorFlag, value);
         }
 
         public string Title => $"WinHue 3 - {Version}";

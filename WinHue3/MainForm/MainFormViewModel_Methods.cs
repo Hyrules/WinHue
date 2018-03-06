@@ -57,6 +57,8 @@ using MessageBox = System.Windows.MessageBox;
 using WinHue3.LIFX.Finder;
 using State = WinHue3.Philips_Hue.HueObjects.LightObject.State;
 using WinHue3.Functions.Schedules.NewCreator;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 
 namespace WinHue3.MainForm
 {
@@ -1202,6 +1204,43 @@ namespace WinHue3.MainForm
             }
         }
 
+        private async Task SetSensorStatus()
+        {
+            int currentstatus = ((ClipGenericStatusSensorState)((Sensor)SelectedObject).state).status;
+            log.Info($"Trying to set the sensor {SelectedObject.Id} status to {SensorStatus}");           
+            bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedObject.Id, new ClipGenericStatusSensorState()
+            {
+                status = SensorStatus
+            });
+            if (result)
+            {
+                ((ClipGenericStatusSensorState) ((Sensor) SelectedObject).state).status = SensorStatus;                
+            }
+            else
+            {
+                SensorStatus = currentstatus;
+            }
+
+        }
+
+        private async Task SetSensorFlag()
+        {
+            bool currentflag = ((ClipGenericFlagSensorState) ((Sensor) SelectedObject).state).flag;
+            log.Info($"Trying to set the sensor {SelectedObject.Id} flag to {SensorFlag}");
+            bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedObject.Id, new ClipGenericFlagSensorState()
+            {
+                flag = SensorFlag
+            });
+            if (result)
+            {
+                ((ClipGenericFlagSensorState) ((Sensor) SelectedObject).state).flag = SensorFlag;                
+            }
+            else
+            {
+                SensorFlag = currentflag;
+            }
+        }
+
         private async Task<bool> Duplicate()
         {
             
@@ -1412,6 +1451,21 @@ namespace WinHue3.MainForm
                     if (hr == null) return;
                     _selectedObject = hr;
                     _propertyGrid.SelectedObject = hr;
+                }
+
+                if (SelectedObject is Sensor sensor)
+                {
+                    switch (sensor.state)
+                    {
+                        case ClipGenericFlagSensorState state:
+                            SensorFlag = state.flag;
+                            break;
+                        case ClipGenericStatusSensorState state:
+                            SensorStatus = state.status;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             SetMainFormModel();

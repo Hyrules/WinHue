@@ -1762,6 +1762,33 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sensors.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensor {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Flag.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensor_SetFlag {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensor_SetFlag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensor_SetStatus {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensor_SetStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Short.
         /// </summary>
         public static string MainForm_ListView_Context_Short {
@@ -2262,6 +2289,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Home_Group_SearchSensor {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Home_Group_SearchSensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensors.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Sensors {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Sensors", resourceCulture);
             }
         }
         
