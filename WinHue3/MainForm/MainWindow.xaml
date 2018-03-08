@@ -5,7 +5,6 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:mainForm="clr-namespace:WinHue3.MainForm"
         xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
         xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
