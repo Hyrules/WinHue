@@ -20,13 +20,19 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
+using WinHue3.Functions.Grouping;
 
 namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
         private Form_EventLog _eventlogform;
+
+
         private ObservableCollection<Bridge> _listBridges;
+
+        private ObservableCollection<IGroup> _listgroups;
+
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
@@ -150,6 +156,6 @@ namespace WinHue3.MainForm
         }
 
         public bool VisibleTabs { get => _visibleTabs; set => SetProperty(ref _visibleTabs,value); }
-
+        public ObservableCollection<IGroup> ListGroups { get => _listgroups; set => SetProperty(ref _listgroups,value); }
     }
 }

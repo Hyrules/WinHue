@@ -27,6 +27,11 @@
     >
 
     <Window.Resources>
+        <DataTemplate x:Key="BridgeTemplate">
+            <Expander Header="Bridge">
+                
+            </Expander>
+        </DataTemplate>
         <Style x:Key="ImageEnabled" TargetType="Image">
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
@@ -518,7 +523,9 @@
                     <MenuItem IsCheckable="True" x:Name="mnuSensorOp" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Sensors}" IsChecked="false"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}">
+                    <Viewbox Height="100" Width="100"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" Foreground="Black" >
