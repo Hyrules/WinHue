@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using Hardcodet.Wpf.TaskbarNotification;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.Grouping;
 using WinHue3.Functions.HotKeys;
 using WinHue3.Functions.PropertyGrid;
 using WinHue3.Philips_Hue;
@@ -65,6 +66,8 @@ namespace WinHue3.MainForm
             //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
             //light.SetColor(65535, 65535, 65535, 32768, 3000);
             // LifxResponse p = light.SetPower(32000, 3000);
+            _listgroups = new ObservableCollection<Functions.Grouping.IGroup>();
+            _listgroups.Add(new BridgeGroup() { Name = "Bridge 1" });
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)
