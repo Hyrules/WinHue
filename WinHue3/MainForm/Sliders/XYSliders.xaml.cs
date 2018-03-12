@@ -62,7 +62,45 @@ namespace WinHue3.MainForm.Sliders
             RecColorXy.Fill = new SolidColorBrush(HueColorConverter.ColorFromXY(new CGPoint((float)XValue, (float)YValue), _modelid));
         }
 
+        //************************* FONT COLOR ****************************************
 
+        public SolidColorBrush _FontColor
+        {
+            get { return (SolidColorBrush)GetValue(_FontColorProperty); }
+            set { SetValue(_FontColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FontColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty _FontColorProperty =
+            DependencyProperty.Register("_FontColor", typeof(SolidColorBrush), typeof(XYSliders), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, XSliderFontColorPropertyChanged));
+
+        private static void XSliderFontColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            XYSliders slider = (XYSliders)d;
+            slider.LblXColorSpace.Foreground = (SolidColorBrush)e.NewValue;
+            slider.LblYColorSpace.Foreground = (SolidColorBrush)e.NewValue;
+        }
+
+        //************************** BACKGROUND COLOR **********************************
+
+        public SolidColorBrush _BackgroundColor
+        {
+            get { return (SolidColorBrush)GetValue(_BackgroundColorProperty); }
+            set { SetValue(_BackgroundColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BackgroundColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty _BackgroundColorProperty =
+            DependencyProperty.Register("_BackgroundColor", typeof(SolidColorBrush), typeof(XYSliders), new FrameworkPropertyMetadata(Brushes.Transparent, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, XSliderBackgroundColorPropertyChanged));
+
+        private static void XSliderBackgroundColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            XYSliders slider = (XYSliders)d;
+            slider.Background = (SolidColorBrush)e.NewValue;
+            slider.Grid.Background = (SolidColorBrush)e.NewValue;
+        }
+
+        //************************** OLD X VALUE ***************************************
 
         public double OldXValue
         {
@@ -74,6 +112,8 @@ namespace WinHue3.MainForm.Sliders
         public static readonly DependencyProperty OldXValueProperty =
             DependencyProperty.Register("OldXValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double)));
 
+        //************************** OLD Y VALUE ***************************************
+
         public double OldYValue
         {
             get => (double)GetValue(OldYValueProperty);
@@ -84,7 +124,7 @@ namespace WinHue3.MainForm.Sliders
         public static readonly DependencyProperty OldYValueProperty =
             DependencyProperty.Register("OldYValue", typeof(double), typeof(XYSliders), new PropertyMetadata(default(double)));
 
-
+        //************************** X SLIDER LABEL ***************************************
 
         public string XSliderLabel
         {
@@ -101,6 +141,8 @@ namespace WinHue3.MainForm.Sliders
             control.LblXColorSpace.Content = e.NewValue;
         }
 
+        //************************** Y SLIDER LABEL ***************************************
+
         public string YSliderLabel
         {
             get => (string)GetValue(YSliderLabelProperty);
@@ -116,6 +158,8 @@ namespace WinHue3.MainForm.Sliders
             control.LblYColorSpace.Content = e.NewValue;
         }
 
+        //************************** X VALUE ***************************************
+
         public double XValue
         {
             get => (double)GetValue(XSliderValueProperty);
@@ -130,6 +174,8 @@ namespace WinHue3.MainForm.Sliders
             XYSliders slider = (XYSliders) d;
             slider.XSlider.Value = Convert.ToDouble(e.NewValue);
         }
+
+        //************************** Y VALUE ***************************************
 
         public double YValue
         {
@@ -244,9 +290,8 @@ namespace WinHue3.MainForm.Sliders
         private void RunCommand()
         {
             if (this.Command == null) return;
-            RoutedCommand command = Command as RoutedCommand;
 
-            if (command != null)
+            if (Command is RoutedCommand command)
             {
                 command.Execute(CommandParameter, CommandTarget);
             }
