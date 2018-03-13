@@ -628,13 +628,13 @@
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
 
-            <TabControl Margin="0,0,0,-0.333" Background="{x:Null}">
+            <TabControl x:Name="TabType"  Margin="0,0,0,-0.333" Background="White" SelectedValuePath="Name">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="">
                         <i:InvokeCommandAction Command=""/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <TabItem Header="Hue" FontSize="17">
+                <TabItem x:Name="tiHue"  Header="Hue" FontSize="17">
                     <TabItem.Style>
                         <Style TargetType="{x:Type TabItem}">
                             <Setter Property="Visibility" Value="Visible"/>
@@ -644,18 +644,19 @@
 
                     <Grid Background="#FFE5E5E5">
                         <ListView x:Name="LvMainObjects"  
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                      SelectedItem="{Binding SelectedObject}" 
-                      SelectionChanged="LvMainObjects_SelectionChanged" 
-                      SelectionMode="Single" 
-                      VerticalContentAlignment="Stretch" Grid.Column="0" 
-                      IsEnabled="{Binding EnableListView}" 
-                      behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
-                      behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
-                      behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
-                      behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                      behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                      >
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                            SelectedItem="{Binding SelectedObject}" 
+                            SelectionChanged="LvMainObjects_SelectionChanged" 
+                            SelectionMode="Single" 
+                            VerticalContentAlignment="Stretch" Grid.Column="0" 
+                            IsEnabled="{Binding EnableListView}" 
+                            behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
+                            behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
+                            behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
+                            behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
+                            behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
+                            ItemsSource="{Binding ListBridgeObjects}"
+                            >
 
                             <ListView.Resources>
                                 <Style TargetType="{x:Type ListViewItem}">
@@ -752,9 +753,23 @@
                         </ListView>
                     </Grid>
                 </TabItem>
-                <TabItem Header="LIFX" FontSize="17">
+                <TabItem x:Name="tiLIFX"  Header="LIFX" FontSize="17">
+                    <TabItem.Style>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ListLIFXObject.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TabItem.Style>
                     <Grid Background="#FFE5E5E5">
-                        <ListView HorizontalAlignment="Left" Height="651" VerticalAlignment="Top" Width="985"/>
+                        <ListView
+                             Margin="0,0,1.667,-0.333"
+                             ItemsSource="{Binding ListLIFXObjects}">
+
+                        </ListView>
                     </Grid>
                 </TabItem>
             </TabControl>
@@ -817,12 +832,36 @@
                             </LinearGradientBrush>
                         </sliders:BindableSlider.Background>
                     </sliders:BindableSlider>
-                    <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _FontColor="White" _BackgroundColor="{StaticResource HeaderBackgroundBrush}" />
+                    <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=TabType, Path=SelectedValue}" Value="tiLIFX">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _FontColor="White" _BackgroundColor="{StaticResource HeaderBackgroundBrush}" >
+                        <sliders:XYSliders.Style>
+                            <Style TargetType="sliders:XYSliders">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=TabType, Path=SelectedValue}" Value="tiLIFX">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+
+                                </Style.Triggers>
+                            </Style>
+                        </sliders:XYSliders.Style>
+                    </sliders:XYSliders>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
                     <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{StaticResource {x:Type Slider}}" />
 
-           
+
 
                 </StackPanel>
             </Grid>
