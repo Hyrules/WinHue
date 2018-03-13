@@ -22,14 +22,23 @@ namespace WinHue3.LIFX.Finder
 
         private void BtnDone_Click(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<LifxDevice> dev = _lfvm.Devices;
-            foreach (LifxDevice l in dev)
+            if(_lfvm.Devices.Count > 0)
             {
-                if (WinHueSettings.lifx.ListDevices.Any(x => x.mac == l.Mac)) continue;
-                WinHueSettings.lifx.ListDevices.Add(new LifxSaveDevice(l.IP.ToString(), l.Mac,l.Label));
+                ObservableCollection<LifxDevice> dev = _lfvm.Devices;
+                foreach (LifxDevice l in dev)
+                {
+                    if (WinHueSettings.lifx.ListDevices.Any(x => x.mac == l.Mac)) continue;
+                    WinHueSettings.lifx.ListDevices.Add(new LifxSaveDevice(l.IP.ToString(), l.Mac, l.Label));
+                }
+
+                WinHueSettings.SaveLifx();
+                DialogResult = true;
             }
-            
-            WinHueSettings.SaveLifx();
+            else
+            {
+                DialogResult = false;
+            }
+
             this.Close();
         }
     }

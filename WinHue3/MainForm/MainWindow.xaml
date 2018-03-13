@@ -487,10 +487,6 @@
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Tabs" FontSize="17">
-
-                <MenuItem IsCheckable="True" Header="LIFX"/>
-            </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
                 <Separator/>

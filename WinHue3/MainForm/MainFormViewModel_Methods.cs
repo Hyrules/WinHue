@@ -59,6 +59,7 @@ using State = WinHue3.Philips_Hue.HueObjects.LightObject.State;
 using WinHue3.Functions.Schedules.NewCreator;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
+using WinHue3.LIFX.Framework;
 
 namespace WinHue3.MainForm
 {
@@ -1437,7 +1438,14 @@ namespace WinHue3.MainForm
                 Owner = Application.Current.MainWindow
             };
 
-            lf.ShowDialog();
+            if (lf.ShowDialog() == true)
+            {
+                foreach(LifxSaveDevice lfx in WinHueSettings.lifx.ListDevices)
+                {
+                 /*   LifxLight dev = new LifxLight(lfx.ipaddress, lfx.mac);
+                    ListLifxObjects.Add();*/
+                }
+            }
         }
 
         private async Task ClickObject()
