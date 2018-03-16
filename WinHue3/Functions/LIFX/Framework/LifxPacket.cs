@@ -56,7 +56,7 @@ namespace WinHue3.LIFX.Framework
                     _payload = new StatePower(payload);
                     break;
                 case Header.MessageType.Device_StateInfo:
-                    _payload = new StateInfo(payload);
+                    _payload = new LifxState(payload);
                     break;
                 case Header.MessageType.Device_StateGroup:
                     _payload = new StateGroup(payload);

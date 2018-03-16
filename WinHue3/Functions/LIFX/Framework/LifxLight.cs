@@ -20,10 +20,22 @@ namespace WinHue3.LIFX.Framework
         public ushort Power => _state.Power;
         public override string Label => _state.Label;
 
-        public static async Task<LifxLight> CreateLight(IPAddress ip, byte[] mac)
+        public static async Task<LifxLight> CreateLightAsync(IPAddress ip, byte[] mac)
         {
             LifxLight light = new LifxLight(ip,mac);
             LifxCommMessage<State> msg = await light.GetStateAsync();
+            if (!msg.Error)
+            {
+                light._state = msg.Data;
+            }
+
+            return light;
+        }
+
+        public static LifxLight CreateLight(IPAddress ip, byte[] mac)
+        {
+            LifxLight light = new LifxLight(ip, mac);
+            LifxCommMessage<State> msg = light.GetState();
             if (!msg.Error)
             {
                 light._state = msg.Data;
@@ -259,6 +271,32 @@ namespace WinHue3.LIFX.Framework
             }
            
         }
+
+        /// <summary>
+        /// Get the state of the specified light
+        /// </summary>
+        /// <param name="ip">IP address of the light</param>
+        /// <returns>State of the light</returns>
+        public LifxCommMessage<State> GetState()
+        {
+            LifxPacket packet = new LifxPacket();
+            packet.Header.SetMessageType(Header.MessageType.Light_Get);
+            packet.Header.SetTagged(false);
+            packet.Header.SetTargetMAC(_mac);
+            packet.Header.SetSize(packet.Header.Length);
+            LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
+            if (response.Error)
+            {
+                return new LifxCommMessage<State>(response.Ex, null, true);
+            }
+            else
+            {
+                LifxCommMessage<State> finalresponse = new LifxCommMessage<State>(response.Ex, (State)response.Data.data.Payload, response.Error);
+                return finalresponse;
+            }
+
+        }
+
         #endregion
 
         #region GET_SET_INFRARED

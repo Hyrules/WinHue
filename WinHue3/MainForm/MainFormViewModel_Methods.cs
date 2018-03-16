@@ -60,6 +60,10 @@ using WinHue3.Functions.Schedules.NewCreator;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.LIFX.Framework;
+using System.Net;
+using System.Text;
+using WinHue3.LIFX.Framework.Responses;
+using WinHue3.Functions.LIFX.WinHue;
 
 namespace WinHue3.MainForm
 {
@@ -1431,7 +1435,7 @@ namespace WinHue3.MainForm
 
         }
 
-        private void FindLifxDevices()
+        private async Task FindLifxDevices()
         {
             Form_LIFXFinder lf = new Form_LIFXFinder
             {
@@ -1440,11 +1444,16 @@ namespace WinHue3.MainForm
 
             if (lf.ShowDialog() == true)
             {
-                foreach(LifxSaveDevice lfx in WinHueSettings.lifx.ListDevices)
-                {
-                 /*   LifxLight dev = new LifxLight(lfx.ipaddress, lfx.mac);
-                    ListLifxObjects.Add();*/
-                }
+                await AddLifxLightToList();
+            }
+        }
+
+        private async Task AddLifxLightToList()
+        {
+            foreach (LifxSaveDevice lfx in WinHueSettings.lifx.ListDevices)
+            {
+                HueLifxLight light = (HueLifxLight)await LifxLight.CreateLightAsync(IPAddress.Parse(lfx.ipaddress), Encoding.UTF8.GetBytes(lfx.mac));
+                ListLifxObjects.Add(light);
             }
         }
 

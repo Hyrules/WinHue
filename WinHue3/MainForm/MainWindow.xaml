@@ -112,6 +112,14 @@
                 </TextBlock>
             </WrapPanel>
         </DataTemplate>
+
+        <DataTemplate x:Key="LifxIcon" DataType="ILifxObject">
+            <WrapPanel>
+                <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBlock x:Name="tblName" Text="{Binding Name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+            </WrapPanel>
+        </DataTemplate>
+        
         <ControlTemplate x:Key="ExpanderControlTemplate1" TargetType="{x:Type Expander}">
             <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="True">
                 <DockPanel>
@@ -381,7 +389,13 @@
     <Window.DataContext>
         <mainForm:MainFormViewModel/>
     </Window.DataContext>
-
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <i:InvokeCommandAction Command="{Binding LoadLifxDevicesCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="81" />
@@ -755,7 +769,7 @@
                             <Setter Property="Visibility" Value="Visible"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ListLIFXObject.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -764,7 +778,6 @@
                         <ListView
                              Margin="0,0,1.667,-0.333"
                              ItemsSource="{Binding ListLIFXObjects}">
-
                         </ListView>
                     </Grid>
                 </TabItem>

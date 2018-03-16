@@ -44,7 +44,7 @@ namespace WinHue3.LIFX.Finder
             {
                 foreach (KeyValuePair<IPAddress, StateService> kvp in response.Data)
                 {
-                    Devices.Add(await LifxLight.CreateLight(kvp.Key,kvp.Value.Header.Target));
+                    Devices.Add(await LifxLight.CreateLightAsync(kvp.Key,kvp.Value.Header.Target));
                 }
             }
             _isFinding = false;

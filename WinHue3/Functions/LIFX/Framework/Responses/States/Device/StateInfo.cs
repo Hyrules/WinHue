@@ -3,7 +3,7 @@ using WinHue3.LIFX.Framework.Payloads;
 
 namespace WinHue3.LIFX.Framework.Responses.States.Device
 {
-    public class StateInfo : Payload
+    public class LifxState : Payload
     {
         private readonly byte[] _time;
         private readonly byte[] _uptime;
@@ -13,14 +13,14 @@ namespace WinHue3.LIFX.Framework.Responses.States.Device
         public TimeSpan UpTime => new TimeSpan(BitConverter.ToInt64(_uptime,0));
         public TimeSpan DownTime => new TimeSpan(BitConverter.ToInt64(_downtime, 0));
 
-        public StateInfo()
+        public LifxState()
         {
             _time = new byte[8];
             _uptime = new byte[8];
             _downtime = new byte[8];
         }
 
-        public StateInfo(byte[] bytes) : this()
+        public LifxState(byte[] bytes) : this()
         {
             Array.Copy(bytes,0,_time,0,_time.Length);
             Array.Copy(bytes,8,_uptime,0,_uptime.Length);
