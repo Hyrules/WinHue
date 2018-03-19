@@ -22,7 +22,7 @@ using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Functions.Grouping;
 using WinHue3.LIFX.Framework;
-using WinHue3.Functions.LIFX.WinHue;
+using WinHue3.LIFX.WinHue;
 
 namespace WinHue3.MainForm
 {
@@ -93,7 +93,7 @@ namespace WinHue3.MainForm
             set { SetProperty(ref _listBridges,value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
-        public IHueObject SelectedObject
+        public IHueObject SelectedHueObject
         {
             get => _selectedObject;
             set => SetProperty(ref _selectedObject, value);

@@ -185,15 +185,17 @@
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\WindowContentRenderedBehavior.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
+    <Compile Include="Functions\Converters\MacByteArrayConverter.cs" />
     <Compile Include="Functions\Grouping\BridgeGroup.cs" />
     <Compile Include="Functions\Grouping\BridgeSubGroup.cs" />
     <Compile Include="Functions\Grouping\IGroup.cs" />
     <Compile Include="Functions\Grouping\LifxGroup.cs" />
     <Compile Include="Functions\Grouping\LifxSubGroup.cs" />
     <Compile Include="Functions\IDevice.cs" />
-    <Compile Include="Functions\LIFX\WinHue\HueLifxLight.cs" />
-    <Compile Include="Functions\LIFX\WinHue\HueLifxGroup.cs" />
-    <Compile Include="Functions\LIFX\WinHue\ILifxObject.cs" />
+    <Compile Include="LIFX\Framework\LifxVersion.cs" />
+    <Compile Include="LIFX\WinHue\HueLifxLight.cs" />
+    <Compile Include="LIFX\WinHue\HueLifxGroup.cs" />
+    <Compile Include="LIFX\WinHue\ILifxObject.cs" />
     <Compile Include="Functions\PropertyGrid\ListStringEditor\ListStringEditor.cs" />
     <Compile Include="Functions\PropertyGrid\PropertyGrid.xaml.cs">
       <DependentUpon>PropertyGrid.xaml</DependentUpon>
@@ -211,34 +213,34 @@
     <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorHeader.cs" />
     <Compile Include="Functions\Schedules\NewCreator\ScheduleTypeItemSource.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewBehavior.cs" />
-    <Compile Include="Functions\LIFX\Finder\Form_LIFXFinder.xaml.cs">
+    <Compile Include="LIFX\Finder\Form_LIFXFinder.xaml.cs">
       <DependentUpon>Form_LIFXFinder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\LIFX\Finder\LifxFinderViewModel.cs" />
-    <Compile Include="Functions\LIFX\Framework\Colors\Hsbk.cs" />
-    <Compile Include="Functions\LIFX\Framework\LifxDevice.cs" />
-    <Compile Include="Functions\LIFX\Framework\LifxLight.cs" />
-    <Compile Include="Functions\LIFX\Framework\Payloads\PowerPayload.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateHostFirmware .cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateInfo.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateLabel.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateGroup.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateLocation.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Light\StateBrightness.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateHostInfo.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StatePower.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateVersion.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\LifxResponse.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Light\State.cs" />
-    <Compile Include="Functions\LIFX\Framework\Payloads\ColorPayload.cs" />
-    <Compile Include="Functions\LIFX\Framework\Header.cs" />
-    <Compile Include="Functions\LIFX\Framework\Lifx.cs" />
-    <Compile Include="Functions\LIFX\Framework\LifxPacket.cs" />
-    <Compile Include="Functions\LIFX\Framework\Payloads\Payload.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\LifxCommMessage.cs" />
-    <Compile Include="Functions\LIFX\Framework\Responses\States\Device\StateService.cs" />
-    <Compile Include="Functions\LIFX\Framework\Payloads\WaveformOptionalPayload.cs" />
-    <Compile Include="Functions\LIFX\Framework\Payloads\WaveformPayload.cs" />
+    <Compile Include="LIFX\Finder\LifxFinderViewModel.cs" />
+    <Compile Include="LIFX\Framework\Colors\Hsbk.cs" />
+    <Compile Include="LIFX\Framework\LifxDevice.cs" />
+    <Compile Include="LIFX\Framework\LifxLight.cs" />
+    <Compile Include="LIFX\Framework\Payloads\PowerPayload.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostFirmware .cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLabel.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateGroup.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateLocation.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\StateBrightness.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateHostInfo.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StatePower.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateVersion.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxResponse.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Light\State.cs" />
+    <Compile Include="LIFX\Framework\Payloads\ColorPayload.cs" />
+    <Compile Include="LIFX\Framework\Header.cs" />
+    <Compile Include="LIFX\Framework\Lifx.cs" />
+    <Compile Include="LIFX\Framework\LifxPacket.cs" />
+    <Compile Include="LIFX\Framework\Payloads\Payload.cs" />
+    <Compile Include="LIFX\Framework\Responses\LifxCommMessage.cs" />
+    <Compile Include="LIFX\Framework\Responses\States\Device\StateService.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformOptionalPayload.cs" />
+    <Compile Include="LIFX\Framework\Payloads\WaveformPayload.cs" />
     <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
@@ -525,7 +527,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Functions\LIFX\Finder\Form_LIFXFinder.xaml">
+    <Page Include="LIFX\Finder\Form_LIFXFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -750,6 +752,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\products.json" />
     <None Include="WinHue.snk" />
     <Resource Include="Resources\unknown.png" />
     <Resource Include="Resources\HueLightOn-Large.png" />
@@ -914,7 +917,15 @@
   <ItemGroup>
     <Resource Include="Resources\propertygrid.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\DefaultLIFX_unr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DefaultLIFX_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DefaultLIFX_on.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

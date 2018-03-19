@@ -20,7 +20,7 @@ namespace WinHue3.LIFX.Framework
         }
 
         public IPAddress IP => _ip;
-        public string Mac => BitConverter.ToString(_mac.Reverse().ToArray(),0,6);
+        public byte[] Mac => _mac;
 
         public abstract string Label { get; }
 
@@ -123,28 +123,42 @@ namespace WinHue3.LIFX.Framework
         /// Get version async.
         /// </summary>
         /// <returns>Requested information.</returns>
-        public async Task<LifxCommMessage<LifxResponse>> GetVersionAsync()
+        public async Task<LifxCommMessage<StateVersion>> GetVersionAsync()
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Device_GetVersion);
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             LifxCommMessage<LifxResponse> response = await Lifx.SendPacketAsync(_ip, packet);
-            return response;
+            if (response.Error)
+            {
+                return new LifxCommMessage<StateVersion>(response.Ex, null,response.Error);
+            }
+            else
+            {
+                return new LifxCommMessage<StateVersion>(response.Ex, (StateVersion)response.Data.data.Payload, response.Error);
+            }
         }
 
         /// <summary>
         /// Get version.
         /// </summary>
         /// <returns>Requested information.</returns>
-        public LifxCommMessage<LifxResponse> GetVersion()
+        public LifxCommMessage<StateVersion> GetVersion()
         {
             LifxPacket packet = new LifxPacket();
             packet.Header.SetMessageType(Header.MessageType.Device_GetVersion);
             packet.Header.SetTagged(false);
             packet.Header.SetTargetMAC(_mac);
             LifxCommMessage<LifxResponse> response = Lifx.SendPacket(_ip, packet);
-            return response;
+            if (response.Error)
+            {
+                return new LifxCommMessage<StateVersion>(response.Ex, null, response.Error);
+            }
+            else
+            {
+                return new LifxCommMessage<StateVersion>(response.Ex, (StateVersion)response.Data.data.Payload, response.Error);
+            }
         }
         #endregion
 

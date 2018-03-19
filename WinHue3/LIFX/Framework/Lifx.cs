@@ -190,7 +190,6 @@ namespace WinHue3.LIFX.Framework
         public static async Task<LifxCommMessage<LifxResponse>> SendPacketAsync(IPAddress ip, LifxPacket packet)
         {
             UdpClient udpClient = new UdpClient();
-            byte[] currentPacket = packet;
             IPEndPoint clientIp = new IPEndPoint(ip, 56700);
             LifxResponse response = new LifxResponse();
             bool error = false;
