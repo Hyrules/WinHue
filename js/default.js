@@ -26,7 +26,10 @@ function formatChangelog() {
     var changelogModelTitle = element3.textContent;
     $.get('./assets/latestReleaseDate.txt', function(data2) {
       var d = new Date(Date.parse(data2));
-      var shortDate = String(d.getDate()).concat("-",String(d.getMonth()),"-",String(d.getFullYear())); 
+      var dDate = d.getDate();
+      var dMonth = d.getMonth();
+      var dYear = d.getFullYear();
+      var shortDate = dDate.concat("-",dMonth,"-",dYear); 
       element3.innerHTML = changelogModelTitle + " (" + shortDate + ")";
     }, 'text');
   }
