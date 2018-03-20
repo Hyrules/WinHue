@@ -24,13 +24,9 @@ function formatChangelog() {
     
     var element3 = document.getElementById("changelogModalLabel");
     var changelogModelTitle = element3.textContent;
-    $.get('./assets/latestReleaseDate.txt', function(data2) {
-      var d = new Date(Date.parse(data2));
-      var dDate = d.getDate();
-      var dMonth = d.getMonth();
-      var dYear = d.getFullYear();
-      var shortDate = dDate.concat("-",dMonth,"-",dYear); 
-      element3.innerHTML = changelogModelTitle + " (" + shortDate + ")";
+    $.get('./assets/latestReleaseDate.txt', function(dateText) {
+      var d = new Date(Date.parse(dateText));
+      element3.innerHTML = changelogModelTitle + " (" + String(d.getDate()) + "-" + String(d.getMonth()) + "-" + String(d.getFullYear()) + ")";
     }, 'text');
   }
 
