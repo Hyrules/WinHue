@@ -23,10 +23,11 @@ function formatChangelog() {
     }, 'text');
     
     var element3 = document.getElementById("changelogModalLabel");
+    var changelogModelTitle = element3.textContent;
     $.get('./assets/latestReleaseDate.txt', function(data) {
       var d = new Date(Date.parse(data));
       var shortDate = String(d.getDate()).concat("-",String(d.getMonth()),"-",String(d.getFullYear())); 
-      element3.innerHTML = element3.textContent + " (" + shortDate + ")";
+      element3.innerHTML = changelogModelTitle + " (" + shortDate + ")";
     }, 'text');
   }
 
