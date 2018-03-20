@@ -23,7 +23,7 @@ function formatChangelog() {
     }, 'text');
     var element3 = document.getElementById("releaseDateText");
     var d = new Date(Date.parse(element3.textContent));
-    var shortDate = str(d.getDate()) + "-" + str(d.getMonth()) + "-" + str(d.getFullYear()); 
+    var shortDate = String(d.getDate()) + "-" + String(d.getMonth()) + "-" + String(d.getFullYear()); 
     element3.innerHTML = shortDate;
   }
 
