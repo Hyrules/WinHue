@@ -24,8 +24,8 @@ function formatChangelog() {
     
     var element3 = document.getElementById("changelogModalLabel");
     var changelogModelTitle = element3.textContent;
-    $.get('./assets/latestReleaseDate.txt', function(data) {
-      var d = new Date(Date.parse(data));
+    $.get('./assets/latestReleaseDate.txt', function(data2) {
+      var d = new Date(Date.parse(data2));
       var shortDate = String(d.getDate()).concat("-",String(d.getMonth()),"-",String(d.getFullYear())); 
       element3.innerHTML = changelogModelTitle + " (" + shortDate + ")";
     }, 'text');
