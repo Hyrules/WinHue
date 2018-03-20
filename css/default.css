@@ -28,4 +28,5 @@
 /* Release Date Div */
 #releaseDateText {
     display: inline;
+    color: black;
 }
