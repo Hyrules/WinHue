@@ -21,10 +21,13 @@ function formatChangelog() {
       log = data.replace(/(?:\r\n|\r|\n)/g, '<br />');
       element2.innerHTML = log;
     }, 'text');
-    var element3 = document.getElementById("releaseDateText");
-    var d = new Date(Date.parse(element3.textContent));
-    var shortDate = String(d.getDate()).concat("-",String(d.getMonth()),"-",String(d.getFullYear())); 
-    element3.innerHTML = shortDate;
+    
+    var element3 = document.getElementById("changelogModalLabel");
+    $.get('./assets/latestReleaseDate.txt', function(data) {
+      var d = new Date(Date.parse(data));
+      var shortDate = String(d.getDate()).concat("-",String(d.getMonth()),"-",String(d.getFullYear())); 
+      element3.innerHTML = element3.textContent + " (" + shortDate + ")";
+    }, 'text');
   }
 
 function thanks() {
