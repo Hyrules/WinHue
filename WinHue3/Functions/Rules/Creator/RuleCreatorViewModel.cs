@@ -231,7 +231,7 @@ namespace WinHue3.Functions.Rules.Creator
 
                     break;
                 case Type sensor when sensor == typeof(Sensor):
-                    ListHueObjects = _listAvailableHueObject.OfType<Sensor>().Where(x => x.type.Contains("CLIP")).ToList<IHueObject>();
+                    ListHueObjects = _listAvailableHueObject.OfType<Sensor>().ToList<IHueObject>();
 
                     break;
                 case Type scene when scene == typeof(Scene):

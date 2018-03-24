@@ -59,6 +59,12 @@ using State = WinHue3.Philips_Hue.HueObjects.LightObject.State;
 using WinHue3.Functions.Schedules.NewCreator;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
+using WinHue3.LIFX.Framework;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Text;
+using WinHue3.LIFX.Framework.Responses;
+using WinHue3.LIFX.WinHue;
 
 namespace WinHue3.MainForm
 {
@@ -160,7 +166,7 @@ namespace WinHue3.MainForm
         {
             if (SelectedBridge == null) return;
             Cursor_Tools.ShowWaitCursor();
-            SelectedObject = null;
+            SelectedHueObject = null;
             if (!_selectedBridge.Virtual)
             {
                 if (EnableListView.GetValueOrDefault(false))
@@ -278,17 +284,17 @@ namespace WinHue3.MainForm
 
         private async Task DoubleClickObject()
         {
-            log.Debug("Double click on : " + SelectedObject);
-            if ((SelectedObject is Light) || (SelectedObject is Group))
+            log.Debug("Double click on : " + SelectedHueObject);
+            if ((SelectedHueObject is Light) || (SelectedHueObject is Group))
             {
-                ImageSource hr = await HueObjectHelper.ToggleObjectOnOffStateAsyncTask(SelectedBridge, SelectedObject, SliderTt,null, _newstate);
+                ImageSource hr = await HueObjectHelper.ToggleObjectOnOffStateAsyncTask(SelectedBridge, SelectedHueObject, SliderTt,null, _newstate);
                 if (hr != null)
                 {
                     ImageSource newimg = hr;
-                    SelectedObject.Image = newimg;
-                    int index = _listBridgeObjects.FindIndex(x => x.Id == SelectedObject.Id && x.GetType() == SelectedObject.GetType());
+                    SelectedHueObject.Image = newimg;
+                    int index = _listBridgeObjects.FindIndex(x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
                     if (index == -1) return;
-                    if (SelectedObject is Light light)
+                    if (SelectedHueObject is Light light)
                     {
                         light.state.on = !light.state.on;
                         ((Light)ListBridgeObjects[index]).state.on = !((Light)ListBridgeObjects[index]).state.on;
@@ -627,11 +633,11 @@ namespace WinHue3.MainForm
             {
 
                 HotKey h = _listHotKeys.First(x => x.Modifier == m && x.Key == k);
-                if (!(h.objecType == null && SelectedObject == null))
+                if (!(h.objecType == null && SelectedHueObject == null))
                 {
                     HotkeyDetected = true;
                     _ledTimer.Start();
-                    Type objtype = h?.objecType == null ? SelectedObject.GetType() : h.objecType;
+                    Type objtype = h?.objecType == null ? SelectedHueObject.GetType() : h.objecType;
 
                     if (objtype == typeof(Scene) )
                     {
@@ -705,7 +711,7 @@ namespace WinHue3.MainForm
         private async Task SliderChangeHue()
         {
             bool on = false;
-            switch (SelectedObject)
+            switch (SelectedHueObject)
             {
                 case Light l:
                     @on = l.state.@on.GetValueOrDefault();
@@ -722,7 +728,7 @@ namespace WinHue3.MainForm
             else
             {
                 
-                switch (SelectedObject)
+                switch (SelectedHueObject)
                 {
                     case Light _:
                         if (_newstate == null) _newstate = new State();
@@ -741,7 +747,7 @@ namespace WinHue3.MainForm
 
         private async Task SetHueSliderNow()
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.hue = MainFormModel.SliderHue;
             bp.transitiontime = SliderTt;
             bool result = await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
@@ -753,7 +759,7 @@ namespace WinHue3.MainForm
             }
             else
             {
-                switch (SelectedObject)
+                switch (SelectedHueObject)
                 {
                     case Light light:
                         light.state.hue = MainFormModel.SliderHue;
@@ -773,7 +779,7 @@ namespace WinHue3.MainForm
                     await SetBriSliderNow();
                     break;
                 case 1:
-                    switch (SelectedObject)
+                    switch (SelectedHueObject)
                     {
                         case Light _:
                             if (_newstate == null) _newstate = new State();
@@ -794,7 +800,7 @@ namespace WinHue3.MainForm
 
         private async Task SetBriSliderNow()
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.bri = MainFormModel.SliderBri;
             bp.transitiontime = SliderTt;
 
@@ -807,7 +813,7 @@ namespace WinHue3.MainForm
             }
             else
             {
-                switch (SelectedObject)
+                switch (SelectedHueObject)
                 {
                     case Light light:
                         light.state.bri = MainFormModel.SliderBri;
@@ -828,7 +834,7 @@ namespace WinHue3.MainForm
                     await SetCtSliderNow();
                     break;
                 case 1:
-                    switch (SelectedObject)
+                    switch (SelectedHueObject)
                     {
                         case Light _:
                             if (_newstate == null) _newstate = new State();
@@ -849,7 +855,7 @@ namespace WinHue3.MainForm
 
         private async Task SetCtSliderNow()
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.ct = MainFormModel.SliderCt;
             bp.transitiontime = SliderTt;
 
@@ -862,7 +868,7 @@ namespace WinHue3.MainForm
             }
             else
             {
-                switch (SelectedObject)
+                switch (SelectedHueObject)
                 {
                     case Light light:
                         light.state.ct = MainFormModel.SliderCt;
@@ -883,7 +889,7 @@ namespace WinHue3.MainForm
                     await SetSatSliderNow();
                     break;
                 case 1:
-                    switch (SelectedObject)
+                    switch (SelectedHueObject)
                     {
                         case Light _:
                             if (_newstate == null) _newstate = new State();
@@ -904,7 +910,7 @@ namespace WinHue3.MainForm
 
         private async Task SetSatSliderNow()
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.sat = MainFormModel.SliderSat;
             bp.transitiontime = SliderTt;
 
@@ -917,7 +923,7 @@ namespace WinHue3.MainForm
             }
             else
             {
-                switch (SelectedObject)
+                switch (SelectedHueObject)
                 {
                     case Light light:
                         light.state.sat = MainFormModel.SliderSat;
@@ -937,7 +943,7 @@ namespace WinHue3.MainForm
                     await SetXYSlidersNow();
                     break;
                 case 1:
-                    switch (SelectedObject)
+                    switch (SelectedHueObject)
                     {
                         case Light _:
                             if (_newstate == null) _newstate = new State();
@@ -962,7 +968,7 @@ namespace WinHue3.MainForm
 
         private async Task SetXYSlidersNow()
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.xy = new decimal[2]
             {
                 MainFormModel.SliderX,
@@ -980,7 +986,7 @@ namespace WinHue3.MainForm
             }
             else
             {
-                switch (SelectedObject)
+                switch (SelectedHueObject)
                 {
                     case Light light:
                         light.state.xy[0] = MainFormModel.SliderX;
@@ -1077,7 +1083,7 @@ namespace WinHue3.MainForm
             if (_selectedObject is Group)
             {
                 Form_GroupCreator fgc = new Form_GroupCreator() { Owner = Application.Current.MainWindow };
-                await fgc.Initialize(SelectedBridge, (Group)SelectedObject);
+                await fgc.Initialize(SelectedBridge, (Group)SelectedHueObject);
                 if (fgc.ShowDialog() == true)
                 {
                     await RefreshObject(_selectedObject);
@@ -1087,7 +1093,7 @@ namespace WinHue3.MainForm
             {
                 Form_ScheduleCreator2 fsc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow };
                 await fsc.Initialize(SelectedBridge);
-                fsc.EditSchedule(SelectedObject as Schedule);
+                fsc.EditSchedule(SelectedHueObject as Schedule);
                 if (fsc.ShowDialog() == true)
                 {
                     await RefreshObject(_selectedObject);
@@ -1172,14 +1178,14 @@ namespace WinHue3.MainForm
 
         private async Task Identify(string type)
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.alert = type;
             await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
         }
 
         private async Task Clone(bool quick)
         {
-            log.Info($"Cloning {SelectedObject}...");
+            log.Info($"Cloning {SelectedHueObject}...");
 
             if (quick)
             {
@@ -1193,8 +1199,8 @@ namespace WinHue3.MainForm
                 if (!result) return;
                 try
                 {
-                    IHueObject oldobj = (IHueObject)SelectedObject.Clone();
-                    SelectedObject = ListBridgeObjects.Single(x => x.GetType() == oldobj.GetType() && x.Id == oldobj.Id);
+                    IHueObject oldobj = (IHueObject)SelectedHueObject.Clone();
+                    SelectedHueObject = ListBridgeObjects.Single(x => x.GetType() == oldobj.GetType() && x.Id == oldobj.Id);
                     await EditObject();
                 }
                 catch(Exception)
@@ -1206,15 +1212,15 @@ namespace WinHue3.MainForm
 
         private async Task SetSensorStatus()
         {
-            int currentstatus = ((ClipGenericStatusSensorState)((Sensor)SelectedObject).state).status;
-            log.Info($"Trying to set the sensor {SelectedObject.Id} status to {SensorStatus}");           
-            bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedObject.Id, new ClipGenericStatusSensorState()
+            int currentstatus = ((ClipGenericStatusSensorState)((Sensor)SelectedHueObject).state).status;
+            log.Info($"Trying to set the sensor {SelectedHueObject.Id} status to {SensorStatus}");           
+            bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedHueObject.Id, new ClipGenericStatusSensorState()
             {
                 status = SensorStatus
             });
             if (result)
             {
-                ((ClipGenericStatusSensorState) ((Sensor) SelectedObject).state).status = SensorStatus;                
+                ((ClipGenericStatusSensorState) ((Sensor) SelectedHueObject).state).status = SensorStatus;                
             }
             else
             {
@@ -1225,15 +1231,15 @@ namespace WinHue3.MainForm
 
         private async Task SetSensorFlag()
         {
-            bool currentflag = ((ClipGenericFlagSensorState) ((Sensor) SelectedObject).state).flag;
-            log.Info($"Trying to set the sensor {SelectedObject.Id} flag to {SensorFlag}");
-            bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedObject.Id, new ClipGenericFlagSensorState()
+            bool currentflag = ((ClipGenericFlagSensorState) ((Sensor) SelectedHueObject).state).flag;
+            log.Info($"Trying to set the sensor {SelectedHueObject.Id} flag to {SensorFlag}");
+            bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedHueObject.Id, new ClipGenericFlagSensorState()
             {
                 flag = SensorFlag
             });
             if (result)
             {
-                ((ClipGenericFlagSensorState) ((Sensor) SelectedObject).state).flag = SensorFlag;                
+                ((ClipGenericFlagSensorState) ((Sensor) SelectedHueObject).state).flag = SensorFlag;                
             }
             else
             {
@@ -1244,12 +1250,12 @@ namespace WinHue3.MainForm
         private async Task<bool> Duplicate()
         {
             
-            bool result = await SelectedBridge.CreateObjectAsyncTask(SelectedObject);
+            bool result = await SelectedBridge.CreateObjectAsyncTask(SelectedHueObject);
             
             if (result)
             {
                 log.Info("Object cloned succesfully !");
-                IHueObject hr = await SelectedBridge.GetObjectAsyncTask(SelectedObject.Id, SelectedObject.GetType());
+                IHueObject hr = await SelectedBridge.GetObjectAsyncTask(SelectedHueObject.Id, SelectedHueObject.GetType());
 
                 if (hr != null)
                 {
@@ -1270,26 +1276,26 @@ namespace WinHue3.MainForm
 
         private async Task Sensitivity(int sensitivity)
         {
-            await SelectedBridge.ChangeSensorConfigAsyncTask(SelectedObject.Id,new HueMotionSensorConfig(){sensitivity = sensitivity});
+            await SelectedBridge.ChangeSensorConfigAsyncTask(SelectedHueObject.Id,new HueMotionSensorConfig(){sensitivity = sensitivity});
         }
 
         private async Task DeleteObject()
         {
             if (
-                MessageBox.Show(string.Format(GlobalStrings.Confirm_Delete_Object, SelectedObject.name),
+                MessageBox.Show(string.Format(GlobalStrings.Confirm_Delete_Object, SelectedHueObject.name),
                     GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                 return;
-            bool result = await SelectedBridge.RemoveObjectAsyncTask(SelectedObject);
+            bool result = await SelectedBridge.RemoveObjectAsyncTask(SelectedHueObject);
 
-            log.Debug($"Object ID {SelectedObject.Id} removal " + result);
+            log.Debug($"Object ID {SelectedHueObject.Id} removal " + result);
             if (result)
             {
                 int index =
                     ListBridgeObjects.FindIndex(
-                        x => x.Id == SelectedObject.Id && x.GetType() == SelectedObject.GetType());
+                        x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
                 if (index == -1) return;
                 ListBridgeObjects.RemoveAt(index);
-                SelectedObject = null;
+                SelectedHueObject = null;
                 log.Info($"Object ID : {index} removed.");
             }
             else
@@ -1302,10 +1308,10 @@ namespace WinHue3.MainForm
         {
 
             
-            Form_RenameObject fro = new Form_RenameObject(SelectedBridge, SelectedObject) { Owner = Application.Current.MainWindow };
+            Form_RenameObject fro = new Form_RenameObject(SelectedBridge, SelectedHueObject) { Owner = Application.Current.MainWindow };
             if (fro.ShowDialog() != true) return;
-            SelectedObject.name = fro.GetNewName();
-            int index = ListBridgeObjects.FindIndex(x => x.Id == SelectedObject.Id && x.GetType() == SelectedObject.GetType());
+            SelectedHueObject.name = fro.GetNewName();
+            int index = ListBridgeObjects.FindIndex(x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
             if (index == -1) return;
             ListBridgeObjects[index].name = fro.GetNewName();
             log.Info($"Renamed object ID : {index} renamed.");
@@ -1315,20 +1321,20 @@ namespace WinHue3.MainForm
         private void CopyToJson(bool raw)
         {
             Lastmessage = "Object copied to clipboard.";
-            Clipboard.SetText(JsonConvert.SerializeObject(SelectedObject, raw ? Formatting.None : Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            Clipboard.SetText(JsonConvert.SerializeObject(SelectedHueObject, raw ? Formatting.None : Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
         }
 
         private async Task OnDim(byte dimval)
         {
-            if (SelectedObject is Light)
-                await SelectedBridge.SetStateAsyncTask(new State() {bri = dimval, on = true}, SelectedObject.Id);
+            if (SelectedHueObject is Light)
+                await SelectedBridge.SetStateAsyncTask(new State() {bri = dimval, on = true}, SelectedHueObject.Id);
             else
-                await SelectedBridge.SetStateAsyncTask(new Action() {bri = dimval, on = true}, SelectedObject.Id);
+                await SelectedBridge.SetStateAsyncTask(new Action() {bri = dimval, on = true}, SelectedHueObject.Id);
         }
 
         private async Task Colorloop()
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.effect = "colorloop";
             await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
 
@@ -1336,7 +1342,7 @@ namespace WinHue3.MainForm
 
         private async Task NoEffect()
         {
-            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedObject.GetType());
+            IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.effect = "none";
             await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
 
@@ -1430,30 +1436,42 @@ namespace WinHue3.MainForm
 
         }
 
-        private void FindLifxDevices()
+        private async Task FindLifxDevices()
         {
             Form_LIFXFinder lf = new Form_LIFXFinder
             {
                 Owner = Application.Current.MainWindow
             };
 
-            lf.ShowDialog();
+            if (lf.ShowDialog() == true)
+            {
+                await AddLifxLightToList();
+            }
+        }
+
+        private async Task AddLifxLightToList()
+        {
+            foreach (LifxSaveDevice lfx in WinHueSettings.lifx.ListDevices)
+            {
+                HueLifxLight light = await HueLifxLight.CreateLightAsync(new LifxLight(IPAddress.Parse(lfx.ipaddress), PhysicalAddress.Parse(lfx.mac).GetAddressBytes().Reverse().ToArray()));
+                ListLifxObjects.Add(light);
+            }
         }
 
         private async Task ClickObject()
         {
-            if (SelectedObject != null)
+            if (SelectedHueObject != null)
             {
                 if (!SelectedBridge.Virtual)
                 {
-                    IHueObject hr = await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, SelectedObject.Id,
-                        SelectedObject.GetType());
+                    IHueObject hr = await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, SelectedHueObject.Id,
+                        SelectedHueObject.GetType());
                     if (hr == null) return;
                     _selectedObject = hr;
                     _propertyGrid.SelectedObject = hr;
                 }
 
-                if (SelectedObject is Sensor sensor)
+                if (SelectedHueObject is Sensor sensor)
                 {
                     switch (sensor.state)
                     {
@@ -1468,6 +1486,7 @@ namespace WinHue3.MainForm
                     }
                 }
             }
+
             SetMainFormModel();
         }
 

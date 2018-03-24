@@ -12,6 +12,7 @@ using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
 
+
 namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
@@ -28,21 +29,21 @@ namespace WinHue3.MainForm
 
         private bool IsObjectSelected()
         {
-            return SelectedObject != null;
+            return SelectedHueObject != null;
         }
 
         private bool IsEditable()
         {
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
-            if (SelectedObject is Scene && ((Scene) SelectedObject).version == 1) return false;
-            return !(SelectedObject is Light);
+            if (SelectedHueObject is Scene && ((Scene) SelectedHueObject).version == 1) return false;
+            return !(SelectedHueObject is Light);
         }
 
         private bool CanSchedule()
         {
             if (!IsObjectSelected() ) return false;
-            return SelectedObject is Light || SelectedObject is Group || SelectedObject is Scene ;
+            return SelectedHueObject is Light || SelectedHueObject is Group || SelectedHueObject is Scene ;
         }
 
         public bool? EnableListView
@@ -118,15 +119,15 @@ namespace WinHue3.MainForm
         private bool CanHue()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light light)
+            if (SelectedHueObject is Light light)
             {
                 if (light.state.reachable == false) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
-            else if (SelectedObject is Group)
+            else if (SelectedHueObject is Group)
             {
-                return ((Group)SelectedObject).action?.hue != null;
+                return ((Group)SelectedHueObject).action?.hue != null;
             }
             return false;
         }
@@ -134,15 +135,15 @@ namespace WinHue3.MainForm
         private bool CanBri()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light light)
+            if (SelectedHueObject is Light light)
             {
                 if (light.state.reachable == false) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
-            else if (SelectedObject is Group)
+            else if (SelectedHueObject is Group)
             {
-                return ((Group)SelectedObject).action?.bri != null;
+                return ((Group)SelectedHueObject).action?.bri != null;
             }
             return false;
         }
@@ -150,15 +151,15 @@ namespace WinHue3.MainForm
         private bool CanCt()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light light)
+            if (SelectedHueObject is Light light)
             {
                 if (light.state.reachable == false) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
-            else if (SelectedObject is Group)
+            else if (SelectedHueObject is Group)
             {
-                return ((Group)SelectedObject).action?.ct != null;
+                return ((Group)SelectedHueObject).action?.ct != null;
             }
             return false;
         }
@@ -166,15 +167,15 @@ namespace WinHue3.MainForm
         private bool CanSat()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light light)
+            if (SelectedHueObject is Light light)
             {
                 if (light.state.reachable == false) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
-            else if (SelectedObject is Group)
+            else if (SelectedHueObject is Group)
             {
-                return ((Group)SelectedObject).action?.sat != null;
+                return ((Group)SelectedHueObject).action?.sat != null;
             }
             return false;
         }
@@ -182,28 +183,28 @@ namespace WinHue3.MainForm
         private bool CanXy()
         {
             if (!IsObjectSelected()) return false;
-            if (SelectedObject is Light light)
+            if (SelectedHueObject is Light light)
             {
                 if (light.state.reachable == false) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
-            else if (SelectedObject is Group)
+            else if (SelectedHueObject is Group)
             {
-                return ((Group)SelectedObject).action?.xy != null;
+                return ((Group)SelectedHueObject).action?.xy != null;
             }
             return false;
         }
 
         private bool IsDoubleClickable()
         {
-            return SelectedObject is Light || SelectedObject is Group || SelectedObject is Scene;
+            return SelectedHueObject is Light || SelectedHueObject is Group || SelectedHueObject is Scene;
         }
 
         private bool CanIdentify()
         {
-            if (SelectedObject is Group) return true;
-            if (SelectedObject is Light light)
+            if (SelectedHueObject is Group) return true;
+            if (SelectedHueObject is Light light)
             {
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canalert;
             }
@@ -212,22 +213,22 @@ namespace WinHue3.MainForm
 
         private bool CanSetSensivity()
         {
-            if (!(SelectedObject is Sensor)) return false;
+            if (!(SelectedHueObject is Sensor)) return false;
 
-            return ((Sensor) SelectedObject).type == "ZLLPresence";
+            return ((Sensor) SelectedHueObject).type == "ZLLPresence";
         }
 
         private bool CanReplaceState()
         {
             if (!IsObjectSelected()) return false;
-            return SelectedObject is Scene;
+            return SelectedHueObject is Scene;
         }
 
         private bool CanCloneSensor()
         {
-            if (SelectedObject is Sensor)
+            if (SelectedHueObject is Sensor)
             {
-                return ((Sensor) SelectedObject).type.Contains("CLIP");
+                return ((Sensor) SelectedHueObject).type.Contains("CLIP");
             }
             return false;
         }
@@ -235,7 +236,7 @@ namespace WinHue3.MainForm
         private bool CanClone()
         {
             if (!IsObjectSelected()) return false;
-            return SelectedObject is Scene | SelectedObject is Group | SelectedObject is Rule | CanCloneSensor() | SelectedObject is Resourcelink;
+            return SelectedHueObject is Scene | SelectedHueObject is Group | SelectedHueObject is Rule | CanCloneSensor() | SelectedHueObject is Resourcelink;
         }
 
         private bool CanRename()
@@ -252,7 +253,7 @@ namespace WinHue3.MainForm
 
         private bool IsGroupZero()
         {
-            return SelectedObject is Group && SelectedObject.Id == "0";
+            return SelectedHueObject is Group && SelectedHueObject.Id == "0";
         }
 
         private bool CanUpdateBridge()
@@ -263,33 +264,33 @@ namespace WinHue3.MainForm
 
         private bool CanStrobe()
         {
-            return SelectedObject is Light || SelectedObject is Group;
+            return SelectedHueObject is Light || SelectedHueObject is Group;
         }
 
         private bool CanToggleDim()
         {
             if (!IsObjectSelected()) return false;
-            if (!(SelectedObject is Light || SelectedObject is Group)) return false;
+            if (!(SelectedHueObject is Light || SelectedHueObject is Group)) return false;
             return true;
         }
 
         private bool CanSetSensorStatus()
         {
-            if (!(SelectedObject is Sensor)) return false;
-            return ((Sensor)SelectedObject).type == "CLIPGenericStatus";
+            if (!(SelectedHueObject is Sensor)) return false;
+            return ((Sensor)SelectedHueObject).type == "CLIPGenericStatus";
         }
 
         private bool CanSetSensorFlag()
         {
-            if (!(SelectedObject is Sensor)) return false;
-            return ((Sensor)SelectedObject).type == "CLIPGenericFlag";
+            if (!(SelectedHueObject is Sensor)) return false;
+            return ((Sensor)SelectedHueObject).type == "CLIPGenericFlag";
         }
 
         //*************** MainMenu Commands ********************        
 
         public ICommand OpenSettingsWindowCommand => new AsyncRelayCommand(param => OpenSettingsWindow());
         public ICommand QuitApplicationCommand => new RelayCommand(param => QuitApplication());
-        public ICommand FindLifxDevicesCommand => new RelayCommand(param => FindLifxDevices());
+        public ICommand FindLifxDevicesCommand => new AsyncRelayCommand(param => FindLifxDevices());
 
         //*************** Initialization Command *************
 
@@ -381,6 +382,10 @@ namespace WinHue3.MainForm
         
         //*************** Title bar **************************
         public ICommand MinimizeToTrayCommand => new RelayCommand(param => MinimizeToTray());
+
+        //*************** Lifx View ***************************
+        public ICommand LoadLifxDevicesCommand => new AsyncRelayCommand(param => AddLifxLightToList());
+
 
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
         //      

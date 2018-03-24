@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Threading;
 using Hardcodet.Wpf.TaskbarNotification;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.Grouping;
 using WinHue3.Functions.HotKeys;
 using WinHue3.Functions.PropertyGrid;
+using WinHue3.LIFX.Framework;
+using WinHue3.LIFX.WinHue;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.Communication;
@@ -65,6 +69,7 @@ namespace WinHue3.MainForm
             //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
             //light.SetColor(65535, 65535, 65535, 32768, 3000);
             // LifxResponse p = light.SetPower(32000, 3000);
+            _listLIFXObjects = new ObservableCollection<ILifxObject>();
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)
@@ -128,7 +133,6 @@ namespace WinHue3.MainForm
                 }
             }
             LoadBridges();
-
         }
 
         private void LoadBridges()

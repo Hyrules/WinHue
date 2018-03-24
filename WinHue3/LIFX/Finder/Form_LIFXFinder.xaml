@@ -7,10 +7,14 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:context="clr-namespace:WinHue3.LIFX.Finder"
         mc:Ignorable="d"
+        xmlns:conv="clr-namespace:WinHue3.Functions.Converters"
         Title="{x:Static resx:GUI.Form_LIFXFinder_Title}" Height="338.351" Width="555.896" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <context:LifxFinderViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <conv:MacByteArrayConverter x:Key="MacByteArrayConverter"/>
+    </Window.Resources>
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="58" Margin="5,232,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.Form_LIFXFinder_Warning}" VerticalAlignment="Top" Width="448"/>
         <ListView HorizontalAlignment="Left" Height="216" Margin="5,10,0,0" VerticalAlignment="Top" Width="528" BorderThickness="1" Background="White" BorderBrush="#FFC9C9C9" ItemsSource="{Binding Devices}">
@@ -19,7 +23,7 @@
                     <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Image}" Width="48"/>
                     <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_Name}" DisplayMemberBinding="{Binding Label}" Width="150"/>
                     <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_IP}" DisplayMemberBinding="{Binding IP}" Width="100"/>
-                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_MAC}" DisplayMemberBinding="{Binding Mac}" Width="200"/>
+                    <GridViewColumn Header="{x:Static resx:GUI.Form_LIFXFinder_MAC}" DisplayMemberBinding="{Binding Mac, Converter={StaticResource MacByteArrayConverter}}" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>

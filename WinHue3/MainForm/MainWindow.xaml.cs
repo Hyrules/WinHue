@@ -45,7 +45,7 @@ namespace WinHue3.MainForm
 
         private void LvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if (_mfvm.SelectedObject == null) e.Handled = true;
+            if (_mfvm.SelectedHueObject == null) e.Handled = true;
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

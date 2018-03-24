@@ -16,11 +16,18 @@ namespace WinHue3.Functions.Lights.SupportedDevices
         {
             _images = new Dictionary<string, Dictionary<string, ImageSource>>();
             
-            _images.Add("Default", new Dictionary<string, ImageSource>()
+            _images.Add("DefaultHUE", new Dictionary<string, ImageSource>()
             {
                 {"on", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_on)},
                 {"off", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_off)},
                 {"unr", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_unr)},
+            });
+
+            _images.Add("DefaultLIFX", new Dictionary<string, ImageSource>()
+            {
+                {"on", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_on)},
+                {"off", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_off)},
+                {"unr", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_unr)},
             });
 
         }

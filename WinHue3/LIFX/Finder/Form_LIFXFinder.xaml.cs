@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using WinHue3.Functions.Application_Settings.Settings;
@@ -22,14 +23,24 @@ namespace WinHue3.LIFX.Finder
 
         private void BtnDone_Click(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<LifxDevice> dev = _lfvm.Devices;
-            foreach (LifxDevice l in dev)
+            if(_lfvm.Devices.Count > 0)
             {
-                if (WinHueSettings.lifx.ListDevices.Any(x => x.mac == l.Mac)) continue;
-                WinHueSettings.lifx.ListDevices.Add(new LifxSaveDevice(l.IP.ToString(), l.Mac,l.Label));
+                ObservableCollection<LifxDevice> dev = _lfvm.Devices;
+                foreach (LifxDevice l in dev)
+                {
+                    string mac = BitConverter.ToString(l.Mac.Reverse().ToArray(), 0, 6);
+                    if (WinHueSettings.lifx.ListDevices.Any(x => x.mac == mac)) continue;
+                    WinHueSettings.lifx.ListDevices.Add(new LifxSaveDevice(l.IP.ToString(), mac, l.Label));
+                }
+
+                WinHueSettings.SaveLifx();
+                DialogResult = true;
             }
-            
-            WinHueSettings.SaveLifx();
+            else
+            {
+                DialogResult = false;
+            }
+
             this.Close();
         }
     }
