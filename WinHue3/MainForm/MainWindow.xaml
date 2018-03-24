@@ -775,6 +775,7 @@
                             behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
                             behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                             behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
+                            SelectedItem="{Binding SelectedHueObject}"
                             >
                             <ListView.Resources>
                                 <Style TargetType="{x:Type ListViewItem}">
