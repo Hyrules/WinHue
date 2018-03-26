@@ -385,11 +385,6 @@
                         <Image Source="/WinHue3;component/Resources/pair-bridge.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_FindLifx}" Command="{Binding FindLifxDevicesCommand}" FontSize="17" Foreground="Black">
-                    <MenuItem.Icon>
-                        <Image></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" FontSize="17" Foreground="Black">
                     <MenuItem.Style>
                         <Style TargetType="{x:Type MenuItem}">
@@ -608,224 +603,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
-
-            <TabControl x:Name="TabType"  Margin="0,0,0,-0.333" Background="White" SelectedValuePath="Name" SelectedValue="tiHue">
-                <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="">
-                        <i:InvokeCommandAction Command=""/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
-                <TabItem x:Name="tiHue"  Header="Hue" FontSize="17">
-                    <TabItem.Style>
-                        <Style TargetType="{x:Type TabItem}">
-                            <Setter Property="Visibility" Value="Visible"/>
-
-                        </Style>
-                    </TabItem.Style>
-
-                    <Grid Background="#FFE5E5E5">
-                        <ListView x:Name="LvMainObjects"  
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                            SelectedItem="{Binding SelectedHueObject}" 
-                            SelectionChanged="LvMainObjects_SelectionChanged" 
-                            SelectionMode="Single" 
-                            VerticalContentAlignment="Stretch" Grid.Column="0" 
-                            IsEnabled="{Binding EnableListView}" 
-                            behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
-                            behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
-                            behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
-                            behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                            behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                            ItemsSource="{Binding ListBridgeObjects}"
-                            >
-
-                            <ListView.Resources>
-                                <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                        <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
-                                        <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
-                                            <TextBlock.Style>
-                                                <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Style.Triggers>
-                                        <EventTrigger RoutedEvent="Control.MouseDoubleClick">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                    </Style.Triggers>
-                                </Style>
-
-                                <DataTemplate DataType="{x:Type lightObject:Light}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type groupObject:Group}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type ruleObject:Rule}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type newSensorsObject:Sensor}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type scheduleObject:Schedule}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type resourcelinkObject:Resourcelink}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type sceneObject:Scene}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-
-                            </ListView.Resources>
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}" />
-                            </ListView.ItemContainerStyle>
-                            <ListView.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}"/>
-                                    <Separator/>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
-                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
-                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
-                                    </MenuItem>
-                                    <Separator/>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
-                                </ContextMenu>
-                            </ListView.ContextMenu>
-                            <ListView.GroupStyle>
-                                <GroupStyle>
-                                    <GroupStyle.ContainerStyle>
-                                        <Style TargetType="{x:Type GroupItem}">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate>
-                                                        <Expander IsExpanded="True">
-                                                            <Expander.Header >
-                                                                <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
-                                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
-                                                                </Grid>
-                                                            </Expander.Header>
-                                                            <ItemsPresenter />
-                                                        </Expander>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </GroupStyle.ContainerStyle>
-                                </GroupStyle>
-                            </ListView.GroupStyle>
-                        </ListView>
-                    </Grid>
-                </TabItem>
-                <TabItem x:Name="tiLIFX"  Header="LIFX" FontSize="17">
-                    <TabItem.Style>
-                        <Style TargetType="TabItem">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ListLifxObjects.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TabItem.Style>
-                    <Grid Background="#FFE5E5E5">
-                        <ListView x:Name="LvLifxObjects"
-                            ItemsSource="{Binding ListLifxObjects}"
-                            SelectionMode="Single"
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                            ItemTemplate="{DynamicResource LifxLight}"
-                            behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
-                            behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
-                            behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
-                            behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                            SelectedItem="{Binding SelectedHueObject}"
-                            >
-                            <ListView.Resources>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Style.Triggers>
-                                        <EventTrigger RoutedEvent="Control.MouseDoubleClick">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                                <DataTemplate x:Key="LifxIcon" DataType="{x:Type winHue:ILifxObject}">
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                        <TextBlock x:Name="tblName" Text="{Binding Name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
-                                        <!--<TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
-                                            <TextBlock.Style>
-                                                <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>-->
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate x:Key="LifxLight" DataType="{x:Type winHue:HueLifxLight}">
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource LifxIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </ListView.Resources>
-                            <ListView.ItemsPanel>
-                                 <ItemsPanelTemplate>
-                                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
-                                 </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}" />
-                            </ListView.ItemContainerStyle>
-                        </ListView>
-                    </Grid>
-                </TabItem>
-            </TabControl>
             <TextBlock Text="{x:Static resx:GUI.BridgeUpdateRequired}" FontSize="40" Margin="5,181,9.667,0"  Height="198" VerticalAlignment="Top" TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="#FF7D7D7D" Grid.Column="0">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
@@ -842,7 +619,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" MinHeight="472"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,30,0,0">
+                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
 
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
                     <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="-1" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
@@ -918,6 +695,135 @@
 
                 </StackPanel>
             </Grid>
+            <ListView x:Name="LvMainObjects"  
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                SelectedItem="{Binding SelectedHueObject}" 
+                SelectionChanged="LvMainObjects_SelectionChanged" 
+                SelectionMode="Single" 
+                VerticalContentAlignment="Stretch" Grid.Column="0" 
+                IsEnabled="{Binding EnableListView}" 
+                behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
+                behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
+                behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
+                behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
+                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
+                ItemsSource="{Binding ListBridgeObjects}"
+                            Margin="1,0,4.667,0"
+                            >
+
+                <ListView.Resources>
+                    <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
+                                <TextBlock.Style>
+                                    <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                    </DataTemplate>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="Control.MouseDoubleClick">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <DataTemplate DataType="{x:Type lightObject:Light}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type groupObject:Group}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ruleObject:Rule}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type newSensorsObject:Sensor}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type scheduleObject:Schedule}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type resourcelinkObject:Resourcelink}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type sceneObject:Scene}" >
+                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                        </WrapPanel>
+                    </DataTemplate>
+
+                </ListView.Resources>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" />
+                </ListView.ItemContainerStyle>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}"/>
+                        <Separator/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
+                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header >
+                                                    <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
+                                                    </Grid>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
 
         </Grid>
 
