@@ -10,6 +10,7 @@ Fixed:
 - Bug in the rule creator that crashed the app when editing a rule that used an object that does not exist anymore.
 - Bug in sensor creator where the default flag sensor would not have a propert config show in the property grid.
 - Bug where name box in the hotkey creator is displayed as combobox.
+- bug where on was sending a bri value for light who does have bri property.
 
 Added:
 - Quick sensor flag and generic modification. Sensor toolbar is hidden by default.

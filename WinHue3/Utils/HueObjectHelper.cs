@@ -1177,7 +1177,7 @@ namespace WinHue3.Utils
                                 on = true,
                                 transitiontime = tt
                             }; ;
-                            if (!WinHueSettings.settings.UseLastBriState)
+                            if (!WinHueSettings.settings.UseLastBriState && bresult.state.bri != null)
                             {
                                 newstate.bri = dimvalue ?? WinHueSettings.settings.DefaultBriLight;
                             }
