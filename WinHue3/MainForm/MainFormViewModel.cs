@@ -21,6 +21,8 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using HotKey = WinHue3.Functions.HotKeys.HotKey;
+using System.Net.NetworkInformation;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 
 namespace WinHue3.MainForm
 {
@@ -102,15 +104,30 @@ namespace WinHue3.MainForm
 
         private bool CheckBridge(Bridge bridge)
         {
-            bool bridgeready = false;
             log.Info("Checking if ip is bridge...");
+            /*bool bridgeready = false;
+            
             if (Hue.IsBridge(bridge.IpAddress))
             {
                 log.Info("IP is bridge. Checking if bridge is authorized...");
                 bridgeready = bridge.CheckAuthorization();
                 log.Info($"Bridge authorization : {bridgeready}");
             }
-            return bridgeready;
+            return bridgeready;*/
+            BasicConfig bc = bridge.GetBridgeBasicConfig();
+            if (bc != null)
+            {
+                bridge.ApiVersion = bc.apiversion;
+                bridge.Name = bc.name;
+                bridge.SwVersion = bc.swversion;
+                WinHueSettings.bridges.BridgeInfo[bridge.Mac].apiversion = bridge.ApiVersion;
+                WinHueSettings.bridges.BridgeInfo[bridge.Mac].swversion = bridge.SwVersion;
+                WinHueSettings.bridges.BridgeInfo[bridge.Mac].name = bridge.Name;
+                WinHueSettings.SaveBridges();
+                return true;
+            }
+
+            return false;
         }
 
         private void Initialize()
@@ -220,3 +237,4 @@ namespace WinHue3.MainForm
 
     }
 }
+

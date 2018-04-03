@@ -213,6 +213,11 @@ namespace WinHue3.Functions.BridgePairing
 
         }
 
+        public void FindBridge(Bridge br)
+        {
+
+        }
+
         private void UpdateBridgeList(Dictionary<string, Bridge> brlist)
         {
             foreach (KeyValuePair<string, Bridge> kvp in brlist)

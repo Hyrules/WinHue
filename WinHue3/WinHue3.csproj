@@ -184,6 +184,7 @@
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\WindowContentRenderedBehavior.cs" />
+    <Compile Include="Functions\BridgePairing\BridgeHandler.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\MacByteArrayConverter.cs" />
     <Compile Include="Functions\Grouping\BridgeGroup.cs" />
@@ -929,7 +930,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
