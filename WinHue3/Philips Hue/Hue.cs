@@ -173,10 +173,10 @@ namespace WinHue3.Philips_Hue
         /// <summary>
         /// Will scan an ip range for bridges.
         /// </summary>
-        public static void ScanIpForBridge(string mac == null)
+        public static void ScanIpForBridge()
         {
             
-            _ipscanBgw.RunWorkerAsync(mac);
+            _ipscanBgw.RunWorkerAsync();
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace WinHue3.Philips_Hue
 
         private static void _ipscanBgw_DoWork(object sender, DoWorkEventArgs e)
         {
-            string mac = e.Argument.ToString();
+
             log.Info("Starting IP scan for bridge...");
             IPAddress ip = IPAddress.Parse(GetLocalIPAddress());
             byte[] ipArray = ip.GetAddressBytes();
