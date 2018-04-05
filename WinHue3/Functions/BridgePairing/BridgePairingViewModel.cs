@@ -44,6 +44,12 @@ namespace WinHue3.Functions.BridgePairing
             _listBridges = new ObservableCollection<Bridge>();
             _bgw = new BackgroundWorker();
             _bgw.DoWork += _bgw_DoWork;
+            _bgw.RunWorkerCompleted += _bgw_RunWorkerCompleted;
+        }
+
+        private void _bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            
         }
 
         private void _bgw_DoWork(object sender, DoWorkEventArgs e)
