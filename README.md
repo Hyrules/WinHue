@@ -3,7 +3,7 @@
 <b>Requirements :</b> <br/>
 - [Microsoft Dot Net Framework 4.5.1](https://www.microsoft.com/en-ca/download/details.aspx?id=40773) <br/>
 - [Visual C++ 2010 Redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=5555)<br/>
-- A complete Philips Hue Light system including some philips hue light and bridge (Api version 1.16 or greater)
+- [A complete Philips Hue Light system including some philips hue lights and bridge (Api version 1.16 or greater)](https://www2.meethue.com/en-us/products/starter-kits#filters=STARTER_KITS_SU&sliders=&support=&price=&priceBoxes=&page=&layout=12.subcategory.p-grid-icon)
 
 <b>Description :</b>
 
