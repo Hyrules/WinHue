@@ -31,6 +31,14 @@ WinHue is a windows desktop application to control the philips hue lighting syst
 - See the [Usage wiki](../../wiki/Basic-Usage) page for WinHue usage.<br/>
 - See the [Console wiki](../../wiki/Console-usage) page for the Console usage.<br/>
 
+<b> FAQ : </b>
+- Does WinHue work with x system ?
+    Answer : No WinHue is made to be used with the philips hue system and api and won't work with other systems.
+- Does WinHue work with alexa ?
+    Answer : If you have alexa and philips hue bulbs without any bridge WinHue won't work. WinHue will only work with a bridge and     philips hue bulbs.
+- Can you make WinHue work with x system :
+    Answer : My goal was and still is to have a Windows application be able to control the philips hue lighting system. In other words no but feel free to fork my project and try to adapt it yourself. The Hue API is too deeply embedded inside WinHue that it will most likely need a complete rework of the code to be able to make it work with other system.
+    
 <b>Licence : </b>
 
 [Creative Commons Attribution Non-Commercial License V2.0](https://creativecommons.org/licenses/by-nc/2.0/)
