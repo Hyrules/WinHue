@@ -54,17 +54,13 @@ using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 using Application = System.Windows.Application;
 using Clipboard = System.Windows.Clipboard;
 using MessageBox = System.Windows.MessageBox;
-using WinHue3.LIFX.Finder;
 using State = WinHue3.Philips_Hue.HueObjects.LightObject.State;
 using WinHue3.Functions.Schedules.NewCreator;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
-using WinHue3.LIFX.Framework;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
-using WinHue3.LIFX.Framework.Responses;
-using WinHue3.LIFX.WinHue;
 
 namespace WinHue3.MainForm
 {
@@ -1434,28 +1430,6 @@ namespace WinHue3.MainForm
         private void RssFeedMonSettings()
         {
 
-        }
-
-        private async Task FindLifxDevices()
-        {
-            Form_LIFXFinder lf = new Form_LIFXFinder
-            {
-                Owner = Application.Current.MainWindow
-            };
-
-            if (lf.ShowDialog() == true)
-            {
-                await AddLifxLightToList();
-            }
-        }
-
-        private async Task AddLifxLightToList()
-        {
-            foreach (LifxSaveDevice lfx in WinHueSettings.lifx.ListDevices)
-            {
-                HueLifxLight light = await HueLifxLight.CreateLightAsync(new LifxLight(IPAddress.Parse(lfx.ipaddress), PhysicalAddress.Parse(lfx.mac).GetAddressBytes().Reverse().ToArray()));
-                ListLifxObjects.Add(light);
-            }
         }
 
         private async Task ClickObject()

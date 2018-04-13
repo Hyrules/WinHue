@@ -290,7 +290,6 @@ namespace WinHue3.MainForm
 
         public ICommand OpenSettingsWindowCommand => new AsyncRelayCommand(param => OpenSettingsWindow());
         public ICommand QuitApplicationCommand => new RelayCommand(param => QuitApplication());
-        public ICommand FindLifxDevicesCommand => new AsyncRelayCommand(param => FindLifxDevices());
 
         //*************** Initialization Command *************
 
@@ -382,9 +381,6 @@ namespace WinHue3.MainForm
         
         //*************** Title bar **************************
         public ICommand MinimizeToTrayCommand => new RelayCommand(param => MinimizeToTray());
-
-        //*************** Lifx View ***************************
-        public ICommand LoadLifxDevicesCommand => new AsyncRelayCommand(param => AddLifxLightToList());
 
 
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
