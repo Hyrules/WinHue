@@ -1581,4 +1581,7 @@
   <data name="MainForm_Tab_Home_Group_Sensors" xml:space="preserve">
     <value>Sensors</value>
   </data>
+  <data name="ManageUsers_StreamKey" xml:space="preserve">
+    <value>Clé de streaming</value>
+  </data>
 </root>

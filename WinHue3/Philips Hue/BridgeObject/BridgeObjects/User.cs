@@ -16,7 +16,12 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
         /// <summary>
         /// Username of the user.
         /// </summary>
-        [DataMember(EmitDefaultValue = false),]
+        [DataMember(EmitDefaultValue = false)]
         public string username { set; get; }
+        /// <summary>
+        /// Ask the bridge to create a client key for the steaming api
+        /// </summary>
+        [DataMember(EmitDefaultValue = false)]
+        public bool? generateclientkey { get; set; }
     }
 }

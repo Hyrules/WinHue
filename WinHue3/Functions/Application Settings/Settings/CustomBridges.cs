@@ -17,7 +17,6 @@ namespace WinHue3.Functions.Application_Settings.Settings
         [DataMember(EmitDefaultValue = true)]
         public string DefaultBridge { get; set; }
 
-
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
