@@ -14,28 +14,43 @@ namespace WinHue3.Functions.BridgeFinder
     public static class BridgeFinder
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private static BackgroundWorker _bgw;
+
+        public delegate void ProgressChangedEventHandler(object sender, ProgressChangedEventArgs e);
+        public static event ProgressChangedEventHandler ProgressReported;
+
+        public delegate void RunWorkerCompletedEventHandler(object sender, RunWorkerCompletedEventArgs e);
+        public static event RunWorkerCompletedEventHandler ScanCompleted;
+
 
         static BridgeFinder()
         {
             _bgw = new BackgroundWorker();
             _bgw.DoWork += _bgw_DoWork;
             _bgw.RunWorkerCompleted += _bgw_RunWorkerCompleted;
+            _bgw.ProgressChanged += _bgw_ProgressChanged; ;
+            _bgw.WorkerReportsProgress = true;
+            _bgw.WorkerSupportsCancellation = true;
+        }
+
+        public static void CancelSearch()
+        {
+            _bgw.CancelAsync();
+        }
+
+        private static void _bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressReported?.Invoke(null,e);
         }
 
         private static void _bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result != null)
-            {
-                IPAddress ip = (IPAddress)e.Result;
-            }
-
+            ScanCompleted?.Invoke(null,e);
         }
 
         public static void FindBridge(Bridge br)
         {
-            _bgw.RunWorkerAsync(br);
+            _bgw.RunWorkerAsync(br.Mac);
         }
 
         /// <summary>
@@ -72,9 +87,10 @@ namespace WinHue3.Functions.BridgeFinder
                     break;
                 }
 
-                _bgw.ReportProgress(0, x);
+                
                 if (x == currentip) continue;
                 ipArray[3] = x;
+                _bgw.ReportProgress(0, new ProgressReport(new IPAddress(ipArray),x));
 
                 Comm.Timeout = 50;
                 if (_bgw.CancellationPending) break;
@@ -101,6 +117,13 @@ namespace WinHue3.Functions.BridgeFinder
 
                         break;
                 }
+
+                if (e.Result != null)
+                {
+                    _bgw.ReportProgress(0, new ProgressReport(new IPAddress(ipArray),254));
+                    break;
+                }
+                    
             }
         }
 

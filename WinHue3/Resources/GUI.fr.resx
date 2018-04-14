@@ -1584,4 +1584,10 @@
   <data name="ManageUsers_StreamKey" xml:space="preserve">
     <value>Stream Key</value>
   </data>
+  <data name="BridgeFinder_Title" xml:space="preserve">
+    <value>Recherche de la passerelle...</value>
+  </data>
+  <data name="BridgeFinder_Trying" xml:space="preserve">
+    <value>Essaie de l'IP :</value>
+  </data>
 </root>

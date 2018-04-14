@@ -20,6 +20,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using HotKey = WinHue3.Functions.HotKeys.HotKey;
 using System.Net.NetworkInformation;
+using WinHue3.Functions.BridgeFinder;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 
 namespace WinHue3.MainForm
@@ -182,7 +183,7 @@ namespace WinHue3.MainForm
                             Mac = b.Key
                         };
                         if (b.Value.apikey == string.Empty) continue;
-                        bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
+                        
                         bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
                         bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
 
@@ -202,14 +203,19 @@ namespace WinHue3.MainForm
                     if (!CheckBridge(br))
                     {
                         log.Info("Bridge IP has changed... Pairing needed.");
+                        Form_BridgeFinder fbf = new Form_BridgeFinder(br) {Owner = Application.Current.MainWindow};
+                        fbf.ShowDialog();
 
-                        if (DoBridgePairing(ListBridges))
+                        if (fbf.IpFound())
                         {
+                            br.BridgeNotResponding += Bridge_BridgeNotResponding;
+                            br.IpAddress = fbf.newip;
                             if (!br.IsDefault) continue;
                             SelectedBridge = br;
                         }
                         else
                         {
+                            DoBridgePairing(ListBridges);
                             break;
                         }
                     }

@@ -19,7 +19,6 @@
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         xmlns:Controls="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
-        xmlns:winHue="clr-namespace:WinHue3.LIFX.WinHue"
     x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 

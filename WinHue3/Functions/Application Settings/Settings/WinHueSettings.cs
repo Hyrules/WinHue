@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using Newtonsoft.Json;
 
 namespace WinHue3.Functions.Application_Settings.Settings
@@ -19,6 +20,20 @@ namespace WinHue3.Functions.Application_Settings.Settings
 
         }
 
+        public static bool ReplaceBridgeIp(string mac, IPAddress ip)
+        {
+            try
+            {
+                bridges.BridgeInfo[mac].ip = ip.ToString();
+                SaveBridges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+        }
 
         /// <summary>
         /// Load all settings.
@@ -29,8 +44,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             bool loadbridges = LoadBridges();
             bool loadhotkeys = LoadHotkeys();
             bool loadsettings = LoadSettings();
-            bool loadlifx = LoadLifx();
-            if (loadbridges && loadhotkeys && loadsettings && loadlifx) return true;
+            if (loadbridges && loadhotkeys && loadsettings) return true;
             return false;
         }
 
@@ -43,70 +57,9 @@ namespace WinHue3.Functions.Application_Settings.Settings
             bool savebridges = SaveBridges();
             bool savehotkeys = SaveHotkeys();
             bool savesettings = SaveSettings();
-            bool savelifx = SaveLifx();
-            if (savebridges && savehotkeys && savesettings && savelifx) return true;
+            if (savebridges && savehotkeys && savesettings) return true;
             return false;
         }
-
-        /// <summary>
-        /// Save Lifx Settings
-        /// </summary>
-        /// <returns>True or false on save settings.</returns>
-        public static bool SaveLifx()
-        {
-            bool ret = false;
-            try
-            {
-                string result = JsonConvert.SerializeObject(lifx, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.Indented });
-                log.Debug($@"Saving lifx settings : {lifx}");
-                string filepath = Path.Combine(path, "WinHue\\WinHueLifx.set");
-                if (CreateWinHueDirectory())
-                {
-                    File.WriteAllText(filepath, result);
-                    ret = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                lifx = new CustomLifxSettings();
-                ret = false;
-                log.Error("Error while saving the hotkeys.", ex);
-
-            }
-            return ret;
-        }
-
-        /// <summary>
-        /// Load the lifx settings
-        /// </summary>
-        /// <returns>True or false on loading success.</returns>
-        public static bool LoadLifx()
-        {
-            bool result = false;
-
-            try
-            {
-                string filepath = Path.Combine(path, "WinHue\\WinHueLifx.set");
-                if (!File.Exists(filepath)) return result;
-                log.Debug("Trying to open Lifx settings file...");
-                StreamReader sr = File.OpenText(filepath);
-                log.Debug("File open.");
-                string settingsString = sr.ReadToEnd();
-                log.Debug($@"Loading lifx settings : {settingsString}");
-                sr.Close();
-                log.Debug("Deserializing the settings file.");
-                lifx = JsonConvert.DeserializeObject<CustomLifxSettings>(settingsString, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                lifx = new CustomLifxSettings();
-                result = false;
-                log.Error("Error while loading the lifx settings.", ex);
-            }
-            return result;
-        }
-
 
         /// <summary>
         /// Create the WinHue folders in the Application data folder.

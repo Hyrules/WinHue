@@ -192,14 +192,17 @@
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\WindowContentRenderedBehavior.cs" />
     <Compile Include="Functions\BridgeFinder\BridgeFinder.cs" />
+    <Compile Include="Functions\BridgeFinder\BridgeFinderViewModel.cs" />
+    <Compile Include="Functions\BridgeFinder\Form_BridgeFinder.xaml.cs">
+      <DependentUpon>Form_BridgeFinder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\BridgeFinder\ProgressReport.cs" />
     <Compile Include="Functions\BridgePairing\BridgeHandler.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\MacByteArrayConverter.cs" />
     <Compile Include="Functions\Grouping\BridgeGroup.cs" />
     <Compile Include="Functions\Grouping\BridgeSubGroup.cs" />
     <Compile Include="Functions\Grouping\IGroup.cs" />
-    <Compile Include="Functions\Grouping\LifxGroup.cs" />
-    <Compile Include="Functions\Grouping\LifxSubGroup.cs" />
     <Compile Include="Functions\IDevice.cs" />
     <Compile Include="Functions\PropertyGrid\ListStringEditor\ListStringEditor.cs" />
     <Compile Include="Functions\PropertyGrid\PropertyGrid.xaml.cs">
@@ -492,6 +495,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Functions\Animations\Form_Animations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\BridgeFinder\Form_BridgeFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -905,7 +912,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
