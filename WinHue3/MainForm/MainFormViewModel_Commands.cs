@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Windows.Input;
 using WinHue3.Functions.Application_Settings.Settings;
@@ -11,7 +14,8 @@ using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
-
+using Org.BouncyCastle.Crypto.Tls;
+using Org.BouncyCastle.Security;
 
 namespace WinHue3.MainForm
 {
@@ -307,6 +311,9 @@ namespace WinHue3.MainForm
         public ICommand CreateRuleCommand => new AsyncRelayCommand(param => CreateRule(), (param) => EnableButtons());
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor(), (param) => EnableButtons());
         public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(), (param) => EnableButtons());
+
+        public ICommand CreateEntertainmentCommand =>
+            new RelayCommand(param => CreateEntertainment(), (param) => EnableButtons());
 
         //  public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
         public ICommand TouchLinkCommand => new AsyncRelayCommand(param => DoTouchLink(), (param) => EnableButtons());

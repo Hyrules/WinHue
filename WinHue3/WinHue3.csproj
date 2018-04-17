@@ -74,11 +74,8 @@
     <StartupObject>WinHue3.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="DTLS.Net, Version=1.0.21.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DTLS.Net.1.0.21\lib\net451\DTLS.Net.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
@@ -103,7 +100,7 @@
       <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenHardwareMonitorLib">
       <HintPath>..\packages\OpenHardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
@@ -200,6 +197,10 @@
     <Compile Include="Functions\BridgePairing\BridgeHandler.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\MacByteArrayConverter.cs" />
+    <Compile Include="Functions\Entertainment\EntertainmentViewModel.cs" />
+    <Compile Include="Functions\Entertainment\Form_EntertainmentCreator.xaml.cs">
+      <DependentUpon>Form_EntertainmentCreator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions\Grouping\BridgeGroup.cs" />
     <Compile Include="Functions\Grouping\BridgeSubGroup.cs" />
     <Compile Include="Functions\Grouping\IGroup.cs" />
@@ -499,6 +500,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\BridgeFinder\Form_BridgeFinder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\Entertainment\Form_EntertainmentCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -908,6 +913,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\DefaultLIFX_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\entertainment.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

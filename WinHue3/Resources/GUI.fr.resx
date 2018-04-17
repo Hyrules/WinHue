@@ -1590,4 +1590,10 @@
   <data name="BridgeFinder_Trying" xml:space="preserve">
     <value>Essaie de l'IP :</value>
   </data>
+  <data name="EntertainmentCreatorForm_Title" xml:space="preserve">
+    <value>Créateur de divertissement</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_EntertainmentCreator" xml:space="preserve">
+    <value>Créateur de divertissement</value>
+  </data>
 </root>

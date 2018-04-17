@@ -1,10 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto.Tls;
+using Org.BouncyCastle.Security;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
@@ -32,25 +37,26 @@ namespace HueLib2Test
         }
 
         [TestMethod]
+        public void TestDTLS()
+        {
+            Socket socket = new Socket(SocketType.Stream,ProtocolType.Raw);
+            socket.Connect(new IPEndPoint(IPAddress.Parse("192.168.5.30"), 2100 ));
+            Stream stream = new NetworkStream(socket);
+            
+            SecureRandom sr = new SecureRandom();
+                
+            PskTlsClient tlsclient = new PskTlsClient(new BasicTlsPskIdentity("WinHue",new byte[2]));
+            TlsClientProtocol tclp = new TlsClientProtocol(stream,sr);
+            tclp.Connect(tlsclient);
+        }
+
+        [TestMethod]
         public void TestSendPacket()
         {
            // List<Tuple<byte[],byte[]>> devices = LifxComm.GetDevices();
 
            // LifxLight light = new LifxLight(IPAddress.Parse("192.168.8.100"), new byte[]{ 0xd0,0x73,0xd5,0x24,0x8f,0xd2} );
            // LifxResponse response = light.SetColor(41000, 65535, 65535, 32000, 1000);
-        }
-
-        private byte[] ToLittleEndian(ushort value)
-        {
-            byte[] valbytes = BitConverter.GetBytes(value);
-            byte[] bytes = new byte[valbytes.Length];
-            
-            for (int i = 0; i <= bytes.Length - 1; i++)
-            {
-                bytes[i] = (byte)((ushort)value >> (i * 8));
-            }
-
-            return bytes;
         }
 
         [TestMethod]

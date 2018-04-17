@@ -61,6 +61,7 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using WinHue3.Functions.Entertainment;
 
 namespace WinHue3.MainForm
 {
@@ -142,6 +143,13 @@ namespace WinHue3.MainForm
         #endregion
 
         #region HOME_TAB_METHODS
+
+        private void CreateEntertainment()
+        {
+            Form_EntertainmentCreator fec = new Form_EntertainmentCreator(){ Owner = Application.Current.MainWindow};
+            fec.ShowDialog();
+
+        }
 
         private void CreateAdvanced()
         {

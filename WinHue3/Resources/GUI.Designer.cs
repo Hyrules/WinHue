@@ -763,6 +763,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entertainment Creator.
+        /// </summary>
+        public static string EntertainmentCreatorForm_Title {
+            get {
+                return ResourceManager.GetString("EntertainmentCreatorForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event Log....
         /// </summary>
         public static string EventLogForm_Title {
@@ -2235,6 +2244,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Home_Group_Creators_CreateSensor {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators_CreateSensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entertainment Creator.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Creators_EntertainmentCreator {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators_EntertainmentCreator", resourceCulture);
             }
         }
         
