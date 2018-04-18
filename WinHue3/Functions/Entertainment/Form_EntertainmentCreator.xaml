@@ -8,23 +8,31 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         x:Class="WinHue3.Functions.Entertainment.Form_EntertainmentCreator"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.EntertainmentCreatorForm_Title}" Height="258.245" Width="566.142" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.EntertainmentCreatorForm_Title}" Height="250.775" Width="563.296" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <local:EntertainmentViewModel/>
     </Window.DataContext>
     <Grid>
-        <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="173" Margin="174,10,0,0" VerticalAlignment="Top" Width="220">
+        <GroupBox Header="{x:Static resx:GUI.EntertainmentCreatorForm_Coordinates}" HorizontalAlignment="Left" Height="183" Margin="174,0,0,0" VerticalAlignment="Top" Width="220">
             <Grid Margin="0,0,-2,-2.667">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="29*"/>
+                    <ColumnDefinition Width="76*"/>
+                </Grid.ColumnDefinitions>
                 <Label Content="X" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top"/>
-                <Label Content="Y" HorizontalAlignment="Left" Margin="91,19,0,0" VerticalAlignment="Top"/>
-                <Label Content="Z" HorizontalAlignment="Left" Margin="161,19,0,0" VerticalAlignment="Top"/>
-                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="0"/>
-                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="76,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="0"/>
-                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="143,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="0"/>
+                <Label Content="Y" HorizontalAlignment="Left" Margin="33.185,19,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                <Label Content="Z" HorizontalAlignment="Left" Margin="103.185,19,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="-1" Grid.ColumnSpan="2"/>
+                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="18.185,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="-1" Grid.Column="1"/>
+                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="85.185,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="0" Grid.Column="1" IsEnabled="False"/>
+                <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="22" Margin="7,111,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.EntertainmentCreatorForm_Z_Message}" VerticalAlignment="Top" Width="197"/>
+                <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Add}" Grid.Column="1" HorizontalAlignment="Left" Margin="71,138,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddLightCommand}"/>
             </Grid>
         </GroupBox>
-        <ListBox HorizontalAlignment="Left" Height="173" Margin="399,10,0,0" VerticalAlignment="Top" Width="143"/>
-        <ListBox HorizontalAlignment="Left" Height="173" Margin="10,10,0,0" VerticalAlignment="Top" Width="159"/>
+        <ListBox HorizontalAlignment="Left" Height="173" Margin="399,10,0,0" VerticalAlignment="Top" Width="143" ItemsSource="{Binding ListEtLights}"/>
+        <ListBox HorizontalAlignment="Left" Height="173" Margin="10,10,0,0" VerticalAlignment="Top" Width="159" ItemsSource="{Binding ListAvailableLights}"/>
+        <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Cancel}" HorizontalAlignment="Left" Margin="467,192,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Save}" HorizontalAlignment="Left" Margin="387,192,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

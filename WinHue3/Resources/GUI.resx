@@ -1596,4 +1596,19 @@
   <data name="MainForm_Tab_Home_Group_Creators_EntertainmentCreator" xml:space="preserve">
     <value>Entertainment Creator</value>
   </data>
+  <data name="EntertainmentCreatorForm_Coordinates" xml:space="preserve">
+    <value>Coordinates</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Z_Message" xml:space="preserve">
+    <value>Z is not used at the moment.</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
 </root>
