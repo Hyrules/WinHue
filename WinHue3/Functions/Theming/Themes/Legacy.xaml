@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WinHue3.Theming"
+                    x:Name="themeLegacy">
+
+    <Color x:Key="theme_HeaderBackground">#ff2b579a</Color>
+    <SolidColorBrush x:Key="theme_HeaderBackgroundBrush" Color="{StaticResource theme_HeaderBackground}"></SolidColorBrush>
+    <Color x:Key="theme_HeaderText">#ffffff</Color>
+    <SolidColorBrush x:Key="theme_HeaderTextBrush" Color="{StaticResource theme_HeaderText}"></SolidColorBrush>
+
+    <Color x:Key="theme_ToolBarBackground">#FFEEF5FD</Color>
+    <SolidColorBrush x:Key="theme_ToolBarBackgroundBrush" Color="{StaticResource theme_ToolBarBackground}"></SolidColorBrush>
+    <Color x:Key="theme_ToolBarText">#000000</Color>
+    <SolidColorBrush x:Key="theme_ToolBarTextBrush" Color="{StaticResource theme_ToolBarText}"></SolidColorBrush>
+
+    <Color x:Key="theme_StatusBar">#FFF1EDED</Color>
+    <SolidColorBrush x:Key="theme_StatusBarBrush" Color="{StaticResource theme_ToolBarText}"></SolidColorBrush>
+
+    <Color x:Key="theme_MainBackground">#ffffff</Color>
+    <SolidColorBrush x:Key="theme_MainBackgroundBrush" Color="{StaticResource theme_MainBackground}"></SolidColorBrush>
+    <Color x:Key="theme_MainText">#000000</Color>
+    <SolidColorBrush x:Key="theme_MainTextBrush" Color="{StaticResource theme_MainText}"></SolidColorBrush>
+    
+
+</ResourceDictionary>
