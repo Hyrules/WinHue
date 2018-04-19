@@ -26,7 +26,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
             CheckForUpdate = true;
             CheckForBridgeUpdate = true;
             ThemeColor = "Cyan";
-            Theme = "BaseLight";
+            Theme = "Light";
+            ThemeLayout = "Modern";
             UseLastBriState = false;
             MinimizeToTray = false;
             UsePropertyGrid = false;
@@ -71,6 +72,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public string ThemeColor { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public string Theme { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public string ThemeLayout { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public bool UseLastBriState { get; set; }
         [DataMember(EmitDefaultValue = true)]

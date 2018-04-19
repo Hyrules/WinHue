@@ -132,11 +132,18 @@
                         <ComboBoxItem Content="Taupe" Tag="Taupe"/>
                         <ComboBoxItem Content="Sienna" Tag="Sienna"/>
                     </controls:CommandComboBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
-                        <ComboBoxItem Content="BaseLight"></ComboBoxItem>
-                        <ComboBoxItem Content="BaseDark"></ComboBoxItem>
+                    <controls:CommandComboBox x:Name="cbTheme" HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" Command="{Binding ChangeThemeCommand}">
+                        <ComboBoxItem Content="Light"></ComboBoxItem>
+                        <ComboBoxItem Content="Dark"></ComboBoxItem>
+                        <ComboBoxItem Content="Legacy"></ComboBoxItem>
                     </controls:CommandComboBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60">
+                    </Label>
+                    <controls:CommandComboBox x:Name="cbThemeLayout" HorizontalAlignment="Left" Margin="75,65,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}">
+                        <ComboBoxItem Content="Legacy"/>
+                        <ComboBoxItem Content="Modern"/>
+                    </controls:CommandComboBox>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Layout}" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
 

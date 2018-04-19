@@ -17,6 +17,7 @@ namespace WinHue3.Functions.Application_Settings
         private bool _checkforbridgeupdate;
         private string _theme;
         private string _themecolor;
+        private string _themelayout;
         private bool _minimizeToTray;
         private bool _usePropGrid;
 
@@ -33,6 +34,7 @@ namespace WinHue3.Functions.Application_Settings
             _checkforbridgeupdate = WinHueSettings.settings.CheckForBridgeUpdate;
             _theme = WinHueSettings.settings.Theme;
             _themecolor = WinHueSettings.settings.ThemeColor;
+            _themelayout = WinHueSettings.settings.ThemeLayout;
             _minimizeToTray = WinHueSettings.settings.MinimizeToTray;
             _usePropGrid = WinHueSettings.settings.UsePropertyGrid;
         }
@@ -107,6 +109,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _themecolor;
             set => SetProperty(ref _themecolor,value);
+        }
+
+        public string ThemeLayout
+        {
+            get => _themelayout;
+            set => SetProperty(ref _themelayout, value);
         }
 
         public bool MinimizeToTray

@@ -64,7 +64,7 @@
             <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}}}"/>
         </Style>
 
-      
+
         <Style x:Key="TbWrap" TargetType="{x:Type TextBlock}" >
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="Width" Value="auto"/>
@@ -89,7 +89,7 @@
             </Style.Triggers>
 
         </Style>
-       
+
         <ControlTemplate x:Key="ExpanderControlTemplate1" TargetType="{x:Type Expander}">
             <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="True">
                 <DockPanel>
@@ -359,20 +359,26 @@
     <Window.DataContext>
         <mainForm:MainFormViewModel/>
     </Window.DataContext>
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding LoadLifxDevicesCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="81" />
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
+        <Menu Height="31" VerticalAlignment="Top" >
+            <Menu.Background>
+                <SolidColorBrush Color="{DynamicResource theme_HeaderBackground}"/>
+            </Menu.Background>
+            <Menu.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_HeaderText}"/>
+            </Menu.Foreground>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" Foreground="Black" >
                     <MenuItem.Icon>
@@ -513,6 +519,9 @@
             </MenuItem>
         </Menu>
         <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2" Margin="0,1,0,0">
+            <StatusBar.Background>
+                <SolidColorBrush Color="{DynamicResource accent}"/>
+            </StatusBar.Background>
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -597,7 +606,7 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Margin="0,76,-0.333,0.333" Grid.RowSpan="2" Background="{StaticResource HeaderBackgroundBrush}">
+        <Grid Margin="0,76,-0.333,27" Grid.RowSpan="3" Background="{StaticResource HeaderBackgroundBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
@@ -615,13 +624,19 @@
                 </TextBlock.Style>
             </TextBlock>
             <Grid Grid.Column="1">
+                <Grid.Background>
+                    <SolidColorBrush Color="{DynamicResource theme_HeaderBackground}"/>
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" MinHeight="472"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
-
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="-1" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}">
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Background="{x:Null}" Margin="0,0,10,0" Height="25.96" Padding="5,0,5,2" >
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Margin="10,0" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="-1" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" Style="{DynamicResource BindableSliderStyleHue}">
                         <sliders:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                                 <GradientStop Color="#FFFF0000" />
@@ -634,8 +649,12 @@
                             </LinearGradientBrush>
                         </sliders:BindableHueSlider.Background>
                     </sliders:BindableHueSlider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}">
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Background="{x:Null}" Margin="0,10,10,0" Padding="5,0,5,2">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <sliders:BindableSlider x:Name="SlBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{DynamicResource BindableSliderStyleHue}">
                         <sliders:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                                 <GradientStop Color="White" Offset="1"/>
@@ -643,8 +662,12 @@
                             </LinearGradientBrush>
                         </sliders:BindableSlider.Background>
                     </sliders:BindableSlider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlSat" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}">
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Background="{x:Null}" Margin="0,10,10,0" Padding="5,0,5,2">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <sliders:BindableSlider x:Name="SlSat" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10,0" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{DynamicResource BindableSliderStyleHue}">
                         <sliders:BindableSlider.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="White" x:Name="SlSatStartGradient"/>
@@ -652,21 +675,28 @@
                             </LinearGradientBrush>
                         </sliders:BindableSlider.Background>
                     </sliders:BindableSlider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlCt" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}">
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Background="{x:Null}" Margin="0,10,10,0" Padding="5,0,5,2">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <sliders:BindableSlider x:Name="SlCt" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{DynamicResource BindableSliderStyleHue}">
                         <sliders:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                                <GradientStop Color="#FFFF8912" Offset="0"/>
-                                <GradientStop Color="#FFFFF9FD" Offset="1"/>
+                                <GradientStop Color="#FFFF890E" Offset="0"/>
+                                <GradientStop Color="#FFFFFEFA" Offset="1"/>
                             </LinearGradientBrush>
                         </sliders:BindableSlider.Background>
                     </sliders:BindableSlider>
-                    <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
+                    <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Background="{x:Null}" Padding="5,0,5,2" FontSize="20" FontFamily="Segoe UI Light">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
                         <Label.Style>
-                            <Style TargetType="Label">
+                            <Style TargetType="{x:Type Label}">
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=TabType, Path=SelectedValue}" Value="tiLIFX">
+                                    <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
 
@@ -674,12 +704,20 @@
                             </Style>
                         </Label.Style>
                     </Label>
-                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _FontColor="White" _BackgroundColor="{StaticResource HeaderBackgroundBrush}" >
+                    <Rectangle Height="4.5" Margin="105.71,0">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="{DynamicResource theme_ToolBarBackground}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _BackgroundColor="{x:Null}" Margin="10,0" Foreground="{x:Null}" >
+                        <sliders:XYSliders._FontColor>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </sliders:XYSliders._FontColor>
                         <sliders:XYSliders.Style>
-                            <Style TargetType="sliders:XYSliders">
+                            <Style TargetType="{x:Type sliders:XYSliders}">
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=TabType, Path=SelectedValue}" Value="tiLIFX">
+                                    <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
 
@@ -687,10 +725,24 @@
                             </Style>
                         </sliders:XYSliders.Style>
                     </sliders:XYSliders>
-                    <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{StaticResource {x:Type Slider}}" />
-
-
+                    <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Background="{x:Null}" FontSize="20" FontFamily="Segoe UI Light" Padding="5,0,5,2" >
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Rectangle Height="4.5" Margin="71.113,0">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="{DynamicResource theme_ToolBarBackground}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{DynamicResource BindableSliderStyleTrack}" BorderBrush="{x:Null}">
+                        <sliders:BindableSlider.Foreground>
+                            <SolidColorBrush Color="{DynamicResource accent}"/>
+                        </sliders:BindableSlider.Foreground>
+                        <sliders:BindableSlider.Background>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlBackgroundHover}"/>
+                        </sliders:BindableSlider.Background>
+                    </sliders:BindableSlider>
 
                 </StackPanel>
             </Grid>
@@ -707,7 +759,6 @@
                 behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                 behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
                 ItemsSource="{Binding ListBridgeObjects}"
-                            Margin="1,0,4.667,0"
                             >
 
                 <ListView.Resources>
@@ -835,8 +886,11 @@
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>-->
         </tb:TaskbarIcon>
-        <ToolBarTray Height="45" Margin="0,31,0,0" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSearch}">
+        <ToolBarTray Height="45" Margin="0,31,0,0" VerticalAlignment="Top" IsLocked="True">
+            <ToolBarTray.Background>
+                <SolidColorBrush Color="{DynamicResource theme_HeaderBackground}"/>
+            </ToolBarTray.Background>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSearch}" Style="{DynamicResource ToolBarStyle}">
                 <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
                     <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
@@ -851,7 +905,7 @@
                     <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSensorOp}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSensorOp}" Style="{DynamicResource ToolBarStyle}">
                 <Separator/>
                 <WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetStatus}" Height="24" VerticalContentAlignment="Center" Padding="2,2,5,5"/>
@@ -867,7 +921,7 @@
                 </WrapPanel>
 
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCommands}" Padding="0,0,12,0">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCommands}" Padding="0,0,12,0" Style="{DynamicResource ToolBarStyle}">
                 <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" Style="{StaticResource ImageEnabled}"/>
@@ -877,13 +931,13 @@
                 </Button>
                 <ToggleButton Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off" Padding="2" Margin="6,0,4,0" IsChecked="{Binding MainFormModel.On}"/>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuRefresh}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuRefresh}" Style="{DynamicResource ToolBarStyle}">
                 <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">
                     <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCreators}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCreators}" Style="{DynamicResource ToolBarStyle}">
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOn-Large.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
@@ -914,7 +968,7 @@
                 </Button>
 
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSettings}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSettings}" Style="{DynamicResource ToolBarStyle}">
                 <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" Command="{Binding ChangeBridgeSettingsCommand}" >
                     <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
@@ -929,7 +983,7 @@
                     <Image Source="/WinHue3;component/Resources/resettt.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
             </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuEvents}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuEvents}" Style="{DynamicResource ToolBarStyle}">
                 <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" Command="{Binding ShowEventLogCommand}">
                     <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32" Style="{StaticResource ImageEnabled}"/>

@@ -48,6 +48,8 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.MinimizeToTray = _appSettingsViewModel.MainSettingsModel.MinimizeToTray;
             WinHueSettings.settings.UsePropertyGrid = _appSettingsViewModel.MainSettingsModel.UsePropGrid;
             WinHueSettings.settings.SlidersBehavior = _appSettingsViewModel.DefaultModel.SlidersBehavior;
+            WinHueSettings.settings.ThemeLayout = _appSettingsViewModel.MainSettingsModel.ThemeLayout;
+            WinHueSettings.settings.Theme = _appSettingsViewModel.MainSettingsModel.Theme;
 
             string pathtostartupfile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "WinHue3.lnk");
 
@@ -75,8 +77,26 @@ namespace WinHue3.Functions.Application_Settings
 
             }
             //registryKey.Close();
-    
+
             WinHueSettings.SaveSettings();
+
+            //----BEGIN THEME CHANGE----
+            //prepare to change theme resources
+            ResourceDictionary theme = new ResourceDictionary();
+            ResourceDictionary layout = new ResourceDictionary();
+            Application.Current.Resources.MergedDictionaries.Clear();
+
+            //change theme
+            theme.Source = new Uri(@"/Theming/Themes/" + WinHueSettings.settings.Theme + ".xaml", UriKind.Relative);
+            Application.Current.Resources.MergedDictionaries.Add(theme);
+
+            //change layout
+            layout.Source = new Uri(@"/Theming/Layouts/layout" + WinHueSettings.settings.ThemeLayout + ".xaml", UriKind.Relative);
+            Application.Current.Resources.MergedDictionaries.Add(layout);
+
+            //MessageBox.Show(WinHue3.Functions.Application_Settings.Settings.WinHueSettings.settings.Theme);
+            //----END THEME CHANGE----
+
             DialogResult = true;
             Close();
         }

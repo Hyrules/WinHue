@@ -1611,4 +1611,7 @@
   <data name="EntertainmentCreatorForm_Add" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_Layout" xml:space="preserve">
+    <value>Disposition</value>
+  </data>
 </root>
