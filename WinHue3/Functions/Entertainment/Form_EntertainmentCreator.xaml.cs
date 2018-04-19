@@ -23,5 +23,10 @@ namespace WinHue3.Functions.Entertainment
         {
             InitializeComponent();
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

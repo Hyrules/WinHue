@@ -31,8 +31,8 @@
         </GroupBox>
         <ListBox HorizontalAlignment="Left" Height="173" Margin="399,10,0,0" VerticalAlignment="Top" Width="143" ItemsSource="{Binding ListEtLights}"/>
         <ListBox HorizontalAlignment="Left" Height="173" Margin="10,10,0,0" VerticalAlignment="Top" Width="159" ItemsSource="{Binding ListAvailableLights}"/>
-        <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Cancel}" HorizontalAlignment="Left" Margin="467,192,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Save}" HorizontalAlignment="Left" Margin="387,192,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnClose" Content="{x:Static resx:GUI.EntertainmentCreatorForm_Cancel}" HorizontalAlignment="Left" Margin="467,192,0,0" VerticalAlignment="Top" Width="75" Click="btnClose_Click"/>
+        <Button x:Name="btnSave" Content="{x:Static resx:GUI.EntertainmentCreatorForm_Save}" HorizontalAlignment="Left" Margin="387,192,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>
