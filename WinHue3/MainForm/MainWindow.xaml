@@ -606,7 +606,10 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Margin="0,76,-0.333,27" Grid.RowSpan="3" Background="{StaticResource HeaderBackgroundBrush}">
+        <Grid Margin="0,76,-0.333,27" Grid.RowSpan="3">
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="350"/>
@@ -680,14 +683,7 @@
                             <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
                         </Label.Foreground>
                     </Label>
-                    <sliders:BindableSlider x:Name="SlCt" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{DynamicResource BindableSliderStyleHue}">
-                        <sliders:BindableSlider.Background>
-                            <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                                <GradientStop Color="#FFFF890E" Offset="0"/>
-                                <GradientStop Color="#FFFFFEFA" Offset="1"/>
-                            </LinearGradientBrush>
-                        </sliders:BindableSlider.Background>
-                    </sliders:BindableSlider>
+                    <sliders:BindableSlider x:Name="SlCt" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10,0,10,10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{DynamicResource BindableSliderStyleHue}" Background="Black"/>
                     <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Background="{x:Null}" Padding="5,0,5,2" FontSize="20" FontFamily="Segoe UI Light">
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
@@ -706,7 +702,7 @@
                     </Label>
                     <Rectangle Height="4.5" Margin="105.71,0">
                         <Rectangle.Fill>
-                            <SolidColorBrush Color="{DynamicResource theme_ToolBarBackground}"/>
+                            <SolidColorBrush Color="{DynamicResource accent}" Opacity="0.5"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _BackgroundColor="{x:Null}" Margin="10,0" Foreground="{x:Null}" >
@@ -732,7 +728,7 @@
                     </Label>
                     <Rectangle Height="4.5" Margin="71.113,0">
                         <Rectangle.Fill>
-                            <SolidColorBrush Color="{DynamicResource theme_ToolBarBackground}"/>
+                            <SolidColorBrush Color="{DynamicResource accent}" Opacity="0.5"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{DynamicResource BindableSliderStyleTrack}" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="{x:Null}"/>
@@ -751,7 +747,7 @@
                 behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                 behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                 behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                ItemsSource="{Binding ListBridgeObjects}"
+                ItemsSource="{Binding ListBridgeObjects}" BorderBrush="{x:Null}" BorderThickness="0"
                             >
 
                 <ListView.Resources>
@@ -853,8 +849,15 @@
                                         <ControlTemplate>
                                             <Expander IsExpanded="True">
                                                 <Expander.Header >
-                                                    <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
-                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
+                                                    <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}">
+                                                        <Grid.Background>
+                                                            <SolidColorBrush Color="{DynamicResource theme_ToolBarBackground}"/>
+                                                        </Grid.Background>
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Normal" FontSize="16" FontStyle="Normal" Padding="3" FontFamily="Segoe UI">
+                                                            <TextBlock.Foreground>
+                                                                <SolidColorBrush Color="{DynamicResource accent}"/>
+                                                            </TextBlock.Foreground>
+                                                        </TextBlock>
                                                     </Grid>
                                                 </Expander.Header>
                                                 <ItemsPresenter />

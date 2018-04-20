@@ -1368,8 +1368,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Sliders:BindableSlider}">
-                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
-                        <Grid>
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" Height="22">
+                        <Grid Height="Auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
@@ -1384,7 +1384,7 @@
                             </Border>
                             <Track x:Name="PART_Track" Grid.Row="1">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="Slider.DecreaseLarge" Margin="0,8">
+                                    <RepeatButton Command="Slider.DecreaseLarge" Margin="0,6.5">
                                         <RepeatButton.Background>
                                             <SolidColorBrush Color="{DynamicResource accent}"/>
                                         </RepeatButton.Background>
@@ -1406,7 +1406,7 @@
                                     </RepeatButton>
                                 </Track.DecreaseRepeatButton>
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="Slider.IncreaseLarge" Margin="0,8" RenderTransformOrigin="0.5,0.5" Background="{DynamicResource theme_SliderBackgroundBrush}">
+                                    <RepeatButton Command="Slider.IncreaseLarge" Margin="0,6.5" RenderTransformOrigin="0.5,0.5" Background="{DynamicResource theme_SliderBackgroundBrush}">
                                         <RepeatButton.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform ScaleY="-1"/>
@@ -1433,7 +1433,7 @@
                                     </RepeatButton>
                                 </Track.IncreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb x:Name="Thumb" Focusable="False" OverridesDefaultStyle="True" VerticalAlignment="Center" Width="7" Template="{DynamicResource ThumbControlTemplate}"/>
+                                    <Thumb x:Name="Thumb" Focusable="False" OverridesDefaultStyle="True" VerticalAlignment="Center" Width="8" Template="{DynamicResource ThumbControlTemplate}" Height="18"/>
                                 </Track.Thumb>
                             </Track>
                         </Grid>
@@ -1689,7 +1689,7 @@
                             </Border>
                             <Track x:Name="PART_Track" Grid.Row="1">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="Slider.DecreaseLarge">
+                                    <RepeatButton Command="Slider.DecreaseLarge" Height="5">
                                         <RepeatButton.Style>
                                             <Style TargetType="{x:Type RepeatButton}">
                                                 <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -1708,7 +1708,7 @@
                                     </RepeatButton>
                                 </Track.DecreaseRepeatButton>
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="Slider.IncreaseLarge">
+                                    <RepeatButton Command="Slider.IncreaseLarge" Height="5">
                                         <RepeatButton.Style>
                                             <Style TargetType="{x:Type RepeatButton}">
                                                 <Setter Property="OverridesDefaultStyle" Value="True"/>

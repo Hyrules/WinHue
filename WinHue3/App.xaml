@@ -63,7 +63,7 @@
             <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="{DynamicResource accent2}"></SolidColorBrush>
 
             <!--This will be moved somewhere else eventually-->
-            <Color x:Key="accent">#00B7C3</Color>
+            <Color x:Key="accent">#107C10</Color>
             <SolidColorBrush x:Key="accentBrush" Color="{DynamicResource accent}"></SolidColorBrush>
 
             <ResourceDictionary.MergedDictionaries>
