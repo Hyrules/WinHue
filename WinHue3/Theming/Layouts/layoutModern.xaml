@@ -1384,7 +1384,10 @@
                             </Border>
                             <Track x:Name="PART_Track" Grid.Row="1">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="Slider.DecreaseLarge" Margin="0,8" Background="{TemplateBinding Foreground}">
+                                    <RepeatButton Command="Slider.DecreaseLarge" Margin="0,8">
+                                        <RepeatButton.Background>
+                                            <SolidColorBrush Color="{DynamicResource accent}"/>
+                                        </RepeatButton.Background>
                                         <RepeatButton.Style>
                                             <Style TargetType="{x:Type RepeatButton}">
                                                 <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -1403,7 +1406,7 @@
                                     </RepeatButton>
                                 </Track.DecreaseRepeatButton>
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="Slider.IncreaseLarge" Margin="0,8" RenderTransformOrigin="0.5,0.5" Background="{TemplateBinding Background}">
+                                    <RepeatButton Command="Slider.IncreaseLarge" Margin="0,8" RenderTransformOrigin="0.5,0.5" Background="{DynamicResource theme_SliderBackgroundBrush}">
                                         <RepeatButton.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform ScaleY="-1"/>

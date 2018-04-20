@@ -735,14 +735,7 @@
                             <SolidColorBrush Color="{DynamicResource theme_ToolBarBackground}"/>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{DynamicResource BindableSliderStyleTrack}" BorderBrush="{x:Null}">
-                        <sliders:BindableSlider.Foreground>
-                            <SolidColorBrush Color="{DynamicResource accent}"/>
-                        </sliders:BindableSlider.Foreground>
-                        <sliders:BindableSlider.Background>
-                            <SolidColorBrush Color="{DynamicResource theme_ControlBackgroundHover}"/>
-                        </sliders:BindableSlider.Background>
-                    </sliders:BindableSlider>
+                    <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{DynamicResource BindableSliderStyleTrack}" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="{x:Null}"/>
 
                 </StackPanel>
             </Grid>

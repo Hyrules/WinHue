@@ -14,6 +14,9 @@
     <Color x:Key="theme_ToolBarText">#000000</Color>
     <SolidColorBrush x:Key="theme_ToolBarTextBrush" Color="{StaticResource theme_ToolBarText}"></SolidColorBrush>
 
+
+    <Color x:Key="theme_SliderBackground">#d9d9d9</Color>
+    <SolidColorBrush x:Key="theme_SliderBackgroundBrush" Color="{StaticResource theme_SliderBackground}"></SolidColorBrush>
     <Color x:Key="theme_SliderThumb">#ffffff</Color>
     <SolidColorBrush x:Key="theme_SliderThumbBrush" Color="{StaticResource theme_SliderThumb}"></SolidColorBrush>
     <Color x:Key="theme_SliderThumbDisabled">#e6e6e6</Color>
