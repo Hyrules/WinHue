@@ -106,6 +106,7 @@
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Grid>
+                    <Button Content="Accent" Margin="75,92,227,225" Click="btnAccent_Click"></Button>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="60"/>
                     <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}"  Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
                         <ComboBoxItem Content="Red" Tag="Red"/>

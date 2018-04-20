@@ -94,6 +94,9 @@ namespace WinHue3.Functions.Application_Settings
             layout.Source = new Uri(@"/Theming/Layouts/layout" + WinHueSettings.settings.ThemeLayout + ".xaml", UriKind.Relative);
             Application.Current.Resources.MergedDictionaries.Add(layout);
 
+            //change accent
+            Application.Current.Resources["accent"] = WinHueSettings.settings.ThemeColor;
+
             //MessageBox.Show(WinHue3.Functions.Application_Settings.Settings.WinHueSettings.settings.Theme);
             //----END THEME CHANGE----
 
@@ -107,6 +110,21 @@ namespace WinHue3.Functions.Application_Settings
            // Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(WinHueSettings.settings.ThemeColor), Fluent.ThemeManager.GetAppTheme(WinHueSettings.settings.Theme));
             
             Close();
+        }
+
+        private void btnAccent_Click(object sender, RoutedEventArgs e)
+        {
+            //Work in Progress
+
+            var curColor = WinHueSettings.settings.ThemeColor;
+            System.Drawing.Color _color = System.Drawing.Color.FromArgb(curColor.A, curColor.R, curColor.G, curColor.B);
+            var cp = new System.Windows.Forms.ColorDialog();
+            cp.Color = _color;
+            cp.ShowDialog();
+            System.Windows.Media.Color newAccent = System.Windows.Media.Color.FromArgb(cp.Color.A, cp.Color.R, cp.Color.G, cp.Color.B);
+            WinHueSettings.settings.ThemeColor = newAccent;
+
+
         }
 
     }

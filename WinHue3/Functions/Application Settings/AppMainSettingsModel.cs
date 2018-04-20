@@ -16,7 +16,7 @@ namespace WinHue3.Functions.Application_Settings
         private bool _checkupdate;
         private bool _checkforbridgeupdate;
         private string _theme;
-        private string _themecolor;
+        private System.Windows.Media.Color _themecolor;
         private string _themelayout;
         private bool _minimizeToTray;
         private bool _usePropGrid;
@@ -105,7 +105,7 @@ namespace WinHue3.Functions.Application_Settings
             set => SetProperty(ref _theme, value);
         }
 
-        public string Themecolor
+        public System.Windows.Media.Color Themecolor
         {
             get => _themecolor;
             set => SetProperty(ref _themecolor,value);

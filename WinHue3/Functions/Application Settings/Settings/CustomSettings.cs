@@ -25,7 +25,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             DefaultBriLight = 255;
             CheckForUpdate = true;
             CheckForBridgeUpdate = true;
-            ThemeColor = "Cyan";
+            ThemeColor = System.Windows.Media.Colors.Cyan;
             Theme = "Light";
             ThemeLayout = "Modern";
             UseLastBriState = false;
@@ -69,7 +69,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
         [DataMember(EmitDefaultValue = true)]
         public bool CheckForBridgeUpdate { get; set; }
         [DataMember(EmitDefaultValue = true)]
-        public string ThemeColor { get; set; }
+        public System.Windows.Media.Color ThemeColor { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public string Theme { get; set; }
         [DataMember(EmitDefaultValue = true)]
