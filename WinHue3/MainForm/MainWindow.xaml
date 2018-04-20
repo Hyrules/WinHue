@@ -721,6 +721,7 @@
                             </Style>
                         </sliders:XYSliders.Style>
                     </sliders:XYSliders>
+
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Background="{x:Null}" FontSize="20" FontFamily="Segoe UI Light" Padding="5,0,5,2" >
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
