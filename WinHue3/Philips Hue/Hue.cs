@@ -50,7 +50,6 @@ namespace WinHue3.Philips_Hue
             Dictionary<string, BasicConfig> newdetectedBridge = new Dictionary<string, BasicConfig>();
 
             // Detect using UPNP
-            bool finished;
 
             try
             {
@@ -62,7 +61,7 @@ namespace WinHue3.Philips_Hue
                     try
                     {
                         List<ManagedUPnP.Device> upnpDevices =
-                            Discovery.FindDevices(null, 3000, int.MaxValue, out finished).ToList();
+                            Discovery.FindDevices(null, 3000, int.MaxValue, out bool finished).ToList();
 
                         foreach (ManagedUPnP.Device dev in upnpDevices)
                         {
@@ -202,6 +201,7 @@ namespace WinHue3.Philips_Hue
 
         private static void _ipscanBgw_DoWork(object sender, DoWorkEventArgs e)
         {
+
             log.Info("Starting IP scan for bridge...");
             IPAddress ip = IPAddress.Parse(GetLocalIPAddress());
             byte[] ipArray = ip.GetAddressBytes();

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -16,7 +18,6 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public Dictionary<string, BridgeSaveSettings> BridgeInfo { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public string DefaultBridge { get; set; }
-
 
         public override string ToString()
         {

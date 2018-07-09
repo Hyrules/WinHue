@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Threading;
 using Hardcodet.Wpf.TaskbarNotification;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.Grouping;
 using WinHue3.Functions.HotKeys;
 using WinHue3.Functions.PropertyGrid;
 using WinHue3.Philips_Hue;
@@ -17,6 +19,9 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using HotKey = WinHue3.Functions.HotKeys.HotKey;
+using System.Net.NetworkInformation;
+using WinHue3.Functions.BridgeFinder;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 
 namespace WinHue3.MainForm
 {
@@ -97,15 +102,30 @@ namespace WinHue3.MainForm
 
         private bool CheckBridge(Bridge bridge)
         {
-            bool bridgeready = false;
             log.Info("Checking if ip is bridge...");
+            /*bool bridgeready = false;
+            
             if (Hue.IsBridge(bridge.IpAddress))
             {
                 log.Info("IP is bridge. Checking if bridge is authorized...");
                 bridgeready = bridge.CheckAuthorization();
                 log.Info($"Bridge authorization : {bridgeready}");
             }
-            return bridgeready;
+            return bridgeready;*/
+            BasicConfig bc = bridge.GetBridgeBasicConfig();
+            if (bc != null)
+            {
+                bridge.ApiVersion = bc.apiversion;
+                bridge.Name = bc.name;
+                bridge.SwVersion = bc.swversion;
+                WinHueSettings.bridges.BridgeInfo[bridge.Mac].apiversion = bridge.ApiVersion;
+                WinHueSettings.bridges.BridgeInfo[bridge.Mac].swversion = bridge.SwVersion;
+                WinHueSettings.bridges.BridgeInfo[bridge.Mac].name = bridge.Name;
+                WinHueSettings.SaveBridges();
+                return true;
+            }
+
+            return false;
         }
 
         private void Initialize()
@@ -128,7 +148,6 @@ namespace WinHue3.MainForm
                 }
             }
             LoadBridges();
-
         }
 
         private void LoadBridges()
@@ -164,7 +183,7 @@ namespace WinHue3.MainForm
                             Mac = b.Key
                         };
                         if (b.Value.apikey == string.Empty) continue;
-                        bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
+                        
                         bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
                         bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
 
@@ -184,14 +203,19 @@ namespace WinHue3.MainForm
                     if (!CheckBridge(br))
                     {
                         log.Info("Bridge IP has changed... Pairing needed.");
+                        Form_BridgeFinder fbf = new Form_BridgeFinder(br) {Owner = Application.Current.MainWindow};
+                        fbf.ShowDialog();
 
-                        if (DoBridgePairing(ListBridges))
+                        if (fbf.IpFound())
                         {
+                            br.BridgeNotResponding += Bridge_BridgeNotResponding;
+                            br.IpAddress = fbf.newip;
                             if (!br.IsDefault) continue;
                             SelectedBridge = br;
                         }
                         else
                         {
+                            DoBridgePairing(ListBridges);
                             break;
                         }
                     }
@@ -216,3 +240,4 @@ namespace WinHue3.MainForm
 
     }
 }
+

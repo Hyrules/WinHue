@@ -53,7 +53,7 @@ namespace WinHue3.Utils
         /// <returns>New image of the light</returns>
         public static ImageSource GetImageForLight(LightImageState imagestate, string modelid = null)
         {
-            string modelID = modelid ?? "default";
+            string modelID = modelid ?? "DefaultHUE";
             string state = string.Empty;
 
             switch (imagestate)
@@ -75,7 +75,7 @@ namespace WinHue3.Utils
             if (modelID == string.Empty)
             {
                 log.Debug("STATE : " + state + " empty MODELID using default images");
-                return LightImageLibrary.Images["Default"][state];
+                return LightImageLibrary.Images["DefaultHUE"][state];
             }
 
             ImageSource newImage;
@@ -89,7 +89,7 @@ namespace WinHue3.Utils
             else
             {
                 log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " using default images.");
-                newImage = LightImageLibrary.Images["Default"][state];
+                newImage = LightImageLibrary.Images["DefaultHUE"][state];
             }
             return newImage;
         }
@@ -1177,7 +1177,7 @@ namespace WinHue3.Utils
                                 on = true,
                                 transitiontime = tt
                             }; ;
-                            if (!WinHueSettings.settings.UseLastBriState)
+                            if (!WinHueSettings.settings.UseLastBriState && bresult.state.bri != null)
                             {
                                 newstate.bri = dimvalue ?? WinHueSettings.settings.DefaultBriLight;
                             }

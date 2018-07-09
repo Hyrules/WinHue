@@ -14,6 +14,7 @@ namespace WinHue3.Functions.HotKeys.Creator
         private string _name;
         private string _description;
         private string _id;
+        private string _programpath;
 
         public Brush RecordButtonColor
         {
@@ -62,9 +63,14 @@ namespace WinHue3.Functions.HotKeys.Creator
             _key = default(Key);
             _modifierKeys = default(ModifierKeys);
             _recordbuttoncolor = new SolidColorBrush() { Color = System.Windows.Media.Color.FromArgb(0,240, 240, 240) };
-
+            _programpath = null;
         }
 
+        public string ProgramPath
+        {
+            get => _programpath;
+            set => SetProperty(ref _programpath, value);
+        }
 
     }
 }

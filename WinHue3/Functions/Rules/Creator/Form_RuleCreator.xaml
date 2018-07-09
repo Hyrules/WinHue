@@ -35,7 +35,7 @@
         <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708">
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Conditions}">
                 <Grid>
-                    <ListView HorizontalAlignment="Left" Height="294" Margin="350,7,0,0" VerticalAlignment="Top" Width="342" ItemsSource="{Binding ListRuleConditions}" SelectedItem="{Binding SelectedRuleCondition }" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="1" behaviors:OnClickBehavior.Command="{Binding Condition_SelectRuleConditionCommand}" BorderBrush="#FFABADB3">
+                    <ListView HorizontalAlignment="Left" Height="264" Margin="350,7,0,0" VerticalAlignment="Top" Width="342" ItemsSource="{Binding ListRuleConditions}" SelectedItem="{Binding SelectedRuleCondition }" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="1" behaviors:OnClickBehavior.Command="{Binding Condition_SelectRuleConditionCommand}" BorderBrush="#FFABADB3">
                         <ListView.InputBindings>
                             <KeyBinding Key="Escape" Command="{Binding Condition_ClearSelectedRuleConditionCommand}"/>
                         </ListView.InputBindings>
@@ -65,7 +65,6 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-                                    <Button Content="X" Background="Transparent" BorderBrush="Transparent" Width="20" Height="20" Grid.Column="1" Grid.Row="0" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.Condition_RemoveRuleConditionCommand}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -122,6 +121,8 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </controls:CommandComboBox>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Delete}" HorizontalAlignment="Left" Margin="617,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25"/>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" Margin="350,276,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="25"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}">

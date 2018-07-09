@@ -241,6 +241,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching for bridge....
+        /// </summary>
+        public static string BridgeFinder_Title {
+            get {
+                return ResourceManager.GetString("BridgeFinder_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trying IP : .
+        /// </summary>
+        public static string BridgeFinder_Trying {
+            get {
+                return ResourceManager.GetString("BridgeFinder_Trying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         public static string BridgeSettingsForm_ApplyButton {
@@ -745,6 +763,60 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string EntertainmentCreatorForm_Add {
+            get {
+                return ResourceManager.GetString("EntertainmentCreatorForm_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string EntertainmentCreatorForm_Cancel {
+            get {
+                return ResourceManager.GetString("EntertainmentCreatorForm_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinates.
+        /// </summary>
+        public static string EntertainmentCreatorForm_Coordinates {
+            get {
+                return ResourceManager.GetString("EntertainmentCreatorForm_Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string EntertainmentCreatorForm_Save {
+            get {
+                return ResourceManager.GetString("EntertainmentCreatorForm_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entertainment Creator.
+        /// </summary>
+        public static string EntertainmentCreatorForm_Title {
+            get {
+                return ResourceManager.GetString("EntertainmentCreatorForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z is not used at the moment..
+        /// </summary>
+        public static string EntertainmentCreatorForm_Z_Message {
+            get {
+                return ResourceManager.GetString("EntertainmentCreatorForm_Z_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event Log....
         /// </summary>
         public static string EventLogForm_Title {
@@ -961,11 +1033,29 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose....
+        /// </summary>
+        public static string Form_HotKeyCreator_AppButton {
+            get {
+                return ResourceManager.GetString("Form_HotKeyCreator_AppButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bridge Object.
         /// </summary>
         public static string Form_HotKeyCreator_BridgeObject {
             get {
                 return ResourceManager.GetString("Form_HotKeyCreator_BridgeObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a program to start with the Hotkey (optional).
+        /// </summary>
+        public static string Form_HotKeyCreator_ChooseApp {
+            get {
+                return ResourceManager.GetString("Form_HotKeyCreator_ChooseApp", resourceCulture);
             }
         }
         
@@ -1065,6 +1155,15 @@ namespace WinHue3.Resources {
         public static string Form_HotKeyCreator_Preset {
             get {
                 return ResourceManager.GetString("Form_HotKeyCreator_Preset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program Path.
+        /// </summary>
+        public static string Form_HotKeyCreator_ProgramPath {
+            get {
+                return ResourceManager.GetString("Form_HotKeyCreator_ProgramPath", resourceCulture);
             }
         }
         
@@ -1762,6 +1861,33 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sensors.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensor {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Flag.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensor_SetFlag {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensor_SetFlag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string MainForm_ListView_Context_Sensor_SetStatus {
+            get {
+                return ResourceManager.GetString("MainForm_ListView_Context_Sensor_SetStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Short.
         /// </summary>
         public static string MainForm_ListView_Context_Short {
@@ -2194,6 +2320,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entertainment Creator.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Creators_EntertainmentCreator {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators_EntertainmentCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a Resource link....
         /// </summary>
         public static string MainForm_Tab_Home_Group_Creators_ResourceLink {
@@ -2262,6 +2397,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_Home_Group_SearchSensor {
             get {
                 return ResourceManager.GetString("MainForm_Tab_Home_Group_SearchSensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensors.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Sensors {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Sensors", resourceCulture);
             }
         }
         
@@ -2559,6 +2703,15 @@ namespace WinHue3.Resources {
         public static string ManageUsers_LastUsed {
             get {
                 return ResourceManager.GetString("ManageUsers_LastUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clé de streaming.
+        /// </summary>
+        public static string ManageUsers_StreamKey {
+            get {
+                return ResourceManager.GetString("ManageUsers_StreamKey", resourceCulture);
             }
         }
         

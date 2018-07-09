@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using log4net;
+using Microsoft.Win32;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys.Validation;
@@ -37,6 +38,7 @@ namespace WinHue3.Functions.HotKeys.Creator
         private Type _objectype;
         private bool _canRecordKeyUp;
         private bool _isGeneric;
+        private OpenFileDialog ofd;
 
         public HotKeyCreatorViewModel()
         {
@@ -46,7 +48,12 @@ namespace WinHue3.Functions.HotKeys.Creator
             _hotkeyrecordTimer.Interval = new TimeSpan(0, 0, 0, 10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
             _listHotKeys = new ObservableCollection<HotKey>(WinHueSettings.hotkeys.listHotKeys);
-          
+            ofd = new OpenFileDialog
+            {
+                DefaultExt = "exe",
+                Multiselect = false,
+                Filter = "Executable files (*.exe)|*.exe|Batch files (*.bat)|*.bat|Command files(*.cmd)|*.cmd"
+            };  
         }
 
         public bool NotGeneric => !_isGeneric;
@@ -142,14 +149,7 @@ namespace WinHue3.Functions.HotKeys.Creator
             StopRecording();
             CanRecordKeyUp = false;
             HotKeyModel.ModifierKeys = e.KeyboardDevice.Modifiers;
-            if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
-            {
-                HotKeyModel.Key = e.SystemKey;
-            }
-            else
-            {
-                HotKeyModel.Key = e.Key;
-            }
+            HotKeyModel.Key = e.KeyboardDevice.Modifiers == ModifierKeys.Alt ? e.SystemKey : e.Key;
             
             RaisePropertyChanged("CurrentHotKey");
         }
@@ -201,7 +201,8 @@ namespace WinHue3.Functions.HotKeys.Creator
                     Key = HotKeyModel.Key,
                     properties = _propertyObject,
                     Name = HotKeyModel.Name,
-                    Description = HotKeyModel.Description                  
+                    Description = HotKeyModel.Description,
+                    ProgramPath = HotKeyModel.ProgramPath
                 };
 
                 if (!IsGeneric)
@@ -210,7 +211,6 @@ namespace WinHue3.Functions.HotKeys.Creator
                     hotkey.objecType = ObjectType;
 
                 }
-
 
                 if (!HotkeyAlreadyExists(hotkey, out HotKey existingKey))
                 {
@@ -275,6 +275,7 @@ namespace WinHue3.Functions.HotKeys.Creator
             HotKeyModel.Description = string.Empty;
             HotKeyModel.Key = Key.None;
             HotKeyModel.ModifierKeys = ModifierKeys.None;
+            HotKeyModel.ProgramPath = null;
             ListHueObject = null;
             IsGeneric = false;
             RaisePropertyChanged("CurrentHotKey");
@@ -306,6 +307,23 @@ namespace WinHue3.Functions.HotKeys.Creator
         public ICommand ClearFieldsCommand => new RelayCommand(param => Clearfields());
         public ICommand ChangeObjectTypeCommand => new RelayCommand(param => ChangeObject());
         public ICommand SelectExistingHotkeyCommand => new RelayCommand(param => SelectExistingHotkey());
+        public ICommand ChooseProgramCommand => new RelayCommand(param => ChooseProgram());
+        public ICommand RemoveProgramCommand => new RelayCommand(param => RemoveProgram(), (param) => HotKeyModel.ProgramPath != null);
+
+        private void RemoveProgram()
+        {
+            HotKeyModel.ProgramPath = null;
+        }
+
+        private void ChooseProgram()
+        {
+
+
+            if (ofd.ShowDialog() == true)
+            {
+                HotKeyModel.ProgramPath = ofd.FileName;
+            }
+        }
 
         private void SelectExistingHotkey()
         {
@@ -315,7 +333,11 @@ namespace WinHue3.Functions.HotKeys.Creator
             HotKeyModel.Key = SelectedHotKey.Key;
             HotKeyModel.ModifierKeys = SelectedHotKey.Modifier;
             HotKeyModel.Id = SelectedHotKey.id;
-
+            HotKeyModel.ProgramPath = SelectedHotKey.ProgramPath;
+            if (HotKeyModel.ProgramPath != null)
+            {
+                ofd.FileName = HotKeyModel.ProgramPath;
+            }
             if (SelectedHotKey.objecType != null)
             {
                 ObjectType = SelectedHotKey.objecType;

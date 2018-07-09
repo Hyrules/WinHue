@@ -211,10 +211,17 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>Contains a list with a single item that details whether the user was added successfully along with the username parameter. Note: If the requested username already exists then the response will report a success.</returns>
         /// <param name="deviceType">Description of the type of device associated with this username. This field must contain the name of your app.</param>
         /// <return>The new API Key.</return>
-        public string CreateUser(string deviceType)
+        public string CreateUser(string deviceType, bool generatesteamkey = false)
         {
             string url = "http://" + _ipAddress + "/api";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Post, Serializer.SerializeToJson(new User() { devicetype = deviceType }));
+            User newuser = new User() { devicetype = deviceType, generateclientkey = generatesteamkey };
+            Version current = new Version(ApiVersion);
+            if(current < Version.Parse("1.22"))
+            {
+                newuser.generateclientkey = null;
+            }
+
+            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Post, Serializer.SerializeToJson(newuser));
 
             if (comres.Status == WebExceptionStatus.Success)
             {

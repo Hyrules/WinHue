@@ -1569,4 +1569,55 @@
   <data name="SettingsForm_Tab_Defaults_SliderTitle" xml:space="preserve">
     <value>Bouton Glissoir</value>
   </data>
+  <data name="MainForm_ListView_Context_Sensor" xml:space="preserve">
+    <value>Capteurs</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetFlag" xml:space="preserve">
+    <value>Definir le capteur</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Sensors" xml:space="preserve">
+    <value>Capteurs</value>
+  </data>
+  <data name="ManageUsers_StreamKey" xml:space="preserve">
+    <value>Stream Key</value>
+  </data>
+  <data name="BridgeFinder_Title" xml:space="preserve">
+    <value>Recherche de la passerelle...</value>
+  </data>
+  <data name="BridgeFinder_Trying" xml:space="preserve">
+    <value>Essaie de l'IP :</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Title" xml:space="preserve">
+    <value>Créateur de divertissement</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_EntertainmentCreator" xml:space="preserve">
+    <value>Créateur de divertissement</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Coordinates" xml:space="preserve">
+    <value>Coordonnées</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Z_Message" xml:space="preserve">
+    <value>Z n'est pas utilisé en ce moment.</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="Form_HotKeyCreator_ChooseApp" xml:space="preserve">
+    <value>Choississez un logiciel à démarrer en même temps que le raccourci (optionnel)</value>
+  </data>
+  <data name="Form_HotKeyCreator_AppButton" xml:space="preserve">
+    <value>Choisir...</value>
+  </data>
+  <data name="Form_HotKeyCreator_ProgramPath" xml:space="preserve">
+    <value>Chemin de l'application</value>
+  </data>
 </root>

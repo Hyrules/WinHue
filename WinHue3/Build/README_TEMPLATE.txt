@@ -7,34 +7,19 @@ You might also need Visual C++ 2010 Redistributable library.
 Both are available at Microsoft's website. 
 
 Fixed:
-- Bug in the rule creator that caused object not to be selected when selecting a property.
-- Bug when app would crash when editing an existing rule.
-- Bug where replacing condition would crash the app.
-- Bug where a crash would occur if you select a rule condition with a config proprerty.
-- Bug where user could not apply bridge settings.
-- Bug where adding a rule condition with DX was causing the program to serialize the empty value.
-- Bug where user could not edit rule with action on schedule
+- Bug in the rule creator that crashed the app when editing a rule that used an object that does not exist anymore.
+- Bug in sensor creator where the default flag sensor would not have a propert config show in the property grid.
+- Bug where name box in the hotkey creator is displayed as combobox.
+- bug where on was sending a bri value for light who does have bri property.
 
 Added:
-- Change the order of the actions in the rule creator.
-- New icon for refresh and bridge settings
-- New tab in menu for Help, maybe to replace Help tab in ribbon to make the program more in line with how Office and other programs place the help menu. (banksio)
-- Moved the delete button, rename button, edit button from context menu to right panel.
-- Missing rule creator action on schedule.
-- New schedule creator. 
-- List bridge capabilities. if firmware version is greater than 1.15.
-- Settings to change slider behaviors. Disabled when light is off and toggle on only or Enabled when light is off / apply when turned on.
+- Quick sensor flag and generic modification. Sensor toolbar is hidden by default.
+- If bridge ip changes the program will look for it at startup.
+- Hotkey can now optionally start a program.
 
 Changed:
-- Reverted to CommandCombobox to solve issues.
-- Adjusted the hue slider so it is close to real hue color.
-- Minimize to tray option / button moved to application settings. (banksio)
-- Ribbonbuttons to fluent buttons (banksio)
-- Moved the property grid to it's own window and added a property grid button in the view tab.
-- Updated the update system for the bridge. Updates are now done from the Bridge Settings Window and allow updates from bridge version 1.20 and greater.
-
-Removed:
-- Mahapp theme styling and dependencies. Will implement a styling system later.
+- Can create rule condition and action on same property.
+- Show all sensors in the rule action instead of only the clip sensors.
 
 WIP:
 - Animation creator. (Not Available yet)

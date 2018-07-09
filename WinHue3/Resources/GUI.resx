@@ -1569,4 +1569,55 @@
   <data name="SettingsForm_Tab_Defaults_SliderTitle" xml:space="preserve">
     <value>Sliders</value>
   </data>
+  <data name="MainForm_ListView_Context_Sensor" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetFlag" xml:space="preserve">
+    <value>Set Flag</value>
+  </data>
+  <data name="MainForm_ListView_Context_Sensor_SetStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Sensors" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="ManageUsers_StreamKey" xml:space="preserve">
+    <value>Clé de streaming</value>
+  </data>
+  <data name="BridgeFinder_Title" xml:space="preserve">
+    <value>Searching for bridge...</value>
+  </data>
+  <data name="BridgeFinder_Trying" xml:space="preserve">
+    <value>Trying IP : </value>
+  </data>
+  <data name="EntertainmentCreatorForm_Title" xml:space="preserve">
+    <value>Entertainment Creator</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_EntertainmentCreator" xml:space="preserve">
+    <value>Entertainment Creator</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Coordinates" xml:space="preserve">
+    <value>Coordinates</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Z_Message" xml:space="preserve">
+    <value>Z is not used at the moment.</value>
+  </data>
+  <data name="EntertainmentCreatorForm_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Form_HotKeyCreator_ChooseApp" xml:space="preserve">
+    <value>Choose a program to start with the Hotkey (optional)</value>
+  </data>
+  <data name="Form_HotKeyCreator_AppButton" xml:space="preserve">
+    <value>Choose...</value>
+  </data>
+  <data name="Form_HotKeyCreator_ProgramPath" xml:space="preserve">
+    <value>Program Path</value>
+  </data>
 </root>

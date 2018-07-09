@@ -10,7 +10,6 @@ namespace WinHue3.Functions.User_Management
         private string _created;
         private string _key;
 
-
         public ManageUsersModel()
         {
             _appname = string.Empty;
@@ -18,6 +17,7 @@ namespace WinHue3.Functions.User_Management
             _lastused = string.Empty;
             _created = string.Empty;
             _key = string.Empty;
+
         }
 
         public string ApplicationName
@@ -49,5 +49,6 @@ namespace WinHue3.Functions.User_Management
             get => _key;
             set => SetProperty(ref _key,value);
         }
+
     }
 }

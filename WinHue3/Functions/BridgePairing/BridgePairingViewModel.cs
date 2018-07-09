@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -11,9 +13,11 @@ using WinHue3.Interface;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.Communication;
 using WinHue3.Resources;
 using WinHue3.Utils;
 using WinHue3.Validations;
+
 
 namespace WinHue3.Functions.BridgePairing
 {
@@ -26,6 +30,7 @@ namespace WinHue3.Functions.BridgePairing
         private string _scanButtonText;
         private ObservableCollection<Bridge> _listBridges;
 
+
         public BridgePairingViewModel()
         {
             _bridgePairModel = new BridgePairingModel();
@@ -37,6 +42,7 @@ namespace WinHue3.Functions.BridgePairing
             Hue.OnBridgeDetectionFailed += Hue_OnBridgeDetectionFailed;
             _scanButtonText = GUI.BridgeDetectionPairing_Scan;
             _listBridges = new ObservableCollection<Bridge>();
+
         }
 
         public ObservableCollection<Bridge> ListBridges

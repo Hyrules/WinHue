@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Threading.Tasks;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -644,7 +646,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <param name="id">id of the sensor</param>
         /// <param name="newstate">New state of the sensor</param>
-        /// <returns>BridgeCommResult</returns>
+        /// <returns>Success or error</returns>
         public async Task<bool> ChangeSensorStateAsyncTask(string id, object newstate)
         {
 
@@ -663,6 +665,91 @@ namespace WinHue3.Philips_Hue.BridgeObject
             else
             {
                 LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Modified Virtual sensor state : {id},{newstate.ToString()}" });
+                return LastCommandMessages.Success;
+            }
+            ProcessCommandFailure(url, comres.Status);
+            return false;
+        }
+
+        /// <summary>
+        /// Create an entertainment Area
+        /// </summary>
+        /// <param name="entertain">Entertainment Area definition</param>
+        /// <returns>Success or error</returns>
+        public async Task<bool> CreateEntertainmentArea(Entertainment entertain)
+        {
+            string url = BridgeUrl + $@"/groups";
+            CommResult comres;
+            if (!Virtual)
+            {
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.SerializeToJson(entertain));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Created Entertrainement Area" });
+                return LastCommandMessages.Success;
+            }
+            ProcessCommandFailure(url, comres.Status);
+            return false;
+        }
+
+        /// <summary>
+        /// Set Entertrainment Group light location
+        /// </summary>
+        /// <param name="id">ID of the group</param>
+        /// <param name="loc">Location information</param>
+        /// <returns></returns>
+        public async Task<bool> SetEntertrainementLightLocation(string id, Location loc)
+        {
+            string url = BridgeUrl + $@"/groups/{id}";
+            CommResult comres;
+            if (!Virtual)
+            {
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(loc));
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Update Light location for group : {id}" });
+                return LastCommandMessages.Success;
+            }
+            ProcessCommandFailure(url, comres.Status);
+            return false;
+        }
+
+        /// <summary>
+        /// Set Entertrainment Group stream status
+        /// </summary>
+        /// <param name="id">ID of the group</param>
+        /// <param name="status">Status of the stream</param>
+        /// <returns></returns>
+        public async Task<bool> SetEntertrainementGroupStreamStatus(string id, bool status)
+        {
+            string url = BridgeUrl + $@"/groups/{id}";
+            CommResult comres;
+            if (!Virtual)
+            {
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, $"\"stream\":{status}");
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Update Light location for group : {id}" });
                 return LastCommandMessages.Success;
             }
             ProcessCommandFailure(url, comres.Status);
@@ -703,8 +790,28 @@ namespace WinHue3.Philips_Hue.BridgeObject
             return obj;
         }
 
+        public async Task<bool> SendStreamPacketAsync(StreamMessage packet)
+        {
+            UdpClient udpClient = new UdpClient();
+            IPEndPoint clientIp = new IPEndPoint(IpAddress, 2100);
+ 
+            bool success = false;
+            Exception exception = null;
+
+            try
+            {
+                await udpClient.SendAsync(packet, packet.Length, clientIp);
+                udpClient.Close();
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            return success;
+        }
+
     }
     
-
-       
 }

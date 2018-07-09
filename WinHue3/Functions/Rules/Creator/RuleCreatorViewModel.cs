@@ -231,7 +231,7 @@ namespace WinHue3.Functions.Rules.Creator
 
                     break;
                 case Type sensor when sensor == typeof(Sensor):
-                    ListHueObjects = _listAvailableHueObject.OfType<Sensor>().Where(x => x.type.Contains("CLIP")).ToList<IHueObject>();
+                    ListHueObjects = _listAvailableHueObject.OfType<Sensor>().ToList<IHueObject>();
 
                     break;
                 case Type scene when scene == typeof(Scene):
@@ -358,13 +358,13 @@ namespace WinHue3.Functions.Rules.Creator
             RuleAction ra = new RuleAction();
             HueAddress address = new HueAddress(CurrentPath);
 
-            if (ListRuleActions.Any(x => x.address == address))
+     /*       if (ListRuleActions.Any(x => x.address == address))
             {
                 result = MessageBox.Show(GlobalStrings.Rule_ActionAlreadyExists, GlobalStrings.Warning,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                     ListRuleActions.Remove(ListRuleActions.FirstOrDefault(x => x.address == address));
-            }
+            }*/
 
             if (result != DialogResult.Yes) return;
             ra.address = address;
@@ -435,7 +435,13 @@ namespace WinHue3.Functions.Rules.Creator
         public ICommand Condition_AddConditionCommand => new RelayCommand(param => AddCondition(), (param) => CanAddCondition());
         public ICommand Condition_RemoveRuleConditionCommand => new RelayCommand(param => RemoveRuleCondition(), (param) => CanRemoveRuleCondition());
         public ICommand Condition_SelectRuleConditionCommand => new RelayCommand(param => SelectRuleCondition());
-        public ICommand Condition_ClearSelectedRuleConditionCommand => new RelayCommand(param => ClearSelectedRuleCondition());
+        public ICommand Condition_ClearSelectedRuleConditionCommand => new RelayCommand(param => ClearSelectedRuleCondition(), (param) => CanClearRuleCondition());
+
+        private bool CanClearRuleCondition()
+        {
+            return SelectedRuleCondition != null;
+        }
+
         public ICommand Condition_SelectConditionObjectTypeCommand => new RelayCommand(param => SelectConditionObjectType(), (param) => CanSelectConditionObjectType());
         public ICommand Condition_SelectConditionHueObjectCommand => new RelayCommand(param => SelectConditionHueObject(), (param) => CanSelectConditionHueObject());
 
@@ -510,7 +516,7 @@ namespace WinHue3.Functions.Rules.Creator
             if (_selectedRuleCondition.address.objecttype != "config")
             {
                 SelectedRuleConditionType = HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
-                SelectedConditionHueObject = ListConditionHueObjects.First(x => x.Id == _selectedRuleCondition.address.id);
+                SelectedConditionHueObject = ListConditionHueObjects.FirstOrDefault(x => x.Id == _selectedRuleCondition.address.id);
 
             }
             else
@@ -594,7 +600,7 @@ namespace WinHue3.Functions.Rules.Creator
 
         private void AddCondition()
         {
-            DialogResult result = DialogResult.Yes;
+            /*DialogResult result = DialogResult.Yes;
             if (ListRuleConditions.Any(x => x.address.ToString().Equals(SelectedConditionProperty.Address)))
             {
                 result = MessageBox.Show(GlobalStrings.Rule_ConditionAlreadyExists, GlobalStrings.Warning,
@@ -603,7 +609,7 @@ namespace WinHue3.Functions.Rules.Creator
                     ListRuleConditions.Remove(
                         ListRuleConditions.FirstOrDefault(x => x.address.ToString().Equals(SelectedConditionProperty.Address)));
             }
-            if (result == DialogResult.Yes)
+            if (result == DialogResult.Yes)*/
                 ListRuleConditions.Add(new RuleCondition() { address = SelectedConditionProperty.Address, @operator = ConditionOperator, value = ConditionOperator == "dx" ? null : ConditionValue });
         }
 

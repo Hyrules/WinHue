@@ -23,5 +23,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public string swversion { get; set; }
         [DataMember(IsRequired = false)]
         public string name { get; set; }
+        [DataMember(IsRequired = false)]
+        public string clientkey { get; set; }
     }
 }

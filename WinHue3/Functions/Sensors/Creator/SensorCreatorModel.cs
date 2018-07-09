@@ -27,7 +27,8 @@ namespace WinHue3.Functions.Sensors.Creator
             _modelId = string.Empty;
             _uniqueid = string.Empty;
             _swversion = string.Empty;
-            _type = "CLIPGenericFlag";
+            Type = "CLIPGenericFlag";
+            
         }
 
 

@@ -16,20 +16,32 @@ using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
+using WinHue3.Functions.Grouping;
+
 
 namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
         private Form_EventLog _eventlogform;
+
+
         private ObservableCollection<Bridge> _listBridges;
+
+        private ObservableCollection<IGroup> _listgroups;
+
         private IHueObject _selectedObject;
         private Bridge _selectedBridge;
         private ushort? _sliderTT;
         private bool _visibleTabs = true;
         private IBaseProperties _newstate;
+        private int _sensorStatus;
+        private bool _sensorFlag;
+
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
@@ -52,6 +64,18 @@ namespace WinHue3.MainForm
             set { SetProperty(ref _listBridgeObjects, value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
+        public int SensorStatus
+        {
+            get => _sensorStatus;
+            set => SetProperty(ref _sensorStatus, value);
+        }
+
+        public bool SensorFlag
+        {
+            get => _sensorFlag;
+            set => SetProperty(ref _sensorFlag, value);
+        }
+
         public string Title => $"WinHue 3 - {Version}";
 
         public string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -68,7 +92,7 @@ namespace WinHue3.MainForm
             set { SetProperty(ref _listBridges,value); RaisePropertyChanged("MultiBridgeCB");}
         }
 
-        public IHueObject SelectedObject
+        public IHueObject SelectedHueObject
         {
             get => _selectedObject;
             set => SetProperty(ref _selectedObject, value);
@@ -134,6 +158,7 @@ namespace WinHue3.MainForm
         }
 
         public bool VisibleTabs { get => _visibleTabs; set => SetProperty(ref _visibleTabs,value); }
+        public ObservableCollection<IGroup> ListGroups { get => _listgroups; set => SetProperty(ref _listgroups,value); }
 
     }
 }
