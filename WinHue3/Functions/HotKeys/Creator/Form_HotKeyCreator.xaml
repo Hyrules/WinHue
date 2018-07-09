@@ -82,7 +82,7 @@
         <CheckBox x:Name="ChbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,110,0,0" VerticalAlignment="Top" Width="156" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>
         <TextBox x:Name="TextBox" HorizontalAlignment="Left" Height="23" Margin="10,442,0,0" TextWrapping="Wrap" Text="{x:Static resources:GUI.Form_HotKeyCreator_Warning_Generic}" VerticalAlignment="Top" Width="662"/>
         <Button x:Name="BtnHelpGeneric" Content="?" HorizontalAlignment="Left" Margin="306,106,0,0" VerticalAlignment="Top" Width="32" Click="btnHelpGeneric_Click" Height="25"/>
-        <Label HorizontalAlignment="Left" Margin="344,200,0,0" VerticalAlignment="Top" Width="484" Height="26" >
+        <Label HorizontalAlignment="Left" Margin="344,200,0,0" VerticalAlignment="Top" Width="448" Height="26" >
             <Label.Style>
                 <Style TargetType="{x:Type Label}">
                     <Setter Property="Content" Value="{Binding HotKeyModel.ProgramPath}"/>
@@ -95,6 +95,7 @@
             </Label.Style>
         </Label>
         <Button Content="{x:Static resources:GUI.Form_HotKeyCreator_AppButton}" HorizontalAlignment="Left" Margin="833,200,0,0" VerticalAlignment="Top" Width="105" Height="26" Command="{Binding ChooseProgramCommand}"/>
+        <Button Content="X" HorizontalAlignment="Left" Margin="797,200,0,0" VerticalAlignment="Top" Width="31" Height="26" Background="Red" Command="{Binding RemoveProgramCommand}"/>
 
 
 

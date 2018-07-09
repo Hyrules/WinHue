@@ -308,6 +308,12 @@ namespace WinHue3.Functions.HotKeys.Creator
         public ICommand ChangeObjectTypeCommand => new RelayCommand(param => ChangeObject());
         public ICommand SelectExistingHotkeyCommand => new RelayCommand(param => SelectExistingHotkey());
         public ICommand ChooseProgramCommand => new RelayCommand(param => ChooseProgram());
+        public ICommand RemoveProgramCommand => new RelayCommand(param => RemoveProgram(), (param) => HotKeyModel.ProgramPath != null);
+
+        private void RemoveProgram()
+        {
+            HotKeyModel.ProgramPath = null;
+        }
 
         private void ChooseProgram()
         {
