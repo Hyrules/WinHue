@@ -650,10 +650,22 @@ namespace WinHue3.MainForm
                     else if (objtype == typeof(Group) || objtype == typeof(Light))
                     {
                         SelectedBridge.SetState(h.properties,h.id);
+                       
                     }
                     else
                     {
                         log.Warn($"Type of object {objtype} not supported");
+                    }
+
+                    if (h.ProgramPath == null) return;
+                    if (File.Exists(h.ProgramPath))
+                    {
+                        log.Info($"Starting application at {h.ProgramPath}");       
+                        Process.Start(h.ProgramPath);
+                    }
+                    else
+                    {
+                        log.Error($"Application at {h.ProgramPath} does not exist anymore. Ignoring it...");
                     }
                 }
                 else

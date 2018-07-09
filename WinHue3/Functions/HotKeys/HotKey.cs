@@ -27,10 +27,11 @@ namespace WinHue3.Functions.HotKeys
         public string Hotkey => Modifier + " + " + Key;
 
         [DataMember]
-        public string Name { get; set; }
+        public string Name { get;set; }
         [DataMember]
-        public string Description { get; set; }
-
+        public string Description { get;set; }
+        [DataMember]
+        public string ProgramPath { get;set; }
     }
 
     public class HotkeyConverter : JsonConverter
@@ -53,6 +54,8 @@ namespace WinHue3.Functions.HotKeys
             hk.Modifier = obj["Modifier"].ToObject<ModifierKeys>();
             hk.id = obj["id"]?.Value<string>();
             hk.objecType = obj["objecType"]?.ToObject<Type>();
+            hk.ProgramPath = obj["ProgramPath"]?.Value<string>();
+
             if (obj["properties"] == null) return hk;
             switch (hk.objecType?.Name)
             {

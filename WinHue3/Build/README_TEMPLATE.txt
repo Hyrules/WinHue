@@ -15,6 +15,7 @@ Fixed:
 Added:
 - Quick sensor flag and generic modification. Sensor toolbar is hidden by default.
 - If bridge ip changes the program will look for it at startup.
+- Hotkey can now optionally start a program.
 
 Changed:
 - Can create rule condition and action on same property.

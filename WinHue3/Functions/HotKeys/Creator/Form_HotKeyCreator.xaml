@@ -33,7 +33,7 @@
         <creator:HotKeyCreatorViewModel/>
     </Window.DataContext>
     <Grid>
-        <xctk:PropertyGrid x:Name="PgObjectPresets" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Height="216" Width="594" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding PropertyGridObject}"/>
+        <xctk:PropertyGrid x:Name="PgObjectPresets" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Height="185" Width="594" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding PropertyGridObject}"/>
         <Button x:Name="BtnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
         <Button x:Name="BtnAdd" Style="{StaticResource BtnSave}"  Content="Add Hotkey" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
         <controls:CommandComboBox x:Name="CbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,105,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" Command="{Binding ChangeObjectTypeCommand}" Watermark="(object type)" Style="{StaticResource {x:Type ComboBox}}">
@@ -64,9 +64,10 @@
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_Name}" Binding="{Binding Name}"  Width="100" IsReadOnly="True"/>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_Description}" Binding="{Binding Description}"  Width="100" IsReadOnly="True"/>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_ID}" Binding="{Binding id}"  Width="50" IsReadOnly="True"/>
-                <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_Type}" Binding="{Binding objecType}"  Width="100" IsReadOnly="True"/>
+                <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_Type}" Binding="{Binding objecType.Name}"  Width="100" IsReadOnly="True"/>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_HotKey}" Binding="{Binding Hotkey}"  Width="150" IsReadOnly="True"/>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_Preset}" Binding="{Binding properties}"  Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="{x:Static resources:GUI.Form_HotKeyCreator_ProgramPath}" Binding="{Binding ProgramPath}"  Width="*" IsReadOnly="True"/>
             </DataGrid.Columns>
             <DataGrid.InputBindings>
                 <KeyBinding Key="Delete" Command="{Binding DeleteHotKeyCommand}"/>
@@ -81,6 +82,19 @@
         <CheckBox x:Name="ChbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,110,0,0" VerticalAlignment="Top" Width="156" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>
         <TextBox x:Name="TextBox" HorizontalAlignment="Left" Height="23" Margin="10,442,0,0" TextWrapping="Wrap" Text="{x:Static resources:GUI.Form_HotKeyCreator_Warning_Generic}" VerticalAlignment="Top" Width="662"/>
         <Button x:Name="BtnHelpGeneric" Content="?" HorizontalAlignment="Left" Margin="306,106,0,0" VerticalAlignment="Top" Width="32" Click="btnHelpGeneric_Click" Height="25"/>
+        <Label HorizontalAlignment="Left" Margin="344,200,0,0" VerticalAlignment="Top" Width="484" Height="26" >
+            <Label.Style>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Content" Value="{Binding HotKeyModel.ProgramPath}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HotKeyModel.ProgramPath, NotifyOnSourceUpdated=True}" Value="{x:Null}">
+                            <Setter Property="Content" Value="{x:Static resources:GUI.Form_HotKeyCreator_ChooseApp}"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Button Content="{x:Static resources:GUI.Form_HotKeyCreator_AppButton}" HorizontalAlignment="Left" Margin="833,200,0,0" VerticalAlignment="Top" Width="105" Height="26" Command="{Binding ChooseProgramCommand}"/>
 
 
 

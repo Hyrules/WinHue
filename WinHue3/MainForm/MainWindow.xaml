@@ -906,9 +906,9 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}">
                     <Image Source="/WinHue3;component/Resources/resource.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_EntertainmentCreator}"  Command="{Binding CreateEntertainmentCommand}" >
+                <!--<Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_EntertainmentCreator}"  Command="{Binding CreateEntertainmentCommand}" >
                     <Image Source="/WinHue3;component/Resources/entertainment.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
+                </Button>-->
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" >
                     <Image Source="/WinHue3;component/Resources/advanced.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>

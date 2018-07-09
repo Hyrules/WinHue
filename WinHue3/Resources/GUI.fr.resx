@@ -1611,4 +1611,13 @@
   <data name="EntertainmentCreatorForm_Add" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="Form_HotKeyCreator_ChooseApp" xml:space="preserve">
+    <value>Choississez un logiciel à démarrer en même temps que le raccourci (optionnel)</value>
+  </data>
+  <data name="Form_HotKeyCreator_AppButton" xml:space="preserve">
+    <value>Choisir...</value>
+  </data>
+  <data name="Form_HotKeyCreator_ProgramPath" xml:space="preserve">
+    <value>Chemin de l'application</value>
+  </data>
 </root>
