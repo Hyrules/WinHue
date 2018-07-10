@@ -127,13 +127,11 @@ namespace WinHue3.MainForm
                     {
                         ip = br.IpAddress.ToString(),
                         apikey = br.ApiKey,
-                        apiversion = br.ApiVersion,
-                        swversion = br.SwVersion,
                         name = br.Name,
                     };
                 else
                     WinHueSettings.bridges.BridgeInfo.Add(br.Mac,
-                        new BridgeSaveSettings { ip = br.IpAddress.ToString(), apikey = br.ApiKey, apiversion = br.ApiVersion, swversion = br.SwVersion, name = br.Name });
+                        new BridgeSaveSettings { ip = br.IpAddress.ToString(), apikey = br.ApiKey,name = br.Name });
 
                 if (br.IsDefault) WinHueSettings.bridges.DefaultBridge = br.Mac;
             }

@@ -1037,7 +1037,7 @@ namespace whc
                         if(WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                         {
                             string ip = WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].ip;
-                            _bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.bridges.DefaultBridge, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apiversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].swversion, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apikey);
+                            _bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.bridges.DefaultBridge, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apikey);
                             if (_bridge != null && _error == false)
                             {
                                 extra = ObjOpts.Parse(extra);

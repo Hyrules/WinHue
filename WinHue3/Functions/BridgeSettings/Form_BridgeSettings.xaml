@@ -145,7 +145,7 @@
                     </Style>
                 </TabItem.Style>
                 <Grid Background="#FFE5E5E5">
-                    <xctk:PropertyGrid Margin="0,0,-0.333,-0.333" ShowSearchBox="False" ShowSortOptions="False" SelectedObject="{Binding Capabilities}"/>
+                    <xctk:PropertyGrid Margin="0,0,-0.333,-0.333" ShowSearchBox="False" ShowSortOptions="False" SelectedObject="{Binding Capabilities}" IsReadOnly="True"/>
 
                 </Grid>
 

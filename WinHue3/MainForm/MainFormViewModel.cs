@@ -118,8 +118,6 @@ namespace WinHue3.MainForm
                 bridge.ApiVersion = bc.apiversion;
                 bridge.Name = bc.name;
                 bridge.SwVersion = bc.swversion;
-                WinHueSettings.bridges.BridgeInfo[bridge.Mac].apiversion = bridge.ApiVersion;
-                WinHueSettings.bridges.BridgeInfo[bridge.Mac].swversion = bridge.SwVersion;
                 WinHueSettings.bridges.BridgeInfo[bridge.Mac].name = bridge.Name;
                 WinHueSettings.SaveBridges();
                 return true;
@@ -175,11 +173,9 @@ namespace WinHue3.MainForm
                         Bridge bridge = new Bridge()
                         {
                             ApiKey = b.Value.apikey,
-                            ApiVersion = b.Value.apiversion,
                             IpAddress = IPAddress.Parse(b.Value.ip),
                             Name = b.Value.name,
                             IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
-                            SwVersion = b.Value.swversion,
                             Mac = b.Key
                         };
                         if (b.Value.apikey == string.Empty) continue;
