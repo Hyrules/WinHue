@@ -496,7 +496,6 @@
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}">
-                    <Viewbox Height="100" Width="100"/>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
