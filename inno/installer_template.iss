@@ -49,27 +49,25 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 Source: "{#Folder}*.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}whc.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}Xceed.Wpf.DataGrid.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#Folder}*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}WinHue3.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}ManagedUPnP.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}OpenHardwareMonitorLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}NDesk.Options.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}Xceed.Wpf.Toolkit.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}log4net.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#Folder}Microsoft.Expression.Interactions.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#Folder}MahApps.Metro.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Folder}fr\*"; DestDir: "{app}\fr"; Flags: ignoreversion recursesubdirs createallsubdirs
-;Source: "{#Folder}en\*"; DestDir: "{app}\en"; Flags: ignoreversion
 Source: "{#Folder}lights\*"; DestDir: "{app}\lights"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#Folder}naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#Folder}ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#Folder}fluent.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#Folder}ControlzEx.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+;Source: "{#Folder}ManagedUPnP.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}OpenHardwareMonitorLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}NDesk.Options.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}Xceed.Wpf.Toolkit.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+;Source: "{#Folder}System.Windows.Interactivity.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}naudio.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}Xceed.Wpf.AvalonDock.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}ICSharpCode.AvalonEdit.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#Folder}BouncyCastle.Crypto.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

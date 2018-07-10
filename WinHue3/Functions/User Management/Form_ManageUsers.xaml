@@ -26,8 +26,8 @@
         <Label x:Name="LblLastUsed" Content="{x:Static resx:GUI.ManageUsers_LastUsed}" HorizontalAlignment="Left" Margin="281,83,0,0" VerticalAlignment="Top" Width="114"/>
         <Label x:Name="LblCreate" Content="{x:Static resx:GUI.ManageUsers_CreateDate}" HorizontalAlignment="Left" Margin="281,113,0,0" VerticalAlignment="Top" Width="114"/>
         <Label x:Name="LblLastUsedDate" Content="{Binding UsersModel.Lastused}" HorizontalAlignment="Left" Margin="400,82,0,0" VerticalAlignment="Top" Width="207"/>
-        <Label x:Name="LblCreateDate" Content="{Binding UsersModel.Created}" HorizontalAlignment="Left" Margin="371,113,0,0" VerticalAlignment="Top" Width="236"/>
-        <TextBox x:Name="TbKey" HorizontalAlignment="Left" Margin="371,151,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Key}" VerticalAlignment="Top" Width="236" BorderThickness="0" IsReadOnly="True"/>
+        <Label x:Name="LblCreateDate" Content="{Binding UsersModel.Created}" HorizontalAlignment="Left" Margin="400,113,0,0" VerticalAlignment="Top" Width="207"/>
+        <TextBox x:Name="TbKey" HorizontalAlignment="Left" Margin="400,151,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Key}" VerticalAlignment="Top" Width="207" BorderThickness="0" IsReadOnly="True" Height="52"/>
         <Label x:Name="Label" Content="{x:Static resx:GUI.ManageUsers_Key}" HorizontalAlignment="Left" Margin="281,146,0,0" VerticalAlignment="Top" Width="114"/>
         <Button x:Name="BtnClear" Content="{x:Static resx:GUI.ManageUsers_Clear}" HorizontalAlignment="Left" Margin="362,290,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClearCommand}"/>
 
