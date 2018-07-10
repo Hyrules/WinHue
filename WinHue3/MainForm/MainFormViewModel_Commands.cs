@@ -54,9 +54,7 @@ namespace WinHue3.MainForm
         {
             get
             {
-                if (_selectedBridge == null) return null;
-                if (_selectedBridge.RequiredUpdate == null) return null;
-                return !_selectedBridge.RequiredUpdate;
+                return !_selectedBridge?.RequiredUpdate;
             }
         }
 
