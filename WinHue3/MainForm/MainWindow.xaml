@@ -360,11 +360,7 @@
         <mainForm:MainFormViewModel/>
     </Window.DataContext>
     
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="ContentRendered">
-            <i:InvokeCommandAction Command="{Binding LoadLifxDevicesCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+
     
     <Grid>
         <Grid.RowDefinitions>
@@ -438,7 +434,7 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_ReplaceLightsState}" Command="{Binding ReplaceCurrentStateCommand}" Foreground="Black"/>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}" Foreground="Black">
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetFlag}" IsCheckable="True">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Checked">
@@ -898,7 +894,9 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}"  Command="{Binding CreateSensorCommand}" >
                     <Image Source="/WinHue3;component/Resources/sensor.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-                <!--<RibbonButton x:Name="btnCreateAnimation" Label="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" IsEnabled="{Binding EnableControls, FallbackValue=false}" Command="{Binding CreateAnimationCommand}" LargeImageSource="Resources/animation.png"/>-->
+                <Button x:Name="btnCreateAnimation" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" Command="{Binding CreateAnimationCommand}">
+                    <Image Source="/WinHue3;component/Resources/animation.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}">
                     <Image Source="/WinHue3;component/Resources/hotkeys.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>

@@ -61,6 +61,7 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
 
 namespace WinHue3.MainForm
@@ -141,6 +142,16 @@ namespace WinHue3.MainForm
         #endregion
 
         #region HOME_TAB_METHODS
+
+        private void CreateAnimation()
+        {
+            List<IHueObject> listGroupLights = new List<IHueObject>();
+            listGroupLights.AddRange(ListBridgeObjects.Where(x => x.GetType() == typeof(Light)));
+            listGroupLights.AddRange(ListBridgeObjects.Where(x => x.GetType() == typeof(Group)));
+            Form_Animations fa = new Form_Animations(listGroupLights);
+            fa.Owner = Application.Current.MainWindow;
+            fa.ShowDialog();
+        }
 
         private void CreateEntertainment()
         {

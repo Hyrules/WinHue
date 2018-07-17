@@ -96,7 +96,7 @@ namespace WinHue3.Philips_Hue
             {
 
                 // Detect using Portal
-                CommResult comres = Comm.SendRequest(new Uri("http://www.meethue.com/api/nupnp"), WebRequestType.Get);
+                CommResult comres = Comm.SendRequest(new Uri("https://discovery.meethue.com"), WebRequestType.Get);
 
                 switch (comres.Status)
                 {

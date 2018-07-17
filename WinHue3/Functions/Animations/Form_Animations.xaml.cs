@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Functions.Animations
 {
@@ -19,9 +20,20 @@ namespace WinHue3.Functions.Animations
     /// </summary>
     public partial class Form_Animations : Window
     {
+        private AnimationCreatorViewModel _acvm;
+
         public Form_Animations()
         {
             InitializeComponent();
+            _acvm = this.DataContext as AnimationCreatorViewModel;
         }
+
+        public Form_Animations(List<IHueObject> listObjets) : base()
+        {
+            InitializeComponent();
+            _acvm = this.DataContext as AnimationCreatorViewModel;
+            _acvm.Initialize(listObjets);
+        }
+
     }
 }

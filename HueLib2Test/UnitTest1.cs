@@ -16,12 +16,28 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Utils;
 using WinHue3.Functions.Rules.Creator;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 
 namespace HueLib2Test
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
+        public void TestLists()
+        {
+            List<Light> list1 = new List<Light>();
+            List<Light> list2 = new List<Light>();
+            Light l = new Light();
+            l.Id = "patate";
+
+            list1.Add(l);
+            list2.Add(l);
+
+            list1[0].Id = "test";
+
+        }
+
         [TestMethod]
         public void TestRegex()
         {

@@ -181,6 +181,9 @@
     <Compile Include="Functions\Animations\Form_Animations.xaml.cs">
       <DependentUpon>Form_Animations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\Animations\IAnimationStep.cs" />
+    <Compile Include="Functions\Animations\SetObjectAnimationAction.cs" />
+    <Compile Include="Functions\Animations\WaitAnimationAction.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomLifxSettings.cs" />
     <Compile Include="Functions\Application Settings\Settings\LifxSaveDevice.cs" />
     <Compile Include="Functions\Behaviors\CommandBehavior.cs" />
@@ -213,6 +216,10 @@
     <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\RoomMap\Form_RoomMap.xaml.cs">
+      <DependentUpon>Form_RoomMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\RoomMap\RoomMapViewModel.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewHelper.cs" />
     <Compile Include="Functions\Rules\HueTreeViewItem.cs" />
     <Compile Include="Functions\Rules\Creator\PropertyGridBehavior.cs" />
@@ -513,6 +520,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\PropertyGrid\XYEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\RoomMap\Form_RoomMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -921,7 +932,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

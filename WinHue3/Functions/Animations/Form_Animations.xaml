@@ -4,29 +4,98 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3.Functions.Animations"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.Animations.Form_Animations"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        x:Class="WinHue3.Functions.Animations.Form_Animations"
         mc:Ignorable="d"
-        Title="Form_Animations" Height="539" Width="682">
+        Title="Form_Animations" Height="539" Width="682" WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <local:AnimationCreatorViewModel/>
+    </Window.DataContext>
     <Grid Margin="0,0,2,2">
-        <ListBox HorizontalAlignment="Left" Height="408" Margin="326,23,0,0" VerticalAlignment="Top" Width="316" ItemsSource="{Binding Steps}"/>
+        <ListView HorizontalAlignment="Left" Height="380" Margin="326,51,0,0" VerticalAlignment="Top" Width="316" ItemsSource="{Binding ListSteps}">
+            <ListView.Resources>
+                <DataTemplate DataType="{x:Type local:WaitAnimationAction}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40px"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Height="16" Source="{Binding Image}" Grid.Column="0" />
+                        <WrapPanel Grid.Column="1">
+                            <Label Content="Duration:"/>
+                            <TextBlock Text="{Binding Duration}"/>
+                            <TextBlock Text="{Binding Name}" />
+                        </WrapPanel>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type local:SetObjectAnimationAction}">
+                    <UniformGrid>
+                        <Image Height="16" Source="{Binding Image}"/>
+                        <Label Content="ID:"/>
+                        <TextBlock Text="{Binding Id}"/>
+                        <TextBlock Text="{Binding Body}"/>
+                    </UniformGrid>
+                </DataTemplate>
+            </ListView.Resources>
+        </ListView>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="567,466,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="487,466,0,0" VerticalAlignment="Top" Width="75"/>
-        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,79,0,0" VerticalAlignment="Top" Width="295" Watermark="(Action)">
+        <xctk:WatermarkComboBox x:Name="cbActionType" HorizontalAlignment="Left" Margin="26,79,0,0" VerticalAlignment="Top" Width="295" Watermark="(Action)" SelectedValue="{Binding Action}" SelectedValuePath="Content">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ChangeActionTargetCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ComboBoxItem Content="Wait"/>
             <ComboBoxItem Content="Set a light or group"/>
         </xctk:WatermarkComboBox>
 
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="26,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="295" Watermark="(Name)"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="26,51,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="295" Watermark="(Description)"/>
-        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,106,0,0" VerticalAlignment="Top" Width="295" ItemsSource="{Binding StepObject}" Watermark="(Step Object)"/>
+        <xctk:WatermarkComboBox HorizontalAlignment="Left" Margin="26,106,0,0" VerticalAlignment="Top" Width="295" ItemsSource="{Binding ListAvailableHueObjects}" Watermark="(Step Object)" SelectedItem="{Binding SelectedHueObject}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectHueObjectCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <xctk:WatermarkComboBox.Style>
+                <Style TargetType="xctk:WatermarkComboBox">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=cbActionType, Path=SelectedValue}" Value="Set a light or group">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </xctk:WatermarkComboBox.Style>
+            <xctk:WatermarkComboBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <Image Height="16" Source="{Binding Image}"></Image>
+                        <TextBlock Text=" - "></TextBlock>
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                    </WrapPanel>
+                </DataTemplate>
+            </xctk:WatermarkComboBox.ItemTemplate>
+        </xctk:WatermarkComboBox>
 
 
         <xctk:PropertyGrid HorizontalAlignment="Left" Margin="26,133,0,0" VerticalAlignment="Top" Height="298" Width="295" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding StepObjectProperty}"/>
-        <Button Content="Add Step" HorizontalAlignment="Left" Margin="26,436,0,0" VerticalAlignment="Top" Width="295"/>
+        <Button Content="Add Step" HorizontalAlignment="Left" Margin="26,436,0,0" VerticalAlignment="Top" Width="295" Command="{Binding AddStepCommand}"/>
         <Button Content="Move Up" HorizontalAlignment="Left" Margin="326,436,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Move Down" HorizontalAlignment="Left" Margin="406,436,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Clear" HorizontalAlignment="Left" Margin="487,436,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="486,436,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Delete" HorizontalAlignment="Left" Margin="567,436,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button HorizontalAlignment="Left" Margin="326,23,0,0" VerticalAlignment="Top" Width="26" Background="{x:Null}" AutomationProperties.IsRequiredForForm="True" BorderThickness="0">
+            <Image Source="/WinHue3;component/Resources/1464410315_play.png" Height="22" Width="21"/>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="352,23,0,0" VerticalAlignment="Top" Width="23" BorderThickness="0,0,0,0" Background="{x:Null}">
+            <Image Source="/WinHue3;component/Resources/1464410333_next.png" Height="22" Width="21"/>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="376,23,0,0" VerticalAlignment="Top" Width="23" BorderThickness="0,0,0,0" Background="{x:Null}">
+            <Image Source="/WinHue3;component/Resources/1464410329_pause.png" Height="22" Width="21"/>
+        </Button>
 
     </Grid>
 </Window>

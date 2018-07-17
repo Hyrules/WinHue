@@ -30,7 +30,7 @@
         <TabControl x:Name="TcSettings" HorizontalAlignment="Left" Height="367" VerticalAlignment="Top" Width="484">
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
                 <Grid>
-                    <CheckBox x:Name="ChbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}" />
+                    
                     <CheckBox x:Name="ChbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}"/>
                     <Label x:Name="Lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="113"/>
                     <xctk:IntegerUpDown x:Name="NudUpnpTimeout" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Width="94" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}"/>
@@ -102,6 +102,7 @@
                     <Label x:Name="LblDefaultSort" Content="{x:Static resx:GUI.SettingsForm_Tab_View_DefautSort}" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="112"/>
                     <CheckBox x:Name="ChbShowId" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" HorizontalAlignment="Left" Margin="307,13,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.ShowId}"/>
                     <CheckBox x:Name="ChbWrapText" Content="{x:Static resx:GUI.SettingsForm_Tab_View_WrapText}" HorizontalAlignment="Left" Margin="307,45,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.Wrap}"/>
+                    <CheckBox x:Name="ChbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="307,76,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">

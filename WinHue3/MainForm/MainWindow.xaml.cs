@@ -146,5 +146,6 @@ namespace WinHue3.MainForm
         {
             _mfvm.PropertyGrid.Owner = this;
         }
+
     }
 }
