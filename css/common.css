@@ -1,9 +1,15 @@
+html {
+    position: relative;
+    min-height: 100%;
+  }
+
 body{
     background-color: #000000;
+    margin-bottom: 6em ; /* Margin bottom by footer height */
 }
 
 *{
-    color: #FFFFFF;
+    color: #ffffff;
     font-family: 'Titillium Web', sans-serif;
 }
 
@@ -15,19 +21,20 @@ body{
     color:#000000
 }
 
-.footer{
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 5em;
-    line-height: 5em; /* Vertically center the text there */
     background-color: #1a1a1a;
-}
+  }
 
 .footer-content{
     font-size: 1em;
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
+    padding: 1.5em 0;
 }
 
 .footer-content img{
