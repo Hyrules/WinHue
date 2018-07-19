@@ -39,6 +39,10 @@ WinHue is a windows desktop application to control the philips hue lighting syst
 - Can you make WinHue work with x system :
     Answer : My goal was and still is to have a Windows application be able to control the philips hue lighting system. In other words no but feel free to fork my project and try to adapt it yourself. The Hue API is too deeply embedded inside WinHue that it will most likely need a complete rework of the code to be able to make it work with other system.
     
+<b> Looking for an app to control LIFX ? </b>
+
+You can try WinLIFX : https://hyrules.github.io/WinLIFX/
+    
 <b>Licence : </b>
 
 [Creative Commons Attribution Non-Commercial License V2.0](https://creativecommons.org/licenses/by-nc/2.0/)
