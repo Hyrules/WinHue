@@ -1464,8 +1464,8 @@
   <data name="SettingsForm_Tab_MainSettings_Theme" xml:space="preserve">
     <value>Thème</value>
   </data>
-  <data name="SettingsForm_Tab_MainSettings_ThemeColor" xml:space="preserve">
-    <value>Couleur</value>
+  <data name="SettingsForm_Tab_MainSettings_AccentColor" xml:space="preserve">
+    <value>Couleur d'accent</value>
   </data>
   <data name="SceneCreatorForm_SceneName" xml:space="preserve">
     <value>Nom de la scène (optionnel)</value>

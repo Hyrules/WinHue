@@ -4192,6 +4192,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accent Color.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_AccentColor {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_AccentColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always use the property grid when creating schedule.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_AlwaysUsePropGrid {
@@ -4449,15 +4458,6 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_Theme {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_Theme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Color.
-        /// </summary>
-        public static string SettingsForm_Tab_MainSettings_ThemeColor {
-            get {
-                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_ThemeColor", resourceCulture);
             }
         }
         

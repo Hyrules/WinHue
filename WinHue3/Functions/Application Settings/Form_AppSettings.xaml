@@ -106,45 +106,18 @@
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Grid>
-                    <Button Content="Accent" Margin="75,92,227,225" Click="btnAccent_Click"></Button>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="60"/>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}"  Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
-                        <ComboBoxItem Content="Red" Tag="Red"/>
-                        <ComboBoxItem Content="Green" Tag="Green"/>
-                        <ComboBoxItem Content="Blue" Tag="Blue"/>
-                        <ComboBoxItem Content="Purple" Tag="Purple"/>
-                        <ComboBoxItem Content="Orange" Tag="Orange"/>
-                        <ComboBoxItem Content="Lime" Tag="Lime"/>
-                        <ComboBoxItem Content="Emerald" Tag="Emerald"/>
-                        <ComboBoxItem Content="Teal" Tag="Teal"/>
-                        <ComboBoxItem Content="Cyan" Tag="Cyan"/>
-                        <ComboBoxItem Content="Cobalt" Tag="Cobalt"/>
-                        <ComboBoxItem Content="Indigo" Tag="Indigo"/>
-                        <ComboBoxItem Content="Violet" Tag="Violet"/>
-                        <ComboBoxItem Content="Pink" Tag="Pink"/>
-                        <ComboBoxItem Content="Magenta" Tag="Magenta"/>
-                        <ComboBoxItem Content="Crimson" Tag="Crimson"/>
-                        <ComboBoxItem Content="Amber" Tag="Amber"/>
-                        <ComboBoxItem Content="Yellow" Tag="Yellow"/>
-                        <ComboBoxItem Content="Brown" Tag="Brown"/>
-                        <ComboBoxItem Content="Olive" Tag="Olive"/>
-                        <ComboBoxItem Content="Steel" Tag="Steel"/>
-                        <ComboBoxItem Content="Mauve" Tag="Mauve"/>
-                        <ComboBoxItem Content="Taupe" Tag="Taupe"/>
-                        <ComboBoxItem Content="Sienna" Tag="Sienna"/>
-                    </controls:CommandComboBox>
-                    <controls:CommandComboBox x:Name="cbTheme" HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" Command="{Binding ChangeThemeCommand}">
+                    <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AccentColor}" Margin="75,74.295,263,242.705" Click="btnAccent_Click"></Button>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="60"/>
+                    <controls:CommandComboBox x:Name="cbTheme" HorizontalAlignment="Left" Margin="75,12,0,0" VerticalAlignment="Top" Width="140" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" Command="{Binding ChangeThemeCommand}">
                         <ComboBoxItem Content="Light"></ComboBoxItem>
                         <ComboBoxItem Content="Dark"></ComboBoxItem>
                         <ComboBoxItem Content="Legacy"></ComboBoxItem>
                     </controls:CommandComboBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60">
-                    </Label>
-                    <controls:CommandComboBox x:Name="cbThemeLayout" HorizontalAlignment="Left" Margin="75,65,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}">
+                    <controls:CommandComboBox x:Name="cbThemeLayout" HorizontalAlignment="Left" Margin="75,43,0,274.08" Width="140" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}">
                         <ComboBoxItem Content="Legacy"/>
                         <ComboBoxItem Content="Modern"/>
                     </controls:CommandComboBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Layout}" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="60"/>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Layout}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
 
