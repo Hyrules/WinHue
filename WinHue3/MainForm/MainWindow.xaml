@@ -519,6 +519,9 @@
             </MenuItem>
         </Menu>
         <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2" Margin="0,1,0,0">
+            <StatusBar.Foreground>
+                <SolidColorBrush Color="{DynamicResource textOnAccent}"/>
+            </StatusBar.Foreground>
             <StatusBar.Background>
                 <SolidColorBrush Color="{DynamicResource accent}"/>
             </StatusBar.Background>

@@ -65,6 +65,8 @@
             <!--This will be moved somewhere else eventually-->
             <Color x:Key="accent">Blue</Color>
             <SolidColorBrush x:Key="accentBrush" Color="{DynamicResource accent}"></SolidColorBrush>
+            <Color x:Key="textOnAccent">Black</Color>
+            <SolidColorBrush x:Key="textOnAccentBrush" Color="{DynamicResource textOnAccent}"></SolidColorBrush>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theming/Themes/Light.xaml"></ResourceDictionary>

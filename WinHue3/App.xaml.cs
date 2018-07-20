@@ -82,6 +82,17 @@ namespace WinHue3
                 //change accent
                 Application.Current.Resources["accent"] = WinHueSettings.settings.ThemeColor;
 
+                if (WinHueSettings.settings.ThemeColor.R + WinHueSettings.settings.ThemeColor.G + WinHueSettings.settings.ThemeColor.B > 382)
+                {
+                    MessageBox.Show("dark text");
+                    Application.Current.Resources["textOnAccent"] = System.Windows.Media.Color.FromRgb(0, 0, 0);
+                }
+                else
+                {
+                    MessageBox.Show("light text");
+                    Application.Current.Resources["textOnAccent"] = System.Windows.Media.Color.FromRgb(255, 255, 255);
+                }
+
                 //MessageBox.Show(WinHue3.Functions.Application_Settings.Settings.WinHueSettings.settings.Theme);
                 //----END THEME CHANGE----
             }
