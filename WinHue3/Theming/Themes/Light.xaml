@@ -19,7 +19,7 @@
     <SolidColorBrush x:Key="theme_SliderBackgroundBrush" Color="{StaticResource theme_SliderBackground}"></SolidColorBrush>
     <Color x:Key="theme_SliderThumb">#ffffff</Color>
     <SolidColorBrush x:Key="theme_SliderThumbBrush" Color="{StaticResource theme_SliderThumb}"></SolidColorBrush>
-    <Color x:Key="theme_SliderThumbDisabled">#e6e6e6</Color>
+    <Color x:Key="theme_SliderThumbDisabled">#d6d6d6</Color>
     <SolidColorBrush x:Key="theme_SliderThumbDisabledBrush" Color="{StaticResource theme_SliderThumbDisabled}"></SolidColorBrush>
     <Color x:Key="theme_SliderThumbHover">#808080</Color>
     <SolidColorBrush x:Key="theme_SliderThumbHoverBrush" Color="{StaticResource theme_SliderThumbHover}"></SolidColorBrush>

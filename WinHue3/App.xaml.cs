@@ -62,6 +62,34 @@ namespace WinHue3
             MainWindow.Height = height;
             MainWindow.Width = width;
 
+            //Theme must be changed before MainWindow shown, to avoid ugly transition
+            try
+            {
+                //----BEGIN THEME CHANGE----
+                //prepare to change theme resources
+                ResourceDictionary theme = new ResourceDictionary();
+                ResourceDictionary layout = new ResourceDictionary();
+                Application.Current.Resources.MergedDictionaries.Clear();
+
+                //change theme
+                theme.Source = new Uri(@"/Theming/Themes/" + WinHueSettings.settings.Theme + ".xaml", UriKind.Relative);
+                Application.Current.Resources.MergedDictionaries.Add(theme);
+
+                //change layout
+                layout.Source = new Uri(@"/Theming/Layouts/layout" + WinHueSettings.settings.ThemeLayout + ".xaml", UriKind.Relative);
+                Application.Current.Resources.MergedDictionaries.Add(layout);
+
+                //change accent
+                Application.Current.Resources["accent"] = WinHueSettings.settings.ThemeColor;
+
+                //MessageBox.Show(WinHue3.Functions.Application_Settings.Settings.WinHueSettings.settings.Theme);
+                //----END THEME CHANGE----
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             switch (WinHueSettings.settings.StartMode)
             {
                 case 0:

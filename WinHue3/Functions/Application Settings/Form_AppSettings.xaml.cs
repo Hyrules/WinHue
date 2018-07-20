@@ -125,6 +125,7 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.ThemeColor = newAccent;
 
 
+
         }
 
     }
