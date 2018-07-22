@@ -1,11 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto.Tls;
@@ -17,6 +22,8 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Utils;
 using WinHue3.Functions.Rules.Creator;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using Org.BouncyCastle.Utilities;
+using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 
 namespace HueLib2Test
 {
@@ -55,16 +62,56 @@ namespace HueLib2Test
         [TestMethod]
         public void TestDTLS()
         {
-            Socket socket = new Socket(SocketType.Stream,ProtocolType.Raw);
-            socket.Connect(new IPEndPoint(IPAddress.Parse("192.168.5.30"), 2100 ));
-            Stream stream = new NetworkStream(socket);
+           
+            IPEndPoint LocalEP = new IPEndPoint(IPAddress.Any, 0);
+            IPEndPoint RemoteEP = new IPEndPoint(IPAddress.Parse("192.168.5.30"),2100);
+            Socket socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
+            socket.Bind(LocalEP);
             
-            SecureRandom sr = new SecureRandom();
-                
-            PskTlsClient tlsclient = new PskTlsClient(new BasicTlsPskIdentity("WinHue",new byte[2]));
-            TlsClientProtocol tclp = new TlsClientProtocol(stream,sr);
-            tclp.Connect(tlsclient);
+            BasicTlsPskIdentity tlsid = new BasicTlsPskIdentity("1fIrjIf1mhoD1CsygnKB4xv0SE2AMIG0YEbPc3oi",HexStringToByteArray("8C85548411AA03CE62C1FE778EB6DB58"));
+            HueDtlsClient hdtls = new HueDtlsClient(tlsid,null);
+            hdtls.NotifyHandshakeComplete();
+            DtlsClientProtocol dtlsClientProtocol = new DtlsClientProtocol(new SecureRandom());
+            socket.Connect(RemoteEP);
+            HueDatagramTransport hdgt = new HueDatagramTransport(socket);
+            DtlsTransport tr = dtlsClientProtocol.Connect(hdtls, hdgt);
+
+
+
+            
+
+
+
         }
+
+        public static byte[] HexStringToByteArray(string hex) {
+            if (hex.Length % 2 == 1)
+                throw new Exception("The binary key cannot have an odd number of digits");
+
+            byte[] arr = new byte[hex.Length >> 1];
+
+            for (int i = 0; i < hex.Length >> 1; ++i)
+            {
+                arr[i] = (byte)((GetHexVal(hex[i << 1]) << 4) + (GetHexVal(hex[(i << 1) + 1])));
+            }
+
+            return arr;
+        }
+
+        public static int GetHexVal(char hex) {
+            int val = (int)hex;
+            //For uppercase A-F letters:
+            return val - (val < 58 ? 48 : 55);
+            //For lowercase a-f letters:
+            //return val - (val < 58 ? 48 : 87);
+            //Or the two combined, but a bit slower:
+            //return val - (val < 58 ? 48 : (val < 97 ? 55 : 87));
+        }
+
+  
+
+
+
 
         [TestMethod]
         public void TestSendPacket()

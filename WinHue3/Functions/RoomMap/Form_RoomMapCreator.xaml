@@ -1,0 +1,56 @@
+﻿<Window x:Class="WinHue3.Functions.RoomMap.Form_RoomMapCreator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Functions.RoomMap"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="Form_RoomMap" Height="450" Width="800" WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <local:RoomMapViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type local:MoveThumb}">
+            <Rectangle Fill="Transparent"/>
+        </ControlTemplate>
+        
+        <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="{x:Type Control}">
+            <Grid>
+                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" VerticalAlignment="Top" HorizontalAlignment="Stretch"  />
+                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left" />
+                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="DesignerItemTemplate" TargetType="ContentControl">
+            <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                <local:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll"/>
+                <Control Template="{StaticResource ResizeDecoratorTemplate}"/>
+                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+
+        <ListBox HorizontalAlignment="Left" Width="157" Margin="0,0,0,39.667"/>
+        <Button Content="Select Image..." HorizontalAlignment="Left" Margin="34,0,0,9.667" Width="89" Command="{Binding ChooseImageCommand}" Height="20" VerticalAlignment="Bottom"/>
+        <Canvas x:Name="canvasFloorPlan" Margin="157,0,0.333,-0.333" AllowDrop="True" >
+
+            <Canvas.Background>
+                <ImageBrush ImageSource="{Binding FloorPlan}" Stretch="Uniform"/>
+            </Canvas.Background>
+            <ContentControl Template="{StaticResource DesignerItemTemplate }" Canvas.Left="50" Canvas.Top="50">
+                <Image Height="69" Width="66" AllowDrop="True" Canvas.Left="186" Canvas.Top="149" Source="/WinHue3;component/Resources/DefaultLIFX_on.png" IsHitTestVisible="False"/>
+            </ContentControl>
+            
+        </Canvas>
+
+    </Grid>
+</Window>
+

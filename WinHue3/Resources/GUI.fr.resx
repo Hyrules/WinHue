@@ -682,7 +682,7 @@
     <value>Créer un lien de ressources...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Events" xml:space="preserve">
-    <value>Events</value>
+    <value>Événements</value>
   </data>
   <data name="MainForm_Tab_Home_Group_EventsLogButton" xml:space="preserve">
     <value>Journal des événements</value>
@@ -1619,5 +1619,8 @@
   </data>
   <data name="Form_HotKeyCreator_ProgramPath" xml:space="preserve">
     <value>Chemin de l'application</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>_Modifier</value>
   </data>
 </root>

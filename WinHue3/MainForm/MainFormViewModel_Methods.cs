@@ -63,6 +63,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
+using WinHue3.Functions.RoomMap;
 
 namespace WinHue3.MainForm
 {
@@ -1524,5 +1525,11 @@ namespace WinHue3.MainForm
                 
         }
 
+        private void CreateFloorPlan()
+        {
+            Form_RoomMapCreator frmp = new Form_RoomMapCreator();
+            frmp.Owner = Application.Current.MainWindow;
+            frmp.ShowDialog();
+        }
     }
 }

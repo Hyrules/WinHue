@@ -216,9 +216,12 @@
     <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\RoomMap\Form_RoomMap.xaml.cs">
-      <DependentUpon>Form_RoomMap.xaml</DependentUpon>
+    <Compile Include="Functions\RoomMap\MoveThumb.cs" />
+    <Compile Include="Functions\RoomMap\Form_RoomMapCreator.xaml.cs">
+      <DependentUpon>Form_RoomMapCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\RoomMap\HueElement.cs" />
+    <Compile Include="Functions\RoomMap\ResizeThumb.cs" />
     <Compile Include="Functions\RoomMap\RoomMapViewModel.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewHelper.cs" />
     <Compile Include="Functions\Rules\HueTreeViewItem.cs" />
@@ -295,6 +298,9 @@
     <Compile Include="Philips Hue\BridgeObject\Bridge_Settings.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge_Update.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\Entertainment.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDatagramTransport.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDtlsClient.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueTlsAuthentication.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\Location.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\StreamMessage.cs" />
     <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
@@ -523,7 +529,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Functions\RoomMap\Form_RoomMap.xaml">
+    <Page Include="Functions\RoomMap\Form_RoomMapCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -928,6 +934,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\entertainment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\floorplan.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

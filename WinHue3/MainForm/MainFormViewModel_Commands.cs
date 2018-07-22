@@ -309,7 +309,7 @@ namespace WinHue3.MainForm
         public ICommand CreateRuleCommand => new AsyncRelayCommand(param => CreateRule(), (param) => EnableButtons());
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor(), (param) => EnableButtons());
         public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(), (param) => EnableButtons());
-
+        public ICommand CreateFloorPlanCommand => new RelayCommand(param => CreateFloorPlan(), (param)=> EnableButtons());
         public ICommand CreateEntertainmentCommand => new RelayCommand(param => CreateEntertainment(), (param) => EnableButtons());
 
         public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());

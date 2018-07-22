@@ -1620,4 +1620,7 @@
   <data name="Form_HotKeyCreator_ProgramPath" xml:space="preserve">
     <value>Program Path</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>_Edit</value>
+  </data>
 </root>
