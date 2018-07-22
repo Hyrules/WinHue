@@ -84,12 +84,10 @@ namespace WinHue3
 
                 if (WinHueSettings.settings.ThemeColor.R + WinHueSettings.settings.ThemeColor.G + WinHueSettings.settings.ThemeColor.B > 382)
                 {
-                    MessageBox.Show("dark text");
                     Application.Current.Resources["textOnAccent"] = System.Windows.Media.Color.FromRgb(0, 0, 0);
                 }
                 else
                 {
-                    MessageBox.Show("light text");
                     Application.Current.Resources["textOnAccent"] = System.Windows.Media.Color.FromRgb(255, 255, 255);
                 }
 

@@ -28,31 +28,39 @@
         <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="BtnApply" HorizontalAlignment="Left" Margin="329,372,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>
         <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="BtnCancel" HorizontalAlignment="Left" Margin="409,372,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <TabControl x:Name="TcSettings" HorizontalAlignment="Left" Height="367" VerticalAlignment="Top" Width="484">
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
+            <TabItem Header="General">
                 <Grid>
-                    <CheckBox x:Name="ChbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}" />
-                    <CheckBox x:Name="ChbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}"/>
-                    <Label x:Name="Lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="113"/>
-                    <xctk:IntegerUpDown x:Name="NudUpnpTimeout" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Width="94" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}"/>
-                    <Label x:Name="Lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="113"/>
-                    <xctk:IntegerUpDown x:Name="NudTimeout" HorizontalAlignment="Left" Margin="128,39,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}"/>
-                    <ComboBox x:Name="CbLanguage" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="212" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Language}" >
+                    <Label Content="Application" Margin="0,0,401,313.08" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5"/>
+                    <Label Content="Language" Margin="0,25.96,411,287.12" HorizontalAlignment="Right" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5"/>
+                    <Label Content="On Startup                            " Margin="10,56.92,0,256.16" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5"/>
+                    <Label x:Name="Lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,230.001,0,0" VerticalAlignment="Top" Width="97" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
+                    <xctk:IntegerUpDown x:Name="NudUpnpTimeout" HorizontalAlignment="Left" Margin="374,232.501,0,0" VerticalAlignment="Top" Width="94" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}" TextOptions.TextFormattingMode="Display"/>
+                    <Label x:Name="Lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" Margin="10,200.001,0,0" VerticalAlignment="Top" Width="113" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
+                    <xctk:IntegerUpDown x:Name="NudTimeout" HorizontalAlignment="Left" Margin="374,202.501,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}" TextOptions.TextFormattingMode="Display"/>
+                    <ComboBox x:Name="CbLanguage" HorizontalAlignment="Left" Margin="256,27.96,0,0" VerticalAlignment="Top" Width="212" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Language}" TextOptions.TextFormattingMode="Display" >
                         <ComboBoxItem x:Name="CbifrCa" Content="Français" Tag="fr-CA"/>
                         <ComboBoxItem x:Name="CbienUs" Content="English" Tag="en-US"/>
                     </ComboBox>
-                    <CheckBox x:Name="ChbDebug" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug}" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip}" Width="454" Height="17" IsChecked="{Binding MainSettingsModel.Debug}"/>
-                    <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" Width="212" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.StartMode}">
+                    <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="256,58.92,0,0" VerticalAlignment="Top" Width="212" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.StartMode}" TextOptions.TextFormattingMode="Display">
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_DoNotStart}" Tag="0"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Minimized}" Tag="1"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Tray}" Tag="2"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Normally}" Tag="3"/>
                     </ComboBox>
-                    <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Check_Update}" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Width="454" IsChecked="{Binding MainSettingsModel.CheckUpdate}"/>
-                    <CheckBox HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="454" Height="33" IsChecked="{Binding MainSettingsModel.CheckForBridgeUpdate}">
-                        <TextBlock Text="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_NoCheckBridgeVersion}" TextWrapping="Wrap" Width="436" Height="33"/>
-                    </CheckBox>
-                    <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_MinimizeToTray}" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="286" IsChecked="{Binding MainSettingsModel.MinimizeToTray}"/>
-                    <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" Margin="10,317,20,3.667" IsChecked="{Binding MainSettingsModel.UsePropGrid}"/>
+                    <StackPanel HorizontalAlignment="Left" Margin="10,87.88,0,0" VerticalAlignment="Top" Width="458">
+                        <CheckBox x:Name="ChbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" Margin="0,0,-358,3" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}" TextOptions.TextFormattingMode="Display"/>
+                        <CheckBox x:Name="ChbDebug" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug}" Margin="0,0,-358,3" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip}" IsChecked="{Binding MainSettingsModel.Debug}" TextOptions.TextFormattingMode="Display"/>
+                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Check_Update}" Margin="0,0,-358,3" VerticalAlignment="Top" IsChecked="{Binding MainSettingsModel.CheckUpdate}" TextOptions.TextFormattingMode="Display"/>
+                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_MinimizeToTray}" Margin="0,0,-358,3" VerticalAlignment="Top" IsChecked="{Binding MainSettingsModel.MinimizeToTray}" TextOptions.TextFormattingMode="Display"/>
+                    </StackPanel>
+                    <Label Content="Hue" Margin="0,175,440,0" FontWeight="Bold" HorizontalAlignment="Right" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5" Height="25.001" VerticalAlignment="Top"/>
+                    <StackPanel HorizontalAlignment="Left" Margin="10,260.001,0,0" VerticalAlignment="Top" Width="458">
+                        <CheckBox x:Name="ChbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="0,0,-27.385,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}" TextOptions.TextFormattingMode="Display" />
+                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" Margin="0,0,-348,0" IsChecked="{Binding MainSettingsModel.UsePropGrid}" Height="18.373" TextOptions.TextFormattingMode="Display"/>
+                        <CheckBox HorizontalAlignment="Left" Margin="0,0,-354,0" VerticalAlignment="Top" Width="454" Height="33" IsChecked="{Binding MainSettingsModel.CheckForBridgeUpdate}">
+                            <TextBlock Text="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_NoCheckBridgeVersion}" TextWrapping="Wrap" Width="436" Height="33" TextOptions.TextFormattingMode="Display"/>
+                        </CheckBox>
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
@@ -104,20 +112,29 @@
                     <CheckBox x:Name="ChbWrapText" Content="{x:Static resx:GUI.SettingsForm_Tab_View_WrapText}" HorizontalAlignment="Left" Margin="307,45,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.Wrap}"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TabItem Header="Appearance" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Grid>
-                    <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AccentColor}" Margin="75,74.295,263,242.705" Click="btnAccent_Click"></Button>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="60"/>
-                    <controls:CommandComboBox x:Name="cbTheme" HorizontalAlignment="Left" Margin="75,12,0,0" VerticalAlignment="Top" Width="140" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" Command="{Binding ChangeThemeCommand}">
-                        <ComboBoxItem Content="Light"></ComboBoxItem>
-                        <ComboBoxItem Content="Dark"></ComboBoxItem>
-                        <ComboBoxItem Content="Legacy"></ComboBoxItem>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24*"/>
+                        <RowDefinition Height="89*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Colors and Styles" Margin="10,0,358.006,45.747" FontWeight="Bold"/>
+                    <CheckBox Content="Use Windows accent" Margin="0,67.92,88.333,254.453" Grid.RowSpan="2" HorizontalAlignment="Right"/>
+                    <Button Content="Custom" Margin="394.667,63.88,0,253.12" Click="btnAccent_Click" Grid.RowSpan="2" HorizontalAlignment="Left" Width="73.333"/>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Right" Margin="0,30.96,408,0" VerticalAlignment="Top" Width="60"/>
+                    <Label Content="Accent Color" HorizontalAlignment="Right" Margin="0,61.92,386,0" VerticalAlignment="Top" Width="82" Grid.RowSpan="2"/>
+                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Layout}" HorizontalAlignment="Left" Margin="10,64.415,0,0" VerticalAlignment="Top" Width="60" Grid.Row="1"/>
+                    <Label Content="Layout" Margin="10,30.873,358.006,207.617" FontWeight="Bold" Grid.Row="1"/>
+                    <controls:CommandComboBox x:Name="cbTheme" Margin="328,32.96,0,0" VerticalAlignment="Top" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" Command="{Binding ChangeThemeCommand}" HorizontalAlignment="Left" Width="140">
+                        <ComboBoxItem Content="Light"/>
+                        <ComboBoxItem Content="Dark"/>
+                        <ComboBoxItem Content="Legacy"/>
                     </controls:CommandComboBox>
-                    <controls:CommandComboBox x:Name="cbThemeLayout" HorizontalAlignment="Left" Margin="75,43,0,274.08" Width="140" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}">
+                    <controls:CommandComboBox x:Name="cbThemeLayout" Margin="328,66.415,0,178.878" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}" Grid.Row="1" HorizontalAlignment="Left" Width="140">
                         <ComboBoxItem Content="Legacy"/>
                         <ComboBoxItem Content="Modern"/>
                     </controls:CommandComboBox>
-                    <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Layout}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="60"/>
+                    <Label Content="This feature may not work as intended." HorizontalAlignment="Left" Margin="10,90.375,0,0" VerticalAlignment="Top" Grid.Row="1" Background="{x:Null}" Foreground="#FFD30000"/>
                 </Grid>
             </TabItem>
 
