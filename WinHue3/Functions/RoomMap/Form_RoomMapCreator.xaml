@@ -17,14 +17,14 @@
         
         <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="{x:Type Control}">
             <Grid>
-                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" VerticalAlignment="Top" HorizontalAlignment="Stretch"  />
-                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left" />
-                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
-                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Opacity="0.001"  />
+                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left" Opacity="0.001"/>
+                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Opacity="0.001"/>
+                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Opacity="0.001"/>
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.001"/>
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0" VerticalAlignment="Top" HorizontalAlignment="Right" Opacity="0.001"/>
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Opacity="0.001"/>
+                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.001"/>
             </Grid>
         </ControlTemplate>
 
@@ -45,8 +45,8 @@
             <Canvas.Background>
                 <ImageBrush ImageSource="{Binding FloorPlan}" Stretch="Uniform"/>
             </Canvas.Background>
-            <ContentControl Template="{StaticResource DesignerItemTemplate }" Canvas.Left="50" Canvas.Top="50">
-                <Image Height="69" Width="66" AllowDrop="True" Canvas.Left="186" Canvas.Top="149" Source="/WinHue3;component/Resources/DefaultLIFX_on.png" IsHitTestVisible="False"/>
+            <ContentControl Template="{StaticResource DesignerItemTemplate }" Height="25" Width="25" Canvas.Left="50" Canvas.Top="50" MinHeight="25" MinWidth="25">
+                <Image Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualHeight}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualWidth}" AllowDrop="True" Canvas.Left="186" Canvas.Top="149" Source="/WinHue3;component/Resources/DefaultLIFX_on.png" IsHitTestVisible="False"/>
             </ContentControl>
             
         </Canvas>

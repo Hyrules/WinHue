@@ -15,6 +15,20 @@ namespace WinHue3.Functions.RoomMap
         public ResizeThumb()
         {
             DragDelta += ResizeThumb_DragDelta;
+           // MouseEnter += ResizeThumb_MouseEnter;
+       //     MouseLeave += ResizeThumb_MouseLeave;
+        }
+
+        private void ResizeThumb_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ResizeThumb rt = sender as ResizeThumb;
+            rt.Opacity = 0.001;
+        }
+
+        private void ResizeThumb_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ResizeThumb rt = sender as ResizeThumb;
+            rt.Opacity = 1;
         }
 
         private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
