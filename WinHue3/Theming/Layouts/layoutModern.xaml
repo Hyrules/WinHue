@@ -578,7 +578,7 @@
         </Setter>
     </Style>
     <SolidColorBrush x:Key="TabItem.Static.Background" Color="{DynamicResource theme_TabItem}"/>
-    <SolidColorBrush x:Key="TabItem.Static.Border" Color="#ffffff"/>
+    <SolidColorBrush x:Key="TabItem.Static.Border" Color="{DynamicResource theme_TabItemUnselectedBorder}"/>
     <SolidColorBrush x:Key="TabItem.MouseOver.Background" Color="{DynamicResource theme_TabItemHover}"/>
     <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="{DynamicResource theme_TabItemHoverBorder}"/>
     <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="{DynamicResource theme_TabItemDisabled}"/>
@@ -597,7 +597,11 @@
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
                         <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Margin="0">
-                            <Border x:Name="innerBorder" BorderBrush="{StaticResource TabItem.Selected.Border}" BorderThickness="1,1,1,0" Background="{StaticResource TabItem.Selected.Background}" Margin="-1" Opacity="0"/>
+                            <Border x:Name="innerBorder" BorderThickness="1,1,1,0" Background="{StaticResource TabItem.Selected.Background}" Margin="-1" Opacity="0">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource accent}"/>
+                                </Border.BorderBrush>
+                            </Border>
                         </Border>
                         <ContentPresenter x:Name="contentPresenter" ContentSource="Header" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                     </Grid>
@@ -1135,7 +1139,7 @@
         </Setter>
     </Style>
     <SolidColorBrush x:Key="Button.Primary.Static.Background" Color="{DynamicResource theme_ControlBackground}"/>
-    <SolidColorBrush x:Key="Button.Primary.Static.Border" Color="{DynamicResource theme_ControlBorder}"/>
+    <SolidColorBrush x:Key="Button.Primary.Static.Border" Color="{DynamicResource accent}"/>
     <SolidColorBrush x:Key="Button.Primary.MouseOver.Background" Color="#ff2e2e2e"/>
     <SolidColorBrush x:Key="Button.Primary.MouseOver.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="Button.Primary.Pressed.Background" Color="#ff141414"/>
@@ -1293,13 +1297,13 @@
     </Style>
     <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="{DynamicResource theme_ControlBackgroundHover}"/>
     <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="{DynamicResource theme_ControlBorder}"/>
-    <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="#FF212121"/>
+    <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="{DynamicResource accent}"/>
     <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6"/>
     <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070"/>
+    <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="{DynamicResource accent}"/>
     <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="{DynamicResource theme_ControlBackgroundPressed}"/>
-    <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="{DynamicResource theme}"/>
-    <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
+    <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="{DynamicResource theme_ControlBorder}"/>
+    <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="{DynamicResource accentDark}"/>
     <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="{DynamicResource accent}"/>
     <Color x:Key="Test">#ffffff</Color>
     <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">

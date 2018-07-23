@@ -3,6 +3,9 @@
                     xmlns:local="clr-namespace:WinHue3.Theming"
                     x:Name="themeDark">
 
+    <Color x:Key="theme_SecondaryBackground">#191919</Color>
+    <SolidColorBrush x:Key="theme_SecondaryBackgroundBrush" Color="{StaticResource theme_SecondaryBackground}"></SolidColorBrush>
+    
     <Color x:Key="theme_HeaderBackground">#1d1d1d</Color>
     <SolidColorBrush x:Key="theme_HeaderBackgroundBrush" Color="{StaticResource theme_HeaderBackground}"></SolidColorBrush>
     <Color x:Key="theme_HeaderText">#ffffff</Color>
@@ -33,11 +36,12 @@
 
     
     <!-- Currently Unused -->
-    <Color x:Key="theme_TabItem">#ff0f0f0f</Color>
+    <Color x:Key="theme_TabItem">#ff171717</Color>
     <Color x:Key="theme_TabItemHover">#ff0d0d0d</Color>
     <SolidColorBrush x:Key="theme_TabItemHoverBrush" Color="{StaticResource theme_TabItemHover}"></SolidColorBrush>
-    <Color x:Key="theme_TabItemHoverBorder">#ff4d4d4d</Color>
-    <Color x:Key="theme_TabItemSelected">#ff171717</Color>
+    <Color x:Key="theme_TabItemHoverBorder">#ffffff</Color>
+    <Color x:Key="theme_TabItemUnselectedBorder">#ff4d4d4d</Color>
+    <Color x:Key="theme_TabItemSelected">#ff0f0f0f</Color>
     <Color x:Key="theme_TabItemDisabled">#ff000000</Color>
     <!--<SolidColorBrush x:Key="theme_TabItemSelected" Color="{StaticResource theme_MainBackground}"></SolidColorBrush>-->
 
@@ -51,5 +55,7 @@
     <SolidColorBrush x:Key="theme_ControlBackgroundPressedBrush" Color="{StaticResource theme_ControlBackgroundPressed}"></SolidColorBrush>
     <Color x:Key="theme_ControlText">#ffffff</Color>
     <SolidColorBrush x:Key="theme_ControlTextBrush" Color="{StaticResource theme_ControlText}"></SolidColorBrush>
-    
+
+    <Color x:Key="theme_ComboBoxGlyph">#555555</Color>
+
 </ResourceDictionary>

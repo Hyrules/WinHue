@@ -21,6 +21,9 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
+    </Window.Background>
     <Window.DataContext>
         <applicationSettings:AppSettingsViewModel/>
     </Window.DataContext>
@@ -33,10 +36,13 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="BtnApply" HorizontalAlignment="Right" Width="73" Click="btnApply_Click" Margin="10,10,0,10" TextOptions.TextFormattingMode="Display"/>
-        <Button Grid.Column="1" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="BtnCancel" HorizontalAlignment="Right" Click="btnCancel_Click" Width="73" Margin="10" Height="20" TextOptions.TextFormattingMode="Display"/>
-        <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="TcSettings" Padding="10,5,10,0" Margin="10,10,10,0">
-            <TabItem Header="General">
+        <Button Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="BtnApply" HorizontalAlignment="Right" Width="73" Click="btnApply_Click" Margin="10,10,0,10" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="BtnCancel" HorizontalAlignment="Right" Click="btnCancel_Click" Width="73" Margin="10" Height="20" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}"/>
+        <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="TcSettings" Padding="10,5,10,0" Margin="10,10,10,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource TabControlStyle}" BorderThickness="1">
+            <TabControl.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource accent}"/>
+            </TabControl.BorderBrush>
+            <TabItem Header="General" Style="{DynamicResource TabItemStyle}">
                 <Grid Margin="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -52,40 +58,94 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Content="Application" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5" Margin="0"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="Language" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5"/>
-                    <Label Grid.Column="0" Grid.Row="2" Content="On Startup" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5"/>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Application" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5" Margin="0">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Language" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Grid.Column="0" Grid.Row="2" Content="On Startup" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
                     <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,5,0,0">
-                        <CheckBox x:Name="ChbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3"/>
-                        <CheckBox x:Name="ChbDebug" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip}" IsChecked="{Binding MainSettingsModel.Debug}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3"/>
-                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Check_Update}" IsChecked="{Binding MainSettingsModel.CheckUpdate}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3"/>
-                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_MinimizeToTray}" IsChecked="{Binding MainSettingsModel.MinimizeToTray}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3"/>
+                        <CheckBox x:Name="ChbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
+                        <CheckBox x:Name="ChbDebug" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Debug_EnableDebug_ToolTip}" IsChecked="{Binding MainSettingsModel.Debug}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
+                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Check_Update}" IsChecked="{Binding MainSettingsModel.CheckUpdate}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
+                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_MinimizeToTray}" IsChecked="{Binding MainSettingsModel.MinimizeToTray}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
                     </StackPanel>
-                    <Label Grid.Column="0" Grid.Row="6" x:Name="Lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
-                    <xctk:IntegerUpDown Grid.Row="6" Grid.Column="1" x:Name="NudUpnpTimeout" HorizontalAlignment="Right" VerticalAlignment="Top" Width="94" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}" TextOptions.TextFormattingMode="Display" Margin="0,2.5,0,0"/>
-                    <Label Grid.Column="0" Grid.Row="5"  x:Name="Lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
-                    <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" x:Name="NudTimeout" HorizontalAlignment="Right" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}" TextOptions.TextFormattingMode="Display" Margin="0,2.5,0,0"/>
-                    <ComboBox Grid.Column="1" Grid.Row="1" x:Name="CbLanguage" VerticalAlignment="Top" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Language}" TextOptions.TextFormattingMode="Display" Margin="0,2,0,0">
+                    <Label Grid.Column="0" Grid.Row="6" x:Name="Lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <xctk:IntegerUpDown Grid.Row="6" Grid.Column="1" x:Name="NudUpnpTimeout" HorizontalAlignment="Right" VerticalAlignment="Top" Width="94" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}" TextOptions.TextFormattingMode="Display" Margin="0,2.5,0,0" Style="{DynamicResource IntegerUpDownStyle}"/>
+                    <Label Grid.Column="0" Grid.Row="5"  x:Name="Lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" x:Name="NudTimeout" HorizontalAlignment="Right" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}" TextOptions.TextFormattingMode="Display" Margin="0,2.5,0,0" Style="{DynamicResource IntegerUpDownStyle}"/>
+                    <ComboBox Grid.Column="1" Grid.Row="1" x:Name="CbLanguage" VerticalAlignment="Top" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Language}" TextOptions.TextFormattingMode="Display" Margin="0,2,0,0" Style="{DynamicResource ComboBoxStyle}">
+                        <ComboBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </ComboBox.Foreground>
                         <ComboBoxItem x:Name="CbifrCa" Content="Français" Tag="fr-CA"/>
                         <ComboBoxItem x:Name="CbienUs" Content="English" Tag="en-US"/>
                     </ComboBox>
-                    <ComboBox Grid.Column="1" Grid.Row="2" x:Name="ComboBox" VerticalAlignment="Top" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.StartMode}" TextOptions.TextFormattingMode="Display" Margin="0,2,0,0">
+                    <ComboBox Grid.Column="1" Grid.Row="2" x:Name="ComboBox" VerticalAlignment="Top" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.StartMode}" TextOptions.TextFormattingMode="Display" Margin="0,2,0,0" Style="{DynamicResource ComboBoxStyle}">
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_DoNotStart}" Tag="0"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Minimized}" Tag="1"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Tray}" Tag="2"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Start_Normally}" Tag="3"/>
                     </ComboBox>
-                    <Label Grid.Column="0" Grid.Row="4" Content="Hue" FontWeight="Bold" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5" Margin="0,15,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Hue" FontWeight="Bold" HorizontalAlignment="Left" TextOptions.TextFormattingMode="Display" Padding="0,5,5,5" Margin="0,15,0,0">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
                     <StackPanel Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2">
-                        <CheckBox x:Name="ChbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3" />
-                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" IsChecked="{Binding MainSettingsModel.UsePropGrid}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3"/>
-                        <CheckBox IsChecked="{Binding MainSettingsModel.CheckForBridgeUpdate}" Margin="0,0,0,3" HorizontalContentAlignment="Stretch">
+                        <CheckBox x:Name="ChbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3" Style="{DynamicResource CheckBoxStyle}" >
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
+                        <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" IsChecked="{Binding MainSettingsModel.UsePropGrid}" TextOptions.TextFormattingMode="Display" Margin="0,0,0,3" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
+                        <CheckBox IsChecked="{Binding MainSettingsModel.CheckForBridgeUpdate}" Margin="0,0,0,3" HorizontalContentAlignment="Stretch" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
                             <TextBlock Text="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_NoCheckBridgeVersion}" TextWrapping="Wrap" TextOptions.TextFormattingMode="Display"/>
                         </CheckBox>
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -146,7 +206,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -157,20 +217,36 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ComboBox Grid.Column="1" Grid.Row="1" x:Name="CbDefaultSort" VerticalAlignment="Top" SelectedValue="{Binding ViewSettingsModel.Sort}" SelectedValuePath="Tag" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" >
+                    <ComboBox Grid.Column="1" Grid.Row="1" x:Name="CbDefaultSort" VerticalAlignment="Top" SelectedValue="{Binding ViewSettingsModel.Sort}" SelectedValuePath="Tag" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ComboBoxStyle}" >
                         <ComboBoxItem Content="Default" Tag="{x:Static models:WinHueSortOrder.Default}"/>
                         <ComboBoxItem Content="Ascending" Tag="{x:Static models:WinHueSortOrder.Ascending}"/>
                         <ComboBoxItem Content="Descending" Tag="{x:Static models:WinHueSortOrder.Descending}"/>
                     </ComboBox>
-                    <Label Grid.Column="0" Grid.Row="1" x:Name="LblDefaultSort" Content="{x:Static resx:GUI.SettingsForm_Tab_View_DefautSort}" HorizontalAlignment="Left" Padding="0,5,5,5" VerticalContentAlignment="Stretch" TextOptions.TextFormattingMode="Display"/>
+                    <Label Grid.Column="0" Grid.Row="1" x:Name="LblDefaultSort" Content="{x:Static resx:GUI.SettingsForm_Tab_View_DefautSort}" HorizontalAlignment="Left" Padding="0,5,5,5" VerticalContentAlignment="Stretch" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
                     <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,5,0,0">
-                        <CheckBox x:Name="ChbShowId" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" Margin="0,0,0,3" IsChecked="{Binding ViewSettingsModel.ShowId}" TextOptions.TextFormattingMode="Display"/>
-                        <CheckBox x:Name="ChbWrapText" Content="{x:Static resx:GUI.SettingsForm_Tab_View_WrapText}" Margin="0" IsChecked="{Binding ViewSettingsModel.Wrap}" TextOptions.TextFormattingMode="Display"/>
+                        <CheckBox x:Name="ChbShowId" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" Margin="0,0,0,3" IsChecked="{Binding ViewSettingsModel.ShowId}" TextOptions.TextFormattingMode="Display" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
+                        <CheckBox x:Name="ChbWrapText" Content="{x:Static resx:GUI.SettingsForm_Tab_View_WrapText}" Margin="0" IsChecked="{Binding ViewSettingsModel.Wrap}" TextOptions.TextFormattingMode="Display" Style="{DynamicResource CheckBoxStyle}">
+                            <CheckBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </CheckBox.Foreground>
+                        </CheckBox>
                     </StackPanel>
-                    <Label Grid.Column="0" Grid.Row="0" Content="Hue Objects" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0,5,5,5" FontWeight="Bold" TextOptions.TextFormattingMode="Display"/>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Hue Objects" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0,5,5,5" FontWeight="Bold" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
                 </Grid>
             </TabItem>
-            <TabItem Header="Appearance">
+            <TabItem Header="Appearance" Style="{DynamicResource TabItemStyle}">
                 <Grid Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -183,19 +259,43 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Content="Colors and Styles" FontWeight="Bold" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
-                    <CheckBox Grid.Column="1" Grid.Row="2" Content="Use Windows accent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,27.96,0,0" TextOptions.TextFormattingMode="Display"/>
-                    <Button Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
-                    <Label Grid.Column="0" Grid.Row="2" Content="Accent Color" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
-                    <Label Grid.Column="0" Grid.Row="4" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Layout}" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
-                    <Label Grid.Column="0" Grid.Row="3" Content="Layout" FontWeight="Bold" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display"/>
-                    <controls:CommandComboBox Grid.Column="1" Grid.Row="1" x:Name="cbTheme" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" Command="{Binding ChangeThemeCommand}" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" VerticalAlignment="Top">
+                    <Label Grid.Column="0" Grid.Row="0" Content="Colors and Styles" FontWeight="Bold" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <CheckBox Grid.Column="1" Grid.Row="2" Content="Use Windows accent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,27.96,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource CheckBoxStyle}">
+                        <CheckBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </CheckBox.Foreground>
+                    </CheckBox>
+                    <Button Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Accent Color" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Grid.Column="0" Grid.Row="4" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Layout}" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Layout" FontWeight="Bold" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <controls:CommandComboBox Grid.Column="1" Grid.Row="1" x:Name="cbTheme" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{DynamicResource ComboBoxStyle}" Command="{Binding ChangeThemeCommand}" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" VerticalAlignment="Top">
                         <ComboBoxItem Content="Light"/>
                         <ComboBoxItem Content="Dark"/>
                         <ComboBoxItem Content="Legacy"/>
                     </controls:CommandComboBox>
-                    <controls:CommandComboBox Grid.Column="1" Grid.Row="4" x:Name="cbThemeLayout" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}" VerticalAlignment="Top" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display">
+                    <controls:CommandComboBox Grid.Column="1" Grid.Row="4" x:Name="cbThemeLayout" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}" VerticalAlignment="Top" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ComboBoxStyle}">
                         <ComboBoxItem Content="Legacy"/>
                         <ComboBoxItem Content="Modern"/>
                     </controls:CommandComboBox>

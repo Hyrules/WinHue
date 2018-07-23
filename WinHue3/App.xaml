@@ -58,18 +58,19 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            
-            <Color x:Key="accent2">#00B7C3</Color>
-            <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="{DynamicResource accent2}"></SolidColorBrush>
 
+            
+            
             <!--This will be moved somewhere else eventually-->
             <Color x:Key="accent">Blue</Color>
+            <Color x:Key="accentDark">#00B7C3</Color>
+            <Color x:Key="accentLight">#00B7C3</Color>
             <SolidColorBrush x:Key="accentBrush" Color="{DynamicResource accent}"></SolidColorBrush>
             <Color x:Key="textOnAccent">Black</Color>
             <SolidColorBrush x:Key="textOnAccentBrush" Color="{DynamicResource textOnAccent}"></SolidColorBrush>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theming/Themes/Light.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theming/Themes/Dark.xaml"></ResourceDictionary>
                 <!--<ResourceDictionary Source="Theming/Layouts/layoutLegacy.xaml"></ResourceDictionary>-->
                 <ResourceDictionary Source="Theming/Layouts/layoutModern.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

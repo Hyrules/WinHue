@@ -537,6 +537,9 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="{x:Null}" >
+                <StatusBarItem.Background>
+                    <SolidColorBrush Color="{DynamicResource accentDark}"/>
+                </StatusBarItem.Background>
                 <TextBlock  x:Name="LblSbMessage" Text="{Binding Lastmessage}" HorizontalAlignment="Stretch"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="0" BorderBrush="{x:Null}" Padding="1">

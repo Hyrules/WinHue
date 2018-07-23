@@ -183,6 +183,7 @@
     </Compile>
     <Compile Include="Functions\Application Settings\Settings\CustomLifxSettings.cs" />
     <Compile Include="Functions\Application Settings\Settings\LifxSaveDevice.cs" />
+    <Compile Include="Functions\Application Settings\Settings\ThemeSettings.cs" />
     <Compile Include="Functions\Behaviors\CommandBehavior.cs" />
     <Compile Include="Functions\Behaviors\KeyUpBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
@@ -345,6 +346,8 @@
     <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomHotkeys.cs" />
     <Compile Include="Properties\Annotations1.cs" />
+    <Compile Include="Theming\AccentColors.cs" />
+    <Compile Include="Theming\ThemeEngine.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
@@ -945,7 +948,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

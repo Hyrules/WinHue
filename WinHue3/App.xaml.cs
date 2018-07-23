@@ -81,6 +81,8 @@ namespace WinHue3
 
                 //change accent
                 Application.Current.Resources["accent"] = WinHueSettings.settings.ThemeColor;
+                Application.Current.Resources["accentDark"] = Theming.ThemeEngine.ChangeLightness(WinHueSettings.settings.ThemeColor, (float)0.75);
+                //Application.Current.Resources["accentLight"] = Theming.ThemeEngine.ChangeLightness(WinHueSettings.settings.ThemeColor, (float)1.25);
 
                 if (WinHueSettings.settings.ThemeColor.R + WinHueSettings.settings.ThemeColor.G + WinHueSettings.settings.ThemeColor.B > 382)
                 {
