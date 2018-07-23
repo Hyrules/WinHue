@@ -3,6 +3,9 @@
                     xmlns:local="clr-namespace:WinHue3.Theming"
                     x:Name="themeLight">
 
+    <Color x:Key="theme_SecondaryBackground">#f2f2f2</Color>
+    <SolidColorBrush x:Key="theme_SecondaryBackgroundBrush" Color="{StaticResource theme_SecondaryBackground}"></SolidColorBrush>
+    
     <Color x:Key="theme_HeaderBackground">#f2f2f2</Color>
     <SolidColorBrush x:Key="theme_HeaderBackgroundBrush" Color="{StaticResource theme_HeaderBackground}"></SolidColorBrush>
     <Color x:Key="theme_HeaderText">#333333</Color>
@@ -13,7 +16,6 @@
     <SolidColorBrush x:Key="theme_ToolBarBackgroundBrush" Color="{StaticResource theme_ToolBarBackground}"></SolidColorBrush>
     <Color x:Key="theme_ToolBarText">#000000</Color>
     <SolidColorBrush x:Key="theme_ToolBarTextBrush" Color="{StaticResource theme_ToolBarText}"></SolidColorBrush>
-
 
     <Color x:Key="theme_SliderBackground">#d9d9d9</Color>
     <SolidColorBrush x:Key="theme_SliderBackgroundBrush" Color="{StaticResource theme_SliderBackground}"></SolidColorBrush>
@@ -40,7 +42,8 @@
     <Color x:Key="theme_TabItemHover">#ff0d0d0d</Color>
     <SolidColorBrush x:Key="theme_TabItemHoverBrush" Color="{StaticResource theme_TabItemHover}"></SolidColorBrush>
     <Color x:Key="theme_TabItemHoverBorder">#ff4d4d4d</Color>
-    <Color x:Key="theme_TabItemSelected">#ff171717</Color>
+    <Color x:Key="theme_TabItemUnselectedBorder">#ff4d4d4d</Color>
+    <Color x:Key="theme_TabItemSelected">#ffffff</Color>
     <Color x:Key="theme_TabItemDisabled">#ff000000</Color>
     <!--<SolidColorBrush x:Key="theme_TabItemSelected" Color="{StaticResource theme_MainBackground}"></SolidColorBrush>-->
 
@@ -52,7 +55,9 @@
     <SolidColorBrush x:Key="theme_ControlBackgroundHoverBrush" Color="{StaticResource theme_ControlBackgroundHover}"></SolidColorBrush>
     <Color x:Key="theme_ControlBackgroundPressed">#ff141414</Color>
     <SolidColorBrush x:Key="theme_ControlBackgroundPressedBrush" Color="{StaticResource theme_ControlBackgroundPressed}"></SolidColorBrush>
-    <Color x:Key="theme_ControlText">#ffffff</Color>
+    <Color x:Key="theme_ControlText">#000000</Color>
     <SolidColorBrush x:Key="theme_ControlTextBrush" Color="{StaticResource theme_ControlText}"></SolidColorBrush>
 
+    <Color x:Key="theme_ComboBoxGlyph">#555555</Color>
+    
 </ResourceDictionary>
