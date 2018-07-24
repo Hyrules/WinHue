@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinHue3.Functions.RoomMap"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:l="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         mc:Ignorable="d"
         Title="Form_RoomMap" Height="450" Width="800" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
@@ -38,7 +39,16 @@
     </Window.Resources>
     <Grid>
 
-        <ListBox HorizontalAlignment="Left" Width="157" Margin="0,0,0,39.667"/>
+        <ListBox HorizontalAlignment="Left" Width="157" Margin="0,0,0,39.667" ItemsSource="{Binding ListHueObjects}">
+            <ListBox.Resources>
+                <DataTemplate DataType="{x:Type l:Light}">
+                    <WrapPanel>
+                        <Image Height="32px"/>
+                        <Label Content="{Binding name}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.Resources>
+        </ListBox>
         <Button Content="Select Image..." HorizontalAlignment="Left" Margin="34,0,0,9.667" Width="89" Command="{Binding ChooseImageCommand}" Height="20" VerticalAlignment="Bottom"/>
         <Canvas x:Name="canvasFloorPlan" Margin="157,0,0.333,-0.333" AllowDrop="True" >
 
