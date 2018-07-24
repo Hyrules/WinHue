@@ -26,7 +26,17 @@ namespace WinHue3.Theming
             return Color.FromArgb(a3, r3, g3, b3);
         }
 
-    }
+        public static Color TextColorOnBackground(Color backgroundColor)
+        {
+            if (backgroundColor.R + backgroundColor.G + backgroundColor.B > 382)
+            {
+                return Color.FromRgb(0, 0, 0);
+            }
 
+            return Color.FromRgb(255,255,255);
+        }
+
+
+    }
 
 }

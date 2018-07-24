@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Threading;
 using WinHue3.Functions.Application_Settings.Settings;
 using Form_EventLog = WinHue3.Functions.EventViewer.Form_EventLog;
+using WinHue3.Theming;
 
 namespace WinHue3
 {
@@ -71,8 +72,17 @@ namespace WinHue3
                 ResourceDictionary layout = new ResourceDictionary();
                 Application.Current.Resources.MergedDictionaries.Clear();
 
+                //get theme source depending on settings
+                if (WinHueSettings.settings.ThemeLayout == "Legacy")
+                {
+                    theme.Source = new Uri(@"/Theming/Themes/Legacy.xaml", UriKind.Relative);
+                }
+                else
+                {
+                    theme.Source = new Uri(@"/Theming/Themes/" + WinHueSettings.settings.Theme + ".xaml", UriKind.Relative);
+                }
+
                 //change theme
-                theme.Source = new Uri(@"/Theming/Themes/" + WinHueSettings.settings.Theme + ".xaml", UriKind.Relative);
                 Application.Current.Resources.MergedDictionaries.Add(theme);
 
                 //change layout
@@ -81,24 +91,15 @@ namespace WinHue3
 
                 //change accent
                 Application.Current.Resources["accent"] = WinHueSettings.settings.ThemeColor;
-                Application.Current.Resources["accentDark"] = Theming.ThemeEngine.ChangeLightness(WinHueSettings.settings.ThemeColor, (float)0.75);
-                //Application.Current.Resources["accentLight"] = Theming.ThemeEngine.ChangeLightness(WinHueSettings.settings.ThemeColor, (float)1.25);
+                Application.Current.Resources["accentDark"] = ThemeEngine.ChangeLightness(WinHueSettings.settings.ThemeColor, (float)0.75);
+                //assign text color on accent background
+                Application.Current.Resources["textOnAccent"] = ThemeEngine.TextColorOnBackground(WinHueSettings.settings.ThemeColor);
 
-                if (WinHueSettings.settings.ThemeColor.R + WinHueSettings.settings.ThemeColor.G + WinHueSettings.settings.ThemeColor.B > 382)
-                {
-                    Application.Current.Resources["textOnAccent"] = System.Windows.Media.Color.FromRgb(0, 0, 0);
-                }
-                else
-                {
-                    Application.Current.Resources["textOnAccent"] = System.Windows.Media.Color.FromRgb(255, 255, 255);
-                }
-
-                //MessageBox.Show(WinHue3.Functions.Application_Settings.Settings.WinHueSettings.settings.Theme);
                 //----END THEME CHANGE----
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Issue applying theme: " + ex.Message);
             }
 
             switch (WinHueSettings.settings.StartMode)
