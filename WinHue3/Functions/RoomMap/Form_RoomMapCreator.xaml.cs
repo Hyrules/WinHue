@@ -19,8 +19,7 @@ namespace WinHue3.Functions.RoomMap
     /// </summary>
     public partial class Form_RoomMapCreator : Window
     {
-        private bool isDragging;
-        private Point clickPosition;
+
         public Form_RoomMapCreator()
         {
             InitializeComponent();
