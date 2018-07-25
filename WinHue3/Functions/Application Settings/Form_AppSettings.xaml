@@ -264,12 +264,12 @@
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </Label.Foreground>
                     </Label>
-                    <CheckBox x:Name="chkWindowsAccent" Grid.Column="1" Grid.Row="2" Content="Use Windows accent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,27.96,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource CheckBoxStyle}">
+                    <CheckBox x:Name="chkWindowsAccent" Grid.Column="1" Grid.Row="2" Content="Use Windows accent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,27.96,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource CheckBoxStyle}" IsEnabled="{Binding MainSettingsModel.ModernTheme}">
                         <CheckBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </CheckBox.Foreground>
                     </CheckBox>
-                    <Button x:Name="buttonAccent" Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}"/>
+                    <Button x:Name="buttonAccent" Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}" IsEnabled="{Binding MainSettingsModel.ModernTheme}"/>
                     <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
@@ -290,11 +290,11 @@
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </Label.Foreground>
                     </Label>
-                    <controls:CommandComboBox Grid.Column="1" Grid.Row="1" x:Name="cbTheme" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{DynamicResource ComboBoxStyle}" Command="{Binding ChangeThemeCommand}" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" VerticalAlignment="Top" IsEnabled="False">
+                    <controls:CommandComboBox Grid.Column="1" Grid.Row="1" x:Name="cbTheme" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{DynamicResource ComboBoxStyle}" Command="{Binding ChangeThemeCommand}" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" VerticalAlignment="Top">
                         <ComboBoxItem Content="Light"/>
                         <ComboBoxItem Content="Dark"/>
                     </controls:CommandComboBox>
-                    <controls:CommandComboBox Grid.Column="1" Grid.Row="4" x:Name="cbThemeLayout" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" Command="{Binding ChangeThemeCommand}" VerticalAlignment="Top" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ComboBoxStyle}" SelectionChanged="cbThemeLayout_SelectionChanged">
+                    <controls:CommandComboBox Grid.Column="1" Grid.Row="4" x:Name="cbThemeLayout" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.ThemeLayout}" VerticalAlignment="Top" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ComboBoxStyle}" SelectionChanged="cbThemeLayout_SelectionChanged">
                         <ComboBoxItem Content="Legacy"/>
                         <ComboBoxItem Content="Modern"/>
                     </controls:CommandComboBox>

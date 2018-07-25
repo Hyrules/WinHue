@@ -144,14 +144,14 @@ namespace WinHue3.Functions.Application_Settings
             if ((e.AddedItems[0] as System.Windows.Controls.ComboBoxItem).Content.ToString() == "Legacy")
             {
                 MessageBox.Show("legacy");
-                cbTheme.IsEnabled = false;
-                buttonAccent.IsEnabled = false;
-                chkWindowsAccent.IsEnabled = false;
+                //cbTheme.IsEnabled = false;
+                //buttonAccent.IsEnabled = false;
+                //chkWindowsAccent.IsEnabled = false;
             } else
             {
-                cbTheme.IsEnabled = true;
-                buttonAccent.IsEnabled = true;
-                chkWindowsAccent.IsEnabled = true;
+                //cbTheme.IsEnabled = true;
+                //buttonAccent.IsEnabled = true;
+                //chkWindowsAccent.IsEnabled = true;
             }
         }
     }

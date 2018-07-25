@@ -114,7 +114,7 @@ namespace WinHue3.Functions.Application_Settings
         public string ThemeLayout
         {
             get => _themelayout;
-            set => SetProperty(ref _themelayout, value);
+            set { SetProperty(ref _themelayout, value);RaisePropertyChanged("ModernTheme"); }
         }
 
         public bool MinimizeToTray
@@ -128,5 +128,8 @@ namespace WinHue3.Functions.Application_Settings
             get => _usePropGrid;
             set => SetProperty(ref _usePropGrid,value);
         }
+
+        public bool ModernTheme => (_themelayout != "Legacy");
+
     }
 }

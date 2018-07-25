@@ -36,13 +36,25 @@ namespace WinHue3.Functions.Application_Settings
             set => SetProperty(ref _appViewSettingsModel,value);
         }
 
-        public ICommand ChangeThemeCommand => new RelayCommand(param => ChangeThemeColor());
+        public bool legacyTheme => !MainSettingsModel.CheckUpdate;
+
+        public ICommand ChangeThemeCommand => new RelayCommand(param => ChangeThemeColor(), (param) => dnnableChangingTheme());
+        
 
         private void ChangeThemeColor()
         {
             
             //Fluent.ThemeManager.ChangeAppStyle(Application.Current, Fluent.ThemeManager.GetAccent(MainSettingsModel.Themecolor), Fluent.ThemeManager.GetAppTheme(MainSettingsModel.Theme));
 
+        }
+
+        private bool dnnableChangingTheme()
+        {
+            if (MainSettingsModel.ThemeLayout == "Legacy")
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
