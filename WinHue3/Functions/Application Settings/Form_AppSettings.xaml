@@ -11,6 +11,7 @@
     xmlns:models="clr-namespace:WinHue3.MainForm"
     Title="{x:Static resx:GUI.SettingsForm_Title}" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" Width="550" Height="430" MinHeight="430" MinWidth="550" >
     <Window.Resources>
+        <applicationSettings:CustomAccentEnabler x:Key="isEnabledConverter"/>
         <converters:IntToUshortConverter x:Key="IntToUshortConverter"/>
         <Style TargetType="xctk:ByteUpDown" x:Key="BriLastState">
             <Setter Property="IsEnabled" Value="True"/>
@@ -269,7 +270,14 @@
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </CheckBox.Foreground>
                     </CheckBox>
-                    <Button x:Name="buttonAccent" Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}" IsEnabled="{Binding MainSettingsModel.ModernTheme}"/>
+                    <Button x:Name="buttonAccent" Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource isEnabledConverter}">
+                                <Binding ElementName="chkWindowsAccent" Path="IsChecked"/>
+                                <Binding ElementName="cbThemeLayout" Path="SelectedItem"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
                     <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>

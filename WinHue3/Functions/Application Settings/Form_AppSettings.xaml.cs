@@ -143,7 +143,7 @@ namespace WinHue3.Functions.Application_Settings
         {
             if ((e.AddedItems[0] as System.Windows.Controls.ComboBoxItem).Content.ToString() == "Legacy")
             {
-                MessageBox.Show("legacy");
+                //MessageBox.Show("legacy");
                 //cbTheme.IsEnabled = false;
                 //buttonAccent.IsEnabled = false;
                 //chkWindowsAccent.IsEnabled = false;
@@ -154,5 +154,27 @@ namespace WinHue3.Functions.Application_Settings
                 //chkWindowsAccent.IsEnabled = true;
             }
         }
+    }
+    public class CustomAccentEnabler : System.Windows.Data.IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if ((bool)values[0] == false && ((System.Windows.Controls.ComboBoxItem)values[1]).ToString().Contains("Modern"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotSupportedException("ConvertBack should never be called");
+        }
+
     }
 }
