@@ -28,6 +28,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             ThemeColor = System.Windows.Media.Colors.Cyan;
             Theme = "Light";
             ThemeLayout = "Modern";
+            UseWindowsAccent = false;
             UseLastBriState = false;
             MinimizeToTray = false;
             UsePropertyGrid = false;
@@ -74,6 +75,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public string Theme { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public string ThemeLayout { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public bool UseWindowsAccent { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public bool UseLastBriState { get; set; }
         [DataMember(EmitDefaultValue = true)]

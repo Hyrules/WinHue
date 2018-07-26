@@ -66,36 +66,8 @@ namespace WinHue3
             //Theme must be changed before MainWindow shown, to avoid ugly transition
             try
             {
-                //----BEGIN THEME CHANGE----
-                //prepare to change theme resources
-                ResourceDictionary theme = new ResourceDictionary();
-                ResourceDictionary layout = new ResourceDictionary();
-                Application.Current.Resources.MergedDictionaries.Clear();
-
-                //get theme source depending on settings
-                if (WinHueSettings.settings.ThemeLayout == "Legacy")
-                {
-                    theme.Source = new Uri(@"/Theming/Themes/Legacy.xaml", UriKind.Relative);
-                }
-                else
-                {
-                    theme.Source = new Uri(@"/Theming/Themes/" + WinHueSettings.settings.Theme + ".xaml", UriKind.Relative);
-                }
-
-                //change theme
-                Application.Current.Resources.MergedDictionaries.Add(theme);
-
-                //change layout
-                layout.Source = new Uri(@"/Theming/Layouts/layout" + WinHueSettings.settings.ThemeLayout + ".xaml", UriKind.Relative);
-                Application.Current.Resources.MergedDictionaries.Add(layout);
-
-                //change accent
-                Application.Current.Resources["accent"] = WinHueSettings.settings.ThemeColor;
-                Application.Current.Resources["accentDark"] = ThemeEngine.ChangeLightness(WinHueSettings.settings.ThemeColor, (float)0.75);
-                //assign text color on accent background
-                Application.Current.Resources["textOnAccent"] = ThemeEngine.TextColorOnBackground(WinHueSettings.settings.ThemeColor);
-
-                //----END THEME CHANGE----
+                ThemeEngine.ChangeAppTheme(WinHueSettings.settings.Theme, WinHueSettings.settings.ThemeLayout);
+                ThemeEngine.ChangeAppAccent(WinHueSettings.settings.ThemeColor);
             }
             catch (Exception ex)
             {

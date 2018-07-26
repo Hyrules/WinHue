@@ -147,7 +147,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" Style="{DynamicResource TabItemStyle}">
-                <Grid>
+                <Grid Margin="0,0,0,9">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -156,7 +156,10 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <GroupBox Grid.Column="0" Grid.Row="0" x:Name="GroupBox2" Header="All On/Off settings" Margin="0">
+                    <GroupBox Grid.Column="0" Grid.Row="0" x:Name="GroupBox2" Header="All On/Off settings" Margin="5" Style="{DynamicResource GroupBoxStyle}">
+                        <GroupBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </GroupBox.Foreground>
                         <Grid Margin="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"/>
@@ -174,7 +177,10 @@
                             <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Grid.Column="0" Grid.Row="1" x:Name="GroupBox3" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}">
+                    <GroupBox Grid.Column="0" Grid.Row="1" x:Name="GroupBox3" Margin="5" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}" Style="{DynamicResource GroupBoxStyle}">
+                        <GroupBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </GroupBox.Foreground>
                         <Grid Margin="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"/>
@@ -190,7 +196,10 @@
 
 
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Grid.Row="0" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Brightness}">
+                    <GroupBox Grid.Column="1" Grid.Row="0" Margin="5" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Brightness}" Style="{DynamicResource GroupBoxStyle}">
+                        <GroupBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </GroupBox.Foreground>
                         <Grid>
                             <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultLightBri}" Style="{StaticResource BriLastState}"/>
                             <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,49,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultGroupBri}" Style="{StaticResource BriLastState}"/>
@@ -199,7 +208,7 @@
                             <CheckBox x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" Width="78" Margin="10,80,110.667,9.667" />
                         </Grid>
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Grid.Row="1" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_SliderTitle}">
+                    <GroupBox Grid.Column="1" Grid.Row="1" Margin="5" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_SliderTitle}" Style="{DynamicResource GroupBoxStyle}">
                         <ComboBox HorizontalAlignment="Left" Margin="0,22,-2.333,0" VerticalAlignment="Top" Width="285" SelectedValuePath="Tag" SelectedValue="{Binding DefaultModel.SlidersBehavior}">
                             <ComboBoxItem Content="Disabled when object is off / Only Toggle On" Tag="0"/>
                             <ComboBoxItem Content="Can changed when off / Apply at toggle On" Tag="1"/>
@@ -265,18 +274,18 @@
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </Label.Foreground>
                     </Label>
-                    <CheckBox x:Name="chkWindowsAccent" Grid.Column="1" Grid.Row="2" Content="Use Windows accent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,27.96,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource CheckBoxStyle}" IsEnabled="{Binding MainSettingsModel.ModernTheme}">
+                    <CheckBox x:Name="chkWindowsAccent" Grid.Column="1" Grid.Row="2" Content="Use Windows accent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,27.96,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource CheckBoxStyle}" IsChecked="{Binding MainSettingsModel.UseWindowsAccent}" IsEnabled="{Binding MainSettingsModel.ModernTheme}">
                         <CheckBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </CheckBox.Foreground>
                     </CheckBox>
                     <Button x:Name="buttonAccent" Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}">
-                        <Button.IsEnabled>
+                        <!--<Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource isEnabledConverter}">
                                 <Binding ElementName="chkWindowsAccent" Path="IsChecked"/>
                                 <Binding ElementName="cbThemeLayout" Path="SelectedItem"/>
                             </MultiBinding>
-                        </Button.IsEnabled>
+                        </Button.IsEnabled>-->
                     </Button>
                     <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" Padding="0,5,5,5" TextOptions.TextFormattingMode="Display">
                         <Label.Foreground>

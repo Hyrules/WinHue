@@ -53,6 +53,7 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.SlidersBehavior = _appSettingsViewModel.DefaultModel.SlidersBehavior;
             WinHueSettings.settings.ThemeLayout = _appSettingsViewModel.MainSettingsModel.ThemeLayout;
             WinHueSettings.settings.Theme = _appSettingsViewModel.MainSettingsModel.Theme;
+            WinHueSettings.settings.UseWindowsAccent = _appSettingsViewModel.MainSettingsModel.UseWindowsAccent;
 
             string pathtostartupfile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "WinHue3.lnk");
 
@@ -83,39 +84,20 @@ namespace WinHue3.Functions.Application_Settings
 
             WinHueSettings.SaveSettings();
 
-            //----BEGIN THEME CHANGE----
-            //prepare to change theme resources
-            ResourceDictionary theme = new ResourceDictionary();
-            ResourceDictionary layout = new ResourceDictionary();
-            Application.Current.Resources.MergedDictionaries.Clear();
-
-            //get theme source depending on settings
-            if (WinHueSettings.settings.ThemeLayout == "Legacy")
+            try
             {
-                theme.Source = new Uri(@"/Theming/Themes/Legacy.xaml", UriKind.Relative);
-            } else
-            {
-                theme.Source = new Uri(@"/Theming/Themes/" + WinHueSettings.settings.Theme + ".xaml", UriKind.Relative);
+                ThemeEngine.ChangeAppTheme(WinHueSettings.settings.Theme, WinHueSettings.settings.ThemeLayout);
+                ThemeEngine.ChangeAppAccent(WinHueSettings.settings.ThemeColor);
             }
-
-            //change theme
-            Application.Current.Resources.MergedDictionaries.Add(theme);
-
-            //change layout
-            layout.Source = new Uri(@"/Theming/Layouts/layout" + WinHueSettings.settings.ThemeLayout + ".xaml", UriKind.Relative);
-            Application.Current.Resources.MergedDictionaries.Add(layout);
-
-            //change accent
-            Application.Current.Resources["accent"] = WinHueSettings.settings.ThemeColor;
-            Application.Current.Resources["accentDark"] = ThemeEngine.ChangeLightness(WinHueSettings.settings.ThemeColor,(float)0.75);
-            //assign text color on accent background
-            Application.Current.Resources["textOnAccent"] = ThemeEngine.TextColorOnBackground(WinHueSettings.settings.ThemeColor);
-
-            //----END THEME CHANGE----
+            catch (Exception ex)
+            {
+                MessageBox.Show("Issue applying theme: " + ex.Message);
+            }
 
             DialogResult = true;
             Close();
         }
+
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {

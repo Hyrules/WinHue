@@ -18,6 +18,7 @@ namespace WinHue3.Functions.Application_Settings
         private string _theme;
         private System.Windows.Media.Color _themecolor;
         private string _themelayout;
+        private bool _useWindowsAccent;
         private bool _minimizeToTray;
         private bool _usePropGrid;
 
@@ -35,6 +36,7 @@ namespace WinHue3.Functions.Application_Settings
             _theme = WinHueSettings.settings.Theme;
             _themecolor = WinHueSettings.settings.ThemeColor;
             _themelayout = WinHueSettings.settings.ThemeLayout;
+            _useWindowsAccent = WinHueSettings.settings.UseWindowsAccent;
             _minimizeToTray = WinHueSettings.settings.MinimizeToTray;
             _usePropGrid = WinHueSettings.settings.UsePropertyGrid;
         }
@@ -115,6 +117,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _themelayout;
             set { SetProperty(ref _themelayout, value);RaisePropertyChanged("ModernTheme"); }
+        }
+
+        public bool UseWindowsAccent
+        {
+            get => _useWindowsAccent;
+            set => SetProperty(ref _useWindowsAccent, value);
         }
 
         public bool MinimizeToTray
