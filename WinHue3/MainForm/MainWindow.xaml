@@ -851,7 +851,7 @@
                 <WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetStatus}" Height="24" VerticalContentAlignment="Center" Padding="2,2,5,5"/>
                     <xctk:IntegerUpDown Height="24" Padding="5,0,0,0" Minimum="0" Maximum="65535" Margin="0,7,0,7.667" Width="79" Value="{Binding SensorStatus}" IsEnabled="{Binding IsEnabled, ElementName=btnSetStatus}"/>
-                    <Button x:Name="btnSetStatus"  BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding SetSensorStatusCommand}" >
+                    <Button x:Name="btnSetStatus" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding SetSensorStatusCommand}" >
                         <Image Source="/WinHue3;component/Resources/1464410361_check.png" Height="24"/>
                     </Button>
                 </WrapPanel>

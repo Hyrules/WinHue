@@ -187,6 +187,7 @@
     <Compile Include="Functions\Application Settings\Settings\CustomLifxSettings.cs" />
     <Compile Include="Functions\Application Settings\Settings\LifxSaveDevice.cs" />
     <Compile Include="Functions\Behaviors\CommandBehavior.cs" />
+    <Compile Include="Functions\Behaviors\HueObjectDragDropHelper.cs" />
     <Compile Include="Functions\Behaviors\KeyUpBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
@@ -941,7 +942,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
