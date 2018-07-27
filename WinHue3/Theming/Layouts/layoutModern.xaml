@@ -7,18 +7,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
                     >
 
-
-    <!--End ToolBar-->
-
-    <!--End Slider-->
-
-    <!--End TabControls-->
-
-    <!--End ComboBox-->
-
-    <!--IntegerUpDown-->
-
-
     <!--ToolBar-->
     <SolidColorBrush x:Key="ToolBarHorizontalBackground" Color="{DynamicResource theme_ToolBarBackground}"/>
     <SolidColorBrush x:Key="ToolBarToggleButtonVerticalBackground" Color="{DynamicResource theme_ToolBarBackground}"/>
@@ -1091,7 +1079,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <SolidColorBrush x:Key="Button.Static.Background" Color="{DynamicResource theme_ControlBackground}"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{DynamicResource theme_ControlBackgroundHover}"/>

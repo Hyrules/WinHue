@@ -170,11 +170,23 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudAllOnTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource IntToUshortConverter }}" />
-                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" x:Name="NudAllOffTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOffTt, Converter={StaticResource IntToUshortConverter}}" />
-                            <Label Grid.Column="0" Grid.Row="0" x:Name="Label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON }" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72"/>
-                            <Label Grid.Column="0" Grid.Row="1" x:Name="Label1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72"/>
-                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudAllOnTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource IntToUshortConverter }}" Style="{DynamicResource IntegerUpDownStyle}" />
+                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" x:Name="NudAllOffTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOffTt, Converter={StaticResource IntToUshortConverter}}" Style="{DynamicResource IntegerUpDownStyle}" />
+                            <Label Grid.Column="0" Grid.Row="0" x:Name="Label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON }" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72">
+                                <Label.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                                </Label.Foreground>
+                            </Label>
+                            <Label Grid.Column="0" Grid.Row="1" x:Name="Label1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72">
+                                <Label.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                                </Label.Foreground>
+                            </Label>
+                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Label2" Content="{x:Static resx:GUI.ScheduleCreatorForm_TransitionTime_Legend}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Padding="5,5,0,5" FontStyle="Italic">
+                                <Label.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                                </Label.Foreground>
+                            </Label>
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="0" Grid.Row="1" x:Name="GroupBox3" Margin="5" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_TransitionTime}" Style="{DynamicResource GroupBoxStyle}">
@@ -190,8 +202,8 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="0" Grid.Row="0" x:Name="Label3" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudTt" VerticalAlignment="Top" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}"/>
-                            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="TextBlock1" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_MinusOne}" Margin="0,20,0,0" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top"/>
+                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudTt" VerticalAlignment="Top" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}" Style="{DynamicResource IntegerUpDownStyle}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="TextBlock1" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_MinusOne}" Margin="0,20,0,0" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top" Padding="5,5,0,5" FontStyle="Italic"/>
                         </Grid>
 
 
@@ -200,19 +212,42 @@
                         <GroupBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </GroupBox.Foreground>
-                        <Grid>
-                            <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultLightBri}" Style="{StaticResource BriLastState}"/>
-                            <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,49,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultGroupBri}" Style="{StaticResource BriLastState}"/>
-                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Lights}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78"/>
-                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Groups}" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="78"/>
-                            <CheckBox x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" Width="78" Margin="10,80,110.667,9.667" />
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <xctk:ByteUpDown Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Value="{Binding DefaultModel.DefaultLightBri}" Style="{StaticResource BriLastState}"/>
+                            <xctk:ByteUpDown Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Top" Value="{Binding DefaultModel.DefaultGroupBri}" Style="{StaticResource BriLastState}"/>
+                            <Label Grid.Column="0" Grid.Row="0" Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Lights}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78">
+                                <Label.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                                </Label.Foreground>
+                            </Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Groups}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Width="78">
+                                <Label.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                                </Label.Foreground>
+                            </Label>
+                            <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" HorizontalAlignment="Right" Style="{DynamicResource CheckBoxStyle}" >
+                                <CheckBox.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                                </CheckBox.Foreground>
+                            </CheckBox>
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Grid.Row="1" Margin="5" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_SliderTitle}" Style="{DynamicResource GroupBoxStyle}">
-                        <ComboBox HorizontalAlignment="Left" Margin="0,22,-2.333,0" VerticalAlignment="Top" Width="285" SelectedValuePath="Tag" SelectedValue="{Binding DefaultModel.SlidersBehavior}">
-                            <ComboBoxItem Content="Disabled when object is off / Only Toggle On" Tag="0"/>
-                            <ComboBoxItem Content="Can changed when off / Apply at toggle On" Tag="1"/>
-                        </ComboBox>
+                        <StackPanel Margin="5">
+                            <ComboBox VerticalAlignment="Top" SelectedValuePath="Tag" SelectedValue="{Binding DefaultModel.SlidersBehavior}" Style="{DynamicResource ComboBoxStyle}" FontStretch="UltraCondensed" TextOptions.TextFormattingMode="Display">
+                                <ComboBoxItem Content="Disabled when object is off / Only Toggle On" Tag="0"/>
+                                <ComboBoxItem Content="Can changed when off / Apply at toggle On" Tag="1"/>
+                            </ComboBox>
+                        </StackPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
