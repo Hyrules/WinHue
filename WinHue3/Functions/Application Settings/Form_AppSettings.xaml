@@ -21,6 +21,64 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="ByteUpDownStyle_AppSettings" TargetType="{x:Type xctk:ByteUpDown}" BasedOn="{StaticResource BriLastState}">
+            <Setter Property="Background" Value="{DynamicResource theme_ControlBackgroundBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource theme_ControlTextBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource theme_ControlBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="WatermarkTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type xctk:ByteUpDown}">
+                        <xctk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch">
+                            <xctk:WatermarkTextBox x:Name="PART_TextBox" AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}" AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}" AcceptsReturn="False" BorderThickness="0" Background="Transparent" ContextMenu="{TemplateBinding ContextMenu}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}">
+                                <xctk:WatermarkTextBox.SelectionBrush>
+                                    <SolidColorBrush Color="{DynamicResource accent}"/>
+                                </xctk:WatermarkTextBox.SelectionBrush>
+                            </xctk:WatermarkTextBox>
+                        </xctk:ButtonSpinner>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource theme_ControlBackgroundHoverBrush}"/>
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                    <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                                <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                            </DataTrigger>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter Property="BorderBrush">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource accent}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Window.Background>
         <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
@@ -170,8 +228,8 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudAllOnTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource IntToUshortConverter }}" Style="{DynamicResource IntegerUpDownStyle}" />
-                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" x:Name="NudAllOffTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOffTt, Converter={StaticResource IntToUshortConverter}}" Style="{DynamicResource IntegerUpDownStyle}" />
+                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudAllOnTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource IntToUshortConverter }}" Style="{DynamicResource IntegerUpDownStyle}" Margin="0,2.5" />
+                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" x:Name="NudAllOffTt" VerticalAlignment="Center" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.AllOffTt, Converter={StaticResource IntToUshortConverter}}" Style="{DynamicResource IntegerUpDownStyle}" Margin="0,2.5" />
                             <Label Grid.Column="0" Grid.Row="0" x:Name="Label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON }" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72">
                                 <Label.Foreground>
                                     <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
@@ -199,11 +257,12 @@
                                 <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" x:Name="Label3" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudTt" VerticalAlignment="Top" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}" Style="{DynamicResource IntegerUpDownStyle}"/>
-                            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="TextBlock1" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_MinusOne}" Margin="0,20,0,0" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top" Padding="5,5,0,5" FontStyle="Italic"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" x:Name="Label3" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" TextWrapping="Wrap" VerticalAlignment="Top" Padding="5,5,0,5"/>
+                            <xctk:IntegerUpDown Grid.Column="1" Grid.Row="0" x:Name="NudTt" VerticalAlignment="Top" Maximum="65535" Minimum="-1" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource IntToUshortConverter}}" Style="{DynamicResource IntegerUpDownStyle}" Margin="0,2.5,0,0"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="TextBlock1" Text="{x:Static resx:GUI.SettingsForm_Tab_Defaults_MinusOne}" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top" Padding="5,5,0,5" FontStyle="Italic"/>
                         </Grid>
 
 
@@ -222,8 +281,19 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <xctk:ByteUpDown Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Value="{Binding DefaultModel.DefaultLightBri}" Style="{StaticResource BriLastState}"/>
-                            <xctk:ByteUpDown Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Top" Value="{Binding DefaultModel.DefaultGroupBri}" Style="{StaticResource BriLastState}"/>
+                            <xctk:ByteUpDown Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Value="{Binding DefaultModel.DefaultLightBri}" Margin="0,2.5,0,0" Style="{DynamicResource ByteUpDownStyle_AppSettings}">
+                                <xctk:ByteUpDown.Background>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlBackground}"/>
+                                </xctk:ByteUpDown.Background>
+                            </xctk:ByteUpDown>
+                            <xctk:ByteUpDown Grid.Column="1" Grid.Row="1" Margin="0,2.5,0,0" VerticalAlignment="Top" Value="{Binding DefaultModel.DefaultGroupBri}" Style="{DynamicResource ByteUpDownStyle_AppSettings}">
+                                <xctk:ByteUpDown.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                                </xctk:ByteUpDown.Foreground>
+                                <xctk:ByteUpDown.Background>
+                                    <SolidColorBrush Color="{DynamicResource theme_ControlBackground}"/>
+                                </xctk:ByteUpDown.Background>
+                            </xctk:ByteUpDown>
                             <Label Grid.Column="0" Grid.Row="0" Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Lights}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78">
                                 <Label.Foreground>
                                     <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
@@ -234,7 +304,7 @@
                                     <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                                 </Label.Foreground>
                             </Label>
-                            <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" HorizontalAlignment="Right" Style="{DynamicResource CheckBoxStyle}" >
+                            <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" HorizontalAlignment="Right" Style="{DynamicResource CheckBoxStyle}" Margin="0,5,0,0" >
                                 <CheckBox.Foreground>
                                     <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                                 </CheckBox.Foreground>

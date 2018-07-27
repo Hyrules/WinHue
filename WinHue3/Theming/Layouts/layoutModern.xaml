@@ -1029,56 +1029,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="IntegerUpDownStyle" TargetType="{x:Type xctk:IntegerUpDown}">
-        <Setter Property="Background" Value="{DynamicResource theme_ControlBackgroundBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource theme_MainTextBrush}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource theme_ControlBorderBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="HorizontalContentAlignment" Value="Right"/>
-        <Setter Property="IsTabStop" Value="False"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="TextAlignment" Value="Right"/>
-        <Setter Property="WatermarkTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type xctk:IntegerUpDown}">
-                    <xctk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch">
-                        <xctk:WatermarkTextBox x:Name="PART_TextBox" AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}" AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}" AcceptsReturn="False" BorderThickness="0" Background="Transparent" ContextMenu="{TemplateBinding ContextMenu}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"/>
-                    </xctk:ButtonSpinner>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}"/>
-                        </Trigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
-                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
-                        </MultiDataTrigger>
-                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
-                        </DataTrigger>
-                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
     <SolidColorBrush x:Key="Button.Static.Background" Color="{DynamicResource theme_ControlBackground}"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{DynamicResource theme_ControlBackgroundHover}"/>
@@ -1203,7 +1153,7 @@
                                         </TemplateBinding.Converter>
                                     </TemplateBinding>
                                 </Grid.Visibility>
-                                <RepeatButton x:Name="PART_IncreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Style="{DynamicResource {ComponentResourceKey ResourceId=SpinnerButtonStyleKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}">
+                                <RepeatButton x:Name="PART_IncreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Style="{DynamicResource RepeatButtonStyleSpinner}">
                                     <RepeatButton.BorderBrush>
                                         <SolidColorBrush Color="{DynamicResource theme_ControlBorder}"/>
                                     </RepeatButton.BorderBrush>
@@ -1215,8 +1165,13 @@
                                             <Path Data="M0,5L4.5,0.5 9,5 6,5 4.5,3.5 3,5z" Focusable="False" Fill="{DynamicResource theme_ControlTextBrush}" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9"/>
                                         </DataTemplate>
                                     </RepeatButton.ContentTemplate>
+
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Red"/>
+                                    </Trigger>
                                 </RepeatButton>
-                                <RepeatButton x:Name="PART_DecreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Grid.Row="1" Style="{DynamicResource {ComponentResourceKey ResourceId=SpinnerButtonStyleKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}">
+                                
+                                <RepeatButton x:Name="PART_DecreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Grid.Row="1" Style="{DynamicResource RepeatButtonStyleSpinner}">
                                     <RepeatButton.BorderBrush>
                                         <SolidColorBrush Color="{DynamicResource theme_ControlBorder}"/>
                                     </RepeatButton.BorderBrush>
@@ -1234,10 +1189,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="Beige"/>
+                            <Setter Property="BorderBrush" Value="Red"/>
                         </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="BorderBrush" Value="Green"/>
+                            <Setter Property="BorderBrush" Value="Red"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlDisabledBackgroundKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}"/>
@@ -2102,6 +2057,132 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="IntegerUpDownStyle" TargetType="{x:Type xctk:IntegerUpDown}">
+        <Setter Property="Background" Value="{DynamicResource theme_ControlBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource theme_MainTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource theme_ControlBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="WatermarkTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type xctk:IntegerUpDown}">
+                    <xctk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch">
+                        <xctk:WatermarkTextBox x:Name="PART_TextBox" AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}" AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}" AcceptsReturn="False" BorderThickness="0" Background="Transparent" ContextMenu="{TemplateBinding ContextMenu}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}">
+                            <xctk:WatermarkTextBox.CaretBrush>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </xctk:WatermarkTextBox.CaretBrush>
+                            <xctk:WatermarkTextBox.Foreground>
+                                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                            </xctk:WatermarkTextBox.Foreground>
+                            <xctk:WatermarkTextBox.SelectionBrush>
+                                <SolidColorBrush Color="{DynamicResource accent}"/>
+                            </xctk:WatermarkTextBox.SelectionBrush>
+                        </xctk:WatermarkTextBox>
+                    </xctk:ButtonSpinner>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource theme_ControlBackgroundHoverBrush}"/>
+                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                        </DataTrigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="BorderBrush">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource accent}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="ControlControlTemplate" TargetType="{x:Type Control}">
+        <xctk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}">
+            <xctk:WatermarkTextBox x:Name="PART_TextBox" AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}" AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}" AcceptsReturn="False" BorderThickness="0" Background="Transparent" ContextMenu="{TemplateBinding ContextMenu}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}">
+                <xctk:WatermarkTextBox.CaretBrush>
+                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                </xctk:WatermarkTextBox.CaretBrush>
+                <xctk:WatermarkTextBox.SelectionBrush>
+                    <SolidColorBrush Color="{DynamicResource accent}"/>
+                </xctk:WatermarkTextBox.SelectionBrush>
+                <xctk:WatermarkTextBox.Foreground>
+                    <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                </xctk:WatermarkTextBox.Foreground>
+            </xctk:WatermarkTextBox>
+        </xctk:ButtonSpinner>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource theme_ControlBackgroundHoverBrush}"/>
+            </Trigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+                    <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+            </DataTrigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource accent}"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RepeatButtonStyleSpinner" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background" Value="{DynamicResource {ComponentResourceKey ResourceId=ButtonNormalBackgroundKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ButtonNormalOuterBorderKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Grid>
+                        <xctk:ButtonChrome x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource {ComponentResourceKey ResourceId=SpinButtonCornerRadiusKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}" RenderNormal="True" RenderEnabled="{TemplateBinding IsEnabled}" SnapsToDevicePixels="True"/>
+                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+
+
 
 
 
