@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WinHue3.Functions.RoomMap"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:l="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         mc:Ignorable="d"
         Title="Form_RoomMap" Height="450" Width="800" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
@@ -42,7 +43,7 @@
         <ListBox HorizontalAlignment="Left" Width="157" Margin="0,0,0,39.667" ItemsSource="{Binding ListHueObjects}">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type l:Light}">
-                    <WrapPanel>
+                    <WrapPanel >
                         <Image Height="32px"/>
                         <Label Content="{Binding name}"/>
                     </WrapPanel>
