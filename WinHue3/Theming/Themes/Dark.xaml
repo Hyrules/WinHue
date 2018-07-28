@@ -55,6 +55,8 @@
     <SolidColorBrush x:Key="theme_ControlBackgroundPressedBrush" Color="{StaticResource theme_ControlBackgroundPressed}"></SolidColorBrush>
     <Color x:Key="theme_ControlText">#ffffff</Color>
     <SolidColorBrush x:Key="theme_ControlTextBrush" Color="{StaticResource theme_ControlText}"></SolidColorBrush>
+    <Color x:Key="theme_ControlTextDisabled">#c2c2c2</Color>
+    <SolidColorBrush x:Key="theme_ControlTextDisabledBrush" Color="{StaticResource theme_ControlText}"></SolidColorBrush>
 
     <Color x:Key="theme_ComboBoxGlyph">#555555</Color>
 

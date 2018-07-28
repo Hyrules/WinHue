@@ -11,7 +11,6 @@
     <Color x:Key="theme_HeaderText">#333333</Color>
     <SolidColorBrush x:Key="theme_HeaderTextBrush" Color="{StaticResource theme_HeaderText}"></SolidColorBrush>
 
-    <!--<Color x:Key="theme_ToolBarBackground">#2b2b2b</Color>-->
     <Color x:Key="theme_ToolBarBackground">#ebebeb</Color>
     <SolidColorBrush x:Key="theme_ToolBarBackgroundBrush" Color="{StaticResource theme_ToolBarBackground}"></SolidColorBrush>
     <Color x:Key="theme_ToolBarText">#000000</Color>
@@ -36,27 +35,29 @@
     <Color x:Key="theme_MainText">#000000</Color>
     <SolidColorBrush x:Key="theme_MainTextBrush" Color="{StaticResource theme_MainText}"></SolidColorBrush>
 
-
     <!-- Currently Unused -->
-    <Color x:Key="theme_TabItem">#ff0f0f0f</Color>
-    <Color x:Key="theme_TabItemHover">#ff0d0d0d</Color>
+    <Color x:Key="theme_TabItem">#ffe5e5e5</Color>
+    <Color x:Key="theme_TabItemHover">#ffefefef</Color>
     <SolidColorBrush x:Key="theme_TabItemHoverBrush" Color="{StaticResource theme_TabItemHover}"></SolidColorBrush>
-    <Color x:Key="theme_TabItemHoverBorder">#ff4d4d4d</Color>
-    <Color x:Key="theme_TabItemUnselectedBorder">#ff4d4d4d</Color>
+    <Color x:Key="theme_TabItemHoverBorder">#c8c8c8</Color>
+    <Color x:Key="theme_TabItemUnselectedBorder">#ffb9b9b9</Color>
     <Color x:Key="theme_TabItemSelected">#ffffff</Color>
     <Color x:Key="theme_TabItemDisabled">#ff000000</Color>
     <!--<SolidColorBrush x:Key="theme_TabItemSelected" Color="{StaticResource theme_MainBackground}"></SolidColorBrush>-->
 
-    <Color x:Key="theme_ControlBorder">#ff404040</Color>
+    <Color x:Key="theme_ControlBorder">#ffc0c0c0</Color>
     <SolidColorBrush x:Key="theme_ControlBorderBrush" Color="{StaticResource theme_ControlBorder}"></SolidColorBrush>
-    <Color x:Key="theme_ControlBackground">#ff212121</Color>
+    <Color x:Key="theme_ControlBackground">#ffdbdbdb</Color>
     <SolidColorBrush x:Key="theme_ControlBackgroundBrush" Color="{StaticResource theme_ControlBackground}"></SolidColorBrush>
-    <Color x:Key="theme_ControlBackgroundHover">#ff2e2e2e</Color>
+    <Color x:Key="theme_ControlBackgroundHover">#ffe2e2e2</Color>
     <SolidColorBrush x:Key="theme_ControlBackgroundHoverBrush" Color="{StaticResource theme_ControlBackgroundHover}"></SolidColorBrush>
-    <Color x:Key="theme_ControlBackgroundPressed">#ff141414</Color>
+    <Color x:Key="theme_ControlBackgroundPressed">#ffd5d5d5</Color>
     <SolidColorBrush x:Key="theme_ControlBackgroundPressedBrush" Color="{StaticResource theme_ControlBackgroundPressed}"></SolidColorBrush>
     <Color x:Key="theme_ControlText">#000000</Color>
     <SolidColorBrush x:Key="theme_ControlTextBrush" Color="{StaticResource theme_ControlText}"></SolidColorBrush>
+    <Color x:Key="theme_ControlTextDisabled">#c2c2c2</Color>
+    <SolidColorBrush x:Key="theme_ControlTextDisabledBrush" Color="{StaticResource theme_ControlText}"></SolidColorBrush>
+
 
     <Color x:Key="theme_ComboBoxGlyph">#555555</Color>
     

@@ -773,9 +773,9 @@
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#ff404040"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="#ff2e2e2e"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#ff404040"/>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="{DynamicResource accentDark}"/>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="{DynamicResource theme_ControlBackgroundHover}"/>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FF7EB4EA"/>
     <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
@@ -783,9 +783,9 @@
         <GradientStop Color="#FFDCECFC" Offset="1.0"/>
     </LinearGradientBrush>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#ff404040"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="#ff3b3b3b"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#ff404040"/>
+    <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="{DynamicResource accent}"/>
+    <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="{DynamicResource theme_ControlBackgroundPressed}"/>
+    <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="#FF569DE5"/>
     <LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
@@ -793,14 +793,14 @@
         <GradientStop Color="#FFC4E0FC" Offset="1.0"/>
     </LinearGradientBrush>
     <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#FF569DE5"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="#FFBFBFBF"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="#FFF0F0F0"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="#FFD9D9D9"/>
+    <SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="{DynamicResource theme_ControlTextDisabled}"/>
+    <SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="{DynamicResource theme_ControlBackground}"/>
+    <SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="{DynamicResource theme_ControlBackground}"/>
     <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="#FFBFBFBF"/>
     <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#ff404040"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="{DynamicResource accent}"/>
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="IsTabStop" Value="false"/>
@@ -1012,7 +1012,7 @@
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}"/>
-        <Setter Property="Foreground" Value="{DynamicResource theme_MainTextBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource theme_ControlTextBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
@@ -1027,17 +1027,20 @@
                 <Setter Property="Padding" Value="2"/>
                 <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource theme_ControlTextDisabledBrush}"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
     <SolidColorBrush x:Key="Button.Static.Background" Color="{DynamicResource theme_ControlBackground}"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{DynamicResource theme_ControlBackgroundHover}"/>
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="{DynamicResource theme_ControlBorder}"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ff141414"/>
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="{DynamicResource theme_ControlBackgroundPressed}"/>
     <SolidColorBrush x:Key="Button.Pressed.Border" Color="{DynamicResource theme_ControlBorder}"/>
-    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="{DynamicResource theme_ControlBackground}"/>
+    <SolidColorBrush x:Key="Button.Disabled.Border" Color="{DynamicResource theme_ControlBackground}"/>
+    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{DynamicResource theme_ControlTextDisabled}"/>
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -1240,9 +1243,9 @@
     <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="{DynamicResource theme_ControlBackgroundHover}"/>
     <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="{DynamicResource accent}"/>
-    <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6"/>
-    <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="{DynamicResource accent}"/>
+    <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="{DynamicResource theme_ControlBackground}"/>
+    <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="{DynamicResource theme_ControlBackground}"/>
+    <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="{DynamicResource accentDark}"/>
     <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="{DynamicResource theme_ControlBackgroundPressed}"/>
     <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="{DynamicResource theme_ControlBorder}"/>
     <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="{DynamicResource accentDark}"/>
