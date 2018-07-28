@@ -313,7 +313,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to General Settings.
+        ///   Looks up a localized string similar to General.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings {
             get {
@@ -322,7 +322,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Api Version :.
+        ///   Looks up a localized string similar to API Version.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings_ApiVersion {
             get {
@@ -331,7 +331,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Link button State :.
+        ///   Looks up a localized string similar to Link Button State.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings_LinkButtonState {
             get {
@@ -340,7 +340,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to local time :.
+        ///   Looks up a localized string similar to Local Time.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings_LocalTime {
             get {
@@ -349,7 +349,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name :.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings_Name {
             get {
@@ -358,7 +358,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sw Version :.
+        ///   Looks up a localized string similar to SW Version.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings_SwVersion {
             get {
@@ -367,7 +367,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Timezone :.
+        ///   Looks up a localized string similar to Timezone.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings_Timezone {
             get {
@@ -385,7 +385,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zigbee Channel :.
+        ///   Looks up a localized string similar to Zigbee Channel.
         /// </summary>
         public static string BridgeSettingsForm_Tab_GeneralSettings_ZigBeeChannel {
             get {
@@ -394,7 +394,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Network Settings.
+        ///   Looks up a localized string similar to Network.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings {
             get {
@@ -403,7 +403,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DHCP.
+        ///   Looks up a localized string similar to Use DHCP.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings_DHCP {
             get {
@@ -412,7 +412,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gateway : .
+        ///   Looks up a localized string similar to Gateway.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings_Gateway {
             get {
@@ -421,7 +421,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IP Address :.
+        ///   Looks up a localized string similar to IP Address.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings_IPAddress {
             get {
@@ -439,7 +439,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Netmask :.
+        ///   Looks up a localized string similar to Netmask.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings_Netmask {
             get {
@@ -448,7 +448,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Address :.
+        ///   Looks up a localized string similar to Proxy Address.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress {
             get {
@@ -457,7 +457,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Port :.
+        ///   Looks up a localized string similar to Proxy Port.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings_ProxyPort {
             get {
@@ -475,7 +475,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Communication :.
+        ///   Looks up a localized string similar to Communication.
         /// </summary>
         public static string BridgeSettingsForm_Tab_PortalStatus_Communication {
             get {
@@ -484,7 +484,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection :.
+        ///   Looks up a localized string similar to Connection.
         /// </summary>
         public static string BridgeSettingsForm_Tab_PortalStatus_Connection {
             get {
@@ -493,7 +493,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incoming :.
+        ///   Looks up a localized string similar to Incoming.
         /// </summary>
         public static string BridgeSettingsForm_Tab_PortalStatus_Incoming {
             get {
@@ -502,7 +502,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Outgoing :.
+        ///   Looks up a localized string similar to Outgoing.
         /// </summary>
         public static string BridgeSettingsForm_Tab_PortalStatus_Outgoing {
             get {
@@ -520,7 +520,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signed On :.
+        ///   Looks up a localized string similar to Signed On.
         /// </summary>
         public static string BridgeSettingsForm_Tab_PortalStatus_SignedOn {
             get {
@@ -547,7 +547,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text :.
+        ///   Looks up a localized string similar to Text.
         /// </summary>
         public static string BridgeSettingsForm_Tab_SoftwareUpdate_Text {
             get {
@@ -556,7 +556,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update State :.
+        ///   Looks up a localized string similar to Update State.
         /// </summary>
         public static string BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState {
             get {
@@ -583,7 +583,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ApiKey :.
+        ///   Looks up a localized string similar to ApiKey.
         /// </summary>
         public static string BridgeSettingsForm_Tab_WhiteList_Apikey {
             get {
@@ -592,7 +592,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App Name :.
+        ///   Looks up a localized string similar to App Name.
         /// </summary>
         public static string BridgeSettingsForm_Tab_WhiteList_AppName {
             get {
@@ -619,7 +619,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create date :.
+        ///   Looks up a localized string similar to Create Date.
         /// </summary>
         public static string BridgeSettingsForm_Tab_WhiteList_CreateDate {
             get {
@@ -637,7 +637,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device Name :.
+        ///   Looks up a localized string similar to Device Name.
         /// </summary>
         public static string BridgeSettingsForm_Tab_WhiteList_DeviceName {
             get {
@@ -646,7 +646,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last Use date :.
+        ///   Looks up a localized string similar to Last Use Date.
         /// </summary>
         public static string BridgeSettingsForm_Tab_WhiteList_LastUseDate {
             get {

@@ -172,76 +172,76 @@
     <value>Terminer</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings" xml:space="preserve">
-    <value>Paramètres Généraux</value>
+    <value>Généraux</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_ApiVersion" xml:space="preserve">
-    <value>Version API :</value>
+    <value>Version API</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_LinkButtonState" xml:space="preserve">
-    <value>État Btn lien :</value>
+    <value>État Btn lien</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_LocalTime" xml:space="preserve">
-    <value>Heure Locale :</value>
+    <value>Heure Locale</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_Name" xml:space="preserve">
-    <value>Nom :</value>
+    <value>Nom</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_SwVersion" xml:space="preserve">
-    <value>Version Log. :</value>
+    <value>Version Log.</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_Timezone" xml:space="preserve">
-    <value>Fuseau horaire :</value>
+    <value>Fuseau horaire</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_UTC" xml:space="preserve">
     <value>UTC</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_ZigBeeChannel" xml:space="preserve">
-    <value>Canal Zigbee :</value>
+    <value>Canal Zigbee</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings" xml:space="preserve">
-    <value>Paramètres Reseau</value>
+    <value>Reseau</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_DHCP" xml:space="preserve">
-    <value>DHCP</value>
+    <value>Utiliser DHCP</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_Gateway" xml:space="preserve">
-    <value>Passerelle :</value>
+    <value>Passerelle</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_IPAddress" xml:space="preserve">
-    <value>Adresse IP :</value>
+    <value>Adresse IP</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_MAC" xml:space="preserve">
     <value>MAC</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_Netmask" xml:space="preserve">
-    <value>Masque s.-rés. : </value>
+    <value>Masque s.-rés.</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress" xml:space="preserve">
-    <value>Adresse Proxy :</value>
+    <value>Adresse Proxy</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_ProxyPort" xml:space="preserve">
-    <value>Port Proxy :</value>
+    <value>Port Proxy</value>
   </data>
   <data name="BridgeSettingsForm_Tab_PortalStatus" xml:space="preserve">
     <value>Statut du portail</value>
   </data>
   <data name="BridgeSettingsForm_Tab_PortalStatus_Communication" xml:space="preserve">
-    <value>Communication :</value>
+    <value>Communication</value>
   </data>
   <data name="BridgeSettingsForm_Tab_PortalStatus_Connection" xml:space="preserve">
-    <value>Connexion :</value>
+    <value>Connexion</value>
   </data>
   <data name="BridgeSettingsForm_Tab_PortalStatus_Incoming" xml:space="preserve">
-    <value>Entrée :</value>
+    <value>Entrée</value>
   </data>
   <data name="BridgeSettingsForm_Tab_PortalStatus_Outgoing" xml:space="preserve">
-    <value>Sortie :</value>
+    <value>Sortie</value>
   </data>
   <data name="BridgeSettingsForm_Tab_PortalStatus_PortalService" xml:space="preserve">
     <value>Service du portail</value>
   </data>
   <data name="BridgeSettingsForm_Tab_PortalStatus_SignedOn" xml:space="preserve">
-    <value>Authentifié :</value>
+    <value>Authentifié</value>
   </data>
   <data name="BridgeSettingsForm_Tab_SoftwareUpdate" xml:space="preserve">
     <value>Information de MAJ Logiciel</value>
@@ -250,10 +250,10 @@
     <value>Notifier</value>
   </data>
   <data name="BridgeSettingsForm_Tab_SoftwareUpdate_Text" xml:space="preserve">
-    <value>Texte :</value>
+    <value>Texte</value>
   </data>
   <data name="BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState" xml:space="preserve">
-    <value>État MAJ :</value>
+    <value>État MAJ</value>
   </data>
   <data name="BridgeSettingsForm_Tab_SoftwareUpdate_URL" xml:space="preserve">
     <value>URL</value>
@@ -262,10 +262,10 @@
     <value>Liste Blanche / Gestion. Utilisateurs</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_Apikey" xml:space="preserve">
-    <value>Clé API :</value>
+    <value>Clé API</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_AppName" xml:space="preserve">
-    <value>Nom Appli. :</value>
+    <value>Nom Appli.</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_ClearButton" xml:space="preserve">
     <value>Vider</value>
@@ -274,16 +274,16 @@
     <value>Créer</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_CreateDate" xml:space="preserve">
-    <value>Date Créat. :</value>
+    <value>Date Créat.</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_DeleteButton" xml:space="preserve">
     <value>Supprimer</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_DeviceName" xml:space="preserve">
-    <value>Nom Equip. :</value>
+    <value>Nom Equip.</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_LastUseDate" xml:space="preserve">
-    <value>Dern. date util. :</value>
+    <value>Dern. date util.</value>
   </data>
   <data name="BridgeSettingsForm_Title" xml:space="preserve">
     <value>Modifier les paramètres de la passerelle....</value>
