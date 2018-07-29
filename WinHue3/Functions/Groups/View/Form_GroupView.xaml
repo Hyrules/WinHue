@@ -28,7 +28,7 @@
         </ToolBarTray>
 
 
-        <xcdg:DataGridControl Margin="0,32,0,-0.333" ItemsSource="{Binding GroupsDetails}" IsCopyCommandEnabled="False" ReadOnly="True">
+        <xcdg:DataGridControl Margin="0,32,0,-0.333" ItemsSource="{Binding GroupsDetails}" IsCopyCommandEnabled="False" ReadOnly="True" Style="{DynamicResource DataGridControlStyle}">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView IsAlternatingRowStyleEnabled="True"/>
             </xcdg:DataGridControl.View>

@@ -65,7 +65,7 @@
                 <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
             </ListView.Background>
             <ListView.View>
-                <GridView>
+                <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
                     <GridViewColumn Width="50" Header="{x:Static resx:GUI.BridgeDetectionPairing_ListView_Image}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

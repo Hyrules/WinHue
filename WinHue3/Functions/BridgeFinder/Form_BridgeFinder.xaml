@@ -6,14 +6,34 @@
         xmlns:local="clr-namespace:WinHue3.Functions.BridgeFinder"
         xmlns:viewmodel="clr-namespace:WinHue3.Functions.BridgeFinder"
         mc:Ignorable="d"
-        Title="Searching for bridge..." Height="113.363" Width="435.473" WindowStartupLocation="CenterOwner" ContentRendered="Window_ContentRendered" ResizeMode="NoResize" Closing="Window_Closing">
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        Title="Searching for bridge..." WindowStartupLocation="CenterOwner" ContentRendered="Window_ContentRendered" ResizeMode="NoResize" Closing="Window_Closing" SizeToContent="WidthAndHeight">
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+    </Window.Background>
     <Window.DataContext>
         <viewmodel:BridgeFinderViewModel/>
     </Window.DataContext>
-    <Grid>
-        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="22,41,0,0" VerticalAlignment="Top" Width="381" Value="{Binding Progress}" Maximum="254" Minimum="2"/>
-        <Label Content="Trying ip :" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="90"/>
-        <Label Content="{Binding Message}" HorizontalAlignment="Left" Margin="112,10,0,0" VerticalAlignment="Top" Width="291"/>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" Height="6" VerticalAlignment="Top" Value="{Binding Progress}" Maximum="254" Minimum="2" Style="{DynamicResource ProgressBarStyle}" Margin="0,5,0,0"/>
+        <Label Content="{x:Static resx:GUI.BridgeFinder_Trying}" VerticalAlignment="Top" Background="{x:Null}">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+            </Label.Foreground>
+        </Label>
+        <Label Grid.Column="1" Content="{Binding Message}" VerticalAlignment="Top" Background="{x:Null}">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+            </Label.Foreground>
+        </Label>
 
     </Grid>
 </Window>

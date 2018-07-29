@@ -95,8 +95,8 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="BtnApply" HorizontalAlignment="Right" Width="73" Click="btnApply_Click" Margin="10,10,0,10" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}"/>
-        <Button Grid.Column="1" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="BtnCancel" HorizontalAlignment="Right" Click="btnCancel_Click" Width="73" Margin="10" Height="20" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}"/>
+        <Button Grid.Column="0" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="BtnApply" HorizontalAlignment="Right" Click="btnApply_Click" Margin="10,10,0,10" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}" Width="73"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="BtnCancel" HorizontalAlignment="Right" Click="btnCancel_Click" Margin="10" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}" Width="73"/>
         <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="TcSettings" Padding="10,5,10,0" Margin="10,10,10,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource TabControlStyle}" BorderThickness="1">
             <TabControl.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource accent}"/>
@@ -384,7 +384,7 @@
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </CheckBox.Foreground>
                     </CheckBox>
-                    <Button x:Name="buttonAccent" Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,3,0,0" Height="19.96" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}" IsEnabled="{Binding MainSettingsModel.ModernTheme}">
+                    <Button x:Name="buttonAccent" Grid.Column="1" Grid.Row="2" Content="Custom..." Click="btnAccent_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Margin="0,2,0,0" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}" IsEnabled="{Binding MainSettingsModel.ModernTheme}">
                         <!--<Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource isEnabledConverter}">
                                 <Binding ElementName="chkWindowsAccent" Path="IsChecked"/>

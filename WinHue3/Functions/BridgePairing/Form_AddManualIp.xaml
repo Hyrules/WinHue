@@ -7,12 +7,15 @@
         mc:Ignorable="d"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgePairing="clr-namespace:WinHue3.Functions.BridgePairing"
-        Title="{x:Static resx:GUI.Form_AddManualIP_Title}" Height="99.229" Width="303.624" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="{x:Static resx:GUI.Form_AddManualIP_Title}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="300">
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+    </Window.Background>
     <Window.DataContext>
         <bridgePairing:AddManualIPViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="{x:Type xctk:WatermarkTextBox}" >
+        <Style TargetType="{x:Type xctk:WatermarkTextBox}" BasedOn="{StaticResource WatermarkTextBoxStyle}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
                     <Setter Property="ToolTip"
@@ -32,7 +35,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="BtnApply">
+        <Style TargetType="{x:Type Button}" x:Key="BtnApply" BasedOn="{StaticResource ButtonStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=TbIpAddress, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -41,11 +44,23 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <xctk:WatermarkTextBox x:Name="TbIpAddress" HorizontalAlignment="Left" Margin="64,7,0,0" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="218"  BorderThickness="2">
-        </xctk:WatermarkTextBox>
-        <Label x:Name="Label" Content="{x:Static resx:GUI.Form_AddManualIP_IP}" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="49"/>
-        <Button x:Name="BtnSaveIp" Content="{x:Static resx:GUI.Form_AddManualIP_Apply}" Style="{StaticResource BtnApply}" HorizontalAlignment="Left" Margin="127,39,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveIp_Click" Height="27"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Form_AddManualIP_Cancel}" HorizontalAlignment="Left" Margin="207,38,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <xctk:WatermarkTextBox Grid.Column="1" Grid.ColumnSpan="2" x:Name="TbIpAddress" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"  BorderThickness="2"/>
+        <Label x:Name="Label" Content="{x:Static resx:GUI.Form_AddManualIP_IP}" Margin="0,0,10,0">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </Label.Foreground>
+        </Label>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="BtnSaveIp" Content="{x:Static resx:GUI.Form_AddManualIP_Apply}" Style="{StaticResource BtnApply}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnSaveIp_Click" Margin="0,10,10,0"/>
+        <Button Grid.Column="2" Grid.Row="1" x:Name="BtnCancel" Content="{x:Static resx:GUI.Form_AddManualIP_Cancel}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="btnCancel_Click" Style="{DynamicResource ButtonStyle}"/>
     </Grid>
 </Window>

@@ -472,7 +472,7 @@
     <value>Group name</value>
   </data>
   <data name="GroupCreatorForm_HoldCtrl" xml:space="preserve">
-    <value>* Hold control to select more than one light</value>
+    <value>*Hold control to select more than one light</value>
   </data>
   <data name="GroupCreatorForm_ModifyGroupButton" xml:space="preserve">
     <value>Save changes</value>
@@ -1588,7 +1588,7 @@
     <value>Searching for bridge...</value>
   </data>
   <data name="BridgeFinder_Trying" xml:space="preserve">
-    <value>Trying IP : </value>
+    <value>Trying IP: </value>
   </data>
   <data name="EntertainmentCreatorForm_Title" xml:space="preserve">
     <value>Entertainment Creator</value>

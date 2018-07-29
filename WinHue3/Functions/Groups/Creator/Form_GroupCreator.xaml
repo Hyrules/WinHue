@@ -1,5 +1,4 @@
 ﻿<Window
-    xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:WinHue3.Resources"
@@ -9,12 +8,11 @@
     xmlns:creator="clr-namespace:WinHue3.Functions.Groups.Creator"
     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
     x:Class="WinHue3.Functions.Groups.Creator.Form_GroupCreator"
-        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="600" MinWidth="800">
+        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="400" MinWidth="200">
     <Window.Resources>
         <Style TargetType="{x:Type sliders:BindableListView}">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
-
                     <ControlTemplate>
                         <DockPanel DockPanel.Dock="Right">
                             <!--<TextBlock Margin="3" Foreground="Red">!</TextBlock>-->
@@ -32,7 +30,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="BtnSave">
+        <Style TargetType="{x:Type Button}" x:Key="BtnSave" BasedOn="{StaticResource ButtonStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding (Validation.HasError), ElementName=BindableListView}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -40,16 +38,46 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+    </Window.Background>
     <Window.DataContext>
         <creator:GroupCreatorViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" VerticalAlignment="Top" Height="28" Padding="0,5,5,5" Background="{x:Null}" >
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </Label.Foreground>
+        </Label>
 
-
-        <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" />
-
-        <xctk:WatermarkTextBox x:Name="TbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23" Watermark="Group name (Optional)"/>
-        <sliders:BindableListView x:Name="BindableListView" Margin="185,10,9.667,47" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <xctk:WatermarkTextBox x:Name="TbGroupName" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Height="23" Watermark="Group name (Optional)" Grid.Row="1" Style="{DynamicResource WatermarkTextBoxStyle}" Margin="0,0,10,0"/>
+        <sliders:BindableListView x:Name="BindableListView" ItemContainerStyle="{DynamicResource ListViewContainerStyle}" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="7">
+            <sliders:BindableListView.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </sliders:BindableListView.Foreground>
+            <sliders:BindableListView.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource accent}"/>
+            </sliders:BindableListView.BorderBrush>
+            <sliders:BindableListView.Background>
+                <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
+            </sliders:BindableListView.Background>
             <sliders:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
@@ -57,18 +85,18 @@
             </sliders:BindableListView.ItemsPanel>
             <sliders:BindableListView.ItemTemplate>
                 <DataTemplate>
-                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
-                        <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                        <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
-                    </WrapPanel>
+                    <StackPanel Orientation="Vertical" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Unspecified"  RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="tblName" Text="{Binding name}" TextWrapping="WrapWithOverflow" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                    </StackPanel>
                 </DataTemplate>
             </sliders:BindableListView.ItemTemplate>
         </sliders:BindableListView>
-        <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="170" IsEnabled="{Binding CanChangeType}"  SelectedValue="{Binding GroupCreator.Type}" SelectedValuePath="Tag">
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_LightGroup}" Tag="LightGroup"/>
+        <ComboBox x:Name="ComboBox" VerticalAlignment="Top" IsEnabled="{Binding CanChangeType}"  SelectedValue="{Binding GroupCreator.Type}" SelectedValuePath="Tag" Grid.Row="3" Style="{DynamicResource ComboBoxStyle}" Margin="0,0,10,0">
+            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_LightGroup}" Tag="LightGroup" Style="{DynamicResource ComboBoxItemStyle}"/>
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_Room}" Tag="Room"/>
         </ComboBox>
-        <ComboBox x:Name="ComboBox1" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Width="170" SelectedValue="{Binding GroupCreator.Class}" SelectedValuePath="Tag" IsEnabled="{Binding GroupCreator.CanClass}">
+        <ComboBox x:Name="ComboBox1" VerticalAlignment="Top" SelectedValue="{Binding GroupCreator.Class}" SelectedValuePath="Tag" IsEnabled="{Binding GroupCreator.CanClass}" Grid.Row="5" Style="{DynamicResource ComboBoxStyle}" Margin="0,0,10,0">
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_LivingRoom}" Tag="Living room"/>
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Kitchen}" Tag="Kitchen"/>
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Dining}" Tag="Dining"/>
@@ -89,12 +117,24 @@
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Carport}" Tag="Carport"/>
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Other}" Tag="Other"/>
         </ComboBox>
-        <Label x:Name="Label" Content="{x:Static resx:GUI.GroupCreatorForm_Type}" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Label1" Content="{x:Static resx:GUI.GroupCreatorForm_Class}" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.GroupCreatorForm_CancelButton}" Margin="0,0,9.667,19" Click="btnCancel_Click" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
-        <Button x:Name="BtnCreateGroup" Style="{StaticResource BtnSave}" Content="{x:Static resx:GUI.GroupCreatorForm_CreateGroupButton}" Margin="0,0,89.667,19" Click="btnCreateGroup_Click" HorizontalAlignment="Right" Width="98" Height="23" VerticalAlignment="Bottom" />
-        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.GroupCreatorForm_ClearButton}" Command="{Binding ClearFieldsCommand}" Margin="0,0,193.667,19" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
-        <Label x:Name="Label2" Content="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" Margin="185,0,285.667,23" FontSize="10" Height="24" VerticalAlignment="Bottom"/>
+        <Label x:Name="Label" Content="{x:Static resx:GUI.GroupCreatorForm_Type}" VerticalAlignment="Top" Grid.Row="2" Padding="0,5,5,5" Background="{x:Null}" Margin="0,5,0,0">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </Label.Foreground>
+        </Label>
+        <Label x:Name="Label1" Content="{x:Static resx:GUI.GroupCreatorForm_Class}" VerticalAlignment="Top" Grid.Row="4" Padding="0,5,5,5" Background="{x:Null}" Margin="0,5,0,0">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </Label.Foreground>
+        </Label>
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.GroupCreatorForm_CancelButton}" Click="btnCancel_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Bottom" Grid.Row="7" Grid.Column="3" Height="21" Style="{DynamicResource ButtonStyle}" Margin="0,10,0,0"/>
+        <Button x:Name="BtnCreateGroup" Style="{StaticResource BtnSave}" Content="{x:Static resx:GUI.GroupCreatorForm_CreateGroupButton}" Click="btnCreateGroup_Click" HorizontalAlignment="Right" Width="98" Height="21" VerticalAlignment="Bottom" Grid.Row="7" Grid.Column="2" Margin="0,10,10,0" />
+        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.GroupCreatorForm_ClearButton}" Command="{Binding ClearFieldsCommand}" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Grid.Row="6" Style="{DynamicResource ButtonStyle}" Margin="10"/>
+        <Label x:Name="Label2" Content="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" FontSize="10" VerticalAlignment="Bottom" Grid.Row="6" HorizontalAlignment="Right" Background="{x:Null}">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </Label.Foreground>
+        </Label>
     </Grid>
 </Window>
 

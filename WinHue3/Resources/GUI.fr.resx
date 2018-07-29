@@ -472,7 +472,7 @@
     <value>Nom du groupe</value>
   </data>
   <data name="GroupCreatorForm_HoldCtrl" xml:space="preserve">
-    <value>* Appuyez sur contrôle pour sélectionner plus d'une ampoule</value>
+    <value>*Appuyez sur contrôle pour sélectionner plus d'une ampoule</value>
   </data>
   <data name="GroupCreatorForm_ModifyGroupButton" xml:space="preserve">
     <value>Sauvegarder</value>
@@ -1588,7 +1588,7 @@
     <value>Recherche de la passerelle...</value>
   </data>
   <data name="BridgeFinder_Trying" xml:space="preserve">
-    <value>Essaie de l'IP :</value>
+    <value>Essaie de l'IP: </value>
   </data>
   <data name="EntertainmentCreatorForm_Title" xml:space="preserve">
     <value>Créateur de divertissement</value>

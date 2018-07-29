@@ -250,7 +250,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trying IP : .
+        ///   Looks up a localized string similar to Trying IP: .
         /// </summary>
         public static string BridgeFinder_Trying {
             get {
@@ -1492,7 +1492,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to * Hold control to select more than one light.
+        ///   Looks up a localized string similar to *Hold control to select more than one light.
         /// </summary>
         public static string GroupCreatorForm_HoldCtrl {
             get {
