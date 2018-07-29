@@ -44,8 +44,26 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,-5,2.333">
-        <ListView x:Name="ListView" HorizontalAlignment="Left" Height="191" Margin="10,36,0,0" VerticalAlignment="Top" Width="604" ItemsSource="{Binding ListBridges}" SelectedItem="{Binding SelectedBridge}" IsEnabled="{Binding CanChangeSelection}">
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+    </Window.Background>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="ListView" ItemsSource="{Binding ListBridges}" SelectedItem="{Binding SelectedBridge}" IsEnabled="{Binding CanChangeSelection}" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,5" Style="{DynamicResource ListViewStyle}">
+            <ListView.Background>
+                <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
+            </ListView.Background>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50" Header="{x:Static resx:GUI.BridgeDetectionPairing_ListView_Image}">
@@ -75,16 +93,28 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.BridgeDetectionPairing_Done}" Style="{StaticResource BtnSave}" HorizontalAlignment="Left" Margin="545,270,0,0" VerticalAlignment="Top" Width="69" Click="btnDone_Click"/>
-        <Button x:Name="BtnPair" Content="{x:Static resx:GUI.BridgeDetectionPairing_Pair}" HorizontalAlignment="Left" Margin="12,232,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PairBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Pair_Tooltip}" Tag="{Binding AnyPaired, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}"/>
-        <Button x:Name="BtnIpScan" Content="{Binding ScanButtonText}" HorizontalAlignment="Left" Margin="355,232,0,0" VerticalAlignment="Top" Width="79" Command="{Binding ScanForBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Scan_Tooltip}"  Height="22"/>
-        <ProgressBar x:Name="PbWaitBar" HorizontalAlignment="Left" Height="10" Margin="12,257,0,0" VerticalAlignment="Top" Width="602" Maximum="{Binding BridgePairModel.ProgressBarMax}" Minimum="{Binding BridgePairModel.ProgressBarMin}" Value="{Binding BridgePairModel.ProgressBarValue}"/>
-        <TextBlock x:Name="TblMessage" HorizontalAlignment="Left" Margin="12,272,0,0" TextWrapping="Wrap" Text="{Binding BridgePairModel.UserMessage}" VerticalAlignment="Top" Width="530" Height="45"/>
-        <Label Content="{x:Static resx:GUI.BridgeDetectionPairing_ListBridge}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="BtnDefault" Content="{x:Static resx:GUI.BridgeDetectionPairing_Default}" HorizontalAlignment="Left" Margin="92,232,0,0" VerticalAlignment="Top" Width="75" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Default_Tooltip}" Command="{Binding SetDefaultBridgeCommand}" Tag="{Binding DefaultSet, NotifyOnValidationError=True,ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}"/>
-        <Button x:Name="BtnManualIp" Content="{x:Static resx:GUI.BridgeDetectionPairing_ManualIP}" Command="{Binding AddManualIpCommand}" HorizontalAlignment="Left" Margin="275,232,0,0" VerticalAlignment="Top" Width="75" />
-        <Button x:Name="BtnDetectBridges" Content="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge}" Margin="439,232,0,0" VerticalAlignment="Top" Command="{Binding DetectBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge_Tooltip}" HorizontalAlignment="Left" Width="175"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.BridgeDetectionPairing_Cancel}" HorizontalAlignment="Left" Margin="545,295,0,0" VerticalAlignment="Top" Width="69" Click="btnCancel_Click"/>
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.BridgeDetectionPairing_Done}" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Right" Width="73" Click="btnDone_Click" Grid.Row="5" Margin="0,0,10,0" TextOptions.TextFormattingMode="Display"/>
+        <ProgressBar x:Name="PbWaitBar" VerticalAlignment="Top" Maximum="{Binding BridgePairModel.ProgressBarMax}" Minimum="{Binding BridgePairModel.ProgressBarMin}" Value="{Binding BridgePairModel.ProgressBarValue}" Grid.Row="3" Grid.ColumnSpan="2" Height="6" Margin="0,5" Style="{DynamicResource ProgressBarStyle}"/>
+        <TextBlock x:Name="TblMessage" TextWrapping="Wrap" Text="{Binding BridgePairModel.UserMessage}" Grid.ColumnSpan="2" Grid.Row="4" Margin="0,0,0,10" TextOptions.TextFormattingMode="Display">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Button x:Name="BtnPair" Content="{x:Static resx:GUI.BridgeDetectionPairing_Pair}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Command="{Binding PairBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Pair_Tooltip}" Tag="{Binding AnyPaired, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" Style="{DynamicResource ButtonStyle}" TextOptions.TextFormattingMode="Display"/>
+            <Button x:Name="BtnDefault" Content="{x:Static resx:GUI.BridgeDetectionPairing_Default}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Default_Tooltip}" Command="{Binding SetDefaultBridgeCommand}" Tag="{Binding DefaultSet, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" Margin="5,0,0,0" Style="{DynamicResource ButtonStyle}" TextOptions.TextFormattingMode="Display"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Grid.RowSpan="2" VerticalAlignment="Top" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+            <Button x:Name="BtnManualIp" Content="{x:Static resx:GUI.BridgeDetectionPairing_ManualIP}" Command="{Binding AddManualIpCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="0,0,5,0" Style="{DynamicResource ButtonStyle}" TextOptions.TextFormattingMode="Display" />
+            <Button x:Name="BtnIpScan" Content="{Binding ScanButtonText}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Command="{Binding ScanForBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_Scan_Tooltip}" Margin="0,0,5,0" Style="{DynamicResource ButtonStyle}" TextOptions.TextFormattingMode="Display"/>
+            <Button x:Name="BtnDetectBridges" Content="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge}" VerticalAlignment="Top" Command="{Binding DetectBridgeCommand}" ToolTip="{x:Static resx:GUI.BridgeDetectionPairing_DetectBridge_Tooltip}" HorizontalAlignment="Left" Width="175" Style="{DynamicResource ButtonStyle}" TextOptions.TextFormattingMode="Display"/>
+        </StackPanel>
+        <Label Content="{x:Static resx:GUI.BridgeDetectionPairing_ListBridge}" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" Padding="0,0,5,5" FontWeight="Bold" TextOptions.TextFormattingMode="Display">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </Label.Foreground>
+        </Label>
+        <Button x:Name="BtnCancel" HorizontalAlignment="Left" Width="73" Click="btnCancel_Click" Grid.Row="5" Grid.Column="1" Content="Cancel" Style="{DynamicResource ButtonStyle}" TextOptions.TextFormattingMode="Display"/>
 
     </Grid>
 </Window>
