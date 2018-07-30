@@ -5,13 +5,47 @@
         xmlns:eventViewer="clr-namespace:WinHue3.Functions.EventViewer"
         x:Name="FormEventLogger" x:Class="WinHue3.Functions.EventViewer.Form_EventLog"
     Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/eventlog.png" ResizeMode="CanResizeWithGrip">
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_HeaderBackground}"/>
+    </Window.Background>
     <Window.DataContext>
         <eventViewer:EventViewerViewModel/>
     </Window.DataContext>
-    <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{Binding EventViewerModel.ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal">
+    <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{Binding EventViewerModel.ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" ColumnHeaderHeight="25" BorderBrush="{x:Null}" BorderThickness="0">
         <DataGrid.Background>
             <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
         </DataGrid.Background>
+        <DataGrid.ColumnHeaderStyle>
+            <Style TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="{DynamicResource theme_HeaderBackgroundBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource theme_HeaderTextBrush}"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="Padding" Value="5,0,0,0"/>
+                <Setter Property="BorderThickness" Value="1,0,0,1"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource theme_HeaderBackgroundHoverBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </DataGrid.ColumnHeaderStyle>
+        <DataGrid.RowStyle>
+            <Style TargetType="{x:Type DataGridRow}">
+                <Setter Property="Background" Value="{DynamicResource theme_MainBackgroundBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource theme_MainTextBrush}"/>
+                
+            </Style>
+        </DataGrid.RowStyle>
+        <DataGrid.RowHeaderStyle>
+            <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Background" Value="Red"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Blue"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </DataGrid.RowHeaderStyle>
         <DataGrid.Columns>
             <DataGridTemplateColumn MinWidth="100" Header="Timestamp">
                 <DataGridTemplateColumn.CellTemplate>

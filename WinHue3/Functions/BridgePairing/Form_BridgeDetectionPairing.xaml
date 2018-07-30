@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgePairing="clr-namespace:WinHue3.Functions.BridgePairing"
-        Title="Bridge Detection and Pairing..." Height="364.861" Width="635.634" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/bridge.png">
+        Title="Bridge Detection and Pairing..." Height="350" Width="650" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/bridge.png" MinWidth="650" MinHeight="350">
     <Window.DataContext>
         <bridgePairing:BridgePairingViewModel/>
     </Window.DataContext>
@@ -43,6 +43,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
     </Window.Resources>
     <Window.Background>
         <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
@@ -60,7 +61,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="ListView" ItemsSource="{Binding ListBridges}" SelectedItem="{Binding SelectedBridge}" IsEnabled="{Binding CanChangeSelection}" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,5" Style="{DynamicResource ListViewStyle}">
+        <ListView x:Name="ListView" ItemsSource="{Binding ListBridges}" SelectedItem="{Binding SelectedBridge}" IsEnabled="{Binding CanChangeSelection}" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,5" Style="{DynamicResource ListViewStyle}" ItemContainerStyle="{DynamicResource ListViewItemStyle1}">
             <ListView.Background>
                 <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
             </ListView.Background>

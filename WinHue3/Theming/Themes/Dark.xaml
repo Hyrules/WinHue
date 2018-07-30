@@ -10,6 +10,8 @@
     <SolidColorBrush x:Key="theme_HeaderBackgroundBrush" Color="{StaticResource theme_HeaderBackground}"></SolidColorBrush>
     <Color x:Key="theme_HeaderText">#ffffff</Color>
     <SolidColorBrush x:Key="theme_HeaderTextBrush" Color="{StaticResource theme_HeaderText}"></SolidColorBrush>
+    <Color x:Key="theme_HeaderBackgroundHover">#272727</Color>
+    <SolidColorBrush x:Key="theme_HeaderBackgroundHoverBrush" Color="{StaticResource theme_HeaderBackgroundHover}"></SolidColorBrush>
     
     <!--<Color x:Key="theme_ToolBarBackground">#2b2b2b</Color>-->
     <Color x:Key="theme_ToolBarBackground">#292929</Color>
@@ -58,6 +60,11 @@
     <Color x:Key="theme_ControlTextDisabled">#c2c2c2</Color>
     <SolidColorBrush x:Key="theme_ControlTextDisabledBrush" Color="{StaticResource theme_ControlText}"></SolidColorBrush>
 
-    <Color x:Key="theme_ComboBoxGlyph">#555555</Color>
+    <Color x:Key="theme_ListViewItemHover">#232323</Color>
+    <SolidColorBrush x:Key="theme_ListViewItemHoverBrush" Color="{StaticResource theme_ListViewItemHover}"></SolidColorBrush>
+    <Color x:Key="theme_ListViewItemSelected">#2d2d2d</Color>
+    <SolidColorBrush x:Key="theme_ListViewItemSelectedBrush" Color="{StaticResource theme_ListViewItemSelected}"></SolidColorBrush>
+    <Color x:Key="theme_ListViewItemSelectedHover">#363636</Color>
+    <SolidColorBrush x:Key="theme_ListViewItemSelectedHoverBrush" Color="{StaticResource theme_ListViewItemSelectedHover}"></SolidColorBrush>
 
 </ResourceDictionary>

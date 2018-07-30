@@ -3164,71 +3164,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="DataGridControlStyle" TargetType="{x:Type xcdg:DataGridControl}">
-        <Setter Property="BorderBrush" Value="{DynamicResource accentBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Background" Value="{DynamicResource theme_SecondaryBackgroundBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource theme_ControlTextBrush}"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="CellErrorStyle">
-            <Setter.Value>
-                <Style TargetType="{x:Type xcdg:Cell}">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="ToolTip" Value="{Binding ValidationError.ErrorContent, RelativeSource={RelativeSource Self}}"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsValidationErrorRestrictive" Value="True">
-                            <Setter Property="Background" Value="Red"/>
-                        </Trigger>
-                        <Trigger Property="IsValidationErrorRestrictive" Value="False">
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="Background" Value="{DynamicResource theme_SecondaryBackgroundBrush}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type xcdg:DataGridControl}">
-                    <Grid>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <AdornerDecorator x:Name="PART_DragDropAdornerDecorator">
-                                <xcdg:TableViewScrollViewer x:Name="PART_ScrollViewer" Padding="{TemplateBinding Padding}" RowSelectorPaneWidth="{Binding (xcdg:DataGridControl.DataGridContext).RowSelectorPaneWidth, RelativeSource={RelativeSource Self}}" ShowRowSelectorPane="{Binding (xcdg:DataGridControl.DataGridContext).ShowRowSelectorPane, RelativeSource={RelativeSource Self}}" Style="{DynamicResource TableViewScrollViewerStyle}">
-                                    <xcdg:TableViewItemsHost/>
-                                </xcdg:TableViewScrollViewer>
-                            </AdornerDecorator>
-                        </Border>
-                        <Grid x:Name="connectionStateGrid" HorizontalAlignment="Right" Height="30" Margin="0,0,25,25" VerticalAlignment="Bottom" Width="30">
-                            <ContentPresenter x:Name="connectionStateLoadingContentPresenter" ContentTemplate="{Binding (xcdg:DataGridControl.DataGridContext).ConnectionStateLoadingGlyph, RelativeSource={RelativeSource Self}}" Content="{TemplateBinding ConnectionState}" Visibility="Collapsed"/>
-                            <ContentPresenter x:Name="connectionStateCommittingContentPresenter" ContentTemplate="{Binding (xcdg:DataGridControl.DataGridContext).ConnectionStateCommittingGlyph, RelativeSource={RelativeSource Self}}" Content="{TemplateBinding ConnectionState}" Visibility="Collapsed"/>
-                            <ContentPresenter x:Name="connectionStateErrorContentPresenter" ContentTemplate="{Binding (xcdg:DataGridControl.DataGridContext).ConnectionStateErrorGlyph, RelativeSource={RelativeSource Self}}" Content="{TemplateBinding ConnectionState}" Visibility="Collapsed"/>
-                        </Grid>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding (xcdg:DataGridControl.DataGridContext).IsConnectionStateGlyphEnabled, RelativeSource={RelativeSource Self}}" Value="False">
-                            <Setter Property="Visibility" TargetName="connectionStateGrid" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding (xcdg:DataGridControl.DataGridContext).DataGridControl.ConnectionState, RelativeSource={RelativeSource Self}}" Value="Loading">
-                            <Setter Property="Visibility" TargetName="connectionStateLoadingContentPresenter" Value="Visible"/>
-                            <Setter Property="Visibility" TargetName="connectionStateErrorContentPresenter" Value="Collapsed"/>
-                            <Setter Property="Visibility" TargetName="connectionStateCommittingContentPresenter" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding (xcdg:DataGridControl.DataGridContext).DataGridControl.ConnectionState, RelativeSource={RelativeSource Self}}" Value="Committing">
-                            <Setter Property="Visibility" TargetName="connectionStateLoadingContentPresenter" Value="Collapsed"/>
-                            <Setter Property="Visibility" TargetName="connectionStateErrorContentPresenter" Value="Collapsed"/>
-                            <Setter Property="Visibility" TargetName="connectionStateCommittingContentPresenter" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding (xcdg:DataGridControl.DataGridContext).DataGridControl.ConnectionState, RelativeSource={RelativeSource Self}}" Value="Error">
-                            <Setter Property="Visibility" TargetName="connectionStateLoadingContentPresenter" Value="Collapsed"/>
-                            <Setter Property="Visibility" TargetName="connectionStateErrorContentPresenter" Value="Visible"/>
-                            <Setter Property="Visibility" TargetName="connectionStateCommittingContentPresenter" Value="Collapsed"/>
-                        </DataTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
     <Style x:Key="TableViewScrollViewerStyle" TargetType="{x:Type xcdg:TableViewScrollViewer}">
         <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="{Binding HorizontalScrollBarVisibilityHint, RelativeSource={RelativeSource Self}}"/>
@@ -3285,22 +3220,84 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
-                    <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource theme_ControlBorderBrush}" Background="{DynamicResource theme_ControlBackgroundBrush}">
-                        <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                    <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource theme_ControlBorderBrush}" Background="{TemplateBinding Background}">
+                        <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Left" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="{DynamicResource theme_HeaderBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource theme_ControlTextBrush}" />
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource theme_HeaderBackgroundHoverBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ListViewItemFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle RadiusY="2" RadiusX="2" Stroke="#8E6EA6F5" StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <SolidColorBrush x:Key="ListItemHoverFill" Color="{DynamicResource theme_ListViewItemHover}" />
+    <SolidColorBrush x:Key="ListItemSelectedFill" Color="{DynamicResource theme_ListViewItemSelected}" />
+    <SolidColorBrush x:Key="ListItemSelectedInactiveFill" Color="{DynamicResource theme_ListViewItemSelected}" />
+    <SolidColorBrush x:Key="ListItemSelectedHoverFill" Color="{DynamicResource theme_ListViewItemSelectedHover}" />
+    <Style x:Key="ListViewItemStyle1" TargetType="{x:Type ListViewItem}">
+        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ListViewItemFocusVisual}"/>-->
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="0,0,0,1"/>
+        <Setter Property="Padding" Value="5,2,5,2"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="2" SnapsToDevicePixels="true">
+                        <Border x:Name="InnerBorder" BorderThickness="1" CornerRadius="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition MaxHeight="11"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <GridViewRowPresenter Grid.RowSpan="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource theme_ControlBackgroundHoverBrush}"/>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="{StaticResource ListItemHoverFill}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="{StaticResource ListItemSelectedFill}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true"/>
+                                <Condition Property="Selector.IsSelectionActive" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource ListItemSelectedInactiveFill}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true"/>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource ListItemSelectedHoverFill}"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Foreground" Value="{DynamicResource theme_ControlTextBrush}" />
-        <!--<Setter Property="FontFamily" Value="Segoe UI" />
-        <Setter Property="FontSize" Value="12" />-->
-        
     </Style>
 
 </ResourceDictionary>
