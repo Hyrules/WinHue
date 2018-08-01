@@ -16,6 +16,13 @@ namespace WinHue3.Theming
             return Color.FromRgb(Convert.ToByte(color.R * coef), Convert.ToByte(color.G * coef), Convert.ToByte(color.B * coef));
         }
 
+        public static Color MakeTransparent(this Color color, float transparency)
+        {
+            transparency = transparency * 255;
+
+            return Color.FromArgb(Convert.ToByte(transparency),Convert.ToByte(color.R), Convert.ToByte(color.G), Convert.ToByte(color.B));
+        }
+
         public static Color InterpolateColors(Color color1, Color color2, float percentage)
         {
             double a1 = color1.A / 255.0, r1 = color1.R / 255.0, g1 = color1.G / 255.0, b1 = color1.B / 255.0;
@@ -77,6 +84,8 @@ namespace WinHue3.Theming
             //change accent
             Application.Current.Resources["accent"] = accent;
             Application.Current.Resources["accentDark"] = ChangeLightness(accent, (float)0.75);
+            Application.Current.Resources["accentHoverBackground"] = MakeTransparent(accent, (float)0.25);
+            Application.Current.Resources["accentPressedBackground"] = MakeTransparent(accent, (float)0.5);
             //assign text color on accent background
             Application.Current.Resources["textOnAccent"] = TextColorOnBackground(accent);
 

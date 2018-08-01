@@ -22,8 +22,7 @@
     x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
-    Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  
-    ResizeMode="CanResizeWithGrip" x:Name="MainForm" BorderThickness="0" 
+    Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing" x:Name="MainForm" BorderThickness="0" 
     behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" StateChanged="MainForm_StateChanged" Loaded="MainForm_Loaded"
     >
 
@@ -375,7 +374,7 @@
             <Menu.Foreground>
                 <SolidColorBrush Color="{DynamicResource theme_HeaderText}"/>
             </Menu.Foreground>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" >
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" Template="{DynamicResource MenuItemControlTemplate}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/settings.png" Height="24"/>
@@ -401,7 +400,7 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17" Foreground="Black"/>
             </MenuItem>
-            <MenuItem Header="_Edit" FontSize="17">
+            <MenuItem Header="_Edit" FontSize="17" Template="{DynamicResource MenuItemControlTemplate}">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}" Foreground="Black"/>
@@ -460,7 +459,7 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Foreground="Black" Background="Red"/>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17" Template="{DynamicResource MenuItemControlTemplate}">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/cputemp.png" Height="16"/>
@@ -468,7 +467,7 @@
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17" Template="{DynamicResource MenuItemControlTemplate}">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" Foreground="Black">
@@ -501,7 +500,7 @@
                     <Viewbox Height="100" Width="100"/>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17" Template="{DynamicResource MenuItemControlTemplate}">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/WebSite.png" Height="16"/>
@@ -526,7 +525,7 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Touchlink}" Command="{Binding TouchLinkCommand}">
                     <Image Source="/WinHue3;component/Resources/touchlink.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" Command="{Binding FindLightSerialCommand}" >
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" Command="{Binding FindLightSerialCommand}">
                     <Image Source="/WinHue3;component/Resources/findserial.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}">

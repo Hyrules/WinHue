@@ -65,9 +65,14 @@
             <Color x:Key="accent">Blue</Color>
             <Color x:Key="accentDark">#00B7C3</Color>
             <Color x:Key="accentLight">#00B7C3</Color>
-            <SolidColorBrush x:Key="accentBrush" Color="{DynamicResource accent}"></SolidColorBrush>
+            <Color x:Key="accentHoverBackground">#00B7C3</Color>
+            <SolidColorBrush x:Key="accentHoverBackgroundBrush" Color="{DynamicResource accentHoverBackground}"/>
+            <Color x:Key="accentPressedBackground">#00B7C3</Color>
+            <SolidColorBrush x:Key="accentPressedBackgroundBrush" Color="{DynamicResource accentPressedBackground}"/>
+            <SolidColorBrush x:Key="accentBrush" Color="{DynamicResource accent}"/>
+            <SolidColorBrush x:Key="accentDarkBrush" Color="{DynamicResource accentDark}"/>
             <Color x:Key="textOnAccent">Black</Color>
-            <SolidColorBrush x:Key="textOnAccentBrush" Color="{DynamicResource textOnAccent}"></SolidColorBrush>
+            <SolidColorBrush x:Key="textOnAccentBrush" Color="{DynamicResource textOnAccent}"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theming/Themes/Dark.xaml"></ResourceDictionary>
