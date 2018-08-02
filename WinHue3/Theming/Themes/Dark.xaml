@@ -67,4 +67,8 @@
     <Color x:Key="theme_ListViewItemSelectedHover">#363636</Color>
     <SolidColorBrush x:Key="theme_ListViewItemSelectedHoverBrush" Color="{StaticResource theme_ListViewItemSelectedHover}"></SolidColorBrush>
 
+    <Color x:Key="theme_ScrollBarBackground">#3e3e3e</Color>
+    <Color x:Key="theme_ScrollBarHover">#525252</Color>
+    <Color x:Key="theme_ScrollBarDrag">#666666</Color>
+    
 </ResourceDictionary>
