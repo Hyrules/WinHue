@@ -2833,10 +2833,18 @@
                 <Setter Property="Visibility" TargetName="PART_WatermarkHost" Value="Visible"/>
             </MultiTrigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}"/>
+                <Setter Property="BorderBrush" TargetName="Border">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource accentDark}"/>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes1:ResourceKeys}}}"/>
+                <Setter Property="BorderBrush" TargetName="Border">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource accentDark}"/>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>

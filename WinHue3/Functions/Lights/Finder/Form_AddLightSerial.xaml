@@ -28,7 +28,7 @@
         <TextBox TextWrapping="Wrap" Text="{Binding ListSerials, UpdateSourceTrigger=PropertyChanged}" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle}" TextOptions.TextFormattingMode="Display" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10"/>
         <TextBlock Text="{x:Static resx:GUI.AddLightSerialForm_Message}" TextWrapping="WrapWithOverflow" TextOptions.TextFormattingMode="Display" Grid.ColumnSpan="2">
             <TextBlock.Foreground>
-                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
             </TextBlock.Foreground>
         </TextBlock>
         <Button x:Name="BtnFind" Content="{x:Static resx:GUI.AddLightSerialForm_Seach}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="btnFind_Click" TextOptions.TextFormattingMode="Display" Style="{DynamicResource ButtonStyle}" Grid.Row="2" Margin="0,0,10,0"/>

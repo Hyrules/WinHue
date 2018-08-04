@@ -945,6 +945,12 @@
   <ItemGroup>
     <Resource Include="Resources\entertainment.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\refreshMetro2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\refreshMetro3.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

@@ -462,6 +462,26 @@ namespace WinHue3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        public static System.Drawing.Icon refreshMetro2 {
+            get {
+                object obj = ResourceManager.GetObject("refreshMetro2", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon refreshMetro3 {
+            get {
+                object obj = ResourceManager.GetObject("refreshMetro3", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         public static System.Drawing.Icon refreshMetro5 {
             get {
                 object obj = ResourceManager.GetObject("refreshMetro5", resourceCulture);
