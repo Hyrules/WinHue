@@ -10,26 +10,76 @@
     xmlns:userManagement="clr-namespace:WinHue3.Functions.User_Management"
     x:Class="WinHue3.Functions.User_Management.Form_ManageUsers"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.ManageUsers_Title}" Height="359.614" Width="641.738" Icon="/WinHue3;component/Resources/user.png" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.ManageUsers_Title}" Height="350" Width="650" Icon="/WinHue3;component/Resources/user.png" WindowStartupLocation="CenterOwner" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}" MinWidth="650" MinHeight="350">
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+    </Window.Background>
 
     <Window.DataContext>
         <userManagement:ManageUsersViewModel/>
     </Window.DataContext>
-    <Grid>
-        <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="300" Margin="10,10,0,0" VerticalAlignment="Top" Width="260" ItemsSource="{Binding ListUsers}" DisplayMemberPath="Name"  SelectedItem="{Binding SelectedUser}"/>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="ListBox" DisplayMemberPath="Name" SelectedItem="{Binding SelectedUser}" Grid.RowSpan="7" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" ItemsSource="{Binding ListUsers}">
+            <ListBox.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+            </ListBox.Foreground>
+            <ListBox.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource accent}"/>
+            </ListBox.BorderBrush>
+            <ListBox.Background>
+                <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
+            </ListBox.Background>
+        </ListBox>
 
-        <xctk:WatermarkTextBox x:Name="WatermarkTextBox" HorizontalAlignment="Left" Margin="281,43,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Devtype}" VerticalAlignment="Top" Width="326" Watermark="{x:Static resx:GUI.ManageUsers_DeviceType}" MaxLength="19"/>
-        <xctk:WatermarkTextBox x:Name="WatermarkTextBox1" HorizontalAlignment="Left" Margin="280,10,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.ApplicationName}" VerticalAlignment="Top" Width="327" Watermark="{x:Static resx:GUI.ManageUsers_Username}" MaxLength="20" />
-        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.ManageUsers_Done}" HorizontalAlignment="Left" Margin="554,291,0,0" VerticalAlignment="Top" Width="68" Click="btnDone_Click"/>
-        <Button x:Name="BtnDelete" Content="{x:Static resx:GUI.ManageUsers_Delete}" HorizontalAlignment="Left" Margin="281,290,0,0" VerticalAlignment="Top" Width="75" Background="Red" Command="{Binding DeleteCommand}"/>
-        <Button x:Name="BtnAddUser" Content="{x:Static resx:GUI.ManageUsers_AddUser}" HorizontalAlignment="Left" Margin="442,290,0,0" VerticalAlignment="Top" Width="107" Command="{Binding AddUserCommand}"/>
-        <Label x:Name="LblLastUsed" Content="{x:Static resx:GUI.ManageUsers_LastUsed}" HorizontalAlignment="Left" Margin="281,83,0,0" VerticalAlignment="Top" Width="114"/>
-        <Label x:Name="LblCreate" Content="{x:Static resx:GUI.ManageUsers_CreateDate}" HorizontalAlignment="Left" Margin="281,113,0,0" VerticalAlignment="Top" Width="114"/>
-        <Label x:Name="LblLastUsedDate" Content="{Binding UsersModel.Lastused}" HorizontalAlignment="Left" Margin="400,82,0,0" VerticalAlignment="Top" Width="207"/>
-        <Label x:Name="LblCreateDate" Content="{Binding UsersModel.Created}" HorizontalAlignment="Left" Margin="371,113,0,0" VerticalAlignment="Top" Width="236"/>
-        <TextBox x:Name="TbKey" HorizontalAlignment="Left" Margin="371,151,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Key}" VerticalAlignment="Top" Width="236" BorderThickness="0" IsReadOnly="True"/>
-        <Label x:Name="Label" Content="{x:Static resx:GUI.ManageUsers_Key}" HorizontalAlignment="Left" Margin="281,146,0,0" VerticalAlignment="Top" Width="114"/>
-        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.ManageUsers_Clear}" HorizontalAlignment="Left" Margin="362,290,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClearCommand}"/>
+        <xctk:WatermarkTextBox x:Name="WatermarkTextBox" TextWrapping="Wrap" Text="{Binding UsersModel.Devtype}" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.ManageUsers_DeviceType}" MaxLength="19" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,10" Style="{DynamicResource WatermarkTextBoxStyle}"/>
+        <xctk:WatermarkTextBox x:Name="WatermarkTextBox1" TextWrapping="Wrap" Text="{Binding UsersModel.ApplicationName}" Watermark="{x:Static resx:GUI.ManageUsers_Username}" MaxLength="20" Grid.Column="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Style="{DynamicResource WatermarkTextBoxStyle}" />
+        <Label x:Name="LblLastUsed" Content="{x:Static resx:GUI.ManageUsers_LastUsed}" VerticalAlignment="Top" Grid.Row="2" Grid.Column="2" FontWeight="Bold">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+            </Label.Foreground>
+        </Label>
+        <Label x:Name="LblCreate" Content="{x:Static resx:GUI.ManageUsers_CreateDate}" VerticalAlignment="Top" Grid.Row="3" Grid.Column="2" FontWeight="Bold">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+            </Label.Foreground>
+        </Label>
+        <Label x:Name="LblLastUsedDate" Content="{Binding UsersModel.Lastused}" Grid.Row="2" Grid.Column="3" Background="{x:Null}">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+            </Label.Foreground>
+        </Label>
+        <Label x:Name="LblCreateDate" Content="{Binding UsersModel.Created}" Grid.Row="3" Grid.Column="3" Background="{x:Null}">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+            </Label.Foreground>
+        </Label>
+        <TextBox x:Name="TbKey" TextWrapping="Wrap" Text="{Binding UsersModel.Key}" BorderThickness="0" IsReadOnly="True" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Background="{x:Null}" Style="{DynamicResource TextBoxStyle}" Padding="5,5,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Label" Content="{x:Static resx:GUI.ManageUsers_Key}" VerticalAlignment="Top" Grid.Row="4" Grid.Column="2" FontWeight="Bold">
+            <Label.Foreground>
+                <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+            </Label.Foreground>
+        </Label>
+        <StackPanel VerticalAlignment="Top" Grid.Column="2" Grid.Row="6" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+            <Button x:Name="BtnDelete" Content="{x:Static resx:GUI.ManageUsers_Delete}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="73" Foreground="Red" Command="{Binding DeleteCommand}" Height="21" Style="{DynamicResource ButtonStyle}"/>
+            <Button x:Name="BtnClear" Content="{x:Static resx:GUI.ManageUsers_Clear}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="73" Command="{Binding ClearCommand}" Margin="10,0,0,0" Height="21" Style="{DynamicResource ButtonStyle}"/>
+            <Button x:Name="BtnAddUser" Content="{x:Static resx:GUI.ManageUsers_AddUser}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="107" Command="{Binding AddUserCommand}" Margin="10,0,0,0" Height="21" Style="{DynamicResource ButtonStyle}"/>
+        </StackPanel>
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.ManageUsers_Done}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="73" Click="btnDone_Click" Grid.Column="3" Grid.Row="6" Height="21" Style="{DynamicResource ButtonStyle}"/>
 
     </Grid>
 </Window>

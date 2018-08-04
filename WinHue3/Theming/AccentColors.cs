@@ -13,7 +13,7 @@ namespace WinHue3.Theming
             {
                 if (_allSets == null)
                 {
-                    UInt32 colorSetCount = UXTheme.GetImmersiveColorSetCount();
+                    UInt32 colorSetCount = UnsafeNativeMethods.GetImmersiveColorSetCount();
 
                     List<AccentColorSet> colorSets = new List<AccentColorSet>();
                     for (UInt32 i = 0; i < colorSetCount; i++)
@@ -36,7 +36,7 @@ namespace WinHue3.Theming
         {
             get
             {
-                UInt32 activeSet = UXTheme.GetImmersiveUserColorSetPreference(false, false);
+                UInt32 activeSet = UnsafeNativeMethods.GetImmersiveUserColorSetPreference(false, false);
                 ActiveSet = AllSets[Math.Min(activeSet, AllSets.Length - 1)];
                 return _activeSet;
             }
@@ -61,7 +61,7 @@ namespace WinHue3.Theming
                 try
                 {
                     name = Marshal.StringToHGlobalUni("Immersive" + colorName);
-                    colorType = UXTheme.GetImmersiveColorTypeFromName(name);
+                    colorType = UnsafeNativeMethods.GetImmersiveColorTypeFromName(name);
                     if (colorType == 0xFFFFFFFF) throw new InvalidOperationException();
                 }
                 finally
@@ -81,7 +81,7 @@ namespace WinHue3.Theming
         {
             get
             {
-                UInt32 nativeColor = UXTheme.GetImmersiveColorFromColorSetEx(this._colorSet, colorType, false, 0);
+                UInt32 nativeColor = UnsafeNativeMethods.GetImmersiveColorFromColorSetEx(this._colorSet, colorType, false, 0);
                 //if (nativeColor == 0)
                 //    throw new InvalidOperationException();
                 return Color.FromArgb(
@@ -112,7 +112,7 @@ namespace WinHue3.Theming
             List<String> allColorNames = new List<String>();
             for (UInt32 i = 0; i < 0xFFF; i++)
             {
-                IntPtr typeNamePtr = UXTheme.GetImmersiveColorNamedTypeByIndex(i);
+                IntPtr typeNamePtr = UnsafeNativeMethods.GetImmersiveColorNamedTypeByIndex(i);
                 if (typeNamePtr != IntPtr.Zero)
                 {
                     IntPtr typeName = (IntPtr)Marshal.PtrToStructure(typeNamePtr, typeof(IntPtr));
@@ -123,7 +123,7 @@ namespace WinHue3.Theming
             return allColorNames;
         }
 
-        static class UXTheme
+        static class UnsafeNativeMethods
         {
             [DllImport("uxtheme.dll", EntryPoint = "#98", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto)]
             public static extern UInt32 GetImmersiveUserColorSetPreference(Boolean forceCheckRegistry, Boolean skipCheckOnFail);
