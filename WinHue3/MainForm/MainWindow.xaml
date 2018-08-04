@@ -890,9 +890,8 @@
                 behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
                 behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                 behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                ItemsSource="{Binding ListBridgeObjects}" BorderBrush="{x:Null}" BorderThickness="0" Style="{DynamicResource ListViewMain}"
-                            >
+                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}" BorderBrush="{x:Null}" BorderThickness="0"
+                Style="{DynamicResource ListViewMain}" ItemsSource="{Binding ListBridgeObjects}">
 
                 <ListView.Resources>
                     <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
@@ -921,6 +920,7 @@
                         </WrapPanel>
                     </DataTemplate>
                     <Style TargetType="{x:Type ListViewItem}">
+                        <!--<Setter Property="OverridesDefaultStyle" Value="True"/>-->
                         <Style.Triggers>
                             <EventTrigger RoutedEvent="Control.MouseDoubleClick">
                                 <BeginStoryboard>
@@ -930,6 +930,9 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DodgerBlue"/>
+                            </Trigger>
                         </Style.Triggers>
                     </Style>
 
@@ -978,9 +981,6 @@
                         <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}" />
-                </ListView.ItemContainerStyle>
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
@@ -1023,6 +1023,49 @@
                         </GroupStyle.ContainerStyle>
                     </GroupStyle>
                 </ListView.GroupStyle>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border CornerRadius="0" SnapsToDevicePixels="True"  
+                                BorderThickness="{TemplateBinding BorderThickness}"   
+                                BorderBrush="{TemplateBinding BorderBrush}"   
+                                Background="{TemplateBinding Background}">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource theme_ListViewItemHoverBrush}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource theme_ListViewItemSelectedBrush}" />
+                                        </Trigger>
+                                        <!--<MultiTrigger> 
+                <MultiTrigger.Conditions> 
+                    <Condition Property="IsSelected" Value="True" /> 
+                    <Condition Property="Selector.IsSelectionActive" Value="False" /> 
+                </MultiTrigger.Conditions> 
+                <Setter Property="Background" Value="{StaticResource ListItemSelectedInactiveFill}" /> 
+                <Setter Property="BorderBrush" Value="#FFCFCFCF" /> 
+            </MultiTrigger>-->
+                                        <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                            <Setter Property="Background" Value="{DynamicResource theme_ListViewItemSelectedHoverBrush}" />
+                                        </MultiTrigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
             </ListView>
 
         </Grid>
