@@ -725,6 +725,9 @@
                         </WrapPanel>
                     </DataTemplate>
                     <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"></SolidColorBrush>
+                        </Style.Resources>
                         <Style.Triggers>
                             <EventTrigger RoutedEvent="Control.MouseDoubleClick">
                                 <BeginStoryboard>
