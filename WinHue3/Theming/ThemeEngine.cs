@@ -49,7 +49,6 @@ namespace WinHue3.Theming
         {
             //----BEGIN THEME CHANGE----
             //prepare to change theme resources
-            ResourceDictionary commonStyles = new ResourceDictionary();
             ResourceDictionary themeDict = new ResourceDictionary();
             ResourceDictionary layoutDict = new ResourceDictionary();
             Application.Current.Resources.MergedDictionaries.Clear();
@@ -60,10 +59,6 @@ namespace WinHue3.Theming
             {
                 theme = "Legacy";
             }
-
-            //add common styles
-            commonStyles.Source = themeDict.Source = new Uri(@"/Theming/Themes/CommonStyles.xaml", UriKind.Relative);
-            Application.Current.Resources.MergedDictionaries.Add(commonStyles);
 
             //change theme
             themeDict.Source = new Uri(@"/Theming/Themes/" + theme + ".xaml", UriKind.Relative);

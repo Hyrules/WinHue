@@ -74,9 +74,7 @@
             <Color x:Key="textOnAccent">Black</Color>
             <SolidColorBrush x:Key="textOnAccentBrush" Color="{DynamicResource textOnAccent}"/>
 
-
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theming/Layouts/CommonStyles.xaml"/>
                 <ResourceDictionary Source="Theming/Themes/Dark.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theming/Layouts/layoutModern.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
