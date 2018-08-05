@@ -59,8 +59,17 @@
                 </Setter>
             </Style>
 
-            
-            
+            <Style x:Key="TbWrapNoTrigger" TargetType="{x:Type TextBlock}" >
+                <!--<Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="Width" Value="auto"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding DataContext.MainFormModel.WrapText, ElementName=MainForm}" Value="True" >-->
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Width" Value="75"/>
+                <!--</DataTrigger>
+        </Style.Triggers>-->
+            </Style>
+
             <!--This will be moved somewhere else eventually-->
             <Color x:Key="accent">Blue</Color>
             <Color x:Key="accentDark">#00B7C3</Color>
