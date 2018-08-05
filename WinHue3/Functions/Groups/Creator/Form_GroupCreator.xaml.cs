@@ -110,5 +110,7 @@ namespace WinHue3.Functions.Groups.Creator
             return _id;
         }
 
+
+
     }
 }

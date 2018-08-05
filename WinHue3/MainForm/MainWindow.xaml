@@ -64,16 +64,7 @@
         </Style>
 
 
-        <Style x:Key="TbWrap" TargetType="{x:Type TextBlock}" >
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="Width" Value="auto"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding DataContext.MainFormModel.WrapText, ElementName=MainForm}" Value="True" >
-                    <Setter Property="TextWrapping" Value="Wrap"/>
-                    <Setter Property="Width" Value="75"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+        
         <Style x:Key="TbxWrap" TargetType="{x:Type TextBox}" >
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="Width" Value="auto"/>
@@ -895,7 +886,7 @@
 
                 <ListView.Resources>
                     <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <WrapPanel Orientation="Vertical" Margin="5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold">
                                 <TextBlock.Foreground>
