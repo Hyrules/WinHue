@@ -56,14 +56,14 @@ namespace WinHue3.MainForm
 
         public void SetLightBackground(List<string> lightlist)
         {
-            // Set the new background color.
+            //Set the new background color.
             if (lightlist.Count <= 0) return;
             foreach (ListViewItem dependencyobject in (from item in LvMainObjects.Items.OfType<Light>()
-                where lightlist.Contains(item.Id)
-                select this.LvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
+                                                       where lightlist.Contains(item.Id)
+                                                       select this.LvMainObjects.ItemContainerGenerator.ContainerFromItem(item)).OfType<ListViewItem>())
             {
                 dependencyobject.Background = new SolidColorBrush();
-                ((SolidColorBrush) dependencyobject.Background).Color =
+                ((SolidColorBrush)dependencyobject.Background).Color =
                     System.Windows.Media.Color.FromArgb(20, 0, 200, 0);
             }
         }
