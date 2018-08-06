@@ -5,7 +5,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgeSettings="clr-namespace:WinHue3.Functions.BridgeSettings"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
-        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing" SizeToContent="WidthAndHeight">
     <Window.DataContext>
         <bridgeSettings:BridgeSettingsViewModel/>
     </Window.DataContext>
@@ -48,7 +48,7 @@
         </Style>
     </Window.Resources>
     <Window.Background>
-        <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+        <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
     </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
@@ -155,7 +155,7 @@
                     </Label>
                     <ComboBox Grid.Column="1" Grid.Row="4" x:Name="CbTimezones" VerticalAlignment="Top" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}" Margin="0,2,0,0" Style="{DynamicResource ComboBoxStyle}"/>
                     <xctk:WatermarkTextBox Grid.Column="1" Grid.Row="1" x:Name="TbName" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="Optional" Margin="0,1,0,0"/>
-                    <Button Grid.Column="1" Grid.Row="9" x:Name="BtnApplyGeneralSettings" Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}" Margin="0,10,0,0" Style="{DynamicResource ButtonStyle}"/>
+                    <Button Grid.Column="1" Grid.Row="9" x:Name="BtnApplyGeneralSettings" Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}" Margin="0,10,0,10" Style="{DynamicResource ButtonStyle}"/>
                     <Label Grid.Column="0"  Grid.Row="0" Content="Bridge Info" VerticalAlignment="Top" Padding="0,5,5,5" FontWeight="Bold">
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
@@ -217,17 +217,17 @@
                         </Label.Foreground>
                     </Label>
                     <CheckBox Grid.Column="1" Grid.Row="0" x:Name="ChbDhcp" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" VerticalAlignment="Bottom" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click" HorizontalAlignment="Right" Style="{DynamicResource CheckBoxStyle}"/>
-                    <xctk:WatermarkTextBox Grid.Column="1" x:Name="TbIpAddress" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.123" VerticalAlignment="Top" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Grid.Row="2" Margin="0,1,0,0" Template="{DynamicResource WatermarkTextBoxControlTemplate}"/>
+                    <xctk:WatermarkTextBox Grid.Column="1" x:Name="TbIpAddress" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.123" VerticalAlignment="Top" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Grid.Row="2" Margin="0,1,0,0"/>
                     <xctk:WatermarkTextBox Grid.Column="1" x:Name="TbNetmask" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 255.255.255.0" VerticalAlignment="Top" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Grid.Row="3" Margin="0,1,0,0"/>
                     <xctk:WatermarkTextBox Grid.Column="1" x:Name="TbGateway" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.1" VerticalAlignment="Top" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Grid.Row="4" Margin="0,1,0,0"/>
                     <xctk:WatermarkTextBox Grid.Column="1" x:Name="TbProxyAddress" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.2" VerticalAlignment="Top" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Grid.Row="6" Margin="0,1,0,0"/>
-                    <Button Grid.Column="1" Grid.Row="8" x:Name="BtnApplyNetworkSettings" Style="{StaticResource BtnApplyNetwork}"  Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" />
+                    <Button Grid.Column="1" Grid.Row="8" x:Name="BtnApplyNetworkSettings" Style="{StaticResource BtnApplyNetwork}"  Content="{x:Static resx:GUI.BridgeSettingsForm_ApplyButton}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Margin="0,10,0,10" />
                     <Label Content="IP Settings" VerticalAlignment="Top" Padding="0,5,5,5" FontWeight="Bold">
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </Label.Foreground>
                     </Label>
-                    <Label Grid.Column="0" Grid.Row="5" Content="Proxy Settings" VerticalAlignment="Top" Padding="0,5,5,5" FontWeight="Bold">
+                    <Label Margin="0,15,0,0" Grid.Column="0" Grid.Row="5" Content="Proxy Settings" VerticalAlignment="Top" Padding="0,5,5,5" FontWeight="Bold">
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
                         </Label.Foreground>

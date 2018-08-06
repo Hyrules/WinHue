@@ -9,7 +9,7 @@
     xmlns:creator="clr-namespace:WinHue3.Functions.Groups.Creator"
     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
     x:Class="WinHue3.Functions.Groups.Creator.Form_GroupCreator"
-        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="400" MinWidth="200"  Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip">
+        Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="400" MinWidth="200"  Height="500" Width="750" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <Style TargetType="{x:Type sliders:BindableListView}">
             <Setter Property="Validation.ErrorTemplate">
@@ -48,7 +48,6 @@
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -68,8 +67,8 @@
             </Label.Foreground>
         </Label>
 
-        <xctk:WatermarkTextBox x:Name="TbGroupName" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Height="23" Watermark="Group name (Optional)" Grid.Row="1" Style="{DynamicResource WatermarkTextBoxStyle}" Margin="0,0,10,0"/>
-        <sliders:BindableListView x:Name="BindableListView" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="7">
+        <xctk:WatermarkTextBox x:Name="TbGroupName" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Watermark="Group name (Optional)" Grid.Row="1" Style="{DynamicResource WatermarkTextBoxStyle}" Margin="0,0,10,0"/>
+        <sliders:BindableListView x:Name="BindableListView" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="7">
             <sliders:BindableListView.Foreground>
                 <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
             </sliders:BindableListView.Foreground>
@@ -174,8 +173,8 @@
                 <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
             </Label.Foreground>
         </Label>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.GroupCreatorForm_CancelButton}" Click="btnCancel_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Bottom" Grid.Row="7" Grid.Column="3" Height="21" Style="{DynamicResource ButtonStyle}" Margin="0,10,0,0"/>
-        <Button x:Name="BtnCreateGroup" Style="{StaticResource BtnSave}" Content="{x:Static resx:GUI.GroupCreatorForm_CreateGroupButton}" Click="btnCreateGroup_Click" HorizontalAlignment="Right" Width="98" Height="21" VerticalAlignment="Bottom" Grid.Row="7" Grid.Column="2" Margin="0,10,10,0" />
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.GroupCreatorForm_CancelButton}" Click="btnCancel_Click" HorizontalAlignment="Right" Width="73" VerticalAlignment="Bottom" Grid.Row="7" Grid.Column="2" Height="21" Style="{DynamicResource ButtonStyle}" Margin="0,10,0,0"/>
+        <Button x:Name="BtnCreateGroup" Style="{StaticResource BtnSave}" Content="{x:Static resx:GUI.GroupCreatorForm_CreateGroupButton}" Click="btnCreateGroup_Click" HorizontalAlignment="Right" Width="110" Height="21" VerticalAlignment="Bottom" Grid.Row="7" Grid.Column="1" Margin="0,10,10,0" />
         <Button x:Name="BtnClear" Content="{x:Static resx:GUI.GroupCreatorForm_ClearButton}" Command="{Binding ClearFieldsCommand}" HorizontalAlignment="Right" Width="73" VerticalAlignment="Top" Grid.Row="6" Style="{DynamicResource ButtonStyle}" Margin="10"/>
         <Label x:Name="Label2" Content="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" FontSize="10" VerticalAlignment="Bottom" Grid.Row="6" HorizontalAlignment="Right" Background="{x:Null}">
             <Label.Foreground>

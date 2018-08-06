@@ -63,32 +63,6 @@
             <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}}}"/>
         </Style>
 
-
-        <Style x:Key="TbWrap" TargetType="{x:Type TextBlock}" >
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="Width" Value="auto"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding DataContext.MainFormModel.WrapText, ElementName=MainForm}" Value="True" >
-                    <Setter Property="TextWrapping" Value="Wrap"/>
-                    <Setter Property="Width" Value="75"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="TbxWrap" TargetType="{x:Type TextBox}" >
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="Width" Value="auto"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="IsHitTestVisible" Value="False"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding DataContext.MainFormModel.WrapText, ElementName=MainForm}" Value="True">
-                    <Setter Property="TextWrapping" Value="Wrap"/>
-                    <Setter Property="Width" Value="75"/>
-                </DataTrigger>
-            </Style.Triggers>
-
-        </Style>
-
         <ControlTemplate x:Key="ExpanderControlTemplate1" TargetType="{x:Type Expander}">
             <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="True">
                 <DockPanel>
@@ -556,7 +530,7 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Command="{Binding AllOffCommand}">
                     <Image Source="/WinHue3;component/Resources/HueGroupOff.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-                <ToggleButton Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off" Padding="2" Margin="6,0,4,0" IsChecked="{Binding MainFormModel.On}"/>
+                <!--<ToggleButton Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off" Padding="2" Margin="6,0,4,0" IsChecked="{Binding MainFormModel.On}"/>-->
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuRefresh}" Style="{DynamicResource ToolBarStyle}">
                 <Separator/>
@@ -897,7 +871,7 @@
                     <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
                         <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                             <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold">
+                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource common_TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold">
                                 <TextBlock.Foreground>
                                     <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
                                 </TextBlock.Foreground>
@@ -907,7 +881,7 @@
                                     <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
                                 </TextBlock.Foreground>
                                 <TextBlock.Style>
-                                    <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
+                                    <Style BasedOn="{StaticResource common_TbWrap}" TargetType="{x:Type TextBlock}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
@@ -920,7 +894,7 @@
                         </WrapPanel>
                     </DataTemplate>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <!--<Setter Property="OverridesDefaultStyle" Value="True"/>-->
+                        <Setter Property="OverridesDefaultStyle" Value="True"/>
                         <Style.Triggers>
                             <EventTrigger RoutedEvent="Control.MouseDoubleClick">
                                 <BeginStoryboard>
@@ -930,9 +904,6 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DodgerBlue"/>
-                            </Trigger>
                         </Style.Triggers>
                     </Style>
 
@@ -1001,20 +972,29 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate>
-                                            <Expander IsExpanded="True">
-                                                <Expander.Header >
-                                                    <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}">
-                                                        <Grid.Background>
-                                                            <SolidColorBrush Color="{DynamicResource theme_ToolBarBackground}"/>
-                                                        </Grid.Background>
+                                            <Expander IsExpanded="True" Style="{StaticResource ExpanderStyleMainListView}">
+                                                <Expander.Background>
+                                                    <SolidColorBrush Color="{DynamicResource theme_ListViewItemGroupHeaderBackground}"/>
+                                                </Expander.Background>
+                                                <Border>
+                                                    <Border.Background>
+                                                        <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
+                                                    </Border.Background>
+                                                    <ItemsPresenter />
+                                                </Border>
+                                                <Expander.Header>
+                                                    <Border>
+                                                        <Border.Background>
+                                                            <SolidColorBrush Color="{DynamicResource theme_ListViewItemGroupHeaderBackground}"/>
+                                                        </Border.Background>
                                                         <TextBlock Text="{Binding Name}" FontWeight="Normal" FontSize="16" FontStyle="Normal" Padding="3" FontFamily="Segoe UI">
                                                             <TextBlock.Foreground>
                                                                 <SolidColorBrush Color="{DynamicResource accent}"/>
                                                             </TextBlock.Foreground>
                                                         </TextBlock>
-                                                    </Grid>
+                                                    </Border>
                                                 </Expander.Header>
-                                                <ItemsPresenter />
+
                                             </Expander>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -1050,10 +1030,10 @@
                 <Setter Property="BorderBrush" Value="#FFCFCFCF" /> 
             </MultiTrigger>-->
                                         <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="True" />
-                                    <Condition Property="IsMouseOver" Value="True" />
-                                </MultiTrigger.Conditions>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="True" />
+                                                <Condition Property="IsMouseOver" Value="True" />
+                                            </MultiTrigger.Conditions>
                                             <Setter Property="Background" Value="{DynamicResource theme_ListViewItemSelectedHoverBrush}" />
                                         </MultiTrigger>
                                         <Trigger Property="IsEnabled" Value="False">
