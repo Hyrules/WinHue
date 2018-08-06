@@ -1008,7 +1008,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <Border CornerRadius="0" SnapsToDevicePixels="True"  
+                                    <Border Name="Border" CornerRadius="0" SnapsToDevicePixels="True"  
                                 BorderThickness="{TemplateBinding BorderThickness}"   
                                 BorderBrush="{TemplateBinding BorderBrush}"   
                                 Background="{TemplateBinding Background}">
@@ -1016,10 +1016,10 @@
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="{DynamicResource theme_ListViewItemHoverBrush}"/>
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource theme_ListViewItemHoverBrush}"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="{DynamicResource theme_ListViewItemSelectedBrush}" />
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource theme_ListViewItemSelectedBrush}" />
                                         </Trigger>
                                         <!--<MultiTrigger> 
                 <MultiTrigger.Conditions> 
