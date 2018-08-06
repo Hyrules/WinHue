@@ -1415,8 +1415,9 @@ namespace WinHue3.MainForm
                 MainFormModel.ShowId = WinHueSettings.settings.ShowID;
             }
 
-            if (MainFormModel.WrapText != WinHueSettings.settings.WrapText)
+            if (MainFormModel.WrapText != WinHueSettings.settings.WrapText || MainFormModel.Sort != WinHueSettings.settings.Sort)
             {
+                MainFormModel.Sort = WinHueSettings.settings.Sort;
                 MainFormModel.WrapText = WinHueSettings.settings.WrapText;
                 await RefreshView();
             }
