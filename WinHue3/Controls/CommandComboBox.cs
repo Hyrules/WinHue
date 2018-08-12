@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -86,6 +87,7 @@ namespace WinHue3.Controls
             }
         }
 
+        [DebuggerStepThrough]
         private void CanExecuteChanged(object sender, EventArgs e)
         {
 

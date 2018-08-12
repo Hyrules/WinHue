@@ -1,4 +1,4 @@
-﻿<Window x:Class="WinHue3.Functions.RoomMap.Form_RoomMapCreator"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,16 +7,17 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:l="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-        mc:Ignorable="d"
-        Title="Form_RoomMap" Height="450" Width="800" WindowStartupLocation="CenterOwner">
-    <Window.DataContext>
-        <local:RoomMapViewModel/>
-    </Window.DataContext>
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        x:Class="WinHue3.Functions.RoomMap.Form_RoomMapCreator"
+        mc:Ignorable="d" x:Name="RoomMapWindow"
+        Title="Form_RoomMap" Height="675.313" Width="969.662" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type local:MoveThumb}">
             <Rectangle Fill="Transparent"/>
         </ControlTemplate>
-        
+
         <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="{x:Type Control}">
             <Grid>
                 <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Opacity="0.001"  />
@@ -30,37 +31,82 @@
             </Grid>
         </ControlTemplate>
 
-        <ControlTemplate x:Key="DesignerItemTemplate" TargetType="ContentControl">
+        <ControlTemplate x:Key="DesignerItemTemplate" TargetType="{x:Type ContentControl}">
             <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                 <local:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll"/>
                 <Control Template="{StaticResource ResizeDecoratorTemplate}"/>
-                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
+                <ContentPresenter Content="{TemplateBinding Content}"/>
             </Grid>
         </ControlTemplate>
     </Window.Resources>
+    <Window.DataContext>
+        <local:RoomMapViewModel/>
+    </Window.DataContext>
     <Grid>
-
-        <ListBox HorizontalAlignment="Left" Width="157" Margin="0,0,0,39.667" ItemsSource="{Binding ListHueObjects}">
+        <ListBox HorizontalAlignment="Left" Width="157" Margin="0,0,0,39.667" ItemsSource="{Binding ListLights}" dd:DragDrop.IsDragSource="True" dd:DragDrop.UseDefaultDragAdorner="True" dd:DragDrop.DropHandler="{Binding}">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type l:Light}">
                     <WrapPanel >
-                        <Image Height="32px"/>
+                        <Image Height="32" Source="{Binding Image}"/>
                         <Label Content="{Binding name}"/>
                     </WrapPanel>
                 </DataTemplate>
             </ListBox.Resources>
         </ListBox>
-        <Button Content="Select Image..." HorizontalAlignment="Left" Margin="34,0,0,9.667" Width="89" Command="{Binding ChooseImageCommand}" Height="20" VerticalAlignment="Bottom"/>
-        <Canvas x:Name="canvasFloorPlan" Margin="157,0,0.333,-0.333" AllowDrop="True" >
+        <Button Content="Select Image..." HorizontalAlignment="Left" Margin="34,0,0,9.667" Width="89" Command="{Binding ChooseImageCommand}" Height="20" VerticalAlignment="Bottom" />
+        <ListBox Margin="157,0,-0.333,0" ItemsSource="{Binding ListCanvasLights}" SelectedItem="{Binding SelectedItem}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="local:HueElement">
+                    <WrapPanel Height="94" Width="64">
+                        <i:Interaction.Behaviors>
+                            <behaviors:DragBehavior/>
+                        </i:Interaction.Behaviors>
+                        <Image Height="64" Width="64" Source="/WinHue3;component/Resources/HueLightOn-Large.png"/>
+                        <TextBlock Text="{Binding name}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=WrapPanel}, Path=ActualWidth  }" TextAlignment="Center" TextWrapping="Wrap"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"></Setter>
+                    <Setter Property="Canvas.Left" Value="{Binding X}"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Width="{Binding ActualWidth, ElementName=DragDropMap}" Height="{Binding ActualHeight, ElementName=DragDropMap}" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True" IsItemsHost="True" >
+                        <Canvas.Background>
+                            <ImageBrush ImageSource="{Binding FloorPlan}" Stretch="None"/>
+                        </Canvas.Background>
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
 
-            <Canvas.Background>
-                <ImageBrush ImageSource="{Binding FloorPlan}" Stretch="Uniform"/>
-            </Canvas.Background>
-            <ContentControl Template="{StaticResource DesignerItemTemplate }" Height="25" Width="25" Canvas.Left="50" Canvas.Top="50" MinHeight="25" MinWidth="25">
-                <Image Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualHeight}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualWidth}" AllowDrop="True" Canvas.Left="186" Canvas.Top="149" Source="/WinHue3;component/Resources/DefaultLIFX_on.png" IsHitTestVisible="False"/>
-            </ContentControl>
-            
-        </Canvas>
+        <!--<ItemsControl x:Name="DragDropMap" ItemsSource="{Binding ListCanvasLights}"  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Margin="157,0,0.333,-0.333">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Width="{Binding ActualWidth, ElementName=DragDropMap}" Height="{Binding ActualHeight, ElementName=DragDropMap}" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True"  >
+                        <Canvas.Background>
+                            <ImageBrush ImageSource="{Binding FloorPlan}" Stretch="None"/>
+                        </Canvas.Background>
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate >
+                <DataTemplate>
+                    <ContentControl Template="{StaticResource DesignerItemTemplate}">
+                    
+                    </ContentControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>-->
 
     </Grid>
 </Window>

@@ -1528,7 +1528,7 @@ namespace WinHue3.MainForm
 
         private void CreateFloorPlan()
         {
-            Form_RoomMapCreator frmp = new Form_RoomMapCreator();
+            Form_RoomMapCreator frmp = new Form_RoomMapCreator(_listBridgeObjects.OfType<Light>().ToList());
             frmp.Owner = Application.Current.MainWindow;
             frmp.ShowDialog();
         }

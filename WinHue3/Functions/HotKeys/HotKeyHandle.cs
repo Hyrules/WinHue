@@ -63,6 +63,7 @@ namespace WinHue3.Functions.HotKeys
         }
 
         // ******************************************************************
+        [DebuggerStepThrough]
         private static void ComponentDispatcherThreadFilterMessage(ref MSG msg, ref bool handled)
         {
             if (!handled)
