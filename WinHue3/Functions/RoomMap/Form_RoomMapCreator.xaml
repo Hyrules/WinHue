@@ -12,60 +12,22 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         x:Class="WinHue3.Functions.RoomMap.Form_RoomMapCreator"
         mc:Ignorable="d" x:Name="RoomMapWindow"
-        Title="Form_RoomMap" Height="675.313" Width="969.662" WindowStartupLocation="CenterOwner">
-    <Window.Resources>
-        <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type local:MoveThumb}">
-            <Rectangle Fill="Transparent"/>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="{x:Type Control}">
-            <Grid>
-                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Opacity="0.001"  />
-                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left" Opacity="0.001"/>
-                <local:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Opacity="0.001"/>
-                <local:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Opacity="0.001"/>
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.001"/>
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0" VerticalAlignment="Top" HorizontalAlignment="Right" Opacity="0.001"/>
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Opacity="0.001"/>
-                <local:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.001"/>
-            </Grid>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="DesignerItemTemplate" TargetType="{x:Type ContentControl}">
-            <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                <local:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll"/>
-                <Control Template="{StaticResource ResizeDecoratorTemplate}"/>
-                <ContentPresenter Content="{TemplateBinding Content}"/>
-            </Grid>
-        </ControlTemplate>
-    </Window.Resources>
+        Title="Form_RoomMap" Height="675.313" Width="1029.333" WindowStartupLocation="CenterOwner" MinHeight="768" MinWidth="1024">
     <Window.DataContext>
         <local:RoomMapViewModel/>
     </Window.DataContext>
     <Grid>
-        <ListBox HorizontalAlignment="Left" Width="157" Margin="0,0,0,39.667" ItemsSource="{Binding ListLights}" dd:DragDrop.IsDragSource="True" dd:DragDrop.UseDefaultDragAdorner="True" dd:DragDrop.DropHandler="{Binding}">
+        <ListBox HorizontalAlignment="Left" Width="196" Margin="0,45,0,204.667" ItemsSource="{Binding ListLights}" dd:DragDrop.IsDragSource="True" dd:DragDrop.UseDefaultDragAdorner="True" dd:DragDrop.DropHandler="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type l:Light}">
                     <WrapPanel >
                         <Image Height="32" Source="{Binding Image}"/>
-                        <Label Content="{Binding name}"/>
+                        <Label Content="{Binding name}" />
                     </WrapPanel>
                 </DataTemplate>
             </ListBox.Resources>
         </ListBox>
-        <Button Content="Select Image..." HorizontalAlignment="Left" Margin="34,0,0,9.667" Width="89" Command="{Binding ChooseImageCommand}" Height="20" VerticalAlignment="Bottom" />
-        <ListBox Margin="157,0,-0.333,0" ItemsSource="{Binding ListCanvasLights}" SelectedItem="{Binding SelectedItem}">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="local:HueElement">
-                    <WrapPanel Height="94" Width="64">
-                        <i:Interaction.Behaviors>
-                            <behaviors:DragBehavior/>
-                        </i:Interaction.Behaviors>
-                        <Image Height="64" Width="64" Source="/WinHue3;component/Resources/HueLightOn-Large.png"/>
-                        <TextBlock Text="{Binding name}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=WrapPanel}, Path=ActualWidth  }" TextAlignment="Center" TextWrapping="Wrap"/>
-                    </WrapPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <ListBox Margin="196,45,-0.333,39.667" SelectedItem="{Binding SelectedItem}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Canvas.Top" Value="{Binding Y}"></Setter>
@@ -82,31 +44,30 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-
-        <!--<ItemsControl x:Name="DragDropMap" ItemsSource="{Binding ListCanvasLights}"  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Margin="157,0,0.333,-0.333">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas Width="{Binding ActualWidth, ElementName=DragDropMap}" Height="{Binding ActualHeight, ElementName=DragDropMap}" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True"  >
-                        <Canvas.Background>
-                            <ImageBrush ImageSource="{Binding FloorPlan}" Stretch="None"/>
-                        </Canvas.Background>
-                    </Canvas>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="{x:Type ContentPresenter}">
-                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemTemplate >
-                <DataTemplate>
-                    <ContentControl Template="{StaticResource DesignerItemTemplate}">
-                    
-                    </ContentControl>
+        <ToolBarTray Margin="196,0,-0.333,0" Height="45" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}" VerticalAlignment="Top">
+            <ToolBar Header="Files">
+                <Button>
+                    <Image Source="/WinHue3;component/Resources/save.png" Height="32" Width="32"/>
+                </Button>
+                <Button>
+                    <Image Height="32" Width="32" Source="/WinHue3;component/Resources/close_delete.png"></Image>
+                </Button>
+            </ToolBar>
+            <ToolBar Height="43" Header="Floor plan">
+                <Button Height="32" Width="32" Command="{Binding ChooseImageCommand}">
+                    <Image Source="/WinHue3;component/Resources/floorplan.png"></Image>
+                </Button>
+            </ToolBar>
+            
+        </ToolBarTray>
+        <ListBox HorizontalAlignment="Left" Margin="0,525,0,39.667" Width="196" ItemsSource="{Binding ListFloors}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="local:Floor">
+                    <Label Content="{Binding Name}"/>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>-->
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Content="Done" HorizontalAlignment="Left" Margin="938,709,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

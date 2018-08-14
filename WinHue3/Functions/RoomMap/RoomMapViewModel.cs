@@ -23,12 +23,13 @@ namespace WinHue3.Functions.RoomMap
         private ObservableCollection<Light> _listLights;
         private ObservableCollection<HueElement> _listCanvasLights;
         private HueElement _selectedItem;
+        private ObservableCollection<Floor> _listFloors;
 
         public RoomMapViewModel()
         {
             ofd = new OpenFileDialog();
-            ofd.Filter = "JPEG Files (*.jpg)|*.jpg|Bitmap Files (*.bmp)|*.bmp|PNG Files (*.png)|*.png";
-            ofd.DefaultExt = "*.jpg";
+            ofd.Filter = "All Supported Image Files (*.jpg;*.png;*.bmp)|*.jpg;*.png;*.bmp|JPEG Files (*.jpg)|*.jpg|Bitmap Files (*.bmp)|*.bmp|PNG Files (*.png)|*.png";
+            ofd.DefaultExt = "*.jpg;*.png;*.bmp";
             ListCanvasLights = new ObservableCollection<HueElement>();
         }
 
@@ -61,8 +62,14 @@ namespace WinHue3.Functions.RoomMap
 
         public HueElement SelectedItem
         {
-            get { return _selectedItem; }
-            set { SetProperty(ref _selectedItem,value); }
+            get => _selectedItem;
+            set => SetProperty(ref _selectedItem,value);
+        }
+
+        public ObservableCollection<Floor> ListFloors
+        {
+            get => _listFloors;
+            set => SetProperty(ref _listFloors,value);
         }
 
         private void ChooseImage()

@@ -15,13 +15,20 @@ namespace WinHue3.Functions.Behaviors
     public class DragBehavior : Behavior<UIElement>
     {
         private Point clickPosition;
-        
+        private int Size;
 
         protected override void OnAttached()
         {
             AssociatedObject.PreviewMouseRightButtonDown += AssociatedObject_MouseLeftButtonDown;
             AssociatedObject.PreviewMouseRightButtonUp += AssociatedObject_MouseLeftButtonUp;
             AssociatedObject.PreviewMouseMove += AssociatedObject_MouseMove;
+            AssociatedObject.MouseWheel += AssociatedObject_MouseWheel;
+            base.OnAttached();
+        }
+
+        private void AssociatedObject_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            
         }
 
         private void AssociatedObject_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -49,12 +56,12 @@ namespace WinHue3.Functions.Behaviors
 
         }
 
-        private void AssociatedObject_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void AssociatedObject_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             AssociatedObject.ReleaseMouseCapture();
         }
 
-        private void AssociatedObject_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void AssociatedObject_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {                      
             AssociatedObject.CaptureMouse();
             clickPosition = e.GetPosition(AssociatedObject);

@@ -222,6 +222,7 @@
     <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\RoomMap\Floor.cs" />
     <Compile Include="Functions\RoomMap\MoveThumb.cs" />
     <Compile Include="Functions\RoomMap\Form_RoomMapCreator.xaml.cs">
       <DependentUpon>Form_RoomMapCreator.xaml</DependentUpon>
@@ -944,10 +945,13 @@
   <ItemGroup>
     <Resource Include="Resources\floorplan.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\save.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
