@@ -27,7 +27,7 @@
                 </DataTemplate>
             </ListBox.Resources>
         </ListBox>
-        <ListBox Margin="196,45,-0.333,39.667" SelectedItem="{Binding SelectedItem}">
+        <ListBox x:Name="DragDropMap" Margin="196,45,-0.333,39.667" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding ListCanvasLights}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Canvas.Top" Value="{Binding Y}"></Setter>
@@ -43,6 +43,17 @@
                     </Canvas>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="local:HueElement">
+                    <WrapPanel Height="{Binding PanelHeight}" Width="{Binding PanelWidth}" Background="{x:Null}" ToolTip="{Binding name}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:DragBehavior/>
+                        </i:Interaction.Behaviors>
+                        <Image Source="/WinHue3;component/Resources/HueLightOn-Large.png" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
+                        <TextBlock Text="{Binding Label}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=WrapPanel}, Path=ActualWidth  }" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <ToolBarTray Margin="196,0,-0.333,0" Height="45" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}" VerticalAlignment="Top">
             <ToolBar Header="Files">

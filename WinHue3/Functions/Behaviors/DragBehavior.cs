@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,17 +18,47 @@ namespace WinHue3.Functions.Behaviors
         private Point clickPosition;
         private int Size;
 
+
         protected override void OnAttached()
         {
             AssociatedObject.PreviewMouseRightButtonDown += AssociatedObject_MouseLeftButtonDown;
             AssociatedObject.PreviewMouseRightButtonUp += AssociatedObject_MouseLeftButtonUp;
             AssociatedObject.PreviewMouseMove += AssociatedObject_MouseMove;
             AssociatedObject.MouseWheel += AssociatedObject_MouseWheel;
+
+
             base.OnAttached();
         }
 
+
         private void AssociatedObject_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
+            {
+                FrameworkElement fe = sender as FrameworkElement;
+                HueElement he = fe.DataContext as HueElement;
+                int delta = (int)Math.Round((double) e.Delta / 100);
+                Console.WriteLine(delta);
+                if((he.PanelHeight <= 32 && delta < 0) || (he.PanelHeight >= 120 && delta > 0) )
+                {
+                    delta = 0;
+                    
+                }
+
+                he.PanelHeight += delta;
+                he.PanelWidth += delta;
+                he.ImageHeight += delta;
+                he.ImageWidth += delta;
+
+                Console.WriteLine($"Height : {he.ImageHeight}, Width: {he.PanelWidth}");
+
+                if(he.PanelHeight < 48)
+                {
+                    he.Label = he.Id;
+                }
+
+                e.Handled = true;
+            }
             
         }
 
