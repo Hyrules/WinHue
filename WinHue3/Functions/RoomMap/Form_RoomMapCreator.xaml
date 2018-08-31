@@ -36,7 +36,7 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Width="{Binding ActualWidth, ElementName=DragDropMap}" Height="{Binding ActualHeight, ElementName=DragDropMap}" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True" IsItemsHost="True" >
+                    <Canvas Width="{Binding Width, ElementName=DragDropMap}" Height="{Binding Height, ElementName=DragDropMap}" dd:DragDrop.IsDropTarget="True"  dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True" IsItemsHost="True" >
                         <Canvas.Background>
                             <ImageBrush ImageSource="{Binding FloorPlan}" Stretch="None"/>
                         </Canvas.Background>
