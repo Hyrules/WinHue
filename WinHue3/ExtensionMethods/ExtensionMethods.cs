@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
@@ -257,6 +261,25 @@ namespace WinHue3.ExtensionMethods
             return newlist;
         }
 
+    }
+
+    public static class BitmapImageExtensionMethods
+    {
+        public static string ToBase64(this BitmapImage img)
+        {
+            byte[] data;
+            PngBitmapEncoder png = new PngBitmapEncoder();
+            png.Frames.Add(BitmapFrame.Create(img));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                png.Save(ms);
+                data = ms.ToArray();
+            }
+
+            return Convert.ToBase64String(data);
+        }
+
+        
     }
 
     /*

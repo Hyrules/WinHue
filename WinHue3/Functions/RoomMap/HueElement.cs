@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Utils;
 
 
 namespace WinHue3.Functions.RoomMap
 {
-    public class HueElement : Light
+   
+    public class HueElement : ValidatableBindableBase
     {
         private double _x;
         private double _y;
@@ -21,6 +25,42 @@ namespace WinHue3.Functions.RoomMap
         private double _imageWidth;
         private Visibility _labelVisible;
         private string _label;
+        private string _id;
+        private ImageSource _image;
+
+        public HueElement()
+        {
+            PanelHeight = 94;
+            PanelWidth = 64;
+            ImageHeight = 64;
+            ImageWidth = 64;
+        }
+
+        public HueElement(double paneheight, double panelwidth, double imageheight, double imagewidth, string label, string id, ImageSource image = null)
+        {
+            PanelHeight = paneheight;
+            PanelWidth = panelwidth;
+            ImageHeight = imageheight;
+            ImageWidth = imagewidth;
+            Label = label;
+            Id = id;
+            Image = image;
+        }
+
+        public HueElement(Light l, double panelheight, double panelwidth, double imageheight, double imagewidth) : this(l)
+        {
+            PanelHeight = panelheight;
+            PanelWidth = panelwidth;
+            ImageHeight = ImageHeight;
+            ImageWidth = ImageWidth;
+        }
+
+        public HueElement(Light l) : this()
+        {
+            Label = l.name;
+            Id = l.Id;
+            Image = l.Image;
+        }
 
         public double PanelHeight
         {
@@ -46,24 +86,6 @@ namespace WinHue3.Functions.RoomMap
             set => SetProperty(ref _imageWidth,value);
         }
 
-        public HueElement(Light l)
-        {
-            name = l.name;
-            state = l.state;
-            Id = l.Id;
-            luminaireuniqueid = l.luminaireuniqueid;
-            uniqueid = l.uniqueid;
-            manufacturername = l.manufacturername;
-            modelid = l.modelid;
-            swversion = l.swversion;
-            type = l.type;
-            PanelHeight = 94;
-            PanelWidth = 64;
-            ImageHeight = 64;
-            ImageWidth = 64;
-            Label = name;
-        }
-
         public double X
         {
             get => _x;
@@ -85,10 +107,21 @@ namespace WinHue3.Functions.RoomMap
         public string Label
         {
             get => _label;
-            set
-            {
-                SetProperty(ref _label,value);
-            } 
+            set => SetProperty(ref _label, value);
+        }
+
+        public string Id
+        {
+            get => _id;
+            set => SetProperty(ref _id, value);
+        }
+
+        [JsonIgnore]
+        public ImageSource Image
+        {
+            get => _image;
+            set => SetProperty(ref _image,value);
         }
     }
+
 }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
+using WinHue3.Functions.RoomMap;
 
 namespace WinHue3.Functions.Application_Settings.Settings
 {
@@ -10,14 +13,75 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public static CustomSettings settings = new CustomSettings();
         public static CustomHotkeys hotkeys = new CustomHotkeys();
         public static CustomBridges bridges = new CustomBridges();
-        public static CustomLifxSettings lifx = new CustomLifxSettings();
+
         private static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static string floorplanpath = Path.Combine(path, "WinHue\\Floorplans");
 
         static WinHueSettings()
         {
             LoadAllSettings();
 
+        }
+
+        public static bool SaveFloorPlan(Floor floorplan)
+        {
+            
+            try
+            {
+                if (!Directory.Exists(floorplanpath))
+                {
+                    log.Info("Floorplan folder does not exists trying to create it...");
+                    DirectoryInfo di = Directory.CreateDirectory(floorplanpath);
+                    log.Info("Floorplan folder created.");
+                }
+
+                log.Info($"Saving floorplan {floorplan.Name} to file...");
+                string json = JsonConvert.SerializeObject(floorplan, Formatting.Indented);
+                File.WriteAllText(Path.Combine(floorplanpath, floorplan.Name + ".flp"), json);
+                log.Info("Saving completed.");
+
+            }
+            catch (Exception e)
+            {
+                log.Error("An error occured while saving the floorplan");
+                log.Error(e.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static List<Floor> LoadFloorPlans()
+        {
+            List<Floor> floors = new List<Floor>();
+            try
+            {
+                log.Info("Trying to load floorplans...");
+                if (!Directory.Exists(floorplanpath))
+                {
+                    log.Warn("No floor folder exists no floorplan to load.");
+
+                }
+                else
+                {
+                    IEnumerable<string> floorplanlist = Directory.EnumerateFiles(floorplanpath, "*.flp");
+                    foreach (string file in floorplanlist)
+                    {
+                        log.Info($"Loading floorplan {file}...");
+                        string json = File.ReadAllText(file);
+                        floors.Add(JsonConvert.DeserializeObject<Floor>(json));
+
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return new List<Floor>();
+            }
+            return floors;
         }
 
         public static bool ReplaceBridgeIp(string mac, IPAddress ip)
