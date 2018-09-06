@@ -1312,6 +1312,42 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete floorplan {0} ?.
+        /// </summary>
+        public static string FormRoomMap_Delete {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string FormRoomMap_Files {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor plan.
+        /// </summary>
+        public static string FormRoomMap_FloorPlan {
+            get {
+                return ResourceManager.GetString("FormRoomMap_FloorPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string FormRoomMap_Name {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string GroupCreatorForm_CancelButton {

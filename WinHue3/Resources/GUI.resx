@@ -1623,4 +1623,16 @@
   <data name="Edit" xml:space="preserve">
     <value>_Edit</value>
   </data>
+  <data name="FormRoomMap_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FormRoomMap_FloorPlan" xml:space="preserve">
+    <value>Floor plan</value>
+  </data>
+  <data name="FormRoomMap_Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="FormRoomMap_Delete" xml:space="preserve">
+    <value>Are you sure you want to delete floorplan {0} ?</value>
+  </data>
 </root>

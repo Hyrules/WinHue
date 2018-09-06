@@ -1623,4 +1623,16 @@
   <data name="Edit" xml:space="preserve">
     <value>_Modifier</value>
   </data>
+  <data name="FormRoomMap_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="FormRoomMap_FloorPlan" xml:space="preserve">
+    <value>Plan de l'étage</value>
+  </data>
+  <data name="FormRoomMap_Files" xml:space="preserve">
+    <value>Fichiers</value>
+  </data>
+  <data name="FormRoomMap_Delete" xml:space="preserve">
+    <value>Êtes-vous certain de vouloir supprimer le plan d'étage {0}</value>
+  </data>
 </root>

@@ -16,8 +16,6 @@ namespace WinHue3.Functions.Behaviors
     public class DragBehavior : Behavior<UIElement>
     {
         private Point clickPosition;
-        private int Size;
-
 
         protected override void OnAttached()
         {
@@ -25,8 +23,6 @@ namespace WinHue3.Functions.Behaviors
             AssociatedObject.PreviewMouseRightButtonUp += AssociatedObject_MouseLeftButtonUp;
             AssociatedObject.PreviewMouseMove += AssociatedObject_MouseMove;
             AssociatedObject.MouseWheel += AssociatedObject_MouseWheel;
-
-
             base.OnAttached();
         }
 
@@ -50,7 +46,6 @@ namespace WinHue3.Functions.Behaviors
                 he.ImageHeight += delta;
                 he.ImageWidth += delta;
 
-                Console.WriteLine($"Height : {he.ImageHeight}, Width: {he.PanelWidth}");
 
                 if(he.PanelHeight < 48)
                 {

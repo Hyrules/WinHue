@@ -15,7 +15,9 @@ using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Resources;
 using WinHue3.Utils;
+using File = System.IO.File;
 
 namespace WinHue3.Functions.RoomMap
 {
@@ -41,9 +43,50 @@ namespace WinHue3.Functions.RoomMap
 
         public ICommand ChooseImageCommand => new RelayCommand(param => ChooseImage());
         public ICommand ClickObjectCommand => new RelayCommand(ClickObject);
-        public ICommand SaveFloorPlanCommand => new RelayCommand(param => SaveFloorPlan());
+        public ICommand SaveFloorPlanCommand => new RelayCommand(param => SaveFloorPlan(), (param) => CanSaveFloor());
         public ICommand SelectFloorPlanCommand => new RelayCommand(param => SelectFloorPlan());
+        public ICommand ResizeWindowCommand => new RelayCommand(ResizeWindow);
+        public ICommand DeleteFloorPlanCommand => new RelayCommand(param => DeleteFloorPlan(), (param) => CanDeleteFloorPlan());
 
+        private bool CanDeleteFloorPlan()
+        {
+            return _selectedFloor != null;
+        }
+
+
+        private void DeleteFloorPlan()
+        {
+            if (MessageBox.Show(string.Format(GUI.FormRoomMap_Delete,SelectedFloor.Name), GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            if (!WinHueSettings.DeleteFloorPlan(_selectedFloor)) return;
+            
+            ListFloors.Remove(_selectedFloor);
+            SelectedFloor = null;
+            ListCanvasLights.Clear();
+            FloorPlanImage = null;
+            SelectedItem = null;
+            FloorPlanName = string.Empty;
+        }
+
+
+        private bool CanSaveFloor()
+        {
+            if (string.IsNullOrEmpty(FloorPlanName) || string.IsNullOrWhiteSpace(FloorPlanName)) return false;
+            return true;
+        }
+
+        private void ResizeWindow(object obj)
+        {
+            SizeChangedEventArgs e = obj as SizeChangedEventArgs;
+            double diffHeight = e.PreviousSize.Height - e.NewSize.Height;
+            double diffWidth = e.PreviousSize.Width - e.NewSize.Width;
+
+            foreach (HueElement h in _listCanvasLights)
+            {
+                h.X -= diffWidth;
+                h.Y -= diffHeight;
+            }
+        }
+    
         private void SelectFloorPlan()
         {
             if (_selectedFloor == null) return;
@@ -58,11 +101,11 @@ namespace WinHue3.Functions.RoomMap
             Floor floorplan = new Floor()
             {
                 Elements = _listCanvasLights.ToList(),
-                Name = "test",
+                Name = FloorPlanName,
                 Image = _floorPlanImage
             };
             
-            if (WinHueSettings.SaveFloorPlan(floorplan))
+            if (!WinHueSettings.SaveFloorPlan(floorplan))
             {
                 
             }

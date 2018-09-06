@@ -84,6 +84,32 @@ namespace WinHue3.Functions.Application_Settings.Settings
             return floors;
         }
 
+        public static bool DeleteFloorPlan(Floor floor)
+        {
+            try
+            {
+                string filepath = Path.Combine(floorplanpath, floor.Name + ".flp");
+                if (File.Exists(filepath))
+                {
+                    File.Delete(filepath);
+                    log.Info($"Deleting {filepath}.");
+                }
+                else
+                {
+                    log.Warn($"File {filepath} does not exists. Not deleting.");
+                    return false;
+                }
+            
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool ReplaceBridgeIp(string mac, IPAddress ip)
         {
             try
