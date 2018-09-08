@@ -27,15 +27,44 @@
     <Window.Resources>
         <xctk:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource theme_SecondaryBackground}"/>
+    </Window.Background>
     <Window.DataContext>
         <creator:RuleCreatorViewModel/>
     </Window.DataContext>
-    <Grid Margin="0,0,1,0">
-        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="623" Watermark="{x:Static resx:GUI.RuleCreatorForm_Name}"/>
-        <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708">
-            <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Conditions}">
-                <Grid>
-                    <ListView HorizontalAlignment="Left" Height="264" Margin="350,7,0,0" VerticalAlignment="Top" Width="342" ItemsSource="{Binding ListRuleConditions}" SelectedItem="{Binding SelectedRuleCondition }" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="1" behaviors:OnClickBehavior.Command="{Binding Condition_SelectRuleConditionCommand}" BorderBrush="#FFABADB3">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <xctk:WatermarkTextBox TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.RuleCreatorForm_Name}" Grid.ColumnSpan="3" Margin="0,0,0,10" Style="{DynamicResource WatermarkTextBoxStyle}"/>
+        <TabControl Grid.ColumnSpan="3" Grid.Row="1" Margin="0,0,0,10" Style="{DynamicResource TabControlStyle}">
+            <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Conditions}" Style="{DynamicResource TabItemStyle}">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="2.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView ItemsSource="{Binding ListRuleConditions}" SelectedItem="{Binding SelectedRuleCondition }" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="1" behaviors:OnClickBehavior.Command="{Binding Condition_SelectRuleConditionCommand}" BorderBrush="#FFABADB3" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="4">
                         <ListView.InputBindings>
                             <KeyBinding Key="Escape" Command="{Binding Condition_ClearSelectedRuleConditionCommand}"/>
                         </ListView.InputBindings>
@@ -69,15 +98,15 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="270,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding Condition_AddConditionCommand}"/>
-                    <controls:BindableTreeView x:Name="TvProperties" HorizontalAlignment="Left" Height="208" Margin="10,38,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}">
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" VerticalAlignment="Top" Width="73" Height="21" Command="{Binding Condition_AddConditionCommand}" Grid.Row="3" Grid.Column="3" Style="{DynamicResource ButtonStyle}" Margin="10,0"/>
+                    <controls:BindableTreeView x:Name="TvProperties" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}" Grid.ColumnSpan="3" Grid.Row="3">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="rules:HuePropertyTreeViewItem">
                                 <Setter Property="IsSelected" Value="True"/>
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </controls:BindableTreeView>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}" Watermark="(Choose the operator)">
+                    <controls:CommandComboBox VerticalAlignment="Top"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}" Watermark="(Choose the operator)" Grid.Row="5" Margin="0" Height="23.96">
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Delayed_Changed}" Tag="ddx"/>
@@ -88,19 +117,8 @@
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lower_Than}" Tag="lt"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Greater_Than}" Tag="gt"/>
                     </controls:CommandComboBox>
-                    <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}">
-                        <xctk:WatermarkTextBox.Style>
-                            <Style TargetType="{x:Type xctk:WatermarkTextBox}">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ConditionOperator}" Value="dx">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </xctk:WatermarkTextBox.Style>
-                    </xctk:WatermarkTextBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" Command="{Binding Condition_SelectConditionObjectTypeCommand}" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" Watermark="(Object Type)" Style="{StaticResource {x:Type ComboBox}}">
+                    <xctk:WatermarkTextBox TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}" Grid.Row="5" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Column="1" Margin="10,0,0,0"/>
+                    <controls:CommandComboBox VerticalAlignment="Top" Command="{Binding Condition_SelectConditionObjectTypeCommand}" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" Watermark="(Object Type)" Style="{DynamicResource ComboBoxStyle}" Grid.Row="1" Height="21.96">
                         <ComboBoxItem Content="Lights" Tag="{x:Type light:Light}" />
                         <ComboBoxItem Content="Groups" Tag="{x:Type group:Group}"/>
                         <ComboBoxItem Content="Sensors" Tag="{x:Type sensor:Sensor}"/>
@@ -110,7 +128,7 @@
                         <ComboBoxItem Content="Rule" Tag="{x:Type rule:Rule}"/>
                         <ComboBoxItem Content="Config" Tag="{x:Type bridgeObjects:BridgeSettings}"/>
                     </controls:CommandComboBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="142,10,0,0" VerticalAlignment="Top" Width="203" ItemsSource="{Binding ListConditionHueObjects}" SelectedItem="{Binding SelectedConditionHueObject}" Command="{Binding Condition_SelectConditionHueObjectCommand}" Watermark="(Object)" Style="{StaticResource {x:Type ComboBox}}">
+                    <controls:CommandComboBox VerticalAlignment="Top" ItemsSource="{Binding ListConditionHueObjects}" SelectedItem="{Binding SelectedConditionHueObject}" Command="{Binding Condition_SelectConditionHueObjectCommand}" Watermark="(Object)" Style="{DynamicResource ComboBoxStyle}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="10,0,0,0" Height="21.96">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
@@ -121,11 +139,26 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </controls:CommandComboBox>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Delete}" HorizontalAlignment="Left" Margin="617,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25"/>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" Margin="350,276,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="25"/>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Delete}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="73" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="21" Grid.Column="3" Grid.Row="3" Style="{DynamicResource ButtonStyle}" Margin="0,0,10,0"/>
+                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="73" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="21" Grid.Column="3" Grid.Row="3" Style="{DynamicResource ButtonStyle}" Margin="10,0,10,31"/>
+                    <Label Content="Object Types" VerticalAlignment="Top" Padding="6,0,5,5" FontWeight="Bold" Height="20.96">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Content="Bridge Objects" VerticalAlignment="Top" Padding="6,0,5,5" Grid.Column="1" FontWeight="Bold" Margin="10,0,0,0" Height="20.96">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Content="Current Conditions" VerticalAlignment="Bottom" Grid.Column="4" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+                        <Label.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
+                        </Label.Foreground>
+                    </Label>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}">
+            <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <ListView HorizontalAlignment="Left" Height="269" Margin="357,7,0,0" VerticalAlignment="Top" Width="335" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListRuleActions}" SelectedItem="{Binding SelectedRuleAction}" behaviors:OnClickBehavior.Command="{Binding Action_SelectRuleActionCommand}" BorderBrush="#FFABADB3" AutomationProperties.IsRowHeader="True" BorderThickness="1">
                         <ListView.ItemTemplate>
@@ -206,9 +239,9 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Name="BtnSave" Content="{x:Static resx:GUI.RuleCreatorForm_Save}" HorizontalAlignment="Left" Margin="513,405,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnSave_Click" />
-        <Button Name="BtnCancel" Content="{x:Static resx:GUI.RuleCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="608,406,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnCancel_Click"/>
-        <CheckBox Content="{x:Static resx:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="633,4,0,0" Height="23" Width="80" IsChecked="{Binding Enabled}" VerticalAlignment="Top"/>
+        <Button Name="BtnSave" Content="{x:Static resx:GUI.RuleCreatorForm_Save}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="73" Height="21" Click="btnSave_Click" Grid.Row="2" Grid.Column="1" Margin="0,0,10,0" Style="{DynamicResource ButtonStyle}" />
+        <Button Name="BtnCancel" Content="{x:Static resx:GUI.RuleCreatorForm_CancelButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Height="21" Click="btnCancel_Click" Grid.Row="2" Grid.Column="2" Style="{DynamicResource ButtonStyle}"/>
+        <CheckBox Content="{x:Static resx:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="633,4,0,0" Height="23" Width="80" IsChecked="{Binding Enabled}" VerticalAlignment="Top" Grid.Column="1"/>
     </Grid>
 </Window>
 

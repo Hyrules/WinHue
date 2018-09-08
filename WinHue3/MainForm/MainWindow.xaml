@@ -340,7 +340,6 @@
     </i:Interaction.Triggers>
 
     <DockPanel LastChildFill="True">
-
         <Menu DockPanel.Dock="Top">
             <Menu.Background>
                 <SolidColorBrush Color="{DynamicResource theme_HeaderBackground}"/>
@@ -865,7 +864,7 @@
                 behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                 behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                 behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}" BorderBrush="{x:Null}" BorderThickness="0"
-                Style="{DynamicResource ListViewMain}" ItemsSource="{Binding ListBridgeObjects}">
+                Style="{DynamicResource ListViewMain}" ItemsSource="{Binding ListBridgeObjects}" Background="{x:Null}">
 
                 <ListView.Resources>
                     <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
@@ -944,9 +943,6 @@
                     </DataTemplate>
 
                 </ListView.Resources>
-                <ListView.Background>
-                    <SolidColorBrush Color="{DynamicResource theme_MainBackground}"/>
-                </ListView.Background>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
