@@ -21,6 +21,7 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Functions.Grouping;
+using WinHue3.Functions.RoomMap;
 
 
 namespace WinHue3.MainForm
@@ -41,7 +42,9 @@ namespace WinHue3.MainForm
         private IBaseProperties _newstate;
         private int _sensorStatus;
         private bool _sensorFlag;
-
+        private ObservableCollection<Floor> _listFloorPlans;
+        private Floor _selectedFloorPlan;
+        private HueElement _selectedHueElement;
 
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
@@ -160,5 +163,22 @@ namespace WinHue3.MainForm
         public bool VisibleTabs { get => _visibleTabs; set => SetProperty(ref _visibleTabs,value); }
         public ObservableCollection<IGroup> ListGroups { get => _listgroups; set => SetProperty(ref _listgroups,value); }
 
+        public ObservableCollection<Floor> ListFloorPlans
+        {
+            get { return _listFloorPlans; }
+            set { SetProperty(ref _listFloorPlans,value); }
+        }
+
+        public Floor SelectedFloorPlan
+        {
+            get { return _selectedFloorPlan; }
+            set { SetProperty(ref _selectedFloorPlan,value); }
+        }
+
+        public HueElement SelectedHueElement
+        {
+            get { return _selectedHueElement; }
+            set { SetProperty(ref _selectedHueElement,value); }
+        }
     }
 }

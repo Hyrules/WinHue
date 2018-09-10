@@ -10,7 +10,7 @@ Fixed:
 - Pairing not working.
 
 Added:
-- 
+- Floor plan creator and viewer.
 
 Changed:
 - Corrected button size in the bridge pairing window.

@@ -34,13 +34,13 @@ namespace WinHue3.Functions.Behaviors
                 FrameworkElement fe = sender as FrameworkElement;
                 HueElement he = fe.DataContext as HueElement;
                 int delta = (int)Math.Round((double) e.Delta / 100);
-                Console.WriteLine(delta);
-                if((he.PanelHeight <= 32 && delta < 0) || (he.PanelHeight >= 120 && delta > 0) )
+                Console.WriteLine($"Height : {he.PanelHeight}, Width : {he.PanelWidth}");
+                if((he.PanelHeight <= 48 && delta < 0) || (he.PanelHeight >= 120 && delta > 0) )
                 {
                     delta = 0;
                     
                 }
-
+                Console.WriteLine(delta);
                 he.PanelHeight += delta;
                 he.PanelWidth += delta;
                 he.ImageHeight += delta;

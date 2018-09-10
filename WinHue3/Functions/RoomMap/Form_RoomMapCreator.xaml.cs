@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 
 namespace WinHue3.Functions.RoomMap
@@ -23,13 +25,28 @@ namespace WinHue3.Functions.RoomMap
     {
         private RoomMapViewModel _rmvm;
 
-        public Form_RoomMapCreator(List<Light> lights)
+        public Form_RoomMapCreator(List<IHueObject> lights)
         {
             InitializeComponent();
             _rmvm = DataContext as RoomMapViewModel;
-            _rmvm.ListLights = new ObservableCollection<Light>(lights);
+            ObservableCollection<HueElement> he = new ObservableCollection<HueElement>();
+
+            foreach (Light l in lights.OfType<Light>())
+            {
+                he.Add(new HueElement(l));
+            }
+
+            foreach (Group g in lights.OfType<Group>())
+            {
+                he.Add(new HueElement(g));
+            }
+
+            _rmvm.ListLights = he;
         }
 
-
+        private void btnDone_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

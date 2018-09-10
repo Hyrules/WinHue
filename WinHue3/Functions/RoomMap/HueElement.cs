@@ -8,15 +8,18 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
 
 
 namespace WinHue3.Functions.RoomMap
 {
-   
+    public enum HueElementType { Light, Group }
+
     public class HueElement : ValidatableBindableBase
     {
+        
         private double _x;
         private double _y;
         private double _panelHeight;
@@ -27,6 +30,7 @@ namespace WinHue3.Functions.RoomMap
         private string _label;
         private string _id;
         private ImageSource _image;
+        private HueElementType _hueType;
 
         public HueElement()
         {
@@ -36,7 +40,7 @@ namespace WinHue3.Functions.RoomMap
             ImageWidth = 64;
         }
 
-        public HueElement(double paneheight, double panelwidth, double imageheight, double imagewidth, string label, string id, ImageSource image = null)
+        public HueElement(double paneheight, double panelwidth, double imageheight, double imagewidth, string label, string id, HueElementType type, ImageSource image = null)
         {
             PanelHeight = paneheight;
             PanelWidth = panelwidth;
@@ -45,9 +49,19 @@ namespace WinHue3.Functions.RoomMap
             Label = label;
             Id = id;
             Image = image;
+            _hueType = type;
         }
 
         public HueElement(Light l, double panelheight, double panelwidth, double imageheight, double imagewidth) : this(l)
+        {
+            PanelHeight = panelheight;
+            PanelWidth = panelwidth;
+            ImageHeight = ImageHeight;
+            ImageWidth = ImageWidth;
+            
+        }
+
+        public HueElement(Group g, double panelheight, double panelwidth, double imageheight, double imagewidth) : this(g)
         {
             PanelHeight = panelheight;
             PanelWidth = panelwidth;
@@ -60,6 +74,15 @@ namespace WinHue3.Functions.RoomMap
             Label = l.name;
             Id = l.Id;
             Image = l.Image;
+            _hueType = HueElementType.Light;
+        }
+
+        public HueElement(Group g) : this()
+        {
+            Label = g.name;
+            Id = g.Id;
+            Image = g.Image;
+            _hueType = HueElementType.Group;
         }
 
         public double PanelHeight
@@ -121,6 +144,11 @@ namespace WinHue3.Functions.RoomMap
         {
             get => _image;
             set => SetProperty(ref _image,value);
+        }
+
+        public HueElementType HueType
+        {
+            get { return _hueType; }
         }
     }
 

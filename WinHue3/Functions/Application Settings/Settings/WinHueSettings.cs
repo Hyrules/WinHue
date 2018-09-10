@@ -84,6 +84,12 @@ namespace WinHue3.Functions.Application_Settings.Settings
             return floors;
         }
 
+        public static bool FloorPlanExists(string name)
+        {
+            string filepath = Path.Combine(floorplanpath, name + ".flp");
+            return File.Exists(filepath);
+        }
+
         public static bool DeleteFloorPlan(Floor floor)
         {
             try

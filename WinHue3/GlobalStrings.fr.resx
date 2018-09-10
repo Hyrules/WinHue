@@ -762,4 +762,10 @@
   <data name="CheckingForUpdate" xml:space="preserve">
     <value>Virification de mise à jour en cours. Veuillez svp revenir plus tard afin de voir si de nouvelles MAJ sont disponibles.</value>
   </data>
+  <data name="ElementExists" xml:space="preserve">
+    <value>Cet élément existe déjà dans le canvas.</value>
+  </data>
+  <data name="FloorPlanExists" xml:space="preserve">
+    <value>Un plan ayant ce nom existe déjà. Écraser ?</value>
+  </data>
 </root>

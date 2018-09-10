@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -21,13 +22,16 @@ namespace WinHue3.Functions.RoomMap
             Name = string.Empty;
             Image = null;
             Elements = new List<HueElement>();
+            CanvasHeight = 600;
+            CanvasWidth = 800;
         }
 
         public string Name { get; set; }
         public BitmapImage Image { get; set; }
         public List<HueElement> Elements { get; set; }
-
-
+        public double CanvasHeight { get; set; }
+        public double CanvasWidth { get; set; }
+        public Stretch StretchMode { get; set; }
     }
 
     class FloorPlanConverter : JsonConverter
@@ -47,7 +51,14 @@ namespace WinHue3.Functions.RoomMap
             writer.WriteValue(floorplan.Name);
             writer.WritePropertyName("Image");
             writer.WriteValue(floorplan.Image.ToBase64());
+            writer.WritePropertyName("CanvasHeight");
+            writer.WriteValue(floorplan.CanvasHeight);
+            writer.WritePropertyName("CanvasWidth");
+            writer.WriteValue(floorplan.CanvasWidth);
+            writer.WritePropertyName("StretchMode");
+            writer.WriteValue(floorplan.StretchMode);
             writer.WritePropertyName("Elements");
+            
             writer.WriteStartArray();
             foreach (HueElement h in floorplan.Elements)
             {
@@ -82,7 +93,6 @@ namespace WinHue3.Functions.RoomMap
 
             JObject obj = serializer.Deserialize<JObject>(reader);
             floorplan.Name = obj["Name"]?.Value<string>();
-//            floorplan.Elements = obj["Elements"]?.Value<List<HueElement>>();
             JArray elem = obj["Elements"].Value<JArray>();
             foreach (JObject job in elem)
             {
@@ -90,6 +100,17 @@ namespace WinHue3.Functions.RoomMap
             }
             string base64image = obj["Image"]?.Value<string>();
             floorplan.Image = Base64StringToBitmap(base64image);
+            floorplan.CanvasWidth = obj["CanvasWidth"]?.Value<double>() ?? 800;
+            floorplan.CanvasHeight = obj["CanvasHeight"]?.Value<double>() ?? 600;
+            int? sm = obj["StretchMode"]?.Value<int>();
+            if (sm != null)
+            {
+                floorplan.StretchMode = (Stretch) Enum.ToObject(typeof(Stretch), sm);
+            }
+            else
+            {
+                floorplan.StretchMode = Stretch.None;
+            }
             return floorplan;
         }
 

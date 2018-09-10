@@ -19,7 +19,8 @@
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         xmlns:Controls="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
-    x:Class="WinHue3.MainForm.MainWindow"
+        xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
+        x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
     Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  
@@ -491,8 +492,10 @@
                     <MenuItem IsCheckable="True" x:Name="mnuSensorOp" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Sensors}" IsChecked="false"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}">
-                </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>
+                <Separator/>
+                <MenuItem IsCheckable="True" IsChecked="True" Name="mnuFloorPlan" Header="{x:Static resx:GUI.MainForm_Tab_View_FloorPlan}" Foreground="Black"></MenuItem>
+
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" Foreground="Black" >
@@ -689,7 +692,10 @@
 
                 </StackPanel>
             </Grid>
-            <ListView x:Name="LvMainObjects"  
+            <TabControl Grid.Column="0" Margin="1,3,349.667,0" Grid.ColumnSpan="2">
+                <TabItem Header="{x:Static resx:GUI.AllObjects}">
+                    <Grid Background="#FFE5E5E5">
+                        <ListView x:Name="LvMainObjects"  
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                 SelectedItem="{Binding SelectedHueObject}" 
                 SelectionChanged="LvMainObjects_SelectionChanged" 
@@ -702,126 +708,196 @@
                 behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                 behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
                 ItemsSource="{Binding ListBridgeObjects}"
-                            Margin="1,0,4.667,0"
-                            >
+                Margin="0,0,0,0.333">
 
-                <ListView.Resources>
-                    <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
-                                <TextBlock.Style>
-                                    <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
+                            <ListView.Resources>
+                                <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                        <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                                        <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                </DataTemplate>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="Control.MouseDoubleClick">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                                <DataTemplate DataType="{x:Type lightObject:Light}" >
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type groupObject:Group}" >
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type ruleObject:Rule}" >
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type newSensorsObject:Sensor}" >
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type scheduleObject:Schedule}" >
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type resourcelinkObject:Resourcelink}" >
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type sceneObject:Scene}" >
+                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
+                                    </WrapPanel>
+                                </DataTemplate>
+
+                            </ListView.Resources>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}" />
+                            </ListView.ItemContainerStyle>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
+                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}"/>
+                                    <Separator/>
+                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
+                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
+                                    </MenuItem>
+                                    <Separator/>
+                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Expander IsExpanded="True">
+                                                            <Expander.Header >
+                                                                <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
+                                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
+                                                                </Grid>
+                                                            </Expander.Header>
+                                                            <ItemsPresenter />
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+                <TabItem Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuFloorPlan}" >
+                    <TabItem.Header>
+                        <WrapPanel>
+                            <Label Content="{x:Static resx:GUI.FloorPlan}"/>
+                            <ComboBox Width="200" ItemsSource="{Binding ListFloorPlans}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedFloorPlan}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedFloorPlanChangedCommand}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+
+                        </WrapPanel>
+
+                    </TabItem.Header>
+                    <Grid Background="#FFE5E5E5">
+                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
+                            <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedHueElement}" ItemsSource="{Binding SelectedFloorPlan.Elements}" Height="{Binding SelectedFloorPlan.CanvasHeight, FallbackValue=0}" Width="{Binding SelectedFloorPlan.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectHueElementCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="PreviewMouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding DoubleClickObjectCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Style.Resources>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
+                                        </Style.Resources>
+                                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
+                                            <EventTrigger RoutedEvent="Control.MouseDoubleClick">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </WrapPanel>
-                    </DataTemplate>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Style.Resources>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"></SolidColorBrush>
-                        </Style.Resources>
-                        <Style.Triggers>
-                            <EventTrigger RoutedEvent="Control.MouseDoubleClick">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
-                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Style.Triggers>
-                    </Style>
-
-                    <DataTemplate DataType="{x:Type lightObject:Light}" >
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                        </WrapPanel>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type groupObject:Group}" >
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                        </WrapPanel>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type ruleObject:Rule}" >
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                        </WrapPanel>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type newSensorsObject:Sensor}" >
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                        </WrapPanel>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type scheduleObject:Schedule}" >
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                        </WrapPanel>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type resourcelinkObject:Resourcelink}" >
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                        </WrapPanel>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type sceneObject:Scene}" >
-                        <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                        </WrapPanel>
-                    </DataTemplate>
-
-                </ListView.Resources>
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}" />
-                </ListView.ItemContainerStyle>
-                <ListView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}"/>
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
-                            <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
-                        </MenuItem>
-                        <Separator/>
-                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
-                    </ContextMenu>
-                </ListView.ContextMenu>
-                <ListView.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.ContainerStyle>
-                            <Style TargetType="{x:Type GroupItem}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <Expander IsExpanded="True">
-                                                <Expander.Header >
-                                                    <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
-                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
-                                                    </Grid>
-                                                </Expander.Header>
-                                                <ItemsPresenter />
-                                            </Expander>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupStyle.ContainerStyle>
-                    </GroupStyle>
-                </ListView.GroupStyle>
-            </ListView>
-
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas Height="{Binding SelectedFloorPlan.CanvasHeight}" Width="{Binding SelectedFloorPlan.CanvasWidth}" IsItemsHost="True" >
+                                            <Canvas.Background>
+                                                <ImageBrush ImageSource="{Binding SelectedFloorPlan.Image}" Stretch="{Binding SelectedFloorPlan.StretchMode}"/>
+                                            </Canvas.Background>
+                                        </Canvas>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="roomMap:HueElement">
+                                        <WrapPanel Height="{Binding PanelHeight}" Width="{Binding PanelWidth}" Background="{x:Null}" ToolTip="{Binding Label}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:DragBehavior/>
+                                            </i:Interaction.Behaviors>
+                                            <Image Source="{Binding Image}" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
+                                            <TextBlock Text="{Binding Label}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=WrapPanel}, Path=ActualWidth  }" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Grid>
 
         <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" Grid.RowSpan="2" >
@@ -897,9 +973,9 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}"  Command="{Binding CreateSensorCommand}" >
                     <Image Source="/WinHue3;component/Resources/sensor.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-                <Button x:Name="btnCreateAnimation" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" Command="{Binding CreateAnimationCommand}">
+                <!--<Button x:Name="btnCreateAnimation" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" Command="{Binding CreateAnimationCommand}">
                     <Image Source="/WinHue3;component/Resources/animation.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
+                </Button>-->
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}">
                     <Image Source="/WinHue3;component/Resources/hotkeys.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
@@ -912,7 +988,7 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" >
                     <Image Source="/WinHue3;component/Resources/advanced.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateFloorPlanCommand}" >
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_FloorCreator}"  Command="{Binding CreateFloorPlanCommand}" >
                     <Image Source="/WinHue3;component/Resources/floorplan.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
 

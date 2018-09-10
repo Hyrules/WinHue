@@ -21,6 +21,7 @@ using WinHue3.Utils;
 using HotKey = WinHue3.Functions.HotKeys.HotKey;
 using System.Net.NetworkInformation;
 using WinHue3.Functions.BridgeFinder;
+using WinHue3.Functions.RoomMap;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 
 namespace WinHue3.MainForm
@@ -67,9 +68,17 @@ namespace WinHue3.MainForm
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
+            LoadFloorPlans();
             //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
             //light.SetColor(65535, 65535, 65535, 32768, 3000);
             // LifxResponse p = light.SetPower(32000, 3000);
+        }
+
+        public void LoadFloorPlans()
+        {
+            SelectedFloorPlan = null;
+            ListFloorPlans = new ObservableCollection<Floor>(WinHueSettings.LoadFloorPlans());
+            
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)

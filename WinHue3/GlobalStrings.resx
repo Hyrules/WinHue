@@ -753,4 +753,10 @@
   <data name="CheckingForUpdate" xml:space="preserve">
     <value>Checking for new updates. Please come back later to see if new updates are available.</value>
   </data>
+  <data name="ElementExists" xml:space="preserve">
+    <value>This object already exists in the canvas.</value>
+  </data>
+  <data name="FloorPlanExists" xml:space="preserve">
+    <value>A floor plan by that name already exists. Overwrite ?</value>
+  </data>
 </root>

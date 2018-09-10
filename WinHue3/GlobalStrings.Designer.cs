@@ -412,6 +412,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This object already exists in the canvas..
+        /// </summary>
+        public static string ElementExists {
+            get {
+                return ResourceManager.GetString("ElementExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -723,6 +732,15 @@ namespace WinHue3 {
         public static string Field_Empty {
             get {
                 return ResourceManager.GetString("Field_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A floor plan by that name already exists. Overwrite ?.
+        /// </summary>
+        public static string FloorPlanExists {
+            get {
+                return ResourceManager.GetString("FloorPlanExists", resourceCulture);
             }
         }
         

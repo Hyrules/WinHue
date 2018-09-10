@@ -7,17 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GongSolutions.Wpf.DragDrop;
-using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
-using File = System.IO.File;
+
 
 namespace WinHue3.Functions.RoomMap
 {
@@ -25,12 +25,15 @@ namespace WinHue3.Functions.RoomMap
     {
         private OpenFileDialog ofd;
         private BitmapImage _floorPlanImage;
-        private ObservableCollection<Light> _listLights;
+        private ObservableCollection<HueElement> _listLights;
         private ObservableCollection<HueElement> _listCanvasLights;
         private HueElement _selectedItem;
         private ObservableCollection<Floor> _listFloors;
         private string _floorPlanName;
         private Floor _selectedFloor;
+        private double _canvasHeight;
+        private double _canvasWidth;
+        private Stretch _stretchMode;
 
         public RoomMapViewModel()
         {
@@ -39,13 +42,15 @@ namespace WinHue3.Functions.RoomMap
             ofd.DefaultExt = "*.jpg;*.png;*.bmp";
             ListCanvasLights = new ObservableCollection<HueElement>();
             ListFloors = new ObservableCollection<Floor>(WinHueSettings.LoadFloorPlans());
+            CanvasHeight = 0;
+            CanvasWidth = 0;
+            StretchMode = Stretch.None;
         }
 
-        public ICommand ChooseImageCommand => new RelayCommand(param => ChooseImage());
+        public ICommand CreateNewFloorPlanCommand => new RelayCommand(param => CreateNewFloorPlan());
         public ICommand ClickObjectCommand => new RelayCommand(ClickObject);
         public ICommand SaveFloorPlanCommand => new RelayCommand(param => SaveFloorPlan(), (param) => CanSaveFloor());
         public ICommand SelectFloorPlanCommand => new RelayCommand(param => SelectFloorPlan());
-        public ICommand ResizeWindowCommand => new RelayCommand(ResizeWindow);
         public ICommand DeleteFloorPlanCommand => new RelayCommand(param => DeleteFloorPlan(), (param) => CanDeleteFloorPlan());
 
         private bool CanDeleteFloorPlan()
@@ -65,6 +70,8 @@ namespace WinHue3.Functions.RoomMap
             FloorPlanImage = null;
             SelectedItem = null;
             FloorPlanName = string.Empty;
+            CanvasWidth =0;
+            CanvasHeight = 0;
         }
 
 
@@ -73,23 +80,13 @@ namespace WinHue3.Functions.RoomMap
             if (string.IsNullOrEmpty(FloorPlanName) || string.IsNullOrWhiteSpace(FloorPlanName)) return false;
             return true;
         }
-
-        private void ResizeWindow(object obj)
-        {
-            SizeChangedEventArgs e = obj as SizeChangedEventArgs;
-            double diffHeight = e.PreviousSize.Height - e.NewSize.Height;
-            double diffWidth = e.PreviousSize.Width - e.NewSize.Width;
-
-            foreach (HueElement h in _listCanvasLights)
-            {
-                h.X -= diffWidth;
-                h.Y -= diffHeight;
-            }
-        }
     
         private void SelectFloorPlan()
         {
             if (_selectedFloor == null) return;
+            CanvasHeight = _selectedFloor.CanvasHeight;
+            CanvasWidth = _selectedFloor.CanvasWidth;
+            StretchMode = _selectedFloor.StretchMode;
             FloorPlanName = _selectedFloor.Name;
             FloorPlanImage = _selectedFloor.Image;
             ListCanvasLights = new ObservableCollection<HueElement>(_selectedFloor.Elements);
@@ -110,9 +107,6 @@ namespace WinHue3.Functions.RoomMap
                 
             }
 
-
-
-
         }
 
         private void ClickObject(object obj)
@@ -126,7 +120,7 @@ namespace WinHue3.Functions.RoomMap
             set => SetProperty(ref _floorPlanImage,value);
         }
 
-        public ObservableCollection<Light> ListLights
+        public ObservableCollection<HueElement> ListLights
         {
             get => _listLights;
             set => SetProperty(ref _listLights,value);
@@ -162,12 +156,31 @@ namespace WinHue3.Functions.RoomMap
             set => SetProperty(ref _selectedFloor,value);
         }
 
-        private void ChooseImage()
+        public double CanvasHeight
         {
-            if (ofd.ShowDialog().GetValueOrDefault())
-            {              
-                FloorPlanImage = new BitmapImage(new Uri(ofd.FileName));
-            }
+            get => _canvasHeight;
+            set => SetProperty(ref _canvasHeight,value);
+        }
+
+        public double CanvasWidth
+        {
+            get => _canvasWidth;
+            set => SetProperty(ref _canvasWidth,value);
+        }
+
+        public Stretch StretchMode
+        {
+            get => _stretchMode;
+            set => SetProperty(ref _stretchMode,value);
+        }
+
+        private void CreateNewFloorPlan()
+        {
+            Form_CreateFloorPlan fcfp = new Form_CreateFloorPlan();
+            if (fcfp.ShowDialog() != true) return;
+            Floor newfloor = fcfp.GetNewFloorPlan();
+            ListFloors.Add(newfloor);
+            SelectedFloor = newfloor;
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -177,26 +190,31 @@ namespace WinHue3.Functions.RoomMap
 
         public void Drop(IDropInfo dropInfo)
         {
+            HueElement he = dropInfo.Data as HueElement;
+            if (he == null) return;
+
+            ListBox lb = dropInfo.DragInfo.VisualSource as ListBox;
 
 
-            if (dropInfo.Data is HueElement h)
+            if (lb.Name == "ListLightsGroups" && ListCanvasLights.Any(x=> x.Id == he.Id && x.HueType == he.HueType))
             {
-                ListCanvasLights[ListCanvasLights.IndexOf(dropInfo.Data as HueElement)].X = dropInfo.DropPosition.X - (h.ImageWidth / 2);
-                ListCanvasLights[ListCanvasLights.IndexOf(dropInfo.Data as HueElement)].Y = dropInfo.DropPosition.Y - (h.ImageHeight / 2);
+                MessageBox.Show(GlobalStrings.ElementExists, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (ListCanvasLights.Contains(he))
+            {
+                ListCanvasLights[ListCanvasLights.IndexOf(he)].X = dropInfo.DropPosition.X - (he.ImageWidth / 2);
+                ListCanvasLights[ListCanvasLights.IndexOf(he)].Y = dropInfo.DropPosition.Y - (he.ImageHeight / 2);
             }
             else
             {
-                Light l = dropInfo.Data as Light;
+                
+                he.X = dropInfo.DropPosition.X - (he.ImageWidth / 2);
+                he.Y = dropInfo.DropPosition.Y - (he.ImageHeight / 2);
 
-
-                HueElement newElement = new HueElement(l);
-                newElement.X = dropInfo.DropPosition.X - (newElement.ImageWidth / 2);
-                newElement.Y = dropInfo.DropPosition.Y - (newElement.ImageHeight / 2);
-
-                ListCanvasLights.Add(newElement);
-                ListLights.Remove(l);
-
-
+                ListCanvasLights.Add(he);
+                ListLights.Remove(he);
             }
             
         }

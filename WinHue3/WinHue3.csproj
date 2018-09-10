@@ -221,13 +221,16 @@
     <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\RoomMap\CreateFloorPlanViewModel.cs" />
     <Compile Include="Functions\RoomMap\Floor.cs" />
+    <Compile Include="Functions\RoomMap\Form_CreateFloorPlan.xaml.cs">
+      <DependentUpon>Form_CreateFloorPlan.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions\RoomMap\MoveThumb.cs" />
     <Compile Include="Functions\RoomMap\Form_RoomMapCreator.xaml.cs">
       <DependentUpon>Form_RoomMapCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\RoomMap\HueElement.cs" />
-    <Compile Include="Functions\RoomMap\ResizeThumb.cs" />
     <Compile Include="Functions\RoomMap\RoomMapViewModel.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewHelper.cs" />
     <Compile Include="Functions\Rules\HueTreeViewItem.cs" />
@@ -532,6 +535,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\PropertyGrid\XYEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\RoomMap\Form_CreateFloorPlan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

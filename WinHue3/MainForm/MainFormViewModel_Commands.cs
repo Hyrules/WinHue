@@ -387,6 +387,9 @@ namespace WinHue3.MainForm
         public ICommand MinimizeToTrayCommand => new RelayCommand(param => MinimizeToTray());
 
 
+        public ICommand SelectHueElementCommand => new AsyncRelayCommand(param => SelectHueElement());
+
+        public ICommand SelectedFloorPlanChangedCommand => new RelayCommand(param => SelectedFloorPlanChanged());
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
         //      
         //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());

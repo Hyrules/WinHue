@@ -1635,4 +1635,73 @@
   <data name="FormRoomMap_Delete" xml:space="preserve">
     <value>Are you sure you want to delete floorplan {0} ?</value>
   </data>
+  <data name="Form_CreateFloorPlan_Height" xml:space="preserve">
+    <value>Canvas Height</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Width" xml:space="preserve">
+    <value>Canvas Width</value>
+  </data>
+  <data name="Form_CreateFloorPlan_UseBackgroundImageSize" xml:space="preserve">
+    <value>Use image size</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Uniform" xml:space="preserve">
+    <value>Uniform</value>
+  </data>
+  <data name="Form_CreateFloorPlan_StretchNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Fill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="Form_CreateFloorPlan_FillUniform" xml:space="preserve">
+    <value>Fill to uniform</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Stretch" xml:space="preserve">
+    <value>Stretch</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Title" xml:space="preserve">
+    <value>Create a new floor plan...</value>
+  </data>
+  <data name="Form_CreateFloorPlan_GroupBoxTitle" xml:space="preserve">
+    <value>Floor Properties</value>
+  </data>
+  <data name="Form_CreateFloorPlan_FloorImage" xml:space="preserve">
+    <value>Floor Plan Image</value>
+  </data>
+  <data name="Form_CreateFloorPlan_LoadImage" xml:space="preserve">
+    <value>Load Image...</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Form_CreateFloorPlan_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="FormRoomMap_Title" xml:space="preserve">
+    <value>Create a floor plan...</value>
+  </data>
+  <data name="FormRoomMap_DeleteFloor" xml:space="preserve">
+    <value>Delete floor</value>
+  </data>
+  <data name="FormRoomMap_RightClick" xml:space="preserve">
+    <value>* use right click to drag light / CTRL + Mouse Scroll to resize light or group.</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_Creators_FloorCreator" xml:space="preserve">
+    <value>Floor plan creator</value>
+  </data>
+  <data name="MainForm_Tab_View_FloorPlan" xml:space="preserve">
+    <value>Floor Plans</value>
+  </data>
+  <data name="AllObjects" xml:space="preserve">
+    <value>All Objects</value>
+  </data>
+  <data name="FloorPlan" xml:space="preserve">
+    <value>Floor Plan</value>
+  </data>
 </root>
