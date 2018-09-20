@@ -1710,4 +1710,31 @@
   <data name="Form_CreateFloorPlan_RemoveHueElement" xml:space="preserve">
     <value>Remove element from plan.</value>
   </data>
+  <data name="MainForm_Menu_ExportConfig" xml:space="preserve">
+    <value>Export Config</value>
+  </data>
+  <data name="MainForm_Menu_ExportDataStore" xml:space="preserve">
+    <value>Export full datastore</value>
+  </data>
+  <data name="MainForm_Menu_ExportLights" xml:space="preserve">
+    <value>Export lights</value>
+  </data>
+  <data name="MainForm_Menu_ExportGroups" xml:space="preserve">
+    <value>Export groups</value>
+  </data>
+  <data name="MainForm_Menu_ExportScenes" xml:space="preserve">
+    <value>Export scenes</value>
+  </data>
+  <data name="MainForm_Menu_ExportSchedules" xml:space="preserve">
+    <value>Export schedules</value>
+  </data>
+  <data name="MainForm_Menu_ExportSensors" xml:space="preserve">
+    <value>Export sensors</value>
+  </data>
+  <data name="MainForm_Menu_ExportResLink" xml:space="preserve">
+    <value>Export resources links</value>
+  </data>
+  <data name="MainForm_Menu_ExportRules" xml:space="preserve">
+    <value>Export Rules</value>
+  </data>
 </root>

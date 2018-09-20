@@ -332,6 +332,7 @@ namespace WinHue3.MainForm
 
         //*************** App Menu Commands ******************
         public ICommand DoBridgePairingCommand => new RelayCommand(param => DoBridgePairing(ListBridges));
+        public ICommand ExportDataStoreCommand => new AsyncRelayCommand(ExportDataStore/*, (param) => EnableButtons()*/);
 
         //*************** Context Menu Commands *************
         public ICommand DeleteObjectCommand => new AsyncRelayCommand(param => DeleteObject(), (param) => CanDelete());
@@ -388,7 +389,6 @@ namespace WinHue3.MainForm
 
 
         public ICommand SelectHueElementCommand => new AsyncRelayCommand(param => SelectHueElement());
-
         public ICommand SelectedFloorPlanChangedCommand => new RelayCommand(param => SelectedFloorPlanChanged());
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
         //      

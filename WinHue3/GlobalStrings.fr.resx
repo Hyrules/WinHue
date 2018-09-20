@@ -771,4 +771,7 @@
   <data name="WarnModifiedPlan" xml:space="preserve">
     <value>Un plan à été modifié. Si vous continuez vous allez perdre vos modifications. Continuer ?</value>
   </data>
+  <data name="UnableToExport" xml:space="preserve">
+    <value>Impoosible d'exporter la configuration demandée.</value>
+  </data>
 </root>

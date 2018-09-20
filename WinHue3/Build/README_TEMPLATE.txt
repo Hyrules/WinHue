@@ -11,6 +11,7 @@ Fixed:
 
 Added:
 - Floor plan creator and viewer.
+- Option to export the current config.
 
 Changed:
 - Corrected button size in the bridge pairing window.
@@ -19,8 +20,7 @@ Changed:
 
 WIP:
 - Animation creator. (Not Available yet)
-- Rss feed monitor plugin. (Not Available yet)
-- Clapper monitor. (Not Available yet)
+
 
 
 

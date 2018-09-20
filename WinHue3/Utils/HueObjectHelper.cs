@@ -168,7 +168,7 @@ namespace WinHue3.Utils
         public static async Task<List<IHueObject>> GetBridgeDataStoreAsyncTask(Bridge bridge)
         {
             log.Info($@"Fetching DataStore from bridge : {bridge.IpAddress}");
-            DataStore bresult = await bridge.GetBridgeDataStoreAsyncTask();
+            DataStore bresult = await bridge.GetBridgeDataStoreAsync();
             List<IHueObject> hr = null;
             if (bresult == null) return hr;
             DataStore ds = bresult;

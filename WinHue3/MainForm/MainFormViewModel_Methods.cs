@@ -1445,6 +1445,18 @@ namespace WinHue3.MainForm
             Application.Current.Shutdown();
         }
 
+        private void RefreshHueObject(ref IHueObject obj, IHueObject newobject)
+        {
+            if (obj.GetType() != newobject.GetType()) return;
+            if (obj == null || newobject == null) return;
+            if (obj.Id != newobject.Id) return;
+
+            PropertyInfo[] pi = obj.GetType().GetProperties();
+            foreach(PropertyInfo p in pi)
+            {
+                p.SetValue(obj, p.GetValue(newobject));
+            }
+        }
 
         private bool DoBridgePairing(ObservableCollection<Bridge> listBridges = null)
         {
@@ -1456,6 +1468,78 @@ namespace WinHue3.MainForm
             SaveSettings();
             return result;
         }
+
+        private async Task ExportDataStore(object param)
+        {
+            if (param == null) return;
+            string p = param.ToString();
+            string data = string.Empty;
+            JsonSerializerSettings jss = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
+
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                CheckPathExists = true,
+                DefaultExt = "txt",
+                Filter = "Text File (*.txt) | *.txt"
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                DataStore datastore = await SelectedBridge.GetBridgeDataStoreAsync();
+                switch (p)
+                {
+                    case "Full":
+                        data = JsonConvert.SerializeObject(datastore, Formatting.Indented, jss);
+                        break;
+                    case "Lights":
+                        data = JsonConvert.SerializeObject(datastore.lights, Formatting.Indented,jss);
+                        break;
+                    case "Groups":
+                        data = JsonConvert.SerializeObject(datastore.groups, Formatting.Indented,jss);
+                        break;
+                    case "Scenes":
+                        data = JsonConvert.SerializeObject(datastore.scenes, Formatting.Indented,jss);
+                        break;
+                    case "Schedules":
+                        data = JsonConvert.SerializeObject(datastore.schedules, Formatting.Indented,jss);
+                        break;
+                    case "ResourceLinks":
+                        data = JsonConvert.SerializeObject(datastore.resourcelinks, Formatting.Indented,jss);
+                        break;
+                    case "Rules":
+                        data = JsonConvert.SerializeObject(datastore.rules, Formatting.Indented,jss);
+                        break;
+                    case "Sensors":
+                        data = JsonConvert.SerializeObject(datastore.sensors, Formatting.Indented,jss);
+                        break;
+                    default:
+                        break;
+                }
+
+                if (data != string.Empty)
+                {
+                    try
+                    {
+                        log.Info($"Saving {p} to file {sfd.FileName}...");
+                        File.WriteAllText(sfd.FileName, data);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error($"An exception occured while saving the config. {ex.Message}");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(GlobalStrings.UnableToExport, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    log.Error($"Error while saving to file.");
+                }
+
+            }
+
+
+        }
+
         #endregion
 
         private void CpuTempMonSettings()

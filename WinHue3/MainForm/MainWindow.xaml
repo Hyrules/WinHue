@@ -392,6 +392,18 @@
                             </Style.Triggers>
                         </Style>
                     </MenuItem.Style>
+                </MenuItem >
+                <Separator/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportConfig}" FontSize="17" Foreground="Black" >
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportDataStore}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Full" FontSize="17" Foreground="Black"/>
+                    <Separator/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportLights}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Lights" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportGroups}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Groups" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportScenes}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Scenes" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSchedules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Schedules" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportRules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Rules" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSensors}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Sensors" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportResLink}" Command="{Binding ExportDataStoreCommand}" CommandParameter="ResourceLinks" FontSize="17" Foreground="black"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17" Foreground="Black"/>
