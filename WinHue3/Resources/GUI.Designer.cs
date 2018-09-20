@@ -1123,11 +1123,29 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make all element same size. (The one selected).
+        /// </summary>
+        public static string Form_CreateFloorPlan_MakeAllSameSize {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_MakeAllSameSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Form_CreateFloorPlan_Name {
             get {
                 return ResourceManager.GetString("Form_CreateFloorPlan_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove element from plan..
+        /// </summary>
+        public static string Form_CreateFloorPlan_RemoveHueElement {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_RemoveHueElement", resourceCulture);
             }
         }
         

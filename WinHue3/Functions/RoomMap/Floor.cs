@@ -58,31 +58,30 @@ namespace WinHue3.Functions.RoomMap
             writer.WritePropertyName("StretchMode");
             writer.WriteValue(floorplan.StretchMode);
             writer.WritePropertyName("Elements");
-            
             writer.WriteStartArray();
-            foreach (HueElement h in floorplan.Elements)
+            foreach (HueElement he in floorplan.Elements)
             {
                 writer.WriteStartObject();
                 writer.WritePropertyName("PanelHeight");
-                writer.WriteValue(h.PanelHeight);
+                writer.WriteValue(he.PanelHeight);
                 writer.WritePropertyName("PanelWidth");
-                writer.WriteValue(h.PanelWidth);
+                writer.WriteValue(he.PanelWidth);
                 writer.WritePropertyName("ImageHeight");
-                writer.WriteValue(h.ImageHeight);
+                writer.WriteValue(he.ImageHeight);
                 writer.WritePropertyName("ImageWidth");
-                writer.WriteValue(h.ImageWidth);
+                writer.WriteValue(he.ImageWidth);
                 writer.WritePropertyName("X");
-                writer.WriteValue(h.X);
+                writer.WriteValue(he.X);
                 writer.WritePropertyName("Y");
-                writer.WriteValue(h.Y);
+                writer.WriteValue(he.Y);
+                writer.WritePropertyName("Id");
+                writer.WriteValue(he.Id);
+                writer.WritePropertyName("HueType");
+                writer.WriteValue(he.HueType);
                 writer.WritePropertyName("Label");
-                writer.WriteValue(h.Label);
-                writer.WritePropertyName("ID");
-                writer.WriteValue(h.Id);
+                writer.WriteValue(he.Label);
                 writer.WriteEndObject();
-
             }
-
             writer.WriteEndArray();
             writer.WriteEndObject();
         }
@@ -93,10 +92,20 @@ namespace WinHue3.Functions.RoomMap
 
             JObject obj = serializer.Deserialize<JObject>(reader);
             floorplan.Name = obj["Name"]?.Value<string>();
-            JArray elem = obj["Elements"].Value<JArray>();
+            JArray elem = obj["Elements"].ToObject<JArray>();
             foreach (JObject job in elem)
             {
-                floorplan.Elements.Add(job.ToObject<HueElement>());
+                HueElement he = new HueElement();
+                he.PanelHeight = job["PanelHeight"]?.Value<double>() ?? he.PanelHeight;
+                he.PanelWidth = job["PanelWidth"]?.Value<double>() ?? he.PanelWidth;
+                he.ImageHeight = job["ImageHeight"]?.Value<double>() ?? he.ImageHeight;
+                he.ImageWidth = job["ImageWidth"]?.Value<double>() ?? he.ImageWidth;
+                he.X = job["X"]?.Value<double>() ?? 0;
+                he.Y = job["Y"]?.Value<double>() ?? 0;
+                he.Id = job["Id"]?.Value<string>();
+                he.HueType = (HueElementType)Enum.Parse(typeof(HueElementType),job["HueType"]?.Value<string>() ?? "0");
+                he.Label = job["Label"]?.Value<string>();
+                floorplan.Elements.Add(he);
             }
             string base64image = obj["Image"]?.Value<string>();
             floorplan.Image = Base64StringToBitmap(base64image);

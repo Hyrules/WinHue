@@ -759,4 +759,7 @@
   <data name="FloorPlanExists" xml:space="preserve">
     <value>A floor plan by that name already exists. Overwrite ?</value>
   </data>
+  <data name="WarnModifiedPlan" xml:space="preserve">
+    <value>A plan has been modified. If you continue you will lose your modifications. Continue ?</value>
+  </data>
 </root>

@@ -1985,5 +1985,14 @@ namespace WinHue3 {
                 return ResourceManager.GetString("Warning_TransitionTime", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A plan has been modified. If you continue you will lose your modifications. Continue ?.
+        /// </summary>
+        public static string WarnModifiedPlan {
+            get {
+                return ResourceManager.GetString("WarnModifiedPlan", resourceCulture);
+            }
+        }
     }
 }

@@ -768,4 +768,7 @@
   <data name="FloorPlanExists" xml:space="preserve">
     <value>Un plan ayant ce nom existe déjà. Écraser ?</value>
   </data>
+  <data name="WarnModifiedPlan" xml:space="preserve">
+    <value>Un plan à été modifié. Si vous continuez vous allez perdre vos modifications. Continuer ?</value>
+  </data>
 </root>

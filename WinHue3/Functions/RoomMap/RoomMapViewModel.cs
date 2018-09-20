@@ -34,6 +34,7 @@ namespace WinHue3.Functions.RoomMap
         private double _canvasHeight;
         private double _canvasWidth;
         private Stretch _stretchMode;
+        private bool _isSaved;
 
         public RoomMapViewModel()
         {
@@ -48,10 +49,52 @@ namespace WinHue3.Functions.RoomMap
         }
 
         public ICommand CreateNewFloorPlanCommand => new RelayCommand(param => CreateNewFloorPlan());
-        public ICommand ClickObjectCommand => new RelayCommand(ClickObject);
         public ICommand SaveFloorPlanCommand => new RelayCommand(param => SaveFloorPlan(), (param) => CanSaveFloor());
         public ICommand SelectFloorPlanCommand => new RelayCommand(param => SelectFloorPlan());
         public ICommand DeleteFloorPlanCommand => new RelayCommand(param => DeleteFloorPlan(), (param) => CanDeleteFloorPlan());
+        public ICommand DeleteHueElementCommand => new RelayCommand(DeleteHueElement, (param) => _selectedItem != null);
+        public ICommand MakeAllSameSizeCommand => new RelayCommand(param => MakeAllSameSize(), (param) => CanMakeSameSize());
+        public ICommand DeleteSelectedElementCommand => new RelayCommand(param => DeleteSelectedElement(), (param) => CanDeleteElement());
+        
+        private bool CanDeleteElement()
+        {
+            return SelectedItem != null;
+        }
+
+        private void DeleteSelectedElement()
+        {
+            if (SelectedItem == null) return;
+            ListCanvasLights.Remove(_selectedItem);
+            SelectedItem = null;
+        }
+
+        private void MakeAllSameSize()
+        {
+            if (_selectedItem == null) return;
+            foreach (HueElement he in ListCanvasLights)
+            {
+                if(he == SelectedItem) continue;
+                he.ImageHeight = SelectedItem.ImageHeight;
+                he.ImageWidth = SelectedItem.ImageWidth;
+                he.PanelHeight = SelectedItem.PanelHeight;
+                he.PanelWidth = SelectedItem.PanelWidth;
+                
+            }
+        }
+
+        private bool CanMakeSameSize()
+        {
+            return _selectedItem != null;
+        }
+
+        private void DeleteHueElement(object obj)
+        {
+            KeyEventArgs kea = obj as KeyEventArgs;
+            if (kea == null) return;
+            if (kea.Key != Key.Delete) return;
+         
+        }
+
 
         private bool CanDeleteFloorPlan()
         {
@@ -99,7 +142,10 @@ namespace WinHue3.Functions.RoomMap
             {
                 Elements = _listCanvasLights.ToList(),
                 Name = FloorPlanName,
-                Image = _floorPlanImage
+                Image = _floorPlanImage,
+                CanvasHeight = CanvasHeight,
+                CanvasWidth = CanvasWidth
+                
             };
             
             if (!WinHueSettings.SaveFloorPlan(floorplan))
@@ -107,11 +153,6 @@ namespace WinHue3.Functions.RoomMap
                 
             }
 
-        }
-
-        private void ClickObject(object obj)
-        {
-            SelectedItem = obj as HueElement;
         }
 
         public BitmapImage FloorPlanImage

@@ -296,6 +296,13 @@ namespace WinHue3.MainForm
             log.Info($"Finished refreshing view.");
         }
 
+        private void UpdateFloorPlanIcons(ImageSource image, string id, Type objecttype)
+        {
+            if (SelectedFloorPlan == null) return;
+            HueElement he = SelectedFloorPlan.Elements.FirstOrDefault(x => x.Id == id && x.HueType == GetHueElementEnumFromType(objecttype));
+            if (he == null) return;
+            he.Image = image;
+        }
 
         private async Task DoubleClickObject()
         {
@@ -307,6 +314,8 @@ namespace WinHue3.MainForm
                 {
                     ImageSource newimg = hr;
                     SelectedHueObject.Image = newimg;
+                    UpdateFloorPlanIcons(newimg, SelectedHueObject.Id, SelectedHueObject.GetType());
+
                     int index = _listBridgeObjects.FindIndex(x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
                     if (index == -1) return;
                     if (SelectedHueObject is Light light)
@@ -1538,12 +1547,12 @@ namespace WinHue3.MainForm
         private async Task SelectHueElement()
         {
             if (SelectedHueElement == null) return;
-            SelectedHueObject = ListBridgeObjects.FirstOrDefault(x => x.Id == SelectedHueElement.Id && x.GetType() == GetTypeFromEnum(SelectedHueElement.HueType));           
+            SelectedHueObject = ListBridgeObjects.FirstOrDefault(x => x.Id == SelectedHueElement.Id && x.GetType() == GetTypeFromHueElementEnum(SelectedHueElement.HueType));           
             await ClickObject();
             SelectedHueElement.Image = SelectedHueObject.Image;
         }
 
-        private Type GetTypeFromEnum(HueElementType type)
+        private Type GetTypeFromHueElementEnum(HueElementType type)
         {
             switch (type)
             {
@@ -1556,11 +1565,17 @@ namespace WinHue3.MainForm
             return null;
         }
 
+        private HueElementType GetHueElementEnumFromType(Type type)
+        {
+            return type == typeof(Group) ? HueElementType.Group : HueElementType.Light;
+        }
+
         private void SelectedFloorPlanChanged()
         {
+            if (SelectedFloorPlan == null) return;
             foreach (HueElement h in SelectedFloorPlan.Elements)
             {
-                IHueObject obj = ListBridgeObjects.FirstOrDefault(x => x.Id == h.Id && x.GetType() == GetTypeFromEnum(h.HueType));               
+                IHueObject obj = ListBridgeObjects.FirstOrDefault(x => x.Id == h.Id && x.GetType() == GetTypeFromHueElementEnum(h.HueType));               
                 if (obj == null) continue;
                 h.Image = obj.Image;
             }

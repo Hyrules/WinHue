@@ -1704,4 +1704,10 @@
   <data name="FloorPlan" xml:space="preserve">
     <value>Plan du niveau</value>
   </data>
+  <data name="Form_CreateFloorPlan_MakeAllSameSize" xml:space="preserve">
+    <value>Mettre tous les éléments de la même taille. (Celui sélectionné)</value>
+  </data>
+  <data name="Form_CreateFloorPlan_RemoveHueElement" xml:space="preserve">
+    <value>Supprimer l'élément du plan.</value>
+  </data>
 </root>
