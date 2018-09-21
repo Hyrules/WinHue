@@ -150,8 +150,10 @@ namespace WinHue3.MainForm
             List<IHueObject> listGroupLights = new List<IHueObject>();
             listGroupLights.AddRange(ListBridgeObjects.Where(x => x.GetType() == typeof(Light)));
             listGroupLights.AddRange(ListBridgeObjects.Where(x => x.GetType() == typeof(Group)));
-            Form_Animations fa = new Form_Animations(listGroupLights);
-            fa.Owner = Application.Current.MainWindow;
+            Form_Animations fa = new Form_Animations(listGroupLights)
+            {
+                Owner = Application.Current.MainWindow
+            };
             fa.ShowDialog();
         }
 
@@ -1622,8 +1624,10 @@ namespace WinHue3.MainForm
 
         private void CreateFloorPlan()
         {
-            Form_RoomMapCreator frmp = new Form_RoomMapCreator(_listBridgeObjects.ToList());
-            frmp.Owner = Application.Current.MainWindow;
+            Form_RoomMapCreator frmp = new Form_RoomMapCreator(_listBridgeObjects.ToList())
+            {
+                Owner = Application.Current.MainWindow
+            };
             frmp.ShowDialog();
             LoadFloorPlans();
         }
