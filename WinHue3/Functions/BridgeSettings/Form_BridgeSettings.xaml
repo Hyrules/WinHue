@@ -4,8 +4,15 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgeSettings="clr-namespace:WinHue3.Functions.BridgeSettings"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
         Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.DataContext>
         <bridgeSettings:BridgeSettingsViewModel/>
     </Window.DataContext>
@@ -150,6 +157,28 @@
                 </Grid>
 
             </TabItem>
+            <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_HiddenObjects}">
+                <Grid>
+                    <controls:BindableListView ToolTip="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" ItemsSource="{Binding HiddenObjects.ListLights}" SelectedItemsList="{Binding HiddenObjects.SelectedHiddenLights, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,-0.333,23.667">
+                        <controls:BindableListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
+                            </ItemsPanelTemplate>
+                        </controls:BindableListView.ItemsPanel>
+                        <controls:BindableListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="55" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                                    <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                                    <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </controls:BindableListView.ItemTemplate>
+                    </controls:BindableListView>
+                    <Button Content="{x:Static resx:GUI.Save}" Width="75" Margin="399,241,2.667,2.667" Command="{Binding SaveHiddenObjectsCommand}"/>
+                </Grid>
+            </TabItem>
+
+
 
 
         </TabControl>

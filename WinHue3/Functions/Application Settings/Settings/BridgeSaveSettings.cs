@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace WinHue3.Functions.Application_Settings.Settings
@@ -11,6 +12,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
         {
             ip = string.Empty;
             apikey = string.Empty;
+            hiddenobjects = new List<Tuple<string, Type>>();
         }
 
         [DataMember(IsRequired = false)]
@@ -21,5 +23,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public string name { get; set; }
         [DataMember(IsRequired = false)]
         public string clientkey { get; set; }
+        [DataMember(IsRequired = false)]
+        public List<Tuple<string,Type>> hiddenobjects { get;set; }
     }
 }

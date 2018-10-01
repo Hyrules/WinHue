@@ -765,4 +765,7 @@
   <data name="UnableToExport" xml:space="preserve">
     <value>Unable to export the requested config</value>
   </data>
+  <data name="ErrorSaving" xml:space="preserve">
+    <value>An error occured while saving.</value>
+  </data>
 </root>

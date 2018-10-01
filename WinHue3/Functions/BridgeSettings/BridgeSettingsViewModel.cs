@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
 
 namespace WinHue3.Functions.BridgeSettings
@@ -16,6 +21,8 @@ namespace WinHue3.Functions.BridgeSettings
         private BridgeSettingsNetworkModel _networkModel;
         private BridgeSettingsPortalModel _portalModel;
         private BridgeSettingsSoftwareModel _softwareModel;
+        private BridgeSettingsHiddenObjects _hiddenObjects;
+
         private Bridge _bridge;
         private Capabilities _caps;
         private bool _canAutoInstall;
@@ -31,6 +38,9 @@ namespace WinHue3.Functions.BridgeSettings
             _networkModel = new BridgeSettingsNetworkModel();
             _portalModel = new BridgeSettingsPortalModel();
             _softwareModel = new BridgeSettingsSoftwareModel();
+            _hiddenObjects = new BridgeSettingsHiddenObjects();
+
+            
             _updateTimer = new DispatcherTimer(){ Interval = new TimeSpan(0, 0, 180)};
             _updateProgressTimer = new DispatcherTimer() { Interval = new TimeSpan(0,0,1)};
             _updateProgressTimer.Tick += _updateProgressTimer_Tick;
@@ -38,6 +48,45 @@ namespace WinHue3.Functions.BridgeSettings
             UpdateProgress = 0;
             CanClose = true;
         }
+
+        private async Task Initialize()
+        {
+            List<Light> ll = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
+            HiddenObjects.ListLights = new ObservableCollection<Light>(ll);
+            foreach (Tuple<string,Type> t in WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects)
+            {
+                if (HiddenObjects.ListLights.Any(x => x.Id == t.Item1 && x.GetType() == t.Item2))
+                {
+                    HiddenObjects.SelectedHiddenLights.Add(HiddenObjects.ListLights.FirstOrDefault(x => x.Id == t.Item1 && x.GetType() == t.Item2));
+                }   
+            }
+            HiddenObjects.AcceptChanges();
+        }
+
+        public ICommand SaveHiddenObjectsCommand => new RelayCommand(param => SaveHiddenObjects(), (param) => CanSaveHiddenObjects());
+
+        private bool CanSaveHiddenObjects()
+        {
+            return HiddenObjects.IsChanged;
+        }
+
+        private void SaveHiddenObjects()
+        {
+            foreach (Light l in HiddenObjects.SelectedHiddenLights)
+            {
+                if (!WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetType()))
+                {
+                    WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Add(new Tuple<string, Type>(l.Id, l.GetType()));
+                }
+                
+            }
+
+            WinHueSettings.SaveBridges();
+            HiddenObjects.AcceptChanges();
+
+
+        }
+
 
         private void _updateProgressTimer_Tick(object sender, EventArgs e)
         {
@@ -76,6 +125,9 @@ namespace WinHue3.Functions.BridgeSettings
         }
 
         public ICommand ForceCheckUpdateCommand => new AsyncRelayCommand(param => ForceCheckUpdate(),(param) => CanCheckForUpdate());
+        public ICommand ApplyUpdateSettingsCommand => new AsyncRelayCommand(param => ApplyUpdateSettings());
+        public ICommand UpdateBridgeFirmwareCommand => new AsyncRelayCommand(param => UpdateBridgeFirmware(), (param) => CanUpdateFirmware());
+        public ICommand InitializeCommand => new AsyncRelayCommand(param => Initialize());
 
         private bool CanCheckForUpdate()
         {
@@ -85,8 +137,6 @@ namespace WinHue3.Functions.BridgeSettings
             return true;
         }
 
-        public ICommand ApplyUpdateSettingsCommand => new AsyncRelayCommand(param => ApplyUpdateSettings());
-        public ICommand UpdateBridgeFirmwareCommand => new AsyncRelayCommand(param => UpdateBridgeFirmware(), (param) => CanUpdateFirmware());
 
         private bool CanUpdateFirmware()
         {
@@ -173,6 +223,12 @@ namespace WinHue3.Functions.BridgeSettings
         {
             get => _updateProgress;
             set => SetProperty(ref  _updateProgress, value);
+        }
+
+        public BridgeSettingsHiddenObjects HiddenObjects
+        {
+            get => _hiddenObjects;
+            set => SetProperty(ref _hiddenObjects,value);
         }
 
         private bool CanApplyNetworkSettings()

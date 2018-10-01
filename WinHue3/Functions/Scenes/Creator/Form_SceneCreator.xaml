@@ -54,7 +54,7 @@
         <Button x:Name="BtnPreview" Content="{x:Static resx:GUI.SceneCreatorForm_PreviewButton}" HorizontalAlignment="Left" Margin="626,507,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding DoPreviewSceneCommand}" />
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step3}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="410" Width="232" Margin="422,87,0,0" ToolTip="CTRL-Click to select multiple light.">
             <Grid>
-                <sliders:BindableListView x:Name="LvAvailableLights" ItemsSource="{Binding ListAvailableLights}" SelectedItemsList="{Binding SelectedAvailableLights}" HorizontalAlignment="Left" Height="317" VerticalAlignment="Top" Width="219" Margin="0,10,0,0" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="{x:Null}">
+                <controls:BindableListView x:Name="LvAvailableLights" ItemsSource="{Binding ListAvailableLights}" SelectedItemsList="{Binding SelectedAvailableLights}" HorizontalAlignment="Left" Height="317" VerticalAlignment="Top" Width="219" Margin="0,10,0,0" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="{x:Null}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel >
@@ -63,7 +63,7 @@
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </sliders:BindableListView>
+                </controls:BindableListView>
 
             </Grid>
         </GroupBox>

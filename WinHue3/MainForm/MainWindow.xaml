@@ -857,7 +857,7 @@
                     </TabItem.Header>
                     <Grid Background="#FFE5E5E5">
                         <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
-                            <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedHueElement}" ItemsSource="{Binding SelectedFloorPlan.Elements}" Height="{Binding SelectedFloorPlan.CanvasHeight, FallbackValue=0}" Width="{Binding SelectedFloorPlan.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedHueElement}" ItemsSource="{Binding SelectedFloorPlan.Elements, FallbackValue={x:Null}}" Height="{Binding SelectedFloorPlan.CanvasHeight, FallbackValue=0}" Width="{Binding SelectedFloorPlan.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding SelectHueElementCommand}"/>

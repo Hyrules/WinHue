@@ -12,6 +12,7 @@ Fixed:
 Added:
 - Floor plan creator and viewer.
 - Option to export the current config.
+- Option to Hide lights in the bridge settings window.
 
 Changed:
 - Corrected button size in the bridge pairing window.

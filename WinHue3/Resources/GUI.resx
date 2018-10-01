@@ -1704,10 +1704,10 @@
   <data name="FloorPlan" xml:space="preserve">
     <value>Floor Plan</value>
   </data>
-  <data name="Form_CreateFloorPlan_MakeAllSameSize" xml:space="preserve">
+  <data name="FormRoomMap_MakeAllSameSize" xml:space="preserve">
     <value>Make all element same size. (The one selected)</value>
   </data>
-  <data name="Form_CreateFloorPlan_RemoveHueElement" xml:space="preserve">
+  <data name="FormRoomMap_RemoveHueElement" xml:space="preserve">
     <value>Remove element from plan.</value>
   </data>
   <data name="MainForm_Menu_ExportConfig" xml:space="preserve">
@@ -1736,5 +1736,20 @@
   </data>
   <data name="MainForm_Menu_ExportRules" xml:space="preserve">
     <value>Export Rules</value>
+  </data>
+  <data name="FormRoomMap_SaveAll" xml:space="preserve">
+    <value>Save All Floors</value>
+  </data>
+  <data name="FormRoomMap_Save" xml:space="preserve">
+    <value>Save current floor</value>
+  </data>
+  <data name="FormRoomMap_EditFloorPlan" xml:space="preserve">
+    <value>Edit current floor plan</value>
+  </data>
+  <data name="BridgeSettingsForm_Tab_HiddenObjects" xml:space="preserve">
+    <value>Hidden Objects</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>

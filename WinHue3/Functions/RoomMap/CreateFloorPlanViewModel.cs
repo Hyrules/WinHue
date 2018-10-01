@@ -30,6 +30,7 @@ namespace WinHue3.Functions.RoomMap
             FloorPlanName = "NewPlan01";
             Image = null;
             ofd = new OpenFileDialog {Filter = "All Supported Image Files (*.jpg;*.png;*.bmp)|*.jpg;*.png;*.bmp|JPEG Files (*.jpg)|*.jpg|Bitmap Files (*.bmp)|*.bmp|PNG Files (*.png)|*.png", DefaultExt = "*.jpg;*.png;*.bmp"};
+            ImagePath = string.Empty;
         }
 
         public ICommand LoadImageCommand => new RelayCommand(param => LoadImage());

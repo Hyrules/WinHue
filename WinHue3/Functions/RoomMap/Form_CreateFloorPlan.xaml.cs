@@ -21,10 +21,24 @@ namespace WinHue3.Functions.RoomMap
     public partial class Form_CreateFloorPlan : Window
     {
         private CreateFloorPlanViewModel fpvm;
+
         public Form_CreateFloorPlan()
         {
             InitializeComponent();
             fpvm = DataContext as CreateFloorPlanViewModel;
+        }
+
+        public Form_CreateFloorPlan(Floor floor) : this()
+        {
+            fpvm.FloorPlanName = floor.Name;
+            fpvm.Height = floor.CanvasHeight;
+            fpvm.Width = floor.CanvasWidth;
+            fpvm.StretchMode = floor.StretchMode;
+            fpvm.Image = floor.Image;
+            if (fpvm.Image.Height == fpvm.Height && fpvm.Image.Width == fpvm.Width)
+            {
+                fpvm.UseImageSize = true;
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -36,7 +50,18 @@ namespace WinHue3.Functions.RoomMap
         public Floor GetNewFloorPlan()
         {
             Floor newfloor = new Floor();
-            newfloor.Image = new BitmapImage(new Uri(fpvm.ImagePath));
+            if (fpvm.ImagePath != string.Empty)
+            {
+                newfloor.Image = new BitmapImage(new Uri(fpvm.ImagePath));
+            }
+            else
+            {
+                if (fpvm.Image != null)
+                {
+                    newfloor.Image = (BitmapImage)fpvm.Image;
+                }
+            }
+            
             newfloor.CanvasHeight = fpvm.Height;
             newfloor.CanvasWidth = fpvm.Width;
             newfloor.Name = fpvm.FloorPlanName;

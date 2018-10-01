@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -157,7 +158,24 @@ namespace WinHue3.Functions.RoomMap
             set => SetProperty(ref _image,value);
         }
 
+        protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            OnElementModified(new HueElementModifiedEventArgs(){oldvalue = storage, newvalue = value, propname = propertyName});
+            return base.SetProperty(ref storage, value, propertyName);
+        }
 
+        public event EventHandler ElementModified;
+
+        protected virtual void OnElementModified(HueElementModifiedEventArgs e)
+        {
+            ElementModified?.Invoke(this, e);
+        }
     }
 
+    public class HueElementModifiedEventArgs : EventArgs
+    {
+        public object oldvalue { get;set; }
+        public object newvalue { get; set;}
+        public string propname { get; set; }
+    }
 }

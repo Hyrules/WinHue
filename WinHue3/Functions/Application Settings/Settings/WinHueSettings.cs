@@ -92,9 +92,14 @@ namespace WinHue3.Functions.Application_Settings.Settings
 
         public static bool DeleteFloorPlan(Floor floor)
         {
+            return DeleteFloor(floor.Name);
+        }
+
+        private static bool DeleteFloor(string name)
+        {
             try
             {
-                string filepath = Path.Combine(floorplanpath, floor.Name + ".flp");
+                string filepath = Path.Combine(floorplanpath, name + ".flp");
                 if (File.Exists(filepath))
                 {
                     File.Delete(filepath);
@@ -105,7 +110,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
                     log.Warn($"File {filepath} does not exists. Not deleting.");
                     return false;
                 }
-            
+
             }
             catch (Exception e)
             {
@@ -114,6 +119,11 @@ namespace WinHue3.Functions.Application_Settings.Settings
             }
 
             return true;
+        }
+
+        public static bool DeleteFloorPlan(string name)
+        {
+            return DeleteFloor(name);
         }
 
         public static bool ReplaceBridgeIp(string mac, IPAddress ip)

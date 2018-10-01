@@ -61,10 +61,10 @@ namespace WinHue3.Utils
         public bool IsChanged
         {
             get => _isChanged;
-            private set => _isChanged = value;
+            internal set => _isChanged = value;
         }
 
-        public void AcceptChanges()
+        public virtual void AcceptChanges()
         {
             this.IsChanged = false;
         }

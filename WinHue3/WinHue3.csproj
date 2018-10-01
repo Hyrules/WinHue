@@ -75,7 +75,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\packages\BouncyCastle.1.8.3\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
@@ -203,6 +203,7 @@
     </Compile>
     <Compile Include="Functions\BridgeFinder\ProgressReport.cs" />
     <Compile Include="Functions\BridgePairing\BridgeHandler.cs" />
+    <Compile Include="Functions\BridgeSettings\BridgeSettingsHiddenObjects.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\MacByteArrayConverter.cs" />
     <Compile Include="Functions\Entertainment\EntertainmentViewModel.cs" />
@@ -262,7 +263,7 @@
     <Compile Include="Functions\Converters\SliderToXYConverter.cs" />
     <Compile Include="Functions\Converters\VisibleToBoolConverter.cs" />
     <Compile Include="MainForm\Sliders\BindableHueSlider.cs" />
-    <Compile Include="MainForm\Sliders\BindableListView.cs" />
+    <Compile Include="Controls\BindableListView.cs" />
     <Compile Include="MainForm\Sliders\BindableSlider.cs" />
     <Compile Include="Functions\Application Settings\AppMainSettingsModel.cs" />
     <Compile Include="Functions\Application Settings\AppDefaultsModel.cs" />
@@ -965,6 +966,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\saveall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit-2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

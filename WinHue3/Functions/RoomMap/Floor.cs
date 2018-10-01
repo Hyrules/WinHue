@@ -1,37 +1,140 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WinHue3.Annotations;
 using WinHue3.ExtensionMethods;
+using WinHue3.Utils;
 
 namespace WinHue3.Functions.RoomMap
 {
     [JsonConverter(typeof(FloorPlanConverter))]
-    public class Floor
+    public class Floor : ValidatableBindableBase
     {
+        private string _name;
+        private BitmapImage _image;
+        private ObservableCollection<HueElement> _elements;
+        private double _canvasHeight;
+        private double _canvasWidth;
+        private Stretch _stretchMode;
+
         public Floor()
         {
             Name = string.Empty;
             Image = null;
-            Elements = new List<HueElement>();
-            CanvasHeight = 600;
-            CanvasWidth = 800;
+            Elements = new ObservableCollection<HueElement>();
+            CanvasHeight = 0;
+            CanvasWidth = 0;
+            IsChanged = false;
+            Elements.CollectionChanged += Elements_CollectionChanged;
         }
 
-        public string Name { get; set; }
-        public BitmapImage Image { get; set; }
-        public List<HueElement> Elements { get; set; }
-        public double CanvasHeight { get; set; }
-        public double CanvasWidth { get; set; }
-        public Stretch StretchMode { get; set; }
+        private void Elements_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    foreach (object o in e.NewItems)
+                    {
+                        ((HueElement)o).ElementModified += Floor_ElementModified;
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    foreach (object o in e.OldItems)
+                    {
+                        ((HueElement)o).ElementModified -= Floor_ElementModified;
+                    }
+                    
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    break;
+            }
+            this.IsChanged = true;
+            RaisePropertyChanged("IsModified");
+        }
+
+        private void Floor_ElementModified(object sender, EventArgs e)
+        {
+            IsChanged = true;
+            RaisePropertyChanged("IsModified");
+        }
+
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name,value);
+        }
+
+        public BitmapImage Image
+        {
+            get => _image;
+            set => SetProperty(ref _image,value);
+        }
+
+        public ObservableCollection<HueElement> Elements
+        {
+            get => _elements; 
+            set => SetProperty(ref _elements,value);
+        }
+
+        public double CanvasHeight
+        {
+            get => _canvasHeight;
+            set => SetProperty(ref _canvasHeight,value);
+        }
+
+        public double CanvasWidth
+        {
+            get => _canvasWidth;
+            set => SetProperty(ref _canvasWidth,value);
+        }
+
+        public Stretch StretchMode
+        {
+            get => _stretchMode; 
+            set => SetProperty(ref _stretchMode,value);
+        }
+
+        public bool IsModified
+        {
+            get
+            { 
+                return IsChanged || Elements.Any(x => x.IsChanged);
+            }
+        }
+
+        protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(storage, value)) return false;
+            storage = value;
+            RaisePropertyChanged(propertyName);
+            RaisePropertyChanged("IsModified");
+            return true;
+        }
+
+        public override void AcceptChanges()
+        {
+            foreach (HueElement he in _elements)
+            {
+                he.AcceptChanges();
+            }
+            RaisePropertyChanged("IsModified");
+        }
     }
 
     class FloorPlanConverter : JsonConverter
@@ -50,7 +153,7 @@ namespace WinHue3.Functions.RoomMap
             writer.WritePropertyName("Name");
             writer.WriteValue(floorplan.Name);
             writer.WritePropertyName("Image");
-            writer.WriteValue(floorplan.Image.ToBase64());
+            writer.WriteValue(floorplan.Image?.ToBase64());
             writer.WritePropertyName("CanvasHeight");
             writer.WriteValue(floorplan.CanvasHeight);
             writer.WritePropertyName("CanvasWidth");
@@ -84,6 +187,7 @@ namespace WinHue3.Functions.RoomMap
             }
             writer.WriteEndArray();
             writer.WriteEndObject();
+
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -108,7 +212,11 @@ namespace WinHue3.Functions.RoomMap
                 floorplan.Elements.Add(he);
             }
             string base64image = obj["Image"]?.Value<string>();
-            floorplan.Image = Base64StringToBitmap(base64image);
+            if (base64image != null)
+            {
+                floorplan.Image = Base64StringToBitmap(base64image);
+            }
+
             floorplan.CanvasWidth = obj["CanvasWidth"]?.Value<double>() ?? 800;
             floorplan.CanvasHeight = obj["CanvasHeight"]?.Value<double>() ?? 600;
             int? sm = obj["StretchMode"]?.Value<int>();
@@ -120,6 +228,9 @@ namespace WinHue3.Functions.RoomMap
             {
                 floorplan.StretchMode = Stretch.None;
             }
+
+            floorplan.AcceptChanges();
+
             return floorplan;
         }
 

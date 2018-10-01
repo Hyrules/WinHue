@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WinHue3.Annotations;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
@@ -228,6 +229,7 @@ namespace WinHue3.ExtensionMethods
 
         }
 
+        
     }
 
     public static class ArrayExtensionMethods

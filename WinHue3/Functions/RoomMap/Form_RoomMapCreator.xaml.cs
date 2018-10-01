@@ -47,12 +47,16 @@ namespace WinHue3.Functions.RoomMap
         private void btnDone_Click(object sender, RoutedEventArgs e)
         {
             bool close = false;
-            if (_rmvm.IsChanged)
+            if (_rmvm.ListFloors.Any(x => x.IsModified))
             {
                 if (MessageBox.Show(GlobalStrings.WarnModifiedPlan, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     close = true;
                 }
+            }
+            else
+            {
+                close = true;
             }
 
             if (close)
