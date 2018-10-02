@@ -27,10 +27,10 @@ namespace WinHue3.Functions.Scenes.View
         public async Task Initialize(Bridge bridge)
         {
             _bridge = bridge;
-            Dictionary<string, Light> lresult = await _bridge.GetListObjectsAsyncTask<Light>();
+            List<Light> lresult = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
             if (lresult != null)
             {
-                Dictionary<string, Scene> sresult = await _bridge.GetListObjectsAsyncTask<Scene>();
+                List<Scene> sresult = await HueObjectHelper.GetBridgeScenesAsyncTask(bridge);
                 if (sresult != null)
                 {
                     

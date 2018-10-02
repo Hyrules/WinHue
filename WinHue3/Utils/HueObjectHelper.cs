@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using log4net;
+using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Interface;
@@ -153,7 +155,7 @@ namespace WinHue3.Utils
             {
                 ds.groups.Add("0", zero);
             }
-
+            
             hr = ProcessDataStore(ds);
             log.Debug("Bridge data store : " + hr);
 
@@ -443,6 +445,16 @@ namespace WinHue3.Utils
             return Object;
         }
 
+        private static void RemoveHiddenObjects(ref List<IHueObject> list, List<Tuple<string,string>> hiddenObjects)
+        {
+            foreach (Tuple<string, string> h in hiddenObjects)
+            {
+                int index = list.FindIndex(x => x.Id == h.Item1 && x.GetHueType() == h.Item2);
+                if (index == -1) continue;
+                list.RemoveAt(index);
+            }
+        }
+
         /// <summary>
         /// Get a list of sensors with ID, name and image populated from the selected bridge.
         /// </summary>
@@ -469,6 +481,7 @@ namespace WinHue3.Utils
             Dictionary<string, Sensor> bresult = await bridge.GetListObjectsAsyncTask<Sensor>();
             if (bresult == null) return null;
             List<Sensor> hr = ProcessSensors(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }

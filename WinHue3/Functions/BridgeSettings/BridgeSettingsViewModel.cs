@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
+using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -52,14 +54,17 @@ namespace WinHue3.Functions.BridgeSettings
         private async Task Initialize()
         {
             List<Light> ll = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
+            List<Light> ls = new List<Light>();
             HiddenObjects.ListLights = new ObservableCollection<Light>(ll);
-            foreach (Tuple<string,Type> t in WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects)
+            foreach (Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects)
             {
-                if (HiddenObjects.ListLights.Any(x => x.Id == t.Item1 && x.GetType() == t.Item2))
+                if (HiddenObjects.ListLights.Any(x => x.Id == t.Item1 && x.GetHueType() == t.Item2))
                 {
-                    HiddenObjects.SelectedHiddenLights.Add(HiddenObjects.ListLights.FirstOrDefault(x => x.Id == t.Item1 && x.GetType() == t.Item2));
+                    ls.Add(HiddenObjects.ListLights.FirstOrDefault(x => x.Id == t.Item1 && x.GetHueType() == t.Item2));
                 }   
             }
+
+            HiddenObjects.SelectedHiddenLights = new ObservableCollection<Light>(ls);
             HiddenObjects.AcceptChanges();
         }
 
@@ -74,17 +79,15 @@ namespace WinHue3.Functions.BridgeSettings
         {
             foreach (Light l in HiddenObjects.SelectedHiddenLights)
             {
-                if (!WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetType()))
+                if (!WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetHueType()))
                 {
-                    WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Add(new Tuple<string, Type>(l.Id, l.GetType()));
+                    WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Add(new Tuple<string, string>(l.Id, l.GetHueType()));
                 }
                 
             }
 
             WinHueSettings.SaveBridges();
             HiddenObjects.AcceptChanges();
-
-
         }
 
 
