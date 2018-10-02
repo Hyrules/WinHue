@@ -445,10 +445,13 @@ namespace WinHue3.Utils
             return Object;
         }
 
-        private static void RemoveHiddenObjects(ref List<IHueObject> list, List<Tuple<string,string>> hiddenObjects)
+        private static void RemoveHiddenObjects(ref IList list, List<Tuple<string,string>> hiddenObjects)
         {
+            List<string> test = new List<string>();
+            test.FindIndex(x => x == "3" && x == "4");
             foreach (Tuple<string, string> h in hiddenObjects)
             {
+
                 int index = list.FindIndex(x => x.Id == h.Item1 && x.GetHueType() == h.Item2);
                 if (index == -1) continue;
                 list.RemoveAt(index);
