@@ -286,14 +286,16 @@ namespace WinHue3.ExtensionMethods
 
     public static class IListExtensionMethods
     {
-        public static int FindIndex(this System.Collections.IList list, Predicate<bool> predicate)
+        public static int FindItemIndex<T>(this IList<T> list, Func<T,bool> condition)
         {
-            int index = 0;
             for(int x = 0; x<=list.Count;x++)
             {
-                
+                if (condition(list[x]))
+                {
+                    return x;
+                }
             }
-            return index;
+            return -1;
         }
     }
 
