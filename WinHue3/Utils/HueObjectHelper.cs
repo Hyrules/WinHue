@@ -483,7 +483,12 @@ namespace WinHue3.Utils
             Dictionary<string, Sensor> bresult = await bridge.GetListObjectsAsyncTask<Sensor>();
             if (bresult == null) return null;
             List<Sensor> hr = ProcessSensors(bresult);
-            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
+
+            foreach(Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects)
+            {
+
+            }
+            RemoveHiddenObjects<List<Sensor>>(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }
