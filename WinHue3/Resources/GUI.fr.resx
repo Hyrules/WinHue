@@ -1752,4 +1752,7 @@
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Déselectionner tout</value>
+  </data>
 </root>

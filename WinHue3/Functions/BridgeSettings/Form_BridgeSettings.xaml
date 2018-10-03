@@ -6,6 +6,7 @@
         xmlns:bridgeSettings="clr-namespace:WinHue3.Functions.BridgeSettings"
         xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
         Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
     <i:Interaction.Triggers>
@@ -159,24 +160,37 @@
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_HiddenObjects}">
                 <Grid>
-                    <controls:BindableListView ToolTip="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" ItemsSource="{Binding HiddenObjects.ListLights}" SelectedItemsList="{Binding HiddenObjects.SelectedHiddenLights, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,-0.333,23.667">
-                        <controls:BindableListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
-                            </ItemsPanelTemplate>
-                        </controls:BindableListView.ItemsPanel>
-                        <controls:BindableListView.ItemTemplate>
-                            <DataTemplate>
-                                <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="55" SnapsToDevicePixels="True" VerticalAlignment="Top">
-                                    <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                                    <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                    <ListBox Margin="0,0,254.667,26.667" ItemsSource="{Binding HiddenObjects.ListObjects}" SelectedItem="{Binding HiddenObjects.SelectedObject}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type common:IHueObject}">
+                                <WrapPanel>
+                                    <Image Height="16" Source="{Binding Image}"></Image>
+                                    <TextBlock Text=" - "></TextBlock>
+                                    <TextBlock Text="{Binding name}"></TextBlock>
                                 </WrapPanel>
                             </DataTemplate>
-                        </controls:BindableListView.ItemTemplate>
-                    </controls:BindableListView>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <ListBox Margin="252,0,2.667,26.667" ItemsSource="{Binding HiddenObjects.HiddenObjects}" SelectedItem="{Binding HiddenObjects.SelectedHiddenObject}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type common:IHueObject}">
+                                <WrapPanel>
+                                    <Image Height="16" Source="{Binding Image}"></Image>
+                                    <TextBlock Text=" - "></TextBlock>
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <Button Content="{x:Static resx:GUI.Save}" Width="75" Margin="399,241,2.667,2.667" Command="{Binding SaveHiddenObjectsCommand}"/>
+                    <Button Content="{x:Static resx:GUI.Clear}" Width="75" Margin="319,241,82.667,2.667" Command="{Binding HiddenObjects.ClearHiddenObjectsCommand}"/>
+                    <Button Content="->" HorizontalAlignment="Left" Margin="227,68,0,0" VerticalAlignment="Top" Width="20" Command="{Binding HiddenObjects.AddObjectToHiddenCommand}"/>
+                    <Button Content="X" Width="20" Margin="227,93,229.667,150.667" Command="{Binding HiddenObjects.RemoveHiddenObjectCommand}"/>
                 </Grid>
             </TabItem>
+
+
+
 
 
 

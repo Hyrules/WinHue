@@ -53,18 +53,19 @@ namespace WinHue3.Functions.BridgeSettings
 
         private async Task Initialize()
         {
-            List<Light> ll = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
-            List<Light> ls = new List<Light>();
-            HiddenObjects.ListLights = new ObservableCollection<Light>(ll);
+            List<IHueObject> lo = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge, false);
+            List<IHueObject> ls = new List<IHueObject>();
+            HiddenObjects.ListObjects = new ObservableCollection<IHueObject>(lo);
             foreach (Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects)
             {
-                if (HiddenObjects.ListLights.Any(x => x.Id == t.Item1 && x.GetHueType() == t.Item2))
+                if (HiddenObjects.ListObjects.Any(x => x.Id == t.Item1 && x.GetHueType() == t.Item2))
                 {
-                    ls.Add(HiddenObjects.ListLights.FirstOrDefault(x => x.Id == t.Item1 && x.GetHueType() == t.Item2));
+                    IHueObject obj = HiddenObjects.ListObjects.FirstOrDefault(x => x.Id == t.Item1 && x.GetHueType() == t.Item2);
+                    HiddenObjects.ListObjects.Remove(obj);
+                    HiddenObjects.HiddenObjects.Add(obj);
                 }   
             }
 
-            HiddenObjects.SelectedHiddenLights = new ObservableCollection<Light>(ls);
             HiddenObjects.AcceptChanges();
         }
 
@@ -77,7 +78,8 @@ namespace WinHue3.Functions.BridgeSettings
 
         private void SaveHiddenObjects()
         {
-            foreach (Light l in HiddenObjects.SelectedHiddenLights)
+            WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Clear();
+            foreach (IHueObject l in HiddenObjects.HiddenObjects)
             {
                 if (!WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetHueType()))
                 {
