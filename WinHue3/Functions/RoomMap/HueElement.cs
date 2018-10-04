@@ -17,7 +17,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.Functions.RoomMap
 {
-    public enum HueElementType { Light=0, Group=1 }
+    public enum HueElementType { Light=0, Group=1, Scene=2, Other = 999 }
 
   
     public class HueElement : ValidatableBindableBase
