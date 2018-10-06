@@ -46,6 +46,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 
     public class CSensors
     {
+        [ReadOnly(true)]
         public int available { get; set; }
         public Clip clip { get; set; }
         public Zll zll { get; set; }
@@ -76,6 +77,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 
     public class CScenes
     {
+        [ReadOnly(true)]
         public int available { get; set; }
         public Lightstates lightstates { get; set; }
         public override string ToString()
@@ -113,6 +115,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 
     public class CRules
     {
+        [ReadOnly(true)]
         public int available { get; set; }
         public CConditions conditions { get; set; }
         public CActions actions { get; set; }
@@ -133,8 +136,11 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 
     public class Streaming
     {
+        [ReadOnly(true)]
         public int available { get; set; }
+        [ReadOnly(true)]
         public int total { get; set; }
+        [ReadOnly(true)]
         public int channels { get; set; }
         public override string ToString()
         {
@@ -155,16 +161,16 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
     {
         
         public CLights lights { get; set; }
-        [ExpandableObject]
+        [ExpandableObject,ReadOnly(true)]
         public CSensors sensors { get; set; }
         public CGroups groups { get; set; }
-        [ExpandableObject]
+        [ExpandableObject,ReadOnly(true)]
         public CScenes scenes { get; set; }
         public CSchedules schedules { get; set; }
-        [ExpandableObject]
+        [ExpandableObject,ReadOnly(true)]
         public CRules rules { get; set; }
         public CResourcelinks resourcelinks { get; set; }
-        [ExpandableObject]
+        [ExpandableObject,ReadOnly(true)]
         public Streaming streaming { get; set; }
         [Browsable(false)]
         public Timezones timezones { get; set; }

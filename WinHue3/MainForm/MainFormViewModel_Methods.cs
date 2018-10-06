@@ -61,16 +61,20 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
+using WinHue3.Functions.RoomMap;
+using Binding = System.Windows.Data.Binding;
 
 namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
         #region BRIDGE_SETTINGS
+
         private async Task ChangeBridgeSettings()
         {
-            Form_BridgeSettings frs = new Form_BridgeSettings { Owner = Application.Current.MainWindow };
+            Form_BridgeSettings frs = new Form_BridgeSettings {Owner = Application.Current.MainWindow};
             await frs.Initialize(SelectedBridge);
             if (frs.ShowDialog() == true)
             {
@@ -86,6 +90,7 @@ namespace WinHue3.MainForm
                         SelectedBridge = null;
                         SelectedBridge = selbr;
                     }
+
                     await RefreshView();
                     RaisePropertyChanged("UpdateAvailable");
                 }
@@ -102,17 +107,16 @@ namespace WinHue3.MainForm
         private async Task CheckForBridgeUpdate()
         {
             log.Info("Checking for a bridge update.");
-            if (! await _selectedBridge.CheckUpdateAvailableAsyncTask())
+            if (!await _selectedBridge.CheckUpdateAvailableAsyncTask())
             {
                 log.Info("No update found on the bridge. Forcing the bridge to check online.");
                 await _selectedBridge.CheckOnlineForUpdateAsyncTask();
             }
-
         }
 
         private async Task ManageUsers()
         {
-            Form_ManageUsers fmu = new Form_ManageUsers() { Owner = Application.Current.MainWindow };
+            Form_ManageUsers fmu = new Form_ManageUsers() {Owner = Application.Current.MainWindow};
             await fmu.Initialize(SelectedBridge);
             fmu.ShowDialog();
         }
@@ -127,28 +131,38 @@ namespace WinHue3.MainForm
                     {
                         ip = br.IpAddress.ToString(),
                         apikey = br.ApiKey,
-                        apiversion = br.ApiVersion,
-                        swversion = br.SwVersion,
                         name = br.Name,
                     };
                 else
                     WinHueSettings.bridges.BridgeInfo.Add(br.Mac,
-                        new BridgeSaveSettings { ip = br.IpAddress.ToString(), apikey = br.ApiKey, apiversion = br.ApiVersion, swversion = br.SwVersion, name = br.Name });
+                        new BridgeSaveSettings {ip = br.IpAddress.ToString(), apikey = br.ApiKey, name = br.Name});
 
                 if (br.IsDefault) WinHueSettings.bridges.DefaultBridge = br.Mac;
             }
 
             return WinHueSettings.SaveBridges();
         }
+
         #endregion
 
         #region HOME_TAB_METHODS
 
+        private void CreateAnimation()
+        {
+            List<IHueObject> listGroupLights = new List<IHueObject>();
+            listGroupLights.AddRange(ListBridgeObjects.Where(x => x.GetType() == typeof(Light)));
+            listGroupLights.AddRange(ListBridgeObjects.Where(x => x.GetType() == typeof(Group)));
+            Form_Animations fa = new Form_Animations(listGroupLights)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            fa.ShowDialog();
+        }
+
         private void CreateEntertainment()
         {
-            Form_EntertainmentCreator fec = new Form_EntertainmentCreator(){ Owner = Application.Current.MainWindow};
+            Form_EntertainmentCreator fec = new Form_EntertainmentCreator() {Owner = Application.Current.MainWindow};
             fec.ShowDialog();
-
         }
 
         private void CreateAdvanced()
@@ -185,6 +199,7 @@ namespace WinHue3.MainForm
                         {
                             hr.RemoveAll(x => x.GetType() == typeof(Scene) && x.name.StartsWith("HIDDEN"));
                         }
+
                         ObservableCollection<IHueObject> newlist = new ObservableCollection<IHueObject>();
 
                         switch (MainFormModel.Sort)
@@ -202,7 +217,7 @@ namespace WinHue3.MainForm
                                     orderby item.name
                                     select item);
                                 newlist.AddRange(from item in listobj
-                                    where item is Schedule 
+                                    where item is Schedule
                                     orderby item.name
                                     select item);
                                 newlist.AddRange(from item in listobj
@@ -252,8 +267,8 @@ namespace WinHue3.MainForm
                             default:
                                 goto case WinHueSortOrder.Default;
                         }
-                        CreateExpanders();
 
+                        CreateExpanders();
                     }
                     else
                     {
@@ -278,41 +293,48 @@ namespace WinHue3.MainForm
         private void CreateExpanders()
         {
             log.Info($"Found {ListBridgeObjects.Count} objects in the bridge.");
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBridgeObjects);
+            CollectionView view = (CollectionView) CollectionViewSource.GetDefaultView(ListBridgeObjects);
             view.GroupDescriptions?.Clear();
             PropertyGroupDescription groupDesc = new TypeGroupDescription();
             view.GroupDescriptions?.Add(groupDesc);
             log.Info($"Finished refreshing view.");
         }
 
+        private void UpdateFloorPlanIcons(ImageSource image, string id, Type objecttype)
+        {
+            if (SelectedFloorPlan == null) return;
+            HueElement he = SelectedFloorPlan.Elements.FirstOrDefault(x => x.Id == id && x.HueType == GetHueElementEnumFromType(objecttype));
+            if (he == null) return;
+            he.Image = image;
+        }
 
         private async Task DoubleClickObject()
         {
             log.Debug("Double click on : " + SelectedHueObject);
             if ((SelectedHueObject is Light) || (SelectedHueObject is Group))
             {
-                ImageSource hr = await HueObjectHelper.ToggleObjectOnOffStateAsyncTask(SelectedBridge, SelectedHueObject, SliderTt,null, _newstate);
+                ImageSource hr = await HueObjectHelper.ToggleObjectOnOffStateAsyncTask(SelectedBridge, SelectedHueObject, SliderTt, null, _newstate);
                 if (hr != null)
                 {
                     ImageSource newimg = hr;
                     SelectedHueObject.Image = newimg;
+                    UpdateFloorPlanIcons(newimg, SelectedHueObject.Id, SelectedHueObject.GetType());
+
                     int index = _listBridgeObjects.FindIndex(x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
                     if (index == -1) return;
                     if (SelectedHueObject is Light light)
                     {
                         light.state.on = !light.state.on;
-                        ((Light)ListBridgeObjects[index]).state.on = !((Light)ListBridgeObjects[index]).state.on;
+                        ((Light) ListBridgeObjects[index]).state.on = !((Light) ListBridgeObjects[index]).state.on;
                     }
                     else
                     {
-                        ((Group)_selectedObject).action.on = !((Group)_selectedObject).action.on;
-                        ((Group)ListBridgeObjects[index]).action.on = !((Group)ListBridgeObjects[index]).action.on;
+                        ((Group) _selectedObject).action.on = !((Group) _selectedObject).action.on;
+                        ((Group) ListBridgeObjects[index]).action.on = !((Group) ListBridgeObjects[index]).action.on;
                     }
-                    
+
                     ListBridgeObjects[index].Image = newimg;
-
                 }
-
             }
             else
             {
@@ -329,9 +351,9 @@ namespace WinHue3.MainForm
                         await SelectedBridge.SetStateAsyncTask(new State() {on = false}, l);
                     }
                 }
-                ((Scene)_selectedObject).On = !((Scene)_selectedObject).On;
-            }
 
+                ((Scene) _selectedObject).On = !((Scene) _selectedObject).On;
+            }
         }
 
         private async Task Strobe()
@@ -364,7 +386,6 @@ namespace WinHue3.MainForm
 
             foreach (PropertyInfo p in pi)
             {
-
                 if (ListBridgeObjects[index].HasProperty(p.Name))
                 {
                     PropertyInfo prop = ListBridgeObjects[index].GetType().GetProperty(p.Name);
@@ -372,18 +393,18 @@ namespace WinHue3.MainForm
                 }
             }
         }
+
         private void ShowEventLog()
         {
             if (_eventlogform.IsVisible) return;
             log.Debug("Opening event log.");
             _eventlogform.Show();
-
         }
 
         private async Task AllOn()
         {
             log.Info("Sending all on command to bridge" + SelectedBridge.IpAddress);
-            Action act = new Action { @on = true };
+            Action act = new Action {@on = true};
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
             bool bresult = await SelectedBridge.SetStateAsyncTask(act, "0");
             if (!bresult) return;
@@ -394,7 +415,7 @@ namespace WinHue3.MainForm
         private async Task AllOff()
         {
             log.Info("Sending all off command to bridge" + SelectedBridge.IpAddress);
-            Action act = new Action { @on = false };
+            Action act = new Action {@on = false};
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
             bool bresult = await SelectedBridge.SetStateAsyncTask(act, "0");
             if (!bresult) return;
@@ -427,7 +448,7 @@ namespace WinHue3.MainForm
 
         private void FindLightSerial()
         {
-            Form_AddLightSerial fas = new Form_AddLightSerial(_selectedBridge) { Owner = Application.Current.MainWindow };
+            Form_AddLightSerial fas = new Form_AddLightSerial(_selectedBridge) {Owner = Application.Current.MainWindow};
             if (fas.ShowDialog() == true)
             {
                 Thread.Sleep(60000);
@@ -438,7 +459,7 @@ namespace WinHue3.MainForm
 
         private async Task CreateGroup()
         {
-            Form_GroupCreator fgc = new Form_GroupCreator() { Owner = Application.Current.MainWindow };
+            Form_GroupCreator fgc = new Form_GroupCreator() {Owner = Application.Current.MainWindow};
             await fgc.Initialize(SelectedBridge);
             log.Debug($@"Opening the Group creator window for bridge {SelectedBridge.IpAddress} ");
             if (fgc.ShowDialog() != true) return;
@@ -446,7 +467,7 @@ namespace WinHue3.MainForm
 
             Group hr = HueObjectHelper.GetObject<Group>(SelectedBridge, fgc.GetCreatedOrModifiedID());
             if (hr != null)
-            {              
+            {
                 _listBridgeObjects.Add(hr);
             }
             else
@@ -455,9 +476,9 @@ namespace WinHue3.MainForm
             }
         }
 
-        private  async Task CreateScene()
+        private async Task CreateScene()
         {
-            Form_SceneCreator fsc = new Form_SceneCreator() { Owner = Application.Current.MainWindow };
+            Form_SceneCreator fsc = new Form_SceneCreator() {Owner = Application.Current.MainWindow};
             await fsc.Inititalize(SelectedBridge);
             log.Debug($@"Opening the scene creator window for bridge {SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
@@ -475,25 +496,11 @@ namespace WinHue3.MainForm
 
         private async Task CreateSchedule()
         {
-            /*Form_ScheduleCreator fscc = new Form_ScheduleCreator() { Owner = Application.Current.MainWindow };
-            await fscc.Initialize(SelectedBridge, _selectedObject );
-            log.Debug($@"Opening the schedule creator window passing bridge {SelectedBridge.IpAddress} ");
-            if (fscc.ShowDialog() != true) return;
-            log.Debug($@"Getting the newly created schedule ID {fscc.GetCreatedOrModifiedID()} from bridge {SelectedBridge.IpAddress}");
-            Schedule hr = (Schedule) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, fscc.GetCreatedOrModifiedID(), typeof(Schedule));
-            if (hr != null)
-            {
-                _listBridgeObjects.Add(hr);
-            }
-            else
-            {
-                MessageBoxError.ShowLastErrorMessages(SelectedBridge);
-            }*/
-            
-            Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow};
+
+            Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() {Owner = Application.Current.MainWindow};
             await fscc.Initialize(SelectedBridge);
             if (fscc.ShowDialog() != true) return;
-            Schedule sc = (Schedule) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge,fscc.GetCreatedOrModifiedId(), typeof(Schedule));
+            Schedule sc = (Schedule) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, fscc.GetCreatedOrModifiedId(), typeof(Schedule));
             if (sc != null)
             {
                 _listBridgeObjects.Add(sc);
@@ -506,8 +513,7 @@ namespace WinHue3.MainForm
 
         private async Task CreateRule()
         {
-
-            Form_RuleCreator frc = new Form_RuleCreator(SelectedBridge) { Owner = Application.Current.MainWindow };
+            Form_RuleCreator frc = new Form_RuleCreator(SelectedBridge) {Owner = Application.Current.MainWindow};
             await frc.Initialize();
             if (frc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly sensor schedule ID {frc.GetCreatedOrModifiedID()} from bridge {SelectedBridge.IpAddress}");
@@ -520,19 +526,17 @@ namespace WinHue3.MainForm
             {
                 SelectedBridge.ShowErrorMessages();
             }
-
         }
 
         private void CreateSensor()
         {
-            Form_SensorCreator fsc = new Form_SensorCreator(SelectedBridge) { Owner = Application.Current.MainWindow };
+            Form_SensorCreator fsc = new Form_SensorCreator(SelectedBridge) {Owner = Application.Current.MainWindow};
             log.Debug($@"Opening the sensor creator window passing bridge {SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created sensor ID {fsc.GetCreatedOrModifiedID()} from bridge {SelectedBridge.IpAddress}");
             Sensor hr = HueObjectHelper.GetObject<Sensor>(SelectedBridge, fsc.GetCreatedOrModifiedID());
             if (hr != null)
             {
-
                 ListBridgeObjects.Add(hr);
             }
             else
@@ -559,7 +563,7 @@ namespace WinHue3.MainForm
         private async Task CreateHotKey()
         {
             UnloadHotkeys();
-            Form_HotKeyCreator fhkc = new Form_HotKeyCreator() { Owner = Application.Current.MainWindow };
+            Form_HotKeyCreator fhkc = new Form_HotKeyCreator() {Owner = Application.Current.MainWindow};
             await fhkc.Initialize(SelectedBridge);
             fhkc.ShowDialog();
             _listHotKeys = fhkc.GetHotKeys();
@@ -567,16 +571,15 @@ namespace WinHue3.MainForm
         }
 
 
-
         private async Task CreateResourceLink()
         {
-            Form_ResourceLinksCreator frc = new Form_ResourceLinksCreator() { Owner = Application.Current.MainWindow };
+            Form_ResourceLinksCreator frc = new Form_ResourceLinksCreator() {Owner = Application.Current.MainWindow};
             await frc.Initialize(SelectedBridge);
             log.Debug($@"Opening the sensor ResourceLink window passing bridge {SelectedBridge.IpAddress} ");
-            if (!(bool)frc.ShowDialog()) return;
+            if (!(bool) frc.ShowDialog()) return;
             log.Debug($@"Getting the newly created ResourceLink ID {frc.GetCreatedModifiedId()} from bridge {SelectedBridge.IpAddress}");
             Resourcelink hr = HueObjectHelper.GetObject<Resourcelink>(SelectedBridge, frc.GetCreatedModifiedId());
-            if(hr != null)
+            if (hr != null)
             {
                 ListBridgeObjects.Add(hr);
             }
@@ -596,12 +599,12 @@ namespace WinHue3.MainForm
                 log.Error("An error occured while trying to start a bridge update. Please try again later.");
                 return;
             }
+
             Form_Wait fw = new Form_Wait();
             fw.ShowWait(GlobalStrings.ApplyingUpdate, new TimeSpan(0, 0, 0, 180), Application.Current.MainWindow);
             BridgeSettings bsettings = await SelectedBridge.GetBridgeSettingsAsyncTask();
             if (bsettings != null)
             {
-
                 switch (bsettings.swupdate.updatestate)
                 {
                     case 0:
@@ -620,9 +623,7 @@ namespace WinHue3.MainForm
                     default:
                         log.Error("An error occured while updating the bridge. Please try again later.");
                         break;
-
                 }
-
             }
 
             RaisePropertyChanged("UpdateAvailable");
@@ -630,12 +631,10 @@ namespace WinHue3.MainForm
 
         public void HandleHotkey(HotKeyHandle e)
         {
-
             ModifierKeys m = e.KeyModifiers;
             Key k = e.Key;
             try
             {
-
                 HotKey h = _listHotKeys.First(x => x.Modifier == m && x.Key == k);
                 if (!(h.objecType == null && SelectedHueObject == null))
                 {
@@ -643,14 +642,13 @@ namespace WinHue3.MainForm
                     _ledTimer.Start();
                     Type objtype = h?.objecType == null ? SelectedHueObject.GetType() : h.objecType;
 
-                    if (objtype == typeof(Scene) )
+                    if (objtype == typeof(Scene))
                     {
                         SelectedBridge.ActivateScene(h.id);
                     }
                     else if (objtype == typeof(Group) || objtype == typeof(Light))
                     {
-                        SelectedBridge.SetState(h.properties,h.id);
-                       
+                        SelectedBridge.SetState(h.properties, h.id);
                     }
                     else
                     {
@@ -660,7 +658,7 @@ namespace WinHue3.MainForm
                     if (h.ProgramPath == null) return;
                     if (File.Exists(h.ProgramPath))
                     {
-                        log.Info($"Starting application at {h.ProgramPath}");       
+                        log.Info($"Starting application at {h.ProgramPath}");
                         Process.Start(h.ProgramPath);
                     }
                     else
@@ -677,7 +675,6 @@ namespace WinHue3.MainForm
             {
                 log.Warn("No Hotkey was found.");
                 _ledTimer.Start();
-                
             }
             catch (Exception ex)
             {
@@ -687,7 +684,6 @@ namespace WinHue3.MainForm
 
         private void LoadHotkeys()
         {
-
             if (_lhk.Count > 0)
             {
                 while (_lhk.Count != 0)
@@ -705,7 +701,6 @@ namespace WinHue3.MainForm
                 else
                     log.Error($"Cannot register hotkey {h.Name} key seems to be already taken by another process.");
             }
-
         }
 
         private void UnloadHotkeys()
@@ -718,12 +713,12 @@ namespace WinHue3.MainForm
                     _lhk.Remove(_lhk[0]);
                 }
             }
-
         }
 
         #endregion
 
         #region SLIDERS_METHODS
+
         private async Task SliderChangeHue()
         {
             bool on = false;
@@ -743,7 +738,6 @@ namespace WinHue3.MainForm
             }
             else
             {
-                
                 switch (SelectedHueObject)
                 {
                     case Light _:
@@ -756,9 +750,6 @@ namespace WinHue3.MainForm
                         break;
                 }
             }
-
-
-
         }
 
         private async Task SetHueSliderNow()
@@ -806,12 +797,11 @@ namespace WinHue3.MainForm
                             _newstate.bri = MainFormModel.SliderBri;
                             break;
                     }
+
                     break;
                 default:
                     break;
             }
-
-
         }
 
         private async Task SetBriSliderNow()
@@ -866,7 +856,6 @@ namespace WinHue3.MainForm
                 default:
                     break;
             }
-
         }
 
         private async Task SetCtSliderNow()
@@ -921,7 +910,6 @@ namespace WinHue3.MainForm
                 default:
                     break;
             }
-
         }
 
         private async Task SetSatSliderNow()
@@ -963,7 +951,7 @@ namespace WinHue3.MainForm
                     {
                         case Light _:
                             if (_newstate == null) _newstate = new State();
-                            if(_newstate.xy == null) _newstate.xy = new decimal[2];
+                            if (_newstate.xy == null) _newstate.xy = new decimal[2];
                             _newstate.xy[0] = MainFormModel.SliderX;
                             _newstate.xy[1] = MainFormModel.SliderY;
                             break;
@@ -974,12 +962,11 @@ namespace WinHue3.MainForm
                             _newstate.xy[1] = MainFormModel.SliderY;
                             break;
                     }
+
                     break;
                 default:
                     break;
             }
-
-
         }
 
         private async Task SetXYSlidersNow()
@@ -1022,7 +1009,7 @@ namespace WinHue3.MainForm
             {
                 case Light light:
                     light = (Light) _selectedObject;
-                
+
                     MainFormModel.SliderBri = light.state.bri ?? 0;
                     MainFormModel.SliderHue = light.state.hue ?? 0;
                     MainFormModel.SliderSat = light.state.sat ?? 0;
@@ -1032,8 +1019,8 @@ namespace WinHue3.MainForm
                     MainFormModel.On = light.state.@on ?? false;
                     break;
                 case Group group:
-                    @group = (Group)_selectedObject;
-                
+                    @group = (Group) _selectedObject;
+
                     MainFormModel.SliderBri = @group.action.bri ?? 0;
                     MainFormModel.SliderHue = @group.action.hue ?? 0;
                     MainFormModel.SliderSat = @group.action.sat ?? 0;
@@ -1061,35 +1048,37 @@ namespace WinHue3.MainForm
         #endregion
 
         #region TOOLS_VIEW_METHODS
+
         private async Task ViewSceneMapping()
         {
-            Form_SceneMapping fsm = new Form_SceneMapping() { Owner = Application.Current.MainWindow };
+            Form_SceneMapping fsm = new Form_SceneMapping() {Owner = Application.Current.MainWindow};
             await fsm.Initialize(SelectedBridge);
             fsm.Show();
         }
 
         private async Task ViewBulbs()
         {
-            Form_BulbsView fbv = new Form_BulbsView() { Owner = Application.Current.MainWindow };
+            Form_BulbsView fbv = new Form_BulbsView() {Owner = Application.Current.MainWindow};
             await fbv.Initialize(SelectedBridge);
             fbv.Show();
         }
 
         private async Task ViewGroups()
         {
-            Form_GroupView fgv = new Form_GroupView() { Owner = Application.Current.MainWindow };
+            Form_GroupView fgv = new Form_GroupView() {Owner = Application.Current.MainWindow};
             await fgv.Initialize(SelectedBridge);
             fgv.Show();
         }
+
         #endregion
 
         #region CONTEXT_MENU_METHODS
+
         private async Task ReplaceCurrentState()
         {
             if (MessageBox.Show(GlobalStrings.Scene_Replace_Current_States, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
-            log.Info($@"Replacing scene {((Scene)_selectedObject).name} lights state with current one.");
+            log.Info($@"Replacing scene {((Scene) _selectedObject).name} lights state with current one.");
             await SelectedBridge.StoreCurrentLightStateAsyncTask(_selectedObject.Id);
-
         }
 
         private async Task EditObject()
@@ -1098,8 +1087,8 @@ namespace WinHue3.MainForm
 
             if (_selectedObject is Group)
             {
-                Form_GroupCreator fgc = new Form_GroupCreator() { Owner = Application.Current.MainWindow };
-                await fgc.Initialize(SelectedBridge, (Group)SelectedHueObject);
+                Form_GroupCreator fgc = new Form_GroupCreator() {Owner = Application.Current.MainWindow};
+                await fgc.Initialize(SelectedBridge, (Group) SelectedHueObject);
                 if (fgc.ShowDialog() == true)
                 {
                     await RefreshObject(_selectedObject);
@@ -1107,7 +1096,7 @@ namespace WinHue3.MainForm
             }
             else if (_selectedObject is Schedule)
             {
-                Form_ScheduleCreator2 fsc = new Form_ScheduleCreator2() { Owner = Application.Current.MainWindow };
+                Form_ScheduleCreator2 fsc = new Form_ScheduleCreator2() {Owner = Application.Current.MainWindow};
                 await fsc.Initialize(SelectedBridge);
                 fsc.EditSchedule(SelectedHueObject as Schedule);
                 if (fsc.ShowDialog() == true)
@@ -1117,20 +1106,19 @@ namespace WinHue3.MainForm
             }
             else if (_selectedObject is Sensor obj)
             {
-                obj = (Sensor)_selectedObject;
+                obj = (Sensor) _selectedObject;
                 switch (obj.modelid)
                 {
                     case "PHDL00":
                         Sensor cr = (Sensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, obj.Id, typeof(Sensor));
                         if (cr != null)
-                        { 
+                        {
                             cr.Id = obj.Id;
-                            Form_Daylight dl = new Form_Daylight(cr, SelectedBridge) { Owner = Application.Current.MainWindow };
+                            Form_Daylight dl = new Form_Daylight(cr, SelectedBridge) {Owner = Application.Current.MainWindow};
                             if (dl.ShowDialog() == true)
                             {
                                 await RefreshObject(_selectedObject);
                             }
-
                         }
 
                         break;
@@ -1144,9 +1132,10 @@ namespace WinHue3.MainForm
                         {
                             await RefreshObject(_selectedObject);
                         }
+
                         break;
                     default:
-                        Sensor crs = (Sensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge,obj.Id, typeof(Sensor));
+                        Sensor crs = (Sensor) await HueObjectHelper.GetObjectAsyncTask(SelectedBridge, obj.Id, typeof(Sensor));
                         if (crs != null)
                         {
                             Form_SensorCreator fsc = new Form_SensorCreator(SelectedBridge, crs)
@@ -1157,14 +1146,14 @@ namespace WinHue3.MainForm
                             {
                                 await RefreshObject(_selectedObject);
                             }
-
                         }
+
                         break;
                 }
             }
             else if (_selectedObject is Rule)
             {
-                Form_RuleCreator frc = new Form_RuleCreator(SelectedBridge, (Rule)_selectedObject) { Owner = Application.Current.MainWindow };
+                Form_RuleCreator frc = new Form_RuleCreator(SelectedBridge, (Rule) _selectedObject) {Owner = Application.Current.MainWindow};
                 await frc.Initialize();
                 if (frc.ShowDialog() == true)
                 {
@@ -1173,7 +1162,7 @@ namespace WinHue3.MainForm
             }
             else if (_selectedObject is Scene)
             {
-                Form_SceneCreator fscc = new Form_SceneCreator() { Owner = Application.Current.MainWindow };
+                Form_SceneCreator fscc = new Form_SceneCreator() {Owner = Application.Current.MainWindow};
                 await fscc.Inititalize(SelectedBridge, _selectedObject.Id);
                 if (fscc.ShowDialog() == true)
                 {
@@ -1182,13 +1171,12 @@ namespace WinHue3.MainForm
             }
             else if (_selectedObject is Resourcelink)
             {
-                Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator() { Owner = Application.Current.MainWindow };
+                Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator() {Owner = Application.Current.MainWindow};
                 await frlc.Initialize(SelectedBridge, (Resourcelink) _selectedObject);
                 if (frlc.ShowDialog() == true)
                 {
                     await RefreshObject(_selectedObject);
                 }
-
             }
         }
 
@@ -1206,7 +1194,7 @@ namespace WinHue3.MainForm
             if (quick)
             {
                 log.Info($"Quick cloning beginning...");
-                await Duplicate();              
+                await Duplicate();
             }
             else
             {
@@ -1215,11 +1203,11 @@ namespace WinHue3.MainForm
                 if (!result) return;
                 try
                 {
-                    IHueObject oldobj = (IHueObject)SelectedHueObject.Clone();
+                    IHueObject oldobj = (IHueObject) SelectedHueObject.Clone();
                     SelectedHueObject = ListBridgeObjects.Single(x => x.GetType() == oldobj.GetType() && x.Id == oldobj.Id);
                     await EditObject();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     MessageBox.Show(GlobalStrings.Error_While_Cloning, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -1228,21 +1216,20 @@ namespace WinHue3.MainForm
 
         private async Task SetSensorStatus()
         {
-            int currentstatus = ((ClipGenericStatusSensorState)((Sensor)SelectedHueObject).state).status;
-            log.Info($"Trying to set the sensor {SelectedHueObject.Id} status to {SensorStatus}");           
+            int currentstatus = ((ClipGenericStatusSensorState) ((Sensor) SelectedHueObject).state).status;
+            log.Info($"Trying to set the sensor {SelectedHueObject.Id} status to {SensorStatus}");
             bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedHueObject.Id, new ClipGenericStatusSensorState()
             {
                 status = SensorStatus
             });
             if (result)
             {
-                ((ClipGenericStatusSensorState) ((Sensor) SelectedHueObject).state).status = SensorStatus;                
+                ((ClipGenericStatusSensorState) ((Sensor) SelectedHueObject).state).status = SensorStatus;
             }
             else
             {
                 SensorStatus = currentstatus;
             }
-
         }
 
         private async Task SetSensorFlag()
@@ -1255,7 +1242,7 @@ namespace WinHue3.MainForm
             });
             if (result)
             {
-                ((ClipGenericFlagSensorState) ((Sensor) SelectedHueObject).state).flag = SensorFlag;                
+                ((ClipGenericFlagSensorState) ((Sensor) SelectedHueObject).state).flag = SensorFlag;
             }
             else
             {
@@ -1265,9 +1252,8 @@ namespace WinHue3.MainForm
 
         private async Task<bool> Duplicate()
         {
-            
             bool result = await SelectedBridge.CreateObjectAsyncTask(SelectedHueObject);
-            
+
             if (result)
             {
                 log.Info("Object cloned succesfully !");
@@ -1287,12 +1273,13 @@ namespace WinHue3.MainForm
                 log.Error("Error while cloning object.");
                 MessageBoxError.ShowLastErrorMessages(SelectedBridge);
             }
+
             return result;
         }
 
         private async Task Sensitivity(int sensitivity)
         {
-            await SelectedBridge.ChangeSensorConfigAsyncTask(SelectedHueObject.Id,new HueMotionSensorConfig(){sensitivity = sensitivity});
+            await SelectedBridge.ChangeSensorConfigAsyncTask(SelectedHueObject.Id, new HueMotionSensorConfig() {sensitivity = sensitivity});
         }
 
         private async Task DeleteObject()
@@ -1322,22 +1309,19 @@ namespace WinHue3.MainForm
 
         private void RenameObject()
         {
-
-            
-            Form_RenameObject fro = new Form_RenameObject(SelectedBridge, SelectedHueObject) { Owner = Application.Current.MainWindow };
+            Form_RenameObject fro = new Form_RenameObject(SelectedBridge, SelectedHueObject) {Owner = Application.Current.MainWindow};
             if (fro.ShowDialog() != true) return;
             SelectedHueObject.name = fro.GetNewName();
             int index = ListBridgeObjects.FindIndex(x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
             if (index == -1) return;
             ListBridgeObjects[index].name = fro.GetNewName();
             log.Info($"Renamed object ID : {index} renamed.");
-            
         }
 
         private void CopyToJson(bool raw)
         {
             Lastmessage = "Object copied to clipboard.";
-            Clipboard.SetText(JsonConvert.SerializeObject(SelectedHueObject, raw ? Formatting.None : Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            Clipboard.SetText(JsonConvert.SerializeObject(SelectedHueObject, raw ? Formatting.None : Formatting.Indented, new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}));
         }
 
         private async Task OnDim(byte dimval)
@@ -1353,7 +1337,6 @@ namespace WinHue3.MainForm
             IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.effect = "colorloop";
             await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
-
         }
 
         private async Task NoEffect()
@@ -1361,12 +1344,12 @@ namespace WinHue3.MainForm
             IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(SelectedHueObject.GetType());
             bp.effect = "none";
             await SelectedBridge.SetStateAsyncTask(bp, _selectedObject.Id);
-
         }
 
         #endregion
 
         #region VIEW_TAB_METHODS
+
         private async Task SortListView()
         {
             await RefreshView();
@@ -1381,6 +1364,7 @@ namespace WinHue3.MainForm
         #endregion
 
         #region HELP_TAB_METHODS
+
         private void OpenWinHueWebsite()
         {
             Process.Start("https://hyrules.github.io/WinHue3/");
@@ -1391,13 +1375,13 @@ namespace WinHue3.MainForm
             Process.Start("https://github.com/Hyrules/WinHue3/issues");
         }
 
-
         #endregion
 
         #region APPLICATION_MENU_METHODS
+
         private async Task OpenSettingsWindow()
         {
-            Form_AppSettings settings = new Form_AppSettings { Owner = Application.Current.MainWindow };
+            Form_AppSettings settings = new Form_AppSettings {Owner = Application.Current.MainWindow};
             if (settings.ShowDialog() != true) return;
             Comm.Timeout = WinHueSettings.settings.Timeout;
             if (MainFormModel.ShowId != WinHueSettings.settings.ShowID)
@@ -1405,8 +1389,9 @@ namespace WinHue3.MainForm
                 MainFormModel.ShowId = WinHueSettings.settings.ShowID;
             }
 
-            if (MainFormModel.WrapText != WinHueSettings.settings.WrapText)
+            if (MainFormModel.WrapText != WinHueSettings.settings.WrapText || MainFormModel.Sort != WinHueSettings.settings.Sort)
             {
+                MainFormModel.Sort = WinHueSettings.settings.Sort;
                 MainFormModel.WrapText = WinHueSettings.settings.WrapText;
                 await RefreshView();
             }
@@ -1415,8 +1400,6 @@ namespace WinHue3.MainForm
             {
                 SliderTt = WinHueSettings.settings.DefaultTT;
             }
-
-
         }
 
         private void QuitApplication()
@@ -1424,17 +1407,97 @@ namespace WinHue3.MainForm
             Application.Current.Shutdown();
         }
 
+        private void RefreshHueObject(ref IHueObject obj, IHueObject newobject)
+        {
+            if (obj.GetType() != newobject.GetType()) return;
+            if (obj == null || newobject == null) return;
+            if (obj.Id != newobject.Id) return;
+
+            PropertyInfo[] pi = obj.GetType().GetProperties();
+            foreach (PropertyInfo p in pi)
+            {
+                p.SetValue(obj, p.GetValue(newobject));
+            }
+        }
 
         private bool DoBridgePairing(ObservableCollection<Bridge> listBridges = null)
         {
-            Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(listBridges) { Owner = Application.Current.MainWindow };
+            Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(listBridges) {Owner = Application.Current.MainWindow};
 
-            bool result = (bool)dp.ShowDialog();
+            bool result = (bool) dp.ShowDialog();
             if (!result) return result;
             ListBridges = dp.ViewModel.ListBridges;
             SaveSettings();
             return result;
         }
+
+        private async Task ExportDataStore(object param)
+        {
+            if (param == null) return;
+            string p = param.ToString();
+            string data = string.Empty;
+            JsonSerializerSettings jss = new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore};
+
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                CheckPathExists = true,
+                DefaultExt = "txt",
+                Filter = "Text File (*.txt) | *.txt"
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                DataStore datastore = await SelectedBridge.GetBridgeDataStoreAsync();
+                switch (p)
+                {
+                    case "Full":
+                        data = JsonConvert.SerializeObject(datastore, Formatting.Indented, jss);
+                        break;
+                    case "Lights":
+                        data = JsonConvert.SerializeObject(datastore.lights, Formatting.Indented, jss);
+                        break;
+                    case "Groups":
+                        data = JsonConvert.SerializeObject(datastore.groups, Formatting.Indented, jss);
+                        break;
+                    case "Scenes":
+                        data = JsonConvert.SerializeObject(datastore.scenes, Formatting.Indented, jss);
+                        break;
+                    case "Schedules":
+                        data = JsonConvert.SerializeObject(datastore.schedules, Formatting.Indented, jss);
+                        break;
+                    case "ResourceLinks":
+                        data = JsonConvert.SerializeObject(datastore.resourcelinks, Formatting.Indented, jss);
+                        break;
+                    case "Rules":
+                        data = JsonConvert.SerializeObject(datastore.rules, Formatting.Indented, jss);
+                        break;
+                    case "Sensors":
+                        data = JsonConvert.SerializeObject(datastore.sensors, Formatting.Indented, jss);
+                        break;
+                    default:
+                        break;
+                }
+
+                if (data != string.Empty)
+                {
+                    try
+                    {
+                        log.Info($"Saving {p} to file {sfd.FileName}...");
+                        File.WriteAllText(sfd.FileName, data);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error($"An exception occured while saving the config. {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(GlobalStrings.UnableToExport, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    log.Error($"Error while saving to file.");
+                }
+            }
+        }
+
         #endregion
 
         private void CpuTempMonSettings()
@@ -1444,12 +1507,10 @@ namespace WinHue3.MainForm
 
         private void RssFeedMon()
         {
-          
         }
 
         private void RssFeedMonSettings()
         {
-
         }
 
         private async Task ClickObject()
@@ -1486,7 +1547,7 @@ namespace WinHue3.MainForm
 
         private void DoAppUpdate()
         {
-            if(MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 UpdateManager.DownloadUpdate();
         }
 
@@ -1512,8 +1573,80 @@ namespace WinHue3.MainForm
                 ListBridgeObjects = new ObservableCollection<IHueObject>(hueobjects);
                 CreateExpanders();
             }
-                
         }
 
+        private void CreateFloorPlan()
+        {
+            Form_RoomMapCreator frmp = new Form_RoomMapCreator(_listBridgeObjects.ToList())
+            {
+                Owner = Application.Current.MainWindow
+            };
+            frmp.ShowDialog();
+            LoadFloorPlans();
+        }
+
+        private async Task SelectHueElement()
+        {
+            if (SelectedHueElement == null) return;
+            SelectedHueObject = ListBridgeObjects.FirstOrDefault(x => x.Id == SelectedHueElement.Id && x.GetType() == GetTypeFromHueElementEnum(SelectedHueElement.HueType));
+            await ClickObject();
+            SelectedHueElement.Image = SelectedHueObject.Image;
+        }
+
+        private Type GetTypeFromHueElementEnum(HueElementType type)
+        {
+            switch (type)
+            {
+                case HueElementType.Light:
+                    return typeof(Light);
+                case HueElementType.Group:
+                    return typeof(Group);
+                case HueElementType.Scene:
+                    return typeof(Scene);
+            }
+
+            return null;
+        }
+
+        private HueElementType GetHueElementTypeFromString(string type)
+        {
+            switch (type)
+            {
+                case "lights":
+                case "light":
+                    return HueElementType.Light;
+                case "groups":
+                case "group":
+                    return HueElementType.Group;
+                default:
+                    return HueElementType.Other;
+
+                    
+            }
+        }
+
+        private HueElementType GetHueElementEnumFromType(Type type)
+        {
+            return type == typeof(Group) ? HueElementType.Group : HueElementType.Light;
+        }
+
+        private void SelectedFloorPlanChanged()
+        {
+            if (SelectedFloorPlan == null) return;
+            foreach (Tuple<string, string> t in WinHueSettings.bridges.BridgeInfo[SelectedBridge.Mac].hiddenobjects)
+            {
+                if (SelectedFloorPlan.Elements.Any(x => x.Id == t.Item1 && x.HueType == GetHueElementTypeFromString(t.Item2)))
+                {
+                    SelectedFloorPlan.Elements.Remove(SelectedFloorPlan.Elements.FirstOrDefault(x => x.Id == t.Item1 && x.HueType == GetHueElementTypeFromString(t.Item2)));
+                }
+            }
+
+            foreach (HueElement h in SelectedFloorPlan.Elements)
+            {
+                IHueObject obj = ListBridgeObjects.FirstOrDefault(x => x.Id == h.Id && x.GetType() == GetTypeFromHueElementEnum(h.HueType));
+                if (obj == null) continue;
+                h.Image = obj.Image;
+            }
+        }
     }
 }

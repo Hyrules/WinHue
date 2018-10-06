@@ -75,7 +75,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\packages\BouncyCastle.1.8.3\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
@@ -92,6 +95,7 @@
       <HintPath>..\packages\ManagedUPnP\ManagedUPnP.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
@@ -181,9 +185,13 @@
     <Compile Include="Functions\Animations\Form_Animations.xaml.cs">
       <DependentUpon>Form_Animations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\Application Settings\Settings\CustomLifxSettings.cs" />
-    <Compile Include="Functions\Application Settings\Settings\LifxSaveDevice.cs" />
+    <Compile Include="Functions\Animations\IAnimationStep.cs" />
+    <Compile Include="Functions\Animations\SetObjectAnimationAction.cs" />
+    <Compile Include="Functions\Animations\WaitAnimationAction.cs" />
     <Compile Include="Functions\Behaviors\CommandBehavior.cs" />
+    <Compile Include="Functions\Behaviors\DragBehavior.cs" />
+    <Compile Include="Functions\Behaviors\HueObjectDragDropHelper.cs" />
+    <Compile Include="Functions\Behaviors\InvokeDelegateCommand.cs" />
     <Compile Include="Functions\Behaviors\KeyUpBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
@@ -195,6 +203,7 @@
     </Compile>
     <Compile Include="Functions\BridgeFinder\ProgressReport.cs" />
     <Compile Include="Functions\BridgePairing\BridgeHandler.cs" />
+    <Compile Include="Functions\BridgeSettings\BridgeSettingsHiddenObjects.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\MacByteArrayConverter.cs" />
     <Compile Include="Functions\Entertainment\EntertainmentViewModel.cs" />
@@ -213,6 +222,17 @@
     <Compile Include="Functions\PropertyGrid\XYEditor.xaml.cs">
       <DependentUpon>XYEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\RoomMap\CreateFloorPlanViewModel.cs" />
+    <Compile Include="Functions\RoomMap\Floor.cs" />
+    <Compile Include="Functions\RoomMap\Form_CreateFloorPlan.xaml.cs">
+      <DependentUpon>Form_CreateFloorPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\RoomMap\MoveThumb.cs" />
+    <Compile Include="Functions\RoomMap\Form_RoomMapCreator.xaml.cs">
+      <DependentUpon>Form_RoomMapCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\RoomMap\HueElement.cs" />
+    <Compile Include="Functions\RoomMap\RoomMapViewModel.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewHelper.cs" />
     <Compile Include="Functions\Rules\HueTreeViewItem.cs" />
     <Compile Include="Functions\Rules\Creator\PropertyGridBehavior.cs" />
@@ -243,7 +263,7 @@
     <Compile Include="Functions\Converters\SliderToXYConverter.cs" />
     <Compile Include="Functions\Converters\VisibleToBoolConverter.cs" />
     <Compile Include="MainForm\Sliders\BindableHueSlider.cs" />
-    <Compile Include="MainForm\Sliders\BindableListView.cs" />
+    <Compile Include="Controls\BindableListView.cs" />
     <Compile Include="MainForm\Sliders\BindableSlider.cs" />
     <Compile Include="Functions\Application Settings\AppMainSettingsModel.cs" />
     <Compile Include="Functions\Application Settings\AppDefaultsModel.cs" />
@@ -288,6 +308,9 @@
     <Compile Include="Philips Hue\BridgeObject\Bridge_Settings.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge_Update.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\Entertainment.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDatagramTransport.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDtlsClient.cs" />
+    <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueTlsAuthentication.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\Location.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\StreamMessage.cs" />
     <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
@@ -513,6 +536,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\PropertyGrid\XYEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\RoomMap\Form_CreateFloorPlan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\RoomMap\Form_RoomMapCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -918,10 +949,34 @@
   <ItemGroup>
     <Resource Include="Resources\entertainment.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\floorplan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\trash-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\saveall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit-2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

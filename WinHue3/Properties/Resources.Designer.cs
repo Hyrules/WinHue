@@ -421,15 +421,6 @@ namespace WinHue3.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [{&quot;vid&quot;: 1,&quot;name&quot;: &quot;LIFX&quot;,&quot;products&quot;: [{&quot;pid&quot;: 1,&quot;name&quot;: &quot;Original 1000&quot;,&quot;features&quot;: {&quot;color&quot;: true,&quot;infrared&quot;: false,&quot;multizone&quot;: false,&quot;chain&quot;: false}},{&quot;pid&quot;: 3,&quot;name&quot;: &quot;Color 650&quot;,&quot;features&quot;: {&quot;color&quot;: true,&quot;infrared&quot;: false,&quot;multizone&quot;: false,&quot;chain&quot;: false}},{&quot;pid&quot;: 10,&quot;name&quot;: &quot;White 800 (Low Voltage)&quot;,&quot;features&quot;: {&quot;color&quot;: false,&quot;infrared&quot;: false,&quot;multizone&quot;: false,&quot;chain&quot;: false}},{&quot;pid&quot;: 11,&quot;name&quot;: &quot;White 800 (High Voltage)&quot;,&quot;features&quot;: {&quot;color&quot;: false,&quot;infrared&quot;: false,&quot;multizone&quot;: false,&quot;chain&quot;:  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string productid {
-            get {
-                return ResourceManager.GetString("productid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] products {

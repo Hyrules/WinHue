@@ -412,6 +412,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This object already exists in the canvas..
+        /// </summary>
+        public static string ElementExists {
+            get {
+                return ResourceManager.GetString("ElementExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -718,11 +727,29 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occured while saving..
+        /// </summary>
+        public static string ErrorSaving {
+            get {
+                return ResourceManager.GetString("ErrorSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field cannot be empty..
         /// </summary>
         public static string Field_Empty {
             get {
                 return ResourceManager.GetString("Field_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A floor plan by that name already exists. Overwrite ?.
+        /// </summary>
+        public static string FloorPlanExists {
+            get {
+                return ResourceManager.GetString("FloorPlanExists", resourceCulture);
             }
         }
         
@@ -1870,6 +1897,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to export the requested config.
+        /// </summary>
+        public static string UnableToExport {
+            get {
+                return ResourceManager.GetString("UnableToExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to apply the update?.
         /// </summary>
         public static string Update_Confirmation {
@@ -1965,6 +2001,15 @@ namespace WinHue3 {
         public static string Warning_TransitionTime {
             get {
                 return ResourceManager.GetString("Warning_TransitionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A plan has been modified. If you continue you will lose your modifications. Continue ?.
+        /// </summary>
+        public static string WarnModifiedPlan {
+            get {
+                return ResourceManager.GetString("WarnModifiedPlan", resourceCulture);
             }
         }
     }

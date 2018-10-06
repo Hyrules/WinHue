@@ -1,0 +1,65 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Functions.RoomMap"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.RoomMap.Form_CreateFloorPlan"
+        mc:Ignorable="d"
+        Title="{x:Static resx:GUI.Form_CreateFloorPlan_Title}" Height="574" Width="941.333" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.DataContext>
+        <local:CreateFloorPlanViewModel/>
+    </Window.DataContext>
+    <Grid>
+
+        <GroupBox Header="{x:Static resx:GUI.Form_CreateFloorPlan_GroupBoxTitle}" HorizontalAlignment="Left" Height="345" Margin="10,3,0,0" VerticalAlignment="Top" Width="250">
+            <Grid>
+                <Label Content="{x:Static resx:GUI.Form_CreateFloorPlan_Height}" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="142"/>
+                <Label Content="{x:Static resx:GUI.Form_CreateFloorPlan_Width}" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="142"/>
+                <xctk:DoubleUpDown HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="120" Value="{Binding Height}" FormatString="F3">
+                    <xctk:DoubleUpDown.Style>
+                        <Style TargetType="xctk:DoubleUpDown">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=cbUseImageSize, Path=IsChecked}" Value="False">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </xctk:DoubleUpDown.Style>
+                </xctk:DoubleUpDown>
+                <xctk:DoubleUpDown HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="120" Value="{Binding Width}" FormatString="F3">
+                    <xctk:DoubleUpDown.Style>
+                        <Style TargetType="xctk:DoubleUpDown">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=cbUseImageSize, Path=IsChecked}" Value="False">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </xctk:DoubleUpDown.Style>
+                </xctk:DoubleUpDown>
+                <CheckBox x:Name="cbUseImageSize"  Content="{x:Static resx:GUI.Form_CreateFloorPlan_UseBackgroundImageSize}" IsChecked="{Binding UseImageSize}" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="218" Command="{Binding UseImageSizeCommand }"/>
+                <Label Content="{x:Static resx:GUI.Form_CreateFloorPlan_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="81"/>
+                <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" Text="{Binding FloorPlanName}" VerticalAlignment="Top" Width="218"/>
+                <ComboBox HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="218" SelectedValuePath="Tag" SelectedValue="{Binding StretchMode}" >
+                    <ComboBoxItem Content="{x:Static resx:GUI.Form_CreateFloorPlan_StretchNone}" Tag="{x:Static Stretch.None}"></ComboBoxItem>
+                    <ComboBoxItem Content="{x:Static resx:GUI.Form_CreateFloorPlan_Uniform}" Tag="{x:Static Stretch.Uniform}"></ComboBoxItem>
+                    <ComboBoxItem Content="{x:Static resx:GUI.Form_CreateFloorPlan_Fill}" Tag="{x:Static Stretch.Fill}"></ComboBoxItem>
+                    <ComboBoxItem Content="{x:Static resx:GUI.Form_CreateFloorPlan_FillUniform}" Tag="{x:Static Stretch.UniformToFill}"></ComboBoxItem>
+                </ComboBox>
+                <Label Content="{x:Static resx:GUI.Form_CreateFloorPlan_Stretch}" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Width="218"/>
+                <Label Content="{x:Static resx:GUI.Form_CreateFloorPlan_FloorImage}" HorizontalAlignment="Left" Margin="10,262,0,0" VerticalAlignment="Top" Width="218"/>
+                <Button Content="{x:Static resx:GUI.Form_CreateFloorPlan_LoadImage}" HorizontalAlignment="Left" Margin="10,288,0,0" VerticalAlignment="Top" Width="218" Command="{Binding LoadImageCommand}"/>
+            </Grid>
+        </GroupBox>
+        <Button x:Name="btnCreateFloor" Content="{x:Static resx:GUI.Form_CreateFloorPlan_Create}" HorizontalAlignment="Left" Margin="750,502,0,0" VerticalAlignment="Top" Width="75" Click="btnCreateFloor_Click"/>
+        <Button x:Name="btnClose" Content="{x:Static resx:GUI.Form_CreateFloorPlan_Cancel}" HorizontalAlignment="Left" Margin="830,502,0,0" VerticalAlignment="Top" Width="75" Click="btnClose_Click"/>
+        <GroupBox Header="{x:Static resx:GUI.Form_CreateFloorPlan_Image}" HorizontalAlignment="Left" Height="494" Margin="265,3,0,0" VerticalAlignment="Top" Width="640">
+            <Image HorizontalAlignment="Left" Height="471"  VerticalAlignment="Top" Width="630" Stretch="{Binding StretchMode}" Source="{Binding Image}" Margin="0,0,-2,0" />
+        </GroupBox>
+
+    </Grid>
+</Window>

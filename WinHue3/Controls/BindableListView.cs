@@ -3,7 +3,7 @@ using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WinHue3.MainForm.Sliders
+namespace WinHue3.Controls
 {
     public class BindableListView : ListView
     {

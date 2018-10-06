@@ -4,8 +4,16 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:bridgeSettings="clr-namespace:WinHue3.Functions.BridgeSettings"
+        xmlns:controls="clr-namespace:WinHue3.Controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
         Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.DataContext>
         <bridgeSettings:BridgeSettingsViewModel/>
     </Window.DataContext>
@@ -145,11 +153,46 @@
                     </Style>
                 </TabItem.Style>
                 <Grid Background="#FFE5E5E5">
-                    <xctk:PropertyGrid Margin="0,0,-0.333,-0.333" ShowSearchBox="False" ShowSortOptions="False" SelectedObject="{Binding Capabilities}"/>
+                    <xctk:PropertyGrid Margin="0,0,-0.333,-0.333" ShowSearchBox="False" ShowSortOptions="False" SelectedObject="{Binding Capabilities}" IsReadOnly="True"/>
 
                 </Grid>
 
             </TabItem>
+            <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_HiddenObjects}">
+                <Grid>
+                    <ListBox Margin="0,0,254.667,26.667" ItemsSource="{Binding HiddenObjects.ListObjects}" SelectedItem="{Binding HiddenObjects.SelectedObject}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type common:IHueObject}">
+                                <WrapPanel>
+                                    <Image Height="16" Source="{Binding Image}"></Image>
+                                    <TextBlock Text=" - "></TextBlock>
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <ListBox Margin="252,0,2.667,26.667" ItemsSource="{Binding HiddenObjects.HiddenObjects}" SelectedItem="{Binding HiddenObjects.SelectedHiddenObject}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type common:IHueObject}">
+                                <WrapPanel>
+                                    <Image Height="16" Source="{Binding Image}"></Image>
+                                    <TextBlock Text=" - "></TextBlock>
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Content="{x:Static resx:GUI.Save}" Width="75" Margin="399,241,2.667,2.667" Command="{Binding SaveHiddenObjectsCommand}"/>
+                    <Button Content="{x:Static resx:GUI.Clear}" Width="75" Margin="319,241,82.667,2.667" Command="{Binding HiddenObjects.ClearHiddenObjectsCommand}"/>
+                    <Button Content="->" HorizontalAlignment="Left" Margin="227,68,0,0" VerticalAlignment="Top" Width="20" Command="{Binding HiddenObjects.AddObjectToHiddenCommand}"/>
+                    <Button Content="X" Width="20" Margin="227,93,229.667,150.667" Command="{Binding HiddenObjects.RemoveHiddenObjectCommand}"/>
+                </Grid>
+            </TabItem>
+
+
+
+
+
 
 
         </TabControl>

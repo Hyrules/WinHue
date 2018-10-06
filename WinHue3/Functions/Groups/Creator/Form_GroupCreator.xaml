@@ -11,7 +11,7 @@
     x:Class="WinHue3.Functions.Groups.Creator.Form_GroupCreator"
         Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="600" MinWidth="800">
     <Window.Resources>
-        <Style TargetType="{x:Type sliders:BindableListView}">
+        <Style TargetType="{x:Type customControls:BindableListView}">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
 
@@ -49,21 +49,21 @@
         <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" />
 
         <xctk:WatermarkTextBox x:Name="TbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23" Watermark="Group name (Optional)"/>
-        <sliders:BindableListView x:Name="BindableListView" Margin="185,10,9.667,47" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <sliders:BindableListView.ItemsPanel>
+        <customControls:BindableListView x:Name="BindableListView" Margin="185,10,9.667,47" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <customControls:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
                 </ItemsPanelTemplate>
-            </sliders:BindableListView.ItemsPanel>
-            <sliders:BindableListView.ItemTemplate>
+            </customControls:BindableListView.ItemsPanel>
+            <customControls:BindableListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" Height="Auto" Width="75" SnapsToDevicePixels="True" VerticalAlignment="Top">
                         <Image Height="64" Width="64" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                         <TextBlock x:Name="tblName" Text="{Binding name}"  HorizontalAlignment="Center" TextWrapping="Wrap"/>
                     </WrapPanel>
                 </DataTemplate>
-            </sliders:BindableListView.ItemTemplate>
-        </sliders:BindableListView>
+            </customControls:BindableListView.ItemTemplate>
+        </customControls:BindableListView>
         <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="170" IsEnabled="{Binding CanChangeType}"  SelectedValue="{Binding GroupCreator.Type}" SelectedValuePath="Tag">
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_LightGroup}" Tag="LightGroup"/>
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_Room}" Tag="Room"/>

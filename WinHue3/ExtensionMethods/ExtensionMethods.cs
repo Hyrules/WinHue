@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using WinHue3.Annotations;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
@@ -224,6 +229,17 @@ namespace WinHue3.ExtensionMethods
 
         }
 
+        public static void Sort<T>(this ObservableCollection<T> collection, Comparison<T> comparison)
+        {
+            var sortableList = new List<T>(collection);
+            sortableList.Sort(comparison);
+
+            for (int i = 0; i < sortableList.Count; i++)
+            {
+                collection.Move(collection.IndexOf(sortableList[i]), i);
+            }
+        }
+
     }
 
     public static class ArrayExtensionMethods
@@ -257,6 +273,40 @@ namespace WinHue3.ExtensionMethods
             return newlist;
         }
 
+    }
+
+    public static class BitmapImageExtensionMethods
+    {
+        public static string ToBase64(this BitmapImage img)
+        {
+            byte[] data;
+            PngBitmapEncoder png = new PngBitmapEncoder();
+            png.Frames.Add(BitmapFrame.Create(img));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                png.Save(ms);
+                data = ms.ToArray();
+            }
+
+            return Convert.ToBase64String(data);
+        }
+
+        
+    }
+
+    public static class IListExtensionMethods
+    {
+        public static int FindItemIndex<T>(this IList<T> list, Func<T,bool> condition)
+        {
+            for(int x = 0; x<=list.Count;x++)
+            {
+                if (condition(list[x]))
+                {
+                    return x;
+                }
+            }
+            return -1;
+        }
     }
 
     /*

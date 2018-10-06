@@ -1,0 +1,147 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Functions.RoomMap"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:utils="clr-namespace:WinHue3.Utils"
+        x:Class="WinHue3.Functions.RoomMap.Form_RoomMapCreator"
+        mc:Ignorable="d" x:Name="RoomMapWindow"
+        Title="{x:Static resx:GUI.FormRoomMap_Title}" Height="675.313" Width="1029.333" WindowStartupLocation="CenterOwner" MinHeight="768" MinWidth="1024">
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.3" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Window.DataContext>
+        <local:RoomMapViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="196"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="45"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="196"/>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="ListLightsGroups" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Width="196"  ItemsSource="{Binding ListLights}" dd:DragDrop.IsDragSource="True" dd:DragDrop.UseDefaultDragAdorner="True" dd:DragDrop.DropHandler="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible" SnapsToDevicePixels="True">
+            <ListBox.Resources>
+                <DataTemplate DataType="{x:Type local:HueElement}">
+                    <WrapPanel >
+                        <Image Height="32" Source="{Binding Image}"/>
+                        <Label Content="{Binding Label}" />
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.Resources>
+
+        </ListBox>
+
+        <ToolBarTray Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,0,-0.333,0" Height="45" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}" VerticalAlignment="Top">
+            <ToolBar Header="Edit" BandIndex="1" >
+                <Button Height="24" Width="24" Command="{Binding MakeAllSameSizeCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_MakeAllSameSize}">
+                    <Image Source="/WinHue3;component/Resources/copy.png"></Image>
+                </Button>
+                <Button Height="24" Width="24" Command="{Binding DeleteSelectedElementCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_RemoveHueElement}">
+                    <Image Source="/WinHue3;component/Resources/trash-2.png"></Image>
+                </Button>
+            </ToolBar>
+            <ToolBar Height="43" Header="{x:Static resx:GUI.FormRoomMap_FloorPlan}" BandIndex="0">
+                <Button Height="24" Width="24" Command="{Binding CreateNewFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_Title}">
+                    <Image Source="/WinHue3;component/Resources/map.png"/>
+                </Button>
+                <Button Height="24" Width="24" Command="{Binding EditFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_EditFloorPlan}">
+                    <Image Source="/WinHue3;component/Resources/edit-2.png"/>
+                </Button>
+                <Button Command="{Binding SaveFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_Save}">
+                    <Image Source="/WinHue3;component/Resources/save.png" Height="24" Width="24" />
+                </Button>
+                <Button Command="{Binding SaveAllFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_SaveAll}">
+                    <Image Source="/WinHue3;component/Resources/saveall.png" Height="24" Width="24" />
+                </Button>
+                <Button Command="{Binding DeleteFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_DeleteFloor}">
+                    <Image Height="24" Width="24" Source="/WinHue3;component/Resources/delete.png"/>
+                </Button>
+            </ToolBar>
+
+        </ToolBarTray>
+        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListFloors}" SelectedItem="{Binding SelectedFloor}" ScrollViewer.VerticalScrollBarVisibility="Visible" SnapsToDevicePixels="True" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectFloorPlanCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="local:Floor">
+                    <WrapPanel>
+                        <Label Content="{Binding Name}"/>
+                        <Label Content="*">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChanged}" Value="True" utils:TriggerTracing.TraceEnabled="True" utils:TriggerTracing.TriggerName="Modified">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="btnDone" Grid.Row="3" Grid.Column="1" Content="Done" Margin="0,0,9.667,6.667" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="81" Click="btnDone_Click" />
+        <ScrollViewer Grid.Column="1" Grid.Row="1"  Grid.RowSpan="2" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
+            <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding FloorModel.Elements, FallbackValue={x:Null}}" Height="{Binding FloorModel.CanvasHeight, FallbackValue=0}" Width="{Binding FloorModel.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewKeyUp">
+                        <behaviors:InvokeDelegateCommandAction Command="{Binding DeleteHueElementCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas dd:DragDrop.IsDropTarget="True" Height="{Binding FloorModel.CanvasHeight, FallbackValue=0}" Width="{Binding FloorModel.CanvasWidth, FallbackValue=0}" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True" IsItemsHost="True" >
+                            <Canvas.Background>
+                                <ImageBrush ImageSource="{Binding FloorModel.Image, FallbackValue={x:Null}}" Stretch="{Binding FloorModel.StretchMode, FallbackValue=None}"/>
+                            </Canvas.Background>
+                        </Canvas>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="local:HueElement">
+                        <WrapPanel Height="{Binding PanelHeight}" Width="{Binding PanelWidth}" Background="{x:Null}" ToolTip="{Binding name}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:DragBehavior/>
+                            </i:Interaction.Behaviors>
+                            <Image Source="/WinHue3;component/Resources/HueLightOn-Large.png" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
+                            <TextBlock Text="{Binding Label}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=WrapPanel}, Path=ActualWidth  }" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}" Background="White"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        <Label Content="{x:Static resx:GUI.FormRoomMap_RightClick}" Margin="0,0,357.667,19.667" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Height="26" VerticalAlignment="Bottom"/>
+
+    </Grid>
+</Window>
+

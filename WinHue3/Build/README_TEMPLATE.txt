@@ -10,15 +10,18 @@ Fixed:
 - Pairing not working.
 
 Added:
-- 
+- Floor plan creator and viewer.
+- Option to export the current config.
+- Option to Hide lights in the bridge settings window.
 
 Changed:
 - Corrected button size in the bridge pairing window.
+- Made read-only capabilities in the bridge settings window.
+- settings will no longer remember api version but will get the most recent from the bridge when checking it at startup preventing a bug.
 
 WIP:
 - Animation creator. (Not Available yet)
-- Rss feed monitor plugin. (Not Available yet)
-- Clapper monitor. (Not Available yet)
+
 
 
 

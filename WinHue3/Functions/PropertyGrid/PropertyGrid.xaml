@@ -10,6 +10,6 @@
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.PropertyGridForm_Title}" Height="600" Width="800" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
     <Grid>
-        <xctk:PropertyGrid x:Name="PropertyGrid" Margin="0,0,0.333,-0.333"/>
+        <xctk:PropertyGrid x:Name="PropertyGrid" Margin="0,0,0.333,-0.333" IsReadOnly="True"/>
     </Grid>
 </Window>

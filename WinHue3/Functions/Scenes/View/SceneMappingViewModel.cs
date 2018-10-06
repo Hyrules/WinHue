@@ -16,8 +16,8 @@ namespace WinHue3.Functions.Scenes.View
         private DataTable _dt;
         private string _filter;
         private object _row;
-        private Dictionary<string, Scene> _listscenes;
-        private Dictionary<string, Light> _listlights;
+        private List<Scene> _listscenes;
+        private List<Light> _listlights;
         private Bridge _bridge;
 
         public SceneMappingViewModel()
@@ -25,7 +25,7 @@ namespace WinHue3.Functions.Scenes.View
 
         }
 
-        public void Initialize(Dictionary<string, Scene> scenes, Dictionary<string, Light> lights, Bridge bridge)
+        public void Initialize(List<Scene> scenes, List<Light> lights, Bridge bridge)
         {
             _bridge = bridge;
             _listscenes = scenes;
@@ -74,16 +74,14 @@ namespace WinHue3.Functions.Scenes.View
 
         public void BuildSceneMapping()
         {
-            Dictionary<string, Scene> lscenes;
+            List<Scene> lscenes;
 
             if (!WinHueSettings.settings.ShowHiddenScenes)
-                lscenes = _listscenes.Where(
-                        x => x.Value.name.Contains("HIDDEN") == false)
-                    .ToDictionary(p => p.Key, p => p.Value);
+                lscenes = _listscenes.Where(x => x.name.Contains("HIDDEN") == false).ToList();
             else
                 lscenes = _listscenes;
 
-            Dictionary<string, Light> llights = _listlights;
+            List<Light> llights = _listlights;
 
             DataTable dt = new DataTable();
 
@@ -92,9 +90,9 @@ namespace WinHue3.Functions.Scenes.View
             dt.Columns.Add("Name");
 
             // Add all light columns
-            foreach (KeyValuePair<string, Light> kvp in llights)
+            foreach (Light kvp in llights)
             {
-                dt.Columns.Add(kvp.Value.name);
+                dt.Columns.Add(kvp.name);
             }
 
             dt.Columns.Add("Locked");
@@ -102,24 +100,24 @@ namespace WinHue3.Functions.Scenes.View
             dt.Columns.Add("Version");
 
             // Map each scenes and lights
-            foreach (KeyValuePair<string, Scene> svp in lscenes)
+            foreach (Scene svp in lscenes)
             {
 
                 object[] data = new object[llights.Count + 5];
 
-                data[0] = new string(svp.Key.ToCharArray());
-                data[1] = new string(svp.Value.name.ToCharArray());
+                data[0] = new string(svp.Id.ToCharArray());
+                data[1] = new string(svp.name.ToCharArray());
                 int i = 2;
-                foreach (KeyValuePair<string, Light> lvp in llights)
+                foreach (Light lvp in llights)
                 {
-                    string value = svp.Value.lights.Contains(lvp.Key) ? "Assigned" : "";
+                    string value = svp.lights.Contains(lvp.Id) ? "Assigned" : "";
 
                     data[i] = new string(value.ToCharArray());
                     i++;
                 }
-                data[i] = new string(svp.Value.locked.ToString().ToCharArray());
-                data[i + 1] = new string(svp.Value.recycle.ToString().ToCharArray());
-                data[i + 2] = new string(svp.Value.version.ToString().ToCharArray());
+                data[i] = new string(svp.locked.ToString().ToCharArray());
+                data[i + 1] = new string(svp.recycle.ToString().ToCharArray());
+                data[i + 2] = new string(svp.version.ToString().ToCharArray());
 
                 dt.Rows.Add(data);
             }

@@ -97,6 +97,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Objects.
+        /// </summary>
+        public static string AllObjects {
+            get {
+                return ResourceManager.GetString("AllObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abort.
         /// </summary>
         public static string BridgeDetectionPairing_Abort {
@@ -394,6 +403,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hidden Objects.
+        /// </summary>
+        public static string BridgeSettingsForm_Tab_HiddenObjects {
+            get {
+                return ResourceManager.GetString("BridgeSettingsForm_Tab_HiddenObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Network Settings.
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings {
@@ -682,6 +700,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string DaylightForm_CancelButton {
@@ -763,6 +790,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string EntertainmentCreatorForm_Add {
@@ -822,6 +858,15 @@ namespace WinHue3.Resources {
         public static string EventLogForm_Title {
             get {
                 return ResourceManager.GetString("EventLogForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor Plan.
+        /// </summary>
+        public static string FloorPlan {
+            get {
+                return ResourceManager.GetString("FloorPlan", resourceCulture);
             }
         }
         
@@ -1011,6 +1056,150 @@ namespace WinHue3.Resources {
         public static string Form_CloneRule_Title {
             get {
                 return ResourceManager.GetString("Form_CloneRule_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Cancel {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Create {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Fill {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Fill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill to uniform.
+        /// </summary>
+        public static string Form_CreateFloorPlan_FillUniform {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_FillUniform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor Plan Image.
+        /// </summary>
+        public static string Form_CreateFloorPlan_FloorImage {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_FloorImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor Properties.
+        /// </summary>
+        public static string Form_CreateFloorPlan_GroupBoxTitle {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_GroupBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Canvas Height.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Height {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Image {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Image....
+        /// </summary>
+        public static string Form_CreateFloorPlan_LoadImage {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_LoadImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Name {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stretch.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Stretch {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Stretch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string Form_CreateFloorPlan_StretchNone {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_StretchNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new floor plan....
+        /// </summary>
+        public static string Form_CreateFloorPlan_Title {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uniform.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Uniform {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Uniform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use image size.
+        /// </summary>
+        public static string Form_CreateFloorPlan_UseBackgroundImageSize {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_UseBackgroundImageSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Canvas Width.
+        /// </summary>
+        public static string Form_CreateFloorPlan_Width {
+            get {
+                return ResourceManager.GetString("Form_CreateFloorPlan_Width", resourceCulture);
             }
         }
         
@@ -1299,6 +1488,114 @@ namespace WinHue3.Resources {
         public static string Form_SceneMapping_Title {
             get {
                 return ResourceManager.GetString("Form_SceneMapping_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete floorplan {0} ?.
+        /// </summary>
+        public static string FormRoomMap_Delete {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete floor.
+        /// </summary>
+        public static string FormRoomMap_DeleteFloor {
+            get {
+                return ResourceManager.GetString("FormRoomMap_DeleteFloor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit current floor plan.
+        /// </summary>
+        public static string FormRoomMap_EditFloorPlan {
+            get {
+                return ResourceManager.GetString("FormRoomMap_EditFloorPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string FormRoomMap_Files {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor plan.
+        /// </summary>
+        public static string FormRoomMap_FloorPlan {
+            get {
+                return ResourceManager.GetString("FormRoomMap_FloorPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make all element same size. (The one selected).
+        /// </summary>
+        public static string FormRoomMap_MakeAllSameSize {
+            get {
+                return ResourceManager.GetString("FormRoomMap_MakeAllSameSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string FormRoomMap_Name {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove element from plan..
+        /// </summary>
+        public static string FormRoomMap_RemoveHueElement {
+            get {
+                return ResourceManager.GetString("FormRoomMap_RemoveHueElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to * use right click to drag light / CTRL + Mouse Scroll to resize light or group..
+        /// </summary>
+        public static string FormRoomMap_RightClick {
+            get {
+                return ResourceManager.GetString("FormRoomMap_RightClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save current floor.
+        /// </summary>
+        public static string FormRoomMap_Save {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save All Floors.
+        /// </summary>
+        public static string FormRoomMap_SaveAll {
+            get {
+                return ResourceManager.GetString("FormRoomMap_SaveAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a floor plan....
+        /// </summary>
+        public static string FormRoomMap_Title {
+            get {
+                return ResourceManager.GetString("FormRoomMap_Title", resourceCulture);
             }
         }
         
@@ -1960,6 +2257,87 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export Config.
+        /// </summary>
+        public static string MainForm_Menu_ExportConfig {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export full datastore.
+        /// </summary>
+        public static string MainForm_Menu_ExportDataStore {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportDataStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export groups.
+        /// </summary>
+        public static string MainForm_Menu_ExportGroups {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export lights.
+        /// </summary>
+        public static string MainForm_Menu_ExportLights {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportLights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export resources links.
+        /// </summary>
+        public static string MainForm_Menu_ExportResLink {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportResLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Rules.
+        /// </summary>
+        public static string MainForm_Menu_ExportRules {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export scenes.
+        /// </summary>
+        public static string MainForm_Menu_ExportScenes {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportScenes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export schedules.
+        /// </summary>
+        public static string MainForm_Menu_ExportSchedules {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportSchedules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export sensors.
+        /// </summary>
+        public static string MainForm_Menu_ExportSensors {
+            get {
+                return ResourceManager.GetString("MainForm_Menu_ExportSensors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _File.
         /// </summary>
         public static string MainForm_Menu_File {
@@ -2329,6 +2707,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Floor plan creator.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_Creators_FloorCreator {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_Creators_FloorCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a Resource link....
         /// </summary>
         public static string MainForm_Tab_Home_Group_Creators_ResourceLink {
@@ -2505,6 +2892,15 @@ namespace WinHue3.Resources {
         public static string MainForm_Tab_View_BulbsView {
             get {
                 return ResourceManager.GetString("MainForm_Tab_View_BulbsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor Plans.
+        /// </summary>
+        public static string MainForm_Tab_View_FloorPlan {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_View_FloorPlan", resourceCulture);
             }
         }
         
@@ -3396,6 +3792,15 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Value_Watermark {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Value_Watermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

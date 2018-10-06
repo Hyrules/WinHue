@@ -72,13 +72,13 @@
         <Button x:Name="BtnCreateResourceLink" Style="{StaticResource BtnSave}" Content="{Binding BtnSaveText}" Margin="0,0,100.333,17.667" Click="btnCreateResourceLink_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="102"/>
         <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" Margin="0,0,20.333,17.667" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
 
-        <sliders:BindableListView x:Name="BindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <sliders:BindableListView.ItemsPanel>
+        <customControls:BindableListView x:Name="BindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <customControls:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
                 </ItemsPanelTemplate>
-            </sliders:BindableListView.ItemsPanel>
-            <sliders:BindableListView.ItemTemplate>
+            </customControls:BindableListView.ItemsPanel>
+            <customControls:BindableListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" ItemHeight="Auto" ItemWidth="Auto" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                         <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
@@ -86,8 +86,8 @@
                         <TextBlock x:Name="tblShowId" Text="{Binding Id}" Style="{StaticResource TblId}" TextAlignment="Center" FontStyle="Italic" TextWrapping="Wrap" />
                     </WrapPanel>
                 </DataTemplate>
-            </sliders:BindableListView.ItemTemplate>
-            <sliders:BindableListView.GroupStyle>
+            </customControls:BindableListView.ItemTemplate>
+            <customControls:BindableListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
@@ -114,8 +114,8 @@
                         </Style>
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
-            </sliders:BindableListView.GroupStyle>
-        </sliders:BindableListView>
+            </customControls:BindableListView.GroupStyle>
+        </customControls:BindableListView>
         <Label x:Name="Label1" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Description}" HorizontalAlignment="Left" Margin="11,67,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="TextBlock" Margin="243,0,181.333,34.667" TextWrapping="Wrap" Text="{x:Static resx:GUI.ResourceLinkCreatorForm_HoldControl}" FontSize="10" Height="15" VerticalAlignment="Bottom"/>
         <Label x:Name="Label2" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_ClassID}" HorizontalAlignment="Left" Margin="16,200,0,0" VerticalAlignment="Top"/>

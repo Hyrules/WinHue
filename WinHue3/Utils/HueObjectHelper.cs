@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using log4net;
+using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Interface;
@@ -152,9 +154,9 @@ namespace WinHue3.Utils
             if (zero != null)
             {
                 ds.groups.Add("0", zero);
-            }
-
+            }           
             hr = ProcessDataStore(ds);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("Bridge data store : " + hr);
 
             return hr;
@@ -165,10 +167,10 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the datastore from.</param>
         /// <returns>a list of IHueObject</returns>
-        public static async Task<List<IHueObject>> GetBridgeDataStoreAsyncTask(Bridge bridge)
+        public static async Task<List<IHueObject>> GetBridgeDataStoreAsyncTask(Bridge bridge,bool hideobjects = true)
         {
             log.Info($@"Fetching DataStore from bridge : {bridge.IpAddress}");
-            DataStore bresult = await bridge.GetBridgeDataStoreAsyncTask();
+            DataStore bresult = await bridge.GetBridgeDataStoreAsync();
             List<IHueObject> hr = null;
             if (bresult == null) return hr;
             DataStore ds = bresult;
@@ -177,8 +179,9 @@ namespace WinHue3.Utils
             {
                 ds.groups.Add("0", zero);
             }
-
             hr = ProcessDataStore(ds);
+            if(hideobjects)
+                RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("Bridge data store : " + hr);
 
             return hr;
@@ -443,6 +446,18 @@ namespace WinHue3.Utils
             return Object;
         }
 
+        private static void RemoveHiddenObjects<T>(ref List<T> list, List<Tuple<string,string>> hiddenObjects) where T : IHueObject
+        {
+
+            foreach (Tuple<string, string> h in hiddenObjects)
+            {
+
+                int index = list.FindItemIndex(x => x.Id == h.Item1 && x.GetHueType() == h.Item2);
+                if (index == -1) continue;
+                list.RemoveAt(index);
+            }
+        }
+
         /// <summary>
         /// Get a list of sensors with ID, name and image populated from the selected bridge.
         /// </summary>
@@ -454,6 +469,7 @@ namespace WinHue3.Utils
             Dictionary<string, Sensor> bresult = bridge.GetListObjects<Sensor>();
             if (bresult == null) return null;
             List<Sensor> hr = ProcessSensors(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -469,6 +485,7 @@ namespace WinHue3.Utils
             Dictionary<string, Sensor> bresult = await bridge.GetListObjectsAsyncTask<Sensor>();
             if (bresult == null) return null;
             List<Sensor> hr = ProcessSensors(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Sensors : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -483,6 +500,7 @@ namespace WinHue3.Utils
             log.Debug($@"Getting new sensors from bridge : {bridge.IpAddress}");
             SearchResult bresult = bridge.GetNewObjects<Sensor>();
             List<IHueObject> hr = ProcessSearchResult(bridge, bresult, false);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("Search Result : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -560,6 +578,7 @@ namespace WinHue3.Utils
                 gs.Add("0", zero);
             }
             List<Group> hr = ProcessGroups(gs);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List groups : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -581,6 +600,7 @@ namespace WinHue3.Utils
                 gs.Add("0", zero);
             }
             List<Group> hr = ProcessGroups(gs);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List groups : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -596,6 +616,7 @@ namespace WinHue3.Utils
             Dictionary<string, Scene> bresult = bridge.GetListObjects<Scene>();
             if (bresult == null) return null;
             List<Scene> hr = ProcessScenes(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Scenes : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -611,6 +632,7 @@ namespace WinHue3.Utils
             Dictionary<string, Scene> bresult = await bridge.GetListObjectsAsyncTask<Scene>();
             if (bresult == null) return null;
             List<Scene> hr = ProcessScenes(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Scenes : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -626,6 +648,7 @@ namespace WinHue3.Utils
             Dictionary<string, Schedule> bresult = bridge.GetListObjects<Schedule>();
             if (bresult == null) return null;
             List<Schedule> hr = ProcessSchedules(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Schedules : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -641,6 +664,7 @@ namespace WinHue3.Utils
             Dictionary<string, Schedule> bresult = await bridge.GetListObjectsAsyncTask<Schedule>();
             if (bresult == null) return null;
             List<Schedule> hr = ProcessSchedules(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Schedules : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -656,6 +680,7 @@ namespace WinHue3.Utils
             Dictionary<string, Rule> bresult = bridge.GetListObjects<Rule>();
             if (bresult == null) return null;
             List<Rule> hr = ProcessRules(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Rules : " + Serializer.SerializeToJson(hr));
             return hr;
         }
@@ -671,6 +696,7 @@ namespace WinHue3.Utils
             Dictionary<string, Rule> bresult = await bridge.GetListObjectsAsyncTask<Rule>();
             if (bresult == null) return null;
             List<Rule> hr = ProcessRules(bresult);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
             log.Debug("List Rules : " + Serializer.SerializeToJson(hr));
             return hr;
         }

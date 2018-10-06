@@ -16,5 +16,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
             ItemCollection effects = new ItemCollection() { "", "none", "colorloop" };
             return effects;
         }
+
+        
     }
 }

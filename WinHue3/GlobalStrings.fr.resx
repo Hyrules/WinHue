@@ -762,4 +762,19 @@
   <data name="CheckingForUpdate" xml:space="preserve">
     <value>Virification de mise à jour en cours. Veuillez svp revenir plus tard afin de voir si de nouvelles MAJ sont disponibles.</value>
   </data>
+  <data name="ElementExists" xml:space="preserve">
+    <value>Cet élément existe déjà dans le canvas.</value>
+  </data>
+  <data name="FloorPlanExists" xml:space="preserve">
+    <value>Un plan ayant ce nom existe déjà. Écraser ?</value>
+  </data>
+  <data name="WarnModifiedPlan" xml:space="preserve">
+    <value>Un plan à été modifié. Si vous continuez vous allez perdre vos modifications. Continuer ?</value>
+  </data>
+  <data name="UnableToExport" xml:space="preserve">
+    <value>Impoosible d'exporter la configuration demandée.</value>
+  </data>
+  <data name="ErrorSaving" xml:space="preserve">
+    <value>Une erreur s'est produit pendant la sauvegarde.</value>
+  </data>
 </root>

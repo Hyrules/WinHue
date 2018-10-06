@@ -133,9 +133,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <param name="newname"></param>
         /// <param name="apiKey">[Optional] The Api to access the bridge.</param>
         /// <param name="mac"></param>
-        /// <param name="apiversion"></param>
-        /// <param name="swversion"></param>
-        public Bridge(IPAddress ip, string mac, string apiversion, string swversion,string newname, string apiKey = null)
+        public Bridge(IPAddress ip, string mac, string newname, string apiKey = null)
         {
             _ipAddress = ip;
             if (apiKey != null || apiKey != string.Empty)
@@ -143,8 +141,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 _apiKey = apiKey;
             }
             _mac = mac;
-            _apiversion = apiversion;
-            _swversion = swversion;
             _name = newname;
             _lastCommandMessages = new Messages();
             _updateAvailable = false;

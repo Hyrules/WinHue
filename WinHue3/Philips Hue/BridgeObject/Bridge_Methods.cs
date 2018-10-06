@@ -93,7 +93,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// Get all objects from the bridge async.
         /// </summary>
         /// <returns>A DataStore of objects from the bridge.</returns>
-        public async Task<DataStore> GetBridgeDataStoreAsyncTask()
+        public async Task<DataStore> GetBridgeDataStoreAsync()
         {
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl), WebRequestType.Get);
             if (comres.Status == WebExceptionStatus.Success)
