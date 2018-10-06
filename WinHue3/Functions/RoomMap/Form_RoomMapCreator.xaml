@@ -93,7 +93,7 @@
                                 <Style TargetType="Label">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsModified}" Value="True" utils:TriggerTracing.TraceEnabled="True" utils:TriggerTracing.TriggerName="Modified">
+                                        <DataTrigger Binding="{Binding IsChanged}" Value="True" utils:TriggerTracing.TraceEnabled="True" utils:TriggerTracing.TriggerName="Modified">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>

@@ -36,6 +36,7 @@ namespace WinHue3.Functions.RoomMap
         {
             ofd = new OpenFileDialog {Filter = "All Supported Image Files (*.jpg;*.png;*.bmp)|*.jpg;*.png;*.bmp|JPEG Files (*.jpg)|*.jpg|Bitmap Files (*.bmp)|*.bmp|PNG Files (*.png)|*.png", DefaultExt = "*.jpg;*.png;*.bmp"};
             ListFloors = new ObservableCollection<Floor>(WinHueSettings.LoadFloorPlans());
+            
             _deleteFloor = new List<string>();
         }
 
@@ -162,7 +163,7 @@ namespace WinHue3.Functions.RoomMap
         {
             if (FloorModel == null) return false;
             if (string.IsNullOrEmpty(FloorModel.Name) || string.IsNullOrWhiteSpace(FloorModel.Name)) return false;
-            if (!FloorModel.IsModified) return false;
+            if (!FloorModel.IsChanged) return false;
             return true;
         }
     

@@ -20,7 +20,7 @@ using WinHue3.Utils;
 namespace WinHue3.Functions.RoomMap
 {
     [JsonConverter(typeof(FloorPlanConverter))]
-    public class Floor : ValidatableBindableBase
+    public class Floor : INotifyPropertyChanged
     {
         private string _name;
         private BitmapImage _image;
@@ -28,6 +28,7 @@ namespace WinHue3.Functions.RoomMap
         private double _canvasHeight;
         private double _canvasWidth;
         private Stretch _stretchMode;
+        private bool _isChanged;
 
         public Floor()
         {
@@ -110,31 +111,46 @@ namespace WinHue3.Functions.RoomMap
             set => SetProperty(ref _stretchMode,value);
         }
 
-        public bool IsModified
+        public bool IsChanged
         {
-            get
-            { 
-                return IsChanged || Elements.Any(x => x.IsChanged);
-            }
+            get => _isChanged || Elements.Any(x => x.IsChanged); 
+            private set => SetProperty(ref _isChanged ,value);
         }
 
-        protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        private bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value)) return false;
             storage = value;
             RaisePropertyChanged(propertyName);
-            RaisePropertyChanged("IsModified");
+            RaisePropertyChanged("IsChanged");
             return true;
         }
 
-        public override void AcceptChanges()
+        public void AcceptChanges()
         {
             foreach (HueElement he in _elements)
             {
                 he.AcceptChanges();
             }
-            RaisePropertyChanged("IsModified");
+
+            IsChanged = false;
+            RaisePropertyChanged("IsChanged");
         }
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+
+            if (propertyName != "IsChanged")
+            {
+                IsChanged = true;
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
     }
 
     class FloorPlanConverter : JsonConverter

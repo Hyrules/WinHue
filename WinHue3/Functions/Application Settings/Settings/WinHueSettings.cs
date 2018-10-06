@@ -70,7 +70,9 @@ namespace WinHue3.Functions.Application_Settings.Settings
                     {
                         log.Info($"Loading floorplan {file}...");
                         string json = File.ReadAllText(file);
-                        floors.Add(JsonConvert.DeserializeObject<Floor>(json));
+                        Floor newfloor = JsonConvert.DeserializeObject<Floor>(json);
+                        newfloor.AcceptChanges();
+                        floors.Add(newfloor);
 
                     }
                 }

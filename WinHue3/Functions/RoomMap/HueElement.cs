@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WinHue3.Annotations;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
@@ -20,7 +22,7 @@ namespace WinHue3.Functions.RoomMap
     public enum HueElementType { Light=0, Group=1, Scene=2, Other = 999 }
 
   
-    public class HueElement : ValidatableBindableBase
+    public class HueElement : INotifyPropertyChanged
     {
         
         private double _x;
@@ -34,6 +36,7 @@ namespace WinHue3.Functions.RoomMap
         private string _id;
         private ImageSource _image;
         private HueElementType _hueType;
+        private bool _isChanged;
 
         public HueElement()
         {
@@ -158,10 +161,20 @@ namespace WinHue3.Functions.RoomMap
             set => SetProperty(ref _image,value);
         }
 
-        protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        public bool IsChanged
         {
-            OnElementModified(new HueElementModifiedEventArgs(){oldvalue = storage, newvalue = value, propname = propertyName});
-            return base.SetProperty(ref storage, value, propertyName);
+            get => _isChanged;
+            private set => SetProperty(ref _isChanged,value);
+        }
+
+        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            OnElementModified(new HueElementModifiedEventArgs() { oldvalue = storage, newvalue = value, propname = propertyName });
+            if (Equals(storage, value)) return false;
+            storage = value;
+            RaisePropertyChanged(propertyName);
+
+            return true;
         }
 
         public event EventHandler ElementModified;
@@ -169,6 +182,24 @@ namespace WinHue3.Functions.RoomMap
         protected virtual void OnElementModified(HueElementModifiedEventArgs e)
         {
             ElementModified?.Invoke(this, e);
+        }
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            
+            if (propertyName != "IsChanged")
+            {
+                IsChanged = true;
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void AcceptChanges()
+        {
+            IsChanged = false;
         }
     }
 
