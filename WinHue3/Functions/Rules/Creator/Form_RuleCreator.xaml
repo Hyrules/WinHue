@@ -106,7 +106,7 @@
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </controls:BindableTreeView>
-                    <controls:CommandComboBox VerticalAlignment="Top"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}" Watermark="(Choose the operator)" Grid.Row="5" Margin="0" Height="23.96">
+                    <controls:CommandComboBox VerticalAlignment="Top"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}" Watermark="(Choose the operator)" Grid.Row="5" Margin="0" Height="23.96" Style="{DynamicResource CommandComboBoxStyleNew}">
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Delayed_Changed}" Tag="ddx"/>
@@ -140,7 +140,7 @@
                         </ComboBox.ItemTemplate>
                     </controls:CommandComboBox>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Delete}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="73" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="21" Grid.Column="3" Grid.Row="3" Style="{DynamicResource ButtonStyle}" Margin="0,0,10,0"/>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="73" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="21" Grid.Column="3" Grid.Row="3" Style="{DynamicResource ButtonStyle}" Margin="10,0,10,31"/>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="73" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="Auto" Grid.Column="3" Grid.Row="3" Style="{DynamicResource ButtonStyle}" Margin="10,0,0,31" Content="   Clear&#xD;&#xA;Selection" HorizontalContentAlignment="Center"/>
                     <Label Content="Object Types" VerticalAlignment="Top" Padding="6,0,5,5" FontWeight="Bold" Height="20.96">
                         <Label.Foreground>
                             <SolidColorBrush Color="{DynamicResource theme_MainText}"/>
