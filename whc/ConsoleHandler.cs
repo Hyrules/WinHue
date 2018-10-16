@@ -1036,8 +1036,12 @@ namespace whc
                     {
                         if(WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
                         {
-                            string ip = WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].ip;
-                            _bridge = new Bridge(IPAddress.Parse(ip), WinHueSettings.bridges.DefaultBridge, WinHueSettings.bridges.BridgeInfo[WinHueSettings.bridges.DefaultBridge].apikey);
+                            string mac = WinHueSettings.bridges.DefaultBridge;
+                            var bridgeSettings = WinHueSettings.bridges.BridgeInfo[mac];
+                            string ip = bridgeSettings.ip;
+                            string name = bridgeSettings.name;
+                            string apiKey = bridgeSettings.apikey;
+                            _bridge = new Bridge(IPAddress.Parse(ip), mac, name, apiKey);
                             if (_bridge != null && _error == false)
                             {
                                 extra = ObjOpts.Parse(extra);
