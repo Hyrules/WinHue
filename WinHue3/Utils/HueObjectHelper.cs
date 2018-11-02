@@ -835,7 +835,14 @@ namespace WinHue3.Utils
                 }
                 kvp.Value.Id = kvp.Key;
                 kvp.Value.visible = true;
-                kvp.Value.Image = GetImageForLight(kvp.Value.state.reachable.GetValueOrDefault() ? kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, kvp.Value.modelid);
+                if(kvp.Value.manufacturername == "OSRAM")
+                {
+                    kvp.Value.Image = GetImageForLight(kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off, kvp.Value.modelid);
+                }
+                else
+                {
+                    kvp.Value.Image = GetImageForLight(kvp.Value.state.reachable.GetValueOrDefault() ? kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, kvp.Value.modelid);
+                }                
 
                 newlist.Add(kvp.Value);
             }
