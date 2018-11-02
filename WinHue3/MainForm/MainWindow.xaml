@@ -631,7 +631,12 @@
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
 
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Minimum="-1" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" BorderThickness="2" BorderBrush="#FF4951D1">
+                    <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" BorderThickness="2" BorderBrush="#FF4951D1" SmallChange="1" LargeChange="100">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding HueKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <sliders:BindableHueSlider.Background>
                             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                                 <GradientStop Color="#FFFF0000" />
@@ -645,7 +650,12 @@
                         </sliders:BindableHueSlider.Background>
                     </sliders:BindableHueSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" Width="Auto" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1">
+                    <sliders:BindableSlider x:Name="SlBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1" LargeChange="3">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding BriKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <sliders:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                                 <GradientStop Color="White" Offset="1"/>
@@ -654,7 +664,12 @@
                         </sliders:BindableSlider.Background>
                     </sliders:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlSat" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1">
+                    <sliders:BindableSlider x:Name="SlSat" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1" LargeChange="3">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding SatKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <sliders:BindableSlider.Background>
                             <LinearGradientBrush>
                                 <GradientStop Color="White" x:Name="SlSatStartGradient"/>
@@ -663,7 +678,12 @@
                         </sliders:BindableSlider.Background>
                     </sliders:BindableSlider>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlCt" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1">
+                    <sliders:BindableSlider x:Name="SlCt" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1" LargeChange="3">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding CtKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <sliders:BindableSlider.Background>
                             <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
                                 <GradientStop Color="#FFFF8912" Offset="0"/>
@@ -684,7 +704,7 @@
                             </Style>
                         </Label.Style>
                     </Label>
-                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _FontColor="White" _BackgroundColor="{StaticResource HeaderBackgroundBrush}" >
+                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _FontColor="White" _BackgroundColor="{StaticResource HeaderBackgroundBrush}" >                        
                         <sliders:XYSliders.Style>
                             <Style TargetType="sliders:XYSliders">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -698,7 +718,7 @@
                         </sliders:XYSliders.Style>
                     </sliders:XYSliders>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{StaticResource {x:Type Slider}}" />
+                    <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{StaticResource {x:Type Slider}}" LargeChange="100" />
 
 
 

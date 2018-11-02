@@ -6,20 +6,21 @@ using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Utils
 {
-    [Serializable, ExpandableObject]
-    public class CoordinatesCollection : BindingList<Tuple<float, float>>, ICustomTypeDescriptor
+    [Serializable]
+    public class CoordinatesCollection : BindingList<float[]>, ICustomTypeDescriptor
     {
 
-        public CoordinatesCollection() : base(new BindingList<Tuple<float, float>>())
+        public CoordinatesCollection() : base(new BindingList<float[]>())
         {
 
         }
 
-        public CoordinatesCollection(List<Tuple<float, float>> list)
+        public CoordinatesCollection(List<float[]> list)
         {
             foreach (var i in list)
             {
@@ -27,14 +28,12 @@ namespace WinHue3.Utils
             }
         }
 
-
-
-        public static implicit operator CoordinatesCollection(List<Tuple<float, float>> list)
+        public static implicit operator CoordinatesCollection(List<float[]> list)
         {
             return new CoordinatesCollection(list);
         }
 
-        public void AddRange(IEnumerable<Tuple<float, float>> collection)
+        public void AddRange(IEnumerable<float[]> collection)
         {
             foreach (var i in collection)
             {
@@ -42,6 +41,11 @@ namespace WinHue3.Utils
             }
         }
 
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this.Items);
+        }
+       
         #region TYPE_DESCRIPTOR
 
         PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties()
@@ -116,11 +120,11 @@ namespace WinHue3.Utils
     }
     public class CoordinatesPropertyDescriptor : PropertyDescriptor
     {
-        private BindingList<Tuple<float,float>> _owner;
+        private BindingList<float[]> _owner;
         private int _index;
-        private Tuple<float,float> Value => _owner[_index];
+        private float[] Value => _owner[_index];
 
-        public CoordinatesPropertyDescriptor(BindingList<Tuple<float,float>> owner, int index) : base(index.ToString(), null)
+        public CoordinatesPropertyDescriptor(BindingList<float[]> owner, int index) : base(index.ToString(), null)
         {
             _owner = owner;
             _index = index;
@@ -143,13 +147,14 @@ namespace WinHue3.Utils
 
         public override void SetValue(object component, object value)
         {
-            _owner[_index] = (Tuple<float,float>)value;
+            _owner[_index] = (float[])value;
         }
 
         public override bool ShouldSerializeValue(object component)
         {
             return false;
         }
+
 
         public override Type ComponentType => _owner.GetType();
         public override bool IsReadOnly => false;

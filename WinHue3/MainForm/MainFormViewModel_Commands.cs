@@ -123,7 +123,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
@@ -139,7 +139,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
@@ -155,7 +155,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
@@ -171,7 +171,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
@@ -187,7 +187,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
@@ -329,6 +329,10 @@ namespace WinHue3.MainForm
         public ICommand SliderCtChangedCommand => new AsyncRelayCommand(param => SliderChangeCt(), (param) => CanCt());
         public ICommand SliderSatChangedCommand => new AsyncRelayCommand(param => SliderChangeSat(), (param) => CanSat());
         public ICommand SliderXyChangedCommand => new AsyncRelayCommand(param => SliderChangeXy(), (param) => CanXy());
+        public ICommand HueKeyPressCommand => new AsyncRelayCommand(SliderChangeHueKeypress);
+        public ICommand BriKeyPressCommand => new AsyncRelayCommand(SliderChangeBriKeypress);
+        public ICommand SatKeyPressCommand => new AsyncRelayCommand(SliderChangeSatKeypress);
+        public ICommand CtKeyPressCommand => new AsyncRelayCommand(SliderChangeCtKeypress);
 
         //*************** App Menu Commands ******************
         public ICommand DoBridgePairingCommand => new RelayCommand(param => DoBridgePairing(ListBridges));

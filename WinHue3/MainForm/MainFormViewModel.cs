@@ -234,7 +234,7 @@ namespace WinHue3.MainForm
                 if (SelectedBridge != null)
                 {
                     _ctm = new CpuTempMonitor(SelectedBridge);
-                    LoadHotkeys();
+                    //LoadHotkeys();
                 }
 
 

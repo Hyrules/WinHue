@@ -65,6 +65,7 @@ using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
 using WinHue3.Functions.RoomMap;
 using Binding = System.Windows.Data.Binding;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace WinHue3.MainForm
 {
@@ -1647,6 +1648,39 @@ namespace WinHue3.MainForm
                 if (obj == null) continue;
                 h.Image = obj.Image;
             }
+        }
+
+        private async Task CallCommandOnKeyPress(Key pressed, Func<Task> callback)
+        {
+            if (pressed == Key.Up || pressed == Key.Right || pressed == Key.Down || pressed == Key.Left)
+            {
+                if (callback != null)
+                    await callback();
+            }
+        }
+
+        private async Task SliderChangeHueKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeHue);
+        }
+
+        private async Task SliderChangeBriKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeBri);
+        }
+
+        private async Task SliderChangeSatKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeSat);
+        }
+
+        private async Task SliderChangeCtKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeCt);
         }
     }
 }

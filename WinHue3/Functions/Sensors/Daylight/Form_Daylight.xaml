@@ -7,7 +7,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:daylight="clr-namespace:WinHue3.Functions.Sensors.Daylight"
         x:Class="WinHue3.Functions.Sensors.Daylight.Form_Daylight"
-        Title="{x:Static resx:GUI.DaylightForm_Title}" Height="190" Width="288" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}"
+        Title="{x:Static resx:GUI.DaylightForm_Title}" Height="190" Width="288" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderThickness="0" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}"
 >
     <Window.DataContext>
         <daylight:DaylightViewModel/>
@@ -34,7 +34,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="BtnSet" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+        <Style TargetType="{x:Type Button}" x:Key="BtnSet">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=TbLat, Path=(Validation.HasError)}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -47,8 +47,8 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="BtnSet" Style="{StaticResource BtnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click" Height="27"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.DaylightForm_CancelButton}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click"/>
+        <Button x:Name="BtnSet" Style="{StaticResource BtnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click" Height="21"/>
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.DaylightForm_CancelButton}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click" Height="21"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Longitude}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="77"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Latitude}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="77"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_SunriseOffset}" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="92"/>
