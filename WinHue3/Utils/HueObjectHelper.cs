@@ -1180,7 +1180,7 @@ namespace WinHue3.Utils
                 if (bresult == null) return null;
                 Light currentState = bresult;
 
-                if (currentState.state.reachable == false)
+                if (currentState.state.reachable == false && currentState.manufacturername != "OSRAM")
                 {
                     hr = GetImageForLight(LightImageState.Unr, currentState.modelid);
                 }
