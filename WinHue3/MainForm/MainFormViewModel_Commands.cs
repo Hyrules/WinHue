@@ -123,7 +123,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
@@ -139,7 +139,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
@@ -155,7 +155,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
@@ -171,7 +171,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
@@ -187,7 +187,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM") return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }

@@ -1755,4 +1755,10 @@
   <data name="Clear" xml:space="preserve">
     <value>Déselectionner tout</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_OsramFix" xml:space="preserve">
+    <value>OSRAM correctif pour non disponible</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_OsramFix_Tooltip" xml:space="preserve">
+    <value>Si vous éprouvez des problèmes avec OSRAM étant non disponible cochez ceci.</value>
+  </data>
 </root>

@@ -1755,4 +1755,10 @@
   <data name="Clear" xml:space="preserve">
     <value>Clear</value>
   </data>
+  <data name="SettingsForm_Tab_MainSettings_OsramFix" xml:space="preserve">
+    <value>OSRAM bypass unreachable</value>
+  </data>
+  <data name="SettingsForm_Tab_MainSettings_OsramFix_Tooltip" xml:space="preserve">
+    <value>If you have issues with OSRAM being unreachable check this.</value>
+  </data>
 </root>

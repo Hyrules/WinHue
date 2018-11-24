@@ -4822,6 +4822,24 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OSRAM bypass unreachable.
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_OsramFix {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_OsramFix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have issues with OSRAM being unreachable check this..
+        /// </summary>
+        public static string SettingsForm_Tab_MainSettings_OsramFix_Tooltip {
+            get {
+                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_OsramFix_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not start with Windows.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Start_DoNotStart {

@@ -30,8 +30,8 @@
         <TabControl x:Name="TcSettings" HorizontalAlignment="Left" Height="367" VerticalAlignment="Top" Width="484">
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
                 <Grid>
-                    
-                    <CheckBox x:Name="ChbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}"/>
+
+                    <CheckBox x:Name="ChbDetectProxy" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_DetectProxy_ToolTip}" IsChecked="{Binding MainSettingsModel.DetectProxy}" Width="185"/>
                     <Label x:Name="Lblupnp" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout}" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="113"/>
                     <xctk:IntegerUpDown x:Name="NudUpnpTimeout" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Width="94" Maximum="59" Minimum="1" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}"/>
                     <Label x:Name="Lbltimeout" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_Timeout}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="113"/>
@@ -53,6 +53,7 @@
                     </CheckBox>
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_MinimizeToTray}" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="286" IsChecked="{Binding MainSettingsModel.MinimizeToTray}"/>
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" Margin="10,317,20,3.667" IsChecked="{Binding MainSettingsModel.UsePropGrid}"/>
+                    <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix}" Margin="206,168,10,152.667" IsChecked="{Binding MainSettingsModel.OSRAMFix}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix_Tooltip}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
@@ -140,6 +141,8 @@
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
+
+
 
 
         </TabControl>

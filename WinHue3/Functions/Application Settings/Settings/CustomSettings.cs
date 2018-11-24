@@ -31,6 +31,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             MinimizeToTray = false;
             UsePropertyGrid = false;
             SlidersBehavior = 0;
+            OSRAMFix = false;
         }
 
         [DataMember(EmitDefaultValue = true)]
@@ -79,6 +80,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public bool UsePropertyGrid { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public int SlidersBehavior { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public bool OSRAMFix { get; set; }
 
         public override string ToString()
         {
