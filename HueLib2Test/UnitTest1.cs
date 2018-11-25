@@ -24,12 +24,23 @@ using WinHue3.Functions.Rules.Creator;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using Org.BouncyCastle.Utilities;
 using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
+using WinHue3.Functions.Animations2;
 
 namespace HueLib2Test
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
+        public void TestParser()
+        {
+             var result = WinHueAnimationParser.ParseAnimation("BRI:254 SAT:254");
+
+
+        }
+
+
+
         [TestMethod]
         public void TestLists()
         {

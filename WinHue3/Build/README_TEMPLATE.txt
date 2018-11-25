@@ -11,7 +11,7 @@ Fixed:
 
 Added:
 - Mouse wheel will now work on the sliders of the mainform.
-- Fix/bypass for OSRAM having unreachable issue. (You can activate it in the application settings.)
+- Fix/bypass for OSRAM having unreachable issue. (You can activate it in the application settings)
 
 Changed:
 - Added a bypass for OSRAM lights caused by the unreachable state.

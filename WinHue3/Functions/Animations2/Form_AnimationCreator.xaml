@@ -1,0 +1,17 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Functions.Animations2"
+        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit" x:Class="WinHue3.Functions.Animations2.Form_AnimationCreator"
+        mc:Ignorable="d"
+        Title="Form_AnimationCreator" Height="450" Width="800">
+    <Grid>
+
+        <avalonedit:TextEditor Margin="0,29,0.333,31.667" ShowLineNumbers="True"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="618,394,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="703,394,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.121,0.196"/>
+
+    </Grid>
+</Window>

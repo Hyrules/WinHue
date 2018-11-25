@@ -1939,6 +1939,8 @@
         <member name="P:NAudio.CoreAudioApi.MMDevice.AudioClient">
             <summary>
             Audio Client
+            Makes a new one each call to allow caller to manage when to dispose
+            n.b. should probably not be a property anymore
             </summary>
         </member>
         <member name="P:NAudio.CoreAudioApi.MMDevice.AudioMeterInformation">

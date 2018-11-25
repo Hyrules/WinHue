@@ -1,0 +1,7 @@
+﻿<expr>		::= <wait>; | <type> *(<property>);
+
+<wait>		::= "WAIT" <value>
+<type>		::= "L"<id> | "G"<id>
+<id>		::= "Any Letter"
+<property>	::= "BRI" <value> | "SAT" <value> | "CT" <value> | "HUE" <value>
+<value>		::= "any digits"
