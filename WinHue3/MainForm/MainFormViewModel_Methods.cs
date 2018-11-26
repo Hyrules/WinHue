@@ -1217,7 +1217,7 @@ namespace WinHue3.MainForm
 
         private async Task SetSensorStatus()
         {
-            int currentstatus = ((ClipGenericStatusSensorState) ((Sensor) SelectedHueObject).state).status ?? 0;
+            int currentstatus = ((ClipGenericStatusSensorState) ((Sensor) SelectedHueObject).state).status;
             log.Info($"Trying to set the sensor {SelectedHueObject.Id} status to {SensorStatus}");
             bool result = await SelectedBridge.ChangeSensorStateAsyncTask(SelectedHueObject.Id, new ClipGenericStatusSensorState()
             {
@@ -1535,7 +1535,7 @@ namespace WinHue3.MainForm
                             SensorFlag = state.flag;
                             break;
                         case ClipGenericStatusSensorState state:
-                            SensorStatus = state.status ?? 0;
+                            SensorStatus = state.status;
                             break;
                         default:
                             break;
