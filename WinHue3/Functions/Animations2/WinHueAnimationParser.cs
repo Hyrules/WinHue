@@ -31,15 +31,15 @@ namespace WinHue3.Functions.Animations2
             from val in Parse.Digit.Many().Text()
             select new KeyValuePair<string, string>(prop,val);
 
-        /*private static readonly Parser<Dictionary<string, string>> properties =
-            from prop in property.DelimitedBy(SpaceDelimiter).AtLeastOnce().DelimitedBy(LineDelimiter)
+        private static readonly Parser<Dictionary<string, string>> properties =
+            from prop in property.DelimitedBy(SpaceDelimiter).AtLeastOnce()
             from lineend in LineDelimiter
-            select new Dictionary<string, string>(prop.ToDictionary(p => p));*/
+            select new Dictionary<string, string>(prop.ToDictionary(p => p));
 
         public static object ParseAnimation(string text)
         {
-            return new object();
-            //return properties.Parse(text);
+        
+            return properties.Parse(text);
         }
     }
 }

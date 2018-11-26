@@ -8,6 +8,7 @@ Both are available at Microsoft's website.
 
 Fixed:
 - Editing the Daylight sensor cause CTD.
+- Deserialization error with a ClipGenericStatusSensor status of null.
 
 Added:
 - Mouse wheel will now work on the sliders of the mainform.

@@ -5,3 +5,4 @@
 <id>		::= "Any Letter"
 <property>	::= "BRI" <value> | "SAT" <value> | "CT" <value> | "HUE" <value>
 <value>		::= "any digits"
+<byte>      ::= "from 0 to 255"
