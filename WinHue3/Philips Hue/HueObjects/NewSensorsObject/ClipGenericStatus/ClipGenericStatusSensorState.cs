@@ -18,10 +18,10 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
         /// Sensor Status.
         /// </summary>
         [HueProperty,DataMember]
-        public int status
+        public int? status
         {
             get => _status;
-            set => SetProperty(ref _status,value);
+            set =>  SetProperty(ref _status,value);
         }
 
         private string _lastupdated;
