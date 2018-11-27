@@ -16,25 +16,26 @@ namespace WinHue3.Functions.Animations2
         private static readonly Parser<char> LineDelimiter = Parse.Char(';');
 
         private static readonly Parser<int> WaitCommand =
-            from wait in Parse.String("WAIT ")
+            from wait in Parse.String("WAIT")
+            from sep in Parse.Char(':')
             from value in Parse.Digit.DelimitedBy(LineDelimiter).Text()
             select Convert.ToInt32(value);
-        
+
         private static readonly Parser<Tuple<string, string>> type =
             from typeletter in Parse.Letter.Once().Text()
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
-            select new Tuple<string,string>(typeletter,id);
+            select new Tuple<string, string>(typeletter, id);
 
-        private static readonly Parser<KeyValuePair<string,string>> property =
+        private static readonly Parser<KeyValuePair<string, string>> property =
             from prop in Parse.Letter.Many().Text()
             from sep in Parse.Char(':')
             from val in Parse.Digit.Many().Text()
-            select new KeyValuePair<string, string>(prop,val);
+            select new KeyValuePair<string, string>(prop, val);
 
         private static readonly Parser<Dictionary<string, string>> properties =
-            from prop in property.DelimitedBy(SpaceDelimiter).AtLeastOnce()
+            from prop in property.DelimitedBy(SpaceDelimiter)
             from lineend in LineDelimiter
-            select new Dictionary<string, string>(prop.ToDictionary(p => p));
+            select new Dictionary<string, string>(prop.ToDictionary(x => x.Key,x => x.Value));
 
         public static object ParseAnimation(string text)
         {

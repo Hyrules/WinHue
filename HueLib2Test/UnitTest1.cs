@@ -34,7 +34,7 @@ namespace HueLib2Test
         [TestMethod]
         public void TestParser()
         {
-             var result = WinHueAnimationParser.ParseAnimation("BRI:254 SAT:254");
+             var result = WinHueAnimationParser.ParseAnimation("BRI:254 SAT:254;");
 
 
         }
