@@ -14,6 +14,7 @@ namespace WinHue3.Functions.Animations2
     {
         private static readonly Parser<char> SpaceDelimiter = Parse.WhiteSpace;
         private static readonly Parser<char> LineDelimiter = Parse.Char(';');
+        private static readonly Parser<string> Light = Parse.String("LIGHT");
 
         private static readonly Parser<int> WaitCommand =
             from wait in Parse.String("WAIT")
@@ -21,10 +22,11 @@ namespace WinHue3.Functions.Animations2
             from value in Parse.Digit.DelimitedBy(LineDelimiter).Text()
             select Convert.ToInt32(value);
 
-        private static readonly Parser<Tuple<string, string>> type =
-            from typeletter in Parse.Letter.Once().Text()
+        private static readonly Parser<Tuple<string, string>> setter =
+            from typeword in Parse.Letter.Many().Text()
+            from space in SpaceDelimiter
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
-            select new Tuple<string, string>(typeletter, id);
+            select new Tuple<string, string>(typeword, id);
 
         private static readonly Parser<KeyValuePair<string, string>> property =
             from prop in Parse.Letter.Many().Text()
@@ -36,6 +38,8 @@ namespace WinHue3.Functions.Animations2
             from prop in property.DelimitedBy(SpaceDelimiter)
             from lineend in LineDelimiter
             select new Dictionary<string, string>(prop.ToDictionary(x => x.Key,x => x.Value));
+
+        private static readonly Parser<string> 
 
         public static object ParseAnimation(string text)
         {

@@ -1,7 +1,7 @@
-﻿<expr>		::= <wait>; | <type> *(<property>);
+﻿<expr>		::= <wait>; | <setter>;
 
+<setter>	::= LIGHT *(<property>) | GROUP *(<property>) | SCENE <id>
 <wait>		::= "WAIT" <value>
-<type>		::= "L"<id> | "G"<id>
 <id>		::= "Any Letter"
 <property>	::= "BRI" <value> | "SAT" <value> | "CT" <value> | "HUE" <value>
 <value>		::= "any digits"
