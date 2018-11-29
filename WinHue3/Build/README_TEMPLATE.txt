@@ -9,6 +9,7 @@ Both are available at Microsoft's website.
 Fixed:
 - Editing the Daylight sensor cause CTD.
 - Deserialization error with a ClipGenericStatusSensor status of null.
+- Advanced creator sending an empty url or text cause a crash.
 
 Added:
 - Mouse wheel will now work on the sliders of the mainform.

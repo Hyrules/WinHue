@@ -217,7 +217,13 @@ namespace WinHue3.Functions.Advanced_Creator
         public ICommand CreateResourceLinkTemplateCommand => new RelayCommand(param => CreateResourceLinkTemplate(), (param) => Type == string.Empty);
         public ICommand CreateGroupTemplateCommand => new RelayCommand(param => CreateGroupTemplate(), (param) => Type == string.Empty);
         public ICommand ClearTemplateCommand => new RelayCommand(param => ClearTemplate(), (param) => Text != string.Empty);
-        public ICommand SendCommand => new AsyncRelayCommand(param => Send());
+        public ICommand SendCommand => new AsyncRelayCommand(param => Send(), (param) => CanSendCommand());
+
+        private bool CanSendCommand()
+        {
+            return !string.IsNullOrEmpty(Url) && !string.IsNullOrWhiteSpace(Url) && Uri.IsWellFormedUriString(Url, UriKind.Absolute);
+        }
+
         public ICommand CreateSceneTemplateCommand => new RelayCommand(param => CreateSceneTemplate(), (param) => Text == string.Empty);
         public ICommand CreateSceneStateCommand => new RelayCommand(param => CreateSceneStateTemplate(), (param) => Text == string.Empty);
         public ICommand SetBridgeUrlCommand => new RelayCommand(param => SetBridgeUrl());
