@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Sprache;
+using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 
@@ -58,11 +59,26 @@ namespace WinHue3.Functions.Animations2
         {
             IHueObject ho = HueObjectCreator.CreateHueObject(type.Item1);
             ho.Id = type.Item2;
-            PropertyInfo[] pi = typeof(State).GetProperties();
+            State newstate = new State();
+
+            PropertyInfo[] pi = newstate.GetType().GetProperties();
 
             foreach(KeyValuePair<string,string> kvp in properties)
             {
+                if (pi.First(x => x.Name.Equals(kvp.Key, StringComparison.InvariantCultureIgnoreCase)) != null)
+                {
+                    int index = pi.FindIndex(x => x.Name.Equals(kvp.Key, StringComparison.InvariantCultureIgnoreCase));
+                    try
+                    {
+                        dynamic obj = Convert.ChangeType(kvp.Value, Nullable.GetUnderlyingType(pi[index].PropertyType) ?? pi[index].PropertyType);
+                        pi[index]?.SetValue(newstate, kvp.Value);
+                    }
+                    catch (Exception ex)
+                    {
 
+                    }
+
+                }
             }
             return ho;
         }
