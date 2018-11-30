@@ -16,26 +16,26 @@ namespace WinHue3.Functions.Animations2
     {
         private static readonly Parser<char> SpaceDelimiter = Parse.WhiteSpace;
         private static readonly Parser<char> LineDelimiter = Parse.Char(';');
-
+        private static readonly Parser<>
         private static readonly Parser<int> WaitCommand =
-            from wait in Parse.String("WAIT")
+            from wait in Parse.IgnoreCase("WAIT")
             from sep in Parse.Char(':')
             from value in Parse.Digit.DelimitedBy(LineDelimiter).Text()
             select Convert.ToInt32(value);
 
         private static readonly Parser<Tuple<string, string>> setter =
-            from typeword in (Parse.String("LIGHT").Or(Parse.String("GROUP"))).Text()
-            from space in SpaceDelimiter
+            from typeword in (Parse.Token(Parse.IgnoreCase("LIGHT")).Or(Parse.Token(Parse.IgnoreCase("GROUP")))).Text()
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
             select new Tuple<string, string>(typeword, id);
 
         private static readonly Parser<KeyValuePair<string, string>> property =
             from prop in (
-                Parse.String("BRI")
-                .Or(Parse.String("SAT")               
-                .Or(Parse.String("CT")
-                .Or(Parse.String("HUE")
-                .Or(Parse.String("ON")))))).Text()
+                Parse.IgnoreCase("BRI")
+                .Or(Parse.IgnoreCase("SAT")               
+                .Or(Parse.IgnoreCase("CT")
+                .Or(Parse.IgnoreCase("HUE")
+                .Or(Parse.IgnoreCase("ON")
+                .Or(Parse.IgnoreCase("TT"))))))).Text()
             from sep in Parse.Char(':')
             from val in Parse.Digit.Many().Text()
             select new KeyValuePair<string, string>(prop, val);
@@ -46,12 +46,9 @@ namespace WinHue3.Functions.Animations2
             select new Dictionary<string, string>(prop.ToDictionary(x => x.Key,x => x.Value));
 
         private static readonly Parser<IHueObject> hueobject =
-            from set in Parse.String("SET")
-            from space1 in SpaceDelimiter
+            from set in Parse.Token(Parse.IgnoreCase("SET"))
             from type in setter
-            from space2 in SpaceDelimiter
-            from to in Parse.String("TO")
-            from space3 in SpaceDelimiter
+            from to in Parse.Token(Parse.IgnoreCase("TO"))
             from props in properties
             select CreateHueObject(type,props);
 
@@ -68,18 +65,23 @@ namespace WinHue3.Functions.Animations2
                 if (pi.First(x => x.Name.Equals(kvp.Key, StringComparison.InvariantCultureIgnoreCase)) != null)
                 {
                     int index = pi.FindIndex(x => x.Name.Equals(kvp.Key, StringComparison.InvariantCultureIgnoreCase));
+                    Type t = Nullable.GetUnderlyingType(pi[index].PropertyType) ?? pi[index].PropertyType;
                     try
                     {
-                        dynamic obj = Convert.ChangeType(kvp.Value, Nullable.GetUnderlyingType(pi[index].PropertyType) ?? pi[index].PropertyType);
-                        pi[index]?.SetValue(newstate, kvp.Value);
+                        dynamic obj = Convert.ChangeType(kvp.Value, t);
+                        pi[index]?.SetValue(newstate,obj);
                     }
                     catch (Exception ex)
                     {
-
+                        throw new ParseException($"Invalid value for {kvp.Key} : {kvp.Value}", ex);
                     }
 
                 }
             }
+
+            PropertyInfo stateprop = ho.GetType().GetProperty("state");
+            stateprop.SetValue(ho, newstate);
+
             return ho;
         }
 
