@@ -30,7 +30,6 @@ using WinHue3.Functions.ResourceLinks;
 using WinHue3.Functions.Rules.Creator;
 using WinHue3.Functions.Scenes.Creator;
 using WinHue3.Functions.Scenes.View;
-using WinHue3.Functions.Schedules.OldCreator;
 using WinHue3.Functions.Sensors.Creator;
 using WinHue3.Functions.Sensors.Daylight;
 using WinHue3.Functions.Sensors.HueTap;

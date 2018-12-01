@@ -453,7 +453,6 @@
     <Compile Include="Functions\Sensors\HueTap\HueTapModel.cs" />
     <Compile Include="MainForm\MainFormModel.cs" />
     <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorModel.cs" />
-    <Compile Include="Functions\Schedules\OldCreator\ScheduleCreatorModel.cs" />
     <Compile Include="Functions\Sensors\Creator\SensorCreatorModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\ValidateBindableBase.cs" />
@@ -461,7 +460,6 @@
     <Compile Include="Functions\Sensors\HueTap\HueTapButtonValidation.cs" />
     <Compile Include="Validations\NotNullValidation.cs" />
     <Compile Include="Validations\MinimumCountValidation.cs" />
-    <Compile Include="Validations\RequireMaskValidation.cs" />
     <Compile Include="Functions\BridgePairing\BridgePairingViewModel.cs" />
     <Compile Include="Functions\BridgeSettings\BridgeSettingsViewModel.cs" />
     <Compile Include="Functions\Sensors\Daylight\DaylightViewModel.cs" />
@@ -474,7 +472,6 @@
     <Compile Include="MainForm\MainFormViewModel_Plugins.cs" />
     <Compile Include="MainForm\MainFormViewModel_Properties.cs" />
     <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorViewModel.cs" />
-    <Compile Include="Functions\Schedules\OldCreator\ScheduleCreatorViewModel.cs" />
     <Compile Include="Functions\Sensors\Creator\SensorCreatorViewModel.cs" />
     <Compile Include="Functions\BridgePairing\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
@@ -632,10 +629,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Functions\Schedules\OldCreator\Form_ScheduleCreator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Functions\EventViewer\Form_EventLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -699,9 +692,6 @@
     </Compile>
     <Compile Include="Functions\Scenes\Creator\Form_SceneCreator.xaml.cs">
       <DependentUpon>Form_SceneCreator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Functions\Schedules\OldCreator\Form_ScheduleCreator.xaml.cs">
-      <DependentUpon>Form_ScheduleCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\EventViewer\Form_EventLog.xaml.cs">
       <DependentUpon>Form_EventLog.xaml</DependentUpon>
@@ -997,7 +987,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
