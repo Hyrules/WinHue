@@ -80,8 +80,8 @@
                         <Grid>
                             <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultLightBri}" Style="{StaticResource BriLastState}"/>
                             <xctk:ByteUpDown  HorizontalAlignment="Left" Margin="93,49,0,0" VerticalAlignment="Top" Width="98" Value="{Binding DefaultModel.DefaultGroupBri}" Style="{StaticResource BriLastState}"/>
-                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Lights}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78"/>
-                            <Label Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_Groups}" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="78"/>
+                            <Label Content="{x:Static resx:GUI.Lights}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78"/>
+                            <Label Content="{x:Static resx:GUI.Groups}" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="78"/>
                             <CheckBox x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" Width="78" Margin="10,80,110.667,9.667" />
                         </Grid>
                     </GroupBox>

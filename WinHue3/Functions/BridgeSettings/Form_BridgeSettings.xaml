@@ -60,7 +60,7 @@
         <TabControl HorizontalAlignment="Left" Height="311" VerticalAlignment="Top" Width="483">
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings}">
                 <Grid >
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Label Content="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_UTC}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="106"/>
                     <Label x:Name="LblTime" Content="{Binding GeneralModel.Utc}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_SwVersion}" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="106"/>

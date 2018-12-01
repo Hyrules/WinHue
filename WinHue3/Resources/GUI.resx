@@ -171,9 +171,6 @@
   <data name="BridgeSettingsForm_Tab_GeneralSettings_LocalTime" xml:space="preserve">
     <value>local time :</value>
   </data>
-  <data name="BridgeSettingsForm_Tab_GeneralSettings_Name" xml:space="preserve">
-    <value>Name :</value>
-  </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings_SwVersion" xml:space="preserve">
     <value>Sw Version :</value>
   </data>
@@ -324,29 +321,17 @@
   <data name="Form_HotKeyCreator_Generic_Tooltip" xml:space="preserve">
     <value>Will apply this preset to any selected light or group on trigger. Will not work with system wide hotkeys.</value>
   </data>
-  <data name="Form_HotKeyCreator_Groups" xml:space="preserve">
-    <value>Groups</value>
-  </data>
   <data name="Form_HotKeyCreator_HotKey" xml:space="preserve">
     <value>Hotkey</value>
   </data>
   <data name="Form_HotKeyCreator_ID" xml:space="preserve">
     <value>ID</value>
   </data>
-  <data name="Form_HotKeyCreator_Lights" xml:space="preserve">
-    <value>Lights</value>
-  </data>
-  <data name="Form_HotKeyCreator_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="Form_HotKeyCreator_Preset" xml:space="preserve">
     <value>Preset</value>
   </data>
   <data name="Form_HotKeyCreator_Record" xml:space="preserve">
     <value>Record Hotkey</value>
-  </data>
-  <data name="Form_HotKeyCreator_Scenes" xml:space="preserve">
-    <value>Scenes</value>
   </data>
   <data name="Form_HotKeyCreator_Title" xml:space="preserve">
     <value>HotKey Creator...</value>
@@ -462,12 +447,6 @@
   <data name="HueTapSetupForm_TopMessage" xml:space="preserve">
     <value>Select a button to assign an action...</value>
   </data>
-  <data name="ListView_groups" xml:space="preserve">
-    <value>Groups</value>
-  </data>
-  <data name="ListView_lights" xml:space="preserve">
-    <value>Lights</value>
-  </data>
   <data name="ListView_others" xml:space="preserve">
     <value>Others</value>
   </data>
@@ -476,15 +455,6 @@
   </data>
   <data name="ListView_rules" xml:space="preserve">
     <value>Rules</value>
-  </data>
-  <data name="ListView_scenes" xml:space="preserve">
-    <value>Scenes</value>
-  </data>
-  <data name="ListView_schedules" xml:space="preserve">
-    <value>Schedules</value>
-  </data>
-  <data name="ListView_sensors" xml:space="preserve">
-    <value>Sensors</value>
   </data>
   <data name="MainForm_ListView_Context_Clone" xml:space="preserve">
     <value>Clone</value>
@@ -738,9 +708,6 @@
   <data name="ResourceLinkCreatorForm_HoldControl" xml:space="preserve">
     <value>*Hold control to select multiple objects.</value>
   </data>
-  <data name="ResourceLinkCreatorForm_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="ResourceLinkCreatorForm_Recycle" xml:space="preserve">
     <value>Recycle</value>
   </data>
@@ -765,12 +732,6 @@
   <data name="RuleCreatorForm_Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
-  <data name="RuleCreatorForm_Groups" xml:space="preserve">
-    <value>Groups</value>
-  </data>
-  <data name="RuleCreatorForm_Lights" xml:space="preserve">
-    <value>Lights</value>
-  </data>
   <data name="RuleCreatorForm_Message1" xml:space="preserve">
     <value>The maximum number of actions is 8 and the maximum number of conditions is 8.</value>
   </data>
@@ -789,17 +750,8 @@
   <data name="RuleCreatorForm_Operator_ToolTip" xml:space="preserve">
     <value>eq : is Equal , gt : Greater than, lt : Lower than, dx : On change</value>
   </data>
-  <data name="RuleCreatorForm_Scenes" xml:space="preserve">
-    <value>Scenes</value>
-  </data>
-  <data name="RuleCreatorForm_Schedules" xml:space="preserve">
-    <value>Schedules</value>
-  </data>
   <data name="RuleCreatorForm_Sensor" xml:space="preserve">
     <value>Object : </value>
-  </data>
-  <data name="RuleCreatorForm_Sensors" xml:space="preserve">
-    <value>Sensors</value>
   </data>
   <data name="RuleCreatorForm_Type" xml:space="preserve">
     <value>Type : </value>
@@ -872,9 +824,6 @@
   </data>
   <data name="ScheduleCreatorForm_Monday" xml:space="preserve">
     <value>Monday</value>
-  </data>
-  <data name="ScheduleCreatorForm_Name" xml:space="preserve">
-    <value>Name</value>
   </data>
   <data name="ScheduleCreatorForm_Name_Tooltip" xml:space="preserve">
     <value>The Bridge will generate a new name if not specified.</value>
@@ -965,9 +914,6 @@
   </data>
   <data name="SensorCreatorForm_ModelId" xml:space="preserve">
     <value>Model Id : </value>
-  </data>
-  <data name="SensorCreatorForm_Name" xml:space="preserve">
-    <value>Name :</value>
   </data>
   <data name="SensorCreatorForm_On" xml:space="preserve">
     <value>ON</value>
@@ -1157,12 +1103,6 @@
   </data>
   <data name="SettingsForm_Tab_Defaults_Brightness" xml:space="preserve">
     <value>Brightness</value>
-  </data>
-  <data name="SettingsForm_Tab_Defaults_Lights" xml:space="preserve">
-    <value>Lights</value>
-  </data>
-  <data name="SettingsForm_Tab_Defaults_Groups" xml:space="preserve">
-    <value>Groups</value>
   </data>
   <data name="MainForm_Tab_Home_Group_SettingsResetTT" xml:space="preserve">
     <value>Reset Transition Time to Default</value>
@@ -1365,9 +1305,6 @@
   <data name="Form_LIFXFinder_Image" xml:space="preserve">
     <value>Image</value>
   </data>
-  <data name="Form_LIFXFinder_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="Form_LIFXFinder_IP" xml:space="preserve">
     <value>IP Address</value>
   </data>
@@ -1428,9 +1365,6 @@
   <data name="MainForm_ListView_Context_Sensor_SetStatus" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="MainForm_Tab_Home_Group_Sensors" xml:space="preserve">
-    <value>Sensors</value>
-  </data>
   <data name="ManageUsers_StreamKey" xml:space="preserve">
     <value>Clé de streaming</value>
   </data>
@@ -1464,9 +1398,6 @@
   <data name="Edit" xml:space="preserve">
     <value>_Edit</value>
   </data>
-  <data name="FormRoomMap_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="FormRoomMap_FloorPlan" xml:space="preserve">
     <value>Floor plan</value>
   </data>
@@ -1484,9 +1415,6 @@
   </data>
   <data name="Form_CreateFloorPlan_UseBackgroundImageSize" xml:space="preserve">
     <value>Use image size</value>
-  </data>
-  <data name="Form_CreateFloorPlan_Name" xml:space="preserve">
-    <value>Name</value>
   </data>
   <data name="Form_CreateFloorPlan_Uniform" xml:space="preserve">
     <value>Uniform</value>
@@ -1613,5 +1541,23 @@
   </data>
   <data name="Button_Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Label_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Lights" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Scenes" xml:space="preserve">
+    <value>Scenes</value>
+  </data>
+  <data name="Schedules" xml:space="preserve">
+    <value>Schedules</value>
+  </data>
+  <data name="Sensors" xml:space="preserve">
+    <value>Sensors</value>
   </data>
 </root>

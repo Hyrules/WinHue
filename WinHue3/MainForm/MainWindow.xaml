@@ -501,7 +501,7 @@
                     <MenuItem IsCheckable="True" x:Name="mnuCreators" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" IsChecked="True"/>
                     <MenuItem IsCheckable="True" x:Name="mnuSettings" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" IsChecked="True"/>
                     <MenuItem IsCheckable="True" x:Name="mnuEvents" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" IsChecked="True"/>
-                    <MenuItem IsCheckable="True" x:Name="mnuSensorOp" Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Sensors}" IsChecked="false"/>
+                    <MenuItem IsCheckable="True" x:Name="mnuSensorOp" Header="{x:Static resx:GUI.Sensors}" IsChecked="false"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>

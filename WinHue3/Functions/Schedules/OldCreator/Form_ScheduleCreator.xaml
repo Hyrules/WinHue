@@ -213,7 +213,7 @@
                 <!-- {x:Static resx:GUI.ScheduleCreatorForm_StartTime} -->
                 <Label x:Name="LblStartTime" Content="{Binding StartTimeText}" HorizontalAlignment="Left" Margin="8,178,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.055,0.634"/>
                 <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Description}" HorizontalAlignment="Left" Margin="9,136,0,0" VerticalAlignment="Top" Width="119"/>
-                <Label Content="{x:Static resx:GUI.ScheduleCreatorForm_Name}" HorizontalAlignment="Left" Margin="9,94,0,0" VerticalAlignment="Top" Width="119"/>
+                <Label Content="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Margin="9,94,0,0" VerticalAlignment="Top" Width="119"/>
                 <ComboBox x:Name="CbTypeSchedule" SelectedValue="{Binding SelectedType}" SelectedValuePath="Tag" HorizontalAlignment="Left" Margin="133,51,0,0" VerticalAlignment="Top" Width="200" TabIndex="0" Height="23">
                     <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}" Tag="T"/>
                     <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}" Tag="PT"/>

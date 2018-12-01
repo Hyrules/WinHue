@@ -192,11 +192,11 @@
                         </ComboBox.ItemTemplate>
                     </controls:CommandComboBox>
                     <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" Command="{Binding Action_SelectHueObjectTypeCommand}" Watermark="Object Type" Style="{StaticResource {x:Type ComboBox}}" Height="23">
-                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_lights}" Tag="{x:Type light:Light}"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_groups}" Tag="{x:Type group:Group}"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_scenes}" Tag="{x:Type scene:Scene}"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_sensors}" Tag="{x:Type sensor:Sensor}"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.ListView_schedules}" Tag="{x:Type schedule:Schedule}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Lights}" Tag="{x:Type light:Light}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Groups}" Tag="{x:Type group:Group}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Scenes}" Tag="{x:Type scene:Scene}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Sensors}" Tag="{x:Type sensor:Sensor}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Schedules}" Tag="{x:Type schedule:Schedule}"/>
                     </controls:CommandComboBox>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveUp}" HorizontalAlignment="Left" Margin="447,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_MoveUpRuleActionCommand}"/>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveDown}" HorizontalAlignment="Left" Margin="527,282,0,0" VerticalAlignment="Top" Width="85" Height="29" Command="{Binding Action_MoveDownRuleActionCommand}"/>
