@@ -120,9 +120,6 @@
   <data name="BridgeDetectionPairing_Abort" xml:space="preserve">
     <value>Abort</value>
   </data>
-  <data name="BridgeDetectionPairing_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="BridgeDetectionPairing_Default" xml:space="preserve">
     <value>Default</value>
   </data>
@@ -134,9 +131,6 @@
   </data>
   <data name="BridgeDetectionPairing_DetectBridge_Tooltip" xml:space="preserve">
     <value>Detect your bridges using the philips hue portal and UPNP.</value>
-  </data>
-  <data name="BridgeDetectionPairing_Done" xml:space="preserve">
-    <value>Done</value>
   </data>
   <data name="BridgeDetectionPairing_ListBridge" xml:space="preserve">
     <value>The following bridges have been found :</value>
@@ -164,12 +158,6 @@
   </data>
   <data name="BridgeDetectionPairing_Scan_Tooltip" xml:space="preserve">
     <value>Scan all IP Addresses on your local network for a bridge.</value>
-  </data>
-  <data name="BridgeSettingsForm_ApplyButton" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="BridgeSettingsForm_DoneButton" xml:space="preserve">
-    <value>Done</value>
   </data>
   <data name="BridgeSettingsForm_Tab_GeneralSettings" xml:space="preserve">
     <value>General Settings</value>
@@ -267,17 +255,11 @@
   <data name="BridgeSettingsForm_Tab_WhiteList_AppName" xml:space="preserve">
     <value>App Name :</value>
   </data>
-  <data name="BridgeSettingsForm_Tab_WhiteList_ClearButton" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_CreateButton" xml:space="preserve">
     <value>Create</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_CreateDate" xml:space="preserve">
     <value>Create date :</value>
-  </data>
-  <data name="BridgeSettingsForm_Tab_WhiteList_DeleteButton" xml:space="preserve">
-    <value>Delete</value>
   </data>
   <data name="BridgeSettingsForm_Tab_WhiteList_DeviceName" xml:space="preserve">
     <value>Device Name :</value>
@@ -287,9 +269,6 @@
   </data>
   <data name="BridgeSettingsForm_Title" xml:space="preserve">
     <value>Modify bridge settings...</value>
-  </data>
-  <data name="DaylightForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="DaylightForm_Latitude" xml:space="preserve">
     <value>Latitude : </value>
@@ -318,12 +297,6 @@
   <data name="EventLogForm_Title" xml:space="preserve">
     <value>Event Log...</value>
   </data>
-  <data name="Form_AddManualIP_Apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="Form_AddManualIP_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="Form_AddManualIP_IP" xml:space="preserve">
     <value>IP : </value>
   </data>
@@ -339,20 +312,11 @@
   <data name="Form_GroupView_Title" xml:space="preserve">
     <value>Groups View</value>
   </data>
-  <data name="Form_HotKeyCreator_AddHotkey" xml:space="preserve">
-    <value>Add Hotkey</value>
-  </data>
   <data name="Form_HotKeyCreator_BridgeObject" xml:space="preserve">
     <value>Bridge Object</value>
   </data>
-  <data name="Form_HotKeyCreator_Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="Form_HotKeyCreator_Description" xml:space="preserve">
     <value>Description</value>
-  </data>
-  <data name="Form_HotKeyCreator_Done" xml:space="preserve">
-    <value>Done</value>
   </data>
   <data name="Form_HotKeyCreator_Generic" xml:space="preserve">
     <value>Generic preset</value>
@@ -398,9 +362,6 @@
   </data>
   <data name="Form_SceneMapping_Title" xml:space="preserve">
     <value>Scenes Mapping and Informations</value>
-  </data>
-  <data name="GroupCreatorForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="GroupCreatorForm_Class" xml:space="preserve">
     <value>Class</value>
@@ -462,9 +423,6 @@
   <data name="GroupCreatorForm_Class_Toilet" xml:space="preserve">
     <value>Toilet</value>
   </data>
-  <data name="GroupCreatorForm_ClearButton" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="GroupCreatorForm_CreateGroupButton" xml:space="preserve">
     <value>Create Group</value>
   </data>
@@ -494,9 +452,6 @@
   </data>
   <data name="HueTapSetupForm_AssignButton" xml:space="preserve">
     <value>Assign</value>
-  </data>
-  <data name="HueTapSetupForm_DoneButton" xml:space="preserve">
-    <value>Done</value>
   </data>
   <data name="HueTapSetupForm_SelectedButton" xml:space="preserve">
     <value>No button selected</value>
@@ -542,9 +497,6 @@
   </data>
   <data name="MainForm_ListView_Context_CopyToJsonRaw" xml:space="preserve">
     <value>Copy as JSON </value>
-  </data>
-  <data name="MainForm_ListView_Context_Delete" xml:space="preserve">
-    <value>Delete...</value>
   </data>
   <data name="MainForm_ListView_Context_Edit" xml:space="preserve">
     <value>Edit...</value>
@@ -762,9 +714,6 @@
   <data name="MoodCreatorForm_XYColorSpace" xml:space="preserve">
     <value>XY Color Space</value>
   </data>
-  <data name="RenameObjectForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="RenameObjectForm_NewName" xml:space="preserve">
     <value>New name :</value>
   </data>
@@ -773,12 +722,6 @@
   </data>
   <data name="RenameObjectForm_Title" xml:space="preserve">
     <value>Rename {0} ...</value>
-  </data>
-  <data name="ResourceLinkCreatorForm_Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="ResourceLinkCreatorForm_Cancel" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="ResourceLinkCreatorForm_ClassID" xml:space="preserve">
     <value>Class ID</value>
@@ -816,20 +759,8 @@
   <data name="RuleCreatorForm_Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <data name="RuleCreatorForm_AddAction" xml:space="preserve">
-    <value>Add Action</value>
-  </data>
-  <data name="RuleCreatorForm_AddProperty" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="RuleCreatorForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="RuleCreatorForm_Conditions" xml:space="preserve">
     <value>Conditions</value>
-  </data>
-  <data name="RuleCreatorForm_Delete" xml:space="preserve">
-    <value>Delete</value>
   </data>
   <data name="RuleCreatorForm_Enabled" xml:space="preserve">
     <value>Enabled</value>
@@ -876,15 +807,6 @@
   <data name="RuleCreatorForm_Value" xml:space="preserve">
     <value>Value :</value>
   </data>
-  <data name="SceneCreatorForm_AddButton" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="SceneCreatorForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="SceneCreatorForm_ClearButton" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="SceneCreatorForm_FromImageButton" xml:space="preserve">
     <value>From Image</value>
   </data>
@@ -902,9 +824,6 @@
   </data>
   <data name="SceneCreatorForm_RemoveButton" xml:space="preserve">
     <value>Remove</value>
-  </data>
-  <data name="SceneCreatorForm_SaveButton" xml:space="preserve">
-    <value>Save Scene</value>
   </data>
   <data name="SceneCreatorForm_SelectedLights" xml:space="preserve">
     <value>Selected Lights</value>
@@ -929,12 +848,6 @@
   </data>
   <data name="ScheduleCreatorForm_Brightness" xml:space="preserve">
     <value>Brightness</value>
-  </data>
-  <data name="ScheduleCreatorForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="ScheduleCreatorForm_ClearButton" xml:space="preserve">
-    <value>Clear</value>
   </data>
   <data name="ScheduleCreatorForm_ColorTemp" xml:space="preserve">
     <value>Color Temp.</value>
@@ -980,9 +893,6 @@
   </data>
   <data name="ScheduleCreatorForm_Saturday" xml:space="preserve">
     <value>Saturday</value>
-  </data>
-  <data name="ScheduleCreatorForm_SaveButton" xml:space="preserve">
-    <value>Save</value>
   </data>
   <data name="ScheduleCreatorForm_Schedule" xml:space="preserve">
     <value>Schedule</value>
@@ -1035,23 +945,14 @@
   <data name="ScheduleCreatorForm_YColorSpace" xml:space="preserve">
     <value>Y Color space</value>
   </data>
-  <data name="SelectColorFromImageForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="SelectColorFromImageForm_LoadImageButton" xml:space="preserve">
     <value>Load Image</value>
   </data>
   <data name="SelectColorFromImageForm_LoadRGBImageButton" xml:space="preserve">
     <value>Load RGB Image</value>
   </data>
-  <data name="SelectColorFromImageForm_SelectButton" xml:space="preserve">
-    <value>Select</value>
-  </data>
   <data name="SelectColorFromImageForm_Title" xml:space="preserve">
     <value>Select a color from an image...</value>
-  </data>
-  <data name="SensorCreatorForm_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="SensorCreatorForm_CreateButton" xml:space="preserve">
     <value>Create</value>
@@ -1100,12 +1001,6 @@
   </data>
   <data name="SettingsForm_Tab_MainSettings" xml:space="preserve">
     <value>Main Settings</value>
-  </data>
-  <data name="SettingsForm_Tab_MainSettings_ApplyButton" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="SettingsForm_Tab_MainSettings_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Controls" xml:space="preserve">
     <value>Controls</value>
@@ -1191,23 +1086,11 @@
   <data name="ManageUsers_Title" xml:space="preserve">
     <value>Manage Users</value>
   </data>
-  <data name="ManageUsers_AddUser" xml:space="preserve">
-    <value>Add User</value>
-  </data>
-  <data name="ManageUsers_Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="ManageUsers_CreateDate" xml:space="preserve">
     <value>Creation</value>
   </data>
-  <data name="ManageUsers_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
   <data name="ManageUsers_DeviceType" xml:space="preserve">
     <value>Device Name</value>
-  </data>
-  <data name="ManageUsers_Done" xml:space="preserve">
-    <value>Done</value>
   </data>
   <data name="ManageUsers_Key" xml:space="preserve">
     <value>Key</value>
@@ -1245,17 +1128,8 @@
   <data name="Form_CloneRule_Title" xml:space="preserve">
     <value>Cloning a Rule</value>
   </data>
-  <data name="Form_CloneRule_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="Form_CloneRule_Clone" xml:space="preserve">
     <value>Clone</value>
-  </data>
-  <data name="RuleCreatorForm_ClearAction" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="RuleCreatorForm_ClearCondition" xml:space="preserve">
-    <value>Clear</value>
   </data>
   <data name="SceneCreatorForm_Recycle" xml:space="preserve">
     <value>Recycle</value>
@@ -1320,9 +1194,6 @@
   <data name="Form_AdvancedCreator_ScheduleTemplate" xml:space="preserve">
     <value>Schedule</value>
   </data>
-  <data name="Form_AdvancedCreator_Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="Form_AdvancedCreator_Send" xml:space="preserve">
     <value>Send</value>
   </data>
@@ -1367,12 +1238,6 @@
   </data>
   <data name="RuleCreatorForm_Object_Watermark" xml:space="preserve">
     <value>(Choose the object)</value>
-  </data>
-  <data name="RuleCreatorForm_Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="RuleCreatorForm_Add" xml:space="preserve">
-    <value>Add</value>
   </data>
   <data name="RuleCreatorForm_Value_Watermark" xml:space="preserve">
     <value>(Enter the value here)</value>
@@ -1422,9 +1287,6 @@
   <data name="AddLightSerialForm_Seach" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="AddLightSerialForm_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="BridgeUpdateRequired" xml:space="preserve">
     <value>Bridge update required. Please update the bridge in order to use WinHue with this bridge.</value>
   </data>
@@ -1436,9 +1298,6 @@
   </data>
   <data name="SettingsForm_Tab_MainSettings_NoCheckBridgeVersion" xml:space="preserve">
     <value>Check for Bridge version. (You might encounter crashes that the dev will not fix if you choose not to)</value>
-  </data>
-  <data name="RuleCreatorForm_AddToRuleActions" xml:space="preserve">
-    <value>Add to rule actions</value>
   </data>
   <data name="RuleCreatorForm_DeleteProperty" xml:space="preserve">
     <value>Remove property</value>
@@ -1485,17 +1344,11 @@
   <data name="SettingsForm_Tab_Defaults_LastState" xml:space="preserve">
     <value>Last State</value>
   </data>
-  <data name="RuleCreatorForm_Actions_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
   <data name="RuleCreatorForm_Actions_MoveUp" xml:space="preserve">
     <value>Move Up</value>
   </data>
   <data name="RuleCreatorForm_Actions_MoveDown" xml:space="preserve">
     <value>Move Down</value>
-  </data>
-  <data name="RuleCreatorForm_Actions_Clear" xml:space="preserve">
-    <value>Clear</value>
   </data>
   <data name="MainForm_Menu_FindLifx" xml:space="preserve">
     <value>Find LIFX Devices</value>
@@ -1520,9 +1373,6 @@
   </data>
   <data name="Form_LIFXFinder_MAC" xml:space="preserve">
     <value>Mac Address</value>
-  </data>
-  <data name="Form_LIFXFinder_Button_Done" xml:space="preserve">
-    <value>Done</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_MinimizeToTray" xml:space="preserve">
     <value>Minimize to Tray</value>
@@ -1599,17 +1449,8 @@
   <data name="EntertainmentCreatorForm_Coordinates" xml:space="preserve">
     <value>Coordinates</value>
   </data>
-  <data name="EntertainmentCreatorForm_Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="EntertainmentCreatorForm_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="EntertainmentCreatorForm_Z_Message" xml:space="preserve">
     <value>Z is not used at the moment.</value>
-  </data>
-  <data name="EntertainmentCreatorForm_Add" xml:space="preserve">
-    <value>Add</value>
   </data>
   <data name="Form_HotKeyCreator_ChooseApp" xml:space="preserve">
     <value>Choose a program to start with the Hotkey (optional)</value>
@@ -1677,17 +1518,11 @@
   <data name="Form_CreateFloorPlan_Create" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="Form_CreateFloorPlan_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="Form_CreateFloorPlan_Image" xml:space="preserve">
     <value>Image</value>
   </data>
   <data name="FormRoomMap_Title" xml:space="preserve">
     <value>Create a floor plan...</value>
-  </data>
-  <data name="FormRoomMap_DeleteFloor" xml:space="preserve">
-    <value>Delete floor</value>
   </data>
   <data name="FormRoomMap_RightClick" xml:space="preserve">
     <value>* use right click to drag light / CTRL + Mouse Scroll to resize light or group.</value>
@@ -1740,25 +1575,43 @@
   <data name="FormRoomMap_SaveAll" xml:space="preserve">
     <value>Save All Floors</value>
   </data>
-  <data name="FormRoomMap_Save" xml:space="preserve">
-    <value>Save current floor</value>
-  </data>
   <data name="FormRoomMap_EditFloorPlan" xml:space="preserve">
     <value>Edit current floor plan</value>
   </data>
   <data name="BridgeSettingsForm_Tab_HiddenObjects" xml:space="preserve">
     <value>Hidden Objects</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
   <data name="SettingsForm_Tab_MainSettings_OsramFix" xml:space="preserve">
     <value>OSRAM bypass unreachable</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_OsramFix_Tooltip" xml:space="preserve">
     <value>If you have issues with OSRAM being unreachable check this.</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Button_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Button_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Button_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Button_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Button_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Button_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
 </root>

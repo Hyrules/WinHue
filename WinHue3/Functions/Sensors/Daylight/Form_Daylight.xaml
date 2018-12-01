@@ -47,8 +47,8 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="BtnSet" Style="{StaticResource BtnSet}" Content="{x:Static resx:GUI.DaylightForm_SetButton}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click" Height="21"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.DaylightForm_CancelButton}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click" Height="21"/>
+        <Button x:Name="BtnSet" Style="{StaticResource BtnSet}" Content="{x:Static resx:GUI.Button_Apply}" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="5" Click="btnSet_Click" Height="21"/>
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="187,124,0,0" VerticalAlignment="Top" Width="75" TabIndex="6" Click="btnCancel_Click" Height="21"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Longitude}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="77"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_Latitude}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="77"/>
         <Label Content="{x:Static resx:GUI.DaylightForm_SunriseOffset}" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="92"/>

@@ -69,7 +69,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Add}" HorizontalAlignment="Left" Margin="270,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding Condition_AddConditionCommand}"/>
+                    <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="270,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding Condition_AddConditionCommand}"/>
                     <controls:BindableTreeView x:Name="TvProperties" HorizontalAlignment="Left" Height="208" Margin="10,38,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="rules:HuePropertyTreeViewItem">
@@ -121,8 +121,8 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </controls:CommandComboBox>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Delete}" HorizontalAlignment="Left" Margin="617,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25"/>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" Margin="350,276,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="25"/>
+                    <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="617,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25"/>
+                    <Button Content="{x:Static resx:GUI.Button_Clear}" HorizontalAlignment="Left" Margin="350,276,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="25"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}">
@@ -179,7 +179,7 @@
                             </xctk:EditorTemplateDefinition>
                         </xctk:PropertyGrid.EditorDefinitions>-->
                     </xctk:PropertyGrid>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_AddToRuleActions}" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="342" Command="{Binding Action_AddActionCommand}" Height="30"/>
+                    <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="342" Command="{Binding Action_AddActionCommand}" Height="30"/>
                     <controls:CommandComboBox HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="192" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" Command="{Binding Action_SelectActionObjectCommand}" Watermark="Object" Height="23" Style="{StaticResource {x:Type ComboBox}}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -200,14 +200,14 @@
                     </controls:CommandComboBox>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveUp}" HorizontalAlignment="Left" Margin="447,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_MoveUpRuleActionCommand}"/>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveDown}" HorizontalAlignment="Left" Margin="527,282,0,0" VerticalAlignment="Top" Width="85" Height="29" Command="{Binding Action_MoveDownRuleActionCommand}"/>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Delete}" HorizontalAlignment="Left" Margin="617,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_RemoveRuleActionCommand}" Background="Red"/>
-                    <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_Clear}" HorizontalAlignment="Left" Margin="357,282,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Action_ClearRuleActionCommand}" Height="29"/>
+                    <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="617,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_RemoveRuleActionCommand}" Background="Red"/>
+                    <Button Content="{x:Static resx:GUI.Button_Clear}" HorizontalAlignment="Left" Margin="357,282,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Action_ClearRuleActionCommand}" Height="29"/>
 
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Name="BtnSave" Content="{x:Static resx:GUI.RuleCreatorForm_Save}" HorizontalAlignment="Left" Margin="513,405,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnSave_Click" />
-        <Button Name="BtnCancel" Content="{x:Static resx:GUI.RuleCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="608,406,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnCancel_Click"/>
+        <Button Name="BtnSave" Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="513,405,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnSave_Click" />
+        <Button Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="608,406,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnCancel_Click"/>
         <CheckBox Content="{x:Static resx:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="633,4,0,0" Height="23" Width="80" IsChecked="{Binding Enabled}" VerticalAlignment="Top"/>
     </Grid>
 </Window>

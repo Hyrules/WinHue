@@ -465,7 +465,7 @@
                     </MenuItem>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Foreground="Black" Background="Red"/>
+                <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Foreground="Black" Background="Red"/>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}" Foreground="Black">
@@ -832,7 +832,7 @@
                                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
                                     </MenuItem>
                                     <Separator/>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
+                                    <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
                                 </ContextMenu>
                             </ListView.ContextMenu>
                             <ListView.GroupStyle>

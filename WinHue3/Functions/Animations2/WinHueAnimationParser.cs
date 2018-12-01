@@ -16,9 +16,18 @@ namespace WinHue3.Functions.Animations2
     {
         private static readonly Parser<char> SpaceDelimiter = Parse.WhiteSpace;
         private static readonly Parser<char> LineDelimiter = Parse.Char(';');
-        private static readonly Parser<>
+
+
+        private static readonly Parser<KeyValuePair<string, byte>> BriProp =
+            from prop in Parse.Token(Parse.IgnoreCase("BRI").Text())
+            from sep in Parse.Char(':')
+            from val in Parse.Digit.Many().Text()
+            select new KeyValuePair<string, byte>(prop, Convert.ToByte(val));
+
+
+
         private static readonly Parser<int> WaitCommand =
-            from wait in Parse.IgnoreCase("WAIT")
+            from wait in Parse.Token(Parse.IgnoreCase("WAIT"))
             from sep in Parse.Char(':')
             from value in Parse.Digit.DelimitedBy(LineDelimiter).Text()
             select Convert.ToInt32(value);
@@ -80,7 +89,7 @@ namespace WinHue3.Functions.Animations2
             }
 
             PropertyInfo stateprop = ho.GetType().GetProperty("state");
-            stateprop.SetValue(ho, newstate);
+            stateprop?.SetValue(ho, newstate);
 
             return ho;
         }

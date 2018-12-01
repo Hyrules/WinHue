@@ -25,8 +25,8 @@
         <applicationSettings:AppSettingsViewModel/>
     </Window.DataContext>
     <Grid>
-        <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ApplyButton}" x:Name="BtnApply" HorizontalAlignment="Left" Margin="329,372,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>
-        <Button Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_CancelButton}" x:Name="BtnCancel" HorizontalAlignment="Left" Margin="409,372,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <Button Content="{x:Static resx:GUI.Button_Apply}" x:Name="BtnApply" HorizontalAlignment="Left" Margin="329,372,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>
+        <Button Content="{x:Static resx:GUI.Button_Cancel}" x:Name="BtnCancel" HorizontalAlignment="Left" Margin="409,372,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <TabControl x:Name="TcSettings" HorizontalAlignment="Left" Height="367" VerticalAlignment="Top" Width="484">
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
                 <Grid>

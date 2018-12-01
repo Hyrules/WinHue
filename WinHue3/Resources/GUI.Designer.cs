@@ -61,15 +61,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string AddLightSerialForm_Cancel {
-            get {
-                return ResourceManager.GetString("AddLightSerialForm_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add one ore more serials to the box below separated by commas (eg: 45AF34,543636,34AFBE).
         /// </summary>
         public static string AddLightSerialForm_Message {
@@ -115,15 +106,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string BridgeDetectionPairing_Cancel {
-            get {
-                return ResourceManager.GetString("BridgeDetectionPairing_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string BridgeDetectionPairing_Default {
@@ -156,15 +138,6 @@ namespace WinHue3.Resources {
         public static string BridgeDetectionPairing_DetectBridge_Tooltip {
             get {
                 return ResourceManager.GetString("BridgeDetectionPairing_DetectBridge_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        public static string BridgeDetectionPairing_Done {
-            get {
-                return ResourceManager.GetString("BridgeDetectionPairing_Done", resourceCulture);
             }
         }
         
@@ -268,29 +241,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply.
-        /// </summary>
-        public static string BridgeSettingsForm_ApplyButton {
-            get {
-                return ResourceManager.GetString("BridgeSettingsForm_ApplyButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Auto Install.
         /// </summary>
         public static string BridgeSettingsForm_AutoInstall {
             get {
                 return ResourceManager.GetString("BridgeSettingsForm_AutoInstall", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        public static string BridgeSettingsForm_DoneButton {
-            get {
-                return ResourceManager.GetString("BridgeSettingsForm_DoneButton", resourceCulture);
             }
         }
         
@@ -619,15 +574,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string BridgeSettingsForm_Tab_WhiteList_ClearButton {
-            get {
-                return ResourceManager.GetString("BridgeSettingsForm_Tab_WhiteList_ClearButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string BridgeSettingsForm_Tab_WhiteList_CreateButton {
@@ -642,15 +588,6 @@ namespace WinHue3.Resources {
         public static string BridgeSettingsForm_Tab_WhiteList_CreateDate {
             get {
                 return ResourceManager.GetString("BridgeSettingsForm_Tab_WhiteList_CreateDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string BridgeSettingsForm_Tab_WhiteList_DeleteButton {
-            get {
-                return ResourceManager.GetString("BridgeSettingsForm_Tab_WhiteList_DeleteButton", resourceCulture);
             }
         }
         
@@ -700,20 +637,83 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
-        public static string Clear {
+        public static string Button_Add {
             get {
-                return ResourceManager.GetString("Clear", resourceCulture);
+                return ResourceManager.GetString("Button_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string Button_Apply {
+            get {
+                return ResourceManager.GetString("Button_Apply", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        public static string DaylightForm_CancelButton {
+        public static string Button_Cancel {
             get {
-                return ResourceManager.GetString("DaylightForm_CancelButton", resourceCulture);
+                return ResourceManager.GetString("Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Button_Clear {
+            get {
+                return ResourceManager.GetString("Button_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Button_Delete {
+            get {
+                return ResourceManager.GetString("Button_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string Button_Done {
+            get {
+                return ResourceManager.GetString("Button_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Button_Ok {
+            get {
+                return ResourceManager.GetString("Button_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Button_Save {
+            get {
+                return ResourceManager.GetString("Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Button_Select {
+            get {
+                return ResourceManager.GetString("Button_Select", resourceCulture);
             }
         }
         
@@ -799,38 +799,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string EntertainmentCreatorForm_Add {
-            get {
-                return ResourceManager.GetString("EntertainmentCreatorForm_Add", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string EntertainmentCreatorForm_Cancel {
-            get {
-                return ResourceManager.GetString("EntertainmentCreatorForm_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Coordinates.
         /// </summary>
         public static string EntertainmentCreatorForm_Coordinates {
             get {
                 return ResourceManager.GetString("EntertainmentCreatorForm_Coordinates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string EntertainmentCreatorForm_Save {
-            get {
-                return ResourceManager.GetString("EntertainmentCreatorForm_Save", resourceCulture);
             }
         }
         
@@ -871,24 +844,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply.
-        /// </summary>
-        public static string Form_AddManualIP_Apply {
-            get {
-                return ResourceManager.GetString("Form_AddManualIP_Apply", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string Form_AddManualIP_Cancel {
-            get {
-                return ResourceManager.GetString("Form_AddManualIP_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to IP : .
         /// </summary>
         public static string Form_AddManualIP_IP {
@@ -912,15 +867,6 @@ namespace WinHue3.Resources {
         public static string Form_AdvancedCreator_Actions {
             get {
                 return ResourceManager.GetString("Form_AdvancedCreator_Actions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string Form_AdvancedCreator_Clear {
-            get {
-                return ResourceManager.GetString("Form_AdvancedCreator_Clear", resourceCulture);
             }
         }
         
@@ -1033,15 +979,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string Form_CloneRule_Cancel {
-            get {
-                return ResourceManager.GetString("Form_CloneRule_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clone.
         /// </summary>
         public static string Form_CloneRule_Clone {
@@ -1056,15 +993,6 @@ namespace WinHue3.Resources {
         public static string Form_CloneRule_Title {
             get {
                 return ResourceManager.GetString("Form_CloneRule_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string Form_CreateFloorPlan_Cancel {
-            get {
-                return ResourceManager.GetString("Form_CreateFloorPlan_Cancel", resourceCulture);
             }
         }
         
@@ -1213,15 +1141,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Hotkey.
-        /// </summary>
-        public static string Form_HotKeyCreator_AddHotkey {
-            get {
-                return ResourceManager.GetString("Form_HotKeyCreator_AddHotkey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Choose....
         /// </summary>
         public static string Form_HotKeyCreator_AppButton {
@@ -1249,29 +1168,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string Form_HotKeyCreator_Clear {
-            get {
-                return ResourceManager.GetString("Form_HotKeyCreator_Clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Form_HotKeyCreator_Description {
             get {
                 return ResourceManager.GetString("Form_HotKeyCreator_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        public static string Form_HotKeyCreator_Done {
-            get {
-                return ResourceManager.GetString("Form_HotKeyCreator_Done", resourceCulture);
             }
         }
         
@@ -1402,15 +1303,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        public static string Form_LIFXFinder_Button_Done {
-            get {
-                return ResourceManager.GetString("Form_LIFXFinder_Button_Done", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Detect.
         /// </summary>
         public static string Form_LIFXFinder_Button_Find {
@@ -1501,15 +1393,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete floor.
-        /// </summary>
-        public static string FormRoomMap_DeleteFloor {
-            get {
-                return ResourceManager.GetString("FormRoomMap_DeleteFloor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Edit current floor plan.
         /// </summary>
         public static string FormRoomMap_EditFloorPlan {
@@ -1573,15 +1456,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save current floor.
-        /// </summary>
-        public static string FormRoomMap_Save {
-            get {
-                return ResourceManager.GetString("FormRoomMap_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save All Floors.
         /// </summary>
         public static string FormRoomMap_SaveAll {
@@ -1596,15 +1470,6 @@ namespace WinHue3.Resources {
         public static string FormRoomMap_Title {
             get {
                 return ResourceManager.GetString("FormRoomMap_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string GroupCreatorForm_CancelButton {
-            get {
-                return ResourceManager.GetString("GroupCreatorForm_CancelButton", resourceCulture);
             }
         }
         
@@ -1789,15 +1654,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string GroupCreatorForm_ClearButton {
-            get {
-                return ResourceManager.GetString("GroupCreatorForm_ClearButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create Group.
         /// </summary>
         public static string GroupCreatorForm_CreateGroupButton {
@@ -1884,15 +1740,6 @@ namespace WinHue3.Resources {
         public static string HueTapSetupForm_AssignButton {
             get {
                 return ResourceManager.GetString("HueTapSetupForm_AssignButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        public static string HueTapSetupForm_DoneButton {
-            get {
-                return ResourceManager.GetString("HueTapSetupForm_DoneButton", resourceCulture);
             }
         }
         
@@ -2037,15 +1884,6 @@ namespace WinHue3.Resources {
         public static string MainForm_ListView_Context_CopyToJsonRaw {
             get {
                 return ResourceManager.GetString("MainForm_ListView_Context_CopyToJsonRaw", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete....
-        /// </summary>
-        public static string MainForm_ListView_Context_Delete {
-            get {
-                return ResourceManager.GetString("MainForm_ListView_Context_Delete", resourceCulture);
             }
         }
         
@@ -3031,24 +2869,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add User.
-        /// </summary>
-        public static string ManageUsers_AddUser {
-            get {
-                return ResourceManager.GetString("ManageUsers_AddUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string ManageUsers_Clear {
-            get {
-                return ResourceManager.GetString("ManageUsers_Clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Creation.
         /// </summary>
         public static string ManageUsers_CreateDate {
@@ -3058,29 +2878,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string ManageUsers_Delete {
-            get {
-                return ResourceManager.GetString("ManageUsers_Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Device Name.
         /// </summary>
         public static string ManageUsers_DeviceType {
             get {
                 return ResourceManager.GetString("ManageUsers_DeviceType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        public static string ManageUsers_Done {
-            get {
-                return ResourceManager.GetString("ManageUsers_Done", resourceCulture);
             }
         }
         
@@ -3184,15 +2986,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string RenameObjectForm_CancelButton {
-            get {
-                return ResourceManager.GetString("RenameObjectForm_CancelButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New name :.
         /// </summary>
         public static string RenameObjectForm_NewName {
@@ -3216,24 +3009,6 @@ namespace WinHue3.Resources {
         public static string RenameObjectForm_Title {
             get {
                 return ResourceManager.GetString("RenameObjectForm_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string ResourceLinkCreatorForm_Add {
-            get {
-                return ResourceManager.GetString("ResourceLinkCreatorForm_Add", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string ResourceLinkCreatorForm_Cancel {
-            get {
-                return ResourceManager.GetString("ResourceLinkCreatorForm_Cancel", resourceCulture);
             }
         }
         
@@ -3346,24 +3121,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string RuleCreatorForm_Actions_Clear {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_Actions_Clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string RuleCreatorForm_Actions_Delete {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_Actions_Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Move Down.
         /// </summary>
         public static string RuleCreatorForm_Actions_MoveDown {
@@ -3382,74 +3139,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string RuleCreatorForm_Add {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_Add", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Action.
-        /// </summary>
-        public static string RuleCreatorForm_AddAction {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_AddAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string RuleCreatorForm_AddProperty {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_AddProperty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add to rule actions.
-        /// </summary>
-        public static string RuleCreatorForm_AddToRuleActions {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_AddToRuleActions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string RuleCreatorForm_CancelButton {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_CancelButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Changed.
         /// </summary>
         public static string RuleCreatorForm_Changed {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Changed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string RuleCreatorForm_ClearAction {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_ClearAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string RuleCreatorForm_ClearCondition {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_ClearCondition", resourceCulture);
             }
         }
         
@@ -3486,15 +3180,6 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Delayed_Changed {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Delayed_Changed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string RuleCreatorForm_Delete {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_Delete", resourceCulture);
             }
         }
         
@@ -3697,15 +3382,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string RuleCreatorForm_Save {
-            get {
-                return ResourceManager.GetString("RuleCreatorForm_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Scenes.
         /// </summary>
         public static string RuleCreatorForm_Scenes {
@@ -3796,42 +3472,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string Save {
-            get {
-                return ResourceManager.GetString("Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string SceneCreatorForm_AddButton {
-            get {
-                return ResourceManager.GetString("SceneCreatorForm_AddButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string SceneCreatorForm_CancelButton {
-            get {
-                return ResourceManager.GetString("SceneCreatorForm_CancelButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string SceneCreatorForm_ClearButton {
-            get {
-                return ResourceManager.GetString("SceneCreatorForm_ClearButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to From Image.
         /// </summary>
         public static string SceneCreatorForm_FromImageButton {
@@ -3900,15 +3540,6 @@ namespace WinHue3.Resources {
         public static string SceneCreatorForm_RemoveButton {
             get {
                 return ResourceManager.GetString("SceneCreatorForm_RemoveButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save Scene.
-        /// </summary>
-        public static string SceneCreatorForm_SaveButton {
-            get {
-                return ResourceManager.GetString("SceneCreatorForm_SaveButton", resourceCulture);
             }
         }
         
@@ -3990,24 +3621,6 @@ namespace WinHue3.Resources {
         public static string ScheduleCreatorForm_Brightness {
             get {
                 return ResourceManager.GetString("ScheduleCreatorForm_Brightness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string ScheduleCreatorForm_CancelButton {
-            get {
-                return ResourceManager.GetString("ScheduleCreatorForm_CancelButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string ScheduleCreatorForm_ClearButton {
-            get {
-                return ResourceManager.GetString("ScheduleCreatorForm_ClearButton", resourceCulture);
             }
         }
         
@@ -4161,15 +3774,6 @@ namespace WinHue3.Resources {
         public static string ScheduleCreatorForm_Saturday {
             get {
                 return ResourceManager.GetString("ScheduleCreatorForm_Saturday", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string ScheduleCreatorForm_SaveButton {
-            get {
-                return ResourceManager.GetString("ScheduleCreatorForm_SaveButton", resourceCulture);
             }
         }
         
@@ -4336,15 +3940,6 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string SelectColorFromImageForm_CancelButton {
-            get {
-                return ResourceManager.GetString("SelectColorFromImageForm_CancelButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Load Image.
         /// </summary>
         public static string SelectColorFromImageForm_LoadImageButton {
@@ -4363,29 +3958,11 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select.
-        /// </summary>
-        public static string SelectColorFromImageForm_SelectButton {
-            get {
-                return ResourceManager.GetString("SelectColorFromImageForm_SelectButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Select a color from an image....
         /// </summary>
         public static string SelectColorFromImageForm_Title {
             get {
                 return ResourceManager.GetString("SelectColorFromImageForm_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string SensorCreatorForm_CancelButton {
-            get {
-                return ResourceManager.GetString("SensorCreatorForm_CancelButton", resourceCulture);
             }
         }
         
@@ -4629,24 +4206,6 @@ namespace WinHue3.Resources {
         public static string SettingsForm_Tab_MainSettings_AlwaysUsePropGrid {
             get {
                 return ResourceManager.GetString("SettingsForm_Tab_MainSettings_AlwaysUsePropGrid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apply.
-        /// </summary>
-        public static string SettingsForm_Tab_MainSettings_ApplyButton {
-            get {
-                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_ApplyButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string SettingsForm_Tab_MainSettings_CancelButton {
-            get {
-                return ResourceManager.GetString("SettingsForm_Tab_MainSettings_CancelButton", resourceCulture);
             }
         }
         

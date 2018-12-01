@@ -35,7 +35,7 @@
     <Grid>
         <xctk:PropertyGrid x:Name="PgObjectPresets" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Height="185" Width="594" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding PropertyGridObject}"/>
         <Button x:Name="BtnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
-        <Button x:Name="BtnAdd" Style="{StaticResource BtnSave}"  Content="Add Hotkey" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
+        <Button x:Name="BtnAdd" Style="{StaticResource BtnSave}"  Content="{x:Static resources:GUI.Button_Add}" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
         <controls:CommandComboBox x:Name="CbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,105,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" Command="{Binding ChangeObjectTypeCommand}" Watermark="(object type)" Style="{StaticResource {x:Type ComboBox}}">
             <ComboBoxItem x:Name="CbOtLight" Content="{x:Static resources:GUI.Form_HotKeyCreator_Lights}">
                 <ComboBoxItem.Tag>
@@ -78,7 +78,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>
-        <Button x:Name="BtnClearFields" Content="{x:Static resources:GUI.Form_HotKeyCreator_Clear}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="265,200,0,0" VerticalAlignment="Top" Width="74" Height="26"/>
+        <Button x:Name="BtnClearFields" Content="{x:Static resources:GUI.Button_Clear}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="265,200,0,0" VerticalAlignment="Top" Width="74" Height="26"/>
         <CheckBox x:Name="ChbGeneric" Content="{x:Static resources:GUI.Form_HotKeyCreator_Generic}" HorizontalAlignment="Left" Margin="159,110,0,0" VerticalAlignment="Top" Width="156" IsChecked="{Binding IsGeneric}" ToolTip="{x:Static resources:GUI.Form_HotKeyCreator_Generic_Tooltip}"/>
         <TextBox x:Name="TextBox" HorizontalAlignment="Left" Height="23" Margin="10,442,0,0" TextWrapping="Wrap" Text="{x:Static resources:GUI.Form_HotKeyCreator_Warning_Generic}" VerticalAlignment="Top" Width="662"/>
         <Button x:Name="BtnHelpGeneric" Content="?" HorizontalAlignment="Left" Margin="306,106,0,0" VerticalAlignment="Top" Width="32" Click="btnHelpGeneric_Click" Height="25"/>

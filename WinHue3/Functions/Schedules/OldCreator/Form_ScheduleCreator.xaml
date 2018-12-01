@@ -265,9 +265,9 @@
                 </ComboBox>
             </Grid>
         </GroupBox>
-        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.ScheduleCreatorForm_ClearButton}" IsEnabled="{Binding IsEditing}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="457,611,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="BtnSave" Content="{x:Static resx:GUI.ScheduleCreatorForm_SaveButton}" Style="{StaticResource BtnSave}"  HorizontalAlignment="Left" Margin="537,611,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click" />
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.ScheduleCreatorForm_CancelButton}" HorizontalAlignment="Left" Margin="617,611,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.Button_Clear}" IsEnabled="{Binding IsEditing}" Command="{Binding ClearFieldsCommand}"  HorizontalAlignment="Left" Margin="457,611,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="BtnSave" Content="{x:Static resx:GUI.Button_Save}" Style="{StaticResource BtnSave}"  HorizontalAlignment="Left" Margin="537,611,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click" />
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="617,611,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
     </Grid>
 
 </Window>
