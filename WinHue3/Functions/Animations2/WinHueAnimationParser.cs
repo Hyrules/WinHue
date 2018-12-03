@@ -17,14 +17,29 @@ namespace WinHue3.Functions.Animations2
         private static readonly Parser<char> SpaceDelimiter = Parse.WhiteSpace;
         private static readonly Parser<char> LineDelimiter = Parse.Char(';');
 
-
-        private static readonly Parser<KeyValuePair<string, byte>> BriProp =
+        private static readonly Parser<byte> BriProp =
             from prop in Parse.Token(Parse.IgnoreCase("BRI").Text())
             from sep in Parse.Char(':')
-            from val in Parse.Digit.Many().Text()
-            select new KeyValuePair<string, byte>(prop, Convert.ToByte(val));
+            from val in Parse.Number
+            select byte.Parse(val);
 
+        private static readonly Parser<byte> SatProp =
+            from prop in Parse.Token(Parse.IgnoreCase("SAT").Text())
+            from sep in Parse.Char(':')
+            from val in Parse.Number
+            select byte.Parse(val);
 
+        private static readonly Parser<ushort> CtProp =
+            from prop in Parse.Token(Parse.IgnoreCase("CT").Text())
+            from sep in Parse.Char(':')
+            from val in Parse.Number
+            select ushort.Parse(val);
+
+        private static readonly Parser<bool> OnProp =
+            from prop in Parse.Token(Parse.IgnoreCase("On").Text())
+            from sep in Parse.Char(':')
+            from val in (Parse.IgnoreCase("TRUE").Or(Parse.IgnoreCase("FALSE"))).Text()
+            select bool.Parse(val);
 
         private static readonly Parser<int> WaitCommand =
             from wait in Parse.Token(Parse.IgnoreCase("WAIT"))
@@ -37,66 +52,40 @@ namespace WinHue3.Functions.Animations2
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
             select new Tuple<string, string>(typeword, id);
 
-        private static readonly Parser<KeyValuePair<string, string>> property =
-            from prop in (
-                Parse.IgnoreCase("BRI")
-                .Or(Parse.IgnoreCase("SAT")               
-                .Or(Parse.IgnoreCase("CT")
-                .Or(Parse.IgnoreCase("HUE")
-                .Or(Parse.IgnoreCase("ON")
-                .Or(Parse.IgnoreCase("TT"))))))).Text()
-            from sep in Parse.Char(':')
-            from val in Parse.Digit.Many().Text()
-            select new KeyValuePair<string, string>(prop, val);
-
-        private static readonly Parser<Dictionary<string, string>> properties =
-            from prop in property.DelimitedBy(SpaceDelimiter)
+        private static readonly Parser<State> properties =
+            from bri in BriProp.Token()
+            from sat in SatProp.Token()
+            from ct in CtProp.Token()
+            from stateon in OnProp.Token()
             from lineend in LineDelimiter
-            select new Dictionary<string, string>(prop.ToDictionary(x => x.Key,x => x.Value));
+            select CreateState(bri, sat, ct, stateon);
 
         private static readonly Parser<IHueObject> hueobject =
             from set in Parse.Token(Parse.IgnoreCase("SET"))
             from type in setter
             from to in Parse.Token(Parse.IgnoreCase("TO"))
-            from props in properties
-            select CreateHueObject(type,props);
+            from state in properties
+            select CreateHueObject(type, state);
 
-        private static IHueObject CreateHueObject(Tuple<string,string> type ,Dictionary<string,string> properties)
+        private static State CreateState(byte bri, byte sat, ushort ct, bool on)
+        {
+            
+            return new State() { bri = bri, sat = sat, ct = ct, on = on };
+        }
+
+        private static IHueObject CreateHueObject(Tuple<string, string> type, State properties)
         {
             IHueObject ho = HueObjectCreator.CreateHueObject(type.Item1);
             ho.Id = type.Item2;
-            State newstate = new State();
-
-            PropertyInfo[] pi = newstate.GetType().GetProperties();
-
-            foreach(KeyValuePair<string,string> kvp in properties)
-            {
-                if (pi.First(x => x.Name.Equals(kvp.Key, StringComparison.InvariantCultureIgnoreCase)) != null)
-                {
-                    int index = pi.FindIndex(x => x.Name.Equals(kvp.Key, StringComparison.InvariantCultureIgnoreCase));
-                    Type t = Nullable.GetUnderlyingType(pi[index].PropertyType) ?? pi[index].PropertyType;
-                    try
-                    {
-                        dynamic obj = Convert.ChangeType(kvp.Value, t);
-                        pi[index]?.SetValue(newstate,obj);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ParseException($"Invalid value for {kvp.Key} : {kvp.Value}", ex);
-                    }
-
-                }
-            }
 
             PropertyInfo stateprop = ho.GetType().GetProperty("state");
-            stateprop?.SetValue(ho, newstate);
+            stateprop?.SetValue(ho, properties);
 
             return ho;
         }
 
         public static object ParseAnimation(string text)
         {
-        
             return hueobject.Parse(text);
         }
     }
