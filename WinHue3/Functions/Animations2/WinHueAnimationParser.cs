@@ -58,9 +58,9 @@ namespace WinHue3.Functions.Animations2
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
             select new Tuple<string, string>(typeword, id);
 
-       /* private static readonly Parser<T> Property =
-            from prop in Parse.Optional(BriProp).Or(Parse.Optional(SatProp)).Or(Parse.Optional(CtProp)).Or(Parse.Optional(HueProp))
-            select prop;*/
+        private static readonly Parser<Dictonary<string, Property =
+            from prop in Property<T>("Hue")
+            select prop;
 
 
         private static Parser<T> Property<T>(string propname)
