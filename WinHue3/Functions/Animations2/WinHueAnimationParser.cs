@@ -17,8 +17,14 @@ namespace WinHue3.Functions.Animations2
         private static readonly Parser<char> SpaceDelimiter = Parse.WhiteSpace;
         private static readonly Parser<char> LineDelimiter = Parse.Char(';');
 
+        private static readonly Parser<ushort> HueProp =
+            from prop in Parse.Token(Parse.IgnoreCase("HUE").Text())
+            from sep in Parse.Char(':')
+            from val in Parse.Number
+            select ushort.Parse(val);
+
         private static readonly Parser<byte> BriProp =
-            from prop in Parse.Token(Parse.IgnoreCase("BRI").Text())
+            from prop in  Parse.Token(Parse.IgnoreCase("BRI").Text())
             from sep in Parse.Char(':')
             from val in Parse.Number
             select byte.Parse(val);
@@ -52,6 +58,19 @@ namespace WinHue3.Functions.Animations2
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
             select new Tuple<string, string>(typeword, id);
 
+       /* private static readonly Parser<T> Property =
+            from prop in Parse.Optional(BriProp).Or(Parse.Optional(SatProp)).Or(Parse.Optional(CtProp)).Or(Parse.Optional(HueProp))
+            select prop;*/
+
+
+        private static Parser<T> Property<T>(string propname)
+        {
+            return from prop in Parse.Token(Parse.IgnoreCase(propname)).Text()
+                from sep in Parse.Char(':')
+                from val in Parse.
+                select Convert.ChangeType(val,typeof(T));
+        }
+
         private static readonly Parser<State> properties =
             from bri in BriProp.Token()
             from sat in SatProp.Token()
@@ -68,8 +87,8 @@ namespace WinHue3.Functions.Animations2
             select CreateHueObject(type, state);
 
         private static State CreateState(byte bri, byte sat, ushort ct, bool on)
-        {
-            
+        {    
+            if(bri == null && sat == null && ct == null && on == null) 
             return new State() { bri = bri, sat = sat, ct = ct, on = on };
         }
 
