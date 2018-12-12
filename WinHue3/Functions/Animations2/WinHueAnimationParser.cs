@@ -53,33 +53,21 @@ namespace WinHue3.Functions.Animations2
             from value in Parse.Digit.DelimitedBy(LineDelimiter).Text()
             select Convert.ToInt32(value);
 
+
         private static readonly Parser<Tuple<string, string>> setter =
             from typeword in (Parse.Token(Parse.IgnoreCase("LIGHT")).Or(Parse.Token(Parse.IgnoreCase("GROUP")))).Text()
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
             select new Tuple<string, string>(typeword, id);
 
-        private static readonly Parser<Dictonary<string, Property =
-            from prop in Property<T>("Hue")
-            select prop;
+        private static readonly Parser<KeyValuePair<string,dynamic>> property =
 
 
-        private static Parser<T> Property<T>(string propname)
-        {
-            return from prop in Parse.Token(Parse.IgnoreCase(propname)).Text()
-                from sep in Parse.Char(':')
-                from val in Parse.
-                select Convert.ChangeType(val,typeof(T));
-        }
+        private static readonly Parser<Dictionary<string,dynamic>> properties =
+            from first in 
+            from rest in Parse.WhiteSpace.Then(_ => )
+            
 
-        private static readonly Parser<State> properties =
-            from bri in BriProp.Token()
-            from sat in SatProp.Token()
-            from ct in CtProp.Token()
-            from stateon in OnProp.Token()
-            from lineend in LineDelimiter
-            select CreateState(bri, sat, ct, stateon);
-
-        private static readonly Parser<IHueObject> hueobject =
+        private static readonly Parser<IHueObject> SetCommand =
             from set in Parse.Token(Parse.IgnoreCase("SET"))
             from type in setter
             from to in Parse.Token(Parse.IgnoreCase("TO"))
