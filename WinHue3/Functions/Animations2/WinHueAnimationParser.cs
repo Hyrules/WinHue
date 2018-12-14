@@ -18,40 +18,40 @@ namespace WinHue3.Functions.Animations2
         private static readonly Parser<char> LineDelimiter = Parse.Char(';');
 
         private static readonly Parser<ushort> HueProp =
-            from prop in Parse.Token(Parse.IgnoreCase("HUE").Text())
+            from prop in Parse.IgnoreCase("HUE").Text()
             from sep in Parse.Char(':')
             from val in Parse.Number
             select ushort.Parse(val);
 
         private static readonly Parser<byte> BriProp =
-            from prop in  Parse.Token(Parse.IgnoreCase("BRI").Text())
+            from prop in Parse.IgnoreCase("BRI").Text()
             from sep in Parse.Char(':')
             from val in Parse.Number
             select byte.Parse(val);
 
         private static readonly Parser<byte> SatProp =
-            from prop in Parse.Token(Parse.IgnoreCase("SAT").Text())
+            from prop in Parse.IgnoreCase("SAT").Text()
             from sep in Parse.Char(':')
             from val in Parse.Number
             select byte.Parse(val);
 
         private static readonly Parser<ushort> CtProp =
-            from prop in Parse.Token(Parse.IgnoreCase("CT").Text())
+            from prop in Parse.IgnoreCase("CT").Text()
             from sep in Parse.Char(':')
             from val in Parse.Number
             select ushort.Parse(val);
 
         private static readonly Parser<bool> OnProp =
-            from prop in Parse.Token(Parse.IgnoreCase("On").Text())
+            from prop in Parse.IgnoreCase("On").Text()
             from sep in Parse.Char(':')
             from val in (Parse.IgnoreCase("TRUE").Or(Parse.IgnoreCase("FALSE"))).Text()
             select bool.Parse(val);
 
-        private static readonly Parser<int> WaitCommand =
-            from wait in Parse.Token(Parse.IgnoreCase("WAIT"))
+        private static readonly Parser<KeyValuePair<string,int>> WaitCommand =
+            from wait in Parse.IgnoreCase("WAIT").Text()
             from sep in Parse.Char(':')
-            from value in Parse.Digit.DelimitedBy(LineDelimiter).Text()
-            select Convert.ToInt32(value);
+            from value in Parse.Number
+            select new KeyValuePair<string, int>(wait, Convert.ToInt32(value));
 
 
         private static readonly Parser<Tuple<string, string>> setter =
@@ -59,12 +59,14 @@ namespace WinHue3.Functions.Animations2
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
             select new Tuple<string, string>(typeword, id);
 
-        private static readonly Parser<KeyValuePair<string,dynamic>> property =
-
+        private static readonly Parser<KeyValuePair<string, dynamic>> property =
+            from prop in BriProp.Token().Or(HueProp.Token())
+            select new KeyValuePair<string, dynamic>(prop, value);
 
         private static readonly Parser<Dictionary<string,dynamic>> properties =
-            from first in 
-            from rest in Parse.WhiteSpace.Then(_ => )
+            from first in property
+            from rest in Parse.WhiteSpace.Then(_ => property)
+            select new Dictionary<string, dynamic>() {  }
             
 
         private static readonly Parser<IHueObject> SetCommand =
