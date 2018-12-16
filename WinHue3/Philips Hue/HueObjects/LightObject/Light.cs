@@ -29,6 +29,8 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         private bool _visible;
         private LightCapabilities _capabilities;
         private LightConfig _config;
+        private LightSwUpdate _swupdate;
+
         /// <summary>
         /// ID of the Light
         /// </summary>
@@ -108,6 +110,12 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// </summary>
         [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Config"), ReadOnly(true), ExpandableObject]
         public LightConfig config { get => _config; set => SetProperty(ref _config, value); }
+
+        /// <summary>
+        /// Light software update.
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Software Update"), ReadOnly(true), ExpandableObject]
+        public LightSwUpdate swupdate { get => _swupdate; set => SetProperty(ref _swupdate,value); }
 
         /// <summary>
         /// To string.

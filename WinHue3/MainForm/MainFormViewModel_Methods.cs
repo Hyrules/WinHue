@@ -62,6 +62,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
+using WinHue3.Functions.PowerSettings;
 using WinHue3.Functions.RoomMap;
 using Binding = System.Windows.Data.Binding;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -1073,6 +1074,13 @@ namespace WinHue3.MainForm
         #endregion
 
         #region CONTEXT_MENU_METHODS
+
+        private void SetPowerMode()
+        {
+            Form_PowerFailureSettings fps = new Form_PowerFailureSettings(SelectedBridge);
+            fps.Owner = Application.Current.MainWindow;
+            fps.ShowDialog();
+        }
 
         private async Task ReplaceCurrentState()
         {

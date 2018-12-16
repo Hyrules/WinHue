@@ -1040,6 +1040,9 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Command="{Binding ResetTransitionTimeCommand}">
                     <Image Source="/WinHue3;component/Resources/resettt.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_PowerSettings}" Command="{Binding SetPowerModeCommand}">
+                    <Image Height="32" Style="{StaticResource ImageEnabled}" Source="/WinHue3;component/Resources/powerfailure.png"/>
+                </Button>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuEvents}">
                 <Separator/>

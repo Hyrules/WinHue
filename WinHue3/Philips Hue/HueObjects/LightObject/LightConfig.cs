@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
@@ -19,7 +20,8 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         public string function { get; set; }
         [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config"), Description("Direction"), ReadOnly(true)]
         public string direction { get; set; }
-
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config"), Description("Startup"), ReadOnly(true), ExpandableObject]
+        public LightConfigStartup startup { get; set; }
         /// <summary>
         /// To string.
         /// </summary>

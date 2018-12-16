@@ -1114,6 +1114,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Power Settings.
+        /// </summary>
+        public static string Form_CustomPowerSettings_Title {
+            get {
+                return ResourceManager.GetString("Form_CustomPowerSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groups View.
         /// </summary>
         public static string Form_GroupView_Title {
@@ -1299,6 +1308,15 @@ namespace WinHue3.Resources {
         public static string Form_LIFXFinder_Warning {
             get {
                 return ResourceManager.GetString("Form_LIFXFinder_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power Failure Settings.
+        /// </summary>
+        public static string Form_PowerFailureSettings_Title {
+            get {
+                return ResourceManager.GetString("Form_PowerFailureSettings_Title", resourceCulture);
             }
         }
         
@@ -1731,24 +1749,6 @@ namespace WinHue3.Resources {
         public static string ListView_others {
             get {
                 return ResourceManager.GetString("ListView_others", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Resource Links.
-        /// </summary>
-        public static string ListView_resourcelinks {
-            get {
-                return ResourceManager.GetString("ListView_resourcelinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rules.
-        /// </summary>
-        public static string ListView_rules {
-            get {
-                return ResourceManager.GetString("ListView_rules", resourceCulture);
             }
         }
         
@@ -2491,6 +2491,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulb power failure settings.
+        /// </summary>
+        public static string MainForm_Tab_Home_Group_PowerSettings {
+            get {
+                return ResourceManager.GetString("MainForm_Tab_Home_Group_PowerSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
         public static string MainForm_Tab_Home_Group_Refresh {
@@ -2833,6 +2842,42 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        public static string Mode_Custom {
+            get {
+                return ResourceManager.GetString("Mode_Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last on state.
+        /// </summary>
+        public static string Mode_LastOnState {
+            get {
+                return ResourceManager.GetString("Mode_LastOnState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power fail.
+        /// </summary>
+        public static string Mode_Powerfail {
+            get {
+                return ResourceManager.GetString("Mode_Powerfail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safety.
+        /// </summary>
+        public static string Mode_Safety {
+            get {
+                return ResourceManager.GetString("Mode_Safety", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string MoodCreatorForm_Brightness {
@@ -3000,6 +3045,15 @@ namespace WinHue3.Resources {
         public static string ResourceLinkCreatorForm_Watermark_Name {
             get {
                 return ResourceManager.GetString("ResourceLinkCreatorForm_Watermark_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource Links.
+        /// </summary>
+        public static string Resourcelinks {
+            get {
+                return ResourceManager.GetString("Resourcelinks", resourceCulture);
             }
         }
         
@@ -3315,6 +3369,15 @@ namespace WinHue3.Resources {
         public static string RuleCreatorForm_Value_Watermark {
             get {
                 return ResourceManager.GetString("RuleCreatorForm_Value_Watermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rules.
+        /// </summary>
+        public static string Rules {
+            get {
+                return ResourceManager.GetString("Rules", resourceCulture);
             }
         }
         

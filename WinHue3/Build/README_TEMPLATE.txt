@@ -14,6 +14,7 @@ Fixed:
 Added:
 - Mouse wheel will now work on the sliders of the mainform.
 - Fix/bypass for OSRAM having unreachable issue. (You can activate it in the application settings)
+- Power failure settings. Hue now officialy retain the power mode of the light in case of a failure.
 
 Changed:
 - Added a bypass for OSRAM lights caused by the unreachable state.

@@ -59,7 +59,7 @@ namespace WinHue3.Functions.Animations2
             from id in Parse.Digit.DelimitedBy(SpaceDelimiter).Text()
             select new Tuple<string, string>(typeword, id);
 
-        private static readonly Parser<KeyValuePair<string, dynamic>> property =
+     /*   private static readonly Parser<KeyValuePair<string, dynamic>> property =
             from prop in BriProp.Token().Or(HueProp.Token())
             select new KeyValuePair<string, dynamic>(prop, value);
 
@@ -96,6 +96,6 @@ namespace WinHue3.Functions.Animations2
         public static object ParseAnimation(string text)
         {
             return hueobject.Parse(text);
-        }
+        }*/
     }
 }

@@ -450,10 +450,10 @@
   <data name="ListView_others" xml:space="preserve">
     <value>Others</value>
   </data>
-  <data name="ListView_resourcelinks" xml:space="preserve">
+  <data name="Resourcelinks" xml:space="preserve">
     <value>Resource Links</value>
   </data>
-  <data name="ListView_rules" xml:space="preserve">
+  <data name="Rules" xml:space="preserve">
     <value>Rules</value>
   </data>
   <data name="MainForm_ListView_Context_Clone" xml:space="preserve">
@@ -1559,5 +1559,26 @@
   </data>
   <data name="Sensors" xml:space="preserve">
     <value>Sensors</value>
+  </data>
+  <data name="MainForm_Tab_Home_Group_PowerSettings" xml:space="preserve">
+    <value>Bulb power failure settings</value>
+  </data>
+  <data name="Form_PowerFailureSettings_Title" xml:space="preserve">
+    <value>Power Failure Settings</value>
+  </data>
+  <data name="Mode_Safety" xml:space="preserve">
+    <value>Safety</value>
+  </data>
+  <data name="Mode_Powerfail" xml:space="preserve">
+    <value>Power fail</value>
+  </data>
+  <data name="Mode_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Mode_LastOnState" xml:space="preserve">
+    <value>Last on state</value>
+  </data>
+  <data name="Form_CustomPowerSettings_Title" xml:space="preserve">
+    <value>Custom Power Settings</value>
   </data>
 </root>

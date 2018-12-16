@@ -112,6 +112,61 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
 
         /// <summary>
+        /// Set the Power configuration mode of the light.
+        /// </summary>
+        /// <param name="powermode">Power mode : powerfail or Safety</param>
+        /// <param name="id">Id of the bulb</param>
+        /// <returns>True or false</returns>
+        public async Task<bool> SetPowerConfigAsyncTask(string powermode, string id)
+        {
+            CommResult comres;
+
+            string url = BridgeUrl + $"/lights/{id}/config";
+            if (!Virtual)
+            {
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, "{\"startup\" : {\"mode\" : \""+ powermode+ "\"}}");
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = powermode });
+                return LastCommandMessages.Success;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> SetPowerCustomSettingsAsyncTask(PowerCustomSettings state, string id)
+        {
+            CommResult comres;
+
+            string url = BridgeUrl + $"/lights/{id}/config/";
+            if (!Virtual)
+            {
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, "{\"startup\": { \"customsettings\" : " + Serializer.SerializeToJson(state) + "}}");
+                if (comres.Status == WebExceptionStatus.Success)
+                {
+                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                    return LastCommandMessages.Success;
+                }
+
+            }
+            else
+            {
+                LastCommandMessages.AddMessage(new Success() { Address = url, value = state.ToString() });
+                return LastCommandMessages.Success;
+            }
+
+            return false;
+
+        }
+
+        /// <summary>
         /// Activate a scene.
         /// </summary>
         /// <param name="id">Id of the scene.</param>

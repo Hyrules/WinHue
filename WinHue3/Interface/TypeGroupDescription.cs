@@ -21,7 +21,7 @@ namespace WinHue3.Interface
         {
             if (item == null) return GUI.ListView_others;
             string type = item.GetHueType();
-            return GUI.ResourceManager.GetString("ListView_" + type);
+            return GUI.ResourceManager.GetString(type.CapitalizeFirstLetter());
 
         }
     }

@@ -222,6 +222,14 @@
     <Compile Include="Functions\Grouping\BridgeSubGroup.cs" />
     <Compile Include="Functions\Grouping\IGroup.cs" />
     <Compile Include="Functions\IDevice.cs" />
+    <Compile Include="Functions\PowerSettings\Form_PowerCustomSettings.xaml.cs">
+      <DependentUpon>Form_PowerCustomSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\PowerSettings\Form_PowerFailureSettings.xaml.cs">
+      <DependentUpon>Form_PowerFailureSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\PowerSettings\PowerCustomSettingsViewModel.cs" />
+    <Compile Include="Functions\PowerSettings\PowerFailureSettingsViewModel.cs" />
     <Compile Include="Functions\PropertyGrid\ListStringEditor\ListStringEditor.cs" />
     <Compile Include="Functions\PropertyGrid\PropertyGrid.xaml.cs">
       <DependentUpon>PropertyGrid.xaml</DependentUpon>
@@ -342,7 +350,10 @@
     <Compile Include="Philips Hue\HueObjects\LightObject\LightCapabilitiesStreaming.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\LightConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\LightCapabilitiesControl.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightConfigStartup.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\LightControlCt.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightSwUpdate.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\PowerCustomSettings.cs" />
     <Compile Include="Philips Hue\HueObjects\LightSearchSerial.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorState.cs" />
@@ -542,6 +553,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Entertainment\Form_EntertainmentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\PowerSettings\Form_PowerCustomSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\PowerSettings\Form_PowerFailureSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -753,8 +772,8 @@
     <Resource Include="Resources\HueTap.png" />
     <None Include="Build\process_installer.ps1" />
     <None Include="Build\process_readme.ps1" />
-    <None Include="Resources\LCT001_on.png" />
-    <None Include="Resources\LCT001_off.png" />
+    <Resource Include="Resources\LCT001_on.png" />
+    <Resource Include="Resources\LCT001_off.png" />
     <Resource Include="Resources\HueLight_unr.png" />
     <Resource Include="Resources\timer.png" />
     <Resource Include="Resources\stock_alarm.png" />
@@ -980,7 +999,9 @@
   <ItemGroup>
     <Resource Include="Resources\edit-2.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\list.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Functions\Animations2\Grammar.txt" />
   </ItemGroup>
