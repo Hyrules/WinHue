@@ -64,7 +64,7 @@
                         <RowDefinition Height="10"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ListView ItemsSource="{Binding ListRuleConditions}" SelectedItem="{Binding SelectedRuleCondition }" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="1" behaviors:OnClickBehavior.Command="{Binding Condition_SelectRuleConditionCommand}" BorderBrush="#FFABADB3" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="4">
+                    <ListView ItemsSource="{Binding ListRuleConditions}" SelectedItem="{Binding SelectedRuleCondition }" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="1" behaviors:OnClickBehavior.Command="{Binding Condition_SelectRuleConditionCommand}" BorderBrush="#FFABADB3" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="4" Style="{DynamicResource ListViewStyle}">
                         <ListView.InputBindings>
                             <KeyBinding Key="Escape" Command="{Binding Condition_ClearSelectedRuleConditionCommand}"/>
                         </ListView.InputBindings>
@@ -107,15 +107,18 @@
                         </TreeView.ItemContainerStyle>
                     </controls:BindableTreeView>
                     <controls:CommandComboBox VerticalAlignment="Top"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}" Watermark="(Choose the operator)" Grid.Row="5" Margin="0" Height="23.96" Style="{DynamicResource CommandComboBoxStyleNew}">
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Delayed_Changed}" Tag="ddx"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_In}" Tag="in"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Not_In}" Tag="not in"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Stable}" Tag="stable"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Not_Stable}" Tag="not stable"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lower_Than}" Tag="lt"/>
-                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Greater_Than}" Tag="gt"/>
+                        <controls:CommandComboBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource theme_ControlText}"/>
+                        </controls:CommandComboBox.Foreground>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Delayed_Changed}" Tag="ddx" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_In}" Tag="in" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Not_In}" Tag="not in" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Stable}" Tag="stable" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Not_Stable}" Tag="not stable" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lower_Than}" Tag="lt" Style="{DynamicResource ComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Greater_Than}" Tag="gt" Style="{DynamicResource ComboBoxItemStyle}"/>
                     </controls:CommandComboBox>
                     <xctk:WatermarkTextBox TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}" Grid.Row="5" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Column="1" Margin="10,0,0,0"/>
                     <controls:CommandComboBox VerticalAlignment="Top" Command="{Binding Condition_SelectConditionObjectTypeCommand}" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" Watermark="(Object Type)" Style="{DynamicResource ComboBoxStyle}" Grid.Row="1" Height="21.96">

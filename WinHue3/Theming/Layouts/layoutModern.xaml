@@ -3058,8 +3058,12 @@
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsKeyboardFocused" Value="False"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHover.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHover.Border}"/>
+                            <Setter Property="Background" TargetName="Bd">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource accentHoverBackground}"/>
+                                </Setter.Value>
+                            </Setter>
+                            <!--<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHover.Border}"/>-->
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -3068,15 +3072,19 @@
                                 <Condition Property="IsKeyboardFocused" Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelected.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelected.Border}"/>
+                            <!--<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelected.Border}"/>-->
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="True"/>
                                 <Condition Property="IsMouseOver" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedHover.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedHover.Border}"/>
+                            <Setter Property="Background" TargetName="Bd">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource accentHoverBackground}"/>
+                                </Setter.Value>
+                            </Setter>
+                            <!--<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedHover.Border}"/>-->
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -3085,7 +3093,7 @@
                                 <Condition Property="IsKeyboardFocused" Value="False"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedNoFocus.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedNoFocus.Border}"/>
+                            <!--<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewSelectedNoFocus.Border}"/>-->
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -3093,7 +3101,7 @@
                                 <Condition Property="IsMouseOver" Value="False"/>
                                 <Condition Property="IsKeyboardFocused" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewFocus.Border}"/>
+                            <!--<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewFocus.Border}"/>-->
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -3101,8 +3109,12 @@
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsKeyboardFocused" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHoverFocus.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHoverFocus.Border}"/>
+                            <Setter Property="Background" TargetName="Bd">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource accentHoverBackground}"/>
+                                </Setter.Value>
+                            </Setter>
+                            <!--<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ComboBoxItem.ItemsviewHoverFocus.Border}"/>-->
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -4205,7 +4217,7 @@
                         </Grid.ColumnDefinitions>
                         <Popup x:Name="PART_Popup" AllowsTransparency="True" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
                             <Grid x:Name="DropDown" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True">
-                                <Border x:Name="DropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                                <Border x:Name="DropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="{DynamicResource theme_MainBackgroundBrush}">
                                     <ScrollViewer x:Name="DropDownScrollViewer">
                                         <Grid x:Name="grid">
                                             <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -4227,13 +4239,7 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                                <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
-                                                    <Border.Background>
-                                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                                                            <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </Border.Background>
+                                                <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                                                     <Border x:Name="splitBorder" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="True" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
                                                         <Path x:Name="Arrow" Data="F1M0,0L2.667,2.66665 5.3334,0 5.3334,-1.78168 2.6667,0.88501 0,-1.78168 0,0z" Fill="#FF606060" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
                                                     </Border>
@@ -4260,10 +4266,7 @@
                                                         </MultiDataTrigger.Conditions>
                                                         <Setter Property="Background" TargetName="templateRoot">
                                                             <Setter.Value>
-                                                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                                                    <GradientStop Color="#FFECF4FC" Offset="0"/>
-                                                                    <GradientStop Color="#FFDCECFC" Offset="1"/>
-                                                                </LinearGradientBrush>
+                                                                <SolidColorBrush Color="{DynamicResource theme_ControlBackgroundHover}"></SolidColorBrush>
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF7EB4EA"/>
@@ -4277,10 +4280,7 @@
                                                         <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF7EB4EA"/>
                                                         <Setter Property="Background" TargetName="splitBorder">
                                                             <Setter.Value>
-                                                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                                                    <GradientStop Color="#FFEBF4FC" Offset="0"/>
-                                                                    <GradientStop Color="#FFDCECFC" Offset="1"/>
-                                                                </LinearGradientBrush>
+                                                                <SolidColorBrush Color="{DynamicResource theme_ControlBackgroundHover}"></SolidColorBrush>
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Setter Property="BorderBrush" TargetName="splitBorder" Value="#FF7EB4EA"/>
@@ -4295,10 +4295,7 @@
                                                         </MultiDataTrigger.Conditions>
                                                         <Setter Property="Background" TargetName="templateRoot">
                                                             <Setter.Value>
-                                                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                                                    <GradientStop Color="#FFDAECFC" Offset="0"/>
-                                                                    <GradientStop Color="#FFC4E0FC" Offset="1"/>
-                                                                </LinearGradientBrush>
+                                                                <SolidColorBrush Color="{DynamicResource theme_ControlBackgroundPressed}"></SolidColorBrush>
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF569DE5"/>
@@ -4312,10 +4309,7 @@
                                                         <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF569DE5"/>
                                                         <Setter Property="Background" TargetName="splitBorder">
                                                             <Setter.Value>
-                                                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                                                    <GradientStop Color="#FFDAEBFC" Offset="0"/>
-                                                                    <GradientStop Color="#FFC4E0FC" Offset="1"/>
-                                                                </LinearGradientBrush>
+                                                                <SolidColorBrush Color="{DynamicResource theme_ControlBackgroundPressed}"></SolidColorBrush>
                                                             </Setter.Value>
                                                         </Setter>
                                                         <Setter Property="BorderBrush" TargetName="splitBorder" Value="#FF569DE5"/>
