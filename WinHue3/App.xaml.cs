@@ -25,8 +25,7 @@ namespace WinHue3
 
         public App()
         {
-
-            //AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Hierarchy hier = log4net.LogManager.GetRepository() as Hierarchy;
 
             if (hier != null)

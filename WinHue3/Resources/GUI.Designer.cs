@@ -2923,6 +2923,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *Power settings may take some time to apply..
+        /// </summary>
+        public static string PowerSettings_Warning {
+            get {
+                return ResourceManager.GetString("PowerSettings_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties of the selected object.
         /// </summary>
         public static string PropertyGridForm_Title {

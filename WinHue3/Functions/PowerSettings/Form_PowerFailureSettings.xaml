@@ -103,6 +103,7 @@
             </ListView.View>
         </ListView>
         <Button x:Name="btnClose" Content="{x:Static resx:GUI.Button_Done}" Margin="504,371,15.667,21.667" Click="BtnClose_Click"/>
+        <Label Content="{x:Static resx:GUI.PowerSettings_Warning}" HorizontalAlignment="Left" Margin="15,373,0,0" VerticalAlignment="Top" Width="484"/>
 
     </Grid>
 </Window>
