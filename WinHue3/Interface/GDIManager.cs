@@ -4,13 +4,12 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Interface
 {
     public static class GDIManager
     {
-
-
         public static ImageSource CreateImageSourceFromImage(Bitmap img)
         {
             try
