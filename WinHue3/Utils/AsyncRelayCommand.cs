@@ -58,7 +58,6 @@ namespace WinHue3.Utils
             }
         }
 
-
     }
 
     public class CanExecuteEventArgs : EventArgs

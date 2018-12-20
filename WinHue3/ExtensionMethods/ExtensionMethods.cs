@@ -5,7 +5,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.ServiceModel.Dispatcher;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WinHue3.Annotations;
@@ -35,6 +37,22 @@ namespace WinHue3.ExtensionMethods
 
     }
 
+    public static class TaskUtilities
+    {
+#pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
+        public static async void FireAndForgetSafeAsync(this Task task, IErrorHandler handler = null)
+#pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
+        {
+            try
+            {
+                await task;
+            }
+            catch (Exception ex)
+            {
+                handler?.HandleError(ex);
+            }
+        }
+    }
 
     public static class StringExtensionMethods
     {
