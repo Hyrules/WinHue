@@ -14,9 +14,9 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public static CustomHotkeys hotkeys = new CustomHotkeys();
         public static CustomBridges bridges = new CustomBridges();
 
-        private static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static string floorplanpath = Path.Combine(path, "WinHue\\Floorplans");
+        private static readonly string floorplanpath = Path.Combine(path, "WinHue\\Floorplans");
 
         static WinHueSettings()
         {

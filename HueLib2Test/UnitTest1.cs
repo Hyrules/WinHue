@@ -46,8 +46,10 @@ namespace HueLib2Test
         {
             List<Light> list1 = new List<Light>();
             List<Light> list2 = new List<Light>();
-            Light l = new Light();
-            l.Id = "patate";
+            Light l = new Light
+            {
+                Id = "patate"
+            };
 
             list1.Add(l);
             list2.Add(l);

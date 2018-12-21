@@ -121,7 +121,7 @@ namespace WinHue3.Utils
     public class CoordinatesPropertyDescriptor : PropertyDescriptor
     {
         private BindingList<float[]> _owner;
-        private int _index;
+        private readonly int _index;
         private float[] Value => _owner[_index];
 
         public CoordinatesPropertyDescriptor(BindingList<float[]> owner, int index) : base(index.ToString(), null)

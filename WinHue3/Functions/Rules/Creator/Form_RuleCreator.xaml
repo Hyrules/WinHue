@@ -206,8 +206,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Name="BtnSave" Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="513,405,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnSave_Click" />
-        <Button Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="608,406,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="btnCancel_Click"/>
+        <Button Name="BtnSave" Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="513,405,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="BtnSave_Click" />
+        <Button Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="608,406,0,0" VerticalAlignment="Top" Width="90" Height="22" Click="BtnCancel_Click"/>
         <CheckBox Content="{x:Static resx:GUI.RuleCreatorForm_Enabled}" HorizontalAlignment="Left" Margin="633,4,0,0" Height="23" Width="80" IsChecked="{Binding Enabled}" VerticalAlignment="Top"/>
     </Grid>
 </Window>

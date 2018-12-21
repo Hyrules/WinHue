@@ -217,7 +217,7 @@ namespace WinHue3.Functions.Advanced_Creator
         public ICommand CreateResourceLinkTemplateCommand => new RelayCommand(param => CreateResourceLinkTemplate(), (param) => Type == string.Empty);
         public ICommand CreateGroupTemplateCommand => new RelayCommand(param => CreateGroupTemplate(), (param) => Type == string.Empty);
         public ICommand ClearTemplateCommand => new RelayCommand(param => ClearTemplate(), (param) => Text != string.Empty);
-        public ICommand SendCommand => new AsyncRelayCommand(param => Send(), (param) => CanSendCommand());
+        public ICommand SendCommand => new AsyncCommand<object>(param => Send(), (param) => CanSendCommand());
 
         private bool CanSendCommand()
         {

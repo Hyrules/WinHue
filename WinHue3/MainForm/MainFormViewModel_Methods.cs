@@ -317,9 +317,9 @@ namespace WinHue3.MainForm
                 ImageSource hr = await HueObjectHelper.ToggleObjectOnOffStateAsyncTask(SelectedBridge, SelectedHueObject, SliderTt, null, _newstate);
                 if (hr != null)
                 {
-                    ImageSource newimg = hr;
-                    SelectedHueObject.Image = newimg;
-                    UpdateFloorPlanIcons(newimg, SelectedHueObject.Id, SelectedHueObject.GetType());
+                    
+                    SelectedHueObject.Image = hr;
+                    UpdateFloorPlanIcons(hr, SelectedHueObject.Id, SelectedHueObject.GetType());
 
                     int index = _listBridgeObjects.FindIndex(x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
                     if (index == -1) return;
@@ -334,7 +334,7 @@ namespace WinHue3.MainForm
                         ((Group) ListBridgeObjects[index]).action.on = !((Group) ListBridgeObjects[index]).action.on;
                     }
 
-                    ListBridgeObjects[index].Image = newimg;
+                    ListBridgeObjects[index].Image = hr;
                 }
             }
             else
@@ -630,7 +630,7 @@ namespace WinHue3.MainForm
             RaisePropertyChanged("UpdateAvailable");
         }
 
-        public void HandleHotkey(HotKeyHandle e)
+        private void HandleHotkey(HotKeyHandle e)
         {
             ModifierKeys m = e.KeyModifiers;
             Key k = e.Key;
@@ -1077,8 +1077,10 @@ namespace WinHue3.MainForm
 
         private void SetPowerMode()
         {
-            Form_PowerFailureSettings fps = new Form_PowerFailureSettings(SelectedBridge);
-            fps.Owner = Application.Current.MainWindow;
+            Form_PowerFailureSettings fps = new Form_PowerFailureSettings(SelectedBridge)
+            {
+                Owner = Application.Current.MainWindow
+            };
             fps.ShowDialog();
         }
 
