@@ -1101,9 +1101,8 @@ namespace WinHue3.Utils
                         if (currentState.state.on == true)
                         {
                             log.Debug("Toggling light state : OFF");
-                            bool bsetlightstate = bridge.SetState(new State { on = false, transitiontime = tt}, obj.Id);
 
-                            if (bsetlightstate)
+                            if (bridge.SetState(new State { on = false, transitiontime = tt }, obj.Id))
                             {
                                 hr = GetImageForLight(LightImageState.Off, currentState.modelid);
                             }
@@ -1112,9 +1111,8 @@ namespace WinHue3.Utils
                         else
                         {
                             log.Debug("Toggling light state : ON");
-                            bool bsetlightstate = bridge.SetState(new State { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id);
 
-                            if (bsetlightstate)
+                            if (bridge.SetState(new State { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id))
                             {
 
                                 hr = GetImageForLight(LightImageState.On, currentState.modelid);
