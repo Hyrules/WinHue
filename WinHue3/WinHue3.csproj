@@ -391,7 +391,6 @@
     <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomHotkeys.cs" />
     <Compile Include="Properties\Annotations1.cs" />
-    <Compile Include="Utils\AsyncCommand.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
