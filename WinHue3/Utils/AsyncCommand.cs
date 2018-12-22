@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel.Dispatcher;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 
 namespace WinHue3.Utils
 {
+    //this is a test
     public interface IAsyncCommand<T> : ICommand
     {
         Task ExecuteAsync(T parameter);
@@ -17,8 +15,7 @@ namespace WinHue3.Utils
 
     public class AsyncCommand<T> : IAsyncCommand<T>
     {
-        public event EventHandler CanExecuteChanged;
-
+        
         private bool _isExecuting;
         private readonly Func<T, Task> _execute;
         private readonly Func<T, bool> _canExecute;
@@ -29,6 +26,12 @@ namespace WinHue3.Utils
             _execute = execute;
             _canExecute = canExecute;
             _errorHandler = errorHandler;
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public bool CanExecute(T parameter)
@@ -56,7 +59,7 @@ namespace WinHue3.Utils
 
         public void RaiseCanExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            CommandManager.InvalidateRequerySuggested();
         }
 
         #region Explicit implementations
