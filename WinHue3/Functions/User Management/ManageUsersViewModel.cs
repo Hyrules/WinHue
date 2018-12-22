@@ -126,8 +126,8 @@ namespace WinHue3.Functions.User_Management
             SelectedUser = null;
         }
 
-        public ICommand DeleteCommand => new AsyncCommand<object>(param => Delete(), (param)=> CanDeleteUser());
-        public ICommand AddUserCommand => new AsyncCommand<object>(param => AddUser(), (param) => CanAddUser());
+        public ICommand DeleteCommand => new AsyncRelayCommand(param => Delete(), param => CanDeleteUser());
+        public ICommand AddUserCommand => new AsyncRelayCommand(param => AddUser(), param => CanAddUser());
         public ICommand ClearCommand => new RelayCommand(param => Clear(), (param) => CanDeleteUser());
 
 

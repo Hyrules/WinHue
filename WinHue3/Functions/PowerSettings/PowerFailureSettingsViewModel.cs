@@ -23,14 +23,14 @@ namespace WinHue3.Functions.PowerSettings
             ListLights = new List<Light>();
         }
 
-        public ICommand SetPowerFailureCommand => new AsyncCommand<RoutedEventArgs>(SetPowerFailure);
+        public ICommand SetPowerFailureCommand => new AsyncRelayCommand(SetPowerFailure);
         public ICommand SetPowerCustomCommand => new RelayCommand(SetPowerCustom);
-        public ICommand SetRefreshLightCommand => new AsyncCommand<RoutedEventArgs>(SetRefreshLight);
-        public ICommand InitializeCommand => new AsyncCommand<object>(param => Initialize());
+        public ICommand SetRefreshLightCommand => new AsyncRelayCommand(SetRefreshLight);
+        public ICommand InitializeCommand => new AsyncRelayCommand(param => Initialize());
 
-        private async Task SetRefreshLight(RoutedEventArgs obj)
+        private async Task SetRefreshLight(object obj)
         {
-            Button btn = obj.Source as Button;
+            Button btn = ((RoutedEventArgs)obj).Source as Button;
             Light light = btn.DataContext as Light;
             Light refresh = (Light) await HueObjectHelper.GetObjectAsyncTask(_currentBridge, light.Id, typeof(Light));
             light.config.startup.mode = refresh.config.startup.mode;
@@ -56,9 +56,9 @@ namespace WinHue3.Functions.PowerSettings
             ListLights = temp.Where(x => x.config.startup != null).ToList();
         }
 
-        private async Task SetPowerFailure(RoutedEventArgs obj)
+        private async Task SetPowerFailure(object obj)
         {
-            ComboBox cb = obj.Source as ComboBox;
+            ComboBox cb = ((RoutedEventArgs)obj).Source as ComboBox;
             string mode = cb.SelectedValue.ToString();
             Light light = cb.DataContext as Light;
             bool result = await CurrentBridge.SetPowerConfigAsyncTask(mode, light.Id);
