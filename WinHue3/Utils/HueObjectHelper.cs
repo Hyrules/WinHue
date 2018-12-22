@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media;
 using log4net;
 using WinHue3.ExtensionMethods;
@@ -835,7 +836,7 @@ namespace WinHue3.Utils
                 }
                 kvp.Value.Id = kvp.Key;
                 kvp.Value.visible = true;
-                if(kvp.Value.manufacturername == "OSRAM")
+                if(kvp.Value.manufacturername == "OSRAM" && WinHueSettings.settings.OSRAMFix)
                 {
                     kvp.Value.Image = GetImageForLight(kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off, kvp.Value.modelid);
                 }
