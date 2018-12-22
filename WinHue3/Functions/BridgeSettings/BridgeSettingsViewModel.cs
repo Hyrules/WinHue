@@ -129,10 +129,10 @@ namespace WinHue3.Functions.BridgeSettings
             set => SetProperty(ref _softwareModel,value);
         }
 
-        public ICommand ForceCheckUpdateCommand => new AsyncRelayCommand(param => ForceCheckUpdate(),(param) => CanCheckForUpdate());
-        public ICommand ApplyUpdateSettingsCommand => new AsyncRelayCommand(param => ApplyUpdateSettings());
-        public ICommand UpdateBridgeFirmwareCommand => new AsyncRelayCommand(param => UpdateBridgeFirmware(), (param) => CanUpdateFirmware());
-        public ICommand InitializeCommand => new AsyncRelayCommand(param => Initialize());
+        public ICommand ForceCheckUpdateCommand => new AsyncCommand<object>(param => ForceCheckUpdate(),(param) => CanCheckForUpdate());
+        public ICommand ApplyUpdateSettingsCommand => new AsyncCommand<object>(param => ApplyUpdateSettings());
+        public ICommand UpdateBridgeFirmwareCommand => new AsyncCommand<object>(param => UpdateBridgeFirmware(), (param) => CanUpdateFirmware());
+        public ICommand InitializeCommand => new AsyncCommand<object>(param => Initialize());
 
         private bool CanCheckForUpdate()
         {
@@ -197,14 +197,14 @@ namespace WinHue3.Functions.BridgeSettings
 
         }
 
-        public ICommand ApplyGeneralSettingsCommand => new AsyncRelayCommand(param => ApplyGeneralSettings(), (param) => CanApplyGeneralSettings());
+        public ICommand ApplyGeneralSettingsCommand => new AsyncCommand<object>(param => ApplyGeneralSettings(), (param) => CanApplyGeneralSettings());
 
         private bool CanApplyGeneralSettings()
         {
             return GeneralModel.IsChanged;
         }
 
-        public ICommand ApplyNetworkSettingsCommand => new AsyncRelayCommand(param => ApplyNetworkSettings(), (param) => CanApplyNetworkSettings());
+        public ICommand ApplyNetworkSettingsCommand => new AsyncCommand<object>(param => ApplyNetworkSettings(), (param) => CanApplyNetworkSettings());
 
         public Capabilities Capabilities
         {

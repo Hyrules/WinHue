@@ -7,21 +7,23 @@ You might also need Visual C++ 2010 Redistributable library.
 Both are available at Microsoft's website. 
 
 Fixed:
-- Pairing not working.
+- Editing the Daylight sensor cause CTD.
+- Deserialization error with a ClipGenericStatusSensor status of null.
+- Advanced creator sending an empty url or text cause a crash.
+- Update system not working properly.
 
 Added:
-- Floor plan creator and viewer.
-- Option to export the current config.
-- Option to Hide lights in the bridge settings window.
+- Mouse wheel will now work on the sliders of the mainform.
+- Fix/bypass for OSRAM having unreachable issue. (You can activate it in the application settings)
+- Power failure settings. Hue now officialy retain the power mode of the light in case of a failure.
+- Right click on property in propertygrids (those used for settings objects) reset value.
 
 Changed:
-- Corrected button size in the bridge pairing window.
-- Made read-only capabilities in the bridge settings window.
-- settings will no longer remember api version but will get the most recent from the bridge when checking it at startup preventing a bug.
+- 
 
 WIP:
 - Animation creator. (Not Available yet)
-
+- Entertainment creator. (not Available yet)
 
 
 

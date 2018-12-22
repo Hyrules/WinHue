@@ -6,6 +6,7 @@ using System.Windows.Input;
 
 namespace WinHue3.Utils
 {
+    [Obsolete("Replaced by AsyncCommand")]
     public class AsyncRelayCommand : ICommand
     {
         private readonly Func<object, Task> execute;
@@ -57,7 +58,6 @@ namespace WinHue3.Utils
                 RaiseCanExecuteChanged();
             }
         }
-
 
     }
 

@@ -3,7 +3,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.Functions.Application_Settings
 {
-    public class AppMainSettingsModel : ValidatableBindableBase
+    public class  AppMainSettingsModel : ValidatableBindableBase
     {
         private bool _detectProxy;
         private bool _debug;
@@ -19,6 +19,7 @@ namespace WinHue3.Functions.Application_Settings
         private string _themecolor;
         private bool _minimizeToTray;
         private bool _usePropGrid;
+        private bool _OSRAMFix;
 
         public AppMainSettingsModel()
         {
@@ -35,6 +36,7 @@ namespace WinHue3.Functions.Application_Settings
             _themecolor = WinHueSettings.settings.ThemeColor;
             _minimizeToTray = WinHueSettings.settings.MinimizeToTray;
             _usePropGrid = WinHueSettings.settings.UsePropertyGrid;
+            _OSRAMFix = WinHueSettings.settings.OSRAMFix;
         }
 
         public bool StartWindows
@@ -119,6 +121,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _usePropGrid;
             set => SetProperty(ref _usePropGrid,value);
+        }
+
+        public bool OSRAMFix
+        {
+            get => _OSRAMFix; 
+            set => SetProperty(ref _OSRAMFix,value);
         }
     }
 }

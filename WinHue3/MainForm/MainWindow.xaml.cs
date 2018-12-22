@@ -42,12 +42,6 @@ namespace WinHue3.MainForm
             
         }
 
-
-        private void LvMainObjects_ContextMenuOpening(object sender, ContextMenuEventArgs e)
-        {
-            if (_mfvm.SelectedHueObject == null) e.Handled = true;
-        }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             log.Info("WinHue Closing.");
@@ -146,6 +140,7 @@ namespace WinHue3.MainForm
         {
             _mfvm.PropertyGrid.Owner = this;
         }
+
 
     }
 }

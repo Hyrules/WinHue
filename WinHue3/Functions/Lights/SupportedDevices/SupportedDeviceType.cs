@@ -55,6 +55,18 @@ namespace WinHue3.Functions.Lights.SupportedDevices
                 Canalert = true,
                 Caneffect = false
             });
+
+            DeviceType.Add("On/Off plug-in unit", new LightDevice()
+            {
+                Canbri = false,
+                Canct = false,
+                Canhue = false,
+                Cansat = false,
+                Canxy = false,
+                Canalert = true,
+                Caneffect = false
+
+            });
         }
 
         public static Dictionary<string, LightDevice> DeviceType

@@ -15,6 +15,7 @@ namespace WinHue3.Utils
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private const string UPDATE_URL = "https://raw.githubusercontent.com/Hyrules/WinHue3/master/update.md";
+        //private const string UPDATE_URL = "https://raw.githubusercontent.com/Hyrules/WinHue3/dev/update.md";
         private static bool _updateAvailable;
         private static Update _update;
         private static readonly WebClient wc;
@@ -43,9 +44,7 @@ namespace WinHue3.Utils
             if (_update == null) return false;
             try
             {
-                Version winHueVer = Assembly.GetExecutingAssembly().GetName().Version;
-                Version availableVer = new Version(_update.Version);
-                UpdateAvailable = winHueVer < availableVer;
+                UpdateAvailable = Assembly.GetExecutingAssembly().GetName().Version < new Version(_update.Version);
             }
             catch (Exception)
             {
@@ -60,9 +59,7 @@ namespace WinHue3.Utils
         {
             try
             {
-                Version bridgever = new Version(actualversion);
-                Version requiredver = new Version(_update.BridgeVersion);
-                return requiredver > bridgever;
+                return new Version(_update.BridgeVersion) > new Version(actualversion);
             }
             catch (Exception)
             {
@@ -106,8 +103,10 @@ namespace WinHue3.Utils
                             DoUpdate(filepath);
                         }
                     }
-
-                    wc.DownloadFileAsync(new Uri(_update.Url), filepath, filepath);
+                    ServicePointManager.Expect100Continue = true;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    
+                    wc.DownloadFileAsync(new Uri(_update.Url), filepath,filepath);
 
                 }
                 catch (Exception ex)
@@ -138,7 +137,7 @@ namespace WinHue3.Utils
 
         private static void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            if (!e.Cancelled || e.Error != null) return;
+            if (e.Cancelled || e.Error != null) return;
             DoUpdate(e.UserState.ToString());
         }
 

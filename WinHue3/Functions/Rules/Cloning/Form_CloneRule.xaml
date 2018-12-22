@@ -21,7 +21,7 @@
         <ComboBox x:Name="ComboBox1" HorizontalAlignment="Left" Margin="166,15,0,0" VerticalAlignment="Top" Width="120" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" behaviors:CommandBehavior.Command="{Binding AddToListCommand}"/>
         <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="100" Margin="10,55,0,0" VerticalAlignment="Top" Width="276"/>
         <Button x:Name="Button" Content="{x:Static resx:GUI.Form_CloneRule_Clone}" HorizontalAlignment="Left" Margin="131,160,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="Button1" Content="{x:Static resx:GUI.Form_CloneRule_Cancel}" HorizontalAlignment="Left" Margin="211,160,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="Button1" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="211,160,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

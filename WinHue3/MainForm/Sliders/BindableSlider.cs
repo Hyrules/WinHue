@@ -11,7 +11,7 @@ namespace WinHue3.MainForm.Sliders
 
         public BindableSlider() : base()
         {
-            
+
         }
 
         public double OldValue
@@ -112,10 +112,16 @@ namespace WinHue3.MainForm.Sliders
             this.IsEnabled = command?.CanExecute(CommandParameter, CommandTarget) ?? Command.CanExecute(CommandParameter);
         }
 
-        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
+       protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
             base.OnPreviewMouseUp(e);
 
+            DoCommand();
+
+        }
+
+        private void DoCommand()
+        {
             if (this.Command != null)
             {
                 RoutedCommand command = Command as RoutedCommand;
@@ -131,6 +137,22 @@ namespace WinHue3.MainForm.Sliders
             }
         }
 
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        {
+            
+            OldValue = Value;
+
+            if(e.Delta < 0)
+                Value += this.LargeChange;
+            else
+            {
+                Value -= this.LargeChange;
+            }
+            
+            DoCommand();
+            base.OnMouseWheel(e);
+        }
+
         protected override void OnThumbDragStarted(DragStartedEventArgs e)
         {
             OldValue = Value;
@@ -142,5 +164,6 @@ namespace WinHue3.MainForm.Sliders
 
         public event OldValueChanged OnOldValueChanged;
 
+        
     }
 }

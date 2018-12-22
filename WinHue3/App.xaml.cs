@@ -25,11 +25,9 @@ namespace WinHue3
 
         public App()
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            //AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Hierarchy hier = log4net.LogManager.GetRepository() as Hierarchy;
-
-            if (hier != null)
+            if (log4net.LogManager.GetRepository() is Hierarchy hier)
             {
                 DataGridViewAppender dgva = (DataGridViewAppender)hier.GetAppenders().FirstOrDefault(appender => appender.Name.Equals("DataGridViewAppender"));
                 dgva.DgEventLog = _fel.ViewModel.EventViewerModel.ListLogEntries;

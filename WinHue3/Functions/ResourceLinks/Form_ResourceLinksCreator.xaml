@@ -68,9 +68,9 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label x:Name="Label" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Name}" HorizontalAlignment="Left" Margin="11,7,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Label" Content="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Margin="11,7,0,0" VerticalAlignment="Top"/>
         <Button x:Name="BtnCreateResourceLink" Style="{StaticResource BtnSave}" Content="{Binding BtnSaveText}" Margin="0,0,100.333,17.667" Click="btnCreateResourceLink_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="102"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Cancel}" Margin="0,0,20.333,17.667" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" Margin="0,0,20.333,17.667" Click="btnCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" />
 
         <customControls:BindableListView x:Name="BindableListView" Margin="240,10,21.667,50" SelectedItemsList="{Binding SelectedLinkObjects, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}" ItemsSource="{Binding ListHueObjects}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <customControls:BindableListView.ItemsPanel>

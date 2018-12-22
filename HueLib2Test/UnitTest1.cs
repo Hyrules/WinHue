@@ -24,6 +24,7 @@ using WinHue3.Functions.Rules.Creator;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using Org.BouncyCastle.Utilities;
 using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
+using WinHue3.Functions.Animations2;
 
 namespace HueLib2Test
 {
@@ -31,12 +32,24 @@ namespace HueLib2Test
     public class UnitTest1
     {
         [TestMethod]
+        public void TestParser()
+        {
+          //   var result = WinHueAnimationParser.ParseAnimation("SET LIGHT 1 TO BRI:232 SAT:254;");
+          //   Assert.AreEqual(new Light() { Id = "1", state = new State() { bri = 254, sat = 254 }}, result);
+
+        }
+
+
+
+        [TestMethod]
         public void TestLists()
         {
             List<Light> list1 = new List<Light>();
             List<Light> list2 = new List<Light>();
-            Light l = new Light();
-            l.Id = "patate";
+            Light l = new Light
+            {
+                Id = "patate"
+            };
 
             list1.Add(l);
             list2.Add(l);

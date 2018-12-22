@@ -40,13 +40,13 @@ namespace WinHue3.Functions.Rules.Creator
             await _rcvm.Initialize(_bridge);
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
             Close();
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             bool result;
             if (_id != null)

@@ -74,8 +74,8 @@
     <StartupObject>WinHue3.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.3\lib\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.4.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.4\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net45\GongSolutions.Wpf.DragDrop.dll</HintPath>
@@ -96,18 +96,21 @@
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.5\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="NDesk.Options, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenHardwareMonitorLib">
       <HintPath>..\packages\OpenHardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Sprache, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sprache.2.2.0\lib\net45\Sprache.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -181,6 +184,10 @@
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\BindableTreeView.cs" />
     <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Functions\Animations2\Form_AnimationCreator.xaml.cs">
+      <DependentUpon>Form_AnimationCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\Animations2\WinHueAnimationParser.cs" />
     <Compile Include="Functions\Animations\AnimationCreatorViewModel.cs" />
     <Compile Include="Functions\Animations\Form_Animations.xaml.cs">
       <DependentUpon>Form_Animations.xaml</DependentUpon>
@@ -215,6 +222,14 @@
     <Compile Include="Functions\Grouping\BridgeSubGroup.cs" />
     <Compile Include="Functions\Grouping\IGroup.cs" />
     <Compile Include="Functions\IDevice.cs" />
+    <Compile Include="Functions\PowerSettings\Form_PowerCustomSettings.xaml.cs">
+      <DependentUpon>Form_PowerCustomSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\PowerSettings\Form_PowerFailureSettings.xaml.cs">
+      <DependentUpon>Form_PowerFailureSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\PowerSettings\PowerCustomSettingsViewModel.cs" />
+    <Compile Include="Functions\PowerSettings\PowerFailureSettingsViewModel.cs" />
     <Compile Include="Functions\PropertyGrid\ListStringEditor\ListStringEditor.cs" />
     <Compile Include="Functions\PropertyGrid\PropertyGrid.xaml.cs">
       <DependentUpon>PropertyGrid.xaml</DependentUpon>
@@ -331,6 +346,14 @@
     <Compile Include="Philips Hue\HueObjects\GroupObject\GroupState.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\HueTypeAttribute.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\IHueObject.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightCapabilities.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightCapabilitiesStreaming.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightConfig.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightCapabilitiesControl.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightConfigStartup.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightControlCt.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\LightSwUpdate.cs" />
+    <Compile Include="Philips Hue\HueObjects\LightObject\PowerCustomSettings.cs" />
     <Compile Include="Philips Hue\HueObjects\LightSearchSerial.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorConfig.cs" />
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\CLIPGenericFlag\ClipGenericFlagSensorState.cs" />
@@ -368,6 +391,7 @@
     <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomHotkeys.cs" />
     <Compile Include="Properties\Annotations1.cs" />
+    <Compile Include="Utils\AsyncCommand.cs" />
     <Compile Include="Utils\AsyncRelayCommand.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\Light.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\State.cs" />
@@ -386,6 +410,7 @@
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\ScheduleJsonConverter.cs" />
     <Compile Include="Functions\Application Settings\Settings\BridgeSaveSettings.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomSettings.cs" />
+    <Compile Include="Utils\CoordinatesCollection.cs" />
     <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
@@ -440,7 +465,6 @@
     <Compile Include="Functions\Sensors\HueTap\HueTapModel.cs" />
     <Compile Include="MainForm\MainFormModel.cs" />
     <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorModel.cs" />
-    <Compile Include="Functions\Schedules\OldCreator\ScheduleCreatorModel.cs" />
     <Compile Include="Functions\Sensors\Creator\SensorCreatorModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\ValidateBindableBase.cs" />
@@ -448,7 +472,6 @@
     <Compile Include="Functions\Sensors\HueTap\HueTapButtonValidation.cs" />
     <Compile Include="Validations\NotNullValidation.cs" />
     <Compile Include="Validations\MinimumCountValidation.cs" />
-    <Compile Include="Validations\RequireMaskValidation.cs" />
     <Compile Include="Functions\BridgePairing\BridgePairingViewModel.cs" />
     <Compile Include="Functions\BridgeSettings\BridgeSettingsViewModel.cs" />
     <Compile Include="Functions\Sensors\Daylight\DaylightViewModel.cs" />
@@ -461,7 +484,6 @@
     <Compile Include="MainForm\MainFormViewModel_Plugins.cs" />
     <Compile Include="MainForm\MainFormViewModel_Properties.cs" />
     <Compile Include="Functions\ResourceLinks\ResourceLinkCreatorViewModel.cs" />
-    <Compile Include="Functions\Schedules\OldCreator\ScheduleCreatorViewModel.cs" />
     <Compile Include="Functions\Sensors\Creator\SensorCreatorViewModel.cs" />
     <Compile Include="Functions\BridgePairing\Form_AddManualIp.xaml.cs">
       <DependentUpon>Form_AddManualIp.xaml</DependentUpon>
@@ -519,6 +541,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Functions\Animations2\Form_AnimationCreator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Functions\Animations\Form_Animations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -528,6 +554,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Entertainment\Form_EntertainmentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\PowerSettings\Form_PowerCustomSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\PowerSettings\Form_PowerFailureSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -615,10 +649,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Functions\Schedules\OldCreator\Form_ScheduleCreator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Functions\EventViewer\Form_EventLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -683,9 +713,6 @@
     <Compile Include="Functions\Scenes\Creator\Form_SceneCreator.xaml.cs">
       <DependentUpon>Form_SceneCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\Schedules\OldCreator\Form_ScheduleCreator.xaml.cs">
-      <DependentUpon>Form_ScheduleCreator.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Functions\EventViewer\Form_EventLog.xaml.cs">
       <DependentUpon>Form_EventLog.xaml</DependentUpon>
     </Compile>
@@ -746,8 +773,8 @@
     <Resource Include="Resources\HueTap.png" />
     <None Include="Build\process_installer.ps1" />
     <None Include="Build\process_readme.ps1" />
-    <None Include="Resources\LCT001_on.png" />
-    <None Include="Resources\LCT001_off.png" />
+    <Resource Include="Resources\LCT001_on.png" />
+    <Resource Include="Resources\LCT001_off.png" />
     <Resource Include="Resources\HueLight_unr.png" />
     <Resource Include="Resources\timer.png" />
     <Resource Include="Resources\stock_alarm.png" />
@@ -973,10 +1000,16 @@
   <ItemGroup>
     <Resource Include="Resources\edit-2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Functions\Animations2\Grammar.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

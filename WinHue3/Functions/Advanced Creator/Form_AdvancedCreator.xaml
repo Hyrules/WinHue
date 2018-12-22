@@ -41,7 +41,7 @@
                 </Button>
             </ToolBar>
             <ToolBar Header="{x:Static resx:GUI.Form_AdvancedCreator_Actions}">
-                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_Clear}" Command="{Binding ClearTemplateCommand}">
+                <Button ToolTip="{x:Static resx:GUI.Button_Clear}" Command="{Binding ClearTemplateCommand}">
                     <Image Source="/WinHue3;component/Resources/1493782199_draft.png" Height="32"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_Send}" Command="{Binding SendCommand}">

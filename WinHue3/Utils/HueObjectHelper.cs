@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media;
 using log4net;
 using WinHue3.ExtensionMethods;
@@ -835,7 +836,14 @@ namespace WinHue3.Utils
                 }
                 kvp.Value.Id = kvp.Key;
                 kvp.Value.visible = true;
-                kvp.Value.Image = GetImageForLight(kvp.Value.state.reachable.GetValueOrDefault() ? kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, kvp.Value.modelid);
+                if(kvp.Value.manufacturername == "OSRAM" && WinHueSettings.settings.OSRAMFix)
+                {
+                    kvp.Value.Image = GetImageForLight(kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off, kvp.Value.modelid);
+                }
+                else
+                {
+                    kvp.Value.Image = GetImageForLight(kvp.Value.state.reachable.GetValueOrDefault() ? kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, kvp.Value.modelid);
+                }                
 
                 newlist.Add(kvp.Value);
             }
@@ -1094,9 +1102,8 @@ namespace WinHue3.Utils
                         if (currentState.state.on == true)
                         {
                             log.Debug("Toggling light state : OFF");
-                            bool bsetlightstate = bridge.SetState(new State { on = false, transitiontime = tt}, obj.Id);
 
-                            if (bsetlightstate)
+                            if (bridge.SetState(new State { on = false, transitiontime = tt }, obj.Id))
                             {
                                 hr = GetImageForLight(LightImageState.Off, currentState.modelid);
                             }
@@ -1105,9 +1112,8 @@ namespace WinHue3.Utils
                         else
                         {
                             log.Debug("Toggling light state : ON");
-                            bool bsetlightstate = bridge.SetState(new State { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id);
 
-                            if (bsetlightstate)
+                            if (bridge.SetState(new State { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id))
                             {
 
                                 hr = GetImageForLight(LightImageState.On, currentState.modelid);
@@ -1173,7 +1179,7 @@ namespace WinHue3.Utils
                 if (bresult == null) return null;
                 Light currentState = bresult;
 
-                if (currentState.state.reachable == false)
+                if (currentState.state.reachable == false && currentState.manufacturername != "OSRAM")
                 {
                     hr = GetImageForLight(LightImageState.Unr, currentState.modelid);
                 }

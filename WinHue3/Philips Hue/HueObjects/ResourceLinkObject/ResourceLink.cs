@@ -108,9 +108,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// List of resource links
         /// </summary>
-        [HueProperty, 
-         DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),
-         Description("List of resource links")]
+        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("List of resource links")]
         public StringCollection links
         {
             get => _links;
@@ -136,18 +134,4 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         }
     }
 
-    public class CsvConverter : TypeConverter
-    {
-        // Overrides the ConvertTo method of TypeConverter.
-        public override object ConvertTo(ITypeDescriptorContext context,
-            CultureInfo culture, object value, Type destinationType)
-        {
-            List<String> v = value as List<String>;
-            if (destinationType == typeof(string))
-            {
-                return String.Join(",", v.ToArray());
-            }
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-    }
 }

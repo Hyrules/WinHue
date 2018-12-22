@@ -26,13 +26,13 @@
                 <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="18.185,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="-1" Grid.Column="1"/>
                 <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="85.185,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="0" Grid.Column="1" IsEnabled="False"/>
                 <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="22" Margin="7,111,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.EntertainmentCreatorForm_Z_Message}" VerticalAlignment="Top" Width="197"/>
-                <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Add}" Grid.Column="1" HorizontalAlignment="Left" Margin="71,138,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddLightCommand}"/>
+                <Button Content="{x:Static resx:GUI.Button_Add}" Grid.Column="1" HorizontalAlignment="Left" Margin="71,138,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddLightCommand}"/>
             </Grid>
         </GroupBox>
         <ListBox HorizontalAlignment="Left" Height="173" Margin="399,10,0,0" VerticalAlignment="Top" Width="143" ItemsSource="{Binding ListEtLights}"/>
         <ListBox HorizontalAlignment="Left" Height="173" Margin="10,10,0,0" VerticalAlignment="Top" Width="159" ItemsSource="{Binding ListAvailableLights}"/>
-        <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Cancel}" HorizontalAlignment="Left" Margin="467,192,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="{x:Static resx:GUI.EntertainmentCreatorForm_Save}" HorizontalAlignment="Left" Margin="387,192,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="467,192,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="387,192,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

@@ -66,13 +66,13 @@
                 <Button Height="24" Width="24" Command="{Binding EditFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_EditFloorPlan}">
                     <Image Source="/WinHue3;component/Resources/edit-2.png"/>
                 </Button>
-                <Button Command="{Binding SaveFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_Save}">
+                <Button Command="{Binding SaveFloorPlanCommand}" ToolTip="{x:Static resx:GUI.Button_Save}">
                     <Image Source="/WinHue3;component/Resources/save.png" Height="24" Width="24" />
                 </Button>
                 <Button Command="{Binding SaveAllFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_SaveAll}">
                     <Image Source="/WinHue3;component/Resources/saveall.png" Height="24" Width="24" />
                 </Button>
-                <Button Command="{Binding DeleteFloorPlanCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_DeleteFloor}">
+                <Button Command="{Binding DeleteFloorPlanCommand}" ToolTip="{x:Static resx:GUI.Button_Delete}">
                     <Image Height="24" Width="24" Source="/WinHue3;component/Resources/delete.png"/>
                 </Button>
             </ToolBar>
@@ -104,7 +104,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="btnDone" Grid.Row="3" Grid.Column="1" Content="Done" Margin="0,0,9.667,6.667" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="81" Click="btnDone_Click" />
+        <Button x:Name="btnDone" Grid.Row="3" Grid.Column="1" Content="{x:Static resx:GUI.Button_Done}" Margin="0,0,9.667,6.667" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="81" Click="btnDone_Click" />
         <ScrollViewer Grid.Column="1" Grid.Row="1"  Grid.RowSpan="2" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
             <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding FloorModel.Elements, FallbackValue={x:Null}}" Height="{Binding FloorModel.CanvasHeight, FallbackValue=0}" Width="{Binding FloorModel.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <i:Interaction.Triggers>

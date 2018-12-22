@@ -79,10 +79,10 @@
             <ComboBoxItem Content="Schedules" Tag="{x:Static local:ContentTypeVm.Schedule}"/>
             <ComboBoxItem Content="Scenes" Tag="{x:Static local:ContentTypeVm.Scene}"/>
         </controls:CommandComboBox>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="613,485,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click" />
-        <Button x:Name="btnSave"  Content="Save" HorizontalAlignment="Left" Margin="533,485,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="613,485,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click" />
+        <Button x:Name="btnSave"  Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="533,485,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
 
-        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Name}"/>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.Label_Name}"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
         <controls:CommandComboBox x:Name="wcbScheduleType"  HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type" Command="{Binding ChangeDateTimeFormat}">
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}" Tag="T"/>

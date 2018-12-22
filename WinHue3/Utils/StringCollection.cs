@@ -59,7 +59,7 @@ namespace WinHue3.Utils
 
             for (int i = 0; i < Count; i++)
             {
-                pds.Add(new ItemPropertyDescriptor(this, i));
+                pds.Add(new StringPropertyDescriptor(this, i));
             }
 
             return pds;
@@ -123,13 +123,13 @@ namespace WinHue3.Utils
         #endregion
     }
 
-    public class ItemPropertyDescriptor : PropertyDescriptor
+    public class StringPropertyDescriptor : PropertyDescriptor
     {
         private BindingList<string> _owner;
         private int _index;
         private string Value => _owner[_index];
 
-        public ItemPropertyDescriptor(BindingList<string> owner, int index) : base(index.ToString(), null)
+        public StringPropertyDescriptor(BindingList<string> owner, int index) : base(index.ToString(), null)
         {
             _owner = owner;
             _index = index;

@@ -1,0 +1,8 @@
+﻿<expr>		::= <wait>; | <setter>;
+
+<setter>	::= LIGHT *(<property>) | GROUP *(<property>) | SCENE <id>
+<wait>		::= "WAIT" <value>
+<id>		::= "Any Letter"
+<property>	::= "BRI" <value> | "SAT" <value> | "CT" <value> | "HUE" <value>
+<value>		::= "any digits"
+<byte>      ::= "from 0 to 255"

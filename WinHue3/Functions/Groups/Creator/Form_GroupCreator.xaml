@@ -91,9 +91,9 @@
         </ComboBox>
         <Label x:Name="Label" Content="{x:Static resx:GUI.GroupCreatorForm_Type}" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Label1" Content="{x:Static resx:GUI.GroupCreatorForm_Class}" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.GroupCreatorForm_CancelButton}" Margin="0,0,9.667,19" Click="btnCancel_Click" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" Margin="0,0,9.667,19" Click="btnCancel_Click" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
         <Button x:Name="BtnCreateGroup" Style="{StaticResource BtnSave}" Content="{x:Static resx:GUI.GroupCreatorForm_CreateGroupButton}" Margin="0,0,89.667,19" Click="btnCreateGroup_Click" HorizontalAlignment="Right" Width="98" Height="23" VerticalAlignment="Bottom" />
-        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.GroupCreatorForm_ClearButton}" Command="{Binding ClearFieldsCommand}" Margin="0,0,193.667,19" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
+        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.Button_Clear}" Command="{Binding ClearFieldsCommand}" Margin="0,0,193.667,19" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
         <Label x:Name="Label2" Content="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" Margin="185,0,285.667,23" FontSize="10" Height="24" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

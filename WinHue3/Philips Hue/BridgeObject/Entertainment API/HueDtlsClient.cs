@@ -44,10 +44,10 @@ namespace WinHue3.Philips_Hue.BridgeObject.Entertainment_API
 
             public override ProtocolVersion MinimumVersion => ProtocolVersion.DTLSv12;
 
-            protected virtual TlsKeyExchange CreatePskKeyExchange(int keyExchange)
+       /*     protected virtual TlsKeyExchange CreatePskKeyExchange(int keyExchange)
             {
-                return new TlsPskKeyExchange(keyExchange, mSupportedSignatureAlgorithms, _identity, null, null, mNamedCurves, mClientECPointFormats, mServerECPointFormats);
-            }
+               // return new TlsPskKeyExchange(keyExchange, mSupportedSignatureAlgorithms, _identity, null, null, mNamedCurves, mClientECPointFormats, mServerECPointFormats);
+            }*/
 
             protected override TlsKeyExchange CreateECDHKeyExchange(int keyExchange)
             {
@@ -64,7 +64,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.Entertainment_API
                     case KeyExchangeAlgorithm.ECDHE_PSK:
                     case KeyExchangeAlgorithm.PSK:
                     case KeyExchangeAlgorithm.RSA_PSK:
-                        return CreatePskKeyExchange(keyExchangeAlgorithm);
+                    //    return CreatePskKeyExchange(keyExchangeAlgorithm);
 
                     case KeyExchangeAlgorithm.ECDH_anon:
                     case KeyExchangeAlgorithm.ECDH_ECDSA:

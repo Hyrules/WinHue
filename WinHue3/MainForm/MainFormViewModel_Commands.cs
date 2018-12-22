@@ -123,7 +123,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
@@ -139,7 +139,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
@@ -155,7 +155,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
@@ -171,7 +171,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
             }
@@ -187,7 +187,7 @@ namespace WinHue3.MainForm
             if (!IsObjectSelected()) return false;
             if (SelectedHueObject is Light light)
             {
-                if (light.state.reachable == false) return false;
+                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
@@ -290,7 +290,7 @@ namespace WinHue3.MainForm
 
         //*************** MainMenu Commands ********************        
 
-        public ICommand OpenSettingsWindowCommand => new AsyncRelayCommand(param => OpenSettingsWindow());
+        public ICommand OpenSettingsWindowCommand => new AsyncCommand<object>(param => OpenSettingsWindow());
         public ICommand QuitApplicationCommand => new RelayCommand(param => QuitApplication());
 
         //*************** Initialization Command *************
@@ -298,80 +298,84 @@ namespace WinHue3.MainForm
         public ICommand InitializeCommand => new RelayCommand(param => Initialize());
 
         //*************** Toolbar Commands ********************        
-        public ICommand CheckForUpdateCommand => new AsyncRelayCommand(param => CheckForBridgeUpdate(), (param) => EnableButtons());
-        public ICommand UpdateBridgeCommand => new AsyncRelayCommand(param => DoBridgeUpdate(), (param) => EnableButtons() && CanUpdateBridge());
-        public ICommand ManageUsersCommand => new AsyncRelayCommand(param => ManageUsers(), (param) => EnableButtons());
-        public ICommand ChangeBridgeSettingsCommand => new AsyncRelayCommand(param => ChangeBridgeSettings(), (param) => CanBridgeSettings());
-        public ICommand RefreshViewCommand => new AsyncRelayCommand(param => RefreshView(), (param) => EnableButtons());
-        public ICommand CreateGroupCommand => new AsyncRelayCommand(param => CreateGroup(), (param) => EnableButtons());
-        public ICommand CreateSceneCommand => new AsyncRelayCommand(param => CreateScene(), (param) => EnableButtons());
-        public ICommand CreateScheduleCommand => new AsyncRelayCommand(param => CreateSchedule(), (param) => EnableButtons());
-        public ICommand CreateRuleCommand => new AsyncRelayCommand(param => CreateRule(), (param) => EnableButtons());
+        public ICommand CheckForUpdateCommand => new AsyncCommand<object>(param => CheckForBridgeUpdate(), (param) => EnableButtons());
+        public ICommand UpdateBridgeCommand => new AsyncCommand<object>(param => DoBridgeUpdate(), (param) => EnableButtons() && CanUpdateBridge());
+        public ICommand ManageUsersCommand => new AsyncCommand<object>(param => ManageUsers(), (param) => EnableButtons());
+        public ICommand ChangeBridgeSettingsCommand => new AsyncCommand<object>(param => ChangeBridgeSettings(), (param) => CanBridgeSettings());
+        public ICommand RefreshViewCommand => new AsyncCommand<object>(param => RefreshView(), (param) => EnableButtons());
+        public ICommand CreateGroupCommand => new AsyncCommand<object>(param => CreateGroup(), (param) => EnableButtons());
+        public ICommand CreateSceneCommand => new AsyncCommand<object>(param => CreateScene(), (param) => EnableButtons());
+        public ICommand CreateScheduleCommand => new AsyncCommand<object>(param => CreateSchedule(), (param) => EnableButtons());
+        public ICommand CreateRuleCommand => new AsyncCommand<object>(param => CreateRule(), (param) => EnableButtons());
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor(), (param) => EnableButtons());
         public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(), (param) => EnableButtons());
         public ICommand CreateFloorPlanCommand => new RelayCommand(param => CreateFloorPlan(), (param)=> EnableButtons());
         public ICommand CreateEntertainmentCommand => new RelayCommand(param => CreateEntertainment(), (param) => EnableButtons());
 
         public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
-        public ICommand TouchLinkCommand => new AsyncRelayCommand(param => DoTouchLink(), (param) => EnableButtons());
+        public ICommand TouchLinkCommand => new AsyncCommand<object>(param => DoTouchLink(), (param) => EnableButtons());
         public ICommand FindLightSerialCommand => new RelayCommand(param => FindLightSerial(), (param) => EnableButtons());
-        public ICommand CreateHotKeyCommand => new AsyncRelayCommand(param => CreateHotKey(), (param) => EnableButtons());
-        public ICommand CreateResourceLinkCommand => new AsyncRelayCommand(param => CreateResourceLink(), (param) => EnableButtons());
-        public ICommand AllOnCommand => new AsyncRelayCommand(param => AllOn(), (param) => EnableButtons());
-        public ICommand AllOffCommand => new AsyncRelayCommand(param => AllOff(), (param) => EnableButtons());
+        public ICommand CreateHotKeyCommand => new AsyncCommand<object>(param => CreateHotKey(), (param) => EnableButtons());
+        public ICommand CreateResourceLinkCommand => new AsyncCommand<object>(param => CreateResourceLink(), (param) => EnableButtons());
+        public ICommand AllOnCommand => new AsyncCommand<object>(param => AllOn(), (param) => EnableButtons());
+        public ICommand AllOffCommand => new AsyncCommand<object>(param => AllOff(), (param) => EnableButtons());
         public ICommand ShowEventLogCommand => new RelayCommand(param => ShowEventLog());
-        public ICommand SearchNewLightsCommand => new AsyncRelayCommand(param => CheckForNewBulb(), (param) => EnableButtons() && CanSearchNewLights());
-        public ICommand SearchNewSensorsCommand => new AsyncRelayCommand(param => SearchNewSensors(), (param) => EnableButtons() && CanSearchNewSensor());
+        public ICommand SearchNewLightsCommand => new AsyncCommand<object>(param => CheckForNewBulb(), (param) => EnableButtons() && CanSearchNewLights());
+        public ICommand SearchNewSensorsCommand => new AsyncCommand<object>(param => SearchNewSensors(), (param) => EnableButtons() && CanSearchNewSensor());
         public ICommand ResetTransitionTimeCommand => new RelayCommand(param => ResetTransitionTime(), (param)=> EnableButtons());
         //*************** Sliders Commands ********************
-        public ICommand SliderHueChangedCommand => new AsyncRelayCommand(param => SliderChangeHue(), (param) => CanHue());
-        public ICommand SliderBriChangedCommand => new AsyncRelayCommand(param => SliderChangeBri(), (param) => CanBri());
-        public ICommand SliderCtChangedCommand => new AsyncRelayCommand(param => SliderChangeCt(), (param) => CanCt());
-        public ICommand SliderSatChangedCommand => new AsyncRelayCommand(param => SliderChangeSat(), (param) => CanSat());
-        public ICommand SliderXyChangedCommand => new AsyncRelayCommand(param => SliderChangeXy(), (param) => CanXy());
+        public ICommand SliderHueChangedCommand => new AsyncCommand<object>(param => SliderChangeHue(), (param) => CanHue());
+        public ICommand SliderBriChangedCommand => new AsyncCommand<object>(param => SliderChangeBri(), (param) => CanBri());
+        public ICommand SliderCtChangedCommand => new AsyncCommand<object>(param => SliderChangeCt(), (param) => CanCt());
+        public ICommand SliderSatChangedCommand => new AsyncCommand<object>(param => SliderChangeSat(), (param) => CanSat());
+        public ICommand SliderXyChangedCommand => new AsyncCommand<object>(param => SliderChangeXy(), (param) => CanXy());
+        public ICommand HueKeyPressCommand => new AsyncCommand<object>(SliderChangeHueKeypress);
+        public ICommand BriKeyPressCommand => new AsyncCommand<object>(SliderChangeBriKeypress);
+        public ICommand SatKeyPressCommand => new AsyncCommand<object>(SliderChangeSatKeypress);
+        public ICommand CtKeyPressCommand => new AsyncCommand<object>(SliderChangeCtKeypress);
 
         //*************** App Menu Commands ******************
         public ICommand DoBridgePairingCommand => new RelayCommand(param => DoBridgePairing(ListBridges));
-        public ICommand ExportDataStoreCommand => new AsyncRelayCommand(ExportDataStore, (param) => EnableButtons());
+        public ICommand ExportDataStoreCommand => new AsyncCommand<object>(ExportDataStore, (param) => EnableButtons());
 
         //*************** Context Menu Commands *************
-        public ICommand DeleteObjectCommand => new AsyncRelayCommand(param => DeleteObject(), (param) => CanDelete());
+        public ICommand DeleteObjectCommand => new AsyncCommand<object>(param => DeleteObject(), (param) => CanDelete());
         public ICommand RenameObjectCommand => new RelayCommand(param => RenameObject(), (param) => CanRename());
-        public ICommand EditObjectCommand => new AsyncRelayCommand(param => EditObject(), (param) => IsEditable());
-        public ICommand IdentifyLongCommand => new AsyncRelayCommand(param => Identify("lselect"), (param) => CanIdentify());
-        public ICommand IdentifyShortCommand => new AsyncRelayCommand(param => Identify("select"), (param) => CanIdentify());
-        public ICommand IdentifyStopCommand => new AsyncRelayCommand(param => Identify("none"), (param) => CanIdentify());
-        public ICommand ReplaceCurrentStateCommand => new AsyncRelayCommand(param => ReplaceCurrentState(), (param) => CanReplaceState());
-        public ICommand SensitivityHighCommand => new AsyncRelayCommand(param => Sensitivity(2), (param) => CanSetSensivity());
-        public ICommand SensitivityMediumCommand => new AsyncRelayCommand(param => Sensitivity(1), (param) => CanSetSensivity());
-        public ICommand SensitivityLowCommand => new AsyncRelayCommand(param => Sensitivity(0), (param) => CanSetSensivity());
-        public ICommand CloneCommand => new AsyncRelayCommand(param => Clone(false),(param) => CanClone());
-        public ICommand QuickCloneCommand => new AsyncRelayCommand(param => Clone(true), (param) => CanClone());
+        public ICommand EditObjectCommand => new AsyncCommand<object>(param => EditObject(), (param) => IsEditable());
+        public ICommand IdentifyLongCommand => new AsyncCommand<string>(param => Identify("lselect"), (param) => CanIdentify());
+        public ICommand IdentifyShortCommand => new AsyncCommand<string>(param => Identify("select"), (param) => CanIdentify());
+        public ICommand IdentifyStopCommand => new AsyncCommand<string>(param => Identify("none"), (param) => CanIdentify());
+        public ICommand ReplaceCurrentStateCommand => new AsyncCommand<object>(param => ReplaceCurrentState(), (param) => CanReplaceState());
+        public ICommand SensitivityHighCommand => new AsyncCommand<object>(param => Sensitivity(2), (param) => CanSetSensivity());
+        public ICommand SensitivityMediumCommand => new AsyncCommand<object>(param => Sensitivity(1), (param) => CanSetSensivity());
+        public ICommand SensitivityLowCommand => new AsyncCommand<object>(param => Sensitivity(0), (param) => CanSetSensivity());
+        public ICommand CloneCommand => new AsyncCommand<bool>(param => Clone(false),(param) => CanClone());
+        public ICommand QuickCloneCommand => new AsyncCommand<bool>(param => Clone(true), (param) => CanClone());
         public ICommand CopyToJsonCommand => new RelayCommand(param => CopyToJson(false), (param) => IsObjectSelected());
         public ICommand CopyToJsonRawCommand => new RelayCommand(param => CopyToJson(true), (param) => IsObjectSelected());
-        public ICommand ColorloopCommand => new AsyncRelayCommand(param => Colorloop(), (param) => CanIdentify());
-        public ICommand NoEffectCommand => new AsyncRelayCommand(param => NoEffect(), (param) => CanIdentify());
-        public ICommand StrobeCommand => new AsyncRelayCommand(param =>Strobe(),(param) => CanStrobe());
-        public ICommand ToggleDim10Command => new AsyncRelayCommand(param => OnDim(25), (param) => CanToggleDim());
-        public ICommand ToggleDim25Command => new AsyncRelayCommand(param => OnDim(64), (param) => CanToggleDim());
-        public ICommand ToggleDim50Command => new AsyncRelayCommand(param => OnDim(128), (param) => CanToggleDim());
-        public ICommand ToggleDim75Command => new AsyncRelayCommand(param => OnDim(191), (param) => CanToggleDim());
-        public ICommand SetSensorStatusCommand => new AsyncRelayCommand(param => SetSensorStatus(), (param) => CanSetSensorStatus());
-        public ICommand SetSensorFlagCommand => new AsyncRelayCommand(param => SetSensorFlag(), (param)=> CanSetSensorFlag());
+        public ICommand ColorloopCommand => new AsyncCommand<object>(param => Colorloop(), (param) => CanIdentify());
+        public ICommand NoEffectCommand => new AsyncCommand<object>(param => NoEffect(), (param) => CanIdentify());
+        public ICommand StrobeCommand => new AsyncCommand<object>(param =>Strobe(),(param) => CanStrobe());
+        public ICommand ToggleDim10Command => new AsyncCommand<object>(param => OnDim(25), (param) => CanToggleDim());
+        public ICommand ToggleDim25Command => new AsyncCommand<object>(param => OnDim(64), (param) => CanToggleDim());
+        public ICommand ToggleDim50Command => new AsyncCommand<object>(param => OnDim(128), (param) => CanToggleDim());
+        public ICommand ToggleDim75Command => new AsyncCommand<object>(param => OnDim(191), (param) => CanToggleDim());
+        public ICommand SetSensorStatusCommand => new AsyncCommand<object>(param => SetSensorStatus(), (param) => CanSetSensorStatus());
+        public ICommand SetSensorFlagCommand => new AsyncCommand<object>(param => SetSensorFlag(), (param)=> CanSetSensorFlag());
 
         //*************** ListView Commands ********************
-        public ICommand DoubleClickObjectCommand => new AsyncRelayCommand(param => DoubleClickObject(), (param) => IsDoubleClickable());
-        public ICommand ClickObjectCommand => new AsyncRelayCommand(param => ClickObject());
+        public ICommand DoubleClickObjectCommand => new AsyncCommand<object>(param => DoubleClickObject(), (param) => IsDoubleClickable());
+        public ICommand ClickObjectCommand => new AsyncCommand<object>(param => ClickObject());
         public ICommand ExpandCommand => new RelayCommand((param) => Expand((Type)param), (param) => EnableButtons());
         public ICommand CollapseCommand => new RelayCommand((param) => Collapse((Type)param), (param) => EnableButtons());
         //*************** Views Commands ************************
-        public ICommand ViewSceneMappingCommand => new AsyncRelayCommand(param => ViewSceneMapping(), (param) => EnableButtons());
-        public ICommand ViewBulbsCommand => new AsyncRelayCommand(param => ViewBulbs(), (param) => EnableButtons());
-        public ICommand ViewGroupsCommand => new AsyncRelayCommand(param => ViewGroups(), (param) => EnableButtons());
-        public ICommand SortListViewCommand => new AsyncRelayCommand(param => SortListView(), (param) => EnableButtons());
+        public ICommand ViewSceneMappingCommand => new AsyncCommand<object>(param => ViewSceneMapping(), (param) => EnableButtons());
+        public ICommand ViewBulbsCommand => new AsyncCommand<object>(param => ViewBulbs(), (param) => EnableButtons());
+        public ICommand ViewGroupsCommand => new AsyncCommand<object>(param => ViewGroups(), (param) => EnableButtons());
+        public ICommand SortListViewCommand => new AsyncCommand<object>(param => SortListView(), (param) => EnableButtons());
         public ICommand ShowPropertyGridCommand => new RelayCommand(param => ShowPropertyGrid());
         //*************** StatusBar Commands ************************
-        public ICommand ChangeBridgeCommand => new AsyncRelayCommand(param => ChangeBridge());
+        public ICommand ChangeBridgeCommand => new AsyncCommand<object>(param => ChangeBridge());
         public ICommand DoAppUpdateCommand=> new RelayCommand(param => DoAppUpdate());
         //*************** Toolbar ******************************
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons() && CanRunTempPlugin);
@@ -388,8 +392,10 @@ namespace WinHue3.MainForm
         public ICommand MinimizeToTrayCommand => new RelayCommand(param => MinimizeToTray());
 
 
-        public ICommand SelectHueElementCommand => new AsyncRelayCommand(param => SelectHueElement());
+        public ICommand SelectHueElementCommand => new AsyncCommand<object>(param => SelectHueElement());
         public ICommand SelectedFloorPlanChangedCommand => new RelayCommand(param => SelectedFloorPlanChanged());
+        public ICommand SetPowerModeCommand => new RelayCommand(param => SetPowerMode(), (param) => EnableButtons());
+
         //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(), (param) => EnableButtons());
         //      
         //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());

@@ -48,6 +48,7 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.MinimizeToTray = _appSettingsViewModel.MainSettingsModel.MinimizeToTray;
             WinHueSettings.settings.UsePropertyGrid = _appSettingsViewModel.MainSettingsModel.UsePropGrid;
             WinHueSettings.settings.SlidersBehavior = _appSettingsViewModel.DefaultModel.SlidersBehavior;
+            WinHueSettings.settings.OSRAMFix = _appSettingsViewModel.MainSettingsModel.OSRAMFix;
 
             string pathtostartupfile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "WinHue3.lnk");
 

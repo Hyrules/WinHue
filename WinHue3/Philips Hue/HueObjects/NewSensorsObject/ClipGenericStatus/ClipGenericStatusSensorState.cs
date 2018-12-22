@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
@@ -17,11 +18,11 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
         /// <summary>
         /// Sensor Status.
         /// </summary>
-        [HueProperty,DataMember]
+        [HueProperty,DataMember,JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int status
         {
             get => _status;
-            set => SetProperty(ref _status,value);
+            set =>  SetProperty(ref _status,value);
         }
 
         private string _lastupdated;

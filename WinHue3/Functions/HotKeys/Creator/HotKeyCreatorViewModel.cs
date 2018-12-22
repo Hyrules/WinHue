@@ -211,7 +211,7 @@ namespace WinHue3.Functions.HotKeys.Creator
                     hotkey.objecType = ObjectType;
 
                 }
-
+                /*
                 if (!HotkeyAlreadyExists(hotkey, out HotKey existingKey))
                 {
                     HotKeyHandle hkh = new HotKeyHandle(hotkey, null);
@@ -240,7 +240,7 @@ namespace WinHue3.Functions.HotKeys.Creator
                         Clearfields();
                     }
                 }
-
+                */
                 RaisePropertyChanged("ListHotKeys");
             }
             else

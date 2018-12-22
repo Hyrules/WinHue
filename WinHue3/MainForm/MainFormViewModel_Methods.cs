@@ -30,7 +30,6 @@ using WinHue3.Functions.ResourceLinks;
 using WinHue3.Functions.Rules.Creator;
 using WinHue3.Functions.Scenes.Creator;
 using WinHue3.Functions.Scenes.View;
-using WinHue3.Functions.Schedules.OldCreator;
 using WinHue3.Functions.Sensors.Creator;
 using WinHue3.Functions.Sensors.Daylight;
 using WinHue3.Functions.Sensors.HueTap;
@@ -63,8 +62,10 @@ using System.Net.NetworkInformation;
 using System.Text;
 using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
+using WinHue3.Functions.PowerSettings;
 using WinHue3.Functions.RoomMap;
 using Binding = System.Windows.Data.Binding;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace WinHue3.MainForm
 {
@@ -316,9 +317,9 @@ namespace WinHue3.MainForm
                 ImageSource hr = await HueObjectHelper.ToggleObjectOnOffStateAsyncTask(SelectedBridge, SelectedHueObject, SliderTt, null, _newstate);
                 if (hr != null)
                 {
-                    ImageSource newimg = hr;
-                    SelectedHueObject.Image = newimg;
-                    UpdateFloorPlanIcons(newimg, SelectedHueObject.Id, SelectedHueObject.GetType());
+                    
+                    SelectedHueObject.Image = hr;
+                    UpdateFloorPlanIcons(hr, SelectedHueObject.Id, SelectedHueObject.GetType());
 
                     int index = _listBridgeObjects.FindIndex(x => x.Id == SelectedHueObject.Id && x.GetType() == SelectedHueObject.GetType());
                     if (index == -1) return;
@@ -333,7 +334,7 @@ namespace WinHue3.MainForm
                         ((Group) ListBridgeObjects[index]).action.on = !((Group) ListBridgeObjects[index]).action.on;
                     }
 
-                    ListBridgeObjects[index].Image = newimg;
+                    ListBridgeObjects[index].Image = hr;
                 }
             }
             else
@@ -629,7 +630,7 @@ namespace WinHue3.MainForm
             RaisePropertyChanged("UpdateAvailable");
         }
 
-        public void HandleHotkey(HotKeyHandle e)
+        private void HandleHotkey(HotKeyHandle e)
         {
             ModifierKeys m = e.KeyModifiers;
             Key k = e.Key;
@@ -1073,6 +1074,15 @@ namespace WinHue3.MainForm
         #endregion
 
         #region CONTEXT_MENU_METHODS
+
+        private void SetPowerMode()
+        {
+            Form_PowerFailureSettings fps = new Form_PowerFailureSettings(SelectedBridge)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            fps.ShowDialog();
+        }
 
         private async Task ReplaceCurrentState()
         {
@@ -1647,6 +1657,39 @@ namespace WinHue3.MainForm
                 if (obj == null) continue;
                 h.Image = obj.Image;
             }
+        }
+
+        private async Task CallCommandOnKeyPress(Key pressed, Func<Task> callback)
+        {
+            if (pressed == Key.Up || pressed == Key.Right || pressed == Key.Down || pressed == Key.Left)
+            {
+                if (callback != null)
+                    await callback();
+            }
+        }
+
+        private async Task SliderChangeHueKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeHue);
+        }
+
+        private async Task SliderChangeBriKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeBri);
+        }
+
+        private async Task SliderChangeSatKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeSat);
+        }
+
+        private async Task SliderChangeCtKeypress(object e)
+        {
+            KeyEventArgs kp = e as KeyEventArgs;
+            await CallCommandOnKeyPress(kp.Key, SliderChangeCt);
         }
     }
 }
