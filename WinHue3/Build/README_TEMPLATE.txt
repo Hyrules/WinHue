@@ -11,6 +11,7 @@ Fixed:
 - Deserialization error with a ClipGenericStatusSensor status of null.
 - Advanced creator sending an empty url or text cause a crash.
 - Update system not working properly.
+- Rolled Back to AsyncRelayCommand.
 
 Added:
 - Mouse wheel will now work on the sliders of the mainform.
