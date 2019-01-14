@@ -12,6 +12,8 @@ Fixed:
 - Advanced creator sending an empty url or text cause a crash.
 - Update system not working properly.
 - Rolled Back to AsyncRelayCommand.
+- WHC listing wrong options for the sensors.
+- Transition time not working properly in scene creator.
 
 Added:
 - Mouse wheel will now work on the sliders of the mainform.
@@ -20,7 +22,7 @@ Added:
 - Right click on property in propertygrids (those used for settings objects) reset value.
 
 Changed:
-- 
+- Scene Creator display of sliders and values.
 
 WIP:
 - Animation creator. (Not Available yet)

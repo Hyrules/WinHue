@@ -23,7 +23,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         private decimal[] _xy;
         private string _effect;
         private string _colormode;
-        private uint? _transitiontime;
+        private ushort? _transitiontime;
         private string _alert;
         private short? _briInc;
         private short? _satInc;
@@ -117,7 +117,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// Transition time of the group.
         /// </summary>
         [ HueProperty, DataMember(IsRequired = false), Description("Transition time ( Given in multiple of 100ms , Default to 4 )"),Category("Properties")]
-        public uint? transitiontime
+        public ushort? transitiontime
         {
             get => _transitiontime;
             set => SetProperty(ref _transitiontime, value);

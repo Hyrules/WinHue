@@ -3499,7 +3499,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STEP 3 : Chose one or more lights.
+        ///   Looks up a localized string similar to STEP 3 : Choose one or more lights.
         /// </summary>
         public static string SceneCreatorForm_Step3 {
             get {
@@ -4449,6 +4449,15 @@ namespace WinHue3.Resources {
         public static string Tooltip_Optional {
             get {
                 return ResourceManager.GetString("Tooltip_Optional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Time (Max : 01h49m13s.5ms).
+        /// </summary>
+        public static string Transitiontime {
+            get {
+                return ResourceManager.GetString("Transitiontime", resourceCulture);
             }
         }
         

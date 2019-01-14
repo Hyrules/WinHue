@@ -93,10 +93,9 @@ namespace WinHue3.Controls
 
             if (Command != null)
             {
-                RoutedCommand command = Command as RoutedCommand;
 
                 // If a RoutedCommand.
-                if (command != null)
+                if (Command is RoutedCommand command)
                 {
                     IsEnabled = command.CanExecute(CommandParameter, CommandTarget);
                 }
@@ -113,9 +112,8 @@ namespace WinHue3.Controls
             base.OnSelectionChanged(e);
 
             if (Command == null) return;
-            RoutedCommand command = Command as RoutedCommand;
 
-            if (command != null)
+            if (Command is RoutedCommand command)
             {
                 command.Execute(CommandParameter, CommandTarget);
             }

@@ -1584,4 +1584,7 @@
   <data name="PowerSettings_Warning" xml:space="preserve">
     <value>*Les paramètres peuvent prendre une certain temps à s'appliquer.</value>
   </data>
+  <data name="Transitiontime" xml:space="preserve">
+    <value>Temps. Transition (Max : 01h49m13s.5ms)</value>
+  </data>
 </root>

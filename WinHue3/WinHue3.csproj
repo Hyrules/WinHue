@@ -183,7 +183,19 @@
     <Compile Include="Colors\Q42ColorConversion_Array.cs" />
     <Compile Include="Controls\AvalonEditBehaviour.cs" />
     <Compile Include="Controls\BindableTreeView.cs" />
+    <Compile Include="Controls\ByteUpDown\WinHueByteUpDown.xaml.cs">
+      <DependentUpon>WinHueByteUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Controls\TransitionTimeUpDown\WinHueTransitionTimeUpDown.xaml.cs">
+      <DependentUpon>WinHueTransitionTimeUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XYUpDown\WinHueXYUpDown.xaml.cs">
+      <DependentUpon>WinHueXYUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UShortUpDown\WinHueUShortUpDown.xaml.cs">
+      <DependentUpon>WinHueUShortUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions\Animations2\Form_AnimationCreator.xaml.cs">
       <DependentUpon>Form_AnimationCreator.xaml</DependentUpon>
     </Compile>
@@ -213,6 +225,7 @@
     <Compile Include="Functions\BridgeSettings\BridgeSettingsHiddenObjects.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\MacByteArrayConverter.cs" />
+    <Compile Include="Functions\Converters\TimeSpanToUintConverter.cs" />
     <Compile Include="Functions\Entertainment\EntertainmentViewModel.cs" />
     <Compile Include="Functions\Entertainment\EntertrainmentModel.cs" />
     <Compile Include="Functions\Entertainment\Form_EntertainmentCreator.xaml.cs">
@@ -539,6 +552,22 @@
     <Page Include="Addons\CpuTempMon\SettingsForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ByteUpDown\WinHueByteUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TransitionTimeUpDown\WinHueTransitionTimeUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\XYUpDown\WinHueXYUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\UShortUpDown\WinHueUShortUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Animations2\Form_AnimationCreator.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1005,10 +1034,11 @@
   <ItemGroup>
     <Resource Include="Functions\Animations2\Grammar.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

@@ -787,7 +787,7 @@
     <value>STEP 2 : Pick a color</value>
   </data>
   <data name="SceneCreatorForm_Step3" xml:space="preserve">
-    <value>STEP 3 : Chose one or more lights</value>
+    <value>STEP 3 : Choose one or more lights</value>
   </data>
   <data name="SceneCreatorForm_Title" xml:space="preserve">
     <value>Create / Edit a scene...</value>
@@ -1583,5 +1583,8 @@
   </data>
   <data name="PowerSettings_Warning" xml:space="preserve">
     <value>*Power settings may take some time to apply.</value>
+  </data>
+  <data name="Transitiontime" xml:space="preserve">
+    <value>Transition Time (Max : 01h49m13s.5ms)</value>
   </data>
 </root>

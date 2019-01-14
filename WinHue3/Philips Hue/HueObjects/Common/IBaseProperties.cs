@@ -19,7 +19,7 @@
 
         string colormode { get; set; }
 
-        uint? transitiontime { get; set; }
+        ushort? transitiontime { get; set; }
 
         string alert { get; set; }
 

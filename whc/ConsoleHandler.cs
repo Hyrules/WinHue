@@ -1144,7 +1144,7 @@ namespace whc
             GroupOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine("");
             Console.WriteLine(@"****** SENSORS OPTIONS *******");
-            GroupOpts.WriteOptionDescriptions(Console.Out);
+            SensorOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine(@"*** Rules, sensors, scenes, schedules cannot be created by console. Please use WinHue 3 desktop application to create them. ***");
             Console.WriteLine(@"*** You need to pair a bridge with WinHue gui before you send a command to the bridge for the first time.***");
         }

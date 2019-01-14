@@ -24,7 +24,14 @@ namespace WinHue3.Functions.Scenes.Creator
         private SceneCreatorModel _sceneCreatorModel;
         private Light _selectedSceneLight;
         private ObservableCollection<Light> _listSceneLights;
-        
+
+        private bool _hueChecked;
+        private bool _briChecked;
+        private bool _satChecked;
+        private bool _ctChecked;
+        private bool _xyChecked;
+        private bool _ttChecked;
+
         public SceneCreatorViewModel()
         {
             _bgWorker = new BackgroundWorker { WorkerReportsProgress = false, WorkerSupportsCancellation = false };
@@ -164,6 +171,7 @@ namespace WinHue3.Functions.Scenes.Creator
                     SceneCreatorModel.X = value.state.xy[0];
                     SceneCreatorModel.Y = value.state.xy[1];
                 }
+
                 SceneCreatorModel.TT = value.state.transitiontime;
             }
         }
@@ -227,6 +235,24 @@ namespace WinHue3.Functions.Scenes.Creator
            
         }
 
+        public TimeSpan? TT
+        {
+            get
+            {
+                if (SceneCreatorModel.TT == null) return null;
+                TimeSpan ts = TimeSpan.FromMilliseconds((double)SceneCreatorModel.TT * 100);
+                return ts;
+            }
+            set
+            {
+                TimeSpan t = value.GetValueOrDefault();
+                ushort tt = Convert.ToUInt16(t.TotalMilliseconds / 100);
+                SceneCreatorModel.TT = tt;
+                RaisePropertyChanged();
+                
+            }
+        }
+
         private void AddSelectedLightsToScene()
         {
             foreach (Light obj in SelectedAvailableLights)
@@ -244,7 +270,7 @@ namespace WinHue3.Functions.Scenes.Creator
 
                 if (SceneCreatorModel.TT != null)
                 {
-                    obj.state.transitiontime = Convert.ToUInt32(SceneCreatorModel.TT);
+                    obj.state.transitiontime = Convert.ToUInt16(SceneCreatorModel.TT);
                 }
                 ListSceneLights.Add(obj);
             }
@@ -261,7 +287,8 @@ namespace WinHue3.Functions.Scenes.Creator
                 bri = SceneCreatorModel.Bri,
                 @on = SceneCreatorModel.On,
                 ct = SceneCreatorModel.Ct,
-                sat = SceneCreatorModel.Sat
+                sat = SceneCreatorModel.Sat,
+                transitiontime = SceneCreatorModel.TT               
             };
 
             if (SceneCreatorModel.X != null && SceneCreatorModel.Y != null)
@@ -324,10 +351,140 @@ namespace WinHue3.Functions.Scenes.Creator
         public ICommand ClearSelectionSceneLightCommand => new RelayCommand(param => ClearSelectionSceneLight());
         public ICommand DoPreviewSceneCommand => new RelayCommand(param => DoPreviewScene(), (param) => CanPreview());
         public ICommand AddSelectedLightsToSceneCommand => new RelayCommand(param => AddSelectedLightsToScene(), param => CanAddLightsToScene());
-        public ICommand ModifyStateCommand => new RelayCommand(param => ModifyState(), (param) => CanModify());
+        public ICommand ModifyStateCommand => new RelayCommand(param => ModifyState(), (param) => CanModify()); 
+        public ICommand CheckHueCommand => new RelayCommand(param => CheckHue(), param => CanCheckHue());
+        public ICommand CheckCTCommand => new RelayCommand(param => CheckCT(), param => CanCheckCT());
+        public ICommand CheckSatCommand => new RelayCommand(param => CheckSat(), param => CanCheckSat());
+        public ICommand CheckXYCommand => new RelayCommand(param => CheckXY(), param => CanCheckXY());
+        public ICommand CheckBriCommand => new RelayCommand(param => CheckBri(), param => CanCheckBri());
+        public ICommand CheckTTCommand => new RelayCommand(param => CheckTT());
 
 
 
+        private bool CanCheckBri()
+        {
+            if (SceneCreatorModel.On == false) return false;
+            return true;
+        }
 
+        private bool CanCheckHue()
+        {
+            if (SceneCreatorModel.On == false) return false;
+            if (XYChecked) return false;
+            if (CTChecked) return false;
+            return true;
+        }
+
+        private bool CanCheckSat()
+        {
+            if (SceneCreatorModel.On == false) return false;
+            if (XYChecked) return false;
+            if (CTChecked) return false;
+            return true;
+        }
+
+        private bool CanCheckCT()
+        {
+            if (SceneCreatorModel.On == false) return false;
+            if (HueChecked) return false;
+            if (XYChecked) return false;
+            if (SatChecked) return false;
+            return true;
+        }
+
+        private bool CanCheckXY()
+        {
+            if (SceneCreatorModel.On == false) return false;
+            if (HueChecked) return false;
+            if (CTChecked) return false;
+            if (SatChecked) return false;
+            return true;
+        }
+
+        private void CheckTT()
+        {
+            if (TtChecked == false) SceneCreatorModel.TT = null;
+        }
+
+        private void CheckSat()
+        {
+            XYChecked = false;
+            CTChecked = false;
+            SceneCreatorModel.Ct = null;
+            SceneCreatorModel.X = null;
+            if (SatChecked == false) SceneCreatorModel.Sat = null;
+        }
+
+        private void CheckHue()
+        {
+            CTChecked = false;
+            XYChecked = false;
+            SceneCreatorModel.X = null;
+            SceneCreatorModel.Ct = null;
+            if (HueChecked == false) SceneCreatorModel.Hue = null;
+        }
+    
+        private void CheckCT()
+        {
+            HueChecked = false;
+            SatChecked = false;
+            XYChecked = false;
+            SceneCreatorModel.Hue = null;
+            SceneCreatorModel.X = null;
+            SceneCreatorModel.Sat = null;
+            if (CTChecked == false) SceneCreatorModel.Ct = null;
+        }
+
+        private void CheckXY()
+        {
+            HueChecked = false;
+            CTChecked = false;
+            SatChecked = false;
+            SceneCreatorModel.Ct = null;
+            SceneCreatorModel.Hue = null;
+            SceneCreatorModel.Sat = null;
+            if (XYChecked == false) SceneCreatorModel.X = null;
+        }
+
+        private void CheckBri()
+        {
+            if (BriChecked == false) SceneCreatorModel.Bri = null;
+        }
+
+        public bool HueChecked
+        {
+            get => _hueChecked;
+            set => SetProperty(ref _hueChecked,value);
+        }
+
+        public bool BriChecked
+        {
+            get => _briChecked;
+            set => SetProperty(ref _briChecked,value);
+        }
+
+        public bool SatChecked
+        {
+            get => _satChecked;
+            set => SetProperty(ref _satChecked,value);
+        }
+
+        public bool CTChecked
+        {
+            get => _ctChecked;
+            set => SetProperty(ref _ctChecked,value);
+        }
+
+        public bool XYChecked
+        {
+            get => _xyChecked;
+            set => SetProperty(ref _xyChecked,value);
+        }
+
+        public bool TtChecked
+        {
+            get => _ttChecked;
+            set => SetProperty(ref _ttChecked,value);
+        }
     }
 }
