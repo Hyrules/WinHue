@@ -1438,7 +1438,7 @@
     <value>Check for Bridge version. (You might encounter crashes that the dev will not fix if you choose not to)</value>
   </data>
   <data name="RuleCreatorForm_AddToRuleActions" xml:space="preserve">
-    <value>Add to rule actions</value>
+    <value>Add</value>
   </data>
   <data name="RuleCreatorForm_DeleteProperty" xml:space="preserve">
     <value>Remove property</value>
