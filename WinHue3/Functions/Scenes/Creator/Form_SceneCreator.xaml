@@ -127,7 +127,7 @@
                     <uShortUpDown:WinHueUShortUpDown HorizontalAlignment="Left" Height="23" Margin="314,119,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Ct}" IsEnabled="{Binding ElementName=cbCT, Path=IsChecked}"/>
                     <controls:WinHueXYUpDown HorizontalAlignment="Left" Height="20" Margin="314,205,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.X}" IsEnabled="{Binding ElementName=cbXY, Path=IsChecked}"/>
                     <controls:WinHueXYUpDown HorizontalAlignment="Left" Height="18" Margin="314,230,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Y}" IsEnabled="{Binding ElementName=cbXY, Path=IsChecked}"/>
-                    <controls:WinHueTransitionTimeUpDown HorizontalAlignment="Left" Height="18" Margin="283,279,0,0" VerticalAlignment="Top" Width="104"/>
+                    <controls:WinHueTransitionTimeUpDown HorizontalAlignment="Left" Height="18" Margin="283,279,0,0" VerticalAlignment="Top" Width="104" Value="{Binding SceneCreatorModel.TT}" IsEnabled="{Binding ElementName=cbTT, Path=IsChecked}"/>
 
 
 

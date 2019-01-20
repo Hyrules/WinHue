@@ -12,7 +12,7 @@
             <ColumnDefinition Width="18"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="tbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" TextChanged="TbValue_TextChanged" PreviewTextInput="TbValue_PreviewTextInput" Grid.Column="0" BorderThickness="1,1,0,1" />
+        <TextBox x:Name="tbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" TextChanged="TbValue_TextChanged" Grid.Column="0" BorderThickness="1,1,0,1" PreviewKeyUp="TbValue_PreviewKeyUp" MaxLength="3" PreviewKeyDown="TbValue_PreviewKeyDown" />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

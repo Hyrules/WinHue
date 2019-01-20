@@ -1587,4 +1587,13 @@
   <data name="Transitiontime" xml:space="preserve">
     <value>Transition Time (Max : 01h49m13s.5ms)</value>
   </data>
+  <data name="TransitionTimeToolTip" xml:space="preserve">
+    <value>Max : 01h49m13s.5ms</value>
+  </data>
+  <data name="TransitionTimeDefault" xml:space="preserve">
+    <value>(default)</value>
+  </data>
+  <data name="EnterPressedTooltip" xml:space="preserve">
+    <value>Press enter to set value</value>
+  </data>
 </root>

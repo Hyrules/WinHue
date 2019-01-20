@@ -159,20 +159,30 @@ namespace WinHue3.Functions.Scenes.Creator
             set
             {
                 SetProperty(ref _selectedSceneLight, value);
-                if (value == null) return;
-                SceneCreatorModel.Hue = value.state.hue;
-                SceneCreatorModel.Bri = value.state.bri;
-                SceneCreatorModel.Sat = value.state.sat;
-                SceneCreatorModel.Ct = value.state.ct;
-                if(value.state.on != null)
+
+                HueChecked = value?.state.hue != null;
+                SceneCreatorModel.Hue = value?.state.hue;
+
+                BriChecked = value?.state.bri != null;
+                SceneCreatorModel.Bri = value?.state.bri;
+
+                SatChecked = value?.state.sat != null;
+                SceneCreatorModel.Sat = value?.state.sat;
+
+                CTChecked = value?.state.ct != null;
+                SceneCreatorModel.Ct = value?.state.ct;
+                if(value?.state.on != null)
                     SceneCreatorModel.On = (bool)value.state.on;
-                if (value.state.xy != null)
+
+                XYChecked = value?.state.xy != null;
+                if (value?.state.xy != null)
                 {
                     SceneCreatorModel.X = value.state.xy[0];
                     SceneCreatorModel.Y = value.state.xy[1];
                 }
 
-                SceneCreatorModel.TT = value.state.transitiontime;
+                TtChecked = value?.state.transitiontime != null;
+                SceneCreatorModel.TT = value?.state.transitiontime;
             }
         }
 

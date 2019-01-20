@@ -790,6 +790,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press enter to set value.
+        /// </summary>
+        public static string EnterPressedTooltip {
+            get {
+                return ResourceManager.GetString("EnterPressedTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coordinates.
         /// </summary>
         public static string EntertainmentCreatorForm_Coordinates {
@@ -4458,6 +4467,24 @@ namespace WinHue3.Resources {
         public static string Transitiontime {
             get {
                 return ResourceManager.GetString("Transitiontime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (default).
+        /// </summary>
+        public static string TransitionTimeDefault {
+            get {
+                return ResourceManager.GetString("TransitionTimeDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max : 01h49m13s.5ms.
+        /// </summary>
+        public static string TransitionTimeToolTip {
+            get {
+                return ResourceManager.GetString("TransitionTimeToolTip", resourceCulture);
             }
         }
         

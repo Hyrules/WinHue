@@ -30,22 +30,35 @@ namespace WinHue3.Controls
 
         private static readonly Regex _regex = new Regex("[^0-9]+.");
 
-        private void BtnIncrement_Click(object sender, RoutedEventArgs e)
+        public event EventHandler ValueChanged;
+        public event EventHandler EnterPressed;
+
+        private void IncrementValue()
         {
             if (Value == null) Value = (decimal)0.000;
             else
             if (Value < 1)
                 Value = Convert.ToDecimal(Value + Step);
-            
+            SetDirtyTextBox();
         }
 
-        private void BtnDecrement_Click(object sender, RoutedEventArgs e)
+        private void BtnIncrement_Click(object sender, RoutedEventArgs e)
+        {
+            IncrementValue();            
+        }
+
+        public void DecrementValue()
         {
             if (Value == null) Value = (decimal)0.000;
             else
             if (Value > 0)
                 Value = Convert.ToDecimal(Value - Step);
-            
+            SetDirtyTextBox();
+        }
+
+        private void BtnDecrement_Click(object sender, RoutedEventArgs e)
+        {
+            DecrementValue();            
         }
 
         public decimal? Value
@@ -61,12 +74,13 @@ namespace WinHue3.Controls
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             WinHueXYUpDown nud = d as WinHueXYUpDown;
+            nud.ValueChanged?.Invoke(nud, EventArgs.Empty);
             if (e.NewValue == null)
             {
                 nud.tbValue.Text = "";
                 return;
             }
-            nud.tbValue.Text = e.NewValue.ToString();
+            nud.tbValue.Text = $"{e.NewValue:0.000}";
             if (nud.btnIncrement == null) return;
             nud.btnIncrement.IsEnabled = decimal.Parse(e.NewValue.ToString()) < 1;
             nud.btnDecrement.IsEnabled = decimal.Parse(e.NewValue.ToString()) > 0;
@@ -120,6 +134,59 @@ namespace WinHue3.Controls
             Value = val;
             btnDecrement.IsEnabled = true;
             btnIncrement.IsEnabled = true;
+        }
+
+        private void SetDirtyTextBox()
+        {
+            if (EnterPressed != null)
+                tbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
+        }
+
+        private void ClearDirtyTextBox()
+        {
+            if (EnterPressed != null)
+                tbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+        }
+
+        private void TbValue_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+                case Key.Back:
+                    SetDirtyTextBox();
+                    break;
+                case Key.Enter:
+                    break;
+                case Key.Up:
+                    IncrementValue();
+                    break;
+                case Key.Down:
+                    DecrementValue();
+                    break;
+                case Key.Left:
+                case Key.Right:
+                    break;
+                default:
+                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
+                    {
+                        e.Handled = true;
+                    }
+                    break;
+            }
+        }
+
+        private void TbValue_OnPreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (decimal.TryParse(tbValue.Text, out decimal i))
+                {
+                    EnterPressed?.Invoke(this, EventArgs.Empty);
+                    ClearDirtyTextBox();
+                }
+
+            }
         }
     }
 }

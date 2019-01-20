@@ -120,6 +120,7 @@ namespace WinHue3.MainForm
             }
         }
 
+
         private bool CanHue()
         {
             if (!IsObjectSelected()) return false;

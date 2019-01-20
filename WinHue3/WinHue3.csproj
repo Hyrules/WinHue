@@ -187,6 +187,7 @@
       <DependentUpon>WinHueByteUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Functions\Behaviors\TextBoxInputMaskBehavior.cs" />
     <Compile Include="Controls\TransitionTimeUpDown\WinHueTransitionTimeUpDown.xaml.cs">
       <DependentUpon>WinHueTransitionTimeUpDown.xaml</DependentUpon>
     </Compile>
@@ -214,6 +215,7 @@
     <Compile Include="Functions\Behaviors\KeyUpBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
+    <Compile Include="Functions\Behaviors\WaterMarkAdorner.cs" />
     <Compile Include="Functions\Behaviors\WindowContentRenderedBehavior.cs" />
     <Compile Include="Functions\BridgeFinder\BridgeFinder.cs" />
     <Compile Include="Functions\BridgeFinder\BridgeFinderViewModel.cs" />

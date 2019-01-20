@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinHue3.Controls"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Controls.WinHueTransitionTimeUpDown"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
+             x:Class="WinHue3.Controls.WinHueTransitionTimeUpDown"
              mc:Ignorable="d" Height="20.936" Width="115.848" LostFocus="UserControl_LostFocus"
              x:Name="ctlNUD" MinHeight="20">
     <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="{Binding ActualHeight, ElementName=ctlNUD}" Width="{Binding ActualWidth, ElementName=ctlNUD}">
@@ -13,7 +16,7 @@
             <ColumnDefinition Width="18"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="tbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" TextChanged="TbValue_TextChanged" PreviewTextInput="TbValue_PreviewTextInput" Grid.Column="0" BorderThickness="1,1,0,1" />
+        <TextBox x:Name="tbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" Grid.Column="0" BorderThickness="1,1,0,1" MaxLength="10" MaxLines="1" PreviewKeyDown="TbValue_PreviewKeyDown" PreviewMouseDown="TbValue_PreviewMouseDown" ForceCursor="True" behaviors:TextBoxFocusBehavior.IsWaterMarkEnabled="True" behaviors:TextBoxFocusBehavior.WatermarkText="(default)" TextChanged="TbValue_TextChanged" PreviewKeyUp="TbValue_PreviewKeyUp"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
