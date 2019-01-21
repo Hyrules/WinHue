@@ -33,6 +33,7 @@ namespace WinHue3.MainForm
 
         private bool IsObjectSelected()
         {
+            RaisePropertyChanged("CanTT");
             return SelectedHueObject != null;
         }
 
