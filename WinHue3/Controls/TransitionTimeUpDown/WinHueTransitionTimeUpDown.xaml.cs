@@ -79,7 +79,9 @@ namespace WinHue3.Controls
             Value = Convert.ToInt32((Value + finalstep)) > ushort.MaxValue ? ushort.MaxValue : Convert.ToUInt16((Value + finalstep));
             btnDecrement.IsEnabled = Value > ushort.MinValue;
             btnIncrement.IsEnabled = Value < ushort.MaxValue;
+            SetDirtyTextBox();
             tbValue.CaretIndex = caretpos;
+
         }
 
         private void BtnIncrement_Click(object sender, RoutedEventArgs e)
