@@ -718,19 +718,9 @@
                             </Style>
                         </Label.Style>
                     </Label>
-                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _FontColor="White" _BackgroundColor="{StaticResource HeaderBackgroundBrush}" >
-                        <sliders:XYSliders.Style>
-                            <Style TargetType="{x:Type sliders:XYSliders}">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-
-                                </Style.Triggers>
-                            </Style>
-                        </sliders:XYSliders.Style>
-                    </sliders:XYSliders>
+                    <WrapPanel>
+                        
+                    </WrapPanel>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
                     <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
                         <controls:WinHueTransitionTimeUpDown Value="{Binding SliderTt}" IsEnabled="{Binding CanTT}" Height="21" Width="136" ToolTip="{x:Static resx:GUI.TransitionTimeToolTip}" />

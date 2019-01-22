@@ -7,13 +7,12 @@
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resources="clr-namespace:WinHue3.Resources"
-    xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
+        xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:creator="clr-namespace:WinHue3.Functions.HotKeys.Creator"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-        xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         x:Class="WinHue3.Functions.HotKeys.Creator.Form_HotKeyCreator"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/hotkeys.png" PreviewKeyUp="Window_PreviewKeyUp">
@@ -57,8 +56,8 @@
         <Label x:Name="Label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="328"/>
         <Button x:Name="BtnRecordKeyPress" Content="{x:Static resources:GUI.Form_HotKeyCreator_Record}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="98" Command="{Binding RecordHotKeyCommand}" Height="30" />
         <Label x:Name="Label2" Content="{Binding CurrentHotKey, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="113,165,0,0" VerticalAlignment="Top" Width="226" Height="30" Background="{Binding HotKeyModel.RecordButtonColor}" BorderBrush="#FF8E8E8E" BorderThickness="1"/>
-        <xctk:WatermarkTextBox x:Name="TbHotkeyName" Watermark="{x:Static resources:GUI.Label_Name}" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="{Binding HotKeyModel.Name, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="329"/>
-        <xctk:WatermarkTextBox x:Name="TbHotkeyDesc" Watermark="{x:Static resources:GUI.Form_HotKeyCreator_Description}" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Description, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="329" />
+        <TextBox x:Name="TbHotkeyName" behaviors:TextBoxFocusBehavior.WatermarkText="{x:Static resources:GUI.Label_Name}" behaviors:TextBoxFocusBehavior.IsWaterMarkEnabled="True" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="{Binding HotKeyModel.Name, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="329"/>
+        <TextBox x:Name="TbHotkeyDesc" behaviors:TextBoxFocusBehavior.WatermarkText="{x:Static resources:GUI.Form_HotKeyCreator_Description}" behaviors:TextBoxFocusBehavior.IsWaterMarkEnabled="True" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Description, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="329" />
         <DataGrid x:Name="DataGrid" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Height="206" Width="928" AlternationCount="-5" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" ItemsSource="{Binding ListHotKeys}" SelectedItem="{Binding SelectedHotKey}" AlternatingRowBackground="#FFF2F2F2" BorderBrush="#FFCECECE" AllowDrop="True" CanUserAddRows="False" AutomationProperties.IsColumnHeader="True" Background="White" AutomationProperties.IsRowHeader="True" GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Label_Name}" Binding="{Binding Name}"  Width="100" IsReadOnly="True"/>
