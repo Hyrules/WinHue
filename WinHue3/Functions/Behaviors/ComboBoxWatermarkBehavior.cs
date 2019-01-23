@@ -69,6 +69,8 @@ namespace WinHue3.Functions.Behaviors
             this.AssociatedObject.LostFocus += this.OnLostFocus;
         }
 
+
+
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             if (!this.AssociatedObject.IsFocused)
@@ -76,6 +78,7 @@ namespace WinHue3.Functions.Behaviors
                 if (string.IsNullOrEmpty(this.AssociatedObject.Text))
                 {
                     var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
+                    if (layer == null) return;
                     layer.Add(adorner);
                 }
             }

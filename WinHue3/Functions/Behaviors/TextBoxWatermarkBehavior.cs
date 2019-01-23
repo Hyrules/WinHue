@@ -59,7 +59,7 @@ namespace WinHue3.Functions.Behaviors
         public static readonly DependencyProperty FontFamilyProperty =
             DependencyProperty.Register("FontFamily", typeof(string), typeof(TextBoxWatermarkBehavior), new PropertyMetadata("Segoe UI"));
 
-
+        
 
         protected override void OnAttached()
         {
@@ -77,10 +77,13 @@ namespace WinHue3.Functions.Behaviors
                 if (String.IsNullOrEmpty(this.AssociatedObject.Text))
                 {
                     var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
+                    if (layer == null) return;
                     layer.Add(adorner);
                 }
             }
         }
+
+
 
         private void OnLostFocus(object sender, RoutedEventArgs e)
         {
