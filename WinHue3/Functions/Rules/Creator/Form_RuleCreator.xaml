@@ -10,8 +10,6 @@
         xmlns:creator="clr-namespace:WinHue3.Functions.Rules.Creator"
         xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-        xmlns:editor="clr-namespace:WinHue3.Functions.PropertyGrid"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:light="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:group="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
         xmlns:sensor="clr-namespace:WinHue3.Philips_Hue.HueObjects.NewSensorsObject"
@@ -24,14 +22,15 @@
         x:Class="WinHue3.Functions.Rules.Creator.Form_RuleCreator"
         mc:Ignorable="d"
         Title="Rule Creator" Height="468.168" Width="719.952" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/rules.png" >
-    <Window.Resources>
-        <xctk:InverseBoolConverter x:Key="InverseBoolConverter"/>
-    </Window.Resources>
     <Window.DataContext>
         <creator:RuleCreatorViewModel/>
     </Window.DataContext>
     <Grid Margin="0,0,1,0">
-        <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="623" Watermark="{x:Static resx:GUI.RuleCreatorForm_Name}"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="623">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.RuleCreatorForm_Name}"/>
+            </i:Interaction.Behaviors>
+        </TextBox>
         <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708">
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Conditions}">
                 <Grid>
@@ -77,7 +76,10 @@
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </controls:BindableTreeView>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}" Watermark="(Choose the operator)">
+                    <ComboBox x:Name="cbOperator"  HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}"  Style="{StaticResource {x:Type ComboBox}}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:ComboBoxWatermarkBehavior Text="(Choose the operator)"/>
+                        </i:Interaction.Behaviors>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Delayed_Changed}" Tag="ddx"/>
@@ -87,10 +89,13 @@
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Not_Stable}" Tag="not stable"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Lower_Than}" Tag="lt"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Greater_Than}" Tag="gt"/>
-                    </controls:CommandComboBox>
-                    <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding CanEnterConditionValue}" Watermark="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}">
-                        <xctk:WatermarkTextBox.Style>
-                            <Style TargetType="{x:Type xctk:WatermarkTextBox}">
+                    </ComboBox>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="10,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" Text="{Binding ConditionValue, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding CanEnterConditionValue}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.RuleCreatorForm_Value_Watermark}"/>
+                        </i:Interaction.Behaviors>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ConditionOperator}" Value="dx">
@@ -98,9 +103,12 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </xctk:WatermarkTextBox.Style>
-                    </xctk:WatermarkTextBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" Command="{Binding Condition_SelectConditionObjectTypeCommand}" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" Watermark="(Object Type)" Style="{StaticResource {x:Type ComboBox}}">
+                        </TextBox.Style>
+                    </TextBox>
+                    <ComboBox x:Name="cbConditionType" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionObjectTypeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" Style="{StaticResource {x:Type ComboBox}}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:ComboBoxWatermarkBehavior Text="(Object Type)"/>
+                        </i:Interaction.Behaviors>
                         <ComboBoxItem Content="Lights" Tag="{x:Type light:Light}" />
                         <ComboBoxItem Content="Groups" Tag="{x:Type group:Group}"/>
                         <ComboBoxItem Content="Sensors" Tag="{x:Type sensor:Sensor}"/>
@@ -109,8 +117,11 @@
                         <ComboBoxItem Content="Resource Links" Tag="{x:Type rlink:Resourcelink}"/>
                         <ComboBoxItem Content="Rule" Tag="{x:Type rule:Rule}"/>
                         <ComboBoxItem Content="Config" Tag="{x:Type bridgeObjects:BridgeSettings}"/>
-                    </controls:CommandComboBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="142,10,0,0" VerticalAlignment="Top" Width="203" ItemsSource="{Binding ListConditionHueObjects}" SelectedItem="{Binding SelectedConditionHueObject}" Command="{Binding Condition_SelectConditionHueObjectCommand}" Watermark="(Object)" Style="{StaticResource {x:Type ComboBox}}">
+                    </ComboBox>
+                    <ComboBox x:Name="cbConditionObject"  HorizontalAlignment="Left" Margin="142,10,0,0" VerticalAlignment="Top" Width="203" ItemsSource="{Binding ListConditionHueObjects}" SelectedItem="{Binding SelectedConditionHueObject}" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionHueObjectCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged"  Style="{StaticResource {x:Type ComboBox}}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:ComboBoxWatermarkBehavior Text="(Object)"/>
+                        </i:Interaction.Behaviors>
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
@@ -120,7 +131,7 @@
                                 </WrapPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
-                    </controls:CommandComboBox>
+                    </ComboBox>
                     <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="617,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25"/>
                     <Button Content="{x:Static resx:GUI.Button_Clear}" HorizontalAlignment="Left" Margin="350,276,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="25"/>
                 </Grid>
@@ -147,40 +158,16 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <xctk:PropertyGrid x:Name="Pg"  HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="342" Height="241" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding ActionProperties}" >
-                        <!--<i:Interaction.Behaviors>
-                            <creator:PropertyGridBehavior SelectedPropertyItem="{Binding RuleActionViewModel.SelectedProperty, Mode=TwoWay}"/>
-                        </i:Interaction.Behaviors>-->
-
-                        <!--<xctk:PropertyGrid.EditorDefinitions>
-                            <xctk:EditorTemplateDefinition TargetProperties="xy">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <WrapPanel>
-                                            <Label Content="X"/>
-                                            <xctk:DecimalUpDown Text="{Binding Value[0]}" Minimum="0" Maximum="1" Increment="0.001"/>
-                                            <Label Content="Y"/>
-                                            <xctk:DecimalUpDown Text="{Binding Value[1]}" Minimum="0" Maximum="1" Increment="0.001"/>
-                                        </WrapPanel>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
-                            <xctk:EditorTemplateDefinition TargetProperties="xy_inc">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <WrapPanel >
-                                            <Label Content="X"/>
-                                            <xctk:DecimalUpDown Text="{Binding Value[0]}" Minimum="-0.5" Maximum="0.5" Increment="0.001"/>
-                                            <Label Content="Y"/>
-                                            <xctk:DecimalUpDown Text="{Binding Value[1]}" Minimum="-0.5" Maximum="0.5" Increment="0.001"/>
-                                        </WrapPanel>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
-                        </xctk:PropertyGrid.EditorDefinitions>-->
-                    </xctk:PropertyGrid>
+                    <xctk:PropertyGrid x:Name="Pg"  HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="342" Height="241" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False" SelectedObject="{Binding ActionProperties}"/>
+                    
                     <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="342" Command="{Binding Action_AddActionCommand}" Height="30"/>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="192" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" Command="{Binding Action_SelectActionObjectCommand}" Watermark="Object" Height="23" Style="{StaticResource {x:Type ComboBox}}">
+
+
+
+                    <ComboBox x:Name="cbActionObject"  HorizontalAlignment="Left" Margin="160,7,0,0" VerticalAlignment="Top" Width="192" ItemsSource="{Binding ListHueObjects}" SelectedItem="{Binding SelectedHueObject}" behaviors:CommandBehavior.Command="{Binding Action_SelectActionObjectCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" Height="23" Style="{StaticResource {x:Type ComboBox}}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:ComboBoxWatermarkBehavior Text="(Object)"/>
+                        </i:Interaction.Behaviors>
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
@@ -190,14 +177,18 @@
                                 </WrapPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
-                    </controls:CommandComboBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" Command="{Binding Action_SelectHueObjectTypeCommand}" Watermark="Object Type" Style="{StaticResource {x:Type ComboBox}}" Height="23">
+                    </ComboBox>
+                    <!--<ComboBox x:Name="cbActionType"  HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="145" SelectedValuePath="Tag" SelectedValue="{Binding SelectedHueObjectType}" behaviors:CommandBehavior.Command="{Binding Action_SelectHueObjectTypeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" Style="{StaticResource {x:Type ComboBox}}" Height="23" >
+                        <i:Interaction.Behaviors>
+                            <behaviors:ComboBoxWatermarkBehavior Text="(Object Type)"/>
+                        </i:Interaction.Behaviors>
                         <ComboBoxItem Content="{x:Static resx:GUI.Lights}" Tag="{x:Type light:Light}"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.Groups}" Tag="{x:Type group:Group}"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.Scenes}" Tag="{x:Type scene:Scene}"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.Sensors}" Tag="{x:Type sensor:Sensor}"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.Schedules}" Tag="{x:Type schedule:Schedule}"/>
-                    </controls:CommandComboBox>
+                    </ComboBox>-->
+
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveUp}" HorizontalAlignment="Left" Margin="447,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_MoveUpRuleActionCommand}"/>
                     <Button Content="{x:Static resx:GUI.RuleCreatorForm_Actions_MoveDown}" HorizontalAlignment="Left" Margin="527,282,0,0" VerticalAlignment="Top" Width="85" Height="29" Command="{Binding Action_MoveDownRuleActionCommand}"/>
                     <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="617,281,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding Action_RemoveRuleActionCommand}" Background="Red"/>

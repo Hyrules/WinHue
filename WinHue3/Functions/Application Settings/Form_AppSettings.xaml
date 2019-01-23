@@ -109,7 +109,7 @@
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Grid>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="60"/>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}"  Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
+                    <ComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}"  Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
                         <ComboBoxItem Content="Red" Tag="Red"/>
                         <ComboBoxItem Content="Green" Tag="Green"/>
                         <ComboBoxItem Content="Blue" Tag="Blue"/>
@@ -133,11 +133,11 @@
                         <ComboBoxItem Content="Mauve" Tag="Mauve"/>
                         <ComboBoxItem Content="Taupe" Tag="Taupe"/>
                         <ComboBoxItem Content="Sienna" Tag="Sienna"/>
-                    </controls:CommandComboBox>
-                    <controls:CommandComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
+                    </ComboBox>
+                    <ComboBox HorizontalAlignment="Left" Margin="75,34,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Content" SelectedValue="{Binding MainSettingsModel.Theme}" Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
                         <ComboBoxItem Content="BaseLight"></ComboBoxItem>
                         <ComboBoxItem Content="BaseDark"></ComboBoxItem>
-                    </controls:CommandComboBox>
+                    </ComboBox>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>

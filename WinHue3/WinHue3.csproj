@@ -186,7 +186,7 @@
     <Compile Include="Controls\ByteUpDown\WinHueByteUpDown.xaml.cs">
       <DependentUpon>WinHueByteUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CommandComboBox.cs" />
+    <Compile Include="Functions\Behaviors\ComboBoxWatermarkBehavior.cs" />
     <Compile Include="Functions\Behaviors\TextBoxInputMaskBehavior.cs" />
     <Compile Include="Controls\TransitionTimeUpDown\WinHueTransitionTimeUpDown.xaml.cs">
       <DependentUpon>WinHueTransitionTimeUpDown.xaml</DependentUpon>
@@ -215,7 +215,7 @@
     <Compile Include="Functions\Behaviors\KeyUpBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnClickBehavior.cs" />
     <Compile Include="Functions\Behaviors\OnDoubleClickBehavior.cs" />
-    <Compile Include="Functions\Behaviors\WaterMarkAdorner.cs" />
+    <Compile Include="Functions\Behaviors\TextBoxWatermarkBehavior.cs" />
     <Compile Include="Functions\Behaviors\WindowContentRenderedBehavior.cs" />
     <Compile Include="Functions\BridgeFinder\BridgeFinder.cs" />
     <Compile Include="Functions\BridgeFinder\BridgeFinderViewModel.cs" />
@@ -273,7 +273,7 @@
     <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorHeader.cs" />
     <Compile Include="Functions\Schedules\NewCreator\ScheduleTypeItemSource.cs" />
     <Compile Include="Functions\Rules\Creator\TreeViewBehavior.cs" />
-    <Compile Include="MainForm\Sliders\XYSliders.xaml.cs">
+    <Compile Include="Controls\Sliders\XYSliders.xaml.cs">
       <DependentUpon>XYSliders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\Converters\BoolToVisibilityConverter.cs" />
@@ -292,9 +292,9 @@
     <Compile Include="Functions\Converters\DoubleToUshortConverter.cs" />
     <Compile Include="Functions\Converters\SliderToXYConverter.cs" />
     <Compile Include="Functions\Converters\VisibleToBoolConverter.cs" />
-    <Compile Include="MainForm\Sliders\BindableHueSlider.cs" />
+    <Compile Include="Controls\Sliders\BindableHueSlider.cs" />
     <Compile Include="Controls\BindableListView.cs" />
-    <Compile Include="MainForm\Sliders\BindableSlider.cs" />
+    <Compile Include="Controls\Sliders\BindableSlider.cs" />
     <Compile Include="Functions\Application Settings\AppMainSettingsModel.cs" />
     <Compile Include="Functions\Application Settings\AppDefaultsModel.cs" />
     <Compile Include="Functions\Application Settings\AppViewSettingsModel.cs" />
@@ -615,7 +615,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainForm\Sliders\XYSliders.xaml">
+    <Page Include="Controls\Sliders\XYSliders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1040,7 +1040,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

@@ -590,8 +590,8 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <controls:CommandComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" Command="{Binding ChangeBridgeCommand}">
-                        <controls:CommandComboBox.Style>
+                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged">
+                        <ComboBox.Style>
                             <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Setter Property="Background" Value="Transparent"/>
@@ -602,8 +602,8 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </controls:CommandComboBox.Style>
-                    </controls:CommandComboBox>
+                        </ComboBox.Style>
+                    </ComboBox>
                 </Grid>
             </StatusBarItem>
         </StatusBar>
