@@ -186,6 +186,9 @@
     <Compile Include="Controls\ByteUpDown\WinHueByteUpDown.xaml.cs">
       <DependentUpon>WinHueByteUpDown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\IntegerUpDown\WinHueIntegerUpDown.xaml.cs">
+      <DependentUpon>WinHueIntegerUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions\Behaviors\ComboBoxWatermarkBehavior.cs" />
     <Compile Include="Functions\Behaviors\TextBoxInputMaskBehavior.cs" />
     <Compile Include="Controls\TransitionTimeUpDown\WinHueTransitionTimeUpDown.xaml.cs">
@@ -556,6 +559,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ByteUpDown\WinHueByteUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\IntegerUpDown\WinHueIntegerUpDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1040,7 +1047,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
