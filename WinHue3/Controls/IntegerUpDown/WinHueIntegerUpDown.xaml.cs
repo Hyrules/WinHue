@@ -73,7 +73,7 @@ namespace WinHue3.Controls.IntegerUpDown
                 nud.tbValue.Text = "";
                 return;
             }
-            nud.tbValue.Text = e.NewValue.ToString();
+            nud.tbValue.Text = e.NewValue == null ? nud.Min.ToString() : e.NewValue.ToString();
             if (nud.btnIncrement == null) return;
             nud.btnIncrement.IsEnabled = int.Parse(e.NewValue.ToString()) != int.MaxValue;
             nud.btnDecrement.IsEnabled = int.Parse(e.NewValue.ToString()) != int.MinValue;
@@ -81,8 +81,8 @@ namespace WinHue3.Controls.IntegerUpDown
 
         public int Step
         {
-            get { return (int)GetValue(StepProperty); }
-            set { SetValue(StepProperty, value); }
+            get => (int)GetValue(StepProperty);
+            set => SetValue(StepProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Step.  This enables animation, styling, binding, etc...
@@ -116,8 +116,8 @@ namespace WinHue3.Controls.IntegerUpDown
 
         public int Max
         {
-            get { return (int)GetValue(MaxProperty); }
-            set { SetValue(MaxProperty, value); }
+            get => (int)GetValue(MaxProperty);
+            set => SetValue(MaxProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Max.  This enables animation, styling, binding, etc...
@@ -128,8 +128,8 @@ namespace WinHue3.Controls.IntegerUpDown
 
         public int Min
         {
-            get { return (int)GetValue(MinProperty); }
-            set { SetValue(MinProperty, value); }
+            get => (int)GetValue(MinProperty);
+            set => SetValue(MinProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Min.  This enables animation, styling, binding, etc...
@@ -140,8 +140,8 @@ namespace WinHue3.Controls.IntegerUpDown
 
         public bool CanBeEmpty
         {
-            get { return (bool)GetValue(CanBeEmptyProperty); }
-            set { SetValue(CanBeEmptyProperty, value); }
+            get => (bool)GetValue(CanBeEmptyProperty);
+            set => SetValue(CanBeEmptyProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
@@ -228,7 +228,7 @@ namespace WinHue3.Controls.IntegerUpDown
                 case Key.Right:
                     break;
                 default:
-                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
+                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) && (e.Key != Key.Subtract) && (e.Key != Key.OemMinus))
                     {
                         e.Handled = true;
                     } 

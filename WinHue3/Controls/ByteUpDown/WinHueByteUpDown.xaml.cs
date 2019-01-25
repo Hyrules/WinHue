@@ -33,10 +33,19 @@ namespace WinHue3.Controls
 
         private void IncrementValue()
         {
-            if (Value == null) Value = byte.MinValue;
+            
+            if (Value == null)
+            {
+                Value = byte.MinValue;
+            }
             else
-            if (Value < byte.MaxValue)
-                Value = Convert.ToByte(Value + Step);
+            {
+                if (Value < byte.MaxValue)
+                {
+                    Value = Convert.ToByte(Value + Step);
+                }
+            }
+
             SetDirtyTextBox();
         }
 
@@ -47,10 +56,18 @@ namespace WinHue3.Controls
 
         private void DecrementValue()
         {
-            if (Value == null) Value = byte.MinValue;
+            if (Value == null)
+            {
+                Value = byte.MinValue;
+            }
             else
-            if (Value > byte.MinValue)
-                Value = Convert.ToByte(Value - Step);
+            {
+                if (Value > byte.MinValue)
+                {
+                    Value = Convert.ToByte(Value - Step);
+                }
+            }
+
             SetDirtyTextBox();
         }
 
@@ -73,16 +90,24 @@ namespace WinHue3.Controls
         {
             WinHueByteUpDown nud = d as WinHueByteUpDown;
             nud.ValueChanged?.Invoke(nud, EventArgs.Empty);
-            if (e.NewValue == null)
+            if (e.NewValue == null && nud.CanBeNull)
             {
                 nud.tbValue.Text = "";
                 return;
             }
-            nud.tbValue.Text = e.NewValue.ToString();
-            if (nud.btnIncrement == null) return;
-            nud.btnIncrement.IsEnabled = byte.Parse(e.NewValue.ToString()) != byte.MaxValue;
-            nud.btnDecrement.IsEnabled = byte.Parse(e.NewValue.ToString()) != byte.MinValue;
+
+            nud.tbValue.Text = e.NewValue == null ? byte.MinValue.ToString() : e.NewValue.ToString();
         }
+
+        public bool CanBeNull
+        {
+            get => (bool)GetValue(CanBeEmptyProperty);
+            set => SetValue(CanBeEmptyProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanBeEmptyProperty =
+            DependencyProperty.Register("CanBeNull", typeof(bool), typeof(WinHueByteUpDown), new FrameworkPropertyMetadata(true));
 
         public byte Step
         {
@@ -96,34 +121,49 @@ namespace WinHue3.Controls
 
         private void TbValue_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbValue.Text == "")
+            if (tbValue.Text == "" && CanBeNull)
             {
                 Value = null;
                 return;
             }
-            if (!byte.TryParse(tbValue.Text, out byte val))
-            {               
-                btnDecrement.IsEnabled = false;
-                btnIncrement.IsEnabled = false;
-            }
-            else
+            
+            if(tbValue.Text == "" && !CanBeNull)
             {
+                tbValue.Text = byte.MinValue.ToString();
+            }
+
+            if (byte.TryParse(tbValue.Text, out byte val))
+            {               
                 Value = val;
             }
+
+            SetIncrementalsButtons();
+        }
+
+        private void SetIncrementalsButtons()
+        {
+            if (!byte.TryParse(tbValue.Text, out byte val))
+            {
+                btnDecrement.IsEnabled = false;
+                btnIncrement.IsEnabled = false;
+                return;
+            }
+            btnDecrement.IsEnabled = Value != byte.MinValue;
+            btnIncrement.IsEnabled = Value != byte.MaxValue;
         }
 
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
             byte val = 0;
-            if (tbValue.Text == "") return;
+            if (tbValue.Text == "" && CanBeNull) return;
+            if (tbValue.Text == "" && !CanBeNull) tbValue.Text = byte.MinValue.ToString();
             while (!byte.TryParse(tbValue.Text, out val))
             {
                 tbValue.Text = tbValue.Text.Remove(tbValue.Text.Length - 1);
             }
 
             Value = val;
-            btnDecrement.IsEnabled = true;
-            btnIncrement.IsEnabled = true;
+            SetIncrementalsButtons();
         }
 
         private void TbValue_PreviewKeyUp(object sender, KeyEventArgs e)

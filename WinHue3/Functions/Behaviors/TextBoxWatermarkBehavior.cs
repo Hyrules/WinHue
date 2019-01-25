@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
 
@@ -59,15 +60,36 @@ namespace WinHue3.Functions.Behaviors
         public static readonly DependencyProperty FontFamilyProperty =
             DependencyProperty.Register("FontFamily", typeof(string), typeof(TextBoxWatermarkBehavior), new PropertyMetadata("Segoe UI"));
 
-        
+
+        public TextAlignment TextAlign
+        {
+            get { return (TextAlignment)GetValue(TextAlignProperty); }
+            set { SetValue(TextAlignProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TextAlign.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextAlignProperty =
+            DependencyProperty.Register("TextAlign", typeof(TextAlignment), typeof(TextBoxWatermarkBehavior), new PropertyMetadata(TextAlignment.Left));
+
+
 
         protected override void OnAttached()
         {
-            adorner = new WaterMarkAdorner(this.AssociatedObject, this.Text, this.FontSize, this.FontFamily, this.Foreground);
+            adorner = new WaterMarkAdorner(this.AssociatedObject, this.Text, this.FontSize, this.FontFamily, this.Foreground, this.TextAlign);
 
             this.AssociatedObject.Loaded += this.OnLoaded;
             this.AssociatedObject.GotFocus += this.OnFocus;
             this.AssociatedObject.LostFocus += this.OnLostFocus;
+            this.AssociatedObject.TextChanged += this.OnTextChanged;
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(this.AssociatedObject.Text))
+            {
+                var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
+                layer.Remove(adorner);
+            }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -115,8 +137,9 @@ namespace WinHue3.Functions.Behaviors
             private double fontSize;
             private string fontFamily;
             private Brush foreground;
+            private TextAlignment textalign;
 
-            public WaterMarkAdorner(UIElement element, string text, double fontsize, string font, Brush foreground): base(element)
+            public WaterMarkAdorner(UIElement element, string text, double fontsize, string font, Brush foreground, TextAlignment align): base(element)
             {
                 this.IsHitTestVisible = false;
                 this.Opacity = 0.6;
@@ -124,6 +147,7 @@ namespace WinHue3.Functions.Behaviors
                 this.fontSize = fontsize;
                 this.fontFamily = font;
                 this.foreground = foreground;
+                this.textalign = align;
             }
 
             protected override void OnRender(DrawingContext drawingContext)
@@ -136,8 +160,23 @@ namespace WinHue3.Functions.Behaviors
                         new Typeface(fontFamily),
                         fontSize,
                         foreground);
+                Point textpos;
 
-                drawingContext.DrawText(text, new Point(5, 3));
+                switch (textalign)
+                {
+
+                    case TextAlignment.Right:
+                        textpos = new Point(this.ActualWidth - text.WidthIncludingTrailingWhitespace - 5, 2);
+                        break;
+                    case TextAlignment.Center:
+                        textpos = new Point(this.ActualWidth /2 - text.WidthIncludingTrailingWhitespace / 2,2);
+                        break;
+                    default:
+                        textpos = new Point(5 , 2);
+                        break;
+                
+                }
+                drawingContext.DrawText(text, textpos);
             }
         }
     }

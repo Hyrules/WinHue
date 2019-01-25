@@ -18,7 +18,7 @@
 
         <TextBox x:Name="tbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" Grid.Column="0" BorderThickness="1,1,0,1" MaxLength="10" MaxLines="1" PreviewKeyDown="TbValue_PreviewKeyDown" PreviewMouseDown="TbValue_PreviewMouseDown" ForceCursor="True" TextChanged="TbValue_TextChanged" PreviewKeyUp="TbValue_PreviewKeyUp">
             <i:Interaction.Behaviors>
-                <behaviors:TextBoxWatermarkBehavior Text="(default)"/>
+                <behaviors:TextBoxWatermarkBehavior Text="(default)" TextAlign="Right"/>
             </i:Interaction.Behaviors>
         </TextBox>
         
