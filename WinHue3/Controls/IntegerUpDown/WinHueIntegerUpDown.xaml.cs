@@ -34,8 +34,7 @@ namespace WinHue3.Controls.IntegerUpDown
 
         private void BtnIncrement_Click(object sender, RoutedEventArgs e)
         {
-            IncrementValue();
-            
+            IncrementValue();            
         }
 
         private void DecrementValue()
@@ -54,6 +53,35 @@ namespace WinHue3.Controls.IntegerUpDown
             DecrementValue();           
         }
 
+        private void SetIncrementalsButtons()
+        {
+            if (tbValue.Text == "" & CanBeNull)
+            {
+                btnDecrement.IsEnabled = true;
+                btnIncrement.IsEnabled = true;
+                return;
+            }
+
+            if (!byte.TryParse(tbValue.Text, out byte val))
+            {
+                btnDecrement.IsEnabled = false;
+                btnIncrement.IsEnabled = false;
+                return;
+            }
+            btnDecrement.IsEnabled = Value != byte.MinValue;
+            btnIncrement.IsEnabled = Value != byte.MaxValue;
+        }
+
+        public bool CanBeNull
+        {
+            get => (bool)GetValue(CanBeEmptyProperty);
+            set => SetValue(CanBeEmptyProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanBeEmptyProperty =
+            DependencyProperty.Register("CanBeNull", typeof(bool), typeof(WinHueIntegerUpDown), new FrameworkPropertyMetadata(true));
+
         public int? Value
         {
             get => (int?)GetValue(ValueProperty);
@@ -68,15 +96,13 @@ namespace WinHue3.Controls.IntegerUpDown
         {
             WinHueIntegerUpDown nud = d as WinHueIntegerUpDown;
             nud.ValueChanged?.Invoke(nud, EventArgs.Empty);
-            if (e.NewValue == null && nud.CanBeEmpty)
+            if (e.NewValue == null && nud.CanBeNull)
             {
                 nud.tbValue.Text = "";
                 return;
             }
             nud.tbValue.Text = e.NewValue == null ? nud.Min.ToString() : e.NewValue.ToString();
-            if (nud.btnIncrement == null) return;
-            nud.btnIncrement.IsEnabled = int.Parse(e.NewValue.ToString()) != int.MaxValue;
-            nud.btnDecrement.IsEnabled = int.Parse(e.NewValue.ToString()) != int.MinValue;
+
         }
 
         public int Step
@@ -91,28 +117,42 @@ namespace WinHue3.Controls.IntegerUpDown
 
         private void TbValue_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbValue.Text == "" && CanBeEmpty)
-            {
-                Value = null;
-                return;
-            }
-  
-
-            if (!int.TryParse(tbValue.Text, out int val))
-            {
-                if (val > Max || val < Min)
-                {
-                    btnDecrement.IsEnabled = false;
-                    btnIncrement.IsEnabled = false;
-                }
-            }
-            else
-            {
-                Value = val;
-            }
+            CheckValues();
+            
         }
 
+        private void CheckValues()
+        {
+            try
+            {
+                int val = int.Parse(tbValue.Text.TrimStart('0'));
 
+                if (val > Max)
+                {
+                    Value = Max;
+                }
+
+                if (val < Min)
+                {
+                    Value = Min;
+                }
+
+                Value = val;
+            }
+            catch(OverflowException)
+            {
+                Value = tbValue.Text[0] == '-' ? Min : Max;
+            }
+            catch(ArgumentNullException)
+            {
+                if (CanBeNull)
+                    Value = null;
+                else
+                    tbValue.Text = Min.ToString();
+            }
+            catch(FormatException){}
+            SetIncrementalsButtons();
+        }
 
         public int Max
         {
@@ -124,8 +164,6 @@ namespace WinHue3.Controls.IntegerUpDown
         public static readonly DependencyProperty MaxProperty =
             DependencyProperty.Register("Max", typeof(int), typeof(WinHueIntegerUpDown), new PropertyMetadata(int.MaxValue));
 
-
-
         public int Min
         {
             get => (int)GetValue(MinProperty);
@@ -136,64 +174,9 @@ namespace WinHue3.Controls.IntegerUpDown
         public static readonly DependencyProperty MinProperty =
             DependencyProperty.Register("Min", typeof(int), typeof(WinHueIntegerUpDown), new PropertyMetadata(int.MinValue));
 
-
-
-        public bool CanBeEmpty
-        {
-            get => (bool)GetValue(CanBeEmptyProperty);
-            set => SetValue(CanBeEmptyProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CanBeEmptyProperty =
-            DependencyProperty.Register("CanBeEmpty", typeof(bool), typeof(WinHueIntegerUpDown), new PropertyMetadata(false));
-
-
-
-
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
-            int val = 0;
-            if (tbValue.Text == "" && CanBeEmpty) return;
-            if(int.TryParse(tbValue.Text,out val))
-            {
-                if (val > Max)
-                {
-                    tbValue.Text = Max.ToString();
-                }
-
-                if(val < Min)
-                {
-                    tbValue.Text = Min.ToString();
-                }
-
-                Value = int.Parse(tbValue.Text);
-            }
-            else
-            {
-                if (tbValue.Text == "")
-                {
-                    tbValue.Text = Min.ToString();
-                }
-                else
-                {
-                    if (tbValue.Text.Contains("-"))
-                    {
-                        tbValue.Text = Min.ToString();
-                    }
-                    else
-                    {
-                        tbValue.Text = Max.ToString();
-                    }
-
-                }
-                Value = int.Parse(tbValue.Text);
-            }
-
-            btnDecrement.IsEnabled = true;
-            btnIncrement.IsEnabled = true;
-
-
+            CheckValues();
         }
 
         private void TbValue_PreviewKeyUp(object sender, KeyEventArgs e)

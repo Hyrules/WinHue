@@ -121,19 +121,25 @@ namespace WinHue3.Controls
 
         private void TbValue_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbValue.Text == "" && CanBeNull)
+            CheckValues();
+        }
+
+        private void CheckValues()
+        {
+            if (tbValue.Text == "")
             {
-                Value = null;
-                return;
-            }
-            
-            if(tbValue.Text == "" && !CanBeNull)
-            {
-                tbValue.Text = byte.MinValue.ToString();
+                if (CanBeNull)
+                {
+                    Value = null;
+                }
+                else
+                {
+                    tbValue.Text = byte.MinValue.ToString();
+                }
             }
 
             if (byte.TryParse(tbValue.Text, out byte val))
-            {               
+            {
                 Value = val;
             }
 
@@ -142,6 +148,13 @@ namespace WinHue3.Controls
 
         private void SetIncrementalsButtons()
         {
+            if(tbValue.Text == "" & CanBeNull)
+            {
+                btnDecrement.IsEnabled = true;
+                btnIncrement.IsEnabled = true;
+                return;
+            }
+
             if (!byte.TryParse(tbValue.Text, out byte val))
             {
                 btnDecrement.IsEnabled = false;
@@ -154,16 +167,7 @@ namespace WinHue3.Controls
 
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
-            byte val = 0;
-            if (tbValue.Text == "" && CanBeNull) return;
-            if (tbValue.Text == "" && !CanBeNull) tbValue.Text = byte.MinValue.ToString();
-            while (!byte.TryParse(tbValue.Text, out val))
-            {
-                tbValue.Text = tbValue.Text.Remove(tbValue.Text.Length - 1);
-            }
-
-            Value = val;
-            SetIncrementalsButtons();
+            CheckValues();
         }
 
         private void TbValue_PreviewKeyUp(object sender, KeyEventArgs e)
