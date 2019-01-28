@@ -721,10 +721,10 @@
                                 </Style>
                             </Label.Style>
                         </Label>
-                        <sliders:BindableSlider x:Name="SlX" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}"/>                        
-                        <controls:WinHueXYUpDown Value="{Binding ElementName=SlX, Path=Value}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>
-                        <sliders:BindableSlider x:Name="SlY" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}"/>                        
-                        <controls:WinHueXYUpDown Value="{Binding ElementName=SlY, Path=Value}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>
+                        <sliders:BindableSlider x:Name="SlX" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}"/>                        
+                        <controls:WinHueXYUpDown Value="{Binding ElementName=SlX, Path=Value}" IsEnabled="{Binding ElementName=SlX, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>
+                        <sliders:BindableSlider x:Name="SlY" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" OldValue="{Binding MainFormModel.OldSliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}"/>
+                        <controls:WinHueXYUpDown Value="{Binding ElementName=SlY, Path=Value}" IsEnabled="{Binding ElementName=SlY, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>
                         
                     </WrapPanel>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
