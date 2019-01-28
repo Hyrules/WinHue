@@ -25,7 +25,7 @@ namespace WinHue3.Controls
         public WinHueTransitionTimeUpDown()
         {
             InitializeComponent();
-            btnDecrement.IsEnabled = false;
+            BtnDecrement.IsEnabled = false;
         }
 
         public event EventHandler ValueChanged;
@@ -36,8 +36,8 @@ namespace WinHue3.Controls
 
         private void IncrementValue()
         {
-            caretpos = tbValue.CaretIndex;
-            int finalstep = Step;
+            caretpos = TbValue.CaretIndex;
+            int finalstep = 1;
 
             switch (caretpos)
             {
@@ -46,28 +46,28 @@ namespace WinHue3.Controls
                 case 1: // 10 hours
                     break;
                 case 2: // 1 Hour
-                    finalstep = finalstep * 36000;
+                    finalstep = 36000;
                     break;
                 case 3: // First : from the left
                     break;
                 case 4: // 10 Minutes
-                    finalstep = finalstep * 6000;
+                    finalstep = 6000;
                     break;
                 case 5: // 1 Minute
-                    finalstep = finalstep * 600;
+                    finalstep = 600;
                     break;
                 case 6: // Second : from the left
                     break;
                 case 7: // 10 SECONDS
-                    finalstep = finalstep * 100;
+                    finalstep = 100;
                     break;
                 case 8: // SECONDS
-                    finalstep = finalstep * 10;
+                    finalstep = 10;
                     break;
                 case 9: // Comma
                     break;
                 case 10: // 100 of MS
-                    finalstep = finalstep * 1;
+                    finalstep = 1;
                     break;
                 default:
                     finalstep = 0;
@@ -75,24 +75,21 @@ namespace WinHue3.Controls
             }
 
             if (Value == null) Value = ushort.MinValue;
-
             Value = Convert.ToInt32((Value + finalstep)) > ushort.MaxValue ? ushort.MaxValue : Convert.ToUInt16((Value + finalstep));
-            btnDecrement.IsEnabled = Value > ushort.MinValue;
-            btnIncrement.IsEnabled = Value < ushort.MaxValue;
+            SetIncrementalsButtons();
             SetDirtyTextBox();
-            tbValue.CaretIndex = caretpos;
-
+            TbValue.CaretIndex = caretpos;
         }
 
         private void BtnIncrement_Click(object sender, RoutedEventArgs e)
-        {          
+        {
             IncrementValue();
         }
 
         private void DecrementValue()
         {
-            caretpos = tbValue.CaretIndex;
-            int finalstep = Step;
+            caretpos = TbValue.CaretIndex;
+            int finalstep = 1;
 
             switch (caretpos)
             {
@@ -101,28 +98,28 @@ namespace WinHue3.Controls
                 case 1: // 10 hours
                     break;
                 case 2: // 1 Hour
-                    finalstep = finalstep * 36000;
+                    finalstep = 36000;
                     break;
                 case 3: // First : from the left
                     break;
                 case 4: // 10 Minutes
-                    finalstep = finalstep * 6000;
+                    finalstep = 6000;
                     break;
                 case 5: // 1 Minute
-                    finalstep = finalstep * 600;
+                    finalstep = 600;
                     break;
                 case 6: // Second : from the left
                     break;
                 case 7: // 10 SECONDS
-                    finalstep = finalstep * 100;
+                    finalstep = 100;
                     break;
                 case 8: // SECONDS
-                    finalstep = finalstep * 10;
+                    finalstep = 10;
                     break;
                 case 9: // Comma
                     break;
                 case 10: // 100 of MS
-                    finalstep = finalstep * 1;
+                    finalstep = 1;
                     break;
                 default:
                     finalstep = 0;
@@ -131,20 +128,14 @@ namespace WinHue3.Controls
 
             if (Value == null) Value = ushort.MinValue;
             Value = Convert.ToInt32((Value - finalstep)) < ushort.MinValue ? ushort.MinValue : Convert.ToUInt16((Value - finalstep));
-            btnDecrement.IsEnabled = Value > ushort.MinValue;
-            btnIncrement.IsEnabled = Value < ushort.MaxValue;
+            SetIncrementalsButtons();
             SetDirtyTextBox();
-            tbValue.CaretIndex = caretpos;
-
+            TbValue.CaretIndex = caretpos;
         }
 
         private void BtnDecrement_Click(object sender, RoutedEventArgs e)
         {
-            caretpos = tbValue.CaretIndex;
             DecrementValue();
-            SetDirtyTextBox();
-            tbValue.CaretIndex = caretpos;
-
         }
 
         public ushort? Value
@@ -159,69 +150,61 @@ namespace WinHue3.Controls
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(ushort?), typeof(WinHueTransitionTimeUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValueChanged));
+            DependencyProperty.Register("Value", typeof(ushort?), typeof(WinHueTransitionTimeUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null, CoerceValue));
 
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static object CoerceValue(DependencyObject d, object basevalue)
         {
             WinHueTransitionTimeUpDown tt = d as WinHueTransitionTimeUpDown;
-            if (e.NewValue == null)
+            if (basevalue == null)
             {
-                tt.tbValue.Text = "";
-                tt.btnDecrement.IsEnabled = false;
+                tt.TbValue.Text = "";
+                tt.BtnDecrement.IsEnabled = false;
+                return basevalue;
+            }
+
+            int value = (ushort) basevalue * 100;
+            TimeSpan ts = TimeSpan.FromMilliseconds(value);
+
+            tt.TbValue.Text = $"{ts:hh\\:mm\\:ss\\.f}";
+
+            return basevalue;
+        }
+
+        private void SetIncrementalsButtons()
+        {
+            if (TbValue.Text == "")
+            {
+                BtnDecrement.IsEnabled = true;
+                BtnIncrement.IsEnabled = true;
                 return;
             }
 
-            int value =  (ushort)e.NewValue * 100;
-            TimeSpan ts = TimeSpan.FromMilliseconds(value);
-
-            tt.tbValue.Text = $"{ts:hh\\:mm\\:ss\\.f}";
-            tt.btnDecrement.IsEnabled = value > ushort.MinValue;
-            tt.btnIncrement.IsEnabled = value < ushort.MaxValue * 100;
-
+            BtnDecrement.IsEnabled = Value > ushort.MinValue;
+            BtnIncrement.IsEnabled = Value < ushort.MaxValue;
         }
-
-        public ushort Step
-        {
-            get => (ushort) GetValue(StepProperty);
-            set => SetValue(StepProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for Step.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty StepProperty =
-            DependencyProperty.Register("Step", typeof(ushort), typeof(WinHueTransitionTimeUpDown), new FrameworkPropertyMetadata((ushort) 1, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
-            caretpos = tbValue.SelectionStart;
+            caretpos = TbValue.SelectionStart;
+            CheckValues();
         }
 
         private void TbValue_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            
             switch (e.Key)
             {
                 case Key.Delete:
-                    if (tbValue.Text[tbValue.CaretIndex] == ':' || tbValue.Text[tbValue.CaretIndex] == '.')
-                        e.Handled = true;
-                    break;
                 case Key.Back:
-                    if (tbValue.Text[tbValue.CaretIndex -1] == ':' || tbValue.Text[tbValue.CaretIndex - 1] == '.')
-                        e.Handled = true;
-                    break;
                 case Key.Enter:
-                    break;
-                case Key.Up:                  
-                    IncrementValue();
-                    break;
+                case Key.Up:
                 case Key.Down:
-                    DecrementValue();
                     break;
                 case Key.Left:
                 case Key.Right:
-                    caretpos = tbValue.CaretIndex;
+                    caretpos = TbValue.CaretIndex;
                     break;
                 default:
-                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
+                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) && e.Key != Key.OemComma && e.Key != Key.OemSemicolon && e.Key != Key.OemPeriod)
                     {
                         e.Handled = true;
                     }
@@ -229,42 +212,60 @@ namespace WinHue3.Controls
             }
         }
 
-        private void TbValue_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void CheckValues()
         {
-            caretpos = tbValue.SelectionStart;
-        }
-
-        private void TbValue_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (_regex.IsMatch(tbValue.Text))
+            if (TbValue.Text == "")
             {
-                TimeSpan ts = TimeSpan.Parse(tbValue.Text);
+                Value = null;
+            }
+
+            if (_regex.IsMatch(TbValue.Text))
+            {
+                TimeSpan ts = TimeSpan.Parse(TbValue.Text);
                 Value = (ushort)(ts.TotalMilliseconds / 100);
             }
+
+            SetIncrementalsButtons();
         }
+
+        private void TbValue_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            caretpos = TbValue.SelectionStart;
+        }
+
 
         private void TbValue_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            switch (e.Key)
             {
-                if (_regex.IsMatch(tbValue.Text))
-                {
-                    EnterPressed?.Invoke(this, EventArgs.Empty);
-                    ClearDirtyTextBox();
-                }
+                case Key.Delete:
+                case Key.Back:
+                    SetDirtyTextBox();
+                    break;
+                case Key.Up:
+                    IncrementValue();
+                    break;
+                case Key.Down:
+                    DecrementValue();
+                    break;
+                case Key.Enter:
+
+
+                    break;
             }
+            CheckValues();
         }
 
         private void SetDirtyTextBox()
         {
             if (EnterPressed != null)
-                tbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
+                TbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
         }
 
         private void ClearDirtyTextBox()
         {
             if (EnterPressed != null)
-                tbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+                TbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
         }
     }
 }

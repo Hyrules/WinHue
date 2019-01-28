@@ -5,9 +5,11 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:winHue3="clr-namespace:WinHue3"
+    xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
     xmlns:customControls="clr-namespace:WinHue3.Controls"
     xmlns:creator="clr-namespace:WinHue3.Functions.Groups.Creator"
     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     x:Class="WinHue3.Functions.Groups.Creator.Form_GroupCreator"
         Title="{x:Static resx:GUI.GroupCreatorForm_Title}" Height="483.437" Width="745.086" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" MinHeight="600" MinWidth="800">
     <Window.Resources>
@@ -48,7 +50,11 @@
 
         <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" />
 
-        <xctk:WatermarkTextBox x:Name="TbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23" Watermark="Group name (Optional)"/>
+        <TextBox x:Name="TbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.GroupName_Watermark}"/>
+            </i:Interaction.Behaviors>
+        </TextBox>
         <customControls:BindableListView x:Name="BindableListView" Margin="185,10,9.667,47" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <customControls:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>

@@ -20,6 +20,7 @@
         xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
         xmlns:uShortUpDown="clr-namespace:WinHue3.Controls.UShortUpDown"
+        xmlns:byteUpDown="clr-namespace:WinHue3.Controls.ByteUpDown"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
@@ -451,7 +452,7 @@
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetFlag}" IsCheckable="True">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Checked">
-                                <i:InvokeCommandAction Command="{Binding CheckFlagCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding SetSensorFlagCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </MenuItem>
@@ -534,7 +535,7 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="{x:Null}" >
+            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="DarkGray" >
                 <TextBlock  x:Name="LblSbMessage" Text="{Binding Lastmessage}" HorizontalAlignment="Stretch"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="0" BorderBrush="{x:Null}" Padding="1">
@@ -629,7 +630,7 @@
                     <RowDefinition Height="auto" MinHeight="472"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
-
+                    <WrapPanel Height="36"></WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
                     <WrapPanel Margin="10" VerticalAlignment="Top">
                         <sliders:BindableHueSlider  x:Name="SlHue" Height="23" VerticalAlignment="Top" Width="257" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" SmallChange="1" LargeChange="100">
@@ -668,7 +669,7 @@
                                 </LinearGradientBrush>
                             </sliders:BindableSlider.Background>
                         </sliders:BindableSlider>
-                        <controls:WinHueByteUpDown Height="23" Width="66" Margin="5,0,0,0" Value="{Binding MainFormModel.SliderBri}" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderBriChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                        <byteUpDown:WinHueByteUpDown Height="23" Width="66" Margin="5,0,0,0" Value="{Binding MainFormModel.SliderBri}" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderBriChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
                     </WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
                     <WrapPanel Margin="10" VerticalAlignment="Top">
@@ -685,7 +686,7 @@
                                 </LinearGradientBrush>
                             </sliders:BindableSlider.Background>
                         </sliders:BindableSlider>
-                        <controls:WinHueByteUpDown Value="{Binding MainFormModel.SliderSat}" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Height="23" Width="66" Margin="5,0,0,0" behaviors:CommandBehavior.Command="{Binding SliderSatChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                        <byteUpDown:WinHueByteUpDown Value="{Binding MainFormModel.SliderSat}" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Height="23" Width="66" Margin="5,0,0,0" behaviors:CommandBehavior.Command="{Binding SliderSatChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
                     </WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
                     <WrapPanel Margin="10" VerticalAlignment="Top">
@@ -702,23 +703,28 @@
                                 </LinearGradientBrush>
                             </sliders:BindableSlider.Background>
                         </sliders:BindableSlider>
-                        <uShortUpDown:WinHueUShortUpDown Height="23" Width="66" IsEnabled="{Binding ElementName=SlCt, Path=IsEnabled}" Value="{Binding MainFormModel.SliderCt}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                        <uShortUpDown:WinHueUShortUpDown Height="23" Width="66" IsEnabled="{Binding ElementName=SlCt, Path=IsEnabled}" Value="{Binding MainFormModel.SliderCt}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Min="153" Max="500"/>
 
                     </WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="5,0,0,0"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
-                        <Label.Style>
-                            <Style TargetType="{x:Type Label}">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
 
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-                    </Label>
-                    <WrapPanel>
+                    <WrapPanel Margin="10">
+                        <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="5,0,0,0"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                        <sliders:BindableSlider x:Name="SlX" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}"/>                        
+                        <controls:WinHueXYUpDown Value="{Binding ElementName=SlX, Path=Value}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>
+                        <sliders:BindableSlider x:Name="SlY" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}"/>                        
+                        <controls:WinHueXYUpDown Value="{Binding ElementName=SlY, Path=Value}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>
                         
                     </WrapPanel>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />

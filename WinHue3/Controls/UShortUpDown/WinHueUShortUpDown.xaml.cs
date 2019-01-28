@@ -23,10 +23,19 @@ namespace WinHue3.Controls.UShortUpDown
 
         private void IncrementValue()
         {
-            if (Value == null) Value = ushort.MinValue;
+            if (string.IsNullOrEmpty(tbValue.Text))
+            {
+                tbValue.Text = Min.ToString();
+            }
             else
-            if (Value < ushort.MaxValue)
-                Value = Convert.ToUInt16(Value + Step);
+            {
+                if (ushort.Parse(tbValue.Text) < Max)
+                {
+                    tbValue.Text = ushort.Parse(tbValue.Text) < Min ? Min.ToString() : (ushort.Parse(tbValue.Text) + Step).ToString();
+                }
+            }
+
+            CheckValues();
             SetDirtyTextBox();
         }
 
@@ -38,17 +47,25 @@ namespace WinHue3.Controls.UShortUpDown
 
         private void DecrementValue()
         {
-            if (Value == null) Value = ushort.MinValue;
+            if (string.IsNullOrEmpty(tbValue.Text))
+            {
+                tbValue.Text = Min.ToString();
+            }
             else
-            if (Value > ushort.MinValue)
-                Value = Convert.ToUInt16(Value - Step);
+            {
+                if (ushort.Parse(tbValue.Text) > Min)
+                {
+                    tbValue.Text = ushort.Parse(tbValue.Text) > Max ? Max.ToString() : (ushort.Parse(tbValue.Text) - Step).ToString();
+                }
+            }
+
+            CheckValues();
             SetDirtyTextBox();
         }
 
         private void BtnDecrement_Click(object sender, RoutedEventArgs e)
         {
-            DecrementValue();
-            
+            DecrementValue();           
         }
 
         public ushort? Value
@@ -59,21 +76,23 @@ namespace WinHue3.Controls.UShortUpDown
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(ushort?), typeof(WinHueUShortUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValueChanged));
+            DependencyProperty.Register("Value", typeof(ushort?), typeof(WinHueUShortUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null , CoerceValue));
 
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static object CoerceValue(DependencyObject d, object basevalue)
         {
             WinHueUShortUpDown nud = d as WinHueUShortUpDown;
             nud.ValueChanged?.Invoke(nud, EventArgs.Empty);
-            if (e.NewValue == null)
+            if (basevalue == null)
             {
-                nud.tbValue.Text = "";
-                return;
+                if (nud.CanBeNull || nud.IsFocused)
+                {
+                    nud.tbValue.Text = "";
+                    return basevalue;
+                }
             }
-            nud.tbValue.Text = e.NewValue.ToString();
-            if (nud.btnIncrement == null) return;
-            nud.btnIncrement.IsEnabled = ushort.Parse(e.NewValue.ToString()) != ushort.MaxValue;
-            nud.btnDecrement.IsEnabled = ushort.Parse(e.NewValue.ToString()) != ushort.MinValue;
+            nud.tbValue.Text = basevalue == null ? nud.Min.ToString() : basevalue.ToString();
+            nud.SetIncrementalsButtons();
+            return basevalue;
         }
 
         private ushort Step
@@ -86,48 +105,109 @@ namespace WinHue3.Controls.UShortUpDown
         public static readonly DependencyProperty StepProperty =
             DependencyProperty.Register("Step", typeof(ushort), typeof(WinHueUShortUpDown), new FrameworkPropertyMetadata((ushort)1,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        private void TbValue_TextChanged(object sender, TextChangedEventArgs e)
+
+        public bool CanBeNull
+        {
+            get => (bool)GetValue(CanBeNullProperty);
+            set => SetValue(CanBeNullProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanBeNullProperty =
+            DependencyProperty.Register("CanBeNull", typeof(bool), typeof(WinHueUShortUpDown), new FrameworkPropertyMetadata(true));
+
+        public ushort Min
+        {
+            get { return (ushort)GetValue(MinProperty); }
+            set { SetValue(MinProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Min.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinProperty =
+            DependencyProperty.Register("Min", typeof(ushort), typeof(WinHueUShortUpDown), new FrameworkPropertyMetadata(ushort.MinValue));
+
+
+        public ushort Max
+        {
+            get { return (ushort)GetValue(MaxProperty); }
+            set { SetValue(MaxProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Max.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxProperty =
+            DependencyProperty.Register("Max", typeof(ushort), typeof(WinHueUShortUpDown), new PropertyMetadata(ushort.MaxValue));
+
+
+        private void SetIncrementalsButtons()
+        {
+            if (tbValue.Text == "" & CanBeNull)
+            {
+                btnDecrement.IsEnabled = true;
+                btnIncrement.IsEnabled = true;
+                return;
+            }
+
+            if (!ushort.TryParse(tbValue.Text, out ushort val))
+            {
+                btnDecrement.IsEnabled = false;
+                btnIncrement.IsEnabled = false;
+                return;
+            }
+            btnDecrement.IsEnabled = Value > Min;
+            btnIncrement.IsEnabled = Value < Max;
+        }
+
+        private void CheckValues()
         {
             if (tbValue.Text == "")
             {
-                Value = null;
-                return;
-            }
-            if (!ushort.TryParse(tbValue.Text, out ushort val))
-            {               
-                btnDecrement.IsEnabled = false;
-                btnIncrement.IsEnabled = false;
+                if (CanBeNull)
+                {
+                    Value = null;
+                }
+                else
+                {
+                    if (!tbValue.IsFocused)
+                        Value = Min;
+                }
             }
             else
             {
-                Value = val;
+                Value = ushort.TryParse(tbValue.Text, out ushort val) ? val : Max;
             }
+
+            SetIncrementalsButtons();
         }
 
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
-            ushort val = 0;
-            if (tbValue.Text == "") return;
-            while (!ushort.TryParse(tbValue.Text, out val))
-            {
-                tbValue.Text = tbValue.Text.Remove(tbValue.Text.Length - 1);
-            }
-
-            Value = val;
-            btnDecrement.IsEnabled = true;
-            btnIncrement.IsEnabled = true;
+            CheckValues();
         }
 
         private void TbValue_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            switch (e.Key)
             {
-                if (ushort.TryParse(tbValue.Text, out ushort i))
-                {
-                    EnterPressed?.Invoke(this, EventArgs.Empty);
-                    ClearDirtyTextBox();
-                }
+                case Key.Delete:
+                case Key.Back:
+                    SetDirtyTextBox();
+                    break;
+                case Key.Up:
+                    IncrementValue();
+                    break;
+                case Key.Down:
+                    DecrementValue();
+                    break;
+                case Key.Enter:
+                    if (ushort.TryParse(tbValue.Text, out ushort i) && i >= Min && i <= Max)
+                    {
+                        EnterPressed?.Invoke(this, EventArgs.Empty);
+                        ClearDirtyTextBox();
+                        return;
+                    }
+                    break;
             }
+            CheckValues();
         }
 
         private void TbValue_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -136,16 +216,9 @@ namespace WinHue3.Controls.UShortUpDown
             {
                 case Key.Delete:
                 case Key.Back:
-                    SetDirtyTextBox();
-                    break;
                 case Key.Enter:
-                    break;
                 case Key.Up:
-                    IncrementValue();
-                    break;
                 case Key.Down:
-                    DecrementValue();
-                    break;
                 case Key.Left:
                 case Key.Right:
                     break;

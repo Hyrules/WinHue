@@ -1596,4 +1596,16 @@
   <data name="EnterPressedTooltip" xml:space="preserve">
     <value>Appuyez sur Entrée pour appliquer la valeur</value>
   </data>
+  <data name="FilterData" xml:space="preserve">
+    <value>Filtrer les données ici...</value>
+  </data>
+  <data name="GroupName_Watermark" xml:space="preserve">
+    <value>Nom du groupe (Optionnel)</value>
+  </data>
+  <data name="Object_Type_Watermark" xml:space="preserve">
+    <value>(Type d'objet)</value>
+  </data>
+  <data name="Object_Watermark" xml:space="preserve">
+    <value>(objet)</value>
+  </data>
 </root>

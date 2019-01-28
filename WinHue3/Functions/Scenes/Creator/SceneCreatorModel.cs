@@ -13,6 +13,7 @@ namespace WinHue3.Functions.Scenes.Creator
 
         public SceneCreatorModel()
         {
+            _name = string.Empty;
             _state = new State() { @on = true };
             _state.on = true;
             _state.transitiontime = null;

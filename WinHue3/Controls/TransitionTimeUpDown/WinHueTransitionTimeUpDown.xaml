@@ -9,14 +9,14 @@
              xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
              x:Class="WinHue3.Controls.WinHueTransitionTimeUpDown"
              mc:Ignorable="d" Height="20.936" Width="115.848" LostFocus="UserControl_LostFocus"
-             x:Name="ctlNUD" MinHeight="20">
-    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="{Binding ActualHeight, ElementName=ctlNUD}" Width="{Binding ActualWidth, ElementName=ctlNUD}">
+             x:Name="CtlNud" MinHeight="20">
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="{Binding ActualHeight, ElementName=CtlNud}" Width="{Binding ActualWidth, ElementName=CtlNud}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="18"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="tbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" Grid.Column="0" BorderThickness="1,1,0,1" MaxLength="10" MaxLines="1" PreviewKeyDown="TbValue_PreviewKeyDown" PreviewMouseDown="TbValue_PreviewMouseDown" ForceCursor="True" TextChanged="TbValue_TextChanged" PreviewKeyUp="TbValue_PreviewKeyUp">
+        <TextBox x:Name="TbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" Grid.Column="0" BorderThickness="1,1,0,1" MaxLength="10" MaxLines="1" PreviewKeyDown="TbValue_PreviewKeyDown" PreviewMouseDown="TbValue_PreviewMouseDown" ForceCursor="True" PreviewKeyUp="TbValue_PreviewKeyUp">
             <i:Interaction.Behaviors>
                 <behaviors:TextBoxWatermarkBehavior Text="(default)" TextAlign="Right"/>
             </i:Interaction.Behaviors>
@@ -27,13 +27,13 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <RepeatButton x:Name="btnIncrement" Click="BtnIncrement_Click" HorizontalContentAlignment="Center"  Grid.Row="0">
+            <RepeatButton x:Name="BtnIncrement" Click="BtnIncrement_Click" HorizontalContentAlignment="Center"  Grid.Row="0">
                 <Path Data="M 0 6 L 12 6 L 6 0 Z">
                     <Path.Style>
                         <Style TargetType="{x:Type Path}">
                             <Setter Property="Fill" Value="Black"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsEnabled, ElementName=btnIncrement}" Value="False">
+                                <DataTrigger Binding="{Binding IsEnabled, ElementName=BtnIncrement}" Value="False">
                                     <Setter Property="Fill" Value="DarkGray"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -42,13 +42,13 @@
                 </Path>
 
             </RepeatButton>
-            <RepeatButton x:Name="btnDecrement" Click="BtnDecrement_Click" Grid.Row="1" HorizontalContentAlignment="Center"  >
+            <RepeatButton x:Name="BtnDecrement" Click="BtnDecrement_Click" Grid.Row="1" HorizontalContentAlignment="Center"  >
                 <Path Data="M 0 0 L 6 6 L 12 0 Z">
                     <Path.Style>
                         <Style TargetType="{x:Type Path}">
                             <Setter Property="Fill" Value="Black"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsEnabled, ElementName=btnDecrement}" Value="False">
+                                <DataTrigger Binding="{Binding IsEnabled, ElementName=BtnDecrement}" Value="False">
                                     <Setter Property="Fill" Value="DarkGray"/>
                                 </DataTrigger>
                             </Style.Triggers>

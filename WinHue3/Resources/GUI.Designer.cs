@@ -835,6 +835,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter data here....
+        /// </summary>
+        public static string FilterData {
+            get {
+                return ResourceManager.GetString("FilterData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Floor Plan.
         /// </summary>
         public static string FloorPlan {
@@ -1686,6 +1695,15 @@ namespace WinHue3.Resources {
         public static string GroupCreatorForm_Type_Room {
             get {
                 return ResourceManager.GetString("GroupCreatorForm_Type_Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group name (Optional).
+        /// </summary>
+        public static string GroupName_Watermark {
+            get {
+                return ResourceManager.GetString("GroupName_Watermark", resourceCulture);
             }
         }
         
@@ -2928,6 +2946,24 @@ namespace WinHue3.Resources {
         public static string MoodCreatorForm_XYColorSpace {
             get {
                 return ResourceManager.GetString("MoodCreatorForm_XYColorSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (object type).
+        /// </summary>
+        public static string Object_Type_Watermark {
+            get {
+                return ResourceManager.GetString("Object_Type_Watermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (object).
+        /// </summary>
+        public static string Object_Watermark {
+            get {
+                return ResourceManager.GetString("Object_Watermark", resourceCulture);
             }
         }
         

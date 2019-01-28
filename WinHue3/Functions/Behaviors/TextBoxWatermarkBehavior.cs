@@ -85,45 +85,57 @@ namespace WinHue3.Functions.Behaviors
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(this.AssociatedObject.Text))
-            {
-                var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
-                layer.Remove(adorner);
-            }
+            RemoveWatermark();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            AddWatermark();
+        }
+
+        private void AddWatermark()
+        {
             if (!this.AssociatedObject.IsFocused)
             {
-                if (String.IsNullOrEmpty(this.AssociatedObject.Text))
+                if (string.IsNullOrEmpty(this.AssociatedObject.Text))
                 {
                     var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
                     if (layer == null) return;
+                    Adorner[] adorners = layer.GetAdorners(this.AssociatedObject);
+                    
+                    if (adorners != null && adorners.Any(x => x == adorner))
+                    {
+                        return;
+                    }
+
                     layer.Add(adorner);
+
                 }
             }
         }
 
+        private void RemoveWatermark()
+        {
 
+            if (!string.IsNullOrEmpty(this.AssociatedObject.Text))
+            {
+                var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
+                if (layer == null) return;
+                layer.Remove(adorner);
+            }
+
+
+        }
 
         private void OnLostFocus(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(this.AssociatedObject.Text))
-            {
-                try
-                {
-                    var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
-                    layer.Add(adorner);
-                }
-                catch { }
-            }
+            AddWatermark();
+            
         }
 
         private void OnFocus(object sender, RoutedEventArgs e)
         {
-            var layer = AdornerLayer.GetAdornerLayer(this.AssociatedObject);
-            layer.Remove(adorner);
+            RemoveWatermark();
         }
 
         protected override void OnDetaching()

@@ -2,8 +2,10 @@
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.Scenes.Creator;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -149,5 +151,23 @@ namespace WinHue3.Functions.Scenes.View
        
         public ICommand RefreshMappingCommand => new RelayCommand(param => RefreshSceneMapping(), (param) => ObjectSelected());
         public ICommand DoubleClickObjectCommand => new RelayCommand(param => ProcessDoubleClick(), (param) => ObjectSelected());
+
+        public ICommand EditSceneCommand => new AsyncRelayCommand(param => EditScene(), param => CanEditScene());
+
+        private bool CanEditScene()
+        {
+            return Row != null;
+        }
+
+        private async Task EditScene()
+        {
+            DataRowView drv = Row as DataRowView;
+            Form_SceneCreator fsc = new Form_SceneCreator();
+            await fsc.Inititalize(_bridge, drv.Row.ItemArray[0].ToString());
+            if (fsc.ShowDialog().GetValueOrDefault())
+            {
+                RefreshSceneMapping();
+            }
+        }
     }
 }

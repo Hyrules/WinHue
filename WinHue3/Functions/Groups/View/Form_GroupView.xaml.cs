@@ -32,7 +32,7 @@ namespace WinHue3.Functions.Groups.View
                 if (comgrp != null)
                 {
 
-                    _gvv.Initialize(comgrp, comlgt);
+                    _gvv.Initialize(_bridge,comgrp, comlgt);
                 }
                 else
                 {

@@ -10,7 +10,7 @@
     xmlns:view="clr-namespace:WinHue3.Functions.Lights.View"
     x:Class="WinHue3.Functions.Lights.View.Form_BulbsView"
     mc:Ignorable="d"
-        Title="{x:Static resx:GUI.Form_BulbsView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}" >
+        Title="{x:Static resx:GUI.Form_BulbsView_Title}" Height="492" Width="730.667" Icon="/WinHue3;component/Resources/BulbView.png" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <view:BulbsViewViewModel/>
     </Window.DataContext>

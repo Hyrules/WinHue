@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,7 +14,7 @@ namespace WinHue3.Controls.IntegerUpDown
         public WinHueIntegerUpDown()
         {
             InitializeComponent();
-            btnDecrement.IsEnabled = false;
+            BtnDecrement.IsEnabled = false;
         }
 
         public event EventHandler ValueChanged;
@@ -23,12 +22,19 @@ namespace WinHue3.Controls.IntegerUpDown
 
         private void IncrementValue()
         {
-            if (Value == null) Value = Min;
-            else if (Value < int.MaxValue && Value < Max)
+            if (string.IsNullOrEmpty(TbValue.Text))
             {
-                Value = Value < Min ? Min : Convert.ToInt32(Value + Step);
+                TbValue.Text = Min.ToString();
             }
-                
+            else
+            {
+                if (int.Parse(TbValue.Text) < Max)
+                {
+                    TbValue.Text = int.Parse(TbValue.Text) < Min ? Min.ToString() : (int.Parse(TbValue.Text) + Step).ToString();
+                }
+            }
+
+            CheckValues();                                
             SetDirtyTextBox();
         }
 
@@ -39,48 +45,27 @@ namespace WinHue3.Controls.IntegerUpDown
 
         private void DecrementValue()
         {
-            if (Value == null) Value = Min;
-            else if (Value > int.MinValue && Value > Min)
+            if (string.IsNullOrEmpty(TbValue.Text))
             {
-                Value = Value > Max ? Max : Convert.ToInt32(Value - Step);
+                TbValue.Text = Min.ToString();
             }
-                
+            else
+            {
+                if (int.Parse(TbValue.Text) > Min)
+                {
+                    TbValue.Text = int.Parse(TbValue.Text) > Max ? Max.ToString() : (int.Parse(TbValue.Text) - Step).ToString();
+
+                }
+            }
+
+            CheckValues();
             SetDirtyTextBox();
         }
 
         private void BtnDecrement_Click(object sender, RoutedEventArgs e)
         {
             DecrementValue();           
-        }
-
-        private void SetIncrementalsButtons()
-        {
-            if (tbValue.Text == "" & CanBeNull)
-            {
-                btnDecrement.IsEnabled = true;
-                btnIncrement.IsEnabled = true;
-                return;
-            }
-
-            if (!byte.TryParse(tbValue.Text, out byte val))
-            {
-                btnDecrement.IsEnabled = false;
-                btnIncrement.IsEnabled = false;
-                return;
-            }
-            btnDecrement.IsEnabled = Value != byte.MinValue;
-            btnIncrement.IsEnabled = Value != byte.MaxValue;
-        }
-
-        public bool CanBeNull
-        {
-            get => (bool)GetValue(CanBeEmptyProperty);
-            set => SetValue(CanBeEmptyProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CanBeEmptyProperty =
-            DependencyProperty.Register("CanBeNull", typeof(bool), typeof(WinHueIntegerUpDown), new FrameworkPropertyMetadata(true));
+        }      
 
         public int? Value
         {
@@ -90,20 +75,35 @@ namespace WinHue3.Controls.IntegerUpDown
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(int?), typeof(WinHueIntegerUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValueChanged));
+            DependencyProperty.Register("Value", typeof(int?), typeof(WinHueIntegerUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null, CoerceValue));
 
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static object CoerceValue(DependencyObject d, object basevalue)
         {
             WinHueIntegerUpDown nud = d as WinHueIntegerUpDown;
+            Console.WriteLine(nud.Value);
             nud.ValueChanged?.Invoke(nud, EventArgs.Empty);
-            if (e.NewValue == null && nud.CanBeNull)
+            if (basevalue == null)
             {
-                nud.tbValue.Text = "";
-                return;
+                if (nud.CanBeNull || nud.IsFocused)
+                {
+                    nud.TbValue.Text = "";
+                    return basevalue;
+                }
             }
-            nud.tbValue.Text = e.NewValue == null ? nud.Min.ToString() : e.NewValue.ToString();
-
+            nud.TbValue.Text = basevalue == null ? nud.Min.ToString() : basevalue.ToString();
+            return basevalue;
         }
+
+        public bool CanBeNull
+        {
+            get => (bool)GetValue(CanBeNullProperty);
+            set => SetValue(CanBeNullProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanBeNullProperty =
+            DependencyProperty.Register("CanBeNull", typeof(bool), typeof(WinHueIntegerUpDown), new FrameworkPropertyMetadata(true));
+
 
         public int Step
         {
@@ -115,42 +115,32 @@ namespace WinHue3.Controls.IntegerUpDown
         public static readonly DependencyProperty StepProperty =
             DependencyProperty.Register("Step", typeof(int), typeof(WinHueIntegerUpDown), new FrameworkPropertyMetadata((int)1,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        private void TbValue_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CheckValues();
-            
-        }
 
         private void CheckValues()
         {
-            try
-            {
-                int val = int.Parse(tbValue.Text.TrimStart('0'));
-
-                if (val > Max)
-                {
-                    Value = Max;
-                }
-
-                if (val < Min)
-                {
-                    Value = Min;
-                }
-
-                Value = val;
-            }
-            catch(OverflowException)
-            {
-                Value = tbValue.Text[0] == '-' ? Min : Max;
-            }
-            catch(ArgumentNullException)
+            if (TbValue.Text == "")
             {
                 if (CanBeNull)
+                {
                     Value = null;
+                }
                 else
-                    tbValue.Text = Min.ToString();
+                {
+                    if (!TbValue.IsFocused)
+                        Value = Min;
+                }
             }
-            catch(FormatException){}
+            else
+            {
+                if (int.TryParse(TbValue.Text, out int val))
+                {
+                    Value = val;
+                }
+                else
+                {
+                    Value = TbValue.Text.StartsWith("-") ? Min : Max;
+                }
+            }
             SetIncrementalsButtons();
         }
 
@@ -174,6 +164,26 @@ namespace WinHue3.Controls.IntegerUpDown
         public static readonly DependencyProperty MinProperty =
             DependencyProperty.Register("Min", typeof(int), typeof(WinHueIntegerUpDown), new PropertyMetadata(int.MinValue));
 
+
+        private void SetIncrementalsButtons()
+        {
+            if (TbValue.Text == "" & CanBeNull)
+            {
+                BtnDecrement.IsEnabled = true;
+                BtnIncrement.IsEnabled = true;
+                return;
+            }
+
+            if (!int.TryParse(TbValue.Text, out int val))
+            {
+                BtnDecrement.IsEnabled = false;
+                BtnIncrement.IsEnabled = false;
+                return;
+            }
+            BtnDecrement.IsEnabled = Value > Min;
+            BtnIncrement.IsEnabled = Value < Max;
+        }
+
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
             CheckValues();
@@ -181,14 +191,28 @@ namespace WinHue3.Controls.IntegerUpDown
 
         private void TbValue_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            switch (e.Key)
             {
-                if (ushort.TryParse(tbValue.Text, out ushort i))
-                {
-                    EnterPressed?.Invoke(this, EventArgs.Empty);
-                    ClearDirtyTextBox();
-                }
+                case Key.Delete:
+                case Key.Back:
+                    SetDirtyTextBox();
+                    break;
+                case Key.Up:
+                    IncrementValue();
+                    break;
+                case Key.Down:
+                    DecrementValue();
+                    break;
+                case Key.Enter:
+                    if (int.TryParse(TbValue.Text, out int i) && i >= Min && i <= Max)
+                    {
+                        EnterPressed?.Invoke(this, EventArgs.Empty);
+                        ClearDirtyTextBox();
+                    }
+                    break;
             }
+
+            CheckValues();
         }
 
         private void TbValue_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -197,16 +221,9 @@ namespace WinHue3.Controls.IntegerUpDown
             {
                 case Key.Delete:
                 case Key.Back:
-                    SetDirtyTextBox();
-                    break;
                 case Key.Enter:
-                    break;
                 case Key.Up:
-                    IncrementValue();
-                    break;
                 case Key.Down:
-                    DecrementValue();
-                    break;
                 case Key.Left:
                 case Key.Right:
                     break;
@@ -223,13 +240,14 @@ namespace WinHue3.Controls.IntegerUpDown
         private void SetDirtyTextBox()
         {
             if (EnterPressed != null)
-                tbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
+                TbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
         }
 
         private void ClearDirtyTextBox()
         {
             if (EnterPressed != null)
-                tbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+                TbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
         }
+
     }
 }

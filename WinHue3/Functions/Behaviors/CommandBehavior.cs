@@ -40,6 +40,7 @@ namespace WinHue3.Functions.Behaviors
 
         private static void OnCanExecuteChanged(object sender, EventArgs e)
         {
+            if (obj == null) return;
             if (!(obj is Control ctrl)) return;
             ctrl.IsEnabled = ((ICommand) obj.GetValue(CommandProperty)).CanExecute(null);
         }

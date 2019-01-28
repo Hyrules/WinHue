@@ -9,7 +9,7 @@
     xmlns:creator="clr-namespace:WinHue3.Functions.Sensors.Creator"
     x:Name="FormSensorCreator1" x:Class="WinHue3.Functions.Sensors.Creator.Form_SensorCreator"
     
-        Title="{x:Static resx:GUI.SensorCreatorForm_Title}" Height="301.175" Width="650.263" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.SensorCreatorForm_Title}" Height="301.175" Width="650.263" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png">
     <Window.DataContext>
         <creator:SensorCreatorViewModel/>
     </Window.DataContext>
@@ -64,7 +64,7 @@
     </Window.Resources>
     <Grid>
         <Button x:Name="BtnCreate" Content="{Binding CreateBtnText}" Style="{StaticResource BtnSave}" HorizontalAlignment="Left" Margin="472,235,0,0" VerticalAlignment="Top" Width="75" Click="btnCreate_Click" TabIndex="9"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="552,235,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" TabIndex="10" Click="btnCancel_Click" Height="28"/>
+        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="552,235,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" TabIndex="10" Click="btnCancel_Click" Height="20"/>
         <GroupBox Header="{x:Static resx:GUI.SensorCreatorForm_SensorBody}" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Height="221" Width="362">
             <Grid Margin="0,0,-2,0">
                 <Label Content="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>

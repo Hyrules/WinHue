@@ -25,7 +25,7 @@ namespace WinHue3.Controls
         public WinHueXYUpDown()
         {
             InitializeComponent();
-            btnDecrement.IsEnabled = false;
+            BtnDecrement.IsEnabled = false;
         }
 
         private static readonly Regex _regex = new Regex("[^0-9]+.");
@@ -35,10 +35,19 @@ namespace WinHue3.Controls
 
         private void IncrementValue()
         {
-            if (Value == null) Value = (decimal)0.000;
+            if (string.IsNullOrEmpty(TbValue.Text))
+            {
+                TbValue.Text = 0.ToString();
+            }
             else
-            if (Value < 1)
-                Value = Convert.ToDecimal(Value + Step);
+            {
+                if (decimal.Parse(TbValue.Text) < 0)
+                {
+                    TbValue.Text = (decimal.Parse(TbValue.Text) + Step).ToString();
+                }
+            }
+            
+            CheckValues();
             SetDirtyTextBox();
         }
 
@@ -49,10 +58,20 @@ namespace WinHue3.Controls
 
         public void DecrementValue()
         {
-            if (Value == null) Value = (decimal)0.000;
+
+            if (string.IsNullOrEmpty(TbValue.Text))
+            {
+                TbValue.Text = byte.MinValue.ToString();
+            }
             else
-            if (Value > 0)
-                Value = Convert.ToDecimal(Value - Step);
+            {
+                if (byte.Parse(TbValue.Text) > byte.MinValue)
+                {
+                    TbValue.Text = (byte.Parse(TbValue.Text) - Step).ToString();
+                }
+            }
+
+            CheckValues();
             SetDirtyTextBox();
         }
 
@@ -69,22 +88,25 @@ namespace WinHue3.Controls
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(decimal?), typeof(WinHueXYUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValueChanged));
+            DependencyProperty.Register("Value", typeof(decimal?), typeof(WinHueXYUpDown), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null , CoerceValue));
 
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static object CoerceValue(DependencyObject d, object basevalue)
         {
             WinHueXYUpDown nud = d as WinHueXYUpDown;
             nud.ValueChanged?.Invoke(nud, EventArgs.Empty);
-            if (e.NewValue == null)
+            if (basevalue == null)
             {
-                nud.tbValue.Text = "";
-                return;
+                if (nud.CanBeNull || nud.IsFocused)
+                {
+                    nud.TbValue.Text = "";
+                    return basevalue;
+                }
             }
-            nud.tbValue.Text = $"{e.NewValue:0.000}";
-            if (nud.btnIncrement == null) return;
-            nud.btnIncrement.IsEnabled = decimal.Parse(e.NewValue.ToString()) < 1;
-            nud.btnDecrement.IsEnabled = decimal.Parse(e.NewValue.ToString()) > 0;
+            nud.TbValue.Text = $"{basevalue:0.000}";
+            nud.SetIncrementalsButtons();
+            return basevalue;
         }
+
 
         public decimal Step
         {
@@ -96,56 +118,73 @@ namespace WinHue3.Controls
         public static readonly DependencyProperty StepProperty =
             DependencyProperty.Register("Step", typeof(decimal), typeof(WinHueXYUpDown), new FrameworkPropertyMetadata((decimal)0.001,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        private void TbValue_TextChanged(object sender, TextChangedEventArgs e)
+        public bool CanBeNull
         {
-            if (tbValue.Text == "")
+            get => (bool)GetValue(CanBeNullProperty);
+            set => SetValue(CanBeNullProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CanBeEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanBeNullProperty =
+            DependencyProperty.Register("CanBeNull", typeof(bool), typeof(WinHueXYUpDown), new FrameworkPropertyMetadata(true));
+
+
+        private void SetIncrementalsButtons()
+        {
+            if (TbValue.Text == "" & CanBeNull)
             {
-                Value = null;
+                BtnDecrement.IsEnabled = true;
+                BtnIncrement.IsEnabled = true;
                 return;
             }
-            if (!decimal.TryParse(tbValue.Text, out decimal val))
-            {               
-                btnDecrement.IsEnabled = false;
-                btnIncrement.IsEnabled = false;
+
+            if (!decimal.TryParse(TbValue.Text, out _))
+            {
+                BtnDecrement.IsEnabled = false;
+                BtnIncrement.IsEnabled = false;
+                return;
+            }
+            BtnDecrement.IsEnabled = Value > 0;
+            BtnIncrement.IsEnabled = Value < 1;
+        }
+
+        private void CheckValues()
+        {
+            if (TbValue.Text == "")
+            {
+                if (CanBeNull)
+                {
+                    Value = null;
+                }
+                else
+                {
+                    if (!TbValue.IsFocused)
+                        Value = 0;
+                }
             }
             else
             {
-                Value = val;
+                Value = decimal.TryParse(TbValue.Text, out decimal val) ? val : 1;
             }
-        }
 
-        private void TbValue_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (_regex.IsMatch(e.Text))
-            {
-                e.Handled = true;
-            }
+            SetIncrementalsButtons();
         }
 
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
-            decimal val = (decimal)0.000;
-            if (tbValue.Text == "") return;
-            while (!decimal.TryParse(tbValue.Text, out val))
-            {
-                tbValue.Text = tbValue.Text.Remove(tbValue.Text.Length - 1);
-            }
-
-            Value = val;
-            btnDecrement.IsEnabled = true;
-            btnIncrement.IsEnabled = true;
+            CheckValues();
         }
 
         private void SetDirtyTextBox()
         {
             if (EnterPressed != null)
-                tbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
+                TbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
         }
 
         private void ClearDirtyTextBox()
         {
             if (EnterPressed != null)
-                tbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+                TbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
         }
 
         private void TbValue_OnPreviewKeyDown(object sender, KeyEventArgs e)
@@ -154,16 +193,9 @@ namespace WinHue3.Controls
             {
                 case Key.Delete:
                 case Key.Back:
-                    SetDirtyTextBox();
-                    break;
                 case Key.Enter:
-                    break;
                 case Key.Up:
-                    IncrementValue();
-                    break;
                 case Key.Down:
-                    DecrementValue();
-                    break;
                 case Key.Left:
                 case Key.Right:
                     break;
@@ -178,15 +210,28 @@ namespace WinHue3.Controls
 
         private void TbValue_OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            switch (e.Key)
             {
-                if (decimal.TryParse(tbValue.Text, out decimal i))
-                {
-                    EnterPressed?.Invoke(this, EventArgs.Empty);
-                    ClearDirtyTextBox();
-                }
-
+                case Key.Delete:
+                case Key.Back:
+                    SetDirtyTextBox();
+                    break;
+                case Key.Up:
+                    IncrementValue();
+                    break;
+                case Key.Down:
+                    DecrementValue();
+                    break;
+                case Key.Enter:
+                    if (decimal.TryParse(TbValue.Text, out _))
+                    {
+                        EnterPressed?.Invoke(this, EventArgs.Empty);
+                        ClearDirtyTextBox();
+                        return;
+                    }
+                    break;
             }
+            CheckValues();
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="WinHue3.Controls.XYSliders.XYSliders"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+             mc:Ignorable="d" d:DesignWidth="300" Height="120">
+    <Grid x:Name="Grid">
+        <sliders:BindableSlider x:Name="XSlider" Margin="10,31,78,0" VerticalAlignment="Top" Maximum="1" LargeChange="0.1" SmallChange="0.001"/>
+        <sliders:BindableHueSlider x:Name="YSlider" Height="22" Margin="10,83,78,0" VerticalAlignment="Top" Maximum="1" LargeChange="0.1" SmallChange="0.001"/>
+        <Label x:Name="LblYColorSpace" Content="Y Color Space" Height="25" Margin="10,58,83,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+        <Rectangle x:Name="RecColorXy" Fill="#00000000" Margin="0,10,10,10" Stroke="Black" HorizontalAlignment="Right" Width="58"/>
+        <Label x:Name="LblXColorSpace" Content="X Color Space" Height="25" Margin="10,10,83,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+
+    </Grid>
+</UserControl>

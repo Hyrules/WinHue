@@ -9,6 +9,7 @@
     xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
     xmlns:uShortUpDown="clr-namespace:WinHue3.Controls.UShortUpDown"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:byteUpDown="clr-namespace:WinHue3.Controls.ByteUpDown"
     x:Name="FormSceneCreator" x:Class="WinHue3.Functions.Scenes.Creator.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/scenes.png">
     <Window.DataContext>
         <creator:SceneCreatorViewModel/>
@@ -122,8 +123,8 @@
                     <CheckBox x:Name="cbXY" Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Command="{Binding CheckXYCommand}" Width="288" HorizontalContentAlignment="Center" IsChecked="{Binding XYChecked}"/>
                     <CheckBox x:Name="cbTT" Content="{x:Static resx:GUI.Transitiontime}" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Height="20" Command="{Binding CheckTTCommand}" IsChecked="{Binding TtChecked}"/>
                     <uShortUpDown:WinHueUShortUpDown HorizontalAlignment="Left" Height="23" Margin="314,31,0,0" VerticalAlignment="Top" Width="73" Padding="-1,0,0,0" Value="{Binding SceneCreatorModel.Hue}" IsEnabled="{Binding ElementName=cbHue, Path=IsChecked}"/>
-                    <controls:WinHueByteUpDown HorizontalAlignment="Left" Height="23" Margin="314,75,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Bri}" IsEnabled="{Binding ElementName=cbBri, Path=IsChecked}"/>
-                    <controls:WinHueByteUpDown HorizontalAlignment="Left" Height="23" Margin="314,162,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Sat}" IsEnabled="{Binding ElementName=cbSAT, Path=IsChecked}"/>
+                    <byteUpDown:WinHueByteUpDown HorizontalAlignment="Left" Height="23" Margin="314,75,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Bri}" IsEnabled="{Binding ElementName=cbBri, Path=IsChecked}"/>
+                    <byteUpDown:WinHueByteUpDown HorizontalAlignment="Left" Height="23" Margin="314,162,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Sat}" IsEnabled="{Binding ElementName=cbSAT, Path=IsChecked}"/>
                     <uShortUpDown:WinHueUShortUpDown HorizontalAlignment="Left" Height="23" Margin="314,119,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Ct}" IsEnabled="{Binding ElementName=cbCT, Path=IsChecked}"/>
                     <controls:WinHueXYUpDown HorizontalAlignment="Left" Height="20" Margin="314,205,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.X}" IsEnabled="{Binding ElementName=cbXY, Path=IsChecked}"/>
                     <controls:WinHueXYUpDown HorizontalAlignment="Left" Height="18" Margin="314,230,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Y}" IsEnabled="{Binding ElementName=cbXY, Path=IsChecked}"/>
@@ -137,7 +138,7 @@
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step1}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="646" Margin="8,10,0,0">
             <Grid>
-                <TextBox HorizontalAlignment="Left" Margin="6,11,0,0" TextWrapping="Wrap" Text="{Binding SceneCreatorModel.Name}" VerticalAlignment="Top" MaxLines="1" MaxLength="32" Width="618" Height="23" SnapsToDevicePixels="True">
+                <TextBox HorizontalAlignment="Left" Margin="6,11,0,0" TextWrapping="Wrap" Text="{Binding SceneCreatorModel.Name}" MaxLines="1" MaxLength="32" Width="618" Height="23" SnapsToDevicePixels="True" VerticalContentAlignment="Stretch" VerticalAlignment="Top">
                     <i:Interaction.Behaviors>
                         <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.SceneCreatorForm_SceneName}"></behaviors:TextBoxWatermarkBehavior>
                     </i:Interaction.Behaviors>

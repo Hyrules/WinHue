@@ -63,6 +63,35 @@ namespace WinHue3.Functions.Groups.Creator
             }
         }
 
+        public async Task Initialize(Bridge bridge, string group)
+        {
+            _bridge = bridge;
+
+            if (string.IsNullOrEmpty(group))
+            {
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                if (hr != null)
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+            }
+            else
+            {
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                if (hr != null)
+                {
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+
+                    Group hr2 = (Group)await HueObjectHelper.GetObjectAsyncTask(bridge, group, typeof(Group));
+                    if (hr2 != null)
+                        gcvm.Group = hr2;
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                }
+                BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
+            }
+        }
+
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
