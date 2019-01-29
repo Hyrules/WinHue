@@ -100,41 +100,41 @@
                              Grid.Column="0">
                         <TextBox.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Copy"/>
-                                <MenuItem Header="Cut"/>
-                                <MenuItem Header="Paste"/>
+                                <MenuItem Header="{x:Static resx:GUI.Copy}" Command="ApplicationCommands.Copy"/>
+                                <MenuItem Header="{x:Static resx:GUI.Cut}" Command="ApplicationCommands.Cut"/>
+                                <MenuItem Header="{x:Static resx:GUI.Paste}" Command="ApplicationCommands.Paste"/>
                                 <Separator/>
                                 <MenuItem Header="Button Event">
                                     <MenuItem Header="Hue Tap">
-                                        <MenuItem Header="Button 1"></MenuItem>
-                                        <MenuItem Header="Button 2"></MenuItem>
-                                        <MenuItem Header="Button 3"></MenuItem>
-                                        <MenuItem Header="Button 4"></MenuItem>
+                                        <MenuItem Header="Button 1" Command="{Binding BtnEventCommand}" CommandParameter="34"/>
+                                        <MenuItem Header="Button 2" Command="{Binding BtnEventCommand}" CommandParameter="16"/>
+                                        <MenuItem Header="Button 3" Command="{Binding BtnEventCommand}" CommandParameter="17"/>
+                                        <MenuItem Header="Button 4" Command="{Binding BtnEventCommand}" CommandParameter="18"/>
                                     </MenuItem>
                                     <MenuItem Header="Hue Dimmer">
                                         <MenuItem Header="Button 1 (on)">
-                                            <MenuItem Header="Initial Press"></MenuItem>
-                                            <MenuItem Header="Hold"></MenuItem>
-                                            <MenuItem Header="Short Released"></MenuItem>
-                                            <MenuItem Header="Long Released"></MenuItem>
+                                            <MenuItem Header="Initial Press" Command="{Binding BtnEventCommand}" CommandParameter="1000"/>
+                                            <MenuItem Header="Hold" Command="{Binding BtnEventCommand}" CommandParameter="1001" />
+                                            <MenuItem Header="Short Released" Command="{Binding BtnEventCommand}" CommandParameter="1002"/>
+                                            <MenuItem Header="Long Released" Command="{Binding BtnEventCommand}" CommandParameter="1003"/>
                                         </MenuItem>
                                         <MenuItem Header="Button 2 (Dim Up)">
-                                            <MenuItem Header="Initial Press"></MenuItem>
-                                            <MenuItem Header="Hold"></MenuItem>
-                                            <MenuItem Header="Short Released"></MenuItem>
-                                            <MenuItem Header="Long Released"></MenuItem>
+                                            <MenuItem Header="Initial Press" Command="{Binding BtnEventCommand}" CommandParameter="2000"/>
+                                            <MenuItem Header="Hold" Command="{Binding BtnEventCommand}" CommandParameter="2001"/>
+                                            <MenuItem Header="Short Released" Command="{Binding BtnEventCommand}" CommandParameter="2002"/>
+                                            <MenuItem Header="Long Released" Command="{Binding BtnEventCommand}" CommandParameter="2003"/>
                                         </MenuItem>
                                         <MenuItem Header="Button 1 (Dim Down)">
-                                            <MenuItem Header="Initial Press"></MenuItem>
-                                            <MenuItem Header="Hold"></MenuItem>
-                                            <MenuItem Header="Short Released"></MenuItem>
-                                            <MenuItem Header="Long Released"></MenuItem>
+                                            <MenuItem Header="Initial Press" Command="{Binding BtnEventCommand}" CommandParameter="3000"/>
+                                            <MenuItem Header="Hold" Command="{Binding BtnEventCommand}" CommandParameter="3001"/>
+                                            <MenuItem Header="Short Released" Command="{Binding BtnEventCommand}" CommandParameter="3002"/>
+                                            <MenuItem Header="Long Released" Command="{Binding BtnEventCommand}" CommandParameter="3003"/>
                                         </MenuItem>
                                         <MenuItem Header="Button 1 (off)">
-                                            <MenuItem Header="Initial Press"></MenuItem>
-                                            <MenuItem Header="Hold"></MenuItem>
-                                            <MenuItem Header="Short Released"></MenuItem>
-                                            <MenuItem Header="Long Released"></MenuItem>
+                                            <MenuItem Header="Initial Press" Command="{Binding BtnEventCommand}" CommandParameter="4000"/>
+                                            <MenuItem Header="Hold" Command="{Binding BtnEventCommand}" CommandParameter="4001"/>
+                                            <MenuItem Header="Short Released" Command="{Binding BtnEventCommand}" CommandParameter="4002"/>
+                                            <MenuItem Header="Long Released" Command="{Binding BtnEventCommand}" CommandParameter="4003"/>
                                         </MenuItem>
                                     </MenuItem>
                                 </MenuItem>

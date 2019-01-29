@@ -436,6 +436,18 @@ namespace WinHue3.Functions.Rules.Creator
         public ICommand Condition_RemoveRuleConditionCommand => new RelayCommand(param => RemoveRuleCondition(), (param) => CanRemoveRuleCondition());
         public ICommand Condition_SelectRuleConditionCommand => new RelayCommand(param => SelectRuleCondition());
         public ICommand Condition_ClearSelectedRuleConditionCommand => new RelayCommand(param => ClearSelectedRuleCondition(), (param) => CanClearRuleCondition());
+        public ICommand BtnEventCommand => new RelayCommand(InsertButtonValue, param => CanInsertButtonValue());
+
+        private bool CanInsertButtonValue()
+        {
+            // TODO : check type
+            return true;
+        }
+
+        private void InsertButtonValue(object param)
+        {
+            ConditionValue = param.ToString();
+        }
 
         private bool CanClearRuleCondition()
         {

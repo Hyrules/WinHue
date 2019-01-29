@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -28,8 +29,6 @@ namespace WinHue3.Controls
             BtnDecrement.IsEnabled = false;
         }
 
-        private static readonly Regex _regex = new Regex("[^0-9]+.");
-
         public event EventHandler ValueChanged;
         public event EventHandler EnterPressed;
 
@@ -41,9 +40,13 @@ namespace WinHue3.Controls
             }
             else
             {
-                if (decimal.Parse(TbValue.Text) < 0)
+                if (decimal.Parse(TbValue.Text) < 1 && decimal.Parse(TbValue.Text) > 0 )
                 {
-                    TbValue.Text = (decimal.Parse(TbValue.Text) + Step).ToString();
+                    TbValue.Text = (decimal.Parse(TbValue.Text) + Step).ToString(CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    TbValue.Text = 0.ToString();
                 }
             }
             
@@ -61,13 +64,17 @@ namespace WinHue3.Controls
 
             if (string.IsNullOrEmpty(TbValue.Text))
             {
-                TbValue.Text = byte.MinValue.ToString();
+                TbValue.Text = decimal.MinValue.ToString(CultureInfo.InvariantCulture);
             }
             else
             {
-                if (byte.Parse(TbValue.Text) > byte.MinValue)
+                if (decimal.Parse(TbValue.Text) > 0 && decimal.Parse(TbValue.Text) < 1)
                 {
-                    TbValue.Text = (byte.Parse(TbValue.Text) - Step).ToString();
+                    TbValue.Text = (decimal.Parse(TbValue.Text) - Step).ToString(CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    TbValue.Text = 1.ToString();
                 }
             }
 
@@ -83,7 +90,11 @@ namespace WinHue3.Controls
         public decimal? Value
         {
             get => (decimal?)GetValue(ValueProperty);
-            set => SetValue(ValueProperty, value);
+            set
+            {
+                SetValue(ValueProperty, value);
+                ValueChanged?.Invoke(this,null);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
@@ -175,39 +186,6 @@ namespace WinHue3.Controls
             CheckValues();
         }
 
-        private void SetDirtyTextBox()
-        {
-            if (EnterPressed != null)
-                TbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
-        }
-
-        private void ClearDirtyTextBox()
-        {
-            if (EnterPressed != null)
-                TbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
-        }
-
-        private void TbValue_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.Delete:
-                case Key.Back:
-                case Key.Enter:
-                case Key.Up:
-                case Key.Down:
-                case Key.Left:
-                case Key.Right:
-                    break;
-                default:
-                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
-                    {
-                        e.Handled = true;
-                    }
-                    break;
-            }
-        }
-
         private void TbValue_OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -223,15 +201,53 @@ namespace WinHue3.Controls
                     DecrementValue();
                     break;
                 case Key.Enter:
-                    if (decimal.TryParse(TbValue.Text, out _))
+                    if (decimal.TryParse(TbValue.Text, out decimal val))
                     {
-                        EnterPressed?.Invoke(this, EventArgs.Empty);
-                        ClearDirtyTextBox();
-                        return;
+                        if (val >= 0 && val <= 1)
+                        {
+                            EnterPressed?.Invoke(this, EventArgs.Empty);
+                            ClearDirtyTextBox();
+                            return;
+                        }
                     }
                     break;
             }
             CheckValues();
         }
+
+        private void TbValue_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+                case Key.Back:
+                case Key.Enter:
+                case Key.Up:
+                case Key.Down:
+                case Key.Left:
+                case Key.Right:
+                    break;
+                default:
+                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) && e.Key != Key.OemComma && e.Key != Key.OemPeriod)
+                    {
+                        e.Handled = true;
+                    }
+                    break;
+            }
+        }
+
+        private void SetDirtyTextBox()
+        {
+            if (EnterPressed != null)
+                TbValue.Background = new SolidColorBrush(Color.FromRgb(255, 179, 179));
+        }
+
+        private void ClearDirtyTextBox()
+        {
+            if (EnterPressed != null)
+                TbValue.Background = new SolidColorBrush(System.Windows.Media.Colors.White);
+        }
+
+
     }
 }

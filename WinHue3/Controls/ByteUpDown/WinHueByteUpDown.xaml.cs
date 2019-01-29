@@ -69,7 +69,11 @@ namespace WinHue3.Controls.ByteUpDown
         public byte? Value
         {
             get => (byte?) GetValue(ValueProperty);
-            set => SetValue(ValueProperty, value);
+            set
+            {
+                SetValue(ValueProperty, value);
+                ValueChanged?.Invoke(this,null);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...

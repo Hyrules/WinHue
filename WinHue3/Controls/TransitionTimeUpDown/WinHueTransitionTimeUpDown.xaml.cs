@@ -218,12 +218,23 @@ namespace WinHue3.Controls
             {
                 Value = null;
             }
-
-            if (_regex.IsMatch(TbValue.Text))
+            else
             {
-                TimeSpan ts = TimeSpan.Parse(TbValue.Text);
-                Value = (ushort)(ts.TotalMilliseconds / 100);
+                if (_regex.IsMatch(TbValue.Text))
+                {
+                    TimeSpan ts = TimeSpan.Parse(TbValue.Text);
+                    Value = (ushort)(ts.TotalMilliseconds / 100);
+                }
+                else
+                {
+                    if (!TbValue.IsFocused)
+                    {
+                        Value = null;
+                    }
+                }
+
             }
+
 
             SetIncrementalsButtons();
         }
