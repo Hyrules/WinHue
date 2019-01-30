@@ -25,13 +25,6 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
             set => SetProperty(ref _bri, value);
         }
 
-        [DefaultValue(null)]
-        public bool? @on
-        {
-            get => _on;
-            set => SetProperty(ref _on, value);
-        }
-
         [Editor(typeof(XYEditor), typeof(XYEditor)), DefaultValue(null)]
         public decimal[] xy
         {
