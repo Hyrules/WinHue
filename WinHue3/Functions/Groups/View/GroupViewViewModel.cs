@@ -201,9 +201,9 @@ namespace WinHue3.Functions.Groups.View
            
             foreach (Group g in lgroups)
             {
-                int i = 2;
-                data[0] = g.Id;
-                data[1] = g.name;
+                int i = 1;
+                
+                data[0] = g.name;
 
                 foreach (Light l in llights)
                 {
