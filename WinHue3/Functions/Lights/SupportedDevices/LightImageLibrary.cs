@@ -51,7 +51,8 @@ namespace WinHue3.Functions.Lights.SupportedDevices
                     {
                         modelORarchetype = filenamenostate.Substring(filenamenostate.IndexOf("_") + 1);
                     }
-                    if (!Images.ContainsKey(filenamenostate))
+
+                    if (!Images.ContainsKey(modelORarchetype))
                     {
                         //*** CHECK IF THE 3 FILES EXISTS OTHERWISE IGNORE***
                         if (File.Exists($"{path}\\lights\\{filenamenostate}_on.png") && File.Exists($"{path}\\lights\\{filenamenostate}_off.png") && File.Exists($"{path}\\lights\\{filenamenostate}_unr.png"))
@@ -67,14 +68,15 @@ namespace WinHue3.Functions.Lights.SupportedDevices
                         }
                         else
                         {
-                            //if (archetype != null)
-                            //{
-                            //    log.Error($"Archetype {filenamenostate} does not have all 3 light image. Make sure you have _on _off and _unr file in your light folder.");
-                            //} else
-                            //{
-                            //    log.Error($"Model ID {filenamenostate} does not have all 3 light image. Make sure you have _on _off and _unr file in your light folder.");
-                            //}
-                            
+                            if (filenamenostate.Contains("archetype_"))
+                            {
+                                log.Error($"Archetype {modelORarchetype} does not have all 3 light image. Make sure you have _on _off and _unr file in your light folder.");
+                            }
+                            else
+                            {
+                                log.Error($"Model ID {modelORarchetype} does not have all 3 light image. Make sure you have _on _off and _unr file in your light folder.");
+                            }
+
                         }
 
                     }
