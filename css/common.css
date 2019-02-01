@@ -8,7 +8,7 @@ body{
     margin-bottom: 6em ; /* Margin bottom by footer height */
 }
 
-*{
+:not(.close){
     color: #ffffff;
     font-family: 'Titillium Web', sans-serif;
 }
