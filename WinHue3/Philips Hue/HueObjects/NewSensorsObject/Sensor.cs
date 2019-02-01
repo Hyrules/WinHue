@@ -208,7 +208,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            PropertyInfo[] pi = ((Sensor) value).GetArrayHueProperties();
+            PropertyInfo[] pi = ((Sensor) value).GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly); ;
             writer.WriteStartObject();
             foreach (PropertyInfo p in pi)
             {
@@ -218,7 +218,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
                 if (p.Name == "config" || p.Name == "state")
                 {
                     writer.WriteStartObject();
-                    PropertyInfo[] cs = val.GetArrayHueProperties();
+                    PropertyInfo[] cs = val.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
                     foreach (PropertyInfo cspi in cs)
                     {
                         object cspival = cspi.GetValue(val);

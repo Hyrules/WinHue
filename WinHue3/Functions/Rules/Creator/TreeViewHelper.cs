@@ -19,7 +19,7 @@ namespace WinHue3.Functions.Rules.Creator
     {
         public static HuePropertyTreeViewItem BuildPropertiesTree(object root,  string currentpath, string name = null, string selectedpath = null)
         {
-            PropertyInfo[] listprops = root.GetArrayHueProperties();
+            PropertyInfo[] listprops = root.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Address = new HueAddress(currentpath), Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal};
 
             foreach (PropertyInfo p in listprops)
@@ -58,7 +58,7 @@ namespace WinHue3.Functions.Rules.Creator
 
         public static HuePropertyTreeViewItem BuildPropertyBranch(object root, string currentpath, string name = null,string selectedpath = null)
         {
-            PropertyInfo[] listprops = root.GetArrayHueProperties();
+            PropertyInfo[] listprops = root.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Address = new HueAddress(currentpath), Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal };
            // tvi.Expanded -= Tvi_Expanded;
             foreach (PropertyInfo p in listprops)

@@ -36,7 +36,8 @@ namespace HueLib2Test
         {
           //   var result = WinHueAnimationParser.ParseAnimation("SET LIGHT 1 TO BRI:232 SAT:254;");
           //   Assert.AreEqual(new Light() { Id = "1", state = new State() { bri = 254, sat = 254 }}, result);
-
+              Light l = new Light();
+              PropertyInfo[] pi = l.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
         }
 
 
