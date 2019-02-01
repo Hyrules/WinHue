@@ -54,7 +54,7 @@ namespace WinHue3.Utils
         /// <param name="imagestate">Requested state of the light.</param>
         /// <param name="modelid">model id of the light.</param>
         /// <returns>New image of the light</returns>
-        public static ImageSource GetImageForLight(LightImageState imagestate, string modelid = null)
+        public static ImageSource GetImageForLight(LightImageState imagestate, string modelid = null, string archetype = null)
         {
             string modelID = modelid ?? "DefaultHUE";
             string state = string.Empty;
@@ -83,15 +83,20 @@ namespace WinHue3.Utils
 
             ImageSource newImage;
 
-            if (LightImageLibrary.Images.ContainsKey(modelID))
+            if (LightImageLibrary.Images.ContainsKey(modelID)) // Check model ID first
             {
                 log.Debug("STATE : " + state + " MODELID : " + modelID);
                 newImage = LightImageLibrary.Images[modelID][state];
 
             }
-            else
+            else if (archetype != null && LightImageLibrary.Images.ContainsKey(archetype)) // Check archetype after model ID, giving model ID priority
             {
-                log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " using default images.");
+                log.Debug("STATE : " + state + " ARCHETYPE : " + archetype);
+                newImage = LightImageLibrary.Images[archetype][state];
+            }
+            else // Neither model ID or archetype are known
+            {
+                log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " and ARCHETYPE : " + archetype + " using default images.");
                 newImage = LightImageLibrary.Images["DefaultHUE"][state];
             }
             return newImage;
@@ -277,7 +282,7 @@ namespace WinHue3.Utils
                         GetImageForLight(
                             light.state.reachable.GetValueOrDefault()
                                 ? light.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off
-                                : LightImageState.Unr, light.modelid);
+                                : LightImageState.Unr, light.modelid, light.config.archetype);
                     Object = (T)Convert.ChangeType(light, typeof(T));
                 }
                 else if (typeof(T) == typeof(Group))
@@ -378,7 +383,7 @@ namespace WinHue3.Utils
                     GetImageForLight(
                         light.state.reachable.GetValueOrDefault()
                             ? light.state.@on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off
-                            : LightImageState.Unr, light.modelid);
+                            : LightImageState.Unr, light.modelid, light.config.archetype);
                 Object = light;
             }
             else if (objecttype == typeof(Group))
@@ -842,9 +847,8 @@ namespace WinHue3.Utils
                 }
                 else
                 {
-                    kvp.Value.Image = GetImageForLight(kvp.Value.state.reachable.GetValueOrDefault() ? kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, kvp.Value.modelid);
-                }                
-
+                    kvp.Value.Image = GetImageForLight(kvp.Value.state.reachable.GetValueOrDefault() ? kvp.Value.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, kvp.Value.modelid, kvp.Value.config.archetype);
+                }
                 newlist.Add(kvp.Value);
             }
 
@@ -874,7 +878,7 @@ namespace WinHue3.Utils
                     if (bresult == null) continue;
                     Light newlight = bresult;
                     newlight.Id = kvp.Key;
-                    newlight.Image = GetImageForLight(newlight.state.reachable.GetValueOrDefault() ? newlight.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, newlight.modelid);
+                    newlight.Image = GetImageForLight(newlight.state.reachable.GetValueOrDefault() ? newlight.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, newlight.modelid, newlight.config.archetype);
                     newlist.Add(newlight);
                 }
             }
@@ -1095,7 +1099,7 @@ namespace WinHue3.Utils
 
                     if (currentState.state.reachable == false)
                     {
-                        hr= GetImageForLight(LightImageState.Unr, currentState.modelid);
+                        hr= GetImageForLight(LightImageState.Unr, currentState.modelid, currentState.config.archetype);
                     }
                     else
                     {
@@ -1105,7 +1109,7 @@ namespace WinHue3.Utils
 
                             if (bridge.SetState(new State { on = false, transitiontime = tt }, obj.Id))
                             {
-                                hr = GetImageForLight(LightImageState.Off, currentState.modelid);
+                                hr = GetImageForLight(LightImageState.Off, currentState.modelid, currentState.config.archetype);
                             }
 
                         }
@@ -1116,7 +1120,7 @@ namespace WinHue3.Utils
                             if (bridge.SetState(new State { on = true, transitiontime = tt, bri = WinHueSettings.settings.DefaultBriLight }, obj.Id))
                             {
 
-                                hr = GetImageForLight(LightImageState.On, currentState.modelid);
+                                hr = GetImageForLight(LightImageState.On, currentState.modelid, currentState.config.archetype);
                             }
 
                         }
@@ -1181,7 +1185,7 @@ namespace WinHue3.Utils
 
                 if (currentState.state.reachable == false && currentState.manufacturername != "OSRAM")
                 {
-                    hr = GetImageForLight(LightImageState.Unr, currentState.modelid);
+                    hr = GetImageForLight(LightImageState.Unr, currentState.modelid, currentState.config.archetype);
                 }
                 else
                 {
@@ -1192,7 +1196,7 @@ namespace WinHue3.Utils
 
                         if (bsetlightstate)
                         {
-                            hr = GetImageForLight(LightImageState.Off, currentState.modelid);
+                            hr = GetImageForLight(LightImageState.Off, currentState.modelid, currentState.config.archetype);
                         }
 
                     }
@@ -1226,7 +1230,7 @@ namespace WinHue3.Utils
                         if (bsetlightstate)
                         {
 
-                            hr = GetImageForLight(LightImageState.On, currentState.modelid);
+                            hr = GetImageForLight(LightImageState.On, currentState.modelid, currentState.config.archetype);
                         }
 
                     }
