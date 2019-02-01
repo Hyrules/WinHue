@@ -347,6 +347,7 @@
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\Location.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\StreamMessage.cs" />
     <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
+    <Compile Include="Philips Hue\Communication\HueDataContractResolver.cs" />
     <Compile Include="Philips Hue\HueDevice.cs" />
     <Compile Include="Philips Hue\Communication\Communication.cs" />
     <Compile Include="Philips Hue\Communication\Serializer.cs" />
@@ -1047,7 +1048,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

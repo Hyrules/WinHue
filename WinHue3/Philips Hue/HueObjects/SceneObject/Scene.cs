@@ -14,7 +14,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
     /// <summary>
     /// Scene Class.
     /// </summary>
-    [DataContract, HueType("scenes")]
+    [JsonObject, HueType("scenes")]
     public class Scene : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -37,7 +37,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Image of the rule.
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("Image of the Scene"), ReadOnly(true), Browsable(false), JsonIgnore]
+        [Category("Scene Properties"), Description("Image of the Scene"),  Browsable(false), JsonIgnore]
         public ImageSource Image
         {
             get => _image;
@@ -47,7 +47,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// ID of the rule.
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("ID of the Scene"), ReadOnly(true), JsonIgnore]
+        [Category("Scene Properties"), Description("ID of the Scene"),  JsonIgnore]
         public string Id
         {
             get => _id;
@@ -57,7 +57,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Name of the scene.
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("Name of the scene")]
+        [Category("Scene Properties"), Description("Name of the scene")]
         public string name
         {
             get => _name;
@@ -67,7 +67,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// List of the light in the scene. 
         /// </summary>
-        [DataMember, Category("Scene Properties"), Description("Lights of the scene")]
+        [Category("Scene Properties"), Description("Lights of the scene")]
         public StringCollection lights
         {
             get => _lights;
@@ -77,7 +77,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Owner of the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"),Description("Whitelist user that created or modified the content of the scene"), ReadOnly(true)]
+        [Category("Scene Properties"),Description("Whitelist user that created or modified the content of the scene")]
         public string owner
         {
             get => _owner;
@@ -87,7 +87,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// App specific data.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"),Description("App specific data linked to the scene."), ExpandableObject, ReadOnly(true)]
+        [Category("Scene Properties"),Description("App specific data linked to the scene."), ExpandableObject]
         public AppData appdata
         {
             get => _appdata;
@@ -97,7 +97,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Scene can be deleted by the bridge automatically.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"),Description("Indicates whether the scene can be automatically deleted by the bridge."),CreateOnly]
+        [Category("Scene Properties"),Description("Indicates whether the scene can be automatically deleted by the bridge."),CreateOnly]
         public bool? recycle
         {
             get => _recycle;
@@ -107,7 +107,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Scene is Locked.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"),Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted."),ReadOnly(true)]
+        [Category("Scene Properties"),Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted.")]
         public bool? locked
         {
             get => _locked;
@@ -117,7 +117,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Picture path
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Path to the picture.")]
+        [Category("Scene Properties"), Description("Path to the picture.")]
         public string picture
         {
             get => _picture;
@@ -127,7 +127,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Version of the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Version of scene document."),ReadOnly(true)]
+        [Category("Scene Properties"), Description("Version of scene document."),JsonIgnore]
         public int? version
         {
             get => _version;
@@ -137,7 +137,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Last time the scene was updated in UTC.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"),Description("UTC time the scene has been created or has been updated."), ReadOnly(true)]
+        [Category("Scene Properties"),Description("UTC time the scene has been created or has been updated."), JsonIgnore]
         public string lastupdated
         {
             get => _lastupdated;
@@ -147,7 +147,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// State of the lights in the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"),Description("States of every lights in the scene."), Browsable(false), ReadOnly(true)]
+        [Category("Scene Properties"),Description("States of every lights in the scene."), Browsable(false), JsonIgnore]
         public Dictionary<string, State> lightstates
         {
             get => _lightstates;
@@ -157,7 +157,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Store current light state in scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"),Description("Store the current light state in the scene."), Browsable(false)]
+        [Category("Scene Properties"),Description("Store the current light state in the scene."), Browsable(false)]
         public bool? storelightstate
         {
             get => _storelightstate;
@@ -167,21 +167,21 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Transition time of the scene.
         /// </summary>
-        [DataMember(IsRequired = false), Category("Scene Properties"), Description("Transition time of the scene.")]
+        [Category("Scene Properties"), Description("Transition time of the scene.")]
         public ushort? transitiontime
         {
             get => _transitiontime;
             set => SetProperty(ref _transitiontime,value);
         }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        [JsonIgnore, Browsable(false)]
         public bool visible
         {
             get => _visible;
             set { SetProperty(ref _visible,value); }
         }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), JsonIgnore, Browsable(false)]
+        [JsonIgnore, Browsable(false)]
         public bool On
         {
             get => _on;

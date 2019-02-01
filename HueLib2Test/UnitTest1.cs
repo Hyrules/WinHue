@@ -34,10 +34,19 @@ namespace HueLib2Test
         [TestMethod]
         public void TestParser()
         {
-          //   var result = WinHueAnimationParser.ParseAnimation("SET LIGHT 1 TO BRI:232 SAT:254;");
-          //   Assert.AreEqual(new Light() { Id = "1", state = new State() { bri = 254, sat = 254 }}, result);
-              Light l = new Light();
-              PropertyInfo[] pi = l.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+            //   var result = WinHueAnimationParser.ParseAnimation("SET LIGHT 1 TO BRI:232 SAT:254;");
+            //   Assert.AreEqual(new Light() { Id = "1", state = new State() { bri = 254, sat = 254 }}, result);
+            /*Light l = new Light();
+            l.Id = 5.ToString();
+            l.swversion = "12.2334.5";*/
+            Sensor s = new Sensor();
+            s.manufacturername = "test";
+
+            //string res = JsonConvert.SerializeObject(l, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+            string res = Serializer.SerializeToJsonModify(s);
+            //PropertyInfo[] pi = l.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+                            
+
         }
 
 
