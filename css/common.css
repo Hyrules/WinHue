@@ -5,11 +5,11 @@ html {
 
 body{
     background-color: #000000;
+    color: #ffffff;
     margin-bottom: 6em ; /* Margin bottom by footer height */
 }
 
-:not(.close){
-    color: #ffffff;
+*{
     font-family: 'Titillium Web', sans-serif;
 }
 
