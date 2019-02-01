@@ -51,7 +51,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Name of the Schedule.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Name of the schedule")]
+        [DataMember, Category("Schedule Properties"), Description("Name of the schedule")]
         public string name
         {
             get => _name;
@@ -61,7 +61,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Time when the scheduled event will occur in ISO 8601:2004 format.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Local Time of the schedule")]
+        [DataMember, Category("Schedule Properties"), Description("Local Time of the schedule")]
         public string localtime
         {
             get => _localtime;
@@ -71,7 +71,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Description of the schedule
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Description of the schedule")]
+        [DataMember, Category("Schedule Properties"), Description("Description of the schedule")]
         public string description
         {
             get => _description;
@@ -81,7 +81,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Command to be executed when the schedule is triggered
         /// </summary>
-        [HueProperty, DataMember, ExpandableObject, Category("Command"), Description("Command of the schedule")]
+        [DataMember, ExpandableObject, Category("Command"), Description("Command of the schedule")]
         public Command command
         {
             get => _command;
@@ -91,7 +91,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Status of the schedule.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Command of the schedule"), ItemsSource(typeof(StatusItemsSource))]
+        [DataMember, Category("Schedule Properties"), Description("Command of the schedule"), ItemsSource(typeof(StatusItemsSource))]
         public string status
         {
             get => _status;
@@ -101,7 +101,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Recycle the schedule.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Command of the schedule"), CreateOnly]
+        [DataMember, Category("Schedule Properties"), Description("Command of the schedule"), CreateOnly]
         public bool? recycle
         {
             get => _recycle;
@@ -111,7 +111,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Start time of the timer.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Start time of the timer (if one)"), ReadOnly(true)]
+        [DataMember, Category("Schedule Properties"), Description("Start time of the timer (if one)"), ReadOnly(true)]
         public string starttime
         {
             get => _starttime;
@@ -121,7 +121,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Date created.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Command of the schedule"),ReadOnly(true)]
+        [DataMember, Category("Schedule Properties"), Description("Command of the schedule"),ReadOnly(true)]
         public string created
         {
             get => _created;
@@ -131,7 +131,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Autodelete.
         /// </summary>
-        [HueProperty, DataMember, Category("Schedule Properties"), Description("Autodelete the schedule")]
+        [DataMember, Category("Schedule Properties"), Description("Autodelete the schedule")]
         public bool? autodelete
         {
             get => _autodelete;

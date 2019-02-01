@@ -13,21 +13,21 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
         private bool? _dark;
         private bool? _daylight;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public ushort? lightlevel
         {
             get => _lightlevel;
             set => SetProperty(ref _lightlevel,value);
         }
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? dark
         {
             get => _dark;
             set => SetProperty(ref _dark,value);
         }
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? daylight
         {
             get => _daylight;
@@ -36,7 +36,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

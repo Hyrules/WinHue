@@ -6,19 +6,19 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
     [DataContract]
     public class SwUpdate2
     {
-        [HueProperty, DataMember]
+        [DataMember]
         public swbridge bridge { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public bool checkforupdate { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public string state { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public bool install { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public autoinstall autoinstall { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public string lastchange { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public string lastinstall { get; set; }
 
     }
@@ -26,18 +26,18 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
     [DataContract]
     public class autoinstall
     {
-        [HueProperty, DataMember]
+        [DataMember]
         public bool on { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public string updatetime { get; set; }
     }
 
     [DataContract]
     public class swbridge
     {
-        [HueProperty, DataMember]
+        [DataMember]
         public string state { get; set; }
-        [HueProperty, DataMember]
+        [DataMember]
         public string lastinstall { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
         /// <summary>
         /// Alert.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public string alert
         {
             get => _alert;
@@ -27,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
         /// <summary>
         /// On off state.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool? on
         {
             get => _on;
@@ -37,7 +37,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
@@ -47,7 +47,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
         /// <summary>
         /// Battery state.
         /// </summary>
-        [HueProperty, DataMember,ReadOnly(true)]
+        [DataMember,ReadOnly(true)]
         public byte? battery
         {
             get => _battery;

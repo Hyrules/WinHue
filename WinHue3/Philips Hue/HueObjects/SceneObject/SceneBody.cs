@@ -9,7 +9,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
     {
         private string _scene;
 
-        [HueProperty,DataMember]
+        [DataMember]
         public string scene
         {
             get => _scene;

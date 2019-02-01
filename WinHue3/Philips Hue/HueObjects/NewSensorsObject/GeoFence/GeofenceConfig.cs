@@ -9,14 +9,14 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.GeoFence
         private bool _on;
         private bool _reachable;
 
-        [DataMember,HueProperty]
+        [DataMember]
         public bool on
         {
             get => _on;
             set => SetProperty(ref _on, value);
         }
 
-        [DataMember, HueProperty]
+        [DataMember]
         public bool reachable
         {
             get => _reachable;

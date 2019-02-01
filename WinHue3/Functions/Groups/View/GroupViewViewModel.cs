@@ -114,8 +114,8 @@ namespace WinHue3.Functions.Groups.View
                 dt.Columns.Add(gvp.name);
             }
 
-            PropertyInfo[] listproperties = typeof(Group).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "action").ToArray(); 
-            PropertyInfo[] listaction = typeof(Action).GetHueProperties().Where(x => !x.Name.Contains("_inc") && x.Name != "scene").ToArray(); 
+            PropertyInfo[] listproperties = typeof(Group).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "action").ToArray(); 
+            PropertyInfo[] listaction = typeof(Action).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => !x.Name.Contains("_inc") && x.Name != "scene").ToArray(); 
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + listaction.Length];
 
             listproperties.CopyTo(listPropertyInfos,0);
@@ -180,8 +180,8 @@ namespace WinHue3.Functions.Groups.View
             DataTable dt = new DataTable();
             dt.Columns.Add("Groups");
 
-            PropertyInfo[] listproperties = typeof(Group).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "action").ToArray();
-            PropertyInfo[] listaction = typeof(Action).GetHueProperties().Where(x => !x.Name.Contains("_inc") && x.Name != "scene").ToArray();
+            PropertyInfo[] listproperties = typeof(Group).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "action").ToArray();
+            PropertyInfo[] listaction = typeof(Action).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => !x.Name.Contains("_inc") && x.Name != "scene").ToArray();
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + listaction.Length];
 
             listproperties.CopyTo(listPropertyInfos, 0);

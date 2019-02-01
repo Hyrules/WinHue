@@ -383,7 +383,7 @@ namespace WinHue3.MainForm
             if (hr == null) return;
             IHueObject newobj = hr;
             ListBridgeObjects[index].Image = newobj.Image;
-            List<PropertyInfo> pi = newobj.GetType().GetListHueProperties();
+            List<PropertyInfo> pi = newobj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList();
 
             foreach (PropertyInfo p in pi)
             {

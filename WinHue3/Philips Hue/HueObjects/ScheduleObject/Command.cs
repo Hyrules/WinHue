@@ -13,17 +13,17 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Put since you are modifiying a state or action.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public string method { get; set; }
         /// <summary>
         /// // Address of the command.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public HueAddress address { get; set; }
         /// <summary>
         /// See Body Class
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public string body { get; set; }
 
         /// <summary>

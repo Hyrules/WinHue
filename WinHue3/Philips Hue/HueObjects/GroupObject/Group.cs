@@ -50,14 +50,14 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Action (State) of the group
         /// </summary>
-        [HueProperty, DataMember, Category("Action"), Description("Action"), ExpandableObject, ReadOnly(true)]
+        [DataMember, Category("Action"), Description("Action"), ExpandableObject, ReadOnly(true)]
         public Action action
         {
             get => _action;
             set => SetProperty(ref _action,value);
         }
 
-        [HueProperty, DataMember, Category("State"), Description("State"), ExpandableObject, ReadOnly(true)]
+        [DataMember, Category("State"), Description("State"), ExpandableObject, ReadOnly(true)]
         public GroupState state
         {
             get => _state;
@@ -67,7 +67,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// List of lights in the group.
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("Lights in the group"), ExpandableObject]
+        [DataMember, Category("Group Properties"), Description("Lights in the group"), ExpandableObject]
         public StringCollection lights
         {
             get => _lights;
@@ -77,7 +77,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Group name.
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("Name of the group")]
+        [DataMember, Category("Group Properties"), Description("Name of the group")]
         public string name
         {
             get => _name;
@@ -87,7 +87,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Type of the group
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("The type of group"),CreateOnly]
+        [DataMember, Category("Group Properties"), Description("The type of group"),CreateOnly]
         public string type
         {
             get => _type;
@@ -97,7 +97,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Model ID
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("Model id of the group"), ReadOnly(true)]
+        [DataMember, Category("Group Properties"), Description("Model id of the group"), ReadOnly(true)]
         public string modelid
         {
             get => _modelid;
@@ -107,7 +107,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Unique ID
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("Unique id of group"), ReadOnly(true)]
+        [DataMember, Category("Group Properties"), Description("Unique id of group"), ReadOnly(true)]
         public string uniqueid
         {
             get => _uniqueid;
@@ -117,7 +117,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Class
         /// </summary>
-        [HueProperty, DataMember, Category("Group Properties"), Description("Class of the group")]
+        [DataMember, Category("Group Properties"), Description("Class of the group")]
         public string @class
         {
             get => _class;

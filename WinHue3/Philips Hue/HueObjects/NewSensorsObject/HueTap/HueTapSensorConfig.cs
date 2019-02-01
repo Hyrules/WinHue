@@ -12,7 +12,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueTap
         /// <summary>
         /// On off state.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool? on
         {
             get => _on;

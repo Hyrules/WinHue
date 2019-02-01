@@ -18,7 +18,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
         /// <summary>
         /// Open or close.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool open
         {
             get => _open;
@@ -27,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

@@ -18,7 +18,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Address.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public HueAddress address
         {
             get => _address;
@@ -27,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Operator.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public string @operator
         {
             get => _operator;
@@ -37,7 +37,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Value.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public dynamic value
         {
             get => _value;

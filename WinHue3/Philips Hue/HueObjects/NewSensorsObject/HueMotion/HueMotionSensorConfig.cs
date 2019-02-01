@@ -17,14 +17,14 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         private int? _sensitivitymax;
         private int? _sensitivity;
 
-        [HueProperty, DataMember]
+        [DataMember]
         public int? sensitivity
         {
             get => _sensitivity;
             set => SetProperty(ref _sensitivity,value);
         }
 
-        [HueProperty, DataMember]
+        [DataMember]
         public int? sensitivitymax
         {
             get => _sensitivitymax;
@@ -34,7 +34,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// Alert.
         /// </summary>
-        [HueProperty, DataMember, ItemsSource(typeof(AlertItemsSource))]
+        [DataMember, ItemsSource(typeof(AlertItemsSource))]
         public string alert
         {
             get => _alert;
@@ -44,7 +44,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// On off state.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool? on
         {
             get => _on;
@@ -54,7 +54,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
@@ -64,7 +64,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// Battery state.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public byte? battery
         {
             get => _battery;

@@ -17,7 +17,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature
         /// <summary>
         /// Current temperature.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public int? temperature
         {
             get => _temperature;
@@ -26,7 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

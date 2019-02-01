@@ -115,11 +115,6 @@ namespace WinHue3.ExtensionMethods
             return obj?.GetType().GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
         }*/
 
-        public static PropertyInfo[] GetArrayHueProperties(this object obj)
-        {
-            if (obj is Type) return ((Type)obj).GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
-            return obj?.GetType().GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
-        }
 
     }
 
@@ -131,21 +126,25 @@ namespace WinHue3.ExtensionMethods
             return ht?.HueObjectType;
         }
 
+        [Obsolete]
         public static PropertyInfo[] GetHueProperties(this Type type)
         {
             return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
         }
 
+        [Obsolete]
         public static List<PropertyInfo> GetListHueProperties(this Type type)
         {
             return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
         }
 
+        [Obsolete]
         public static bool HasHueProperties(this Type type)
         {
             return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList().Count > 0;
         }
 
+        [Obsolete]
         public static PropertyInfo[] GetPublicProperties(this Type type)
         {
             if (type.IsInterface)

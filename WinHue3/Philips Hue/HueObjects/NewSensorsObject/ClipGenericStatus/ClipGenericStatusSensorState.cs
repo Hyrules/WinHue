@@ -18,7 +18,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
         /// <summary>
         /// Sensor Status.
         /// </summary>
-        [HueProperty,DataMember,JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [DataMember,JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int status
         {
             get => _status;
@@ -27,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

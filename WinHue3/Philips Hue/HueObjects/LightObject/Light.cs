@@ -46,51 +46,51 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// State of the Light.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("State"),Description("State of the light"), ExpandableObject, ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("State"),Description("State of the light"), ExpandableObject, ReadOnly(true)]
         public State state { get=> _state; set => SetProperty(ref _state, value); }
 
         /// <summary>
         /// Type of light.
         /// </summary>
 
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"),Description("Type of Light"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"),Description("Type of Light"), ReadOnly(true)]
         public string type { get => _type; set => SetProperty(ref _type, value); }
 
         /// <summary>
         /// Manufacturer name.
         /// </summary>
         
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"),Description("Manufacturer name"), ReadOnly(true), ]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"),Description("Manufacturer name"), ReadOnly(true), ]
         public string manufacturername { get => _manufacturername ; set => SetProperty(ref _manufacturername,value); }
 
         /// <summary>
         /// Name of the light.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Light Name")]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Light Name")]
         public string name { get => _name; set => SetProperty(ref _name,value); }
 
         /// <summary>
         /// Model ID of the Light.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Model ID"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Model ID"), ReadOnly(true)]
         public string modelid { get => _modelid; set => SetProperty(ref _modelid, value); }
 
         /// <summary>
         /// Software Version of the Light.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Software Version"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Software Version"), ReadOnly(true)]
         public string swversion { get => _swversion; set => SetProperty(ref _swversion, value); }
 
         /// <summary>
         /// Unique ID of the light.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Unique ID"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Unique ID"), ReadOnly(true)]
         public string uniqueid { get => _uniqueid; set => SetProperty(ref _uniqueid,value); }
 
         /// <summary>
         /// Luminaire unique ID of the light.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Luminaire Unique ID"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Properties"), Description("Luminaire Unique ID"), ReadOnly(true)]
         public string luminaireuniqueid { get => _luminaireuniqueid; set => SetProperty(ref _luminaireuniqueid, value); }
 
         /// <summary>

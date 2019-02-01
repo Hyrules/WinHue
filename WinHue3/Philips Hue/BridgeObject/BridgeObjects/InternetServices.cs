@@ -11,16 +11,16 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
     [DataContract]
     public class InternetServices
     {
-        [HueProperty,DataMember]
+        [DataMember]
         public string internet { get; set; }
 
-        [HueProperty, DataMember]
+        [ DataMember]
         public string remoteaccess { get; set; }
 
-        [HueProperty, DataMember]
+        [ DataMember]
         public string time { get; set; }
 
-        [HueProperty, DataMember]
+        [ DataMember]
         public string swupdate { get; set; }
     }
 }

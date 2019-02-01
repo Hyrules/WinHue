@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -14,7 +15,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             Schedule oldsch = (Schedule) value;
-            List<PropertyInfo> prop = oldsch.GetType().GetListHueProperties();
+            List<PropertyInfo> prop = oldsch.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList();
 
             writer.WriteStartObject();
             foreach (PropertyInfo p in prop)
@@ -24,7 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 if (p.Name == "command")
                 {
                     writer.WriteStartObject();
-                    List<PropertyInfo> pi = oldsch.command.GetType().GetListHueProperties();
+                    List<PropertyInfo> pi = oldsch.command.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList(); ;
                     foreach (PropertyInfo pc in pi)
                     {
                         if(pc.GetValue(oldsch.command) == null) continue;

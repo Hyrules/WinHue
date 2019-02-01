@@ -17,7 +17,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
         /// <summary>
         /// humidity.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public int humidity
         {
             get => _humidity;
@@ -26,7 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

@@ -27,7 +27,7 @@ namespace WinHue3.Functions.Rules.Creator
                 string actualpath = currentpath + "/" + p.Name;
                 object value = p.GetValue(root);
 
-                if (value == null || !value.GetType().HasHueProperties())
+                if (value == null)
                 {
 
                     tvi.Items.Add(new HuePropertyTreeViewItem()
@@ -75,7 +75,7 @@ namespace WinHue3.Functions.Rules.Creator
                     PropInfo = p,
                 };
 
-                if (value != null && value.GetType().HasHueProperties())
+                if (value != null)
                 {
                     hptvi.Items.Add(new HuePropertyTreeViewItem() {Header = "Loading..."});
                     hptvi.Tag = value;

@@ -17,7 +17,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Version info.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Category("Apddata Properties"),Description("App specific version of the data field. App should take versioning into account when parsing the data string.")]
+        [DataMember(IsRequired = false), Category("Apddata Properties"),Description("App specific version of the data field. App should take versioning into account when parsing the data string.")]
         public int? version
         {
             get => _version;
@@ -27,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Free format string.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Category("Apddata Properties"),Description("App specific data. Free format string.")]
+        [DataMember(IsRequired = false), Category("Apddata Properties"),Description("App specific data. Free format string.")]
         public string data
         {
             get => _data;

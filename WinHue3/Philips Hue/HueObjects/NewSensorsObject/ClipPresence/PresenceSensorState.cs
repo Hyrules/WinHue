@@ -16,7 +16,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
         /// <summary>
         /// Presense detected.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool? presence
         {
             get => _presence;
@@ -25,7 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

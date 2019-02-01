@@ -818,7 +818,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns></returns>
         private object ClearNotAllowedModifyProperties(object obj)
         {
-            PropertyInfo[] listproperties = obj.GetType().GetHueProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (PropertyInfo p in listproperties)
             {
                 if (Attribute.IsDefined(p, typeof(CreateOnlyAttribute)) || Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))
@@ -835,7 +835,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns></returns>
         private object ClearNotAllowedCreationProperties(object obj)
         {
-            PropertyInfo[] listproperties = obj.GetType().GetHueProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (PropertyInfo p in listproperties)
             {
                 if (Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))

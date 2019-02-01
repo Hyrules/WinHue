@@ -18,7 +18,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// url.
         /// </summary>
-        [HueProperty,DataMember]
+        [DataMember]
         public string url
         {
             get => _url;
@@ -28,7 +28,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// On off state.
         /// </summary>
-        [HueProperty,DataMember]
+        [DataMember]
         public bool? on
         {
             get => _on;
@@ -38,7 +38,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [HueProperty,DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
@@ -48,7 +48,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// Battery state.
         /// </summary>
-        [HueProperty,DataMember]
+        [DataMember]
         public byte? battery
         {
             get => _battery;

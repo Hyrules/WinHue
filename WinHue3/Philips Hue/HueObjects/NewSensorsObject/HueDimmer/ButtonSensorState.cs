@@ -16,7 +16,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
         /// <summary>
         /// Button event number.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public int? buttonevent
         {
             get => _buttonevent;
@@ -25,7 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

@@ -177,7 +177,7 @@ namespace WinHue3.Functions.HotKeys.Creator
             bool valid = false;
             if (_propertyObject != null)
             {
-                PropertyInfo[] prop = _propertyObject.GetType().GetHueProperties();
+                PropertyInfo[] prop = _propertyObject.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
                 foreach (PropertyInfo p in prop)
                 {
                     if (p.GetValue(_propertyObject) != null)

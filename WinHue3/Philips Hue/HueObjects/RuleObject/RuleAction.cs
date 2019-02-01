@@ -14,17 +14,17 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Address.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public HueAddress address { get; set; }
         /// <summary>
         /// Method.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public string method { get; set; }
         /// <summary>
         /// Body.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public string body { get; set; }
 
         /// <summary>
