@@ -53,13 +53,13 @@ namespace WinHue3.Functions.Schedules.NewCreator
             if (Content != ContentTypeVm.Light && Content != ContentTypeVm.Group) return;
             if (_selectedViewModel is ScheduleCreatorSlidersViewModel)
             {
-                string json = Serializer.SerializeToJson(SelectedViewModel);
+                string json = Serializer.SerializeJsonObject(SelectedViewModel);
                 SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
                 ((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject = Serializer.DeserializeToObject<State>(json);
             }
             else
             {
-                string json = Serializer.SerializeToJson(((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject);
+                string json = Serializer.SerializeJsonObject(((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject);
                 SelectedViewModel = Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(json);
             }
         }
@@ -346,17 +346,16 @@ namespace WinHue3.Functions.Schedules.NewCreator
             if(_selectedViewModel is ScheduleCreatorPropertyGridViewModel)
             {
                 ScheduleCreatorPropertyGridViewModel scpg = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                body = Serializer.SerializeToJson(scpg.SelectedObject); 
+                body = Serializer.ModifyJsonObject(scpg.SelectedObject); 
             }
             else if(_selectedViewModel is ScheduleCreatorSlidersViewModel)
             {
                 ScheduleCreatorSlidersViewModel scsv = _selectedViewModel as ScheduleCreatorSlidersViewModel;
-                body = Serializer.SerializeToJson(scsv);
+                body = Serializer.SerializeJsonObject(scsv);
             }
             else
             {
-                body = Serializer.SerializeToJson(
-                    new Philips_Hue.HueObjects.GroupObject.Action() {scene = SelectedTarget.Id});
+                body = Serializer.ModifyJsonObject(new Action() {scene = SelectedTarget.Id});
             }
 
             sc.command.body = body;

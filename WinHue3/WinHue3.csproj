@@ -347,7 +347,8 @@
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\Location.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\StreamMessage.cs" />
     <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
-    <Compile Include="Philips Hue\Communication\HueDataContractResolver.cs" />
+    <Compile Include="Philips Hue\Communication\HueCreateDataContractResolver.cs" />
+    <Compile Include="Philips Hue\Communication\HueModifyDataContractResolver.cs" />
     <Compile Include="Philips Hue\HueDevice.cs" />
     <Compile Include="Philips Hue\Communication\Communication.cs" />
     <Compile Include="Philips Hue\Communication\Serializer.cs" />
@@ -357,8 +358,8 @@
     <Compile Include="Philips Hue\Hue.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\BasePropertiesFactory.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\CreateOnlyAttribute.cs" />
+    <Compile Include="Philips Hue\HueObjects\Common\DontSerialize.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\HueFactory.cs" />
-    <Compile Include="Philips Hue\HueObjects\Common\HuePropertyAttribute.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\IBaseProperties.cs" />
     <Compile Include="Philips Hue\HueObjects\GroupObject\Action.cs" />
     <Compile Include="Philips Hue\HueObjects\GroupObject\Group.cs" />
@@ -432,7 +433,6 @@
     <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />
-    <Compile Include="Utils\HueObject.cs" />
     <Compile Include="Utils\UpdateManager.cs" />
     <Compile Include="Functions\Rules\Validation\RuleValueValidation.cs" />
     <Compile Include="Validations\UIntValidation.cs" />

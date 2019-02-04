@@ -80,7 +80,6 @@ namespace WinHue3.Controls.IntegerUpDown
         private static object CoerceValue(DependencyObject d, object basevalue)
         {
             WinHueIntegerUpDown nud = d as WinHueIntegerUpDown;
-            Console.WriteLine(nud.Value);
             nud.ValueChanged?.Invoke(nud, EventArgs.Empty);
             if (basevalue == null)
             {

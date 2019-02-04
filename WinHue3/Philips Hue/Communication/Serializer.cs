@@ -37,14 +37,30 @@ namespace WinHue3.Philips_Hue.Communication
 
         }
 
+        public static string SerializeJsonObject(object obj)
+        {
+            jss.ContractResolver = null;
+            try
+            {
+                if (obj != null)
+                    return JsonConvert.SerializeObject(obj, jss);
+                return null;
+            }
+            catch (Exception)
+            {
+                log.Error($"Error serializing object {obj }");
+                return null;
+            }
+        }
+
         /// <summary>
         /// This method serialize an object into a JSON string,
         /// </summary>
         /// <param name="obj">Object to serialize</param>
         /// <returns>JSON String</returns>
-        public static string SerializeToJson(object obj)
+        public static string CreateJsonObject(object obj)
         {
-            jss.ContractResolver = null;
+            jss.ContractResolver = new HueCreateDataContractResolver();
             try
             {
                 if (obj != null)
@@ -64,9 +80,9 @@ namespace WinHue3.Philips_Hue.Communication
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string SerializeToJsonModify(object obj)
+        public static string ModifyJsonObject(object obj)
         {
-            jss.ContractResolver = new HueDataContractResolver();
+            jss.ContractResolver = new HueModifyDataContractResolver();
             try
             {
                 if (obj != null)

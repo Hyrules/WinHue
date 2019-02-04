@@ -61,7 +61,7 @@ namespace WinHue3.Functions.Animations
                     SetObjectAnimationAction so = new SetObjectAnimationAction();
                     so.Objectype = SelectedHueObject.GetType();
                     so.Id = SelectedHueObject.Id;
-                    so.Body = Serializer.SerializeToJson(StepObjectProperty);
+                   //so.Body = Serializer.SerializeToJson(StepObjectProperty);
                     ListSteps.Add(so);
                     break;
                 default:

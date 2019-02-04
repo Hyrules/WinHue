@@ -26,7 +26,7 @@ namespace WinHue3.MainForm
             
             MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             log.Error($"{sender}");
-            log.Error(Serializer.SerializeToJson(e.Exception.ToString()));
+            log.Error(Serializer.SerializeJsonObject(e.Exception.ToString()));
             log.Error($"{sender} : {e}");
             Cursor_Tools.ShowNormalCursor();
 

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using WinHue3.Colors;
+using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Scenes.Creator.ColorPicker;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -48,17 +49,27 @@ namespace WinHue3.Functions.Scenes.Creator
             set => SetProperty(ref _sceneCreatorModel,value);
         }
 
-        public void Initialize(List<Light> listlights, Bridge bridge)
+        public void Initialize(List<Light> listlights, Bridge bridge, Scene edited = null)
         {
             _bridge = bridge;
             ListAvailableLights = new ObservableCollection<Light>(listlights);
             ListSceneLights = new ObservableCollection<Light>();
+            EditScene(edited);
         }
-
-        public void Initialize(Bridge bridge)
+        private void EditScene(Scene edited)
         {
-            _bridge = bridge;
-            ListSceneLights = new ObservableCollection<Light>();
+
+            if (edited != null)
+            {
+                SceneCreatorModel.Name = edited.name;
+                ListSceneLights = new ObservableCollection<Light>(ListAvailableLights.Where(x => edited.lights.Contains(x.Id)));
+                foreach (Light h in ListSceneLights)
+                {
+                    h.state = edited.version == 1 ? ListAvailableLights.FirstOrDefault(x => x.Id == h.Id)?.state : edited.lightstates[h.Id];
+                    ListAvailableLights.Remove(x => x.Id == h.Id);
+                }
+
+            }
         }
 
         public ObservableCollection<Light> ListSceneLights
@@ -125,15 +136,7 @@ namespace WinHue3.Functions.Scenes.Creator
 
                 return scene;
             }
-            set
-            {
-                SceneCreatorModel.Name = value.name;
-                ListSceneLights = new ObservableCollection<Light>(ListAvailableLights.Where(x => value.lights.Contains(x.Id)));
-                foreach (Light h in ListSceneLights)
-                {
-                    h.state = value.lightstates[h.Id];
-                }
-            }
+
         }
 
         public void GetColorFromImage()

@@ -47,21 +47,21 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// State of the Light.
         /// </summary>
-        [Category("State"),Description("State of the light"), ExpandableObject]
+        [Category("State"),Description("State of the light"), ExpandableObject, DontSerialize,ReadOnly(true)]
         public State state { get=> _state; set => SetProperty(ref _state, value); }
 
         /// <summary>
         /// Type of light.
         /// </summary>
 
-        [Category("Light Properties"),Description("Type of Light")]
+        [Category("Light Properties"),Description("Type of Light"),DontSerialize]
         public string type { get => _type; set => SetProperty(ref _type, value); }
 
         /// <summary>
         /// Manufacturer name.
         /// </summary>
         
-        [Category("Light Properties"),Description("Manufacturer name")]
+        [Category("Light Properties"),Description("Manufacturer name"), DontSerialize]
         public string manufacturername { get => _manufacturername ; set => SetProperty(ref _manufacturername,value); }
 
         /// <summary>
@@ -73,25 +73,25 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Model ID of the Light.
         /// </summary>
-        [Category("Light Properties"), Description("Model ID")]
+        [Category("Light Properties"), Description("Model ID"), DontSerialize]
         public string modelid { get => _modelid; set => SetProperty(ref _modelid, value); }
 
         /// <summary>
         /// Software Version of the Light.
         /// </summary>
-        [Category("Light Properties"), Description("Software Version")]
+        [Category("Light Properties"), Description("Software Version"), DontSerialize]
         public string swversion { internal get => _swversion; set => SetProperty(ref _swversion, value); }
 
         /// <summary>
         /// Unique ID of the light.
         /// </summary>
-        [Category("Light Properties"), Description("Unique ID")]
+        [Category("Light Properties"), Description("Unique ID"), DontSerialize]
         public string uniqueid { get => _uniqueid; set => SetProperty(ref _uniqueid,value); }
 
         /// <summary>
         /// Luminaire unique ID of the light.
         /// </summary>
-        [Category("Light Properties"), Description("Luminaire Unique ID")]
+        [Category("Light Properties"), Description("Luminaire Unique ID"), DontSerialize]
         public string luminaireuniqueid { get => _luminaireuniqueid; set => SetProperty(ref _luminaireuniqueid, value); }
 
         /// <summary>
@@ -103,25 +103,25 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Capabilities of the light.
         /// </summary>
-        [Category("Light Properties"), Description("Capabilities"),  ExpandableObject]
+        [Category("Light Properties"), Description("Capabilities"),  ExpandableObject, DontSerialize]
         public LightCapabilities capabilities { get => _capabilities; set => SetProperty(ref _capabilities, value); }
 
         /// <summary>
         /// Config of the light.
         /// </summary>
-        [Category("Light Properties"), Description("Config"),  ExpandableObject]
+        [Category("Light Properties"), Description("Config"),  ExpandableObject, DontSerialize]
         public LightConfig config { get => _config; set => SetProperty(ref _config, value); }
 
         /// <summary>
         /// Light software update.
         /// </summary>
-        [Category("Light Properties"), Description("Software Update"),  ExpandableObject]
+        [Category("Light Properties"), Description("Software Update"),  ExpandableObject, DontSerialize]
         public LightSwUpdate swupdate { get => _swupdate; set => SetProperty(ref _swupdate,value); }
 
         /// <summary>
         /// Light streaming capabilities
         /// </summary>
-        [Category("Light Properties"), Description("Current light supports streaming features")]
+        [Category("Light Properties"), Description("Current light supports streaming features"), DontSerialize]
         public bool Streaming { get => _streaming; set => SetProperty(ref _streaming,value); }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
 
         /// <summary>

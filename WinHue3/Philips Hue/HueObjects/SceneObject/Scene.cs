@@ -77,7 +77,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Owner of the scene.
         /// </summary>
-        [Category("Scene Properties"),Description("Whitelist user that created or modified the content of the scene")]
+        [Category("Scene Properties"),Description("Whitelist user that created or modified the content of the scene"),DontSerialize]
         public string owner
         {
             get => _owner;
@@ -107,7 +107,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Scene is Locked.
         /// </summary>
-        [Category("Scene Properties"),Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted.")]
+        [Category("Scene Properties"),Description("Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted."), DontSerialize]
         public bool? locked
         {
             get => _locked;
@@ -127,7 +127,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Version of the scene.
         /// </summary>
-        [Category("Scene Properties"), Description("Version of scene document."),JsonIgnore]
+        [Category("Scene Properties"), Description("Version of scene document."),DontSerialize]
         public int? version
         {
             get => _version;
@@ -137,7 +137,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Last time the scene was updated in UTC.
         /// </summary>
-        [Category("Scene Properties"),Description("UTC time the scene has been created or has been updated."), JsonIgnore]
+        [Category("Scene Properties"),Description("UTC time the scene has been created or has been updated."), DontSerialize]
         public string lastupdated
         {
             get => _lastupdated;
@@ -147,7 +147,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// State of the lights in the scene.
         /// </summary>
-        [Category("Scene Properties"),Description("States of every lights in the scene."), Browsable(false), JsonIgnore]
+        [Category("Scene Properties"),Description("States of every lights in the scene."), Browsable(false)]
         public Dictionary<string, State> lightstates
         {
             get => _lightstates;
@@ -193,7 +193,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// </summary>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
 
         }
 

@@ -44,29 +44,18 @@ namespace WinHue3.Functions.Scenes.Creator
             _currentsceneid = sceneid ?? string.Empty;
 
             List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+
             if (hr != null)
             {
-                _scvm.Initialize(hr, _bridge);
+                Scene cr = sceneid != null ? _bridge.GetObject<Scene>(sceneid) : null;
+                _currentsceneid = sceneid;
+                _scvm.Initialize(hr,_bridge, cr);
             }
             else
             {
                 MessageBoxError.ShowLastErrorMessages(_bridge);
             }
 
-            if (sceneid != null)
-            {
-                _currentsceneid = sceneid;
-                Scene cr = _bridge.GetObject<Scene>(sceneid);
-                if (cr != null)
-                {
-                    _scvm.Initialize(_bridge);
-                    _scvm.Scene = cr;
-                }
-                else
-                {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);
-                }
-            }
         }
 
         public string GetCreatedOrModifiedID()
@@ -81,7 +70,7 @@ namespace WinHue3.Functions.Scenes.Creator
 
             log.Info("Scene to be created : " + newScene);
 
-            if (_currentsceneid == string.Empty)
+            if (_currentsceneid == null)
             {
                 result = _bridge.CreateObject(newScene);
             }
@@ -93,13 +82,8 @@ namespace WinHue3.Functions.Scenes.Creator
             
             if (result)
             {
-                string id = _currentsceneid != string.Empty ? _currentsceneid : _bridge.LastCommandMessages.LastSuccess.value;
+                string id = _currentsceneid ?? _bridge.LastCommandMessages.LastSuccess.value;
                 log.Info("Id of the scene" + id);
-                
-                foreach (KeyValuePair<string,State> obj in newScene.lightstates)
-                {
-                    _bridge.SetSceneLightState(id, obj.Key, obj.Value);
-                }
                 _currentsceneid = id;
                 DialogResult = true;
                 Close();

@@ -42,7 +42,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

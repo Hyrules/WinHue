@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -12,7 +13,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
     /// <summary>
     /// Class for light State.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class State : ValidatableBindableBase, IBaseProperties
     {
         private bool? _reachable;
@@ -35,12 +36,13 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Reachable is the light is reachable ( true is the light is available to control, false if the bridge cannot control the light )
         /// </summary>
-        [Description("Reachable is the light is reachable ( true is the light is available to control, false if the bridge cannot control the light )"),Category("Properties")]
+        [Description("Reachable is the light is reachable ( true is the light is available to control, false if the bridge cannot control the light )"),Category("Properties"), DontSerialize, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
             set => SetProperty(ref _reachable ,value);
         }
+
 
         /// <summary>
         /// On state of the group.
@@ -199,7 +201,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

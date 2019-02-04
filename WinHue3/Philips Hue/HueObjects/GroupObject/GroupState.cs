@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Philips_Hue.HueObjects.GroupObject
@@ -17,8 +18,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this,
-                new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

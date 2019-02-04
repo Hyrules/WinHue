@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Scenes.Creator;
@@ -10,6 +11,7 @@ using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
+using Application = System.Windows.Application;
 
 namespace WinHue3.Functions.Scenes.View
 {
@@ -163,6 +165,7 @@ namespace WinHue3.Functions.Scenes.View
         {
             DataRowView drv = Row as DataRowView;
             Form_SceneCreator fsc = new Form_SceneCreator();
+            fsc.Owner = Application.Current.MainWindow;
             await fsc.Inititalize(_bridge, drv.Row.ItemArray[0].ToString());
             if (fsc.ShowDialog().GetValueOrDefault())
             {

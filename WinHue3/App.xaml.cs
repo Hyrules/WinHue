@@ -85,7 +85,7 @@ namespace WinHue3
         {
           
             MessageBox.Show("Sorry but an unexpected exception occured. Please report the exception on the support website so the developper can fix the issues. Please include the most recent log located in the logs folder.");
-            string ex = Serializer.SerializeToJson(e.ExceptionObject);
+            string ex = Serializer.SerializeJsonObject(e.ExceptionObject);
             Log.Fatal("Unexpected Exception : ",(Exception)e.ExceptionObject);
             Log.Fatal(ex);
         }

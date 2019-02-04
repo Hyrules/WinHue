@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -7,7 +8,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
 {
-    [DataContract,ExpandableObject]
+    [JsonObject,ExpandableObject]
     public class ClipGenericFlagSensorConfig : ValidatableBindableBase,ISensorConfigBase
     {
         private string _url;
@@ -18,7 +19,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// url.
         /// </summary>
-        [DataMember]
         public string url
         {
             get => _url;
@@ -28,7 +28,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// On off state.
         /// </summary>
-        [DataMember]
         public bool? on
         {
             get => _on;
@@ -38,7 +37,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [DataMember, ReadOnly(true)]
+        [DontSerialize,ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
@@ -48,7 +47,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
         /// <summary>
         /// Battery state.
         /// </summary>
-        [DataMember]
+
         public byte? battery
         {
             get => _battery;
@@ -57,7 +56,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag
 
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

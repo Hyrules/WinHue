@@ -106,7 +106,7 @@
                             </LinearGradientBrush>
                         </Slider.Background>
                     </Slider>
-                    <Slider x:Name="SlSat" Value="{Binding SceneCreatorModel.Sat, Converter={StaticResource DoubleToUshortConverter}}" Height="23" VerticalAlignment="Top" Maximum="254" Margin="10,162,99,0" IsSnapToTickEnabled="True" SmallChange="1" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True" IsEnabled="{Binding ElementName=cbSAT, Path=IsChecked}">
+                    <Slider x:Name="SlSat" Value="{Binding SceneCreatorModel.Sat, Converter={StaticResource DoubleToUshortConverter}}" Height="23" VerticalAlignment="Top" Maximum="255" Margin="10,162,99,0" IsSnapToTickEnabled="True" SmallChange="1" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True" IsEnabled="{Binding ElementName=cbSAT, Path=IsChecked}">
                         <Slider.Background>
                             <LinearGradientBrush  EndPoint="0.5,0" StartPoint="0.5,1">
                                 <GradientStop Color="White" x:Name="SlSatStartGradient"/>

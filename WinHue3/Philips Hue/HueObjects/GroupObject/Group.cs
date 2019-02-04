@@ -50,14 +50,14 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Action (State) of the group
         /// </summary>
-        [Category("Action"), Description("Action"), ExpandableObject]
+        [Category("Action"), Description("Action"), ExpandableObject, DontSerialize]
         public Action action
         {
             get => _action;
             set => SetProperty(ref _action,value);
         }
 
-        [Category("State"), Description("State"), ExpandableObject]
+        [Category("State"), Description("State"), ExpandableObject, DontSerialize]
         public GroupState state
         {
             get => _state;
@@ -97,7 +97,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Model ID
         /// </summary>
-        [Category("Group Properties"), Description("Model id of the group")]
+        [Category("Group Properties"), Description("Model id of the group"), DontSerialize]
         public string modelid
         {
             get => _modelid;
@@ -107,7 +107,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Unique ID
         /// </summary>
-        [Category("Group Properties"), Description("Unique id of group")]
+        [Category("Group Properties"), Description("Unique id of group"), DontSerialize]
         public string uniqueid
         {
             get => _uniqueid;
@@ -130,7 +130,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
 
         public object Clone()

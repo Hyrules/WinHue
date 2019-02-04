@@ -9,7 +9,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Philips_Hue.Communication
 {
-    public class HueDataContractResolver : DefaultContractResolver
+    public class HueModifyDataContractResolver : DefaultContractResolver
     {
 
 
@@ -19,7 +19,10 @@ namespace WinHue3.Philips_Hue.Communication
             IList<JsonProperty> unfiltered = base.CreateProperties(type, memberSerialization);
             foreach (JsonProperty p in unfiltered)
             {
+                if (p.AttributeProvider.GetAttributes(typeof(JsonIgnoreAttribute), false).Count == 1) continue;
                 if (p.AttributeProvider.GetAttributes(typeof(CreateOnlyAttribute),false).Count == 1) continue;
+                // DONT SERIALIZE THOSE PROPERTIES
+                if (p.AttributeProvider.GetAttributes(typeof(DontSerialize), false).Count == 1) continue;
                 filtered.Add(p);
             }
 

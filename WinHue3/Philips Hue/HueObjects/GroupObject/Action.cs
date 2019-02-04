@@ -35,7 +35,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Reachable is the group is reachable ( true is the group is available to control, false if the bridge cannot control the group )
         /// </summary>
-        [Description("Reachable is the group is reachable ( true is the group is available to control, false if the bridge cannot control the group )"), Category("Properties"), JsonIgnore]
+        [Description("Reachable is the group is reachable ( true is the group is available to control, false if the bridge cannot control the group )"), Category("Properties"), DontSerialize, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;

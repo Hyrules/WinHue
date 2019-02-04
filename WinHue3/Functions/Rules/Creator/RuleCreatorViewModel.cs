@@ -347,7 +347,7 @@ namespace WinHue3.Functions.Rules.Creator
         private bool CanAddAction()
         {
             if (ListRuleActions.Count > 7) return false;
-            if (Serializer.SerializeToJson(ActionProperties) == "{}") return false;
+            if (Serializer.SerializeJsonObject(ActionProperties) == "{}") return false;
             return true;
         }
 
@@ -369,7 +369,7 @@ namespace WinHue3.Functions.Rules.Creator
             if (result != DialogResult.Yes) return;
             ra.address = address;
             ra.method = "PUT";
-            ra.body = Serializer.SerializeToJson(_actionProperties);
+            ra.body = Serializer.SerializeJsonObject(_actionProperties);
             ListRuleActions.Add(ra);
             ActionProperties = null;
             SelectedHueObjectType = null;

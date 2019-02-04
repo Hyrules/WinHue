@@ -126,63 +126,6 @@ namespace WinHue3.ExtensionMethods
             return ht?.HueObjectType;
         }
 
-        [Obsolete]
-        public static PropertyInfo[] GetHueProperties(this Type type)
-        {
-            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
-        }
-
-        [Obsolete]
-        public static List<PropertyInfo> GetListHueProperties(this Type type)
-        {
-            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
-        }
-
-        [Obsolete]
-        public static bool HasHueProperties(this Type type)
-        {
-            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList().Count > 0;
-        }
-
-        [Obsolete]
-        public static PropertyInfo[] GetPublicProperties(this Type type)
-        {
-            if (type.IsInterface)
-            {
-                var propertyInfos = new List<PropertyInfo>();
-
-                var considered = new List<Type>();
-                var queue = new Queue<Type>();
-                considered.Add(type);
-                queue.Enqueue(type);
-                while (queue.Count > 0)
-                {
-                    var subType = queue.Dequeue();
-                    foreach (var subInterface in subType.GetInterfaces())
-                    {
-                        if (considered.Contains(subInterface)) continue;
-
-                        considered.Add(subInterface);
-                        queue.Enqueue(subInterface);
-                    }
-
-                    var typeProperties = subType.GetProperties(
-                        BindingFlags.FlattenHierarchy
-                        | BindingFlags.Public
-                        | BindingFlags.Instance);
-
-                    var newPropertyInfos = typeProperties
-                        .Where(x => !propertyInfos.Contains(x));
-
-                    propertyInfos.InsertRange(0, newPropertyInfos);
-                }
-
-                return propertyInfos.ToArray();
-            }
-
-            return type.GetProperties(BindingFlags.FlattenHierarchy
-                                      | BindingFlags.Public | BindingFlags.Instance);
-        }
     }
 
     public static class ObservableCollectionExtensionMethods
@@ -237,6 +180,17 @@ namespace WinHue3.ExtensionMethods
             for (int i = 0; i < sortableList.Count; i++)
             {
                 collection.Move(collection.IndexOf(sortableList[i]), i);
+            }
+        }
+
+        public static void Remove<T>(this ObservableCollection<T> collection, Func<T,bool> predicate)
+        {
+            foreach (var item in collection.ToList())
+            {
+                if (predicate(item))
+                {
+                    collection.Remove(item);
+                }
             }
         }
 

@@ -39,7 +39,7 @@ namespace WinHue3.Functions.ResourceLinks
                     string typename = ht?.HueObjectType;
                     rl.links.Add($"/{typename}/{obj.Id}");
                 }
-                log.Info($"Getting Resource Link : {Serializer.SerializeToJson(rl)}");
+                log.Info($"Getting Resource Link : {Serializer.SerializeJsonObject(rl)}");
                 return rl;
             }
             set

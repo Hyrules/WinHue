@@ -21,6 +21,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
             foreach (PropertyInfo p in prop)
             {
                 if (p.GetValue(oldsch) == null) continue;
+                if (p.GetCustomAttributes(typeof(JsonIgnoreAttribute)).Count() == 1) continue;
                 writer.WritePropertyName(p.Name);
                 if (p.Name == "command")
                 {

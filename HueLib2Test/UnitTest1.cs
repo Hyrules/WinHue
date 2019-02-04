@@ -43,7 +43,7 @@ namespace HueLib2Test
             s.manufacturername = "test";
 
             //string res = JsonConvert.SerializeObject(l, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-            string res = Serializer.SerializeToJsonModify(s);
+            string res = Serializer.ModifyJsonObject(s);
             //PropertyInfo[] pi = l.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
                             
 
@@ -162,7 +162,7 @@ namespace HueLib2Test
             DataStore ds = JsonConvert.DeserializeObject<DataStore>(test3);
             TreeViewItem tvi = TreeViewHelper.BuildPropertiesTreeFromDataStore(ds);
            
-            HueObject ho = new HueObject();
+            //HueObject ho = new HueObject();
             
 
 
