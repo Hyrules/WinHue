@@ -25,7 +25,6 @@ namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorViewModel: ValidatableBindableBase
     {
-        private Bridge _bridge;
         private string _name;
         private bool _enabled;
         private Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings _bs;
@@ -41,11 +40,10 @@ namespace WinHue3.Functions.Rules.Creator
             
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            _bridge = bridge;
-            List<IHueObject> objects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(bridge);
-            _bs = await bridge.GetBridgeSettingsAsyncTask();          
+            List<IHueObject> objects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(BridgeManager.SelectedBridge);
+            _bs = await BridgeManager.SelectedBridge.GetBridgeSettingsAsyncTask();          
             _listAvailableHueObject.AddRange(objects);
 
         }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Resources;
+using WinHue3.Utils;
 using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
 namespace WinHue3.Functions.Rules.Creator
@@ -13,23 +14,21 @@ namespace WinHue3.Functions.Rules.Creator
     public partial class Form_RuleCreator : Window
     {
         private RuleCreatorViewModel _rcvm;
-        private Bridge _bridge;
         private string _id;
 
-        public Form_RuleCreator(Bridge bridge)
+        public Form_RuleCreator()
         {
             InitializeComponent();
             _rcvm = DataContext as RuleCreatorViewModel;
-            _bridge = bridge;
             _id = null;
             Title = GUI.RuleCreatorForm_Create;
         }
 
-        public Form_RuleCreator(Bridge bridge, Rule modifiedrule)
+        public Form_RuleCreator(Rule modifiedrule)
         {
             InitializeComponent();
             _rcvm = DataContext as RuleCreatorViewModel;
-            _bridge = bridge;            
+        
             _rcvm.Rule = modifiedrule;
             _id = modifiedrule.Id;
             Title = $"{GUI.RuleCreatorForm_Editing} {modifiedrule.name}";
@@ -37,7 +36,7 @@ namespace WinHue3.Functions.Rules.Creator
 
         public async Task Initialize()
         {
-            await _rcvm.Initialize(_bridge);
+            await _rcvm.Initialize();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -53,15 +52,15 @@ namespace WinHue3.Functions.Rules.Creator
             {
                 Rule _newrule = _rcvm.Rule;
                 _newrule.Id = _id;
-                result =_bridge.ModifyObject(_newrule);
+                result = BridgeManager.SelectedBridge.ModifyObject(_newrule);
 
             }
             else
             {
-                result = _bridge.CreateObject(_rcvm.Rule);
+                result = BridgeManager.SelectedBridge.CreateObject(_rcvm.Rule);
                 if (result)
                 {
-                    _id = _bridge.LastCommandMessages.LastSuccess.value;
+                    _id = BridgeManager.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 }
             }
 
@@ -72,7 +71,7 @@ namespace WinHue3.Functions.Rules.Creator
             }
             else
             {
-                _bridge.ShowErrorMessages();
+                BridgeManager.SelectedBridge.ShowErrorMessages();
             }
         }
 

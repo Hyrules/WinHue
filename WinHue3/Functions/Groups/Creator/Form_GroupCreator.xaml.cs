@@ -22,7 +22,6 @@ namespace WinHue3.Functions.Groups.Creator
         /// </summary>
         private string _id;
 
-        private Bridge _bridge;
         private GroupCreatorViewModel gcvm;
         /// <summary>
         /// ctor
@@ -34,59 +33,56 @@ namespace WinHue3.Functions.Groups.Creator
             gcvm = this.DataContext as GroupCreatorViewModel;
         }
 
-        public async Task Initialize(Bridge bridge, Group selectedGroup = null)
+        public async Task Initialize(Group selectedGroup = null)
         {
-            _bridge = bridge;
 
             if (selectedGroup == null)
             {
-                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
                 if (hr != null)
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
             }
             else
             {
-                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
                 if (hr != null)
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = (Group)await HueObjectHelper.GetObjectAsyncTask(bridge, selectedGroup.Id, typeof(Group));
+                    Group hr2 = (Group)await HueObjectHelper.GetObjectAsyncTask(BridgeManager.SelectedBridge, selectedGroup.Id, typeof(Group));
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
                 }
                 BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
         }
 
-        public async Task Initialize(Bridge bridge, string group)
+        public async Task Initialize(string group)
         {
-            _bridge = bridge;
-
             if (string.IsNullOrEmpty(group))
             {
-                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
                 if (hr != null)
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
             }
             else
             {
-                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
                 if (hr != null)
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = (Group)await HueObjectHelper.GetObjectAsyncTask(bridge, group, typeof(Group));
+                    Group hr2 = (Group)await HueObjectHelper.GetObjectAsyncTask(BridgeManager.SelectedBridge, group, typeof(Group));
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
                 }
                 BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
@@ -102,23 +98,23 @@ namespace WinHue3.Functions.Groups.Creator
         {
             if (gcvm.Group.Id == null)
             {
-                bool result = _bridge.CreateObject(gcvm.Group);
+                bool result = BridgeManager.SelectedBridge.CreateObject(gcvm.Group);
                 if (result)
                 {
                     DialogResult = true;
                     log.Info("Group creation success");
-                    _id = _bridge.LastCommandMessages.LastSuccess.value;
+                    _id = BridgeManager.SelectedBridge.LastCommandMessages.LastSuccess.value;
                     Close();
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);                   
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);                   
                 }
                 
             }
             else
             {
-                bool result = _bridge.ModifyObject(gcvm.Group);
+                bool result = BridgeManager.SelectedBridge.ModifyObject(gcvm.Group);
                 if (result)
                 {
                     DialogResult = true;
@@ -128,7 +124,7 @@ namespace WinHue3.Functions.Groups.Creator
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
                 }
             }
 

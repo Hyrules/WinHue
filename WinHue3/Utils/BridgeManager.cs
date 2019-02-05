@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -42,6 +44,24 @@ namespace WinHue3.Utils
 
         public static Bridge SelectedBridge => _selectedBridge;
 
+        public static ObservableCollection<IHueObject> LoadVirtualBridge()
+        {
+            System.Windows.Forms.OpenFileDialog fd = new System.Windows.Forms.OpenFileDialog
+            {
+                Filter = "Text files (*.txt)|*.txt"
+            };
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string file = File.ReadAllText(fd.FileName);
+                DataStore ds = JsonConvert.DeserializeObject<DataStore>(file);
+                List<IHueObject> hueobjects = HueObjectHelper.ProcessDataStore(ds);
+                Bridge vbridge = new Bridge() { Virtual = true, Name = "Virtual Bridge", RequiredUpdate = false };
+                _listBridges.Add(vbridge);
+                _selectedBridge= vbridge;
+                return new ObservableCollection<IHueObject>(hueobjects);
+            }
+            return null;
+        }
 
         public static bool DoBridgePairing()
         {

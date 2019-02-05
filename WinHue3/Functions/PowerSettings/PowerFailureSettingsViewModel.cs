@@ -16,7 +16,6 @@ namespace WinHue3.Functions.PowerSettings
     public class PowerFailureSettingsViewModel : ValidatableBindableBase
     {
         private List<Light> _listLights;
-        private Bridge _currentBridge;
 
         public PowerFailureSettingsViewModel()
         {
@@ -32,7 +31,7 @@ namespace WinHue3.Functions.PowerSettings
         {
             Button btn = ((RoutedEventArgs)obj).Source as Button;
             Light light = btn.DataContext as Light;
-            Light refresh = (Light) await HueObjectHelper.GetObjectAsyncTask(_currentBridge, light.Id, typeof(Light));
+            Light refresh = (Light) await HueObjectHelper.GetObjectAsyncTask(BridgeManager.SelectedBridge, light.Id, typeof(Light));
             light.config.startup.mode = refresh.config.startup.mode;
             light.config.startup.configured = refresh.config.startup.configured;
             light.config.startup.customsettings = refresh.config.startup.customsettings;
@@ -42,7 +41,7 @@ namespace WinHue3.Functions.PowerSettings
         {
             Button btn = ((RoutedEventArgs) obj).Source as Button;
             Light light = btn.DataContext as Light;
-            Form_PowerCustomSettings fcs = new Form_PowerCustomSettings(_currentBridge, light.config.startup.customsettings, light.Id)
+            Form_PowerCustomSettings fcs = new Form_PowerCustomSettings(BridgeManager.SelectedBridge, light.config.startup.customsettings, light.Id)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -51,8 +50,8 @@ namespace WinHue3.Functions.PowerSettings
 
         private async Task Initialize()
         {
-            if (CurrentBridge == null) return;
-            List<Light> temp = await HueObjectHelper.GetBridgeLightsAsyncTask(CurrentBridge);
+            if (BridgeManager.SelectedBridge == null) return;
+            List<Light> temp = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
             ListLights = temp.Where(x => x.config.startup != null).ToList();
         }
 
@@ -61,17 +60,17 @@ namespace WinHue3.Functions.PowerSettings
             ComboBox cb = ((RoutedEventArgs)obj).Source as ComboBox;
             string mode = cb.SelectedValue.ToString();
             Light light = cb.DataContext as Light;
-            bool result = await CurrentBridge.SetPowerConfigAsyncTask(mode, light.Id);
+            bool result = await BridgeManager.SelectedBridge.SetPowerConfigAsyncTask(mode, light.Id);
             light.config.startup.configured = result;
             if (!result)
             {
-                _currentBridge.ShowErrorMessages();
+                BridgeManager.SelectedBridge.ShowErrorMessages();
             }
             else
             {
                 if (mode == "custom")
                 {
-                    Light refresh = (Light) await HueObjectHelper.GetObjectAsyncTask(_currentBridge, light.Id, typeof(Light));
+                    Light refresh = (Light) await HueObjectHelper.GetObjectAsyncTask(BridgeManager.SelectedBridge, light.Id, typeof(Light));
                     light.config.startup.customsettings = refresh.config.startup.customsettings;
                 }
             }
@@ -83,10 +82,5 @@ namespace WinHue3.Functions.PowerSettings
             set => SetProperty(ref _listLights,value);
         }
 
-        public Bridge CurrentBridge
-        {
-            get => _currentBridge;
-            set => SetProperty(ref _currentBridge, value);
-        }
     }
 }

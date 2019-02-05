@@ -21,7 +21,6 @@ namespace WinHue3.Functions.Scenes.Creator
         private ObservableCollection<Light> _listAvailableLights;
         private ObservableCollection<Light> _selectedLight;
         private readonly BackgroundWorker _bgWorker;
-        private Bridge _bridge;
         private SceneCreatorModel _sceneCreatorModel;
         private Light _selectedSceneLight;
         private ObservableCollection<Light> _listSceneLights;
@@ -49,9 +48,9 @@ namespace WinHue3.Functions.Scenes.Creator
             set => SetProperty(ref _sceneCreatorModel,value);
         }
 
-        public void Initialize(List<Light> listlights, Bridge bridge, Scene edited = null)
+        public void Initialize(List<Light> listlights, Scene edited = null)
         {
-            _bridge = bridge;
+
             ListAvailableLights = new ObservableCollection<Light>(listlights);
             ListSceneLights = new ObservableCollection<Light>();
             EditScene(edited);
@@ -201,7 +200,7 @@ namespace WinHue3.Functions.Scenes.Creator
         {
             _bgWorker.DoWork += BgWorker_DoWork;
             _bgWorker.RunWorkerCompleted += _bgWorker_RunWorkerCompleted;
-            _bgWorker.RunWorkerAsync(new object[] { ListSceneLights,_bridge});
+            _bgWorker.RunWorkerAsync(new object[] { ListSceneLights, BridgeManager.SelectedBridge });
         }
 
         private void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -227,14 +226,14 @@ namespace WinHue3.Functions.Scenes.Creator
             foreach (Light obj in li)
             {
                 State state = obj.state;
-                _bridge.SetState(state, obj.Id);
+                BridgeManager.SelectedBridge.SetState(state, obj.Id);
             }
 
             Thread.Sleep(5000);
 
             foreach (Light obj in liOriginalState)
             {
-                _bridge.SetState(obj.state, obj.Id);
+                BridgeManager.SelectedBridge.SetState(obj.state, obj.Id);
             }
 
             Thread.Sleep(2000);

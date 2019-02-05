@@ -20,9 +20,9 @@ namespace WinHue3.Functions.HotKeys.Creator
             _hkv = DataContext as HotKeyCreatorViewModel;           
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            await _hkv.Initialize(bridge);
+            await _hkv.Initialize();
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)

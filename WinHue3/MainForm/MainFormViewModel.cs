@@ -45,11 +45,11 @@ namespace WinHue3.MainForm
 
         public MainFormViewModel()
         {
-            
+
             _ledTimer = new DispatcherTimer()
             {
                 Interval = new TimeSpan(0, 0, 0, 2)
-                
+
             };
             Comm.CommunicationTimedOut += Comm_CommunicationTimedOut;
             _hotkeyDetected = false;
@@ -76,7 +76,7 @@ namespace WinHue3.MainForm
         {
             SelectedFloorPlan = null;
             ListFloorPlans = new ObservableCollection<Floor>(WinHueSettings.LoadFloorPlans());
-            
+
         }
 
         public void SetToolbarTray(TaskbarIcon tbt)
@@ -98,13 +98,13 @@ namespace WinHue3.MainForm
         public MainFormModel MainFormModel
         {
             get => _mainFormModel;
-            set => SetProperty(ref _mainFormModel,value);
+            set => SetProperty(ref _mainFormModel, value);
         }
 
         public bool HotkeyDetected
         {
             get => _hotkeyDetected;
-            set => SetProperty(ref _hotkeyDetected,value);
+            set => SetProperty(ref _hotkeyDetected, value);
         }
 
         private bool CheckBridge(Bridge bridge)
@@ -146,9 +146,9 @@ namespace WinHue3.MainForm
 
             BridgeManager.OnBridgeMessageAdded += Bridge_OnMessageAdded;
             BridgeManager.OnBridgeNotResponding += Bridge_BridgeNotResponding;
-            BridgeManager.OnSelectedBridgeChanged += BridgeManager_OnSelectedBridgeChanged; 
+            BridgeManager.OnSelectedBridgeChanged += BridgeManager_OnSelectedBridgeChanged;
             BridgeManager.LoadBridges();
-            if(BridgeManager.SelectedBridge != null)
+            if (BridgeManager.SelectedBridge != null)
                 _ctm = new CpuTempMonitor(BridgeManager.SelectedBridge);
         }
 
@@ -160,91 +160,6 @@ namespace WinHue3.MainForm
             }
         }
 
-        private void LoadBridges()
-        {
-            while (true)
-            {
-                log.Info("Loading bridge(s)...");
-
-                log.Info($"Checking if any bridge already present in settings... found {WinHueSettings.bridges.BridgeInfo.Count}");
-
-                if (WinHueSettings.bridges.BridgeInfo.Count == 0 || WinHueSettings.bridges.DefaultBridge == string.Empty || !WinHueSettings.bridges.BridgeInfo.ContainsKey(WinHueSettings.bridges.DefaultBridge))
-                {   // No bridge found in the list of bridge.
-                    log.Info("Either no bridge found in settings or no default bridge. Pairing needed.");
-                    if (DoBridgePairing())
-                        continue;
-                    else
-                        break;
-                }
-
-                foreach (KeyValuePair<string, BridgeSaveSettings> b in WinHueSettings.bridges.BridgeInfo)
-                {
-                    log.Info($"Bridge OK. Checking if bridge already in the bridge list...");
-                    if (ListBridges.All(x => x.Mac != b.Key))
-                    {
-                        Bridge bridge = new Bridge()
-                        {
-                            ApiKey = b.Value.apikey,
-                            IpAddress = IPAddress.Parse(b.Value.ip),
-                            Name = b.Value.name,
-                            IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
-                            Mac = b.Key
-                        };
-                        if (b.Value.apikey == string.Empty) continue;
-                        
-                        bridge.LastCommandMessages.OnMessageAdded += Bridge_OnMessageAdded;
-                        bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
-
-                        log.Info("Bridge not in the list adding it...");
-                        ListBridges.Add(bridge);
-
-                    }
-                    else
-                    {
-                        log.Info("Bridge already in the list skipping...");
-                    }
-                }
-
-                foreach (Bridge br in ListBridges)
-                {
-                    log.Info($"Checking bridge {br}");
-                    if (!CheckBridge(br))
-                    {
-                        log.Info("Bridge IP has changed... Pairing needed.");
-                        Form_BridgeFinder fbf = new Form_BridgeFinder(br) {Owner = Application.Current.MainWindow};
-                        fbf.ShowDialog();
-
-                        if (fbf.IpFound())
-                        {
-                            br.BridgeNotResponding += Bridge_BridgeNotResponding;
-                            br.IpAddress = fbf.newip;
-                            if (!br.IsDefault) continue;
-                            SelectedBridge = br;
-                        }
-                        else
-                        {
-                            DoBridgePairing(ListBridges);
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if (!br.IsDefault) continue;
-                        SelectedBridge = br;
-                    }
-                }
-
-                if (SelectedBridge != null)
-                {
-                    _ctm = new CpuTempMonitor(SelectedBridge);
-                    //LoadHotkeys();
-                }
-
-
-                break;
-            }
-
-        }
 
     }
 }

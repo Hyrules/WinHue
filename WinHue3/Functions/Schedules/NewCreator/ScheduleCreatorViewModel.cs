@@ -32,7 +32,6 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         private ObservableCollection<IHueObject> _listTargetHueObject;
         private ValidatableBindableBase _selectedViewModel;
-        private Bridge _bridge;
         private ScheduleCreatorHeader _header;
         private ContentTypeVm _content;
         private List<IHueObject> _currentHueObjectList;
@@ -259,7 +258,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             AdrTarget = new HueAddress
             {
                 api = "api",
-                key = _bridge.ApiKey
+                key = BridgeManager.SelectedBridge.ApiKey
             };
 
             switch (_content)
@@ -314,10 +313,9 @@ namespace WinHue3.Functions.Schedules.NewCreator
             }
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            _bridge = bridge;
-            _currentHueObjectList = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
+            _currentHueObjectList = await HueObjectHelper.GetBridgeDataStoreAsyncTask(BridgeManager.SelectedBridge);
             
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());

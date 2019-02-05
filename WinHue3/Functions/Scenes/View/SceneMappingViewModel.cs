@@ -22,16 +22,16 @@ namespace WinHue3.Functions.Scenes.View
         private object _row;
         private List<Scene> _listscenes;
         private List<Light> _listlights;
-        private Bridge _bridge;
+
 
         public SceneMappingViewModel()
         {
 
         }
 
-        public void Initialize(List<Scene> scenes, List<Light> lights, Bridge bridge)
+        public void Initialize(List<Scene> scenes, List<Light> lights)
         {
-            _bridge = bridge;
+
             _listscenes = scenes;
             _listlights = lights;
             BuildSceneMapping();
@@ -142,7 +142,7 @@ namespace WinHue3.Functions.Scenes.View
         public void ProcessDoubleClick()
         {
             if (_row == null) return;
-            _bridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
+            BridgeManager.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
         private bool ObjectSelected()
@@ -166,7 +166,7 @@ namespace WinHue3.Functions.Scenes.View
             DataRowView drv = Row as DataRowView;
             Form_SceneCreator fsc = new Form_SceneCreator();
             fsc.Owner = Application.Current.MainWindow;
-            await fsc.Inititalize(_bridge, drv.Row.ItemArray[0].ToString());
+            await fsc.Inititalize(drv.Row.ItemArray[0].ToString());
             if (fsc.ShowDialog().GetValueOrDefault())
             {
                 RefreshSceneMapping();

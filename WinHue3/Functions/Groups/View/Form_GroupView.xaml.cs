@@ -14,29 +14,27 @@ namespace WinHue3.Functions.Groups.View
     public partial class Form_GroupView : Window
     {
         private GroupViewViewModel _gvv;
-        private Bridge _bridge;
         public Form_GroupView()
         {
             InitializeComponent();
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            _bridge = bridge;
-            List<Light> comlgt = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
+            List<Light> comlgt = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
             _gvv = DataContext as GroupViewViewModel;
 
             if (comlgt != null)
             {
-                List<Group> comgrp = await HueObjectHelper.GetBridgeGroupsAsyncTask(_bridge);
+                List<Group> comgrp = await HueObjectHelper.GetBridgeGroupsAsyncTask(BridgeManager.SelectedBridge);
                 if (comgrp != null)
                 {
 
-                    _gvv.Initialize(_bridge,comgrp, comlgt);
+                    _gvv.Initialize(comgrp, comlgt);
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(bridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
                 }
 
                 DataContext = _gvv;
@@ -44,7 +42,7 @@ namespace WinHue3.Functions.Groups.View
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(bridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
             }
         }
 

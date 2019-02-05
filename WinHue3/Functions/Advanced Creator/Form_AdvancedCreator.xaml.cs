@@ -15,7 +15,6 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             InitializeComponent();
             _acvm = DataContext as AdvancedCreatorViewModel;
-            _acvm.Initialize(bridge);
             _acvm.OnObjectCreated += _acvm_OnObjectCreated;
         }
 

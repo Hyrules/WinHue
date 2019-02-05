@@ -32,7 +32,6 @@ namespace WinHue3.Functions.HotKeys.Creator
         private IBaseProperties _propertyObject;
         private ObservableCollection<HotKey> _listHotKeys;
         private readonly DispatcherTimer _hotkeyrecordTimer;
-        private Bridge _bridge;
         private HotKeyCreatorModel _hotKeyModel;
         private HotKey _selectedHotKey;
         private Type _objectype;
@@ -58,11 +57,10 @@ namespace WinHue3.Functions.HotKeys.Creator
 
         public bool NotGeneric => !_isGeneric;
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
             CanRecordKeyUp = false;
-            _bridge = bridge;
-            _listAvailbleHueObjects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
+            _listAvailbleHueObjects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(BridgeManager.SelectedBridge);
         }
 
         public IBaseProperties PropertyGridObject

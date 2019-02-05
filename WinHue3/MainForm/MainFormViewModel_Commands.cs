@@ -28,7 +28,7 @@ namespace WinHue3.MainForm
 
         private bool CanBridgeSettings()
         {
-            return SelectedBridge != null;
+            return BridgeManager.SelectedBridge != null;
         }
 
         private bool IsObjectSelected()
@@ -259,8 +259,8 @@ namespace WinHue3.MainForm
         private bool CanUpdateBridge()
         {
             if (!EnableButtons()) return false;
-            if (_selectedBridge == null) return false;
-            return SelectedBridge.UpdateAvailable;
+            if (BridgeManager.SelectedBridge == null) return false;
+            return BridgeManager.SelectedBridge.UpdateAvailable;
         }
 
         private bool CanStrobe()
@@ -334,7 +334,7 @@ namespace WinHue3.MainForm
         public ICommand CtKeyPressCommand => new AsyncRelayCommand(SliderChangeCtKeypress);
 
         //*************** App Menu Commands ******************
-        public ICommand DoBridgePairingCommand => new RelayCommand(param => DoBridgePairing(ListBridges));
+        public ICommand DoBridgePairingCommand => new RelayCommand(param => BridgeManager.DoBridgePairing());
         public ICommand ExportDataStoreCommand => new AsyncRelayCommand(ExportDataStore, param => EnableButtons());
 
         //*************** Context Menu Commands *************

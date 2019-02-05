@@ -22,7 +22,7 @@ using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Functions.Grouping;
 using WinHue3.Functions.RoomMap;
-
+using System;
 
 namespace WinHue3.MainForm
 {
@@ -46,6 +46,7 @@ namespace WinHue3.MainForm
         private Floor _selectedFloorPlan;
         private HueElement _selectedHueElement;
 
+        [Obsolete]
         [RefreshProperties(RefreshProperties.All)]
         public Bridge SelectedBridge
         {
@@ -172,7 +173,7 @@ namespace WinHue3.MainForm
         {
             get
             {
-                BridgeSettings cr = SelectedBridge?.GetBridgeSettings();
+                BridgeSettings cr = BridgeManager.SelectedBridge?.GetBridgeSettings();
                 if (cr == null) return Visibility.Collapsed;
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }

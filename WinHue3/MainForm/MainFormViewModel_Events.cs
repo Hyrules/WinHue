@@ -38,7 +38,7 @@ namespace WinHue3.MainForm
         {
             _findlighttimer.Stop();
             log.Info("Done searching for new lights.");
-            List<IHueObject> hr = await HueObjectHelper.GetBridgeNewLightsAsyncTask(SelectedBridge);
+            List<IHueObject> hr = await HueObjectHelper.GetBridgeNewLightsAsyncTask(BridgeManager.SelectedBridge);
             if (hr == null) return;
             List<IHueObject> newlights = hr;
             log.Info($"Found {newlights.Count} new lights.");
@@ -51,7 +51,7 @@ namespace WinHue3.MainForm
         {
             _findsensortimer.Stop();
             log.Info("Done searching for new sensors.");
-            List<IHueObject> hr = await HueObjectHelper.GetBridgeNewSensorsAsyncTask(SelectedBridge);
+            List<IHueObject> hr = await HueObjectHelper.GetBridgeNewSensorsAsyncTask(BridgeManager.SelectedBridge);
             if (hr == null) return;
             List<IHueObject> newsensors = hr;
             log.Info($"Found {newsensors.Count} new sensors.");

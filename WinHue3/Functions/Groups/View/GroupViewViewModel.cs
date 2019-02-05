@@ -27,7 +27,6 @@ namespace WinHue3.Functions.Groups.View
         private bool _reverse;
         private bool _disposed = false;
         private object _row;
-        private Bridge _bridge;
 
         public GroupViewViewModel()
         {
@@ -48,7 +47,7 @@ namespace WinHue3.Functions.Groups.View
         {
             DataRowView drv = SelectedGroup as DataRowView;
             Form_GroupCreator fgc = new Form_GroupCreator();
-            await fgc.Initialize(_bridge, drv.Row.ItemArray[0].ToString());
+            await fgc.Initialize(drv.Row.ItemArray[0].ToString());
             if(fgc.ShowDialog().GetValueOrDefault())
             {
                 RefreshGroupMapping();
@@ -69,9 +68,9 @@ namespace WinHue3.Functions.Groups.View
             FilterData();
         }
 
-        public void Initialize(Bridge bridge, List<Group> groups, List<Light> lights)
+        public void Initialize(List<Group> groups, List<Light> lights)
         {
-            _bridge = bridge;
+
             _groups = groups;
             _lights = lights;
             BuildGroupViewReverse();;
