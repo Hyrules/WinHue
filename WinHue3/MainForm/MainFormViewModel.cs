@@ -20,6 +20,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using HotKey = WinHue3.Functions.HotKeys.HotKey;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using WinHue3.Functions.BridgeFinder;
 using WinHue3.Functions.RoomMap;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
@@ -69,9 +70,6 @@ namespace WinHue3.MainForm
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
             LoadFloorPlans();
-            //LifxLight light = new LifxLight((IPAddress)devices.Keys.First(), devices.First().Value.Header.Target);
-            //light.SetColor(65535, 65535, 65535, 32768, 3000);
-            // LifxResponse p = light.SetPower(32000, 3000);
         }
 
         public void LoadFloorPlans()
@@ -112,15 +110,6 @@ namespace WinHue3.MainForm
         private bool CheckBridge(Bridge bridge)
         {
             log.Info("Checking if ip is bridge...");
-            /*bool bridgeready = false;
-            
-            if (Hue.IsBridge(bridge.IpAddress))
-            {
-                log.Info("IP is bridge. Checking if bridge is authorized...");
-                bridgeready = bridge.CheckAuthorization();
-                log.Info($"Bridge authorization : {bridgeready}");
-            }
-            return bridgeready;*/
             BasicConfig bc = bridge.GetBridgeBasicConfig();
             if (bc != null)
             {
@@ -154,7 +143,21 @@ namespace WinHue3.MainForm
 
                 }
             }
-            LoadBridges();
+
+            BridgeManager.OnBridgeMessageAdded += Bridge_OnMessageAdded;
+            BridgeManager.OnBridgeNotResponding += Bridge_BridgeNotResponding;
+            BridgeManager.OnSelectedBridgeChanged += BridgeManager_OnSelectedBridgeChanged; 
+            BridgeManager.LoadBridges();
+            if(BridgeManager.SelectedBridge != null)
+                _ctm = new CpuTempMonitor(BridgeManager.SelectedBridge);
+        }
+
+        private async Task BridgeManager_OnSelectedBridgeChanged(Bridge e)
+        {
+            if (BridgeManager.SelectedBridge != null)
+            {
+                await ChangeBridge();
+            }
         }
 
         private void LoadBridges()

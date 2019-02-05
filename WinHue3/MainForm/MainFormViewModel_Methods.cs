@@ -183,15 +183,15 @@ namespace WinHue3.MainForm
 
         private async Task RefreshView()
         {
-            if (SelectedBridge == null) return;
+            if (BridgeManager.SelectedBridge == null) return;
             Cursor_Tools.ShowWaitCursor();
             SelectedHueObject = null;
-            if (!_selectedBridge.Virtual)
+            if (!BridgeManager.SelectedBridge.Virtual)
             {
                 if (EnableListView.GetValueOrDefault(false))
                 {
-                    log.Info($"Getting list of objects from bridge at {SelectedBridge.IpAddress}.");
-                    List<IHueObject> hr = await HueObjectHelper.GetBridgeDataStoreAsyncTask(SelectedBridge);
+                    log.Info($"Getting list of objects from bridge at {BridgeManager.SelectedBridge.IpAddress}.");
+                    List<IHueObject> hr = await HueObjectHelper.GetBridgeDataStoreAsyncTask(BridgeManager.SelectedBridge);
                     if (hr != null)
                     {
                         List<IHueObject> listobj = hr;

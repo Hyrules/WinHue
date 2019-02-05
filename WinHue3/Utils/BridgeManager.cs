@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -11,6 +12,7 @@ using WinHue3.Functions.BridgePairing;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Utils
 {
@@ -18,12 +20,14 @@ namespace WinHue3.Utils
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static List<Bridge> _listBridges;
+        private static ObservableCollection<Bridge> _listBridges;
         private static Bridge _selectedBridge;
 
         public static event EventHandler OnBridgeRemoved;
         public static event EventHandler OnBridgeAdded;
-        public static event EventHandler OnSelectedBridgeChanged;
+        public static event EventHandler OnBridgeLoaded;
+        public static event Func<Bridge, Task> OnSelectedBridgeChanged;
+        public delegate void BridgeSelected(object sender, Bridge b);
 
         public static event BridgeNotResponding OnBridgeNotResponding;
         public delegate void BridgeNotResponding(object sender, BridgeNotRespondingEventArgs e);
@@ -33,17 +37,18 @@ namespace WinHue3.Utils
 
         static BridgeManager()
         {
-            _listBridges = new List<Bridge>(); 
+            _listBridges = new ObservableCollection<Bridge>(); 
         }
 
         public static Bridge SelectedBridge => _selectedBridge;
 
+
         public static bool DoBridgePairing()
         {
-            Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(_listBridges) { Owner = Application.Current.MainWindow };
-            bool result = (bool)dp.ShowDialog();
+            Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(new ObservableCollection<Bridge>(_listBridges)) { Owner = Application.Current.MainWindow };
+            bool result = dp.ShowDialog().GetValueOrDefault(false);
             if (!result) return result;
-            _listBridges = dp.ViewModel.ListBridges.ToList();
+            _listBridges = dp.ViewModel.ListBridges;
             SaveSettings();
             return result;
         }
@@ -147,6 +152,7 @@ namespace WinHue3.Utils
                             br.IpAddress = fbf.newip;
                             if (!br.IsDefault) continue;
                             _selectedBridge = br;
+                            OnSelectedBridgeChanged?.Invoke(_selectedBridge);
                         }
                         else
                         {
@@ -158,6 +164,7 @@ namespace WinHue3.Utils
                     {
                         if (!br.IsDefault) continue;
                         _selectedBridge = br;
+                        OnSelectedBridgeChanged?.Invoke(_selectedBridge);
                     }
                 }
 
@@ -170,7 +177,7 @@ namespace WinHue3.Utils
 
                 }
                 */
-
+                OnBridgeLoaded?.Invoke(null,null);
                 break;
             }
         }

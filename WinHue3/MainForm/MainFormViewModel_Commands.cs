@@ -23,7 +23,7 @@ namespace WinHue3.MainForm
     {
         private bool EnableButtons()
         {
-            return SelectedBridge != null && EnableListView.GetValueOrDefault(false);
+            return BridgeManager.SelectedBridge != null && EnableListView.GetValueOrDefault(false);
         }
 
         private bool CanBridgeSettings()
@@ -51,13 +51,7 @@ namespace WinHue3.MainForm
             return SelectedHueObject is Light || SelectedHueObject is Group || SelectedHueObject is Scene ;
         }
 
-        public bool? EnableListView
-        {
-            get
-            {
-                return !_selectedBridge?.RequiredUpdate;
-            }
-        }
+        public bool? EnableListView => !BridgeManager.SelectedBridge?.RequiredUpdate;
 
         public bool SearchingLights => _findlighttimer.IsEnabled;
 
