@@ -450,7 +450,7 @@ namespace WinHue3.MainForm
 
         private void FindLightSerial()
         {
-            Form_AddLightSerial fas = new Form_AddLightSerial(BridgeManager.SelectedBridge) {Owner = Application.Current.MainWindow};
+            Form_AddLightSerial fas = new Form_AddLightSerial() {Owner = Application.Current.MainWindow};
             if (fas.ShowDialog() == true)
             {
                 Thread.Sleep(60000);

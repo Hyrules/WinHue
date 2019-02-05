@@ -25,25 +25,43 @@ namespace WinHue3.Utils
         private static ObservableCollection<Bridge> _listBridges;
         private static Bridge _selectedBridge;
 
-        public static event EventHandler OnBridgeRemoved;
-        public static event EventHandler OnBridgeAdded;
+        #region EVENTS
+        public static event BridgeRemoved OnBridgeRemoved;
+        public delegate void BridgeRemoved(Bridge b);
+
+        public static event BridgeAdded OnBridgeAdded;
+        public delegate void BridgeAdded(Bridge b);
+
         public static event EventHandler OnBridgeLoaded;
+
         public static event Func<Bridge, Task> OnSelectedBridgeChanged;
         public delegate void BridgeSelected(object sender, Bridge b);
 
         public static event BridgeNotResponding OnBridgeNotResponding;
         public delegate void BridgeNotResponding(object sender, BridgeNotRespondingEventArgs e);
 
-        public static event BridgeAdded OnBridgeMessageAdded;
-        public delegate void BridgeAdded(object sender, MessageAddedEventArgs e);
+        public static event BridgeAddedMessage OnBridgeMessageAdded;
+        public delegate void BridgeAddedMessage(object sender, MessageAddedEventArgs e);
+        #endregion
 
+        #region CTOR
         static BridgeManager()
         {
             _listBridges = new ObservableCollection<Bridge>(); 
         }
 
-        public static Bridge SelectedBridge => _selectedBridge;
+        public static Bridge SelectedBridge
+        {
+            get => _selectedBridge;
+            set
+            {
+                _selectedBridge = value;
+                OnSelectedBridgeChanged?.Invoke(value);
+            }
+        }
+        #endregion
 
+        #region METHODS
         public static ObservableCollection<IHueObject> LoadVirtualBridge()
         {
             System.Windows.Forms.OpenFileDialog fd = new System.Windows.Forms.OpenFileDialog
@@ -61,6 +79,18 @@ namespace WinHue3.Utils
                 return new ObservableCollection<IHueObject>(hueobjects);
             }
             return null;
+        }
+
+        public static void AddBridge(Bridge bridge)
+        {
+            _listBridges.Add(bridge);
+            OnBridgeAdded?.Invoke(bridge);
+        }
+
+        public static void RemoveBridge(Bridge bridge)
+        {
+            _listBridges.Remove(bridge);
+            OnBridgeRemoved?.Invoke(bridge);
         }
 
         public static bool DoBridgePairing()
@@ -188,15 +218,6 @@ namespace WinHue3.Utils
                     }
                 }
 
-                // TODO : PLACE IN THE MAINFORM VIEW MODEL
-                /*
-                 
-                if (SelectedBridge != null)
-                {
-                    _ctm = new CpuTempMonitor(SelectedBridge);
-
-                }
-                */
                 OnBridgeLoaded?.Invoke(null,null);
                 break;
             }
@@ -211,5 +232,6 @@ namespace WinHue3.Utils
         {
             OnBridgeMessageAdded?.Invoke(sender, e);
         }
+        #endregion
     }
 }
