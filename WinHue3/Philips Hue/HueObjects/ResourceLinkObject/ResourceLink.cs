@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -125,6 +126,12 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        [OnDeserialized]
+        void OnDeserialize(StreamingContext ctx)
+        {
+            Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
         }
 
         public override string ToString()

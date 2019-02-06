@@ -23,6 +23,7 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueTap;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using WinHue3.Interface;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
@@ -183,6 +184,12 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             get => _swupdate;
             set => SetProperty(ref _swupdate, value);
         }*/
+
+        [OnDeserialized]
+        void OnDeserialize(StreamingContext ctx)
+        {
+            Image = GDIManager.CreateImageSourceFromImage(type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
+        }
 
         [JsonIgnore, Browsable(false)]
         public bool visible

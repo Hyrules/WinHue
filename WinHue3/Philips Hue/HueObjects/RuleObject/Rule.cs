@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -144,6 +145,11 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 
         }
 
+        [OnDeserialized]
+        void OnDeserialize(StreamingContext ctx)
+        {
+            Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
+        }
 
         public object Clone()
         {

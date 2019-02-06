@@ -133,8 +133,6 @@ namespace WinHue3.Utils
             return false;
         }
 
- 
-
         private static bool SaveSettings()
         {
             foreach (Bridge br in _listBridges)
