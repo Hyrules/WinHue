@@ -19,7 +19,6 @@ namespace WinHue3.Addons.CpuTempMon
         private int _UpperTemp;
         private int _lowerGradientColor;
         private int _upperGradientColor;
-        private Bridge _bridge;
         private CpuTemp _temp;
         public bool _canTest;
         public string _cpuTemp;
@@ -46,13 +45,12 @@ namespace WinHue3.Addons.CpuTempMon
 
         public void Initialize(Bridge bridge, CpuTemp temp)
         {
-            _bridge = bridge;
             _temp = temp;
             _temp.OnTempUpdated += _temp_OnTempUpdated;
             _temp.OnSensorUpdated += _temp_OnSensorUpdated;
             _temp.Start();
 
-            List<IHueObject> hr = HueObjectHelper.GetBridgeDataStore(_bridge);
+            List<IHueObject> hr = BridgeManager.SelectedBridge.GetBridgeDataStore();
 
             if (hr == null) return;
             ListLightGroups.AddRange(hr.Where(x => x is Light));
@@ -106,11 +104,11 @@ namespace WinHue3.Addons.CpuTempMon
 
             if (SelectedObject is Light)
             {
-                _bridge.SetState(new State() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
+                BridgeManager.SelectedBridge.SetState(new State() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
             }
             else
             {
-                _bridge.SetState(new Philips_Hue.HueObjects.GroupObject.Action() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
+                BridgeManager.SelectedBridge.SetState(new Philips_Hue.HueObjects.GroupObject.Action() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
             }
 
             

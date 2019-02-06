@@ -54,7 +54,7 @@ namespace WinHue3.Utils
         /// <param name="imagestate">Requested state of the light.</param>
         /// <param name="modelid">model id of the light.</param>
         /// <returns>New image of the light</returns>
-        public static ImageSource GetImageForLight(LightImageState imagestate, string modelid = null, string archetype = null)
+        private static ImageSource GetImageForLight(LightImageState imagestate, string modelid = null, string archetype = null)
         {
             string modelID = modelid ?? "DefaultHUE";
             string state = string.Empty;
@@ -149,6 +149,7 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the datastore from.</param>
         /// <returns>A List of objects.</returns>
+        [Obsolete]
         public static List<IHueObject> GetBridgeDataStore(Bridge bridge)
         {
             log.Info($@"Fetching DataStore from bridge : {bridge.IpAddress}");
@@ -173,6 +174,7 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the datastore from.</param>
         /// <returns>a list of IHueObject</returns>
+        [Obsolete]
         public static async Task<List<IHueObject>> GetBridgeDataStoreAsyncTask(Bridge bridge,bool hideobjects = true)
         {
             log.Info($@"Fetching DataStore from bridge : {bridge.IpAddress}");
@@ -266,6 +268,7 @@ namespace WinHue3.Utils
         /// <param name="bridge">the bridge to get the object from</param>
         /// <param name="id">the id of the object</param>
         /// <returns>the requested object or null if error.</returns>
+        [Obsolete]
         public static T GetObject<T>(Bridge bridge, string id) where T : IHueObject
         {
             T bresult = bridge.GetObject<T>(id);
@@ -364,9 +367,10 @@ namespace WinHue3.Utils
         /// <param name="id">The id of the object</param>
         /// <param name="objecttype">the type of the object to get.</param>
         /// <returns>the object requested.</returns>
-        public static async Task<IHueObject> GetObjectAsyncTask(Bridge bridge, string id, Type objecttype)
+        [Obsolete]
+        public static async Task<IHueObject> GetObjectAsyncTask(string id, Type objecttype)
         {
-            IHueObject bresult = await bridge.GetObjectAsyncTask(id, objecttype);
+            IHueObject bresult = await GetObjectAsyncTask(id, objecttype);
             IHueObject Object = bresult;
             if (Object == null) return null;
             Object.Id = id;
@@ -558,6 +562,7 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the new lights from.</param>
         /// <returns>A list of lights.</returns>
+        [Obsolete]
         public static async Task<List<IHueObject>> GetBridgeNewLightsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting new lights from bridge {bridge.IpAddress}");
@@ -594,6 +599,7 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the groups from.</param>
         /// <returns>A List of Group.</returns>
+        [Obsolete]
         public static async Task<List<Group>> GetBridgeGroupsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all groups from bridge {bridge.IpAddress}");
@@ -632,6 +638,7 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the scenes from.</param>
         /// <returns>A List of scenes.</returns>
+        [Obsolete]
         public static async Task<List<Scene>> GetBridgeScenesAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all scenes from bridge {bridge.IpAddress}");
@@ -1174,6 +1181,7 @@ namespace WinHue3.Utils
         /// <param name="dimvalue">Value for the dim (Optional)</param>
         /// <param name="state">New state at toggle (Optional)</param>
         /// <returns>The new image of the object.</returns>
+        [Obsolete]
         public static async Task<ImageSource> ToggleObjectOnOffStateAsyncTask(Bridge bridge, IHueObject obj, ushort? tt = null, byte? dimvalue = null, IBaseProperties state = null)
         {
             ImageSource hr = null;

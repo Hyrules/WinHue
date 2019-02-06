@@ -30,7 +30,7 @@ namespace WinHue3.Functions.Scenes.View
             List<Light> lresult = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
             if (lresult != null)
             {
-                List<Scene> sresult = await HueObjectHelper.GetBridgeScenesAsyncTask(BridgeManager.SelectedBridge);
+                List<Scene> sresult = await BridgeManager.SelectedBridge.GetBridgeScenesAsyncTask();
                 if (sresult != null)
                 {
                     

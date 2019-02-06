@@ -31,7 +31,7 @@ namespace WinHue3.Functions.PowerSettings
         {
             Button btn = ((RoutedEventArgs)obj).Source as Button;
             Light light = btn.DataContext as Light;
-            Light refresh = (Light) await HueObjectHelper.GetObjectAsyncTask(BridgeManager.SelectedBridge, light.Id, typeof(Light));
+            Light refresh = (Light) await BridgeManager.SelectedBridge.GetObjectAsyncTask(light.Id, typeof(Light));
             light.config.startup.mode = refresh.config.startup.mode;
             light.config.startup.configured = refresh.config.startup.configured;
             light.config.startup.customsettings = refresh.config.startup.customsettings;
@@ -41,7 +41,7 @@ namespace WinHue3.Functions.PowerSettings
         {
             Button btn = ((RoutedEventArgs) obj).Source as Button;
             Light light = btn.DataContext as Light;
-            Form_PowerCustomSettings fcs = new Form_PowerCustomSettings(BridgeManager.SelectedBridge, light.config.startup.customsettings, light.Id)
+            Form_PowerCustomSettings fcs = new Form_PowerCustomSettings(light.config.startup.customsettings, light.Id)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -70,7 +70,7 @@ namespace WinHue3.Functions.PowerSettings
             {
                 if (mode == "custom")
                 {
-                    Light refresh = (Light) await HueObjectHelper.GetObjectAsyncTask(BridgeManager.SelectedBridge, light.Id, typeof(Light));
+                    Light refresh = (Light) await BridgeManager.SelectedBridge.GetObjectAsyncTask(light.Id, typeof(Light));
                     light.config.startup.customsettings = refresh.config.startup.customsettings;
                 }
             }

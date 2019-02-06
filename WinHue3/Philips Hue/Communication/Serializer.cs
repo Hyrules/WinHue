@@ -105,6 +105,7 @@ namespace WinHue3.Philips_Hue.Communication
         public static T DeserializeToObject<T>(string json)
         {
             log.Debug(json);
+            jss.ContractResolver = null;
             try
             {
 

@@ -8,20 +8,32 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.BridgeFinder;
 using WinHue3.Functions.BridgePairing;
+using WinHue3.Functions.Lights.SupportedDevices;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
+using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.HueObjects.LightObject;
+using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
+using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
+using WinHue3.Philips_Hue.HueObjects.RuleObject;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
+using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
+using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Utils
 {
     public static class BridgeManager
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private static ObservableCollection<Bridge> _listBridges;
         private static Bridge _selectedBridge;
 
@@ -62,6 +74,7 @@ namespace WinHue3.Utils
         #endregion
 
         #region METHODS
+
         public static ObservableCollection<IHueObject> LoadVirtualBridge()
         {
             System.Windows.Forms.OpenFileDialog fd = new System.Windows.Forms.OpenFileDialog
@@ -75,7 +88,7 @@ namespace WinHue3.Utils
                 List<IHueObject> hueobjects = HueObjectHelper.ProcessDataStore(ds);
                 Bridge vbridge = new Bridge() { Virtual = true, Name = "Virtual Bridge", RequiredUpdate = false };
                 _listBridges.Add(vbridge);
-                _selectedBridge= vbridge;
+                _selectedBridge = vbridge;
                 return new ObservableCollection<IHueObject>(hueobjects);
             }
             return null;
@@ -119,6 +132,8 @@ namespace WinHue3.Utils
 
             return false;
         }
+
+ 
 
         private static bool SaveSettings()
         {

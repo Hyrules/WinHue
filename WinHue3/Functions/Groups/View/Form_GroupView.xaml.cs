@@ -26,7 +26,7 @@ namespace WinHue3.Functions.Groups.View
 
             if (comlgt != null)
             {
-                List<Group> comgrp = await HueObjectHelper.GetBridgeGroupsAsyncTask(BridgeManager.SelectedBridge);
+                List<Group> comgrp = await BridgeManager.SelectedBridge.GetBridgeGroupsAsyncTask(BridgeManager.SelectedBridge);
                 if (comgrp != null)
                 {
 

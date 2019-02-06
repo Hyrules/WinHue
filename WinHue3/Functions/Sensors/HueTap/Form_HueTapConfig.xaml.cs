@@ -26,7 +26,7 @@ namespace WinHue3.Functions.Sensors.HueTap
         {
             tcvm.HueTapModel.Id = sensorid;
 
-            List<Scene> hr = await HueObjectHelper.GetBridgeScenesAsyncTask(BridgeManager.SelectedBridge);
+            List<Scene> hr = await BridgeManager.SelectedBridge.GetBridgeScenesAsyncTask();
 
             if (hr != null)
             {
