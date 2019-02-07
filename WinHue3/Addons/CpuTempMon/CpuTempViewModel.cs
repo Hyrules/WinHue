@@ -43,7 +43,7 @@ namespace WinHue3.Addons.CpuTempMon
             _listCpuSensors = new ObservableCollection<ISensor>();
         }
 
-        public void Initialize(Bridge bridge, CpuTemp temp)
+        public void Initialize(CpuTemp temp)
         {
             _temp = temp;
             _temp.OnTempUpdated += _temp_OnTempUpdated;

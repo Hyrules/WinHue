@@ -199,7 +199,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         }
 
         [OnDeserialized]
-        void OnDeserializedAttribute(StreamingContext ctx)
+        void OnDeserialized(StreamingContext ctx)
         {
             Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
         }

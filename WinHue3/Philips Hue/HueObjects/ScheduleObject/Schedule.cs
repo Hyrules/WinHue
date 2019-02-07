@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -12,7 +13,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
     /// <summary>
     /// Class for a schedule.
     /// </summary>
-    [DataContract, HueType("schedules"), JsonConverter(typeof(ScheduleJsonConverter))]
+    [JsonObject, HueType("schedules"), JsonConverter(typeof(ScheduleJsonConverter))]
     public class Schedule : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -31,7 +32,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Image of the rule.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Image of the Schedule"), ReadOnly(true), Browsable(false), JsonIgnore]
+        [Category("Schedule Properties"), Description("Image of the Schedule"), ReadOnly(true), Browsable(false), JsonIgnore]
         public ImageSource Image
         {
             get => _image;
@@ -41,7 +42,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// ID of the rule.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("ID of the Schedule"), ReadOnly(true),Browsable(false), JsonIgnore]
+        [Category("Schedule Properties"), Description("ID of the Schedule"), ReadOnly(true),Browsable(false), JsonIgnore]
         public string Id
         {
             get => _id;
@@ -51,7 +52,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Name of the Schedule.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Name of the schedule")]
+        [Category("Schedule Properties"), Description("Name of the schedule")]
         public string name
         {
             get => _name;
@@ -61,7 +62,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Time when the scheduled event will occur in ISO 8601:2004 format.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Local Time of the schedule")]
+        [Category("Schedule Properties"), Description("Local Time of the schedule")]
         public string localtime
         {
             get => _localtime;
@@ -71,7 +72,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Description of the schedule
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Description of the schedule")]
+        [Category("Schedule Properties"), Description("Description of the schedule")]
         public string description
         {
             get => _description;
@@ -81,7 +82,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Command to be executed when the schedule is triggered
         /// </summary>
-        [DataMember, ExpandableObject, Category("Command"), Description("Command of the schedule")]
+        [ExpandableObject, Category("Command"), Description("Command of the schedule")]
         public Command command
         {
             get => _command;
@@ -91,7 +92,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Status of the schedule.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Command of the schedule"), ItemsSource(typeof(StatusItemsSource))]
+        [Category("Schedule Properties"), Description("Command of the schedule"), ItemsSource(typeof(StatusItemsSource))]
         public string status
         {
             get => _status;
@@ -101,7 +102,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Recycle the schedule.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Command of the schedule"), CreateOnly]
+        [Category("Schedule Properties"), Description("Command of the schedule"), CreateOnly]
         public bool? recycle
         {
             get => _recycle;
@@ -111,7 +112,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Start time of the timer.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Start time of the timer (if one)"), ReadOnly(true)]
+        [Category("Schedule Properties"), Description("Start time of the timer (if one)"), ReadOnly(true)]
         public string starttime
         {
             get => _starttime;
@@ -121,7 +122,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Date created.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Command of the schedule"),ReadOnly(true)]
+        [Category("Schedule Properties"), Description("Command of the schedule"),ReadOnly(true)]
         public string created
         {
             get => _created;
@@ -131,7 +132,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Autodelete.
         /// </summary>
-        [DataMember, Category("Schedule Properties"), Description("Autodelete the schedule")]
+        [Category("Schedule Properties"), Description("Autodelete the schedule")]
         public bool? autodelete
         {
             get => _autodelete;
@@ -152,6 +153,31 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         public override string ToString()
         {
             return Serializer.SerializeJsonObject(this);
+        }
+
+        [OnDeserialized]
+        void OnDeserialize(StreamingContext ctx)
+        {
+            ImageSource imgsource;
+            if (localtime.Contains("PT"))
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+            }
+            else if (localtime.Contains("W"))
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+            }
+            else if (localtime.Contains("T"))
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+            }
+            else
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+            }
+
+            Image = imgsource;
+            
         }
 
         public object Clone()

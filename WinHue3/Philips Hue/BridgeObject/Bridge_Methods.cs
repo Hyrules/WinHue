@@ -60,20 +60,20 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <param name="bridge">Bridge to get the datastore from.</param>
         /// <returns>A List of objects.</returns>
-        public List<IHueObject> GetBridgeDataStore(Bridge bridge)
+        public List<IHueObject> GetBridgeDataStore()
         {
-            log.Info($@"Fetching DataStore from bridge : {bridge.IpAddress}");
-            DataStore bresult = bridge.GetBridgeDataStore();
+            log.Info($@"Fetching DataStore from bridge : {IpAddress}");
+            DataStore bresult = GetDataStore();
             List<IHueObject> hr = null;
             if (bresult == null) return hr;
             DataStore ds = bresult;
-            Group zero = GetGroupZero(bridge);
+            Group zero = GetGroupZero();
             if (zero != null)
             {
                 ds.groups.Add("0", zero);
             }
             hr = ProcessDataStore(ds);
-            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[Mac].hiddenobjects);
             log.Debug("Bridge data store : " + hr);
 
             return hr;
@@ -84,9 +84,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <param name="bridge"></param>
         /// <returns></returns>
-        private Group GetGroupZero(Bridge bridge)
+        private Group GetGroupZero()
         {
-            return bridge.GetObject<Group>("0");
+            return GetObject<Group>("0");
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <param name="datastore">Datastore to process.</param>
         /// <returns>A list of object processed.</returns>
-        public List<IHueObject> ProcessDataStore(DataStore datastore)
+        private List<IHueObject> ProcessDataStore(DataStore datastore)
         {
             List<IHueObject> newlist = new List<IHueObject>();
             log.Debug("Processing datastore...");
@@ -161,7 +161,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 kvp.Value.Id = kvp.Key;
                 kvp.Value.visible = true;
                 log.Debug("Processing resource links : " + kvp.Value);
-                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
+                //kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
                 newlist.Add(kvp.Value);
             }
             return newlist;
@@ -187,26 +187,26 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 kvp.Value.Id = kvp.Key;
                 kvp.Value.visible = true;
                 log.Debug("Processing Sensor : " + kvp.Value);
-                switch (kvp.Value.type)
-                {
-                    case "ZGPSwitch":
-                        log.Debug("Sensor is Hue Tap.");
-                        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.huetap);
-                        break;
-                    case "ZLLSwitch":
-                        log.Debug("Sensor is dimmer.");
-                        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.dimmer);
-                        break;
-                    case "ZLLPresence":
-                        log.Debug("Sensor is Motion.");
-                        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.Motion);
-                        break;
-                    default:
-                        log.Debug("Sensor is generic sensor.");
-                        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.sensor);
-                        break;
+                //switch (kvp.Value.type)
+                //{
+                //    case "ZGPSwitch":
+                //        log.Debug("Sensor is Hue Tap.");
+                //        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.huetap);
+                //        break;
+                //    case "ZLLSwitch":
+                //        log.Debug("Sensor is dimmer.");
+                //        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.dimmer);
+                //        break;
+                //    case "ZLLPresence":
+                //        log.Debug("Sensor is Motion.");
+                //        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.Motion);
+                //        break;
+                //    default:
+                //        log.Debug("Sensor is generic sensor.");
+                //        kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.sensor);
+                //        break;
 
-                }
+                //}
 
                 newlist.Add(kvp.Value);
             }
@@ -287,22 +287,22 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     if (bresult == null) continue;
                     Sensor newSensor = bresult;
                     newSensor.Id = kvp.Key;
-                    switch (newSensor.type)
-                    {
-                        case "ZGPSwitch":
-                            log.Debug("New sensor is Hue Tap.");
-                            newSensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.huetap);
-                            break;
-                        case "ZLLSwitch":
-                            log.Debug("New sensor is dimmer.");
-                            newSensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.dimmer);
-                            break;
-                        default:
-                            log.Debug("New sensor is generic.");
-                            newSensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.sensor);
-                            break;
+                    //switch (newSensor.type)
+                    //{
+                    //    case "ZGPSwitch":
+                    //        log.Debug("New sensor is Hue Tap.");
+                    //        newSensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.huetap);
+                    //        break;
+                    //    case "ZLLSwitch":
+                    //        log.Debug("New sensor is dimmer.");
+                    //        newSensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.dimmer);
+                    //        break;
+                    //    default:
+                    //        log.Debug("New sensor is generic.");
+                    //        newSensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.sensor);
+                    //        break;
 
-                    }
+                    //}
                     newlist.Add(newSensor);
                 }
             }
@@ -357,7 +357,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 }
                 kvp.Value.Id = kvp.Key;
                 log.Debug("Processing scene : " + kvp.Value);
-                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
+                //kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
                 kvp.Value.visible = !(kvp.Value.name.StartsWith("HIDDEN") && !WinHueSettings.settings.ShowHiddenScenes);
                 newlist.Add(kvp.Value);
             }
@@ -400,28 +400,28 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     Time = kvp.Value.localtime;
                 }
 
-                if (Time.Contains("PT"))
-                {
-                    log.Debug("Schedule is type Timer.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
-                }
-                else if (Time.Contains('W'))
-                {
-                    log.Debug("Schedule is type Alarm.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
-                }
-                else if (Time.Contains('T'))
-                {
-                    log.Debug("Schedule is type Schedule.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
-                }
-                else
-                {
-                    log.Debug("Schedule is unknown type.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
-                }
+                //if (Time.Contains("PT"))
+                //{
+                //    log.Debug("Schedule is type Timer.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+                //}
+                //else if (Time.Contains('W'))
+                //{
+                //    log.Debug("Schedule is type Alarm.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+                //}
+                //else if (Time.Contains('T'))
+                //{
+                //    log.Debug("Schedule is type Schedule.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+                //}
+                //else
+                //{
+                //    log.Debug("Schedule is unknown type.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+                //}
 
-                kvp.Value.Image = imgsource;
+                //kvp.Value.Image = imgsource;
                 newlist.Add(kvp.Value);
             }
 
@@ -448,7 +448,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 kvp.Value.Id = kvp.Key;
                 kvp.Value.visible = true;
                 log.Debug("Processing rule : " + kvp.Value);
-                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
+               // kvp.Value.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
                 newlist.Add(kvp.Value);
             }
 
@@ -580,7 +580,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 {
                     Sensor sensor = bresult as Sensor;
                     sensor.Id = id;
-                    sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
+                    //sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
                     Object = (T)Convert.ChangeType(sensor, typeof(T));
                 }
                 else if (typeof(T) == typeof(Rule))
@@ -588,7 +588,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     Rule rule = Object as Rule;
                     log.Debug("Rule : " + rule);
                     rule.Id = id;
-                    rule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
+                   // rule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
                     Object = (T)Convert.ChangeType(rule, typeof(T));
                 }
                 else if (typeof(T) == typeof(Scene))
@@ -596,43 +596,43 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     Scene scene = Object as Scene;
                     log.Debug("Scene : " + scene);
                     scene.Id = id;
-                    scene.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
+                    //scene.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
                     Object = (T)Convert.ChangeType(scene, typeof(T));
                 }
                 else if (typeof(T) == typeof(Schedule))
                 {
                     Schedule schedule = Object as Schedule;
                     schedule.Id = id;
-                    ImageSource imgsource;
-                    if (schedule.localtime.Contains("PT"))
-                    {
-                        log.Debug("Schedule is type Timer.");
-                        imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
-                    }
-                    else if (schedule.localtime.Contains('W'))
-                    {
-                        log.Debug("Schedule is type Alarm.");
-                        imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
-                    }
-                    else if (schedule.localtime.Contains('T'))
-                    {
-                        log.Debug("Schedule is type Schedule.");
-                        imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
-                    }
-                    else
-                    {
-                        log.Debug("Schedule is unknown type.");
-                        imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
-                    }
+                    //ImageSource imgsource;
+                    //if (schedule.localtime.Contains("PT"))
+                    //{
+                    //    log.Debug("Schedule is type Timer.");
+                    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+                    //}
+                    //else if (schedule.localtime.Contains('W'))
+                    //{
+                    //    log.Debug("Schedule is type Alarm.");
+                    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+                    //}
+                    //else if (schedule.localtime.Contains('T'))
+                    //{
+                    //    log.Debug("Schedule is type Schedule.");
+                    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+                    //}
+                    //else
+                    //{
+                    //    log.Debug("Schedule is unknown type.");
+                    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+                    //}
 
-                    schedule.Image = imgsource;
+                    //schedule.Image = imgsource;
                     Object = (T)Convert.ChangeType(schedule, typeof(T));
                 }
                 else if (typeof(T) == typeof(Resourcelink))
                 {
                     Resourcelink rl = Object as Resourcelink;
                     rl.Id = id;
-                    rl.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
+                    //rl.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
                     Object = (T)Convert.ChangeType(rl, typeof(T));
                 }
             }
@@ -725,58 +725,90 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 Sensor sensor = bresult as Sensor;
                 sensor.Id = id;
-                sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
+               // sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
                 Object = sensor;
             }
             else if (objecttype == typeof(Rule))
             {
                 log.Debug("Rule : " + Object);
                 Object.Id = id;
-                Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
+               // Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
 
             }
             else if (objecttype == typeof(Scene))
             {
                 log.Debug("Scene : " + Object);
                 Object.Id = id;
-                Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
+              //  Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
             }
             else if (objecttype == typeof(Schedule))
             {
                 Schedule schedule = Object as Schedule;
                 schedule.Id = id;
-                ImageSource imgsource;
-                if (schedule.localtime.Contains("PT"))
-                {
-                    log.Debug("Schedule is type Timer.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
-                }
-                else if (schedule.localtime.Contains('W'))
-                {
-                    log.Debug("Schedule is type Alarm.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
-                }
-                else if (schedule.localtime.Contains('T'))
-                {
-                    log.Debug("Schedule is type Schedule.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
-                }
-                else
-                {
-                    log.Debug("Schedule is unknown type.");
-                    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
-                }
+                //ImageSource imgsource;
+                //if (schedule.localtime.Contains("PT"))
+                //{
+                //    log.Debug("Schedule is type Timer.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+                //}
+                //else if (schedule.localtime.Contains('W'))
+                //{
+                //    log.Debug("Schedule is type Alarm.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+                //}
+                //else if (schedule.localtime.Contains('T'))
+                //{
+                //    log.Debug("Schedule is type Schedule.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+                //}
+                //else
+                //{
+                //    log.Debug("Schedule is unknown type.");
+                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+                //}
 
-                schedule.Image = imgsource;
+                //schedule.Image = imgsource;
                 Object = schedule;
             }
             else if (objecttype == typeof(Resourcelink))
             {
                 Object.Id = id;
-                Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
+               // Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
             }
 
             return Object;
+        }
+
+        /// <summary>
+        /// Get the Group Zero async.
+        /// </summary>
+        /// <param name="bridge"></param>
+        /// <returns></returns>
+        private static async Task<Group> GetGroupZeroAsynTask(Bridge bridge)
+        {
+            return (Group)await bridge.GetObjectAsyncTask("0", typeof(Group));
+        }
+
+        /// <summary>
+        /// Get a list of group with ID, name and image populated from the selected bridge async.
+        /// </summary>
+        /// <param name="bridge">Bridge to get the groups from.</param>
+        /// <returns>A List of Group.</returns>
+        public async Task<List<Group>> GetBridgeGroupsAsyncTask(Bridge bridge)
+        {
+            log.Debug($@"Getting all groups from bridge {bridge.IpAddress}");
+            Dictionary<string, Group> bresult = await bridge.GetListObjectsAsyncTask<Group>();
+            if (bresult == null) return null;
+            Dictionary<string, Group> gs = bresult;
+            Group zero = await GetGroupZeroAsynTask(bridge);
+            if (zero != null)
+            {
+                gs.Add("0", zero);
+            }
+            List<Group> hr = ProcessGroups(gs);
+            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
+            log.Debug("List groups : " + Serializer.SerializeJsonObject(hr));
+            return hr;
         }
 
         /// <summary>
@@ -840,10 +872,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// Get all objects from the bridge.
         /// </summary>
         /// <returns>A DataStore of objects from the bridge.</returns>
-        public DataStore GetBridgeDataStore()
+        private DataStore GetDataStore()
         {
             
-
             CommResult comres = Comm.SendRequest(new Uri(BridgeUrl), WebRequestType.Get);
             if (comres.Status == WebExceptionStatus.Success)
             {

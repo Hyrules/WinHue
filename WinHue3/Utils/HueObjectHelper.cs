@@ -149,25 +149,25 @@ namespace WinHue3.Utils
         /// </summary>
         /// <param name="bridge">Bridge to get the datastore from.</param>
         /// <returns>A List of objects.</returns>
-        [Obsolete]
-        public static List<IHueObject> GetBridgeDataStore(Bridge bridge)
-        {
-            log.Info($@"Fetching DataStore from bridge : {bridge.IpAddress}");
-            DataStore bresult = bridge.GetBridgeDataStore();
-            List<IHueObject> hr = null;
-            if (bresult == null) return hr;
-            DataStore ds = bresult;
-            Group zero = GetGroupZero(bridge);
-            if (zero != null)
-            {
-                ds.groups.Add("0", zero);
-            }           
-            hr = ProcessDataStore(ds);
-            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
-            log.Debug("Bridge data store : " + hr);
+        //[Obsolete]
+        //public static List<IHueObject> GetBridgeDataStore(Bridge bridge)
+        //{
+        //    log.Info($@"Fetching DataStore from bridge : {bridge.IpAddress}");
+        //    DataStore bresult = bridge.GetBridgeDataStore();
+        //    List<IHueObject> hr = null;
+        //    if (bresult == null) return hr;
+        //    DataStore ds = bresult;
+        //    Group zero = GetGroupZero(bridge);
+        //    if (zero != null)
+        //    {
+        //        ds.groups.Add("0", zero);
+        //    }           
+        //    hr = ProcessDataStore(ds);
+        //    RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
+        //    log.Debug("Bridge data store : " + hr);
 
-            return hr;
-        }
+        //    return hr;
+        //}
 
         /// <summary>
         /// Get the datastore from the bridge async.

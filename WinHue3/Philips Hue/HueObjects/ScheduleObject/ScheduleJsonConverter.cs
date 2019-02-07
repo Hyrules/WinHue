@@ -58,6 +58,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
             
         }
 
+
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             serializer.DateParseHandling = DateParseHandling.None;
@@ -103,6 +104,9 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 newSchedule.command.body = JsonConvert.SerializeObject(obj["command"]["body"]);
             if (obj["command"]["method"] != null)
                 newSchedule.command.method = obj["command"]["method"].Value<string>();
+            
+            
+
             return newSchedule;
         }
 
