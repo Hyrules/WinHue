@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Windows.Media;
+using log4net;
 using Newtonsoft.Json;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Philips_Hue.Communication;
@@ -17,6 +19,16 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
     [DefaultProperty("Light"), JsonObject, HueType("lights")]
     public class Light : ValidatableBindableBase, IHueObject
     {
+        /// <summary>
+        /// Logging 
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
+        /// List of possible light state.
+        /// </summary>
+        private enum LightImageState { On = 0, Off = 1, Unr = 3 }
+
         private string _name;
         private ImageSource _image;
         private string _type;
@@ -124,6 +136,67 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// </summary>
         [Category("Light Properties"), Description("Current light supports streaming features"), DontSerialize]
         public bool Streaming { get => _streaming; set => SetProperty(ref _streaming,value); }
+
+        [OnDeserialized]
+        void OnDeserialized(StreamingContext ctx)
+        {
+            Image = GetImageForLight(state.reachable.GetValueOrDefault() ? state.@on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, modelid, config.archetype);
+
+        }
+
+        /// <summary>
+        /// Return the new image from the light
+        /// </summary>
+        /// <param name="imagestate">Requested state of the light.</param>
+        /// <param name="modelid">model id of the light.</param>
+        /// <returns>New image of the light</returns>
+        private ImageSource GetImageForLight(LightImageState imagestate, string modelid = null, string archetype = null)
+        {
+            string modelID = modelid ?? "DefaultHUE";
+            string state = string.Empty;
+
+            switch (imagestate)
+            {
+                case LightImageState.Off:
+                    state = "off";
+                    break;
+                case LightImageState.On:
+                    state = "on";
+                    break;
+                case LightImageState.Unr:
+                    state = "unr";
+                    break;
+                default:
+                    state = "off";
+                    break;
+            }
+
+            if (modelID == string.Empty)
+            {
+                log.Debug("STATE : " + state + " empty MODELID using default images");
+                return LightImageLibrary.Images["DefaultHUE"][state];
+            }
+
+            ImageSource newImage;
+
+            if (LightImageLibrary.Images.ContainsKey(modelID)) // Check model ID first
+            {
+                log.Debug("STATE : " + state + " MODELID : " + modelID);
+                newImage = LightImageLibrary.Images[modelID][state];
+
+            }
+            else if (archetype != null && LightImageLibrary.Images.ContainsKey(archetype)) // Check archetype after model ID, giving model ID priority
+            {
+                log.Debug("STATE : " + state + " ARCHETYPE : " + archetype);
+                newImage = LightImageLibrary.Images[archetype][state];
+            }
+            else // Neither model ID or archetype are known
+            {
+                log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " and ARCHETYPE : " + archetype + " using default images.");
+                newImage = LightImageLibrary.Images["DefaultHUE"][state];
+            }
+            return newImage;
+        }
 
         /// <summary>
         /// To string.

@@ -329,7 +329,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 log.Debug("Processing group : " + kvp.Value);
                 kvp.Value.visible = true;
                 kvp.Value.Id = kvp.Key;
-                kvp.Value.Image = GDIManager.CreateImageSourceFromImage(kvp.Value.state.any_on.GetValueOrDefault() ? (kvp.Value.state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
+                //kvp.Value.Image = GDIManager.CreateImageSourceFromImage(kvp.Value.state.any_on.GetValueOrDefault() ? (kvp.Value.state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
                 newlist.Add(kvp.Value);
             }
 
@@ -385,7 +385,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 log.Debug("Assigning id to schedule ");
                 kvp.Value.visible = true;
                 kvp.Value.Id = kvp.Key;
-                ImageSource imgsource;
+                //ImageSource imgsource;
                 log.Debug("Processing schedule : " + kvp.Value);
                 string Time = string.Empty;
                 if (kvp.Value.localtime == null)
@@ -553,7 +553,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
             T bresult = bridge.GetObject<T>(id);
             T Object = bresult;
-            if (bresult != null)
+            Object.Id = id;
+           /* if (bresult != null)
             {
                 if (typeof(T) == typeof(Light))
                 {
@@ -561,11 +562,11 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
                     log.Debug("Light : " + Object);
                     light.Id = id;
-                    light.Image =
-                        GetImageForLight(
-                            light.state.reachable.GetValueOrDefault()
-                                ? light.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off
-                                : LightImageState.Unr, light.modelid, light.config.archetype);
+                    //light.Image =
+                    //    GetImageForLight(
+                    //        light.state.reachable.GetValueOrDefault()
+                    //            ? light.state.on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off
+                    //            : LightImageState.Unr, light.modelid, light.config.archetype);
                     Object = (T)Convert.ChangeType(light, typeof(T));
                 }
                 else if (typeof(T) == typeof(Group))
@@ -573,7 +574,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     Group group = Object as Group;
                     log.Debug("Group : " + group);
                     group.Id = id;
-                    group.Image = GDIManager.CreateImageSourceFromImage(group.action.on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
+                    //group.Image = GDIManager.CreateImageSourceFromImage(group.action.on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
                     Object = (T)Convert.ChangeType(group, typeof(T));
                 }
                 else if (typeof(T) == typeof(Sensor))
@@ -635,7 +636,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     //rl.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
                     Object = (T)Convert.ChangeType(rl, typeof(T));
                 }
-            }
+            }*/
 
             return Object;
         }
@@ -699,82 +700,82 @@ namespace WinHue3.Philips_Hue.BridgeObject
             Object.Id = id;
 
 
-            if (bresult == null) return Object;
-            if (objecttype == typeof(Light))
-            {
-                Light light = Object as Light;
+            //if (bresult == null) return Object;
+            //if (objecttype == typeof(Light))
+            //{
+            //    Light light = Object as Light;
 
-                log.Debug("Light : " + Object);
-                light.Id = id;
-                light.Image =
-                    GetImageForLight(
-                        light.state.reachable.GetValueOrDefault()
-                            ? light.state.@on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off
-                            : LightImageState.Unr, light.modelid, light.config.archetype);
-                Object = light;
-            }
-            else if (objecttype == typeof(Group))
-            {
-                Group group = Object as Group;
-                log.Debug("Group : " + @group);
-                @group.Id = id;
-                @group.Image = GDIManager.CreateImageSourceFromImage(@group.action.@on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
-                Object = @group;
-            }
-            else if (typeof(Sensor).IsAssignableFrom(objecttype))
-            {
-                Sensor sensor = bresult as Sensor;
-                sensor.Id = id;
-               // sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
-                Object = sensor;
-            }
-            else if (objecttype == typeof(Rule))
-            {
-                log.Debug("Rule : " + Object);
-                Object.Id = id;
-               // Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
+            //    log.Debug("Light : " + Object);
+            //    light.Id = id;
+            //    //light.Image =
+            //    //    GetImageForLight(
+            //    //        light.state.reachable.GetValueOrDefault()
+            //    //            ? light.state.@on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off
+            //    //            : LightImageState.Unr, light.modelid, light.config.archetype);
+            //    Object = light;
+            //}
+            //else if (objecttype == typeof(Group))
+            //{
+            //    Group group = Object as Group;
+            //    log.Debug("Group : " + @group);
+            //    @group.Id = id;
+            //    //@group.Image = GDIManager.CreateImageSourceFromImage(@group.action.@on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupOff_Large);
+            //    Object = @group;
+            //}
+            //else if (typeof(Sensor).IsAssignableFrom(objecttype))
+            //{
+            //    Sensor sensor = bresult as Sensor;
+            //    sensor.Id = id;
+            //   // sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
+            //    Object = sensor;
+            //}
+            //else if (objecttype == typeof(Rule))
+            //{
+            //    log.Debug("Rule : " + Object);
+            //    Object.Id = id;
+            //   // Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
 
-            }
-            else if (objecttype == typeof(Scene))
-            {
-                log.Debug("Scene : " + Object);
-                Object.Id = id;
-              //  Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
-            }
-            else if (objecttype == typeof(Schedule))
-            {
-                Schedule schedule = Object as Schedule;
-                schedule.Id = id;
-                //ImageSource imgsource;
-                //if (schedule.localtime.Contains("PT"))
-                //{
-                //    log.Debug("Schedule is type Timer.");
-                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
-                //}
-                //else if (schedule.localtime.Contains('W'))
-                //{
-                //    log.Debug("Schedule is type Alarm.");
-                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
-                //}
-                //else if (schedule.localtime.Contains('T'))
-                //{
-                //    log.Debug("Schedule is type Schedule.");
-                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
-                //}
-                //else
-                //{
-                //    log.Debug("Schedule is unknown type.");
-                //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
-                //}
+            //}
+            //else if (objecttype == typeof(Scene))
+            //{
+            //    log.Debug("Scene : " + Object);
+            //    Object.Id = id;
+            //  //  Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
+            //}
+            //else if (objecttype == typeof(Schedule))
+            //{
+            //    Schedule schedule = Object as Schedule;
+            //    schedule.Id = id;
+            //    //ImageSource imgsource;
+            //    //if (schedule.localtime.Contains("PT"))
+            //    //{
+            //    //    log.Debug("Schedule is type Timer.");
+            //    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+            //    //}
+            //    //else if (schedule.localtime.Contains('W'))
+            //    //{
+            //    //    log.Debug("Schedule is type Alarm.");
+            //    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+            //    //}
+            //    //else if (schedule.localtime.Contains('T'))
+            //    //{
+            //    //    log.Debug("Schedule is type Schedule.");
+            //    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+            //    //}
+            //    //else
+            //    //{
+            //    //    log.Debug("Schedule is unknown type.");
+            //    //    imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+            //    //}
 
-                //schedule.Image = imgsource;
-                Object = schedule;
-            }
-            else if (objecttype == typeof(Resourcelink))
-            {
-                Object.Id = id;
-               // Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
-            }
+            //    //schedule.Image = imgsource;
+            //    Object = schedule;
+            //}
+            //else if (objecttype == typeof(Resourcelink))
+            //{
+            //    Object.Id = id;
+            //   // Object.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
+            //}
 
             return Object;
         }

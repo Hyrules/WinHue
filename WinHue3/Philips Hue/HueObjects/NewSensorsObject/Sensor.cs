@@ -27,7 +27,7 @@ using WinHue3.Interface;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
-    [JsonObject, HueType("sensors"), JsonConverter(typeof(SensorJsonConverter))]
+    [JsonObject, HueType("sensors")]
     public class Sensor : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -156,7 +156,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// Config of the sensor.
         /// </summary>
-        [Category("Sensor Properties"), Description("Configuration of the sensor"), ExpandableObject]
+        [Category("Sensor Properties"), Description("Configuration of the sensor"), ExpandableObject, JsonIgnore]
         public ISensorConfigBase config
         {
             get => _config;
@@ -171,7 +171,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// State of the sensor.
         /// </summary>
-        [Category("Sensor Properties"), Description("Configuration of the sensor"), ExpandableObject, ReadOnly(true)]
+        [Category("Sensor Properties"), Description("Configuration of the sensor"), ExpandableObject, ReadOnly(true), JsonConverter(typeof(StateJsonConverter))]
         public ISensorStateBase state
         {
             get => _state;
@@ -209,6 +209,25 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         }
     }
 
+    internal class StateJsonConverter : JsonConverter
+    {
+        public override bool CanWrite => false;
+
+        public override bool CanConvert(Type objectType)
+        {
+            return true;
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public class SensorJsonConverter : JsonConverter
     {
