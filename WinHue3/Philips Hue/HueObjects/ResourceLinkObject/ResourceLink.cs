@@ -134,13 +134,6 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
             Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
         }
 
-        [OnDeserializing]
-        void OnDeserializing(StreamingContext ctx)
-        {
-
-        }
-
-
         public override string ToString()
         {
             return Serializer.SerializeJsonObject(this);

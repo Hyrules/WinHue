@@ -27,7 +27,7 @@ using WinHue3.Interface;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
-    [JsonObject, HueType("sensors")]
+    [JsonObject, HueType("sensors"),JsonConverter(typeof(SensorJsonConverter))]
     public class Sensor : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -171,7 +171,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         /// <summary>
         /// State of the sensor.
         /// </summary>
-        [Category("Sensor Properties"), Description("Configuration of the sensor"), ExpandableObject, ReadOnly(true), JsonConverter(typeof(StateJsonConverter))]
+        [Category("Sensor Properties"), Description("Configuration of the sensor"), ExpandableObject, ReadOnly(true)]
         public ISensorStateBase state
         {
             get => _state;
