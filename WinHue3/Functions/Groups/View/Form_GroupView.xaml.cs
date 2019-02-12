@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -26,11 +27,11 @@ namespace WinHue3.Functions.Groups.View
 
             if (comlgt != null)
             {
-                List<Group> comgrp = await BridgeManager.SelectedBridge.GetBridgeGroupsAsyncTask(BridgeManager.SelectedBridge);
+                Dictionary<string,Group> comgrp = await BridgeManager.SelectedBridge.GetListObjectsAsyncTask<Group>();
                 if (comgrp != null)
                 {
 
-                    _gvv.Initialize(comgrp, comlgt);
+                    _gvv.Initialize(comgrp.ToList(), comlgt);
                 }
                 else
                 {

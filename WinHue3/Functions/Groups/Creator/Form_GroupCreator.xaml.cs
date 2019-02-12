@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
+using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -38,18 +39,18 @@ namespace WinHue3.Functions.Groups.Creator
 
             if (selectedGroup == null)
             {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetBridgeLightsAsyncTask();
+                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsyncTask<Light>();
                 if (hr != null)
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
             }
             else
             {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetBridgeLightsAsyncTask();
+                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsyncTask<Light>();
                 if (hr != null)
                 {
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
 
-                    Group hr2 = (Group)await BridgeManager.SelectedBridge.GetObjectAsyncTask(BridgeManager.SelectedBridge, selectedGroup.Id, typeof(Group));
+                    Group hr2 = (Group)await BridgeManager.SelectedBridge.GetObjectAsyncTask(selectedGroup.Id, typeof(Group));
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
@@ -65,18 +66,18 @@ namespace WinHue3.Functions.Groups.Creator
         {
             if (string.IsNullOrEmpty(group))
             {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetBridgeLightsAsyncTask();
+                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsyncTask<Light>();
                 if (hr != null)
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
             }
             else
             {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetBridgeLightsAsyncTask();
+                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsyncTask<Light>();
                 if (hr != null)
                 {
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
 
-                    Group hr2 = (Group)await BridgeManager.SelectedBridge.GetObjectAsyncTask(BridgeManager.SelectedBridge, group, typeof(Group));
+                    Group hr2 = (Group)await BridgeManager.SelectedBridge.GetObjectAsyncTask(group, typeof(Group));
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }

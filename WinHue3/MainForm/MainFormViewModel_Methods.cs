@@ -379,7 +379,7 @@ namespace WinHue3.MainForm
             int index = ListBridgeObjects.FindIndex(x => x.Id == obj.Id && x.GetType() == obj.GetType());
             if (index == -1) return;
 
-            IHueObject hr = await BridgeManager.SelectedBridge.GetObjectAsyncTask(BridgeManager.SelectedBridge, obj.Id, obj.GetType());
+            IHueObject hr = await BridgeManager.SelectedBridge.GetObjectAsyncTask(obj.Id, obj.GetType());
 
             if (hr == null) return;
             IHueObject newobj = hr;
@@ -467,7 +467,7 @@ namespace WinHue3.MainForm
             if (fgc.ShowDialog() != true) return;
             if (fgc.GetCreatedOrModifiedID() == null) return;
 
-            Group hr = BridgeManager.SelectedBridge.GetObject<Group>(BridgeManager.SelectedBridge, fgc.GetCreatedOrModifiedID());
+            Group hr = BridgeManager.SelectedBridge.GetObject<Group>(fgc.GetCreatedOrModifiedID());
             if (hr != null)
             {
                 _listBridgeObjects.Add(hr);
@@ -485,7 +485,7 @@ namespace WinHue3.MainForm
             log.Debug($@"Opening the scene creator window for bridge {BridgeManager.SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created scene ID {fsc.GetCreatedOrModifiedID()} from bridge {BridgeManager.SelectedBridge.IpAddress}");
-            Scene hr = (Scene) await BridgeManager.SelectedBridge.GetObjectAsyncTask(BridgeManager.SelectedBridge, fsc.GetCreatedOrModifiedID(), typeof(Scene));
+            Scene hr = (Scene) await BridgeManager.SelectedBridge.GetObjectAsyncTask(fsc.GetCreatedOrModifiedID(), typeof(Scene));
             if (hr != null)
             {
                 _listBridgeObjects.Add(hr);
@@ -502,7 +502,7 @@ namespace WinHue3.MainForm
             Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() {Owner = Application.Current.MainWindow};
             await fscc.Initialize();
             if (fscc.ShowDialog() != true) return;
-            Schedule sc = (Schedule) await BridgeManager.SelectedBridge.GetObjectAsyncTask(BridgeManager.SelectedBridge, fscc.GetCreatedOrModifiedId(), typeof(Schedule));
+            Schedule sc = (Schedule) await BridgeManager.SelectedBridge.GetObjectAsyncTask(fscc.GetCreatedOrModifiedId(), typeof(Schedule));
             if (sc != null)
             {
                 _listBridgeObjects.Add(sc);
@@ -519,7 +519,7 @@ namespace WinHue3.MainForm
             await frc.Initialize();
             if (frc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly sensor schedule ID {frc.GetCreatedOrModifiedID()} from bridge {BridgeManager.SelectedBridge.IpAddress}");
-            Rule rule = (Rule) await BridgeManager.SelectedBridge.GetObjectAsyncTask(BridgeManager.SelectedBridge, frc.GetCreatedOrModifiedID(), typeof(Rule));
+            Rule rule = (Rule) await BridgeManager.SelectedBridge.GetObjectAsyncTask(frc.GetCreatedOrModifiedID(), typeof(Rule));
             if (rule != null)
             {
                 _listBridgeObjects.Add(rule);
@@ -536,7 +536,7 @@ namespace WinHue3.MainForm
             log.Debug($@"Opening the sensor creator window passing bridge {BridgeManager.SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created sensor ID {fsc.GetCreatedOrModifiedID()} from bridge {BridgeManager.SelectedBridge.IpAddress}");
-            Sensor hr = BridgeManager.SelectedBridge.GetObject<Sensor>(BridgeManager.SelectedBridge, fsc.GetCreatedOrModifiedID());
+            Sensor hr = BridgeManager.SelectedBridge.GetObject<Sensor>(fsc.GetCreatedOrModifiedID());
             if (hr != null)
             {
                 ListBridgeObjects.Add(hr);
@@ -580,7 +580,7 @@ namespace WinHue3.MainForm
             log.Debug($@"Opening the sensor ResourceLink window passing bridge {BridgeManager.SelectedBridge.IpAddress} ");
             if (!(bool) frc.ShowDialog()) return;
             log.Debug($@"Getting the newly created ResourceLink ID {frc.GetCreatedModifiedId()} from bridge {BridgeManager.SelectedBridge.IpAddress}");
-            Resourcelink hr = BridgeManager.SelectedBridge.GetObject<Resourcelink>(BridgeManager.SelectedBridge, frc.GetCreatedModifiedId());
+            Resourcelink hr = BridgeManager.SelectedBridge.GetObject<Resourcelink>(frc.GetCreatedModifiedId());
             if (hr != null)
             {
                 ListBridgeObjects.Add(hr);

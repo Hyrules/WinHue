@@ -216,7 +216,7 @@ namespace WinHue3.Functions.Scenes.Creator
             ObservableCollection<Light> liOriginalState = new ObservableCollection<Light>();
             foreach (Light obj in li)
             {
-                Light hr = BridgeManager.SelectedBridge.GetObject<Light>(br, obj.Id);
+                Light hr = BridgeManager.SelectedBridge.GetObject<Light>(obj.Id);
                 if (hr == null) continue;
                 Light newlight = hr;
                 newlight.state.alert = null;

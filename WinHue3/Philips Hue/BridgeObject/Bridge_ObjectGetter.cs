@@ -29,6 +29,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 T data = Serializer.DeserializeToObject<T>(comres.Data);
                 if (data != null) return data;
+                data.Id = id;
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return default(T);
             }
@@ -54,6 +55,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 T data = Serializer.DeserializeToObject<T>(comres.Data);
                 if (data != null) return data;
+                data.Id = id;
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return default(T);
             }
@@ -79,6 +81,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 IHueObject data = (IHueObject)Serializer.DeserializeToObject(comres.Data,objecttype);
                 if (data != null) return data;
+                data.Id = id;
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
@@ -129,6 +132,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 T data = Serializer.DeserializeToObject<T>(comres.Data);
                 if (data != null) return data;
+                data.Id = id;
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return default(T);
             }
@@ -152,6 +156,10 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 Dictionary<string, T> data = Serializer.DeserializeToObject<Dictionary<string, T>>(comres.Data);
                 if (data != null) return data;
+                foreach(KeyValuePair<string,T> t in data)
+                {
+                    t.Value.Id = t.Key;
+                }
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
@@ -175,6 +183,10 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 Dictionary<string, T> data = Serializer.DeserializeToObject<Dictionary<string, T>>(comres.Data);
                 if (data != null) return data;
+                foreach (KeyValuePair<string, T> t in data)
+                {
+                    t.Value.Id = t.Key;
+                }
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }

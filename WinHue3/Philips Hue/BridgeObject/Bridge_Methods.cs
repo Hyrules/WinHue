@@ -58,7 +58,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <summary>
         /// Get All Objects from the bridge with ID, name and image populated.
         /// </summary>
-        /// <param name="bridge">Bridge to get the datastore from.</param>
         /// <returns>A List of objects.</returns>
         public List<IHueObject> GetBridgeDataStore()
         {
@@ -82,7 +81,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <summary>
         /// Get the Group Zero.
         /// </summary>
-        /// <param name="bridge"></param>
         /// <returns></returns>
         private Group GetGroupZero()
         {
@@ -102,7 +100,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <summary>
         /// Get the datastore from the bridge async.
         /// </summary>
-        /// <param name="bridge">Bridge to get the datastore from.</param>
         /// <returns>a list of IHueObject</returns>
         public async Task<List<IHueObject>> GetBridgeDataStoreAsyncTask(bool hideobjects = true)
         {
@@ -453,35 +450,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
         #endregion
 
-        /// <summary>
-        /// Get a list of light with ID, name and image populated from the selected bridge.
-        /// </summary>
-        /// <param name="bridge">Bridge to get the lights from.</param>
-        /// <returns>A List fo lights.</returns>
-        public async Task<List<Light>> GetBridgeLightsAsyncTask()
-        {
-            log.Debug($@"Getting all lights from bridge : {IpAddress}");
-            Dictionary<string, Light> bresult = await GetListObjectsAsyncTask<Light>();
-            if (bresult == null) return null;
-            log.Debug("List lights : " + Serializer.SerializeJsonObject(bresult));
-            return ProcessLights(bresult);
-        }
-
-        /// <summary>
-        /// Get a specific object from the bridge.
-        /// </summary>
-        /// <typeparam name="T">Type of object to get</typeparam>
-        /// <param name="bridge">the bridge to get the object from</param>
-        /// <param name="id">the id of the object</param>
-        /// <returns>the requested object or null if error.</returns>
-
-        public T GetObject<T>(Bridge bridge, string id) where T : IHueObject
-        {
-            T bresult = bridge.GetObject<T>(id);
-            T Object = bresult;
-            Object.Id = id;
-            return Object;
-        }
 
         /// <summary>
         /// GEt the list of newly discovered lights
@@ -528,22 +496,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
 
         /// <summary>
-        /// Get object from the bridge in async
-        /// </summary>
-        /// <param name="bridge">bridge to get the object from.</param>
-        /// <param name="id">The id of the object</param>
-        /// <param name="objecttype">the type of the object to get.</param>
-        /// <returns>the object requested.</returns>
-        public async Task<IHueObject> GetObjectAsyncTask(Bridge bridge, string id, Type objecttype)
-        {
-            IHueObject bresult = await bridge.GetObjectAsyncTask(id, objecttype);
-            IHueObject Object = bresult;
-            if (Object == null) return null;
-            Object.Id = id;
-            return Object;
-        }
-
-        /// <summary>
         /// Get the Group Zero async.
         /// </summary>
         /// <param name="bridge"></param>
@@ -551,28 +503,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         private static async Task<Group> GetGroupZeroAsynTask(Bridge bridge)
         {
             return (Group)await bridge.GetObjectAsyncTask("0", typeof(Group));
-        }
-
-        /// <summary>
-        /// Get a list of group with ID, name and image populated from the selected bridge async.
-        /// </summary>
-        /// <param name="bridge">Bridge to get the groups from.</param>
-        /// <returns>A List of Group.</returns>
-        public async Task<List<Group>> GetBridgeGroupsAsyncTask(Bridge bridge)
-        {
-            log.Debug($@"Getting all groups from bridge {bridge.IpAddress}");
-            Dictionary<string, Group> bresult = await bridge.GetListObjectsAsyncTask<Group>();
-            if (bresult == null) return null;
-            Dictionary<string, Group> gs = bresult;
-            Group zero = await GetGroupZeroAsynTask(bridge);
-            if (zero != null)
-            {
-                gs.Add("0", zero);
-            }
-            List<Group> hr = ProcessGroups(gs);
-            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
-            log.Debug("List groups : " + Serializer.SerializeJsonObject(hr));
-            return hr;
         }
 
         /// <summary>

@@ -37,6 +37,20 @@ namespace WinHue3.ExtensionMethods
 
     }
 
+    public static class DictionaryExtensionMethod
+    {
+
+        public static List<T> ToList<T>(this Dictionary<string,T> dic)
+        {
+            List<T> l = new List<T>();
+            foreach(KeyValuePair<string,T> t in dic)
+            {
+                l.Add(t.Value);
+            }
+            return l;
+        }
+    }
+
     public static class StringExtensionMethods
     {
         /// <summary>
