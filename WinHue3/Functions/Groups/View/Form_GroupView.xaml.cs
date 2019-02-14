@@ -22,12 +22,13 @@ namespace WinHue3.Functions.Groups.View
 
         public async Task Initialize()
         {
-            List<Light> comlgt = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
+            List<Light> comlgt = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>().ToList<Light>();
+
             _gvv = DataContext as GroupViewViewModel;
 
             if (comlgt != null)
             {
-                Dictionary<string,Group> comgrp = await BridgeManager.SelectedBridge.GetListObjectsAsyncTask<Group>();
+                Dictionary<string,Group> comgrp = await BridgeManager.SelectedBridge.GetListObjectsAsync<Group>();
                 if (comgrp != null)
                 {
 

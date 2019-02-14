@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
+using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
@@ -11,13 +12,33 @@ namespace WinHue3.Philips_Hue.BridgeObject
 {
     public partial class Bridge
     {
+        public async Task<List<IHueObject>> GetAllObjectsAsync()
+        {
+            List<IHueObject> huelist = new List<IHueObject>();
+            string url = BridgeUrl + $"/";
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
+
+            if (comres.Status == WebExceptionStatus.Success)
+            {
+                T data = Serializer.DeserializeToObject<DataStore>(comres.Data);
+                if (data != null) return data;
+                data.Id = id;
+                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                return default(T);
+            }
+            ProcessCommandFailure(url, comres.Status);
+
+            return huelist;
+        }
+
+
         /// <summary>
         /// Get the specified object freom the bridge in async.
         /// </summary>
         /// <typeparam name="T">Type of object to deserialize to</typeparam>
         /// <param name="id">Id of the object to get</param>
         /// <returns>BridgeCommResult</returns>
-        public async Task<T> GetObjectAsyncTask<T>(string id) where T : IHueObject
+        public async Task<T> GetObjectAsync<T>(string id) where T : IHueObject
         {
 
             string typename = typeof(T).GetHueType();
@@ -95,7 +116,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <typeparam name="T">Type of object to deserialize to</typeparam>
         /// <param name="id">Id of the object to get</param>
         /// <returns>BridgeCommResult</returns>
-        public async Task<IHueObject> GetObjectAsyncTask(string id, Type objecttype)
+        public async Task<IHueObject> GetObjectAsync(string id, Type objecttype)
         {
 
             string typename = objecttype.GetHueType();
@@ -121,7 +142,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <typeparam name="T">Type of object to deserialize to</typeparam>
         /// <param name="id">Id of the object to get</param>
         /// <returns>BridgeCommResult</returns>
-        public async Task<T> GetObjectAsyncTask<T>(string id, Type objecttype) where T : IHueObject
+        public async Task<T> GetObjectAsync<T>(string id, Type objecttype) where T : IHueObject
         {
 
             string typename = objecttype.GetHueType();
@@ -173,7 +194,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <typeparam name="T">HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</typeparam>
         /// <returns>BridgeCommResult</returns>
-        public async Task<Dictionary<string, T>> GetListObjectsAsyncTask<T>() where T : IHueObject
+        public async Task<List<T>> GetListObjectsAsync<T>() where T : IHueObject
         {
 
             string typename = typeof(T).GetHueType();
@@ -223,7 +244,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <typeparam name="T">Type of the object to detect.</typeparam>
         /// <returns>BridgeCommResult</returns>
-        public async Task<SearchResult> GetNewObjectsAsyncTask<T>() where T : IHueObject
+        public async Task<SearchResult> GetNewObjectsAsync<T>() where T : IHueObject
         {
             string typename = typeof(T).GetHueType();
             string url = BridgeUrl + $"/{typename}";

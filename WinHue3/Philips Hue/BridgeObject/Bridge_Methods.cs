@@ -94,7 +94,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns></returns>
         private async Task<Group> GetGroupZeroAsynTask()
         {
-            return (Group)await GetObjectAsyncTask("0", typeof(Group));
+            return (Group)await GetObjectAsync("0", typeof(Group));
         }
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<List<IHueObject>> GetBridgeNewLightsAsyncTask()
         {
             log.Debug($@"Getting new lights from bridge {IpAddress}");
-            SearchResult bresult = await GetNewObjectsAsyncTask<Light>();
+            SearchResult bresult = await GetNewObjectsAsync<Light>();
             if (bresult == null) return null;
             log.Debug("Search Result : " + bresult);
             return ProcessSearchResult(bresult, true);
@@ -473,7 +473,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<List<Scene>> GetBridgeScenesAsyncTask()
         {
             log.Debug($@"Getting all scenes from bridge {IpAddress}");
-            Dictionary<string, Scene> bresult = await GetListObjectsAsyncTask<Scene>();
+            Dictionary<string, Scene> bresult = await GetListObjectsAsync<Scene>();
             if (bresult == null) return null;
             List<Scene> hr = ProcessScenes(bresult);
             RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[Mac].hiddenobjects);
@@ -489,7 +489,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<List<IHueObject>> GetBridgeNewSensorsAsyncTask()
         {
             log.Debug($@"Getting new sensors from bridge : {IpAddress}");
-            SearchResult bresult = await GetNewObjectsAsyncTask<Sensor>();
+            SearchResult bresult = await GetNewObjectsAsync<Sensor>();
             List<IHueObject> hr = ProcessSearchResult(bresult, false);
             log.Debug("Search Result : " + Serializer.SerializeJsonObject(hr));
             return hr;
@@ -502,7 +502,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns></returns>
         private static async Task<Group> GetGroupZeroAsynTask(Bridge bridge)
         {
-            return (Group)await bridge.GetObjectAsyncTask("0", typeof(Group));
+            return (Group)await bridge.GetObjectAsync("0", typeof(Group));
         }
 
         /// <summary>
@@ -612,7 +612,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             ImageSource hr = null;
             if (obj is Light)
             {
-                Light bresult = await GetObjectAsyncTask<Light>(obj.Id);
+                Light bresult = await GetObjectAsync<Light>(obj.Id);
                 if (bresult == null) return null;
                 Light currentState = bresult;
 
@@ -672,7 +672,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             }
             else
             {
-                Group bresult = await GetObjectAsyncTask<Group>(obj.Id);
+                Group bresult = await GetObjectAsync<Group>(obj.Id);
 
                 if (bresult == null) return null;
                 Group currentstate = bresult;

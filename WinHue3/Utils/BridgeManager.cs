@@ -85,7 +85,7 @@ namespace WinHue3.Utils
             {
                 string file = File.ReadAllText(fd.FileName);
                 DataStore ds = JsonConvert.DeserializeObject<DataStore>(file);
-                List<IHueObject> hueobjects = HueObjectHelper.ProcessDataStore(ds);
+                List<IHueObject> hueobjects = SelectedBridge.GetBridgeDataStoreAsync();
                 Bridge vbridge = new Bridge() { Virtual = true, Name = "Virtual Bridge", RequiredUpdate = false };
                 _listBridges.Add(vbridge);
                 _selectedBridge = vbridge;

@@ -26,6 +26,7 @@ using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Utils
 {
+    [Obsolete]
     public static class HueObjectHelper
     {
         /// <summary>
@@ -138,7 +139,7 @@ namespace WinHue3.Utils
         public static async Task<List<Resourcelink>> GetBridgeResourceLinksAsyncTask(Bridge bridge)
         {
             log.Info($@"Fetching Resource links from bridge : {bridge.IpAddress}");
-            Dictionary<string, Resourcelink> bresult = await bridge.GetListObjectsAsyncTask<Resourcelink>();
+            Dictionary<string, Resourcelink> bresult = await bridge.GetListObjectsAsync<Resourcelink>();
             if (bresult == null) return null;
             List<Resourcelink> rl = ProcessResourceLinks(bresult);
             return rl;
@@ -162,7 +163,7 @@ namespace WinHue3.Utils
         /// <returns></returns>
         private static async Task<Group> GetGroupZeroAsynTask(Bridge bridge)
         {
-            return (Group)await bridge.GetObjectAsyncTask("0", typeof(Group));
+            return (Group)await bridge.GetObjectAsync("0", typeof(Group));
         }
 
         private static void RemoveHiddenObjects<T>(ref List<T> list, List<Tuple<string,string>> hiddenObjects) where T : IHueObject
@@ -201,7 +202,7 @@ namespace WinHue3.Utils
         public static async Task<List<Sensor>> GetBridgeSensorsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all sensors from bridge {bridge.IpAddress}");
-            Dictionary<string, Sensor> bresult = await bridge.GetListObjectsAsyncTask<Sensor>();
+            Dictionary<string, Sensor> bresult = await bridge.GetListObjectsAsync<Sensor>();
             if (bresult == null) return null;
             List<Sensor> hr = ProcessSensors(bresult);
             RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
@@ -232,7 +233,7 @@ namespace WinHue3.Utils
         public static async Task<List<IHueObject>> GetBridgeNewSensorsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting new sensors from bridge : {bridge.IpAddress}");
-            SearchResult bresult = await bridge.GetNewObjectsAsyncTask<Sensor>();
+            SearchResult bresult = await bridge.GetNewObjectsAsync<Sensor>();
             List<IHueObject> hr = ProcessSearchResult(bridge, bresult, false);
             log.Debug("Search Result : " + Serializer.SerializeJsonObject(hr));
             return hr;
@@ -260,7 +261,7 @@ namespace WinHue3.Utils
         public static async Task<List<Light>> GetBridgeLightsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all lights from bridge : {bridge.IpAddress}");
-            Dictionary<string, Light> bresult = await bridge?.GetListObjectsAsyncTask<Light>();
+            Dictionary<string, Light> bresult = await bridge?.GetListObjectsAsync<Light>();
             if (bresult == null) return null;
             log.Debug("List lights : " + Serializer.SerializeJsonObject(bresult));
             return ProcessLights(bresult);
@@ -275,7 +276,7 @@ namespace WinHue3.Utils
         public static async Task<List<IHueObject>> GetBridgeNewLightsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting new lights from bridge {bridge.IpAddress}");
-            SearchResult bresult = await bridge?.GetNewObjectsAsyncTask<Light>();
+            SearchResult bresult = await bridge?.GetNewObjectsAsync<Light>();
             if (bresult == null) return null;
             log.Debug("Search Result : " + bresult);
             return ProcessSearchResult(bridge, bresult, true);
@@ -312,7 +313,7 @@ namespace WinHue3.Utils
         public static async Task<List<Group>> GetBridgeGroupsAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all groups from bridge {bridge.IpAddress}");
-            Dictionary<string, Group> bresult = await bridge.GetListObjectsAsyncTask<Group>();
+            Dictionary<string, Group> bresult = await bridge.GetListObjectsAsync<Group>();
             if (bresult == null) return null;
             Dictionary<string, Group> gs = bresult;
             Group zero = await GetGroupZeroAsynTask(bridge);
@@ -351,7 +352,7 @@ namespace WinHue3.Utils
         public static async Task<List<Scene>> GetBridgeScenesAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all scenes from bridge {bridge.IpAddress}");
-            Dictionary<string, Scene> bresult = await bridge.GetListObjectsAsyncTask<Scene>();
+            Dictionary<string, Scene> bresult = await bridge.GetListObjectsAsync<Scene>();
             if (bresult == null) return null;
             List<Scene> hr = ProcessScenes(bresult);
             RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
@@ -383,7 +384,7 @@ namespace WinHue3.Utils
         public static async Task<List<Schedule>> GetBridgeSchedulesAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all schedules from bridge {bridge.IpAddress}");
-            Dictionary<string, Schedule> bresult = await bridge.GetListObjectsAsyncTask<Schedule>();
+            Dictionary<string, Schedule> bresult = await bridge.GetListObjectsAsync<Schedule>();
             if (bresult == null) return null;
             List<Schedule> hr = ProcessSchedules(bresult);
             RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
@@ -415,7 +416,7 @@ namespace WinHue3.Utils
         public static async Task<List<Rule>> GetBridgeRulesAsyncTask(Bridge bridge)
         {
             log.Debug($@"Getting all rules from bridge {bridge.IpAddress}");
-            Dictionary<string, Rule> bresult = await bridge.GetListObjectsAsyncTask<Rule>();
+            Dictionary<string, Rule> bresult = await bridge.GetListObjectsAsync<Rule>();
             if (bresult == null) return null;
             List<Rule> hr = ProcessRules(bresult);
             RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[bridge.Mac].hiddenobjects);
@@ -449,26 +450,6 @@ namespace WinHue3.Utils
         #endregion
 
         #region PROCESSORS
-
-        /// <summary>
-        /// Process the data from the bridge datastore.
-        /// </summary>
-        /// <param name="datastore">Datastore to process.</param>
-        /// <returns>A list of object processed.</returns>
-        public static List<IHueObject> ProcessDataStore(DataStore datastore)
-        {
-            List<IHueObject> newlist = new List<IHueObject>();
-            log.Debug("Processing datastore...");
-            newlist.AddRange(ProcessLights(datastore.lights));
-            newlist.AddRange(ProcessGroups(datastore.groups));
-            newlist.AddRange(ProcessSchedules(datastore.schedules));
-            newlist.AddRange(ProcessScenes(datastore.scenes));
-            newlist.AddRange(ProcessSensors(datastore.sensors));
-            newlist.AddRange(ProcessRules(datastore.rules));
-            newlist.AddRange(ProcessResourceLinks(datastore.resourcelinks));
-            log.Debug("Processing complete.");
-            return newlist;
-        }
 
         private static List<Resourcelink> ProcessResourceLinks(Dictionary<string, Resourcelink> listrl)
         {
