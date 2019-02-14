@@ -5,6 +5,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
+using WinHue3.Interface;
 
 namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 {
@@ -62,6 +63,8 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
                 newRule.actions = obj["actions"].ToObject<RuleActionCollection>();
             if (obj["conditions"] != null)
                 newRule.conditions = obj["conditions"].ToObject<RuleConditionCollection>();
+
+            newRule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
             return newRule;
         }
 

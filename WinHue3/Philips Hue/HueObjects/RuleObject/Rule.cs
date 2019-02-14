@@ -145,12 +145,6 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 
         }
 
-        [OnDeserialized]
-        void OnDeserialize(StreamingContext ctx)
-        {
-            Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

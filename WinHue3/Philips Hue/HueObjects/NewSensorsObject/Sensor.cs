@@ -185,12 +185,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             set => SetProperty(ref _swupdate, value);
         }*/
 
-        [OnDeserialized]
-        void OnDeserialize(StreamingContext ctx)
-        {
-            Image = GDIManager.CreateImageSourceFromImage(type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
-        }
-
         [JsonIgnore, Browsable(false)]
         public bool visible
         {
@@ -252,6 +246,9 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             sensor.config = TryConvertConfig(obj["config"], sensor.type);
             sensor.state = TryConvertState(obj["state"], sensor.type);
             sensor.uniqueid = obj["uniqueid"]?.Value<string>();
+
+            sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
+
             return sensor;
         }
 

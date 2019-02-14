@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
 {
     public class ScheduleJsonConverter : JsonConverter
     {
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             Schedule oldsch = (Schedule) value;
@@ -104,8 +107,26 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 newSchedule.command.body = JsonConvert.SerializeObject(obj["command"]["body"]);
             if (obj["command"]["method"] != null)
                 newSchedule.command.method = obj["command"]["method"].Value<string>();
-            
-            
+
+            ImageSource imgsource;
+            if (newSchedule.localtime.Contains("PT"))
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+            }
+            else if (newSchedule.localtime.Contains("W"))
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+            }
+            else if (newSchedule.localtime.Contains("T"))
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+            }
+            else
+            {
+                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+            }
+
+            newSchedule.Image = imgsource;
 
             return newSchedule;
         }

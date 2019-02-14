@@ -155,31 +155,6 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
             return Serializer.SerializeJsonObject(this);
         }
 
-        [OnDeserialized]
-        void OnDeserialize(StreamingContext ctx)
-        {
-            ImageSource imgsource;
-            if (localtime.Contains("PT"))
-            {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
-            }
-            else if (localtime.Contains("W"))
-            {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
-            }
-            else if (localtime.Contains("T"))
-            {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
-            }
-            else
-            {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
-            }
-
-            Image = imgsource;
-            
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

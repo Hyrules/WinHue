@@ -48,7 +48,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
             if (obj["method"] != null)
                 newRuleAction.method = obj["method"].Value<string>();
             if (obj["body"] != null)
-                newRuleAction.body = JsonConvert.SerializeObject(obj["body"]);
+                newRuleAction.body = JsonConvert.SerializeObject(obj["body"]);            
 
             return newRuleAction;
         }

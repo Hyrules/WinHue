@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace WinHue3.Philips_Hue.Communication
 {
@@ -39,7 +40,7 @@ namespace WinHue3.Philips_Hue.Communication
 
         public static string SerializeJsonObject(object obj)
         {
-            jss.ContractResolver = null;
+            jss.ContractResolver = new DefaultContractResolver();
             try
             {
                 if (obj != null)
@@ -105,13 +106,12 @@ namespace WinHue3.Philips_Hue.Communication
         public static T DeserializeToObject<T>(string json)
         {
             log.Debug(json);
-            jss.ContractResolver = null;
             try
             {
 
                 if (!json.Equals("{}") && !string.IsNullOrEmpty(json))
                 {
-                    return (T)JsonConvert.DeserializeObject<T>(json, jss);
+                    return (T)JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore});
                 }
                 else
                 {

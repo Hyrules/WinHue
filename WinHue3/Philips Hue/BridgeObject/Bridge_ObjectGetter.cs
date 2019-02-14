@@ -107,6 +107,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             {
                 IHueObject data = (IHueObject)Serializer.DeserializeToObject(comres.Data, objecttype);
                 if (data != null) return data;
+                data.Id = id;
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
