@@ -50,7 +50,7 @@ namespace WinHue3.Addons.CpuTempMon
             _temp.OnSensorUpdated += _temp_OnSensorUpdated;
             _temp.Start();
 
-            List<IHueObject> hr = BridgeManager.SelectedBridge.GetBridgeDataStore();
+            List<IHueObject> hr = BridgeManager.SelectedBridge.GetAllObjects();
 
             if (hr == null) return;
             ListLightGroups.AddRange(hr.Where(x => x is Light));

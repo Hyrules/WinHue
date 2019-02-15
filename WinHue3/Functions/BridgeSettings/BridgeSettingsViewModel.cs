@@ -52,7 +52,8 @@ namespace WinHue3.Functions.BridgeSettings
 
         private async Task Initialize()
         {
-            List<IHueObject> lo = await BridgeManager.SelectedBridge.GetBridgeDataStoreAsyncTask( false);
+            // TODO HIDE OBJECTS
+            List<IHueObject> lo = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
             List<IHueObject> ls = new List<IHueObject>();
             HiddenObjects.ListObjects = new ObservableCollection<IHueObject>(lo);
             foreach (Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[BridgeManager.SelectedBridge.Mac].hiddenobjects)

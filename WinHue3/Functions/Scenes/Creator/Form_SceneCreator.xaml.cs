@@ -38,7 +38,7 @@ namespace WinHue3.Functions.Scenes.Creator
 
             _currentsceneid = sceneid ?? string.Empty;
 
-            List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
+            List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
 
             if (hr != null)
             {

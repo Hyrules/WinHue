@@ -51,7 +51,7 @@ namespace WinHue3.Functions.PowerSettings
         private async Task Initialize()
         {
             if (BridgeManager.SelectedBridge == null) return;
-            List<Light> temp = await HueObjectHelper.GetBridgeLightsAsyncTask(BridgeManager.SelectedBridge);
+            List<Light> temp = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
             ListLights = temp.Where(x => x.config.startup != null).ToList();
         }
 

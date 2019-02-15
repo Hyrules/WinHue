@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.ExtensionMethods;
@@ -39,13 +40,13 @@ namespace WinHue3.Functions.Groups.Creator
 
             if (selectedGroup == null)
             {
-                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
                 if (hr != null)
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
             }
             else
             {
-                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
                 if (hr != null)
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
@@ -66,13 +67,13 @@ namespace WinHue3.Functions.Groups.Creator
         {
             if (string.IsNullOrEmpty(group))
             {
-                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
                 if (hr != null)
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
             }
             else
             {
-                Dictionary<string,Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
                 if (hr != null)
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());

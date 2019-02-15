@@ -56,29 +56,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
 
         /// <summary>
-        /// Get All Objects from the bridge with ID, name and image populated.
-        /// </summary>
-        /// <returns>A List of objects.</returns>
-        public List<IHueObject> GetBridgeDataStore()
-        {
-            log.Info($@"Fetching DataStore from bridge : {IpAddress}");
-            DataStore bresult = GetDataStore();
-            List<IHueObject> hr = null;
-            if (bresult == null) return hr;
-            DataStore ds = bresult;
-            Group zero = GetGroupZero();
-            if (zero != null)
-            {
-                ds.groups.Add("0", zero);
-            }
-            hr = ProcessDataStore(ds);
-            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[Mac].hiddenobjects);
-            log.Debug("Bridge data store : " + hr);
-
-            return hr;
-        }
-
-        /// <summary>
         /// Get the Group Zero.
         /// </summary>
         /// <returns></returns>
@@ -101,6 +78,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// Get the datastore from the bridge async.
         /// </summary>
         /// <returns>a list of IHueObject</returns>
+        [Obsolete]
         public async Task<List<IHueObject>> GetBridgeDataStoreAsyncTask(bool hideobjects = true)
         {
             log.Info($@"Fetching DataStore from bridge : {this.IpAddress}");
@@ -465,21 +443,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             return ProcessSearchResult(bresult, true);
         }
 
-        /// <summary>
-        /// Get a list of scenes with ID, name and image populated from the selected bridge.
-        /// </summary>
-        /// <param name="bridge">Bridge to get the scenes from.</param>
-        /// <returns>A List of scenes.</returns>
-        public async Task<List<Scene>> GetBridgeScenesAsyncTask()
-        {
-            log.Debug($@"Getting all scenes from bridge {IpAddress}");
-            Dictionary<string, Scene> bresult = await GetListObjectsAsync<Scene>();
-            if (bresult == null) return null;
-            List<Scene> hr = ProcessScenes(bresult);
-            RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[Mac].hiddenobjects);
-            log.Debug("List Scenes : " + Serializer.SerializeJsonObject(hr));
-            return hr;
-        }
+        //TODO : Remove HIDDEN SCENES
 
         /// <summary>
         /// Get a list of new sensors with ID, name and image populated from the selected bridge.

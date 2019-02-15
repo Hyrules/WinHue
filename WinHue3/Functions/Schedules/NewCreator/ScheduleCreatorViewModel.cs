@@ -315,7 +315,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public async Task Initialize()
         {
-            _currentHueObjectList = await BridgeManager.SelectedBridge.GetBridgeDataStoreAsyncTask();
+            _currentHueObjectList = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
             
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());

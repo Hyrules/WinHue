@@ -41,7 +41,7 @@ namespace WinHue3.Functions.ResourceLinks
             rlcvm.LinkCreatorModel.ShowID = WinHueSettings.settings.ShowID;
             rlcvm.LinkCreatorModel.Wrap = WinHueSettings.settings.WrapText;
 
-            List<IHueObject> hr = await BridgeManager.SelectedBridge.GetBridgeDataStoreAsyncTask();
+            List<IHueObject> hr = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
             if (hr == null) return;
             ObservableCollection<IHueObject> listbrobj = new ObservableCollection<IHueObject>();
             List<IHueObject> listobj = hr;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.ExtensionMethods;
@@ -22,17 +23,17 @@ namespace WinHue3.Functions.Groups.View
 
         public async Task Initialize()
         {
-            List<Light> comlgt = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>().ToList<Light>();
+            List<Light> comlgt = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
 
             _gvv = DataContext as GroupViewViewModel;
 
             if (comlgt != null)
             {
-                Dictionary<string,Group> comgrp = await BridgeManager.SelectedBridge.GetListObjectsAsync<Group>();
+                List<Group> comgrp = await BridgeManager.SelectedBridge.GetListObjectsAsync<Group>();
                 if (comgrp != null)
                 {
 
-                    _gvv.Initialize(comgrp.ToList(), comlgt);
+                    _gvv.Initialize(comgrp, comlgt);
                 }
                 else
                 {

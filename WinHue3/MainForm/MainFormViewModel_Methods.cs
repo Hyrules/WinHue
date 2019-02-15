@@ -192,7 +192,7 @@ namespace WinHue3.MainForm
                 if (EnableListView.GetValueOrDefault(false))
                 {
                     log.Info($"Getting list of objects from bridge at {BridgeManager.SelectedBridge.IpAddress}.");
-                    List<IHueObject> hr = await BridgeManager.SelectedBridge.GetBridgeDataStoreAsyncTask();
+                    List<IHueObject> hr = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
                     if (hr != null)
                     {
                         List<IHueObject> listobj = hr;

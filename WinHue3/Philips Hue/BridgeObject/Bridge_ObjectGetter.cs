@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using WinHue3.ExtensionMethods;
@@ -20,17 +21,35 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             if (comres.Status == WebExceptionStatus.Success)
             {
-                T data = Serializer.DeserializeToObject<DataStore>(comres.Data);
-                if (data != null) return data;
-                data.Id = id;
+                DataStore data = Serializer.DeserializeToObject<DataStore>(comres.Data);
+                if (data != null) return data.ToList();
+                
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
-                return default(T);
+                return null;
             }
             ProcessCommandFailure(url, comres.Status);
 
             return huelist;
         }
 
+        public List<IHueObject> GetAllObjects()
+        {
+            List<IHueObject> huelist = new List<IHueObject>();
+            string url = BridgeUrl + $"/";
+            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
+
+            if (comres.Status == WebExceptionStatus.Success)
+            {
+                DataStore data = Serializer.DeserializeToObject<DataStore>(comres.Data);
+                if (data != null) return data.ToList();
+
+                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
+                return null;
+            }
+            ProcessCommandFailure(url, comres.Status);
+
+            return huelist;
+        }
 
         /// <summary>
         /// Get the specified object freom the bridge in async.
@@ -49,8 +68,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (comres.Status == WebExceptionStatus.Success)
             {
                 T data = Serializer.DeserializeToObject<T>(comres.Data);
-                if (data != null) return data;
-                data.Id = id;
+                if (data != null)
+                {
+                    data.Id = id;
+                    return data;
+                }
+                
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return default(T);
             }
@@ -75,8 +98,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (comres.Status == WebExceptionStatus.Success)
             {
                 T data = Serializer.DeserializeToObject<T>(comres.Data);
-                if (data != null) return data;
-                data.Id = id;
+                if (data != null)
+                {
+                    data.Id = id;
+                    return data;
+                }
+                
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return default(T);
             }
@@ -101,8 +128,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (comres.Status == WebExceptionStatus.Success)
             {
                 IHueObject data = (IHueObject)Serializer.DeserializeToObject(comres.Data,objecttype);
-                if (data != null) return data;
-                data.Id = id;
+                if (data != null)
+                {
+                    data.Id = id;
+                    return data;
+                }
+                
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
@@ -127,8 +158,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (comres.Status == WebExceptionStatus.Success)
             {
                 IHueObject data = (IHueObject)Serializer.DeserializeToObject(comres.Data, objecttype);
-                if (data != null) return data;
-                data.Id = id;
+                if (data != null)
+                {
+                    data.Id = id;
+                    return data;
+                }
+                
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
@@ -153,8 +188,11 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (comres.Status == WebExceptionStatus.Success)
             {
                 T data = Serializer.DeserializeToObject<T>(comres.Data);
-                if (data != null) return data;
-                data.Id = id;
+                if (data != null)
+                {
+                    data.Id = id;
+                    return data;
+                }
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return default(T);
             }
@@ -167,7 +205,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <typeparam name="T">HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</typeparam>
         /// <returns>BridgeCommResult</returns>
-        public Dictionary<string, T> GetListObjects<T>() where T : IHueObject
+        public List<T> GetListObjects<T>() where T : IHueObject
         {
 
             string typename = typeof(T).GetHueType();
@@ -177,11 +215,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (comres.Status == WebExceptionStatus.Success)
             {
                 Dictionary<string, T> data = Serializer.DeserializeToObject<Dictionary<string, T>>(comres.Data);
-                if (data != null) return data;
-                foreach(KeyValuePair<string,T> t in data)
-                {
-                    t.Value.Id = t.Key;
-                }
+                if (data != null) return data.Select(x => { x.Value.Id = x.Key; return x.Value;}).ToList();
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
@@ -204,11 +238,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             if (comres.Status == WebExceptionStatus.Success)
             {
                 Dictionary<string, T> data = Serializer.DeserializeToObject<Dictionary<string, T>>(comres.Data);
-                if (data != null) return data;
-                foreach (KeyValuePair<string, T> t in data)
-                {
-                    t.Value.Id = t.Key;
-                }
+                if (data != null) return data.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList(); 
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
