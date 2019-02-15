@@ -22,7 +22,38 @@ namespace WinHue3.Philips_Hue.BridgeObject
         private bool? _requiredUpdate;
         private bool _updateAvailable;
         private bool _virtual;
-        
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Bridge()
+        {
+            _ipAddress = IPAddress.None;
+            _apiKey = string.Empty;
+            _lastCommandMessages = new Messages();
+            _updateAvailable = false;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="ip">IP Address of the bridge</param>
+        /// <param name="newname"></param>
+        /// <param name="apiKey">[Optional] The Api to access the bridge.</param>
+        /// <param name="mac"></param>
+        public Bridge(IPAddress ip, string mac, string newname, string apiKey = null)
+        {
+            _ipAddress = ip;
+            if (apiKey != null || apiKey != string.Empty)
+            {
+                _apiKey = apiKey;
+            }
+            _mac = mac;
+            _name = newname;
+            _lastCommandMessages = new Messages();
+            _updateAvailable = false;
+        }
+
         /// <summary>
         /// Api Key to access the bridge. If the application is not autorized the api key will not be set.
         /// </summary>
@@ -88,7 +119,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <summary>
         /// Return the full url with IP Address and Api key to the bridge.
         /// </summary>
-        public string BridgeUrl => _apiKey != String.Empty ? $"http://{_ipAddress }/api/{_apiKey}" : $"http://{_ipAddress}/api";
+        public string BridgeUrl => _apiKey != string.Empty ? $"http://{_ipAddress }/api/{_apiKey}" : $"http://{_ipAddress}/api";
 
         public Messages LastCommandMessages
         {
@@ -115,36 +146,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
 
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public Bridge()
-        {
-            _ipAddress = IPAddress.None;
-            _apiKey = String.Empty;
-            _lastCommandMessages = new Messages();
-            _updateAvailable = false;
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="ip">IP Address of the bridge</param>
-        /// <param name="newname"></param>
-        /// <param name="apiKey">[Optional] The Api to access the bridge.</param>
-        /// <param name="mac"></param>
-        public Bridge(IPAddress ip, string mac, string newname, string apiKey = null)
-        {
-            _ipAddress = ip;
-            if (apiKey != null || apiKey != string.Empty)
-            {
-                _apiKey = apiKey;
-            }
-            _mac = mac;
-            _name = newname;
-            _lastCommandMessages = new Messages();
-            _updateAvailable = false;
-        }
 
     }
 }

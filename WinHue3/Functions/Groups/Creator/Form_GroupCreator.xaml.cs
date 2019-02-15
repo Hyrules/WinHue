@@ -37,21 +37,19 @@ namespace WinHue3.Functions.Groups.Creator
 
         public async Task Initialize(Group selectedGroup = null)
         {
-
+            List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
             if (selectedGroup == null)
-            {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+            {            
                 if (hr != null)
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
             }
             else
             {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
                 if (hr != null)
                 {
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = (Group)await BridgeManager.SelectedBridge.GetObjectAsync(selectedGroup.Id, typeof(Group));
+                    Group hr2 = await BridgeManager.SelectedBridge.GetObjectAsync<Group>(selectedGroup.Id);
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
@@ -65,20 +63,20 @@ namespace WinHue3.Functions.Groups.Creator
 
         public async Task Initialize(string group)
         {
+            List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
             if (string.IsNullOrEmpty(group))
             {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+                
                 if (hr != null)
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
             }
             else
             {
-                List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
                 if (hr != null)
                 {
-                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr.ToList());
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = (Group)await BridgeManager.SelectedBridge.GetObjectAsync(group, typeof(Group));
+                    Group hr2 = await BridgeManager.SelectedBridge.GetObjectAsync<Group>(group);
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
@@ -98,38 +96,9 @@ namespace WinHue3.Functions.Groups.Creator
 
         private void btnCreateGroup_Click(object sender, RoutedEventArgs e)
         {
-            if (gcvm.Group.Id == null)
-            {
-                bool result = BridgeManager.SelectedBridge.CreateObject(gcvm.Group);
-                if (result)
-                {
-                    DialogResult = true;
-                    log.Info("Group creation success");
-                    _id = BridgeManager.SelectedBridge.LastCommandMessages.LastSuccess.value;
-                    Close();
-                }
-                else
-                {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);                   
-                }
-                
-            }
-            else
-            {
-                bool result = BridgeManager.SelectedBridge.ModifyObject(gcvm.Group);
-                if (result)
-                {
-                    DialogResult = true;
-                    _id = gcvm.Group.Id;
-                    Close();
-
-                }
-                else
-                {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
-                }
-            }
-
+            _id = gcvm.CreateGroup();
+            DialogResult = _id != null;
+            if (DialogResult.GetValueOrDefault()) Close();
         }
 
         public string GetCreatedOrModifiedID()

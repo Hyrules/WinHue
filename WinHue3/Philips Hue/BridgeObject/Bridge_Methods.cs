@@ -56,143 +56,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
         }
 
         /// <summary>
-        /// Get the Group Zero.
-        /// </summary>
-        /// <returns></returns>
-        private Group GetGroupZero()
-        {
-            return GetObject<Group>("0");
-        }
-
-        /// <summary>
-        /// Get the Group Zero async.
-        /// </summary>
-        /// <param name="bridge"></param>
-        /// <returns></returns>
-        private async Task<Group> GetGroupZeroAsynTask()
-        {
-            return (Group)await GetObjectAsync("0", typeof(Group));
-        }
-
-        /// <summary>
-        /// Get the datastore from the bridge async.
-        /// </summary>
-        /// <returns>a list of IHueObject</returns>
-        [Obsolete]
-        public async Task<List<IHueObject>> GetBridgeDataStoreAsyncTask(bool hideobjects = true)
-        {
-            log.Info($@"Fetching DataStore from bridge : {this.IpAddress}");
-            DataStore bresult = await GetBridgeDataStoreAsync();
-            List<IHueObject> hr = null;
-            if (bresult == null) return hr;
-            DataStore ds = bresult;
-            Group zero = await GetGroupZeroAsynTask();
-            if (zero != null)
-            {
-                ds.groups.Add("0", zero);
-            }
-            hr = ProcessDataStore(ds);
-            if (hideobjects)
-                RemoveHiddenObjects(ref hr, WinHueSettings.bridges.BridgeInfo[Mac].hiddenobjects);
-            log.Debug("Bridge data store : " + hr);
-
-            return hr;
-        }
-
-        #region PROCESSORS
-
-        /// <summary>
-        /// Process the data from the bridge datastore.
-        /// </summary>
-        /// <param name="datastore">Datastore to process.</param>
-        /// <returns>A list of object processed.</returns>
-        private List<IHueObject> ProcessDataStore(DataStore datastore)
-        {
-            List<IHueObject> newlist = new List<IHueObject>();
-            log.Debug("Processing datastore...");
-            newlist.AddRange(ProcessLights(datastore.lights));
-            newlist.AddRange(ProcessGroups(datastore.groups));
-            newlist.AddRange(ProcessSchedules(datastore.schedules));
-            newlist.AddRange(ProcessScenes(datastore.scenes));
-            newlist.AddRange(ProcessSensors(datastore.sensors));
-            newlist.AddRange(ProcessRules(datastore.rules));
-            newlist.AddRange(ProcessResourceLinks(datastore.resourcelinks));
-            log.Debug("Processing complete.");
-            return newlist;
-        }
-
-        private List<Resourcelink> ProcessResourceLinks(Dictionary<string, Resourcelink> listrl)
-        {
-            if (listrl == null) return new List<Resourcelink>();
-            List<Resourcelink> newlist = new List<Resourcelink>();
-
-            foreach (KeyValuePair<string, Resourcelink> kvp in listrl)
-            {
-                if (kvp.Value is null)
-                {
-                    log.Error("Resource Link ID : " + kvp.Key + " was null");
-                    continue;
-                }
-                kvp.Value.Id = kvp.Key;
-                kvp.Value.visible = true;
-                log.Debug("Processing resource links : " + kvp.Value);
-                newlist.Add(kvp.Value);
-            }
-            return newlist;
-        }
-
-        /// <summary>
-        /// Process a list of sensors
-        /// </summary>
-        /// <param name="listsensors">List of sensors to process.</param>
-        /// <returns>A list of processed sensors.</returns>
-        private List<Sensor> ProcessSensors(Dictionary<string, Sensor> listsensors)
-        {
-            if (listsensors == null) return new List<Sensor>();
-            List<Sensor> newlist = new List<Sensor>();
-
-            foreach (KeyValuePair<string, Sensor> kvp in listsensors)
-            {
-                if (kvp.Value == null)
-                {
-                    log.Error("Sensor ID : " + kvp.Key + " was null");
-                    continue;
-                }
-                kvp.Value.Id = kvp.Key;
-                kvp.Value.visible = true;
-                log.Debug("Processing Sensor : " + kvp.Value);
-                newlist.Add(kvp.Value);
-            }
-
-            return newlist;
-        }
-
-        /// <summary>
-        /// Process the list of lights
-        /// </summary>
-        /// <param name="listlights">List of lights to process.</param>
-        /// <returns>A list of processed lights.</returns>
-        private List<Light> ProcessLights(Dictionary<string, Light> listlights)
-        {
-            if (listlights == null) return new List<Light>();
-            List<Light> newlist = new List<Light>();
-
-            foreach (KeyValuePair<string, Light> kvp in listlights)
-            {
-                if (kvp.Value is null)
-                {
-                    log.Error("Light ID : " + kvp.Key + " was null");
-                    continue;
-                }
-                kvp.Value.Id = kvp.Key;
-                kvp.Value.visible = true;
-                newlist.Add(kvp.Value);
-            }
-
-            return newlist;
-        }
-
-        /// <summary>
         /// Process the search results.
         /// </summary>
         /// <param name="bridge">Bridge to process the search results from</param>
@@ -237,128 +100,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             return newlist;
         }
-
-        /// <summary>
-        /// Process groups
-        /// </summary>
-        /// <param name="listgroups">List of group t</param>
-        /// <returns>A list of processed group with image and id.</returns>
-        private List<Group> ProcessGroups(Dictionary<string, Group> listgroups)
-        {
-            if (listgroups == null) return new List<Group>();
-            List<Group> newlist = new List<Group>();
-            foreach (KeyValuePair<string, Group> kvp in listgroups)
-            {
-                if (kvp.Value is null)
-                {
-                    log.Error("Group ID : " + kvp.Key + " was null");
-                    continue;
-                }
-                log.Debug("Processing group : " + kvp.Value);
-                kvp.Value.visible = true;
-                kvp.Value.Id = kvp.Key;
-                newlist.Add(kvp.Value);
-            }
-
-            return newlist;
-        }
-
-
-        /// <summary>
-        /// Process a list of scenes.
-        /// </summary>
-        /// <param name="listscenes">List of scenes to process.</param>
-        /// <param name="bypassShowId">Bypass the Show ID Parameters (Used in the rule creator)</param>
-        /// <returns>A list of processed scenes.</returns>
-        private List<Scene> ProcessScenes(Dictionary<string, Scene> listscenes)
-        {
-            if (listscenes == null) return new List<Scene>();
-            List<Scene> newlist = new List<Scene>();
-
-            foreach (KeyValuePair<string, Scene> kvp in listscenes)
-            {
-                if (kvp.Value is null)
-                {
-                    log.Error("Scene ID : " + kvp.Key + " was null");
-                    continue;
-                }
-                kvp.Value.Id = kvp.Key;
-                log.Debug("Processing scene : " + kvp.Value);
-                kvp.Value.visible = !(kvp.Value.name.StartsWith("HIDDEN") && !WinHueSettings.settings.ShowHiddenScenes);
-                newlist.Add(kvp.Value);
-            }
-
-            return newlist;
-        }
-
-        /// <summary>
-        /// Process a list of schedules
-        /// </summary>
-        /// <param name="listschedules">List of schedules to process.</param>
-        /// <returns>A list of processed schedules.</returns>
-        public List<Schedule> ProcessSchedules(Dictionary<string, Schedule> listschedules)
-        {
-            if (listschedules == null) return new List<Schedule>();
-            List<Schedule> newlist = new List<Schedule>();
-
-            foreach (KeyValuePair<string, Schedule> kvp in listschedules)
-            {
-                if (kvp.Value is null)
-                {
-                    log.Error("Schedule ID : " + kvp.Key + " was null");
-                    continue;
-                }
-                log.Debug("Assigning id to schedule ");
-                kvp.Value.visible = true;
-                kvp.Value.Id = kvp.Key;
-                log.Debug("Processing schedule : " + kvp.Value);
-                string Time = string.Empty;
-                if (kvp.Value.localtime == null)
-                {
-                    log.Debug("LocalTime does not exists try to use Time instead.");
-                    if (kvp.Value.localtime == null) continue;
-                    Time = kvp.Value.localtime;
-                }
-                else
-                {
-                    log.Debug("Using LocalTime as schedule time.");
-                    Time = kvp.Value.localtime;
-                }
-                newlist.Add(kvp.Value);
-            }
-
-            return newlist;
-        }
-
-        /// <summary>
-        /// Process a list of rules.
-        /// </summary>
-        /// <param name="listrules">List of rules to process.</param>
-        /// <returns>A processed list of rules.</returns>
-        private static List<Rule> ProcessRules(Dictionary<string, Rule> listrules)
-        {
-            if (listrules == null) return new List<Rule>();
-            List<Rule> newlist = new List<Rule>();
-
-            foreach (KeyValuePair<string, Rule> kvp in listrules)
-            {
-                if (kvp.Value is null)
-                {
-                    log.Error("Rule ID : " + kvp.Key + " was null");
-                    continue;
-                }
-                kvp.Value.Id = kvp.Key;
-                kvp.Value.visible = true;
-                log.Debug("Processing rule : " + kvp.Value);
-                newlist.Add(kvp.Value);
-            }
-
-            return newlist;
-        }
-
-        #endregion
-
-        #region ACTIONS
 
         /// <summary>
         /// Check if api key is authorized withthe bridge is authorized.
@@ -426,8 +167,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             }
             return newImage;
         }
-        #endregion
-
 
         /// <summary>
         /// GEt the list of newly discovered lights
@@ -457,16 +196,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             List<IHueObject> hr = ProcessSearchResult(bresult, false);
             log.Debug("Search Result : " + Serializer.SerializeJsonObject(hr));
             return hr;
-        }
-
-        /// <summary>
-        /// Get the Group Zero async.
-        /// </summary>
-        /// <param name="bridge"></param>
-        /// <returns></returns>
-        private static async Task<Group> GetGroupZeroAsynTask(Bridge bridge)
-        {
-            return (Group)await bridge.GetObjectAsync("0", typeof(Group));
         }
 
         /// <summary>
@@ -525,42 +254,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             ProcessCommandFailure(url, comres.Status);
             return null;
         }
-
-        /// <summary>
-        /// Get all objects from the bridge.
-        /// </summary>
-        /// <returns>A DataStore of objects from the bridge.</returns>
-        private DataStore GetDataStore()
-        {
-            
-            CommResult comres = Comm.SendRequest(new Uri(BridgeUrl), WebRequestType.Get);
-            if (comres.Status == WebExceptionStatus.Success)
-            {
-                DataStore listObjets = Serializer.DeserializeToObject<DataStore>(comres.Data);
-                if (listObjets != null) return listObjets;
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(Comm.Lastjson));
-            }
-            ProcessCommandFailure(BridgeUrl, comres.Status);
-            return null;
-        }
-
-        /// <summary>
-        /// Get all objects from the bridge async.
-        /// </summary>
-        /// <returns>A DataStore of objects from the bridge.</returns>
-        public async Task<DataStore> GetBridgeDataStoreAsync()
-        {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl), WebRequestType.Get);
-            if (comres.Status == WebExceptionStatus.Success)
-            {
-                DataStore listObjets = Serializer.DeserializeToObject<DataStore>(comres.Data);
-                if (listObjets != null) return listObjets;
-                LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(Comm.Lastjson));
-            }
-            ProcessCommandFailure(BridgeUrl, comres.Status);
-            return null;
-        }
-
 
         /// <summary>
         /// Toggle the state of an object on and off (Light or group)

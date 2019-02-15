@@ -64,7 +64,6 @@ using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
 using WinHue3.Functions.PowerSettings;
 using WinHue3.Functions.RoomMap;
-using Binding = System.Windows.Data.Binding;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace WinHue3.MainForm
@@ -313,7 +312,7 @@ namespace WinHue3.MainForm
         private async Task DoubleClickObject()
         {
             log.Debug("Double click on : " + SelectedHueObject);
-            if ((SelectedHueObject is Light) || (SelectedHueObject is Group))
+            if ((SelectedHueObject is Light) || (SelectedHueObject is Group ))
             {
                 ImageSource hr = await BridgeManager.SelectedBridge.ToggleObjectOnOffStateAsyncTask(SelectedHueObject, SliderTt, null, _newstate);
                 if (hr != null)
@@ -485,7 +484,7 @@ namespace WinHue3.MainForm
             log.Debug($@"Opening the scene creator window for bridge {BridgeManager.SelectedBridge.IpAddress} ");
             if (fsc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly created scene ID {fsc.GetCreatedOrModifiedID()} from bridge {BridgeManager.SelectedBridge.IpAddress}");
-            Scene hr = (Scene) await BridgeManager.SelectedBridge.GetObjectAsync(fsc.GetCreatedOrModifiedID(), typeof(Scene));
+            Scene hr = await BridgeManager.SelectedBridge.GetObjectAsync<Scene>(fsc.GetCreatedOrModifiedID());
             if (hr != null)
             {
                 _listBridgeObjects.Add(hr);
@@ -502,7 +501,7 @@ namespace WinHue3.MainForm
             Form_ScheduleCreator2 fscc = new Form_ScheduleCreator2() {Owner = Application.Current.MainWindow};
             await fscc.Initialize();
             if (fscc.ShowDialog() != true) return;
-            Schedule sc = (Schedule) await BridgeManager.SelectedBridge.GetObjectAsync(fscc.GetCreatedOrModifiedId(), typeof(Schedule));
+            Schedule sc = await BridgeManager.SelectedBridge.GetObjectAsync<Schedule>(fscc.GetCreatedOrModifiedId());
             if (sc != null)
             {
                 _listBridgeObjects.Add(sc);
@@ -519,7 +518,7 @@ namespace WinHue3.MainForm
             await frc.Initialize();
             if (frc.ShowDialog() != true) return;
             log.Debug($@"Getting the newly sensor schedule ID {frc.GetCreatedOrModifiedID()} from bridge {BridgeManager.SelectedBridge.IpAddress}");
-            Rule rule = (Rule) await BridgeManager.SelectedBridge.GetObjectAsync(frc.GetCreatedOrModifiedID(), typeof(Rule));
+            Rule rule = await BridgeManager.SelectedBridge.GetObjectAsync<Rule>(frc.GetCreatedOrModifiedID());
             if (rule != null)
             {
                 _listBridgeObjects.Add(rule);
@@ -1121,7 +1120,7 @@ namespace WinHue3.MainForm
                 switch (obj.modelid)
                 {
                     case "PHDL00":
-                        Sensor cr = (Sensor) await BridgeManager.SelectedBridge.GetObjectAsync(obj.Id, typeof(Sensor));
+                        Sensor cr = await BridgeManager.SelectedBridge.GetObjectAsync<Sensor>(obj.Id);
                         if (cr != null)
                         {
                             cr.Id = obj.Id;
@@ -1146,7 +1145,7 @@ namespace WinHue3.MainForm
 
                         break;
                     default:
-                        Sensor crs = (Sensor) await BridgeManager.SelectedBridge.GetObjectAsync(obj.Id, typeof(Sensor));
+                        Sensor crs = await BridgeManager.SelectedBridge.GetObjectAsync<Sensor>(obj.Id);
                         if (crs != null)
                         {
                             Form_SensorCreator fsc = new Form_SensorCreator(crs)
@@ -1447,36 +1446,9 @@ namespace WinHue3.MainForm
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                DataStore datastore = await BridgeManager.SelectedBridge.GetBridgeDataStoreAsync();
-                switch (p)
-                {
-                    case "Full":
-                        data = JsonConvert.SerializeObject(datastore, Formatting.Indented, jss);
-                        break;
-                    case "Lights":
-                        data = JsonConvert.SerializeObject(datastore.lights, Formatting.Indented, jss);
-                        break;
-                    case "Groups":
-                        data = JsonConvert.SerializeObject(datastore.groups, Formatting.Indented, jss);
-                        break;
-                    case "Scenes":
-                        data = JsonConvert.SerializeObject(datastore.scenes, Formatting.Indented, jss);
-                        break;
-                    case "Schedules":
-                        data = JsonConvert.SerializeObject(datastore.schedules, Formatting.Indented, jss);
-                        break;
-                    case "ResourceLinks":
-                        data = JsonConvert.SerializeObject(datastore.resourcelinks, Formatting.Indented, jss);
-                        break;
-                    case "Rules":
-                        data = JsonConvert.SerializeObject(datastore.rules, Formatting.Indented, jss);
-                        break;
-                    case "Sensors":
-                        data = JsonConvert.SerializeObject(datastore.sensors, Formatting.Indented, jss);
-                        break;
-                    default:
-                        break;
-                }
+                List<IHueObject> listobject = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
+
+                data = JsonConvert.SerializeObject(listobject.ToDictionary(x => x.Id, x => x), Formatting.Indented, jss);
 
                 if (data != string.Empty)
                 {

@@ -37,20 +37,6 @@ namespace WinHue3.ExtensionMethods
 
     }
 
-    public static class DictionaryExtensionMethod
-    {
-
-        public static List<T> ToList<T>(this Dictionary<string,T> dic)
-        {
-            List<T> l = new List<T>();
-            foreach(KeyValuePair<string,T> t in dic)
-            {
-                l.Add(t.Value);
-            }
-            return l;
-        }
-    }
-
     public static class StringExtensionMethods
     {
         /// <summary>
@@ -120,23 +106,6 @@ namespace WinHue3.ExtensionMethods
         public static string GetHueType(this object obj)
         {
             HueType ht = obj.GetType().GetCustomAttribute<HueType>();
-            return ht?.HueObjectType;
-        }
-
-      /*  public static List<PropertyInfo> GetListHueProperties(this  obj)
-        {
-            if (obj is Type) return ((Type) obj).GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
-            return obj?.GetType().GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
-        }*/
-
-
-    }
-
-    public static class TypeExtensionMethods
-    {
-        public static string GetHueType(this Type type)
-        {
-            HueType ht = type.GetCustomAttribute<HueType>();
             return ht?.HueObjectType;
         }
 
@@ -225,23 +194,6 @@ namespace WinHue3.ExtensionMethods
         }
     }
 
-    public static class DictionaryExtensionMethods
-    {
-        public static List<T> ToHueList<T>(this Dictionary<string, T> dic) where T : IHueObject
-        {
-            List<T> newlist = new List<T>();
-
-            foreach (KeyValuePair<string, T> kvp in dic)
-            {
-                T obj = kvp.Value;
-                obj.Id = kvp.Key;
-                newlist.Add(obj);
-            }
-
-            return newlist;
-        }
-
-    }
 
     public static class BitmapImageExtensionMethods
     {
@@ -277,23 +229,5 @@ namespace WinHue3.ExtensionMethods
         }
     }
 
-    /*
-    public static class CommonPropertiesExtensionMethods
-    {
 
-        public static void CopyValues(this CommonProperties commonprop, CommonProperties target, CommonProperties source)
-        {
-            Type t = typeof(CommonProperties);
-
-            var properties = t.GetProperties().Where(prop => prop.CanRead && prop.CanWrite);
-
-            foreach (var prop in properties)
-            {
-                var value = prop.GetValue(source, null);
-                if (value != null)
-                    prop.SetValue(target, value, null);
-            }
-        }
-
-    }*/
 }
