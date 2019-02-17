@@ -27,7 +27,7 @@ using WinHue3.Interface;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 {
-    [JsonObject, HueType("sensors"),JsonConverter(typeof(SensorJsonConverter))]
+    [JsonObject, JsonConverter(typeof(SensorJsonConverter))]
     public class Sensor : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -247,7 +247,8 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             sensor.state = TryConvertState(obj["state"], sensor.type);
             sensor.uniqueid = obj["uniqueid"]?.Value<string>();
 
-            sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
+            if(sensor.type != null)
+                sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
 
             return sensor;
         }

@@ -313,7 +313,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public bool RenameObject(IHueObject hueobj)
         {
-            string typename = hueobj.GetHueType();
+            string typename = hueobj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{hueobj.Id}";
 
             CommResult comres;
@@ -346,7 +346,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public async Task<bool> RenameObjectASyncTask(IHueObject hueobj)
         {
-            string typename = hueobj.GetHueType();
+            string typename = hueobj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{hueobj.Id}";
 
             CommResult comres;
@@ -378,7 +378,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public bool CreateObject(IHueObject newobject)
         {
-            string typename = newobject.GetHueType();
+            string typename = newobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)newobject.Clone();
             string url = BridgeUrl + $@"/{typename}";
             if (typename == null) return false;
@@ -413,7 +413,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public async Task<bool> CreateObjectAsyncTask(IHueObject newobject)
         {
-            string typename = newobject.GetHueType();
+            string typename = newobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)newobject.Clone();
             string url = BridgeUrl + $@"/{typename}";
             if (typename == null) return false;
@@ -449,7 +449,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public bool RemoveObject(IHueObject obj)
         {
-            string typename = obj.GetHueType();
+            string typename = obj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{obj.Id}";
             CommResult comres;
 
@@ -513,7 +513,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public async Task<bool> RemoveObjectAsyncTask(IHueObject obj)
         {
-            string typename = obj.GetHueType();
+            string typename = obj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{obj.Id}";
             CommResult comres;
 
@@ -544,7 +544,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public bool ModifyObject(IHueObject modifiedobject)
         {
-            string typename = modifiedobject.GetHueType();
+            string typename = modifiedobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)modifiedobject.Clone();
             string url = BridgeUrl + $@"/{typename}/{modifiedobject.Id}";
             if (typename == null) return false;
@@ -579,7 +579,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public async Task<bool> ModifyObjectAsyncTask(IHueObject modifiedobject)
         {
-            string typename = modifiedobject.GetHueType();
+            string typename = modifiedobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)modifiedobject.Clone();
             string url = BridgeUrl + $@"/{typename}/{modifiedobject.Id}";
             if (typename == null) return false;

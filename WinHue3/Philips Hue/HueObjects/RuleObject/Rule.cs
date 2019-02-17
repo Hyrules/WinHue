@@ -13,7 +13,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
     /// <summary>
     /// Rules.
     /// </summary>
-    [DataContract, HueType("rules"), JsonConverter(typeof(RuleJsonConverter))]
+    [DataContract, JsonConverter(typeof(RuleJsonConverter))]
     public class Rule : ValidatableBindableBase, IHueObject
     {
         private string _name;

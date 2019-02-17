@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -10,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using log4net;
-using Newtonsoft.Json;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Lights.SupportedDevices;
@@ -22,11 +19,6 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
-using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
-using WinHue3.Philips_Hue.HueObjects.RuleObject;
-using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Utils;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Philips_Hue.BridgeObject
@@ -49,7 +41,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             foreach (Tuple<string, string> h in hiddenObjects)
             {
 
-                int index = list.FindItemIndex(x => x.Id == h.Item1 && x.GetHueType() == h.Item2);
+                int index = list.FindItemIndex(x => x.Id == h.Item1 && x.GetType().Name == h.Item2);
                 if (index == -1) continue;
                 list.RemoveAt(index);
             }
@@ -182,7 +174,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             return ProcessSearchResult(bresult, true);
         }
 
-        //TODO : Remove HIDDEN SCENES
 
         /// <summary>
         /// Get a list of new sensors with ID, name and image populated from the selected bridge.

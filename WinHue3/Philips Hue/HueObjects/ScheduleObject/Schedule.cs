@@ -13,7 +13,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
     /// <summary>
     /// Class for a schedule.
     /// </summary>
-    [JsonObject, HueType("schedules"), JsonConverter(typeof(ScheduleJsonConverter))]
+    [JsonObject, JsonConverter(typeof(ScheduleJsonConverter))]
     public class Schedule : ValidatableBindableBase, IHueObject
     {
         private string _name;

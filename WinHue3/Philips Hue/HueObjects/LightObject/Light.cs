@@ -16,7 +16,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
     /// <summary>
     /// Light Class.
     /// </summary>
-    [DefaultProperty("Light"), JsonObject, HueType("lights")]
+    [DefaultProperty("Light"), JsonObject]
     public class Light : ValidatableBindableBase, IHueObject
     {
         /// <summary>
@@ -140,7 +140,8 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)
         {
-            Image = GetImageForLight(state.reachable.GetValueOrDefault() ? state.@on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, modelid, config.archetype);
+            if(state?.on != null)
+                Image = GetImageForLight(state.reachable.GetValueOrDefault() ? state.@on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, modelid, config.archetype);
 
         }
 

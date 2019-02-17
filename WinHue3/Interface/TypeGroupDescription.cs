@@ -20,7 +20,7 @@ namespace WinHue3.Interface
         public override object GroupNameFromItem(object item, int level, CultureInfo culture)
         {
             if (item == null) return GUI.ListView_others;
-            string type = item.GetHueType();
+            string type = (item.GetType().Name.ToLower() + "s").CapitalizeFirstLetter();
             return GUI.ResourceManager.GetString(type.CapitalizeFirstLetter());
 
         }

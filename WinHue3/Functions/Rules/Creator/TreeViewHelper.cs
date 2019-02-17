@@ -27,7 +27,7 @@ namespace WinHue3.Functions.Rules.Creator
                 string actualpath = currentpath + "/" + p.Name;
                 object value = p.GetValue(root);
 
-                if (value == null)
+                if (value == null || p.PropertyType.IsPrimitive || p.PropertyType == typeof(string))
                 {
 
                     tvi.Items.Add(new HuePropertyTreeViewItem()

@@ -38,10 +38,10 @@ namespace WinHue3.MainForm
         private string _lastmessage = string.Empty;
         private MainFormModel _mainFormModel;
         private CpuTempMonitor _ctm;
-        private DispatcherTimer _ledTimer;
+        private readonly DispatcherTimer _ledTimer;
         private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
-        private Form_PropertyGrid _propertyGrid;
+        private readonly Form_PropertyGrid _propertyGrid;
 
         public MainFormViewModel()
         {
@@ -105,23 +105,6 @@ namespace WinHue3.MainForm
         {
             get => _hotkeyDetected;
             set => SetProperty(ref _hotkeyDetected, value);
-        }
-
-        private bool CheckBridge(Bridge bridge)
-        {
-            log.Info("Checking if ip is bridge...");
-            BasicConfig bc = bridge.GetBridgeBasicConfig();
-            if (bc != null)
-            {
-                bridge.ApiVersion = bc.apiversion;
-                bridge.Name = bc.name;
-                bridge.SwVersion = bc.swversion;
-                WinHueSettings.bridges.BridgeInfo[bridge.Mac].name = bridge.Name;
-                WinHueSettings.SaveBridges();
-                return true;
-            }
-
-            return false;
         }
 
         private void Initialize()

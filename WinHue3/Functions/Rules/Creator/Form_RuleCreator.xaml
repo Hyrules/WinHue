@@ -154,7 +154,7 @@
                             </Style>
                         </TextBox.Style>
                     </TextBox>
-                    <ComboBox x:Name="cbConditionType" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionObjectTypeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" Style="{StaticResource {x:Type ComboBox}}" Grid.ColumnSpan="2"
+                    <ComboBox x:Name="cbConditionType" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" behaviors:CommandBehavior.Command="{Binding Condition_SelectConditionObjectTypeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" SelectedValue="{Binding SelectedRuleConditionType}" SelectedValuePath="Tag" Grid.ColumnSpan="2"
                               Grid.Column="0">
                         <i:Interaction.Behaviors>
                             <behaviors:ComboBoxWatermarkBehavior Text="{x:Static resx:GUI.Object_Type_Watermark}"/>

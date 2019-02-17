@@ -27,7 +27,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public List<T> GetListObjects<T>(bool showhidden = false) where T : IHueObject
         {
 
-            string typename = typeof(T).GetHueType();
+            string typename = typeof(T).Name.ToLower() + "s";
             string url = BridgeUrl + $"/{typename}";
             CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
 
@@ -56,7 +56,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<List<T>> GetListObjectsAsync<T>(bool showhidden = false, bool getgroupzero = false ) where T : IHueObject
         {
 
-            string typename = typeof(T).GetHueType();
+            string typename = typeof(T).Name.ToLower() + "s";
             string url = BridgeUrl + $"/{typename}";
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
@@ -173,8 +173,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<T> GetObjectAsync<T>(string id) where T : IHueObject
         {
 
-            string typename = typeof(T).GetHueType();
-            if (typename == null) return default(T);
+            string typename = typeof(T).Name.ToLower() + "s";
+            if (typename == string.Empty || typename == "s") return default(T);
             string url = BridgeUrl + $"/{typename}/{id}";
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url),WebRequestType.Get);
 
@@ -203,8 +203,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public T GetObject<T>(string id) where T : IHueObject
         {
 
-            string typename = typeof(T).GetHueType();
-            if (typename == null) return default(T);
+            string typename = typeof(T).Name.ToLower() + "s";
+            if (typename == string.Empty || typename == "s") return default(T);
             string url = BridgeUrl + $"/{typename}/{id}";
             CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
 
@@ -234,8 +234,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public async Task<IHueObject> GetObjectAsync(string id, Type objecttype)
         {
-            string typename = objecttype.GetHueType();
-            if (typename == null) return null;
+            string typename = objecttype.Name.ToLower() + "s";
+            if (typename == string.Empty || typename == "s") return null;
             string url = BridgeUrl + $"/{typename}/{id}";
             CommResult comres =  await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
@@ -264,8 +264,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<T> GetObjectAsync<T>(string id, Type objecttype) where T : IHueObject
         {
 
-            string typename = objecttype.GetHueType();
-            if (typename == null) return default(T);
+            string typename = typeof(T).Name.ToLower() + "s";
+            if (typename == string.Empty || typename == "s") return default(T);
             string url = BridgeUrl + $"/{typename}/{id}";
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
@@ -296,7 +296,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public SearchResult GetNewObjects<T>() where T : IHueObject
         {
-            string typename = typeof(T).GetHueType();
+            string typename = typeof(T).Name.ToLower() + "s";
             string url = BridgeUrl + $"/{typename}";
 
             CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
@@ -319,7 +319,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public async Task<SearchResult> GetNewObjectsAsync<T>() where T : IHueObject
         {
-            string typename = typeof(T).GetHueType();
+            string typename = typeof(T).Name.ToLower() + "s";
             string url = BridgeUrl + $"/{typename}";
 
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url + "/new"), WebRequestType.Get);

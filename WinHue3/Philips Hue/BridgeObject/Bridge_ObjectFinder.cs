@@ -13,7 +13,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
     {
         public async Task<bool> StartNewObjectsSearchAsyncTask(Type objecttype)
         {            
-            string typename = objecttype.GetHueType();
+            string typename = objecttype.Name.ToLower() + "s";
             
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + $"/{typename}"), WebRequestType.Post);
 

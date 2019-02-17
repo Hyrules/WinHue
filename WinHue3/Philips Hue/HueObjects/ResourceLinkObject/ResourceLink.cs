@@ -12,7 +12,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
 {
-    [JsonObject, HueType("resourcelinks")]
+    [JsonObject]
     public class Resourcelink : ValidatableBindableBase, IHueObject
     {
         private string _name;

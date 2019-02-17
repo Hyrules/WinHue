@@ -25,6 +25,7 @@ using WinHue3.Philips_Hue.HueObjects.LightObject;
 using Org.BouncyCastle.Utilities;
 using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 using WinHue3.Functions.Animations2;
+using WinHue3.Functions.Rules;
 
 namespace HueLib2Test
 {
@@ -217,34 +218,9 @@ namespace HueLib2Test
         [TestMethod]
         public void TestBuildTree()
         {
-          
-            
 
+            var tree =TreeViewHelper.BuildPropertiesTree(new Light() {state = new State()}, "/");
 
-            //BridgeSettings bs = new BridgeSettings();
-          //  Light l = new Light();
-            BridgeSettings bs = new BridgeSettings();
-        //    SwUpdate sw = new SwUpdate();
-        //    IHueObject obj = new Light();
-         //   Sensor ts = new Sensor(){config = new ClipGenericFlagSensorConfig(), state = new ClipGenericFlagSensorState()};
-         //   PropertyInfo[] props = bs.GetType().GetHueProperties();
-             //BuildTree(l.GetType(), "/lights/1", "");
-
-           // string ssensor =
-        //        "{\n    \"state\": {\n        \"daylight\": true,\n        \"lastupdated\": \"2017-08-09T09:56:00\"\n    },\n    \"config\": {\n        \"on\": true,\n        \"configured\": true,\n        \"sunriseoffset\": 0,\n        \"sunsetoffset\": 0\n    },\n    \"name\": \"Daylight\",\n    \"type\": \"Daylight\",\n    \"modelid\": \"PHDL00\",\n    \"manufacturername\": \"Philips\",\n    \"swversion\": \"1.0\"\n}";
-         //   Sensor obj = Serializer.DeserializeToObject<Sensor>(ssensor);
-           // PropertyInfo[] props = obj.GetType().GetHueProperties();
-            //ISensorConfigBase cfg = (ISensorConfigBase)props[8].GetValue(obj);
-          //  ISensorConfigBase cfg = props["config"].GetValue(obj);
-            //string path = "/sensors";
-        //    List<TreeViewItem> lrtvi = new List<TreeViewItem>();
-
-        //    foreach (PropertyInfo pi in props)
-       //     {
-             //   lrtvi.Add(BuildTree(pi, path, null));
-
-
-       //     }
 
         }
 

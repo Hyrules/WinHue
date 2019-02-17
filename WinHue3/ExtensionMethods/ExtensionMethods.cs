@@ -103,11 +103,6 @@ namespace WinHue3.ExtensionMethods
             return Nullable.GetUnderlyingType(n.GetType()) != null;
         }
 
-        public static string GetHueType(this object obj)
-        {
-            HueType ht = obj.GetType().GetCustomAttribute<HueType>();
-            return ht?.HueObjectType;
-        }
 
     }
 

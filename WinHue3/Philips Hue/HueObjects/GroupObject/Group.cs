@@ -13,7 +13,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
     /// <summary>
     /// Group Class.
     /// </summary>
-    [JsonObject, HueType("groups")]
+    [JsonObject]
     public class Group : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -128,7 +128,8 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)
         {
-            Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault() ? (state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
+            if(state?.any_on != null)
+                Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault() ? (state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
 
         }
 

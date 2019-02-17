@@ -52,15 +52,13 @@ namespace WinHue3.Functions.BridgeSettings
 
         private async Task Initialize()
         {
-            // TODO HIDE OBJECTS
             List<IHueObject> lo = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
-            List<IHueObject> ls = new List<IHueObject>();
             HiddenObjects.ListObjects = new ObservableCollection<IHueObject>(lo);
             foreach (Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[BridgeManager.SelectedBridge.Mac].hiddenobjects)
             {
-                if (HiddenObjects.ListObjects.Any(x => x.Id == t.Item1 && x.GetHueType() == t.Item2))
+                if (HiddenObjects.ListObjects.Any(x => x.Id == t.Item1 && x.GetType().Name == t.Item2))
                 {
-                    IHueObject obj = HiddenObjects.ListObjects.FirstOrDefault(x => x.Id == t.Item1 && x.GetHueType() == t.Item2);
+                    IHueObject obj = HiddenObjects.ListObjects.FirstOrDefault(x => x.Id == t.Item1 && x.GetType().Name == t.Item2);
                     HiddenObjects.ListObjects.Remove(obj);
                     HiddenObjects.HiddenObjects.Add(obj);
                 }   
@@ -81,9 +79,9 @@ namespace WinHue3.Functions.BridgeSettings
             WinHueSettings.bridges.BridgeInfo[BridgeManager.SelectedBridge.Mac].hiddenobjects.Clear();
             foreach (IHueObject l in HiddenObjects.HiddenObjects)
             {
-                if (!WinHueSettings.bridges.BridgeInfo[BridgeManager.SelectedBridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetHueType()))
+                if (!WinHueSettings.bridges.BridgeInfo[BridgeManager.SelectedBridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetType().Name))
                 {
-                    WinHueSettings.bridges.BridgeInfo[BridgeManager.SelectedBridge.Mac].hiddenobjects.Add(new Tuple<string, string>(l.Id, l.GetHueType()));
+                    WinHueSettings.bridges.BridgeInfo[BridgeManager.SelectedBridge.Mac].hiddenobjects.Add(new Tuple<string, string>(l.Id, l.GetType().Name));
                 }
                 
             }

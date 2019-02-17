@@ -108,25 +108,24 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
             if (obj["command"]["method"] != null)
                 newSchedule.command.method = obj["command"]["method"].Value<string>();
 
-            ImageSource imgsource;
+            if (newSchedule.localtime == null) return newSchedule;
+
             if (newSchedule.localtime.Contains("PT"))
             {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
             }
             else if (newSchedule.localtime.Contains("W"))
             {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
             }
             else if (newSchedule.localtime.Contains("T"))
             {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
             }
             else
             {
-                imgsource = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
             }
-
-            newSchedule.Image = imgsource;
 
             return newSchedule;
         }

@@ -15,7 +15,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
     /// <summary>
     /// Scene Class.
     /// </summary>
-    [JsonObject, HueType("scenes")]
+    [JsonObject]
     public class Scene : ValidatableBindableBase, IHueObject
     {
         private string _name;

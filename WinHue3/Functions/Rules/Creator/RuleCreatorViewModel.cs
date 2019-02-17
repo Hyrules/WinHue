@@ -464,7 +464,7 @@ namespace WinHue3.Functions.Rules.Creator
         {
             ListConditionProperties = null;
             if (SelectedConditionHueObject == null) return;
-            ListConditionProperties = TreeViewHelper.BuildPropertiesTree(SelectedConditionHueObject,$"/{SelectedConditionHueObject.GetHueType()}/{SelectedConditionHueObject.Id}", "object").ToList();
+            ListConditionProperties = TreeViewHelper.BuildPropertiesTree(SelectedConditionHueObject,$"/{SelectedConditionHueObject.GetType().Name}/{SelectedConditionHueObject.Id}", "object").ToList();
 
         }
 
@@ -523,11 +523,13 @@ namespace WinHue3.Functions.Rules.Creator
         private void SelectRuleCondition()
         {
             if (_selectedRuleCondition == null) return;
+
             if (_selectedRuleCondition.address.objecttype != "config")
             {
                 SelectedRuleConditionType = HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
+                SelectConditionObjectType();
                 SelectedConditionHueObject = ListConditionHueObjects.FirstOrDefault(x => x.Id == _selectedRuleCondition.address.id);
-
+                SelectConditionHueObject();
             }
             else
             {
