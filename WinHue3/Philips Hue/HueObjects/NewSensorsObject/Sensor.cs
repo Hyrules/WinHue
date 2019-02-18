@@ -247,8 +247,26 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             sensor.state = TryConvertState(obj["state"], sensor.type);
             sensor.uniqueid = obj["uniqueid"]?.Value<string>();
 
-            if(sensor.type != null)
-                sensor.Image = GDIManager.CreateImageSourceFromImage(sensor.type == "ZGPSwitch" ? Properties.Resources.huetap : Properties.Resources.sensor);
+            if (sensor.type != null)
+            {
+                switch (sensor.type)
+                {
+                    case "ZGPSwitch":
+                        sensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.huetap);
+                        break;
+                    case "ZLLSwitch":
+                        sensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.dimmer);
+                        break;
+                    case "ZLLPresence":
+                        sensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.Motion);
+                        break;
+                    default:
+                        sensor.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.sensor);
+                        break;
+
+                }
+            }
+                
 
             return sensor;
         }
