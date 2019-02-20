@@ -316,8 +316,8 @@ namespace WinHue3.MainForm
         public ICommand FindLightSerialCommand => new RelayCommand(param => FindLightSerial(), (param) => EnableButtons());
         public ICommand CreateHotKeyCommand => new AsyncRelayCommand(param => CreateHotKey(), param => EnableButtons());
         public ICommand CreateResourceLinkCommand => new AsyncRelayCommand(param => CreateResourceLink(), param => EnableButtons());
-        public ICommand AllOnCommand => new AsyncRelayCommand(param => AllOn(), param => EnableButtons());
-        public ICommand AllOffCommand => new AsyncRelayCommand(param => AllOff(), param => EnableButtons());
+        public ICommand AllOnCommand => new AsyncRelayCommand(param => AllOnOff(true), param => EnableButtons());
+        public ICommand AllOffCommand => new AsyncRelayCommand(param => AllOnOff(false), param => EnableButtons());
         public ICommand ShowEventLogCommand => new RelayCommand(param => ShowEventLog());
         public ICommand SearchNewLightsCommand => new AsyncRelayCommand(param => CheckForNewBulb(), param => CanSearchNewLights());
         public ICommand SearchNewSensorsCommand => new AsyncRelayCommand(param => SearchNewSensors(), param => CanSearchNewSensor());

@@ -402,21 +402,11 @@ namespace WinHue3.MainForm
             _eventlogform.Show();
         }
 
-        private async Task AllOn()
+        private async Task AllOnOff(bool onoff)
         {
-            log.Info("Sending all on command to bridge" + BridgeManager.SelectedBridge.IpAddress);
-            Action act = new Action {@on = true};
-            if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
-            bool bresult = await BridgeManager.SelectedBridge.SetStateAsyncTask(act, "0");
-            if (!bresult) return;
-            log.Debug("Refreshing the main view.");
-            await RefreshView();
-        }
-
-        private async Task AllOff()
-        {
-            log.Info("Sending all off command to bridge" + BridgeManager.SelectedBridge.IpAddress);
-            Action act = new Action {@on = false};
+            string onoffs = onoff ? "on" : "off";
+            log.Info($"Sending all {onoffs} command to bridge" + BridgeManager.SelectedBridge.IpAddress);
+            Action act = new Action {@on = onoff};
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
             bool bresult = await BridgeManager.SelectedBridge.SetStateAsyncTask(act, "0");
             if (!bresult) return;
