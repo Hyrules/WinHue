@@ -1,4 +1,4 @@
-<h2>WinHue 3</h2>
+<h1>WinHue</h1>
 
 <b>Requirements :</b> <br/>
 - [Microsoft Dot Net Framework 4.5.1](https://www.microsoft.com/en-ca/download/details.aspx?id=40773) <br/>
