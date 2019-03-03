@@ -32,6 +32,6 @@ function formatChangelog() {
 
 function thanks() {
     setTimeout(function () {
-        document.location.pathname = "WinHue3/download.html";
+        document.location.pathname = "WinHue/download.html";
     }, 5000);
 }
