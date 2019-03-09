@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using Xceed.Wpf.AvalonDock.Controls;
+
 
 namespace WinHue3.Functions.RoomMap
 {
@@ -25,7 +27,7 @@ namespace WinHue3.Functions.RoomMap
             he.X += e.HorizontalChange;
             he.Y += e.VerticalChange;
       
-            Canvas canvas = item.FindVisualAncestor<Canvas>();
+            Canvas canvas =  item.FindVisualAncestor<Canvas>();
 
             if (he.X < 0)
                 he.X = 0;

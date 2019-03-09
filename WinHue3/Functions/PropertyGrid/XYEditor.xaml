@@ -7,10 +7,10 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinHue3.Functions.PropertyGrid.XYEditor"
              mc:Ignorable="d" Height="42.936" Width="86.012" x:Name="XyEditor" HorizontalAlignment="Left" HorizontalContentAlignment="Left">
     <Grid HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="86" Margin="0,0,0,-0.333">
-        <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="15,21,0,0" VerticalAlignment="Top" Width="71" Value="{Binding ElementName=XyEditor, Path=Y}" Maximum="{Binding ElementName=XyEditor, Path=Max}" Minimum="{Binding ElementName=XyEditor, Path=Min}" Increment="0.0001"/>
-        <xctk:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Margin="15,0,0,0" Value="{Binding ElementName=XyEditor, Path=X}" Maximum="{Binding ElementName=XyEditor, Path=Max}" Minimum="{Binding ElementName=XyEditor, Path=Min}" Increment="0.0001"/>
-        <Label Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="17" Background="White" Margin="-2,0,0,0" Padding="4,2,2,2"/>
-        <Label Content="Y" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="17" Background="White" Margin="-2,21,0,0" Padding="4,2,2,2"/>
+        <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="15,21,0,0" VerticalAlignment="Top" Width="71" Value="{Binding ElementName=XyEditor, Path=Y}" Maximum="{Binding ElementName=XyEditor, Path=Max}" Minimum="{Binding ElementName=XyEditor, Path=Min}" Increment="0.001" FormatString="F3" Height="21"/>
+        <xctk:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Margin="15,0,0,0" Value="{Binding ElementName=XyEditor, Path=X}" Maximum="{Binding ElementName=XyEditor, Path=Max}" Minimum="{Binding ElementName=XyEditor, Path=Min}" Increment="0.001" FormatString="F3" Height="21"/>
+        <Label Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="15" Background="White" Padding="4,2,2,2"/>
+        <Label Content="Y" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="15" Background="White" Margin="0,21,0,0" Padding="4,2,2,2"/>
     </Grid>
 
 </UserControl>
