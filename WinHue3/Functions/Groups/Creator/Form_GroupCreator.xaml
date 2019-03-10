@@ -50,11 +50,7 @@
 
         <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" />
 
-        <TextBox x:Name="TbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23">
-            <i:Interaction.Behaviors>
-                <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.GroupName_Watermark}"/>
-            </i:Interaction.Behaviors>
-        </TextBox>
+        <xctk:WatermarkTextBox x:Name="TbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23" Watermark="{x:Static resx:GUI.GroupName_Watermark}"/>
         <customControls:BindableListView x:Name="BindableListView" Margin="185,10,9.667,47" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <customControls:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>

@@ -87,31 +87,11 @@
                 <Label Content="{x:Static resx:GUI.SensorCreatorForm_SwVersion}" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top"/>
                 <Label Content="{x:Static resx:GUI.SensorCreatorForm_MfgName}" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top"/>
                 <Label Content="{x:Static resx:GUI.SensorCreatorForm_UniqueId}" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TbUniqueId" HorizontalAlignment="Left" Margin="97,152,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Uniqueid, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="5">
-                    <i:Interaction.Behaviors>
-                        <behaviors:TextBoxWatermarkBehavior Text="00:00:00:00:00:00"/>
-                    </i:Interaction.Behaviors>
-                </TextBox>
-                <TextBox x:Name="TbMfgName" HorizontalAlignment="Left" Margin="97,123,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Mfgname, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MinWidth="6" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="4">
-                    <i:Interaction.Behaviors>
-                        <behaviors:TextBoxWatermarkBehavior Text="my manufacturer name"/>
-                    </i:Interaction.Behaviors>
-                </TextBox>
-                <TextBox x:Name="TbSwVersion" HorizontalAlignment="Left" Margin="97,96,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Swversion, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="16" IsEnabled="{Binding NotEditing}" TabIndex="3">
-                    <i:Interaction.Behaviors>
-                        <behaviors:TextBoxWatermarkBehavior Text="1.0"/>
-                    </i:Interaction.Behaviors>
-                </TextBox>
-                <TextBox x:Name="TbModelId" HorizontalAlignment="Left" Margin="97,67,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.ModelId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="2">
-                    <i:Interaction.Behaviors>
-                        <behaviors:TextBoxWatermarkBehavior Text="IPSENSOR"/>
-                    </i:Interaction.Behaviors>
-                </TextBox>
-                <TextBox x:Name="TbSensorName" HorizontalAlignment="Left" Margin="97,13,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="32" TabIndex="0">
-                    <i:Interaction.Behaviors>
-                        <behaviors:TextBoxWatermarkBehavior Text="my new sensor"/>
-                    </i:Interaction.Behaviors>
-                </TextBox>
+                <xctk:WatermarkTextBox x:Name="TbUniqueId" HorizontalAlignment="Left" Margin="97,152,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Uniqueid, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="5" Watermark="00:00:00:00:00:00"/>
+                <xctk:WatermarkTextBox x:Name="TbMfgName" HorizontalAlignment="Left" Margin="97,123,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Mfgname, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MinWidth="6" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="4" Watermark="{x:Static resx:GUI.MfgName}"/>
+                <xctk:WatermarkTextBox x:Name="TbSwVersion" HorizontalAlignment="Left" Margin="97,96,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Swversion, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="16" IsEnabled="{Binding NotEditing}" TabIndex="3" Watermark="1.0"/>
+                <xctk:WatermarkTextBox x:Name="TbModelId" HorizontalAlignment="Left" Margin="97,67,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.ModelId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="32" IsEnabled="{Binding NotEditing}" TabIndex="2" Watermark="IPSENSOR"/>
+                <xctk:WatermarkTextBox x:Name="TbSensorName" HorizontalAlignment="Left" Margin="97,13,0,0" TextWrapping="Wrap" Text="{Binding SensorModel.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="244" MaxLength="32" TabIndex="0" Watermark="{x:Static resx:GUI.NewSensor}"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SensorCreatorForm_SensorConfig}" HorizontalAlignment="Left" Margin="374,5,0,0" VerticalAlignment="Top" Height="221" Width="256">

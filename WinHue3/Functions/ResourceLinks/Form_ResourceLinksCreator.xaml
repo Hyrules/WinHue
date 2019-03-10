@@ -121,17 +121,8 @@
         <TextBlock x:Name="TextBlock" Margin="243,0,181.333,34.667" TextWrapping="Wrap" Text="{x:Static resx:GUI.ResourceLinkCreatorForm_HoldControl}" FontSize="10" Height="15" VerticalAlignment="Bottom"/>
         <Label x:Name="Label2" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_ClassID}" HorizontalAlignment="Left" Margin="16,200,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="CheckBox" Content="{x:Static resx:GUI.ResourceLinkCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="167,327,0,0" VerticalAlignment="Top" IsThreeState="True" IsChecked="{Binding LinkCreatorModel.Recycle}" IsEnabled="{Binding NotEditing}"/>
-        <TextBox x:Name="WatermarkTextBox" HorizontalAlignment="Left" Margin="16,28,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Name, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="210" Height="23">
-            <i:Interaction.Behaviors>
-                <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Name}"/>
-            </i:Interaction.Behaviors>
-        </TextBox>
-
-        <TextBox x:Name="WatermarkTextBox1" HorizontalAlignment="Left" Margin="16,93,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Description}" VerticalAlignment="Top" Height="107" Width="210">
-            <i:Interaction.Behaviors>
-                <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Description}"/>
-            </i:Interaction.Behaviors>
-        </TextBox>
+        <xctk:WatermarkTextBox x:Name="WatermarkTextBox" HorizontalAlignment="Left" Margin="16,28,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Name, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="210" Height="23" Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Name}"/>
+        <xctk:WatermarkTextBox x:Name="WatermarkTextBox1" HorizontalAlignment="Left" Margin="16,93,0,0" TextWrapping="Wrap" Text="{Binding LinkCreatorModel.Description}" VerticalAlignment="Top" Height="107" Width="210" Watermark="{x:Static resx:GUI.ResourceLinkCreatorForm_Watermark_Description}"/>
 
         <IntegerUpDown:WinHueIntegerUpDown HorizontalAlignment="Left" Height="18" Margin="16,231,0,0" VerticalAlignment="Top" Width="210" Min="1" Max="10000" Value="{Binding LinkCreatorModel.ClassId}" IsEnabled="{Binding NotEditing}" CanBeNull="False"/>
 

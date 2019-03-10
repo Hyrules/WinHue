@@ -709,6 +709,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Choose the operator).
+        /// </summary>
+        public static string ChooseOperator {
+            get {
+                return ResourceManager.GetString("ChooseOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Copy {
@@ -849,6 +858,33 @@ namespace WinHue3.Resources {
         public static string EventLogForm_Title {
             get {
                 return ResourceManager.GetString("EventLogForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eg. 192.168.1.2.
+        /// </summary>
+        public static string ExampleGateway {
+            get {
+                return ResourceManager.GetString("ExampleGateway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eg. 192.168.1.123.
+        /// </summary>
+        public static string ExampleIP {
+            get {
+                return ResourceManager.GetString("ExampleIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eg. 255.255.255.0.
+        /// </summary>
+        public static string ExampleMask {
+            get {
+                return ResourceManager.GetString("ExampleMask", resourceCulture);
             }
         }
         
@@ -2887,6 +2923,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to my manufacturer name.
+        /// </summary>
+        public static string MfgName {
+            get {
+                return ResourceManager.GetString("MfgName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom.
         /// </summary>
         public static string Mode_Custom {
@@ -2968,6 +3013,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to my new sensor.
+        /// </summary>
+        public static string NewSensor {
+            get {
+                return ResourceManager.GetString("NewSensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (object type).
         /// </summary>
         public static string Object_Type_Watermark {
@@ -2982,6 +3036,15 @@ namespace WinHue3.Resources {
         public static string Object_Watermark {
             get {
                 return ResourceManager.GetString("Object_Watermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional.
+        /// </summary>
+        public static string Optional {
+            get {
+                return ResourceManager.GetString("Optional", resourceCulture);
             }
         }
         
@@ -3562,7 +3625,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STEP 2 : Pick a color.
+        ///   Looks up a localized string similar to STEP 3 : Pick a color.
         /// </summary>
         public static string SceneCreatorForm_Step2 {
             get {
@@ -3571,7 +3634,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STEP 3 : Choose one or more lights.
+        ///   Looks up a localized string similar to STEP 2 : Choose one or more lights.
         /// </summary>
         public static string SceneCreatorForm_Step3 {
             get {

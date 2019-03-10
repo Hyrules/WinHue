@@ -784,10 +784,10 @@
     <value>STEP 1 : Pick a name</value>
   </data>
   <data name="SceneCreatorForm_Step2" xml:space="preserve">
-    <value>STEP 2 : Pick a color</value>
+    <value>STEP 3 : Pick a color</value>
   </data>
   <data name="SceneCreatorForm_Step3" xml:space="preserve">
-    <value>STEP 3 : Choose one or more lights</value>
+    <value>STEP 2 : Choose one or more lights</value>
   </data>
   <data name="SceneCreatorForm_Title" xml:space="preserve">
     <value>Create / Edit a scene...</value>
@@ -1616,5 +1616,26 @@
   </data>
   <data name="Paste" xml:space="preserve">
     <value>Paste</value>
+  </data>
+  <data name="NewSensor" xml:space="preserve">
+    <value>my new sensor</value>
+  </data>
+  <data name="MfgName" xml:space="preserve">
+    <value>my manufacturer name</value>
+  </data>
+  <data name="ChooseOperator" xml:space="preserve">
+    <value>(Choose the operator)</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="ExampleIP" xml:space="preserve">
+    <value>eg. 192.168.1.123</value>
+  </data>
+  <data name="ExampleMask" xml:space="preserve">
+    <value>eg. 255.255.255.0</value>
+  </data>
+  <data name="ExampleGateway" xml:space="preserve">
+    <value>eg. 192.168.1.2</value>
   </data>
 </root>

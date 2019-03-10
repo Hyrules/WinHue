@@ -721,12 +721,12 @@
                                 </Style>
                             </Label.Style>
                         </Label>
-                        <sliders:BindableSlider x:Name="SlX" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>                        
-                        
-                        <!--<controls:WinHueXYUpDown Value="{Binding ElementName=SlX, Path=Value}" IsEnabled="{Binding ElementName=SlX, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>-->
+                        <sliders:BindableSlider x:Name="SlX" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
+
+                        <xctk:DecimalUpDown Value="{Binding ElementName=SlX, Path=Value}" IsEnabled="{Binding ElementName=SlX, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
                         <sliders:BindableSlider x:Name="SlY" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" OldValue="{Binding MainFormModel.OldSliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
-                        <!--<controls:WinHueXYUpDown Value="{Binding ElementName=SlY, Path=Value}" IsEnabled="{Binding ElementName=SlY, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>-->
-                        
+                        <xctk:DecimalUpDown Value="{Binding ElementName=SlY, Path=Value}" IsEnabled="{Binding ElementName=SlY, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
+
                     </WrapPanel>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
                     <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">

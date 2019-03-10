@@ -21,6 +21,7 @@ Changed:
 - Replaced many Transition related up down with a practical TransitionTime Up Down. No more guessing the transition time.
 - Replaced some wpf toolkit up down with my own. ( bug alert ! there might be bugs in there )
 - Removed some black border on forms.
+- Forked my own version of WPFToolkit 3.5.0 with the Datagrid.
 
 Updated :
 - Naudio dependency.
