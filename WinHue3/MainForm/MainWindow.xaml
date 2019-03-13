@@ -364,13 +364,8 @@
 
 
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="81" />
-            <RowDefinition/>
-            <RowDefinition Height="28"/>
-        </Grid.RowDefinitions>
-        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top" Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
             <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" Foreground="White" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" Foreground="Black" >
                     <MenuItem.Icon>
@@ -523,7 +518,117 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2" Margin="0,1,0,0">
+        <ToolBarTray DockPanel.Dock="Top" Height="45" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSearch}" >
+                <Separator/>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Touchlink}" Command="{Binding TouchLinkCommand}">
+                    <Image Source="/WinHue3;component/Resources/touchlink.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" Command="{Binding FindLightSerialCommand}" >
+                    <Image Source="/WinHue3;component/Resources/findserial.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}">
+                    <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSensorOp}">
+                <Separator/>
+                <WrapPanel>
+                    <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetStatus}" Height="24" VerticalContentAlignment="Center" Padding="2,2,5,5"/>
+                    <xctk:IntegerUpDown Height="24" Padding="5,0,0,0" Minimum="0" Maximum="65535" Margin="0,7,0,7.667" Width="79" Value="{Binding SensorStatus}" IsEnabled="{Binding IsEnabled, ElementName=btnSetStatus}"/>
+                    <Button x:Name="btnSetStatus" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding SetSensorStatusCommand}" >
+                        <Image Source="/WinHue3;component/Resources/1464410361_check.png" Height="24"/>
+                    </Button>
+                </WrapPanel>
+                <Separator/>
+                <WrapPanel>
+                    <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetFlag}" Height="26" VerticalContentAlignment="Center" Padding="5" Margin="0,5,0,0"/>
+                    <CheckBox Margin="2,12,5,5" IsChecked="{Binding SensorFlag}" Command="{Binding SetSensorFlagCommand}" />
+                </WrapPanel>
+
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCommands}" Padding="0,0,12,0">
+                <Separator/>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Command="{Binding AllOffCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueGroupOff.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <ToggleButton Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off" Padding="2" Margin="6,0,4,0" IsChecked="{Binding MainFormModel.On}"/>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuRefresh}">
+                <Separator/>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">
+                    <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCreators}">
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}">
+                    <Image Source="/WinHue3;component/Resources/HueGroupOn-Large.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}" Command="{Binding CreateSceneCommand}" >
+                    <Image Source="/WinHue3;component/Resources/scenes.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" Command="{Binding CreateScheduleCommand}" >
+                    <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" Command="{Binding CreateRuleCommand}">
+                    <Image Source="/WinHue3;component/Resources/rules.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}"  Command="{Binding CreateSensorCommand}" >
+                    <Image Source="/WinHue3;component/Resources/sensor.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <!--<Button x:Name="btnCreateAnimation" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" Command="{Binding CreateAnimationCommand}">
+                    <Image Source="/WinHue3;component/Resources/animation.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>-->
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}">
+                    <Image Source="/WinHue3;component/Resources/hotkeys.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}">
+                    <Image Source="/WinHue3;component/Resources/resource.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <!--<Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_EntertainmentCreator}"  Command="{Binding CreateEntertainmentCommand}" >
+                    <Image Source="/WinHue3;component/Resources/entertainment.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>-->
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" >
+                    <Image Source="/WinHue3;component/Resources/advanced.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_FloorCreator}"  Command="{Binding CreateFloorPlanCommand}" >
+                    <Image Source="/WinHue3;component/Resources/floorplan.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+
+
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSettings}">
+                <Separator/>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" Command="{Binding ChangeBridgeSettingsCommand}" >
+                    <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <!--<SplitButton ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" Icon="" LargeIcon="/WinHue3;component/Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" SizeDefinition="Large,Middle,Small">
+                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Icon="/WinHue3;component/Resources/update.png" Command="{Binding UpdateBridgeCommand}"/>
+                </SplitButton>-->
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" Command="{Binding ManageUsersCommand}">
+                    <Image Source="/WinHue3;component/Resources/user.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Command="{Binding ResetTransitionTimeCommand}">
+                    <Image Source="/WinHue3;component/Resources/resettt.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_PowerSettings}" Command="{Binding SetPowerModeCommand}">
+                    <Image Height="32" Style="{StaticResource ImageEnabled}" Source="/WinHue3;component/Resources/powerfailure.png"/>
+                </Button>
+            </ToolBar>
+            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuEvents}">
+                <Separator/>
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" Command="{Binding ShowEventLogCommand}">
+                    <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32" Style="{StaticResource ImageEnabled}"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <StatusBar DockPanel.Dock="Bottom" x:Name="SbStatusBar" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="27" VerticalAlignment="Bottom">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -535,10 +640,10 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="DarkGray" >
+            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" >
                 <TextBlock  x:Name="LblSbMessage" Text="{Binding Lastmessage}" HorizontalAlignment="Stretch"/>
             </StatusBarItem>
-            <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="0" BorderBrush="{x:Null}" Padding="1">
+            <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="0" Padding="1">
                 <Grid Height="22" Width="345">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20"/>
@@ -608,9 +713,19 @@
                 </Grid>
             </StatusBarItem>
         </StatusBar>
-        <Grid Margin="0,76,-0.333,0.333" Grid.RowSpan="2" Background="{StaticResource HeaderBackgroundBrush}">
+        <tb:TaskbarIcon x:Name="Trayicon" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" Width="0" Height="0" >
+            <!--<tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Lights" x:Name="mnuLights"/>
+                        <MenuItem Header="Groups" x:Name="mnuGroups"/>
+                        <MenuItem Header="Scenes" x:Name="mnuScenes"/>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>-->
+
+        </tb:TaskbarIcon>
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
                 <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{x:Static resx:GUI.BridgeUpdateRequired}" FontSize="40" Margin="5,181,9.667,0"  Height="198" VerticalAlignment="Top" TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="#FF7D7D7D" Grid.Column="0">
@@ -625,134 +740,127 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" MinHeight="472"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
-                    <WrapPanel Height="36"></WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableHueSlider  x:Name="SlHue" Height="23" VerticalAlignment="Top" Width="257" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" SmallChange="1" LargeChange="100">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding HueKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableHueSlider.Background>
-                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
-                                    <GradientStop Color="#FFFF0000" />
-                                    <GradientStop Color="#FEFFFF00" Offset="0.195" />
-                                    <GradientStop Color="#FE00FF00" Offset="0.389" />
-                                    <GradientStop Color="#FE00FFFF" Offset="0.5"   />
-                                    <GradientStop Color="#FE0000FF" Offset="0.715" />
-                                    <GradientStop Color="#FEFF00FF" Offset="0.856" />
-                                    <GradientStop Color="#FFFF0000" Offset="1.0"   />
-                                </LinearGradientBrush>
-                            </sliders:BindableHueSlider.Background>
-                        </sliders:BindableHueSlider>
-                        <xctk:ShortUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding ElementName=SlHue, Path=IsEnabled}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
-                    </WrapPanel>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top">
+                <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
+                <WrapPanel Margin="10" VerticalAlignment="Top">
+                    <sliders:BindableHueSlider  x:Name="SlHue" Height="23" VerticalAlignment="Top" Width="257" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" SmallChange="1" LargeChange="100">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding HueKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <sliders:BindableHueSlider.Background>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
+                                <GradientStop Color="#FFFF0000" />
+                                <GradientStop Color="#FEFFFF00" Offset="0.195" />
+                                <GradientStop Color="#FE00FF00" Offset="0.389" />
+                                <GradientStop Color="#FE00FFFF" Offset="0.5"   />
+                                <GradientStop Color="#FE0000FF" Offset="0.715" />
+                                <GradientStop Color="#FEFF00FF" Offset="0.856" />
+                                <GradientStop Color="#FFFF0000" Offset="1.0"   />
+                            </LinearGradientBrush>
+                        </sliders:BindableHueSlider.Background>
+                    </sliders:BindableHueSlider>
+                    <xctk:ShortUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
+                </WrapPanel>
 
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableSlider x:Name="SlBri" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0"  Width="257" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding BriKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableSlider.Background>
-                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                    <GradientStop Color="White" Offset="1"/>
-                                    <GradientStop Color="Black" Offset="0"/>
-                                </LinearGradientBrush>
-                            </sliders:BindableSlider.Background>
-                        </sliders:BindableSlider>
-                        <xctk:ByteUpDown Height="23" Width="66" Margin="5,0,0,0" Value="{Binding MainFormModel.SliderBri}" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderBriChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
-                    </WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableSlider x:Name="SlSat" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3" Width="257">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding SatKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableSlider.Background>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="White" x:Name="SlSatStartGradient"/>
-                                    <GradientStop Color="{Binding Hue, ElementName=SlHue}" Offset="1" x:Name="SlSatEndGradient"/>
-                                </LinearGradientBrush>
-                            </sliders:BindableSlider.Background>
-                        </sliders:BindableSlider>
-                        <xctk:ByteUpDown Value="{Binding MainFormModel.SliderSat}" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Height="23" Width="66" Margin="5,0,0,0" behaviors:CommandBehavior.Command="{Binding SliderSatChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
-                    </WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableSlider x:Name="SlCt" Height="23" VerticalAlignment="Top" Maximum="500" Width="257" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding CtKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableSlider.Background>
-                                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                                    <GradientStop Color="#FFFF8912" Offset="0"/>
-                                    <GradientStop Color="#FFFFF9FD" Offset="1"/>
-                                </LinearGradientBrush>
-                            </sliders:BindableSlider.Background>
-                        </sliders:BindableSlider>
-                        <xctk:ShortUpDown Height="23" Width="66" IsEnabled="{Binding ElementName=SlCt, Path=IsEnabled}" Value="{Binding MainFormModel.SliderCt}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Minimum="153" Maximum="500"/>
+                <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
+                <WrapPanel Margin="10" VerticalAlignment="Top">
+                    <sliders:BindableSlider x:Name="SlBri" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0"  Width="257" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding BriKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <sliders:BindableSlider.Background>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="White" Offset="1"/>
+                                <GradientStop Color="Black" Offset="0"/>
+                            </LinearGradientBrush>
+                        </sliders:BindableSlider.Background>
+                    </sliders:BindableSlider>
+                    <xctk:ByteUpDown Height="23" Width="66" Margin="5,0,0,0" Value="{Binding MainFormModel.SliderBri}" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderBriChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                </WrapPanel>
+                <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
+                <WrapPanel Margin="10" VerticalAlignment="Top">
+                    <sliders:BindableSlider x:Name="SlSat" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3" Width="257">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding SatKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <sliders:BindableSlider.Background>
+                            <LinearGradientBrush>
+                                <GradientStop Color="White" x:Name="SlSatStartGradient"/>
+                                <GradientStop Color="{Binding Hue, ElementName=SlHue}" Offset="1" x:Name="SlSatEndGradient"/>
+                            </LinearGradientBrush>
+                        </sliders:BindableSlider.Background>
+                    </sliders:BindableSlider>
+                    <xctk:ByteUpDown Value="{Binding MainFormModel.SliderSat}" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Height="23" Width="66" Margin="5,0,0,0" behaviors:CommandBehavior.Command="{Binding SliderSatChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                </WrapPanel>
+                <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
+                <WrapPanel Margin="10" VerticalAlignment="Top">
+                    <sliders:BindableSlider x:Name="SlCt" Height="23" VerticalAlignment="Top" Maximum="500" Width="257" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewKeyUp">
+                                <behaviors:InvokeDelegateCommandAction Command="{Binding CtKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <sliders:BindableSlider.Background>
+                            <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                <GradientStop Color="#FFFF8912" Offset="0"/>
+                                <GradientStop Color="#FFFFF9FD" Offset="1"/>
+                            </LinearGradientBrush>
+                        </sliders:BindableSlider.Background>
+                    </sliders:BindableSlider>
+                    <xctk:ShortUpDown Height="23" Width="66" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Value="{Binding MainFormModel.SliderCt}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Minimum="153" Maximum="500"/>
 
-                    </WrapPanel>
+                </WrapPanel>
 
-                    <WrapPanel Margin="10">
-                        <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="5,0,0,0"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
-                            <Label.Style>
-                                <Style TargetType="{x:Type Label}">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
+                <WrapPanel Margin="10">
+                    <!--<controls:WinHueXYUpDown Value="{Binding ElementName=SlY, Path=Value}" IsEnabled="{Binding ElementName=SlY, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>-->
+                    <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="5,0,0,0"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
+                        <Label.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
 
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                        <sliders:BindableSlider x:Name="SlX" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>                        
-                        
-                        <!--<controls:WinHueXYUpDown Value="{Binding ElementName=SlX, Path=Value}" IsEnabled="{Binding ElementName=SlX, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>-->
-                        <sliders:BindableSlider x:Name="SlY" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" OldValue="{Binding MainFormModel.OldSliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
-                        <!--<controls:WinHueXYUpDown Value="{Binding ElementName=SlY, Path=Value}" IsEnabled="{Binding ElementName=SlY, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>-->
-                        
-                    </WrapPanel>
-                    <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
-                        <controls:WinHueTransitionTimeUpDown Value="{Binding SliderTt}" IsEnabled="{Binding CanTT}" Height="21" Width="136" ToolTip="{x:Static resx:GUI.TransitionTimeToolTip}" />
-                    </WrapPanel>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                    <sliders:BindableSlider x:Name="SlX" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
+
+                    <!--<controls:WinHueXYUpDown Value="{Binding ElementName=SlX, Path=Value}" IsEnabled="{Binding ElementName=SlX, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}"/>-->
+                    <sliders:BindableSlider x:Name="SlY" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" OldValue="{Binding MainFormModel.OldSliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
+
+                </WrapPanel>
+                <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
+                <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <controls:WinHueTransitionTimeUpDown Value="{Binding SliderTt}" IsEnabled="{Binding CanTT}" Height="21" Width="136" ToolTip="{x:Static resx:GUI.TransitionTimeToolTip}" />
+                </WrapPanel>
 
 
-                </StackPanel>
-            </Grid>
-            <TabControl Grid.Column="0" Margin="1,3,349.667,0" Grid.ColumnSpan="2">
+            </StackPanel>
+            <TabControl Padding="0">
                 <TabItem Header="{x:Static resx:GUI.AllObjects}">
-                    <Grid Background="#FFE5E5E5">
+                    <Grid>
                         <ListView x:Name="LvMainObjects"  
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                SelectedItem="{Binding SelectedHueObject}" 
-                SelectionChanged="LvMainObjects_SelectionChanged" 
-                SelectionMode="Single" 
-                VerticalContentAlignment="Stretch" Grid.Column="0" 
-                IsEnabled="{Binding EnableListView}" 
-                behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
-                behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
-                behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
-                behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                ItemsSource="{Binding ListBridgeObjects}"
-                Margin="0,0,0,0.333">
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                SelectedItem="{Binding SelectedHueObject}" 
+                                SelectionChanged="LvMainObjects_SelectionChanged" 
+                                SelectionMode="Single" 
+                                VerticalContentAlignment="Stretch" Grid.Column="0" 
+                                IsEnabled="{Binding EnableListView}" 
+                                behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
+                                behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
+                                behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
+                                behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
+                                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
+                                ItemsSource="{Binding ListBridgeObjects}">
 
                             <ListView.Resources>
                                 <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
@@ -872,11 +980,11 @@
                         </ListView>
                     </Grid>
                 </TabItem>
-                <TabItem Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuFloorPlan}" >
+                <TabItem Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuFloorPlan}" Padding="0" >
                     <TabItem.Header>
-                        <WrapPanel>
-                            <Label Content="{x:Static resx:GUI.FloorPlan}"/>
-                            <ComboBox Width="200" ItemsSource="{Binding ListFloorPlans}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedFloorPlan}">
+                        <WrapPanel Margin="0">
+                            <Label Content="{x:Static resx:GUI.FloorPlan}" Margin="6,2,0,2"/>
+                            <ComboBox Width="200" ItemsSource="{Binding ListFloorPlans}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedFloorPlan}" Margin="0,3,3,2">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding SelectedFloorPlanChangedCommand}"/>
@@ -944,125 +1052,6 @@
             </TabControl>
         </Grid>
 
-        <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" Grid.RowSpan="2" >
-            <!--<tb:TaskbarIcon.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Lights" x:Name="mnuLights"/>
-                        <MenuItem Header="Groups" x:Name="mnuGroups"/>
-                        <MenuItem Header="Scenes" x:Name="mnuScenes"/>
-                    </ContextMenu>
-                </tb:TaskbarIcon.ContextMenu>-->
-        </tb:TaskbarIcon>
-        <ToolBarTray Height="45" Margin="0,31,0,0" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSearch}" >
-                <Separator/>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueLightSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Touchlink}" Command="{Binding TouchLinkCommand}">
-                    <Image Source="/WinHue3;component/Resources/touchlink.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_FindSerial}" Command="{Binding FindLightSerialCommand}" >
-                    <Image Source="/WinHue3;component/Resources/findserial.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchSensor}" Command="{Binding SearchNewSensorsCommand}">
-                    <Image Source="/WinHue3;component/Resources/SensorSearch.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-            </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSensorOp}">
-                <Separator/>
-                <WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetStatus}" Height="24" VerticalContentAlignment="Center" Padding="2,2,5,5"/>
-                    <xctk:IntegerUpDown Height="24" Padding="5,0,0,0" Minimum="0" Maximum="65535" Margin="0,7,0,7.667" Width="79" Value="{Binding SensorStatus}" IsEnabled="{Binding IsEnabled, ElementName=btnSetStatus}"/>
-                    <Button x:Name="btnSetStatus" BorderBrush="{x:Null}" Background="{x:Null}" Command="{Binding SetSensorStatusCommand}" >
-                        <Image Source="/WinHue3;component/Resources/1464410361_check.png" Height="24"/>
-                    </Button>
-                </WrapPanel>
-                <Separator/>
-                <WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetFlag}" Height="26" VerticalContentAlignment="Center" Padding="5" Margin="0,5,0,0"/>
-                    <CheckBox Margin="2,12,5,5" IsChecked="{Binding SensorFlag}" Command="{Binding SetSensorFlagCommand}" />
-                </WrapPanel>
-
-            </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Commands}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCommands}" Padding="0,0,12,0">
-                <Separator/>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" Command="{Binding AllOnCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueGroupOn.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" Command="{Binding AllOffCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueGroupOff.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <ToggleButton Style="{StaticResource AnimatedSwitch}" behaviors:OnClickBehavior.Command="{Binding DoubleClickObjectCommand}" ToolTip="On/Off" Padding="2" Margin="6,0,4,0" IsChecked="{Binding MainFormModel.On}"/>
-            </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuRefresh}">
-                <Separator/>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_RefreshButton}" Command="{Binding RefreshViewCommand}">
-                    <Image Source="/WinHue3;component/Resources/refreshMetro5.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-            </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuCreators}">
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateGroup}" Command="{Binding CreateGroupCommand}">
-                    <Image Source="/WinHue3;component/Resources/HueGroupOn-Large.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateScene}" Command="{Binding CreateSceneCommand}" >
-                    <Image Source="/WinHue3;component/Resources/scenes.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSchedule}" Command="{Binding CreateScheduleCommand}" >
-                    <Image Source="/WinHue3;component/Resources/SchedulesLarge.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateRule}" Command="{Binding CreateRuleCommand}">
-                    <Image Source="/WinHue3;component/Resources/rules.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateSensor}"  Command="{Binding CreateSensorCommand}" >
-                    <Image Source="/WinHue3;component/Resources/sensor.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <!--<Button x:Name="btnCreateAnimation" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateAnimation}" Command="{Binding CreateAnimationCommand}">
-                    <Image Source="/WinHue3;component/Resources/animation.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>-->
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_CreateHotkey}" Command="{Binding CreateHotKeyCommand}">
-                    <Image Source="/WinHue3;component/Resources/hotkeys.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}">
-                    <Image Source="/WinHue3;component/Resources/resource.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <!--<Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_EntertainmentCreator}"  Command="{Binding CreateEntertainmentCommand}" >
-                    <Image Source="/WinHue3;component/Resources/entertainment.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>-->
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" >
-                    <Image Source="/WinHue3;component/Resources/advanced.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_FloorCreator}"  Command="{Binding CreateFloorPlanCommand}" >
-                    <Image Source="/WinHue3;component/Resources/floorplan.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-
-
-            </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Settings}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSettings}">
-                <Separator/>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsButton}" Command="{Binding ChangeBridgeSettingsCommand}" >
-                    <Image Source="/WinHue3;component/Resources/settingsMetro.ico" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <!--<SplitButton ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" Icon="" LargeIcon="/WinHue3;component/Resources/UpdateSearch.png" Command="{Binding CheckForUpdateCommand}" ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate}" SizeDefinition="Large,Middle,Small">
-                    <fluent:Button Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Icon="/WinHue3;component/Resources/update.png" Command="{Binding UpdateBridgeCommand}"/>
-                </SplitButton>-->
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUsers}" Command="{Binding ManageUsersCommand}">
-                    <Image Source="/WinHue3;component/Resources/user.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsResetTT}" Command="{Binding ResetTransitionTimeCommand}">
-                    <Image Source="/WinHue3;component/Resources/resettt.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_PowerSettings}" Command="{Binding SetPowerModeCommand}">
-                    <Image Height="32" Style="{StaticResource ImageEnabled}" Source="/WinHue3;component/Resources/powerfailure.png"/>
-                </Button>
-            </ToolBar>
-            <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Events}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuEvents}">
-                <Separator/>
-                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_EventsLogButton}" Command="{Binding ShowEventLogCommand}">
-                    <Image Source="/WinHue3;component/Resources/eventlog.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>
-            </ToolBar>
-        </ToolBarTray>
-    </Grid>
+    </DockPanel>
 
 </Window>
