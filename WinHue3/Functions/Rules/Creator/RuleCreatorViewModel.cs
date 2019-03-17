@@ -255,6 +255,7 @@ namespace WinHue3.Functions.Rules.Creator
             {
                 case "lights":
                     SelectedHueObjectType = typeof(Light);
+                    SelectHueObjectType();
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -270,6 +271,7 @@ namespace WinHue3.Functions.Rules.Creator
                     if (SelectedRuleAction.body.Contains("scene")) goto case "scenes";
 
                     SelectedHueObjectType = typeof(Group);
+                    SelectHueObjectType();
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -283,6 +285,7 @@ namespace WinHue3.Functions.Rules.Creator
                     break;
                 case "sensors":
                     SelectedHueObjectType = typeof(Sensor);
+                    SelectHueObjectType();
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -300,6 +303,7 @@ namespace WinHue3.Functions.Rules.Creator
                     break;
                 case "scenes":
                     SelectedHueObjectType = typeof(Scene);
+                    SelectHueObjectType();
                     SceneBody sb = Serializer.DeserializeToObject<SceneBody>(SelectedRuleAction.body);
                     if (_listHueObjects.Exists(x => x.Id == sb.scene))
                     {
@@ -313,7 +317,8 @@ namespace WinHue3.Functions.Rules.Creator
                     break;
                 case "schedules":
                     SelectedHueObjectType = typeof(Schedule);
-                    if(_listHueObjects.Exists(x => x.Id == ha.id))
+                    SelectHueObjectType();
+                    if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         Schedule sc = Serializer.DeserializeToObject<Schedule>(SelectedRuleAction.body);
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);

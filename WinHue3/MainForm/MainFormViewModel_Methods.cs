@@ -189,7 +189,7 @@ namespace WinHue3.MainForm
             SelectedHueObject = null;
             if (!BridgeManager.SelectedBridge.Virtual)
             {
-                if (EnableListView.GetValueOrDefault(false))
+                if (EnableListView)
                 {
                     log.Info($"Getting list of objects from bridge at {BridgeManager.SelectedBridge.IpAddress}.");
                     List<IHueObject> hr = await BridgeManager.SelectedBridge.GetAllObjectsAsync(false,true);

@@ -41,7 +41,7 @@
             </Style.Triggers>
         </Style>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
-        <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
+        <converters:DoubleToUShortConverter x:Key="DoubleToUshortConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <Style x:Key="LeftMenuButtonsStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -651,7 +651,7 @@
                                 </LinearGradientBrush>
                             </sliders:BindableHueSlider.Background>
                         </sliders:BindableHueSlider>
-                        <xctk:ShortUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding ElementName=SlHue, Path=IsEnabled}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
+                        <xctk:DoubleUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding ElementName=SlHue, Path=IsEnabled, Converter={StaticResource DoubleToUshortConverter}}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
                     </WrapPanel>
 
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
@@ -703,7 +703,7 @@
                                 </LinearGradientBrush>
                             </sliders:BindableSlider.Background>
                         </sliders:BindableSlider>
-                        <xctk:ShortUpDown Height="23" Width="66" IsEnabled="{Binding ElementName=SlCt, Path=IsEnabled}" Value="{Binding MainFormModel.SliderCt}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Minimum="153" Maximum="500"/>
+                        <xctk:DoubleUpDown Height="23" Width="66" IsEnabled="{Binding ElementName=SlCt, Path=IsEnabled}" Value="{Binding MainFormModel.SliderCt, Converter={StaticResource DoubleToUshortConverter}}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Minimum="153" Maximum="500"/>
 
                     </WrapPanel>
 
