@@ -21,6 +21,7 @@ using WinHue3.Utils;
 using HotKey = WinHue3.Functions.HotKeys.HotKey;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using WinHue3.ExtensionMethods;
 using WinHue3.Functions.BridgeFinder;
 using WinHue3.Functions.RoomMap;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
@@ -42,7 +43,8 @@ namespace WinHue3.MainForm
         private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
         private readonly Form_PropertyGrid _propertyGrid;
-
+        private readonly DispatcherTimer _refreshTimer = new DispatcherTimer();
+        
         public MainFormViewModel()
         {
 
@@ -61,6 +63,9 @@ namespace WinHue3.MainForm
             _findlighttimer.Tick += _findlighttimer_Tick;
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
+
+            _refreshTimer.Interval = new TimeSpan(0,0,3);
+            _refreshTimer.Tick += _refreshTimer_Tick;
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;
@@ -69,7 +74,42 @@ namespace WinHue3.MainForm
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
+            _mainFormModel.Showhiddenscenes = WinHueSettings.settings.ShowHiddenScenes;
+            _mainFormModel.ShowFloorPlanTab = WinHueSettings.settings.ShowFloorPlanTab;
             LoadFloorPlans();
+        }
+
+        private void _refreshTimer_Tick(object sender, EventArgs e)
+        {
+            IHueObject selected = SelectedHueObject;
+            List<IHueObject> obj = BridgeManager.SelectedBridge.GetAllObjects(false,true);
+
+            List<IHueObject> diff = obj.Where(x => !ListBridgeObjects.Any(y => y.Id == x.Id && y.GetType() == x.GetType())).ToList();
+
+            foreach (IHueObject ho in diff)
+            {
+                ListBridgeObjects.Remove(x => x.Id == ho.Id && x.GetType() == ho.GetType());
+            }
+
+            foreach (IHueObject o in obj)
+            {
+                IHueObject oldo = ListBridgeObjects.FirstOrDefault(x => x.Id == o.Id && x.GetType() == o.GetType());
+                if (oldo == null)
+                {
+                    ListBridgeObjects.Add(o);
+                }
+                else
+                {
+                    RefreshHueObject(ref oldo, o);
+                }
+                
+            }
+
+            if (SelectedHueObject is null) return;
+            if (obj.Any(x => x.Id == selected.Id && x.GetType() == selected.GetType()))
+            {
+                SelectedHueObject = selected;
+            }
         }
 
         public void LoadFloorPlans()
@@ -140,6 +180,10 @@ namespace WinHue3.MainForm
             if (BridgeManager.SelectedBridge != null)
             {
                 await ChangeBridge();
+            }
+            else
+            {
+                _refreshTimer.Stop();
             }
         }
 

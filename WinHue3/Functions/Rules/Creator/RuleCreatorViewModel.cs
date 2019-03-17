@@ -414,8 +414,8 @@ namespace WinHue3.Functions.Rules.Creator
 
         public Type SelectedHueObjectType
         {
-            get { return _selectedHueObjectType; }
-            set { SetProperty(ref _selectedHueObjectType, value); }
+            get => _selectedHueObjectType;
+            set => SetProperty(ref _selectedHueObjectType, value);
         }
         #endregion
 
@@ -669,20 +669,20 @@ namespace WinHue3.Functions.Rules.Creator
 
         public Type SelectedRuleConditionType
         {
-            get { return _selectedRuleConditionType; }
-            set { SetProperty(ref _selectedRuleConditionType,value); }
+            get => _selectedRuleConditionType;
+            set => SetProperty(ref _selectedRuleConditionType,value);
         }
 
         public List<IHueObject> ListConditionHueObjects
         {
-            get { return _listConditionHueObjects; }
-            set { SetProperty(ref _listConditionHueObjects,value); }
+            get => _listConditionHueObjects;
+            set => SetProperty(ref _listConditionHueObjects,value);
         }
 
         public IHueObject SelectedConditionHueObject
         {
-            get { return _selectedConditionHueObject; }
-            set { SetProperty(ref _selectedConditionHueObject,value); }
+            get => _selectedConditionHueObject;
+            set => SetProperty(ref _selectedConditionHueObject,value);
         }
 
         #endregion

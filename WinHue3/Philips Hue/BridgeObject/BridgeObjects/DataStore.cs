@@ -41,6 +41,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
             huelist.AddRange(groups.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
             huelist.AddRange(schedules.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
             huelist.AddRange(sensors.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
+            huelist.AddRange(scenes.Select(x => { x.Value.Id = x.Key; return  x.Value; }).ToList());
             huelist.AddRange(rules.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
             huelist.AddRange(resourcelinks.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
             return huelist;

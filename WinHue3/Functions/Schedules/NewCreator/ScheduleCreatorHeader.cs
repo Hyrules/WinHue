@@ -30,72 +30,72 @@ namespace WinHue3.Functions.Schedules.NewCreator
         [PropertyOrder(1)]
         public string Name
         {
-            get { return _name; }
-            set { SetProperty(ref _name,value); }
+            get => _name;
+            set => SetProperty(ref _name,value);
         }
 
         [PropertyOrder(2)]
         public string Description
         {
-            get { return _description; }
-            set { SetProperty(ref _description,value); }
+            get => _description;
+            set => SetProperty(ref _description,value);
         }
 
         [PropertyOrder(3)]
         [Description("Date and time of the schedule")]
         public DateTime Datetime
         {
-            get { return _datetime; }
-            set { SetProperty(ref _datetime,value); }
+            get => _datetime;
+            set => SetProperty(ref _datetime,value);
         }
 
         [PropertyOrder(4), ItemsSource(typeof(ScheduleTypeItemSource))]
         public string ScheduleType
         {
-            get { return _scheduletype; }
-            set { SetProperty(ref _scheduletype, value); }
+            get => _scheduletype;
+            set => SetProperty(ref _scheduletype, value);
         }
 
         [Category("Schedule Settings"), DefaultValue(null),Description("Transition time in multiple of 100ms (1000ms = 1 sec)")]
         public ushort? Transitiontime
         {
-            get { return _transitiontime; }
-            set { SetProperty(ref _transitiontime,value); }
+            get => _transitiontime;
+            set => SetProperty(ref _transitiontime,value);
         }
 
         [Category("Schedule Settings"), DefaultValue(null),Description("Autodelete the schedule after running it.")]
         public bool? Autodelete
         {
-            get { return _autodelete; }
-            set { SetProperty(ref _autodelete,value); }
+            get => _autodelete;
+            set => SetProperty(ref _autodelete,value);
         }
 
         [Category("Schedule Settings"), Description("Turn on or off the schedule."), DefaultValue(null)]
         public bool? On
         {
-            get { return _on; }
-            set { SetProperty(ref _on,value); }
+            get => _on;
+            set => SetProperty(ref _on,value);
         }
 
         [Category("Schedule Settings"),Description("Randomize the schedule time by adding or removing minutes to the selected time."), DefaultValue(null)]
         public bool? Randomize
         {
-            get { return _randomize; }
-            set { SetProperty(ref _randomize,value); }
+            get => _randomize;
+            set => SetProperty(ref _randomize,value);
         }
 
         [Category("Schedule Settings"), Description("Enable or disable the schedule."),  ItemsSource(typeof(EnabledItemSource))]
         public string Enabled
         {
-            get { return _enabled; }
-            set { SetProperty(ref _enabled,value); }
+            get => _enabled;
+            set => SetProperty(ref _enabled,value);
         }
 
         [Category("Schedule Settings"), Description("Recycle the schedule."), ItemsSource(typeof(EnabledItemSource))]
         public bool? Recycle
         {
-            get { return _recycle; }
-            set { SetProperty(ref _recycle, value); }
+            get => _recycle;
+            set => SetProperty(ref _recycle, value);
         }
     }
 }

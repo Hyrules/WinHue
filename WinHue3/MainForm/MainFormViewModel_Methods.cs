@@ -100,6 +100,7 @@ namespace WinHue3.MainForm
         private async Task ChangeBridge()
         {
             await RefreshView();
+            _refreshTimer.Start();
             RaisePropertyChanged("UpdateAvailable");
             RaisePropertyChanged("EnableListView");
         }
@@ -191,15 +192,10 @@ namespace WinHue3.MainForm
                 if (EnableListView.GetValueOrDefault(false))
                 {
                     log.Info($"Getting list of objects from bridge at {BridgeManager.SelectedBridge.IpAddress}.");
-                    List<IHueObject> hr = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
+                    List<IHueObject> hr = await BridgeManager.SelectedBridge.GetAllObjectsAsync(false,true);
                     if (hr != null)
                     {
                         List<IHueObject> listobj = hr;
-
-                        if (!WinHueSettings.settings.ShowHiddenScenes)
-                        {
-                            hr.RemoveAll(x => x.GetType() == typeof(Scene) && x.name.StartsWith("HIDDEN"));
-                        }
 
                         ObservableCollection<IHueObject> newlist = new ObservableCollection<IHueObject>();
 
@@ -1389,12 +1385,16 @@ namespace WinHue3.MainForm
                 MainFormModel.ShowId = WinHueSettings.settings.ShowID;
             }
 
-            if (MainFormModel.WrapText != WinHueSettings.settings.WrapText || MainFormModel.Sort != WinHueSettings.settings.Sort)
+            if (MainFormModel.WrapText != WinHueSettings.settings.WrapText || 
+                MainFormModel.Sort != WinHueSettings.settings.Sort || 
+                MainFormModel.Showhiddenscenes != WinHueSettings.settings.ShowHiddenScenes)
             {
                 MainFormModel.Sort = WinHueSettings.settings.Sort;
                 MainFormModel.WrapText = WinHueSettings.settings.WrapText;
                 await RefreshView();
             }
+
+            MainFormModel.ShowFloorPlanTab = WinHueSettings.settings.ShowFloorPlanTab;
 
             if (SliderTt != WinHueSettings.settings.DefaultTT)
             {
@@ -1409,14 +1409,15 @@ namespace WinHue3.MainForm
 
         private void RefreshHueObject(ref IHueObject obj, IHueObject newobject)
         {
-            if (obj.GetType() != newobject.GetType()) return;
             if (obj == null || newobject == null) return;
+            if (obj.GetType() != newobject.GetType()) return;
             if (obj.Id != newobject.Id) return;
 
-            PropertyInfo[] pi = obj.GetType().GetProperties();
+            PropertyInfo[] pi = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             foreach (PropertyInfo p in pi)
             {
-                p.SetValue(obj, p.GetValue(newobject));
+                object value = p.GetValue(newobject);
+                p.SetValue(obj, value);
             }
         }
 
@@ -1431,7 +1432,7 @@ namespace WinHue3.MainForm
             {
                 CheckPathExists = true,
                 DefaultExt = "txt",
-                Filter = "Text File (*.txt) | *.txt"
+                Filter = @"Text File (*.txt) | *.txt"
             };
 
             if (sfd.ShowDialog() == DialogResult.OK)

@@ -4579,6 +4579,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Floor Plan Tab.
+        /// </summary>
+        public static string ShowFloorPlanTab {
+            get {
+                return ResourceManager.GetString("ShowFloorPlanTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optional.
         /// </summary>
         public static string Tooltip_Optional {

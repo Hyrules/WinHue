@@ -5,37 +5,25 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
-using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.BridgeFinder;
 using WinHue3.Functions.BridgePairing;
-using WinHue3.Functions.Lights.SupportedDevices;
-using WinHue3.Interface;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.GroupObject;
-using WinHue3.Philips_Hue.HueObjects.LightObject;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
-using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
-using WinHue3.Philips_Hue.HueObjects.RuleObject;
-using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 
 namespace WinHue3.Utils
 {
     public static class BridgeManager
     {
+        #region STATICS
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static ObservableCollection<Bridge> _listBridges;
         private static Bridge _selectedBridge;
+        #endregion
 
         #region EVENTS
         public static event BridgeRemoved OnBridgeRemoved;
@@ -79,19 +67,16 @@ namespace WinHue3.Utils
         {
             System.Windows.Forms.OpenFileDialog fd = new System.Windows.Forms.OpenFileDialog
             {
-                Filter = "Text files (*.txt)|*.txt"
+                Filter = @"Text files (*.txt)|*.txt"
             };
-            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string file = File.ReadAllText(fd.FileName);
-                DataStore ds = JsonConvert.DeserializeObject<DataStore>(file);
-                List<IHueObject> hueobjects = SelectedBridge.GetAllObjects();
-                Bridge vbridge = new Bridge() { Virtual = true, Name = "Virtual Bridge", RequiredUpdate = false };
-                _listBridges.Add(vbridge);
-                _selectedBridge = vbridge;
-                return new ObservableCollection<IHueObject>(hueobjects);
-            }
-            return null;
+            if (fd.ShowDialog() != System.Windows.Forms.DialogResult.OK) return null;
+            string file = File.ReadAllText(fd.FileName);
+            DataStore ds = JsonConvert.DeserializeObject<DataStore>(file);
+            List<IHueObject> hueobjects = SelectedBridge.GetAllObjects();
+            Bridge vbridge = new Bridge() { Virtual = true, Name = "Virtual Bridge", RequiredUpdate = false };
+            _listBridges.Add(vbridge);
+            _selectedBridge = vbridge;
+            return new ObservableCollection<IHueObject>(hueobjects);
         }
 
         public static void AddBridge(Bridge bridge)
@@ -120,17 +105,14 @@ namespace WinHue3.Utils
         {
             log.Info("Checking if ip is bridge...");
             BasicConfig bc = bridge.GetBridgeBasicConfig();
-            if (bc != null)
-            {
-                bridge.ApiVersion = bc.apiversion;
-                bridge.Name = bc.name;
-                bridge.SwVersion = bc.swversion;
-                WinHueSettings.bridges.BridgeInfo[bridge.Mac].name = bridge.Name;
-                WinHueSettings.SaveBridges();
-                return true;
-            }
+            if (bc == null) return false;
+            bridge.ApiVersion = bc.apiversion;
+            bridge.Name = bc.name;
+            bridge.SwVersion = bc.swversion;
+            WinHueSettings.bridges.BridgeInfo[bridge.Mac].name = bridge.Name;
+            WinHueSettings.SaveBridges();
+            return true;
 
-            return false;
         }
 
         private static bool SaveSettings()

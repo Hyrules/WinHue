@@ -318,6 +318,13 @@ namespace WinHue3.Functions.Scenes.Creator
 
         private void ClearSliders()
         {
+            HueChecked = false;
+            XYChecked = false;
+            BriChecked = false;
+            CTChecked = false;
+            TtChecked = false;
+            SatChecked = false;
+            
             SceneCreatorModel.X = null;
             SceneCreatorModel.Y = null;
             SceneCreatorModel.Hue = null;

@@ -53,7 +53,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <typeparam name="T">HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</typeparam>
         /// <returns>BridgeCommResult</returns>
-        public async Task<List<T>> GetListObjectsAsync<T>(bool showhidden = false, bool getgroupzero = false ) where T : IHueObject
+        public async Task<List<T>> GetListObjectsAsync<T>(bool showmyhidden = false, bool getgroupzero = false ) where T : IHueObject
         {
 
             string typename = typeof(T).Name.ToLower() + "s";
@@ -66,7 +66,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 if (data != null)
                 {
                     List<T> listdata = data.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList();
-                    if (!showhidden)
+                    if (!showmyhidden)
                         RemoveHiddenObjects(ref listdata, WinHueSettings.bridges.BridgeInfo[Mac].hiddenobjects);
 
                     if(typeof(T) == typeof(Group) && getgroupzero)
@@ -91,9 +91,10 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <summary>
         /// Get All objects from the bridge
         /// </summary>
-        /// <param name="showhidden"></param>
+        /// <param name="showmyhidden">Show users hidden objects</param>
+        /// <param name="getgroupzero">Show group zero</param>
         /// <returns></returns>
-        public async Task<List<IHueObject>> GetAllObjectsAsync(bool showhidden = false, bool getgroupzero = false)
+        public async Task<List<IHueObject>> GetAllObjectsAsync(bool showmyhidden = false, bool getgroupzero = false)
         {
             List<IHueObject> huelist = new List<IHueObject>();
             string url = BridgeUrl + $"/";
@@ -104,7 +105,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 DataStore data = Serializer.DeserializeToObject<DataStore>(comres.Data);
                 if (data != null) {
                     List<IHueObject> listdata = data.ToList();
-                    if (!showhidden)
+                    if (!showmyhidden)
                         RemoveHiddenObjects(ref listdata, WinHueSettings.bridges.BridgeInfo[Mac].hiddenobjects);
 
                     if (getgroupzero)
@@ -149,7 +150,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                         listdata.RemoveAll(x => x.GetType() == typeof(Scene) && x.name.StartsWith("HIDDEN"));
                     }
 
-                    return data.ToList();
+                    return listdata.ToList();
                 }
 
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -218,12 +219,11 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 }
                 
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
-                return default(T);
+                return default;
             }
             ProcessCommandFailure(url, comres.Status);
-            return default(T);
+            return default;
         }
-
 
 
         /// <summary>
@@ -231,6 +231,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <typeparam name="T">Type of object to deserialize to</typeparam>
         /// <param name="id">Id of the object to get</param>
+        /// <param name="objecttype">Type of the object</param>
         /// <returns>BridgeCommResult</returns>
         public async Task<IHueObject> GetObjectAsync(string id, Type objecttype)
         {
@@ -260,6 +261,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <typeparam name="T">Type of object to deserialize to</typeparam>
         /// <param name="id">Id of the object to get</param>
+        /// <param name="objecttype">Type of the object.</param>
         /// <returns>BridgeCommResult</returns>
         public async Task<T> GetObjectAsync<T>(string id, Type objecttype) where T : IHueObject
         {

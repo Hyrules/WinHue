@@ -11,6 +11,7 @@
         xmlns:comm="clr-namespace:WinHue3.Philips_Hue.Communication"
         xmlns:advancedCreator="clr-namespace:WinHue3.Functions.Advanced_Creator"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner" Name="Window">
     <Window.DataContext>
@@ -56,11 +57,7 @@
             </Button.Content>
         </Button>
 
-        <TextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,46,97,0" VerticalAlignment="Top">
-            <i:Interaction.Behaviors>
-                <behaviors:TextBoxWatermarkBehavior Text="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}"/>
-            </i:Interaction.Behaviors>
-        </TextBox>
+        <xctk:WatermarkTextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,46,97,0" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}"/>
         <ComboBox Margin="0,46,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content">
             <ComboBoxItem Content="POST" Tag="{x:Static comm:WebRequestType.Post}"/>
             <ComboBoxItem Content="PUT" Tag="{x:Static comm:WebRequestType.Put}"/>

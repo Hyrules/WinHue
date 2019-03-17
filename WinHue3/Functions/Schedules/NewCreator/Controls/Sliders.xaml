@@ -69,7 +69,7 @@
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_YColorSpace}" Margin="5,255,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" HorizontalContentAlignment="Center"/>
         <Slider x:Name="SlY" Maximum="1" Margin="5,280,0,0" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Minimum="-0.001" IsMoveToPointEnabled="True" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" Value="{Binding YValue, ElementName=sliders}"/>
         <Label Content="{x:Static resources:GUI.MainForm_Sliders_TransitionTime}" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" Width="298" HorizontalContentAlignment="Center" />
-        <ComboBox x:Name="wcbAlert"  HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="298" SelectedValuePath="Tag" SelectedValue="{Binding HueAlert, ElementName=sliders}">
+        <ComboBox Name="wcbAlert"  HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="298" SelectedValuePath="Tag" SelectedValue="{Binding HueAlert, ElementName=sliders}">
             <ComboBoxItem Content="(Alert)" Tag="{x:Null}"/>
             <ComboBoxItem Content="None" Tag="none"/>
             <ComboBoxItem Content="Identify Long (long blink)" Tag="lselect"/>

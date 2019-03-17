@@ -1638,4 +1638,7 @@
   <data name="ExampleGateway" xml:space="preserve">
     <value>ex. 192.168.1.1</value>
   </data>
+  <data name="ShowFloorPlanTab" xml:space="preserve">
+    <value>Afficher l'onglet du plan du niveau</value>
+  </data>
 </root>

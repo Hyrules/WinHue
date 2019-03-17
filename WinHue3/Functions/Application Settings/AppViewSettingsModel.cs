@@ -9,12 +9,14 @@ namespace WinHue3.Functions.Application_Settings
         private WinHueSortOrder _sort;
         private bool _showId;
         private bool _wrap;
+        private bool _showFloorPlanTab;
 
         public AppViewSettingsModel()
         {
             _sort = WinHueSettings.settings.Sort;
             _showId = WinHueSettings.settings.ShowID;
             _wrap = WinHueSettings.settings.WrapText;
+            _showFloorPlanTab = WinHueSettings.settings.ShowFloorPlanTab;
         }
 
         public WinHueSortOrder Sort
@@ -33,6 +35,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _wrap;
             set => SetProperty(ref _wrap,value);
+        }
+
+        public bool ShowFloorPlanTab
+        {
+            get => _showFloorPlanTab;
+            set => SetProperty(ref _showFloorPlanTab,value);
         }
     }
 }

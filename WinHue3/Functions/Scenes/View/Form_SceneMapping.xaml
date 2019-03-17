@@ -28,11 +28,7 @@
                     <Image Source="/WinHue3;component/Resources/Reload.png" />
                 </Button>
                 <Separator/>
-                <TextBox x:Name="TbFilter" Width="180" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="1" >
-                    <i:Interaction.Behaviors>
-                        <behaviors:TextBoxWatermarkBehavior Text="{x:Static resources:GUI.FilterData}"/>
-                    </i:Interaction.Behaviors>
-                </TextBox>
+                <xctk:WatermarkTextBox x:Name="TbFilter" Width="180" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="1" Watermark="{x:Static resources:GUI.FilterData}"/>
             </ToolBar>
             <ToolBar x:Name="tbEdit">
                 <Button Command="{Binding EditSceneCommand}" ToolTip="">

@@ -507,7 +507,7 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>
                 <Separator/>
-                <MenuItem IsCheckable="True" IsChecked="True" x:Name="mnuFloorPlan" Header="{x:Static resx:GUI.MainForm_Tab_View_FloorPlan}" Foreground="Black"/>
+                <MenuItem IsCheckable="True" IsChecked="{Binding MainFormModel.ShowFloorPlanTab}" x:Name="mnuFloorPlan" Header="{x:Static resx:GUI.MainForm_Tab_View_FloorPlan}" Foreground="Black"/>
 
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">

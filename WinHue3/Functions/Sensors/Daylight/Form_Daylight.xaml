@@ -59,15 +59,7 @@
         <Slider x:Name="SlSunsetOffset" HorizontalAlignment="Left" Margin="141,95,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="3" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunsetOffset_ToolTip}" Value="{Binding Daylight.SunsetOffset}"/>
         <Label Content="{Binding Value, ElementName=SlSunriseOffset}" HorizontalAlignment="Left" Margin="102,64,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Value, ElementName=SlSunsetOffset}" HorizontalAlignment="Left" Margin="102,89,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TbLong" HorizontalAlignment="Left" Margin="141,9,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Longitude , ValidatesOnDataErrors=True ,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" MaxLength="9" TabIndex="0" Width="120">
-            <i:Interaction.Behaviors>
-                <behaviors:TextBoxWatermarkBehavior Text="DDD.DDDD{W|E}"/>
-            </i:Interaction.Behaviors>
-        </TextBox>
-        <TextBox x:Name="TbLat" HorizontalAlignment="Left" Margin="141,38,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Latitude ,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" MaxLength="9" TabIndex="1" Width="120" >
-            <i:Interaction.Behaviors>
-                <behaviors:TextBoxWatermarkBehavior Text="DDD.DDDD{N|S}"/>
-            </i:Interaction.Behaviors>
-        </TextBox>            
+        <xctk:WatermarkTextBox x:Name="TbLong" HorizontalAlignment="Left" Margin="141,9,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Longitude , ValidatesOnDataErrors=True ,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" MaxLength="9" TabIndex="0" Width="120" Watermark="DDD.DDDD{W|E}"/>
+        <xctk:WatermarkTextBox x:Name="TbLat" HorizontalAlignment="Left" Margin="141,38,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Latitude ,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" MaxLength="9" TabIndex="1" Width="120" Watermark="DDD.DDDD{N|S}"/>
     </Grid>
 </Window>

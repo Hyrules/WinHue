@@ -93,6 +93,7 @@
                     <CheckBox x:Name="ChbShowId" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" HorizontalAlignment="Left" Margin="307,13,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.ShowId}"/>
                     <CheckBox x:Name="ChbWrapText" Content="{x:Static resx:GUI.SettingsForm_Tab_View_WrapText}" HorizontalAlignment="Left" Margin="307,45,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.Wrap}"/>
                     <CheckBox x:Name="ChbHiddenScenes" Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes}" HorizontalAlignment="Left" Margin="307,76,0,0" VerticalAlignment="Top" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Controls_HiddenScenes_ToolTip}" IsChecked="{Binding MainSettingsModel.ShowHidden}" />
+                    <CheckBox  Margin="307,106,9.545,215.909" Content="{x:Static resx:GUI.ShowFloorPlanTab}" IsChecked="{Binding ViewSettingsModel.ShowFloorPlanTab}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -130,6 +131,7 @@
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
+
 
 
 

@@ -12,33 +12,28 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
     {
         public static IHueObject CreateHueObject(string huetype)
         {
-            switch (huetype)
+            string type = huetype.ToLower();
+            switch (type)
             {
-                case "LIGHT":
+
                 case "lights":
                 case "light":
                     return new Light();
-                case "GROUP":
                 case "groups":
                 case "group":
                     return new Group();
-                case "SCHEDULE":
                 case "schedules":
                 case "schedule":
                     return new Schedule();
-                case "RULE":
                 case "rules":
                 case "rule":
                     return new Rule();
-                case "RESOURCELINK":
                 case "resourcelinks":
                 case "resourcelink":
                     return new Resourcelink();
-                case "SENSOR":
                 case "sensors":
                 case "sensor":
                     return new Sensor();
-                case "SCENE":
                 case "scenes":
                 case "scene":
                     return new Scene();

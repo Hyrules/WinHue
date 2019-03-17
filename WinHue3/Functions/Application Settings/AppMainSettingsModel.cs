@@ -37,6 +37,7 @@ namespace WinHue3.Functions.Application_Settings
             _minimizeToTray = WinHueSettings.settings.MinimizeToTray;
             _usePropGrid = WinHueSettings.settings.UsePropertyGrid;
             _OSRAMFix = WinHueSettings.settings.OSRAMFix;
+
         }
 
         public bool StartWindows

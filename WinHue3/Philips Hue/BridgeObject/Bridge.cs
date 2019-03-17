@@ -129,20 +129,20 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
         public bool? RequiredUpdate
         {
-            get { return _requiredUpdate; }
-            set { SetProperty(ref _requiredUpdate,value); }
+            get => _requiredUpdate;
+            set => SetProperty(ref _requiredUpdate,value);
         }
 
         public bool UpdateAvailable
         {
-            get { return _updateAvailable; }
-            set { SetProperty(ref _updateAvailable,value); }
+            get => _updateAvailable;
+            set => SetProperty(ref _updateAvailable,value);
         }
 
         public bool Virtual
         {
-            get { return _virtual; }
-            set { SetProperty(ref _virtual,value); }
+            get => _virtual;
+            set => SetProperty(ref _virtual,value);
         }
 
 
