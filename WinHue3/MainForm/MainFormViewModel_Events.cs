@@ -60,5 +60,28 @@ namespace WinHue3.MainForm
             RaisePropertyChanged("SearchingLights");
         }
 
+        private void BridgeManager_OnBridgeRemoved(Bridge b)
+        {
+            RaisePropertyChanged("ListBridges");
+        }
+
+        private void BridgeManager_OnBridgeAdded(Bridge b)
+        {
+            RaisePropertyChanged("ListBridges");
+        }
+
+        private async Task BridgeManager_OnSelectedBridgeChanged(Bridge e)
+        {
+            if (BridgeManager.SelectedBridge != null)
+            {
+                await ChangeBridge();
+            }
+            else
+            {
+                _refreshTimer.Stop();
+            }
+            RaisePropertyChanged("SelectedBridge");
+        }
+
     }
 }

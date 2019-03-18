@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -19,6 +21,7 @@ namespace WinHue3.Utils
 {
     public static class BridgeManager
     {
+
         #region STATICS
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static ObservableCollection<Bridge> _listBridges;
@@ -60,6 +63,9 @@ namespace WinHue3.Utils
             }
         }
         #endregion
+
+        public static ObservableCollection<Bridge> ListBridges => _listBridges;
+
 
         #region METHODS
 

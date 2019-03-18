@@ -29,14 +29,9 @@ namespace WinHue3.MainForm
     public partial class MainFormViewModel : ValidatableBindableBase
     {
         private Form_EventLog _eventlogform;
-
-
         private ObservableCollection<Bridge> _listBridges;
-
         private ObservableCollection<IGroup> _listgroups;
-
         private IHueObject _selectedObject;
-        private Bridge _selectedBridge;
         private ushort? _sliderTT;
         private bool _visibleTabs = true;
         private IBaseProperties _newstate;
@@ -46,12 +41,17 @@ namespace WinHue3.MainForm
         private Floor _selectedFloorPlan;
         private HueElement _selectedHueElement;
 
-        [Obsolete]
-        [RefreshProperties(RefreshProperties.All)]
+        public ObservableCollection<Bridge> ListBridges => BridgeManager.ListBridges;
+
+
         public Bridge SelectedBridge
         {
-            get => _selectedBridge;
-            set => SetProperty(ref _selectedBridge, value);
+            get => BridgeManager.SelectedBridge;
+            set
+            {
+                BridgeManager.SelectedBridge = value;
+                RaisePropertyChanged("SelectedBridge");
+            }
         }
 
         public bool CanTT
@@ -102,16 +102,6 @@ namespace WinHue3.MainForm
         {
             get => _lastmessage;
             set => SetProperty(ref _lastmessage, value);
-        }
-
-        public ObservableCollection<Bridge> ListBridges
-        {
-            get => _listBridges;
-            set
-            {
-                SetProperty(ref _listBridges, value);
-                RaisePropertyChanged("MultiBridgeCB");
-            }
         }
 
         public IHueObject SelectedHueObject
@@ -167,7 +157,7 @@ namespace WinHue3.MainForm
             }
         }
 
-        public bool MultiBridgeCB => ListBridges?.Count > 1;
+        public bool MultiBridgeCB => BridgeManager.ListBridges.Count > 1;
 
         public Visibility UpdateAvailable
         {

@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using XYEditor = WinHue3.Functions.PropertyGrid.XYEditor;
@@ -197,7 +198,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Scene to recall
         /// </summary>
-        [Description("The scene identifier if the scene you wish to recall."), Category("Action Properties"), Browsable(false)]
+        [Description("The scene identifier if the scene you wish to recall."), Category("Action Properties"), Browsable(false), ItemsSource(typeof(ScenesItemSource))]
         public string scene { get; set; }
 
         /// <summary>

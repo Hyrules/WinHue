@@ -170,22 +170,13 @@ namespace WinHue3.MainForm
             BridgeManager.OnBridgeMessageAdded += Bridge_OnMessageAdded;
             BridgeManager.OnBridgeNotResponding += Bridge_BridgeNotResponding;
             BridgeManager.OnSelectedBridgeChanged += BridgeManager_OnSelectedBridgeChanged;
+            BridgeManager.OnBridgeAdded += BridgeManager_OnBridgeAdded;
+            BridgeManager.OnBridgeRemoved += BridgeManager_OnBridgeRemoved;
             BridgeManager.LoadBridges();
             if (BridgeManager.SelectedBridge != null)
                 _ctm = new CpuTempMonitor(BridgeManager.SelectedBridge);
         }
 
-        private async Task BridgeManager_OnSelectedBridgeChanged(Bridge e)
-        {
-            if (BridgeManager.SelectedBridge != null)
-            {
-                await ChangeBridge();
-            }
-            else
-            {
-                _refreshTimer.Stop();
-            }
-        }
 
 
     }

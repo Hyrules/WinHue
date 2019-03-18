@@ -12,6 +12,7 @@ using System.Windows.Media;
 
 namespace WinHue3.Functions.Behaviors
 {
+    [Obsolete]
     public class TextBoxWatermarkBehavior : Behavior<TextBox>
     {
         private WaterMarkAdorner adorner;
@@ -171,7 +172,7 @@ namespace WinHue3.Functions.Behaviors
                         FlowDirection.LeftToRight,
                         new Typeface(fontFamily),
                         fontSize,
-                        foreground);
+                        foreground, VisualTreeHelper.GetDpi(this).PixelsPerDip);
                 Point textpos;
 
                 switch (textalign)

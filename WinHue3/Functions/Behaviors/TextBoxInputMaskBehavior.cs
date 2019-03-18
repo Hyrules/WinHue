@@ -11,6 +11,7 @@ namespace WinHue3.Functions.Behaviors
     /// <summary>
     /// InputMask for Textbox with 2 Properties: <see cref="InputMask"/>, <see cref="PromptChar"/>.
     /// </summary>
+    [Obsolete]
     public class TextBoxInputMaskBehavior : Behavior<TextBox>
     {
         #region DependencyProperties

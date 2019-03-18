@@ -21,6 +21,7 @@
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
         xmlns:uShortUpDown="clr-namespace:WinHue3.Controls.UShortUpDown"
         xmlns:byteUpDown="clr-namespace:WinHue3.Controls.ByteUpDown"
+        xmlns:utils="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 

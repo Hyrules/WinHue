@@ -11,6 +11,7 @@ using System.Windows.Media;
 
 namespace WinHue3.Functions.Behaviors
 {
+    [Obsolete]
     public class ComboBoxWatermarkBehavior : Behavior<ComboBox>
     {
         private WaterMarkAdorner adorner;
@@ -135,8 +136,8 @@ namespace WinHue3.Functions.Behaviors
                         System.Windows.FlowDirection.LeftToRight,
                         new System.Windows.Media.Typeface(fontFamily),
                         fontSize,
-                        foreground);
-
+                        foreground, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+                
                 drawingContext.DrawText(text, new Point(5, 3));
             }
         }
