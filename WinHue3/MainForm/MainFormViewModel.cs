@@ -64,7 +64,7 @@ namespace WinHue3.MainForm
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
 
-            _refreshTimer.Interval = new TimeSpan(0,0,3);
+            _refreshTimer.Interval = new TimeSpan(0,0,30);
             _refreshTimer.Tick += _refreshTimer_Tick;
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
@@ -79,10 +79,10 @@ namespace WinHue3.MainForm
             LoadFloorPlans();
         }
 
-        private void _refreshTimer_Tick(object sender, EventArgs e)
+        private async void _refreshTimer_Tick(object sender, EventArgs e)
         {
             IHueObject selected = SelectedHueObject;
-            List<IHueObject> obj = BridgeManager.SelectedBridge.GetAllObjects(false,true);
+            List<IHueObject> obj = await BridgeManager.SelectedBridge.GetAllObjectsAsync(false,true);
 
             List<IHueObject> diff = obj.Where(x => !ListBridgeObjects.Any(y => y.Id == x.Id && y.GetType() == x.GetType())).ToList();
 
