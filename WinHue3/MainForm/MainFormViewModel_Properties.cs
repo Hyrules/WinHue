@@ -29,11 +29,8 @@ namespace WinHue3.MainForm
     public partial class MainFormViewModel : ValidatableBindableBase
     {
         private Form_EventLog _eventlogform;
-        private ObservableCollection<Bridge> _listBridges;
-        private ObservableCollection<IGroup> _listgroups;
         private IHueObject _selectedObject;
         private ushort? _sliderTT;
-        private bool _visibleTabs = true;
         private IBaseProperties _newstate;
         private int _sensorStatus;
         private bool _sensorFlag;
@@ -154,18 +151,6 @@ namespace WinHue3.MainForm
                 if (cr == null) return Visibility.Collapsed;
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
-        }
-
-        public bool VisibleTabs
-        {
-            get => _visibleTabs;
-            set => SetProperty(ref _visibleTabs, value);
-        }
-
-        public ObservableCollection<IGroup> ListGroups
-        {
-            get => _listgroups;
-            set => SetProperty(ref _listgroups, value);
         }
 
         public ObservableCollection<Floor> ListFloorPlans

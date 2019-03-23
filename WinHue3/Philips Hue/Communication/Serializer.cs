@@ -11,7 +11,9 @@ namespace WinHue3.Philips_Hue.Communication
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly JsonSerializerSettings jss = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default };
-
+        private static readonly HueCreateDataContractResolver hcr = new HueCreateDataContractResolver();
+        private static readonly HueModifyDataContractResolver hmc = new HueModifyDataContractResolver();
+        private static readonly DefaultContractResolver dcr = new DefaultContractResolver();
 
         public static object DeserializeToObject(string json, Type objecttype)
         {
@@ -40,7 +42,7 @@ namespace WinHue3.Philips_Hue.Communication
 
         public static string SerializeJsonObject(object obj)
         {
-            jss.ContractResolver = new DefaultContractResolver();
+            jss.ContractResolver = dcr;
             try
             {
                 if (obj != null)
@@ -61,7 +63,7 @@ namespace WinHue3.Philips_Hue.Communication
         /// <returns>JSON String</returns>
         public static string CreateJsonObject(object obj)
         {
-            jss.ContractResolver = new HueCreateDataContractResolver();
+            jss.ContractResolver = hcr;
             try
             {
                 if (obj != null)
@@ -83,7 +85,7 @@ namespace WinHue3.Philips_Hue.Communication
         /// <returns></returns>
         public static string ModifyJsonObject(object obj)
         {
-            jss.ContractResolver = new HueModifyDataContractResolver();
+            jss.ContractResolver = hmc;
             try
             {
                 if (obj != null)

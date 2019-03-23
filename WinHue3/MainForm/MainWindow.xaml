@@ -447,7 +447,7 @@
                 behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                 behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
                 ItemsSource="{Binding ListBridgeObjects}"
-                Margin="0,0,0,0.333">
+                Margin="0,0,0,0.333" MaxHeight="8000">
 
                             <ListView.Resources>
                                 <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">

@@ -58,7 +58,6 @@ namespace WinHue3.MainForm
             _ledTimer.Tick += _ledTimer_Tick;
             _lhk = new List<HotKeyHandle>();
             _listBridgeObjects = new ObservableCollection<IHueObject>();
-            _listBridges = new ObservableCollection<Bridge>();
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
