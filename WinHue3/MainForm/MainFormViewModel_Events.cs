@@ -38,7 +38,7 @@ namespace WinHue3.MainForm
         {
             _findlighttimer.Stop();
             log.Info("Done searching for new lights.");
-            List<IHueObject> hr = await BridgeManager.SelectedBridge.GetBridgeNewLightsAsyncTask();
+            List<IHueObject> hr = await BridgeManager.Instance.SelectedBridge.GetBridgeNewLightsAsyncTask();
             if (hr == null) return;
             List<IHueObject> newlights = hr;
             log.Info($"Found {newlights.Count} new lights.");
@@ -51,7 +51,7 @@ namespace WinHue3.MainForm
         {
             _findsensortimer.Stop();
             log.Info("Done searching for new sensors.");
-            List<IHueObject> hr = await BridgeManager.SelectedBridge.GetBridgeNewSensorsAsyncTask();
+            List<IHueObject> hr = await BridgeManager.Instance.SelectedBridge.GetBridgeNewSensorsAsyncTask();
             if (hr == null) return;
             List<IHueObject> newsensors = hr;
             log.Info($"Found {newsensors.Count} new sensors.");
@@ -60,28 +60,8 @@ namespace WinHue3.MainForm
             RaisePropertyChanged("SearchingLights");
         }
 
-        private void BridgeManager_OnBridgeRemoved(Bridge b)
-        {
-            RaisePropertyChanged("ListBridges");
-        }
 
-        private void BridgeManager_OnBridgeAdded(Bridge b)
-        {
-            RaisePropertyChanged("ListBridges");
-        }
 
-        private async Task BridgeManager_OnSelectedBridgeChanged(Bridge e)
-        {
-            if (BridgeManager.SelectedBridge != null)
-            {
-                await ChangeBridge();
-            }
-            else
-            {
-                _refreshTimer.Stop();
-            }
-            RaisePropertyChanged("SelectedBridge");
-        }
 
     }
 }

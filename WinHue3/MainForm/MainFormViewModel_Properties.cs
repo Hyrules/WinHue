@@ -41,19 +41,6 @@ namespace WinHue3.MainForm
         private Floor _selectedFloorPlan;
         private HueElement _selectedHueElement;
 
-        public ObservableCollection<Bridge> ListBridges => BridgeManager.ListBridges;
-
-
-        public Bridge SelectedBridge
-        {
-            get => BridgeManager.SelectedBridge;
-            set
-            {
-                BridgeManager.SelectedBridge = value;
-                RaisePropertyChanged("SelectedBridge");
-            }
-        }
-
         public bool CanTT
         {
             get
@@ -157,13 +144,13 @@ namespace WinHue3.MainForm
             }
         }
 
-        public bool MultiBridgeCB => BridgeManager.ListBridges.Count > 1;
+        public bool MultiBridgeCB => BridgeManager.Instance.ListBridges.Count > 1;
 
         public Visibility UpdateAvailable
         {
             get
             {
-                BridgeSettings cr = BridgeManager.SelectedBridge?.GetBridgeSettings();
+                BridgeSettings cr = BridgeManager.Instance.SelectedBridge?.GetBridgeSettings();
                 if (cr == null) return Visibility.Collapsed;
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }

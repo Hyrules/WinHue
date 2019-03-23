@@ -592,7 +592,7 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
+                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding Source={x:Static utils:BridgeManager.Instance}, Path=ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding Source={x:Static utils:BridgeManager.Instance}, Path=SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
                         <ComboBox.Style>
                             <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Visibility" Value="Visible"/>

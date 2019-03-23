@@ -31,7 +31,7 @@ namespace WinHue3.Functions.PowerSettings
         {
             Button btn = ((RoutedEventArgs)obj).Source as Button;
             Light light = btn.DataContext as Light;
-            Light refresh = await BridgeManager.SelectedBridge.GetObjectAsync<Light>(light.Id);
+            Light refresh = await BridgeManager.Instance.SelectedBridge.GetObjectAsync<Light>(light.Id);
             light.config.startup.mode = refresh.config.startup.mode;
             light.config.startup.configured = refresh.config.startup.configured;
             light.config.startup.customsettings = refresh.config.startup.customsettings;
@@ -50,8 +50,8 @@ namespace WinHue3.Functions.PowerSettings
 
         private async Task Initialize()
         {
-            if (BridgeManager.SelectedBridge == null) return;
-            List<Light> temp = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+            if (BridgeManager.Instance.SelectedBridge == null) return;
+            List<Light> temp = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             ListLights = temp.Where(x => x.config.startup != null).ToList();
         }
 
@@ -60,17 +60,17 @@ namespace WinHue3.Functions.PowerSettings
             ComboBox cb = ((RoutedEventArgs)obj).Source as ComboBox;
             string mode = cb.SelectedValue.ToString();
             Light light = cb.DataContext as Light;
-            bool result = await BridgeManager.SelectedBridge.SetPowerConfigAsyncTask(mode, light.Id);
+            bool result = await BridgeManager.Instance.SelectedBridge.SetPowerConfigAsyncTask(mode, light.Id);
             light.config.startup.configured = result;
             if (!result)
             {
-                BridgeManager.SelectedBridge.ShowErrorMessages();
+                BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
             }
             else
             {
                 if (mode == "custom")
                 {
-                    Light refresh = await BridgeManager.SelectedBridge.GetObjectAsync<Light>(light.Id);
+                    Light refresh = await BridgeManager.Instance.SelectedBridge.GetObjectAsync<Light>(light.Id);
                     light.config.startup.customsettings = refresh.config.startup.customsettings;
                 }
             }

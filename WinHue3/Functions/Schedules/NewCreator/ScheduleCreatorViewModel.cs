@@ -258,7 +258,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             AdrTarget = new HueAddress
             {
                 api = "api",
-                key = BridgeManager.SelectedBridge.ApiKey
+                key = BridgeManager.Instance.SelectedBridge.ApiKey
             };
 
             switch (_content)
@@ -315,7 +315,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public async Task Initialize()
         {
-            _currentHueObjectList = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
+            _currentHueObjectList = await BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
             
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());

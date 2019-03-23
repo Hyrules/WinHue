@@ -41,7 +41,7 @@ namespace WinHue3.Functions.ResourceLinks
             rlcvm.LinkCreatorModel.ShowID = WinHueSettings.settings.ShowID;
             rlcvm.LinkCreatorModel.Wrap = WinHueSettings.settings.WrapText;
 
-            List<IHueObject> hr = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
+            List<IHueObject> hr = await BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
             if (hr == null) return;
             ObservableCollection<IHueObject> listbrobj = new ObservableCollection<IHueObject>();
             List<IHueObject> listobj = hr;
@@ -89,18 +89,18 @@ namespace WinHue3.Functions.ResourceLinks
         private void btnCreateResourceLink_Click(object sender, RoutedEventArgs e)
         {
             Resourcelink rl = rlcvm.Resourcelink;
-            bool result = rlcvm.IsEditing ? BridgeManager.SelectedBridge.ModifyObject(rl) : BridgeManager.SelectedBridge.CreateObject(rl);
+            bool result = rlcvm.IsEditing ? BridgeManager.Instance.SelectedBridge.ModifyObject(rl) : BridgeManager.Instance.SelectedBridge.CreateObject(rl);
             
             
             if (result)
             {
-                id = rlcvm.IsEditing ? rl.Id : BridgeManager.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                id = rlcvm.IsEditing ? rl.Id : BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 DialogResult = true;
                 Close();
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
             }
 
         }

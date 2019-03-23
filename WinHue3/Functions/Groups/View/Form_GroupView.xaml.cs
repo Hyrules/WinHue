@@ -23,13 +23,13 @@ namespace WinHue3.Functions.Groups.View
 
         public async Task Initialize()
         {
-            List<Light> comlgt = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> comlgt = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
 
             _gvv = DataContext as GroupViewViewModel;
 
             if (comlgt != null)
             {
-                List<Group> comgrp = await BridgeManager.SelectedBridge.GetListObjectsAsync<Group>();
+                List<Group> comgrp = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Group>();
                 if (comgrp != null)
                 {
 
@@ -37,7 +37,7 @@ namespace WinHue3.Functions.Groups.View
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
                 }
 
                 DataContext = _gvv;
@@ -45,7 +45,7 @@ namespace WinHue3.Functions.Groups.View
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
             }
         }
 

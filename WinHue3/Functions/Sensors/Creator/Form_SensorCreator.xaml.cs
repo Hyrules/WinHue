@@ -35,16 +35,16 @@ namespace WinHue3.Functions.Sensors.Creator
             bool result;
             if (!_editing)
             {
-                result = BridgeManager.SelectedBridge.CreateObject(sensor);
-                _sensorId = BridgeManager.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                result = BridgeManager.Instance.SelectedBridge.CreateObject(sensor);
+                _sensorId = BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
             }
             else
             {
                 sensor.Id = _sensorId;              
-                result = BridgeManager.SelectedBridge.ModifyObject(sensor);
+                result = BridgeManager.Instance.SelectedBridge.ModifyObject(sensor);
                 if (result)
                 {
-                    BridgeManager.SelectedBridge.ChangeSensorConfig(sensor.Id,sensor.config);
+                    BridgeManager.Instance.SelectedBridge.ChangeSensorConfig(sensor.Id,sensor.config);
                 }
 
             }
@@ -56,7 +56,7 @@ namespace WinHue3.Functions.Sensors.Creator
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
             }
                                                        
  

@@ -42,8 +42,8 @@ namespace WinHue3.Functions.Rules.Creator
 
         public async Task Initialize()
         {
-            List<IHueObject> objects = await BridgeManager.SelectedBridge.GetAllObjectsAsync();
-            _bs = await BridgeManager.SelectedBridge.GetBridgeSettingsAsyncTask();          
+            List<IHueObject> objects = await BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            _bs = await BridgeManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();          
             _listAvailableHueObject.AddRange(objects);
 
         }

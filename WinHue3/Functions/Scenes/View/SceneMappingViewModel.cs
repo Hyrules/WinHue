@@ -142,7 +142,7 @@ namespace WinHue3.Functions.Scenes.View
         public void ProcessDoubleClick()
         {
             if (_row == null) return;
-            BridgeManager.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
+            BridgeManager.Instance.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
         private bool ObjectSelected()

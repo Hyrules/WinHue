@@ -38,17 +38,17 @@ namespace WinHue3.Functions.Scenes.Creator
 
             _currentsceneid = sceneid ?? string.Empty;
 
-            List<Light> hr = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> hr = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
 
             if (hr != null)
             {
-                Scene cr = sceneid != null ? BridgeManager.SelectedBridge.GetObject<Scene>(sceneid) : null;
+                Scene cr = sceneid != null ? BridgeManager.Instance.SelectedBridge.GetObject<Scene>(sceneid) : null;
                 _currentsceneid = sceneid;
                 _scvm.Initialize(hr, cr);
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
             }
 
         }
@@ -67,17 +67,17 @@ namespace WinHue3.Functions.Scenes.Creator
 
             if (_currentsceneid == null)
             {
-                result = BridgeManager.SelectedBridge.CreateObject(newScene);
+                result = BridgeManager.Instance.SelectedBridge.CreateObject(newScene);
             }
             else
             {
                 newScene.Id = _currentsceneid;
-                result = BridgeManager.SelectedBridge.ModifyObject(newScene);
+                result = BridgeManager.Instance.SelectedBridge.ModifyObject(newScene);
             }
             
             if (result)
             {
-                string id = _currentsceneid ?? BridgeManager.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                string id = _currentsceneid ?? BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 log.Info("Id of the scene" + id);
                 _currentsceneid = id;
                 DialogResult = true;
@@ -85,8 +85,8 @@ namespace WinHue3.Functions.Scenes.Creator
             }
             else
             {
-                BridgeManager.SelectedBridge.ShowErrorMessages();
-                log.Error(BridgeManager.SelectedBridge.LastCommandMessages);
+                BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
+                log.Error(BridgeManager.Instance.SelectedBridge.LastCommandMessages);
             }
             
         }

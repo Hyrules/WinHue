@@ -36,7 +36,7 @@ namespace WinHue3.Functions.PowerSettings
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            bool result = await BridgeManager.SelectedBridge.SetPowerCustomSettingsAsyncTask(pfsvm.Customsettings, _id);
+            bool result = await BridgeManager.Instance.SelectedBridge.SetPowerCustomSettingsAsyncTask(pfsvm.Customsettings, _id);
             if (result)
             {
                 DialogResult = true;
@@ -44,7 +44,7 @@ namespace WinHue3.Functions.PowerSettings
             }
             else
             {
-                BridgeManager.SelectedBridge.ShowErrorMessages();
+                BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
             }
         }
 

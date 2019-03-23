@@ -82,7 +82,7 @@ namespace WinHue3.MainForm
         private async void _refreshTimer_Tick(object sender, EventArgs e)
         {
             IHueObject selected = SelectedHueObject;
-            List<IHueObject> obj = await BridgeManager.SelectedBridge.GetAllObjectsAsync(false,true);
+            List<IHueObject> obj = await BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync(false,true);
 
             List<IHueObject> diff = obj.Where(x => !ListBridgeObjects.Any(y => y.Id == x.Id && y.GetType() == x.GetType())).ToList();
 
@@ -167,15 +167,12 @@ namespace WinHue3.MainForm
                 }
             }
 
-            BridgeManager.OnBridgeMessageAdded += Bridge_OnMessageAdded;
-            BridgeManager.OnBridgeNotResponding += Bridge_BridgeNotResponding;
-            //BridgeManager.OnSelectedBridgeChanged += BridgeManager_OnSelectedBridgeChanged;
-            BridgeManager.OnBridgeAdded += BridgeManager_OnBridgeAdded;
-            BridgeManager.OnBridgeRemoved += BridgeManager_OnBridgeRemoved;
-            BridgeManager.LoadBridges();
-            SelectedBridge = BridgeManager.DefautBridge;
-            if (BridgeManager.SelectedBridge != null)
-                _ctm = new CpuTempMonitor(BridgeManager.SelectedBridge);
+            BridgeManager.Instance.OnBridgeMessageAdded += Bridge_OnMessageAdded;
+            BridgeManager.Instance.OnBridgeNotResponding += Bridge_BridgeNotResponding;
+            BridgeManager.Instance.LoadBridges();  
+            
+            if (BridgeManager.Instance.SelectedBridge != null)
+                _ctm = new CpuTempMonitor(BridgeManager.Instance.SelectedBridge);
             
         }
 

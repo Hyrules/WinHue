@@ -14,7 +14,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
         public ItemCollection GetValues()
         {
             ItemCollection listscenes = new ItemCollection();
-            List<Scene> list = BridgeManager.SelectedBridge.GetListObjects<Scene>();
+            List<Scene> list = BridgeManager.Instance.SelectedBridge.GetListObjects<Scene>();
             foreach (Scene s in list)
             {
                 listscenes.Add(s.Id);

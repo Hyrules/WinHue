@@ -19,58 +19,56 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Utils
 {
-    public static class BridgeManager
+    public sealed class BridgeManager : ValidatableBindableBase
     {
+        public static readonly BridgeManager _bridgeManager = new BridgeManager();
+        private static readonly object padlock = new object();
+
+        public static BridgeManager Instance => _bridgeManager;
+
 
         #region STATICS
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static ObservableCollection<Bridge> _listBridges;
-        private static Bridge _selectedBridge;
+        private readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private ObservableCollection<Bridge> _listBridges;
+        private Bridge _selectedBridge;
         #endregion
 
         #region EVENTS
-        public static event BridgeRemoved OnBridgeRemoved;
+        public event BridgeRemoved OnBridgeRemoved;
         public delegate void BridgeRemoved(Bridge b);
 
-        public static event BridgeAdded OnBridgeAdded;
+        public event BridgeAdded OnBridgeAdded;
         public delegate void BridgeAdded(Bridge b);
 
-        public static event EventHandler OnBridgesLoaded;
-
-        public static event Func<Bridge, Task> OnSelectedBridgeChanged;
-        public delegate void BridgeSelected(object sender, Bridge b);
-
-        public static event BridgeNotResponding OnBridgeNotResponding;
+        public event BridgeNotResponding OnBridgeNotResponding;
         public delegate void BridgeNotResponding(object sender, BridgeNotRespondingEventArgs e);
 
-        public static event BridgeAddedMessage OnBridgeMessageAdded;
+        public event BridgeAddedMessage OnBridgeMessageAdded;
         public delegate void BridgeAddedMessage(object sender, MessageAddedEventArgs e);
         #endregion
 
         #region CTOR
-        static BridgeManager()
+        private BridgeManager()
         {
             _listBridges = new ObservableCollection<Bridge>(); 
+            RaisePropertyChanged("ListBridges");
         }
 
-        public static Bridge SelectedBridge
+        public Bridge SelectedBridge
         {
             get => _selectedBridge;
             set
             {
-                _selectedBridge = value;
-                OnSelectedBridgeChanged?.Invoke(value);
+                SetProperty(ref _selectedBridge,value);
             }
         }
         #endregion
 
-        public static ObservableCollection<Bridge> ListBridges => _listBridges;
-
-        public static Bridge DefautBridge => _listBridges.FirstOrDefault(x => x.IsDefault);
+        public ObservableCollection<Bridge> ListBridges => _listBridges;
 
         #region METHODS
 
-        public static ObservableCollection<IHueObject> LoadVirtualBridge()
+        public ObservableCollection<IHueObject> LoadVirtualBridge()
         {
             System.Windows.Forms.OpenFileDialog fd = new System.Windows.Forms.OpenFileDialog
             {
@@ -86,29 +84,32 @@ namespace WinHue3.Utils
             return new ObservableCollection<IHueObject>(hueobjects);
         }
 
-        public static void AddBridge(Bridge bridge)
+        public void AddBridge(Bridge bridge)
         {
             _listBridges.Add(bridge);
+            RaisePropertyChanged("ListBridges");
             OnBridgeAdded?.Invoke(bridge);
         }
 
-        public static void RemoveBridge(Bridge bridge)
+        public void RemoveBridge(Bridge bridge)
         {
             _listBridges.Remove(bridge);
+            RaisePropertyChanged("ListBridges");
             OnBridgeRemoved?.Invoke(bridge);
         }
 
-        public static bool DoBridgePairing()
+        public bool DoBridgePairing()
         {
             Form_BridgeDetectionPairing dp = new Form_BridgeDetectionPairing(new ObservableCollection<Bridge>(_listBridges)) { Owner = Application.Current.MainWindow };
             bool result = dp.ShowDialog().GetValueOrDefault(false);
             if (!result) return result;
             _listBridges = dp.ViewModel.ListBridges;
+            RaisePropertyChanged("ListBridges");
             SaveSettings();
             return result;
         }
 
-        private static bool CheckBridge(Bridge bridge)
+        private bool CheckBridge(Bridge bridge)
         {
             log.Info("Checking if ip is bridge...");
             BasicConfig bc = bridge.GetBridgeBasicConfig();
@@ -122,7 +123,7 @@ namespace WinHue3.Utils
 
         }
 
-        private static bool SaveSettings()
+        private bool SaveSettings()
         {
             foreach (Bridge br in _listBridges)
             {
@@ -144,7 +145,7 @@ namespace WinHue3.Utils
             return WinHueSettings.SaveBridges();
         }
 
-        public static void LoadBridges()
+        public void LoadBridges()
         {
             while (true)
             {
@@ -201,7 +202,9 @@ namespace WinHue3.Utils
                         if (fbf.IpFound())
                         {
                             br.BridgeNotResponding += Br_BridgeNotResponding;
-                            br.IpAddress = fbf.newip;                            
+                            br.IpAddress = fbf.newip; 
+                            if(!br.IsDefault) continue;
+                            SelectedBridge = br;
                         }
                         else
                         {
@@ -209,20 +212,26 @@ namespace WinHue3.Utils
                             break;
                         }
                     }
+                    else
+                    {
+                        if(!br.IsDefault) continue;
+                        SelectedBridge = br;
+                    }
                 }
 
                 
                 break;
             }
-            OnBridgesLoaded?.Invoke(null, null);
+            RaisePropertyChanged("ListBridges");
+
         }
 
-        private static void Br_BridgeNotResponding(object sender, BridgeNotRespondingEventArgs e)
+        private void Br_BridgeNotResponding(object sender, BridgeNotRespondingEventArgs e)
         {
             OnBridgeNotResponding?.Invoke(sender, e);
         }
 
-        private static void LastCommandMessages_OnMessageAdded(object sender, MessageAddedEventArgs e)
+        private void LastCommandMessages_OnMessageAdded(object sender, MessageAddedEventArgs e)
         {
             OnBridgeMessageAdded?.Invoke(sender, e);
         }

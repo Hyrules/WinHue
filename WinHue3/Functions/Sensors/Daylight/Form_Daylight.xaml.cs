@@ -36,7 +36,7 @@ namespace WinHue3.Functions.Sensors.Daylight
                 sunsetoffset = Convert.ToSByte(_dvm.Daylight.SunsetOffset)
             };
 
-            bool bresult = BridgeManager.SelectedBridge.ChangeSensorConfig(_id, config);
+            bool bresult = BridgeManager.Instance.SelectedBridge.ChangeSensorConfig(_id, config);
             if(bresult)
             {
                 this.Close();
@@ -44,7 +44,7 @@ namespace WinHue3.Functions.Sensors.Daylight
             else
             {
                
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
             }
  
 

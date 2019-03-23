@@ -75,16 +75,16 @@ namespace WinHue3.Functions.Groups.Creator
             bool result = false;
             if (Group.Id == null)
             {
-                result = BridgeManager.SelectedBridge.CreateObject(Group);
+                result = BridgeManager.Instance.SelectedBridge.CreateObject(Group);
                 if (result)
                 {
                     log.Info("Group creation success");
-                    _id = BridgeManager.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                    _id = BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 }
             }
             else
             {
-                result = BridgeManager.SelectedBridge.ModifyObject(Group);
+                result = BridgeManager.Instance.SelectedBridge.ModifyObject(Group);
                 if (result)
                 {
                     log.Info("Group modification success");
@@ -94,7 +94,7 @@ namespace WinHue3.Functions.Groups.Creator
 
             if(!result)
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
             }
 
             return _id;

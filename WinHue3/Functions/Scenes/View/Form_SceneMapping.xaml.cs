@@ -27,10 +27,10 @@ namespace WinHue3.Functions.Scenes.View
         public async Task Initialize()
         {
 
-            List<Light> lresult = await BridgeManager.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> lresult = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (lresult != null)
             {
-                List<Scene> sresult = await BridgeManager.SelectedBridge.GetListObjectsAsync<Scene>();
+                List<Scene> sresult = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Scene>();
                 if (sresult != null)
                 {
                     
@@ -38,12 +38,12 @@ namespace WinHue3.Functions.Scenes.View
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
                 }
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
             }
         }
 

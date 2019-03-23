@@ -23,12 +23,12 @@ namespace WinHue3.MainForm
     {
         private bool EnableButtons()
         {
-            return BridgeManager.SelectedBridge != null && EnableListView;
+            return BridgeManager.Instance.SelectedBridge != null && EnableListView;
         }
 
         private bool CanBridgeSettings()
         {
-            return BridgeManager.SelectedBridge != null;
+            return BridgeManager.Instance.SelectedBridge != null;
         }
 
         private bool IsObjectSelected()
@@ -51,7 +51,7 @@ namespace WinHue3.MainForm
             return SelectedHueObject is Light || SelectedHueObject is Group || SelectedHueObject is Scene ;
         }
 
-        public bool EnableListView => !BridgeManager.SelectedBridge?.RequiredUpdate ?? false;
+        public bool EnableListView => !BridgeManager.Instance.SelectedBridge?.RequiredUpdate ?? false;
 
         public bool SearchingLights => _findlighttimer.IsEnabled;
 
@@ -259,8 +259,8 @@ namespace WinHue3.MainForm
         private bool CanUpdateBridge()
         {
             if (!EnableButtons()) return false;
-            if (BridgeManager.SelectedBridge == null) return false;
-            return BridgeManager.SelectedBridge.UpdateAvailable;
+            if (BridgeManager.Instance.SelectedBridge == null) return false;
+            return BridgeManager.Instance.SelectedBridge.UpdateAvailable;
         }
 
         private bool CanStrobe()
@@ -334,7 +334,7 @@ namespace WinHue3.MainForm
         public ICommand CtKeyPressCommand => new AsyncRelayCommand(SliderChangeCtKeypress);
 
         //*************** App Menu Commands ******************
-        public ICommand DoBridgePairingCommand => new RelayCommand(param => BridgeManager.DoBridgePairing());
+        public ICommand DoBridgePairingCommand => new RelayCommand(param => BridgeManager.Instance.DoBridgePairing());
         public ICommand ExportDataStoreCommand => new AsyncRelayCommand(ExportDataStore, param => EnableButtons());
 
         //*************** Context Menu Commands *************
