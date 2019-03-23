@@ -9,7 +9,6 @@
     xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
     xmlns:uShortUpDown="clr-namespace:WinHue3.Controls.UShortUpDown"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:byteUpDown="clr-namespace:WinHue3.Controls.ByteUpDown"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Name="FormSceneCreator" x:Class="WinHue3.Functions.Scenes.Creator.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/scenes.png">
     <Window.DataContext>

@@ -40,11 +40,7 @@
             <ComboBoxItem x:Name="CbOtGroup" Content="{x:Static resources:GUI.Groups}" Tag="{x:Type groupObject:Group}"/>
             <ComboBoxItem x:Name="CbOtScene" Content="{x:Static resources:GUI.Scenes}" Tag="{x:Type sceneObject:Scene}"/>
         </xctk:WatermarkComboBox>
-        <xctk:WatermarkComboBox x:Name="CbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}" Watermark="{x:Static resources:GUI.Object_Watermark}" >
-            <i:Interaction.Behaviors>
-                <behaviors:ComboBoxWatermarkBehavior Text="(object)"/>
-            </i:Interaction.Behaviors>
-        </xctk:WatermarkComboBox>
+        <xctk:WatermarkComboBox x:Name="CbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" DisplayMemberPath="name" ItemsSource="{Binding ListHueObject}" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}" Watermark="{x:Static resources:GUI.Object_Watermark}"/>
         <Label x:Name="Label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="328"/>
         <Button x:Name="BtnRecordKeyPress" Content="{x:Static resources:GUI.Form_HotKeyCreator_Record}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="98" Command="{Binding RecordHotKeyCommand}" Height="30" />
         <Label x:Name="Label2" Content="{Binding CurrentHotKey, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="113,165,0,0" VerticalAlignment="Top" Width="226" Height="30" Background="{Binding HotKeyModel.RecordButtonColor}" BorderBrush="#FF8E8E8E" BorderThickness="1"/>

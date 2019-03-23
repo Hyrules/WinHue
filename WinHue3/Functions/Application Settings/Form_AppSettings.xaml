@@ -7,7 +7,6 @@
     xmlns:applicationSettings="clr-namespace:WinHue3.Functions.Application_Settings"
     xmlns:models="clr-namespace:WinHue3.MainForm"
     xmlns:integerUpDown="clr-namespace:WinHue3.Controls.IntegerUpDown" 
-    xmlns:byteUpDown="clr-namespace:WinHue3.Controls.ByteUpDown"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Class="WinHue3.Functions.Application_Settings.Form_AppSettings"
     Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="510.163" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" >

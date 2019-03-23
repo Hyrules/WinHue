@@ -349,7 +349,7 @@
                         <xctk:DoubleUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding ElementName=SlHue, Path=IsEnabled, Converter={StaticResource DoubleToUshortConverter}}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
                     </WrapPanel>
 
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" />
                     <WrapPanel Margin="10" VerticalAlignment="Top">
                         <sliders:BindableSlider x:Name="SlBri" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0"  Width="257" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
                             <i:Interaction.Triggers>
@@ -451,6 +451,7 @@
 
                             <ListView.Resources>
                                 <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
+                                    <VirtualizingStackPanel>
                                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                                         <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
                                         <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
@@ -467,6 +468,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </WrapPanel>
+                                    </VirtualizingStackPanel>
                                 </DataTemplate>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Style.Resources>
