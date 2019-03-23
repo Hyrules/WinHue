@@ -64,7 +64,7 @@ namespace WinHue3.MainForm
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
 
-            _refreshTimer.Interval = new TimeSpan(0,0,30);
+            _refreshTimer.Interval = new TimeSpan(0,5,0);
             _refreshTimer.Tick += _refreshTimer_Tick;
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
@@ -169,12 +169,14 @@ namespace WinHue3.MainForm
 
             BridgeManager.OnBridgeMessageAdded += Bridge_OnMessageAdded;
             BridgeManager.OnBridgeNotResponding += Bridge_BridgeNotResponding;
-            BridgeManager.OnSelectedBridgeChanged += BridgeManager_OnSelectedBridgeChanged;
+            //BridgeManager.OnSelectedBridgeChanged += BridgeManager_OnSelectedBridgeChanged;
             BridgeManager.OnBridgeAdded += BridgeManager_OnBridgeAdded;
             BridgeManager.OnBridgeRemoved += BridgeManager_OnBridgeRemoved;
             BridgeManager.LoadBridges();
+            SelectedBridge = BridgeManager.DefautBridge;
             if (BridgeManager.SelectedBridge != null)
                 _ctm = new CpuTempMonitor(BridgeManager.SelectedBridge);
+            
         }
 
 

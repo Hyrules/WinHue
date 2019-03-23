@@ -66,6 +66,7 @@ namespace WinHue3.Utils
 
         public static ObservableCollection<Bridge> ListBridges => _listBridges;
 
+        public static Bridge DefautBridge => _listBridges.FirstOrDefault(x => x.IsDefault);
 
         #region METHODS
 
@@ -200,22 +201,13 @@ namespace WinHue3.Utils
                         if (fbf.IpFound())
                         {
                             br.BridgeNotResponding += Br_BridgeNotResponding;
-                            br.IpAddress = fbf.newip;
-                            if (!br.IsDefault) continue;
-                            _selectedBridge = br;
-                            OnSelectedBridgeChanged?.Invoke(_selectedBridge);
+                            br.IpAddress = fbf.newip;                            
                         }
                         else
                         {
                             DoBridgePairing();
                             break;
                         }
-                    }
-                    else
-                    {
-                        if (!br.IsDefault) continue;
-                        _selectedBridge = br;
-                        OnSelectedBridgeChanged?.Invoke(_selectedBridge);
                     }
                 }
 

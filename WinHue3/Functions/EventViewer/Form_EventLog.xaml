@@ -9,7 +9,7 @@
         <eventViewer:EventViewerViewModel/>
     </Window.DataContext>
     <Grid>
-        <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{Binding EventViewerModel.ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" Margin="0,0,0,19">
+        <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{Binding EventViewerModel.ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" Margin="0,0,0,19" EnableColumnVirtualization="True" ScrollViewer.CanContentScroll="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn MinWidth="100" Header="Timestamp">
                     <DataGridTemplateColumn.CellTemplate>

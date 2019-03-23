@@ -173,6 +173,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Xceed\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\packages\Xceed\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
     <Reference Include="Xceed.Wpf.DataGrid, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Xceed\Xceed.Wpf.DataGrid.dll</HintPath>
