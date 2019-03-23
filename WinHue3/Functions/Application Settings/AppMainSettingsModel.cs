@@ -20,6 +20,7 @@ namespace WinHue3.Functions.Application_Settings
         private bool _minimizeToTray;
         private bool _usePropGrid;
         private bool _OSRAMFix;
+        private int _refreshTime;
 
         public AppMainSettingsModel()
         {
@@ -37,7 +38,7 @@ namespace WinHue3.Functions.Application_Settings
             _minimizeToTray = WinHueSettings.settings.MinimizeToTray;
             _usePropGrid = WinHueSettings.settings.UsePropertyGrid;
             _OSRAMFix = WinHueSettings.settings.OSRAMFix;
-
+            RefreshTime = WinHueSettings.settings.RefreshTime;
         }
 
         public bool StartWindows
@@ -128,6 +129,12 @@ namespace WinHue3.Functions.Application_Settings
         {
             get => _OSRAMFix; 
             set => SetProperty(ref _OSRAMFix,value);
+        }
+
+        public int RefreshTime
+        {
+            get => _refreshTime;
+            set => SetProperty(ref _refreshTime, value);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using WinHue3.Functions.Schedules.NewCreator;
 using WinHue3.MainForm;
 
 namespace WinHue3.Functions.Application_Settings.Settings
@@ -33,6 +34,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
             SlidersBehavior = 0;
             OSRAMFix = false;
             ShowFloorPlanTab = true;
+            RefreshTime = 30;
         }
 
         [DataMember(EmitDefaultValue = true)]
@@ -85,6 +87,8 @@ namespace WinHue3.Functions.Application_Settings.Settings
         public bool OSRAMFix { get; set; }
         [DataMember(EmitDefaultValue = true)]
         public bool ShowFloorPlanTab { get; set; }
+        [DataMember(EmitDefaultValue = true)]
+        public int RefreshTime { get; set; }
 
         public override string ToString()
         {

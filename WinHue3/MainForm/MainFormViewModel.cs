@@ -64,7 +64,7 @@ namespace WinHue3.MainForm
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
 
-            _refreshTimer.Interval = new TimeSpan(0,5,0);
+            _refreshTimer.Interval = new TimeSpan(0,0,WinHueSettings.settings.RefreshTime);
             _refreshTimer.Tick += _refreshTimer_Tick;
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();

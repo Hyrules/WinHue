@@ -8,6 +8,7 @@
     xmlns:models="clr-namespace:WinHue3.MainForm"
     xmlns:integerUpDown="clr-namespace:WinHue3.Controls.IntegerUpDown" 
     xmlns:byteUpDown="clr-namespace:WinHue3.Controls.ByteUpDown"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Class="WinHue3.Functions.Application_Settings.Form_AppSettings"
     Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="510.163" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" >
 
@@ -42,8 +43,10 @@
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_MinimizeToTray}" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="286" IsChecked="{Binding MainSettingsModel.MinimizeToTray}"/>
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" Margin="10,317,20,3.667" IsChecked="{Binding MainSettingsModel.UsePropGrid}"/>
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix}" Margin="206,168,10,152.667" IsChecked="{Binding MainSettingsModel.OSRAMFix}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix_Tooltip}"/>
-                    <integerUpDown:WinHueIntegerUpDown HorizontalAlignment="Left" Height="15" Margin="128,40,0,0" VerticalAlignment="Top" Width="94" Max="60000" Min="1000" Value="{Binding MainSettingsModel.Timeout}" Step="1" CanBeNull="False"/>
-                    <integerUpDown:WinHueIntegerUpDown HorizontalAlignment="Left" Height="16" Margin="128,69,0,0" VerticalAlignment="Top" Width="94" Max="60000" Min="1000" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}" Step="1" CanBeNull="False"/>
+                    <xctk:IntegerUpDown HorizontalAlignment="Left" Height="23" Margin="128,40,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}" Increment="1" />
+                    <xctk:IntegerUpDown HorizontalAlignment="Left" Height="23" Margin="128,69,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}" Increment="1"/>
+                    <xctk:TimeSpanUpDown Margin="382,10,9.545,306.909" Maximum="23:59:59" Minimum="0" Value="{Binding MainSettingsModel.RefreshTime}"/>
+                    <Label Content="{x:Static resx:GUI.RefreshTime}" HorizontalAlignment="Left" Margin="241,8,0,0" VerticalAlignment="Top" Width="136"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
@@ -70,8 +73,8 @@
                             <Label Content="{x:Static resx:GUI.Lights}" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.564" Width="78"/>
                             <Label Content="{x:Static resx:GUI.Groups}" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="78"/>
                             <CheckBox x:Name="ChbLastState"  Content="{x:Static resx:GUI.SettingsForm_Tab_Defaults_LastState}" IsChecked="{Binding DefaultModel.UseLastBriState}" Width="78" Margin="10,80,110.667,9.667" />
-                            <byteUpDown:WinHueByteUpDown HorizontalAlignment="Left" Height="14" Margin="93,10,0,0" VerticalAlignment="Top" Width="96" Value="{Binding DefaultModel.DefaultLightBri}" CanBeNull="False"/>
-                            <byteUpDown:WinHueByteUpDown HorizontalAlignment="Left" Height="15" Margin="93,41,0,0" VerticalAlignment="Top" Width="96" Value="{Binding DefaultModel.DefaultGroupBri}" CanBeNull="False"/>
+                            <xctk:ByteUpDown HorizontalAlignment="Left" Height="23" Margin="93,10,0,0" VerticalAlignment="Top" Width="96" Value="{Binding DefaultModel.DefaultLightBri}" />
+                            <xctk:ByteUpDown HorizontalAlignment="Left" Height="23" Margin="93,41,0,0" VerticalAlignment="Top" Width="96" Value="{Binding DefaultModel.DefaultGroupBri}" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_SliderTitle}" Margin="177,160,6,56.667">
@@ -131,6 +134,12 @@
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_ThemeColor}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="60"/>
                 </Grid>
             </TabItem>
+
+
+
+
+
+
 
 
 

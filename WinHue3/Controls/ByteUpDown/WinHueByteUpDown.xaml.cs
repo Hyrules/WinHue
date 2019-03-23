@@ -8,6 +8,7 @@ namespace WinHue3.Controls.ByteUpDown
     /// <summary>
     /// Interaction logic for NumericUpDown.xaml
     /// </summary>
+    [Obsolete]
     public partial class WinHueByteUpDown
     {
         public WinHueByteUpDown()

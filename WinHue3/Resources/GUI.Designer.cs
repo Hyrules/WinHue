@@ -3076,6 +3076,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh Time.
+        /// </summary>
+        public static string RefreshTime {
+            get {
+                return ResourceManager.GetString("RefreshTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New name :.
         /// </summary>
         public static string RenameObjectForm_NewName {

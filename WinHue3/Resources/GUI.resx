@@ -1641,4 +1641,7 @@
   <data name="ShowFloorPlanTab" xml:space="preserve">
     <value>Show Floor Plan Tab</value>
   </data>
+  <data name="RefreshTime" xml:space="preserve">
+    <value>Refresh Time</value>
+  </data>
 </root>

@@ -9,6 +9,7 @@ namespace WinHue3.Controls.IntegerUpDown
     /// <summary>
     /// Interaction logic for NumericUpDown.xaml
     /// </summary>
+    [Obsolete]
     public partial class WinHueIntegerUpDown : UserControl
     {
         public WinHueIntegerUpDown()

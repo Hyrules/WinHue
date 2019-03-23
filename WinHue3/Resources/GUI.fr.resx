@@ -1641,4 +1641,7 @@
   <data name="ShowFloorPlanTab" xml:space="preserve">
     <value>Afficher l'onglet du plan du niveau</value>
   </data>
+  <data name="RefreshTime" xml:space="preserve">
+    <value>Temps d'actualisation</value>
+  </data>
 </root>
