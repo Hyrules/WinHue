@@ -30,6 +30,7 @@ namespace WinHue3.Functions.Lights.SupportedDevices
                 {"unr", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_unr)},
             });
 
+            LoadLightsImages();
         }
 
         public static Dictionary<string, Dictionary<string, ImageSource>> Images => _images;
