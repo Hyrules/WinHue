@@ -253,6 +253,7 @@
     <Compile Include="Functions\Entertainment\Form_EntertainmentCreator.xaml.cs">
       <DependentUpon>Form_EntertainmentCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\EventViewer\EventLog.cs" />
     <Compile Include="Functions\Grouping\BridgeGroup.cs" />
     <Compile Include="Functions\Grouping\BridgeSubGroup.cs" />
     <Compile Include="Functions\Grouping\IGroup.cs" />
@@ -318,7 +319,6 @@
     <Compile Include="Functions\Application Settings\AppDefaultsModel.cs" />
     <Compile Include="Functions\Application Settings\AppViewSettingsModel.cs" />
     <Compile Include="Functions\Rules\Cloning\CloneRuleModel.cs" />
-    <Compile Include="Functions\EventViewer\EventViewerModel.cs" />
     <Compile Include="Functions\HotKeys\Creator\HotKeyCreatorModel.cs" />
     <Compile Include="Functions\Schedules\NewCreator\Form_ScheduleCreator2.xaml.cs">
       <DependentUpon>Form_ScheduleCreator2.xaml</DependentUpon>
@@ -471,7 +471,6 @@
     <Compile Include="Functions\HotKeys\Validation\HotKeyValidation.cs" />
     <Compile Include="Validations\IPValidation.cs" />
     <Compile Include="Validations\RequireIPValidation.cs" />
-    <Compile Include="Functions\EventViewer\EventViewerViewModel.cs" />
     <Compile Include="Functions\HotKeys\Creator\HotKeyCreatorViewModel.cs" />
     <Compile Include="Functions\User Management\ManageUsersViewModel.cs" />
     <Compile Include="Functions\Rules\Creator\RuleCreatorViewModel.cs" />
@@ -1060,7 +1059,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

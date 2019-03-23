@@ -42,7 +42,6 @@ namespace WinHue3.MainForm
         private readonly DispatcherTimer _ledTimer;
         private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
-        private readonly Form_PropertyGrid _propertyGrid;
         private readonly DispatcherTimer _refreshTimer = new DispatcherTimer();
         
         public MainFormViewModel()
@@ -68,7 +67,6 @@ namespace WinHue3.MainForm
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;
-            _propertyGrid = new Form_PropertyGrid();
             Comm.Timeout = WinHueSettings.settings.Timeout;
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
             _mainFormModel.ShowId = WinHueSettings.settings.ShowID;
@@ -148,8 +146,6 @@ namespace WinHue3.MainForm
 
         private void Initialize()
         {
-            _eventlogform.Owner = Application.Current.MainWindow;
-
             UpdateManager.CheckForWinHueUpdate();
 
             if (UpdateManager.UpdateAvailable)

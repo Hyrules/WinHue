@@ -28,7 +28,6 @@ namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
-        private Form_EventLog _eventlogform;
         private IHueObject _selectedObject;
         private ushort? _sliderTT;
         private IBaseProperties _newstate;
@@ -49,8 +48,6 @@ namespace WinHue3.MainForm
         }
 
         public object IsMasterDebugger => System.Diagnostics.Debugger.IsAttached;
-
-        public Form_PropertyGrid PropertyGrid => _propertyGrid;
 
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated();
 
@@ -92,12 +89,6 @@ namespace WinHue3.MainForm
         {
             get => _selectedObject;
             set => SetProperty(ref _selectedObject, value);
-        }
-
-        public Form_EventLog Eventlogform
-        {
-            get => _eventlogform;
-            set => SetProperty(ref _eventlogform, value);
         }
 
         public string TransitionTimeTooltip

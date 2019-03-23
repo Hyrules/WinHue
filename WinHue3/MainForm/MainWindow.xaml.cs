@@ -22,19 +22,17 @@ namespace WinHue3.MainForm
     public partial class MainWindow : Window
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
         /// <summary>
         /// Form of the Eventlog.
         /// </summary>
 
-        public MainWindow(Form_EventLog formEventLog)
+        public MainWindow()
         {
-            _fel = formEventLog;           
+        
             InitializeComponent();
             _mfvm = DataContext as MainFormViewModel;
-            _mfvm.Eventlogform = _fel;
 
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              Trayicon.Icon = Properties.Resources.icon;
@@ -135,12 +133,6 @@ namespace WinHue3.MainForm
 
 
         }
-
-        private void MainForm_Loaded(object sender, RoutedEventArgs e)
-        {
-            _mfvm.PropertyGrid.Owner = this;
-        }
-
 
     }
 }

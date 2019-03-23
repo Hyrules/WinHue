@@ -10,11 +10,9 @@ namespace WinHue3.Functions.EventViewer
     public partial class Form_EventLog : Window
     {
         private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public readonly EventViewerViewModel ViewModel;
         public Form_EventLog()
         {
             InitializeComponent();
-            ViewModel = DataContext as EventViewerViewModel;
         }
         
         /// <summary>

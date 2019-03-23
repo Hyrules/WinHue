@@ -11,6 +11,7 @@ using MessageBox = System.Windows.MessageBox;
 using System.Reflection;
 using System.Threading;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.EventViewer;
 using Form_EventLog = WinHue3.Functions.EventViewer.Form_EventLog;
 
 namespace WinHue3
@@ -21,8 +22,7 @@ namespace WinHue3
     public partial class App : Application
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly Form_EventLog _fel = new Form_EventLog();
-
+        
         public App()
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -30,7 +30,7 @@ namespace WinHue3
             if (log4net.LogManager.GetRepository() is Hierarchy hier)
             {
                 DataGridViewAppender dgva = (DataGridViewAppender)hier.GetAppenders().FirstOrDefault(appender => appender.Name.Equals("DataGridViewAppender"));
-                dgva.DgEventLog = _fel.ViewModel.EventViewerModel.ListLogEntries;
+                dgva.DgEventLog = EventLog.Instance.ListLogs;
             }
 
             Log.Info(WinHueSettings.settings.Language);
@@ -47,7 +47,7 @@ namespace WinHue3
         {
             Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version} started");
             Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated()}");
-            MainForm.MainWindow wnd = new MainForm.MainWindow(_fel);
+            MainForm.MainWindow wnd = new MainForm.MainWindow();
          
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
                 ? SystemParameters.WorkArea.Height*0.75

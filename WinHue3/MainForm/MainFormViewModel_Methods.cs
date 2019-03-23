@@ -62,8 +62,11 @@ using System.Net.NetworkInformation;
 using System.Text;
 using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
+using WinHue3.Functions.EventViewer;
 using WinHue3.Functions.PowerSettings;
+using WinHue3.Functions.PropertyGrid;
 using WinHue3.Functions.RoomMap;
+using Binding = System.Windows.Data.Binding;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace WinHue3.MainForm
@@ -393,9 +396,9 @@ namespace WinHue3.MainForm
 
         private void ShowEventLog()
         {
-            if (_eventlogform.IsVisible) return;
+            Form_EventLog fel = new Form_EventLog(); 
             log.Debug("Opening event log.");
-            _eventlogform.Show();
+            fel.Show();
         }
 
         private async Task AllOnOff(bool onoff)
@@ -1354,7 +1357,13 @@ namespace WinHue3.MainForm
 
         private void ShowPropertyGrid()
         {
-            _propertyGrid.Show();
+            Form_PropertyGrid fpg = new Form_PropertyGrid();
+            fpg.Owner = Application.Current.MainWindow;
+            Binding selectedBinding = new Binding("SelectedHueObject");
+            selectedBinding.Source = this;
+            selectedBinding.Mode = BindingMode.TwoWay;          
+            BindingOperations.SetBinding(fpg, Form_PropertyGrid.SelectedObjectProperty, selectedBinding);
+            fpg.Show();
         }
 
         #endregion
@@ -1485,7 +1494,6 @@ namespace WinHue3.MainForm
                     IHueObject hr = await BridgeManager.Instance.SelectedBridge.GetObjectAsync(SelectedHueObject.Id,SelectedHueObject.GetType());
                     if (hr == null) return;
                     _selectedObject = hr;
-                    _propertyGrid.SelectedObject = hr;
                 }
 
                 if (SelectedHueObject is Sensor sensor)

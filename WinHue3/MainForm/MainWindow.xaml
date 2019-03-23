@@ -25,7 +25,7 @@
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
     Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  
     ResizeMode="CanResizeWithGrip" x:Name="MainForm" BorderThickness="0" 
-    behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" StateChanged="MainForm_StateChanged" Loaded="MainForm_Loaded"
+    behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" StateChanged="MainForm_StateChanged" 
     >
 
     <Window.Resources>
