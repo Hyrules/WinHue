@@ -136,8 +136,8 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
 
         public override string ToString()
         {
-            return Serializer.SerializeJsonObject(this);
-            
+            return name;
+
         }
     }
 

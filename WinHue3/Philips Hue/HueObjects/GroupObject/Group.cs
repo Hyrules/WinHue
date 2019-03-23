@@ -139,7 +139,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeJsonObject(this);
+            return name;
         }
 
         public object Clone()

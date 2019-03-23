@@ -205,7 +205,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeJsonObject(this);
+            return name;
         }
 
         /// <summary>

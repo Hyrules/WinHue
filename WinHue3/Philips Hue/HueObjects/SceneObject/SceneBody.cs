@@ -12,7 +12,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
     {
         private string _scene;
 
-
+        [ItemsSource(typeof(ScenesItemSource))]
         public string scene
         {
             get => _scene;

@@ -198,7 +198,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         /// <summary>
         /// Scene to recall
         /// </summary>
-        [Description("The scene identifier if the scene you wish to recall."), Category("Action Properties"), Browsable(false)]
+        [Description("The scene identifier if the scene you wish to recall."), Category("Action Properties"), Browsable(false), ItemsSource(typeof(ScenesItemSource))]
         public string scene { get; set; }
 
         /// <summary>

@@ -152,7 +152,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeJsonObject(this);
+            return name;
         }
 
         public object Clone()

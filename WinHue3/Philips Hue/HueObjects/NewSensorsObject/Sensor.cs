@@ -199,7 +199,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
 
         public override string ToString()
         {
-            return Serializer.SerializeJsonObject(this);
+            return name;
         }
     }
 

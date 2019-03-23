@@ -194,7 +194,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// </summary>
         public override string ToString()
         {
-            return Serializer.SerializeJsonObject(this);
+            return name;
 
         }
 
