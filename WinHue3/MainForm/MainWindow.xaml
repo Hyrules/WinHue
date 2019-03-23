@@ -730,9 +730,9 @@
 
                     </WrapPanel>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <!--<WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
                         <controls:WinHueTransitionTimeUpDown Value="{Binding SliderTt}" IsEnabled="{Binding CanTT}" Height="21" Width="136" ToolTip="{x:Static resx:GUI.TransitionTimeToolTip}" />
-                    </WrapPanel>
+                    </WrapPanel>-->
 
 
                 </StackPanel>

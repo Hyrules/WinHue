@@ -172,7 +172,7 @@ namespace WinHue3.Functions.Behaviors
                         FlowDirection.LeftToRight,
                         new Typeface(fontFamily),
                         fontSize,
-                        foreground, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+                        foreground);
                 Point textpos;
 
                 switch (textalign)

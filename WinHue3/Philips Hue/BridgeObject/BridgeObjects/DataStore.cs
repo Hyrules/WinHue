@@ -18,7 +18,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
     [JsonObject]
     public class DataStore
     {
-        public Dictionary<string,Light> lights { get; set; }
+        public Dictionary<string, Light> lights { get; set; }
 
         public Dictionary<string, Group> groups { get; set; }
 

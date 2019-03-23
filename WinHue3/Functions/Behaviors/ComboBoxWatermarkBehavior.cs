@@ -136,7 +136,7 @@ namespace WinHue3.Functions.Behaviors
                         System.Windows.FlowDirection.LeftToRight,
                         new System.Windows.Media.Typeface(fontFamily),
                         fontSize,
-                        foreground, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+                        foreground);
                 
                 drawingContext.DrawText(text, new Point(5, 3));
             }

@@ -35,7 +35,7 @@ namespace WinHue3.Utils
         public static event BridgeAdded OnBridgeAdded;
         public delegate void BridgeAdded(Bridge b);
 
-        public static event EventHandler OnBridgeLoaded;
+        public static event EventHandler OnBridgesLoaded;
 
         public static event Func<Bridge, Task> OnSelectedBridgeChanged;
         public delegate void BridgeSelected(object sender, Bridge b);
@@ -219,9 +219,10 @@ namespace WinHue3.Utils
                     }
                 }
 
-                OnBridgeLoaded?.Invoke(null,null);
+                
                 break;
             }
+            OnBridgesLoaded?.Invoke(null, null);
         }
 
         private static void Br_BridgeNotResponding(object sender, BridgeNotRespondingEventArgs e)
