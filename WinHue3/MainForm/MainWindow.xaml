@@ -39,7 +39,7 @@
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="DoubleToUshortConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-
+        <converters:TimeSpanToUShortConverter x:Key="TimeSpanToUShortConverter"/>
         <Style x:Key="TbWrap" TargetType="{x:Type TextBlock}" >
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="Width" Value="auto"/>
@@ -425,7 +425,8 @@
                     </WrapPanel>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
                     <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
-                        <controls:WinHueTransitionTimeUpDown Value="{Binding SliderTt}" IsEnabled="{Binding CanTT}" Height="21" Width="136" ToolTip="{x:Static resx:GUI.TransitionTimeToolTip}" />
+                        <xctk:TimeSpanUpDown Value="{Binding SliderTt, Converter={StaticResource TimeSpanToUShortConverter}}" Maximum="01:49:13.5" Minimum="0" Width="99" FractionalSecondsDigitsCount="1" Watermark="(default)"/>
+                        <!--<controls:WinHueTransitionTimeUpDown Value="{Binding SliderTt}" IsEnabled="{Binding CanTT}" Height="21" Width="136" ToolTip="{x:Static resx:GUI.TransitionTimeToolTip}" />-->
                     </WrapPanel>
 
 

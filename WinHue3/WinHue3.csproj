@@ -247,6 +247,7 @@
     <Compile Include="Functions\BridgeSettings\BridgeSettingsHiddenObjects.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\TimeSpanToDoubleConverter.cs" />
+    <Compile Include="Functions\Converters\TimeSpanToUShortConverter.cs" />
     <Compile Include="Functions\Entertainment\EntertainmentViewModel.cs" />
     <Compile Include="Functions\Entertainment\EntertrainmentModel.cs" />
     <Compile Include="Functions\Entertainment\Form_EntertainmentCreator.xaml.cs">

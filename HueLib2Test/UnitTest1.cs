@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -25,6 +27,7 @@ using WinHue3.Philips_Hue.HueObjects.LightObject;
 using Org.BouncyCastle.Utilities;
 using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 using WinHue3.Functions.Animations2;
+using WinHue3.Functions.Converters;
 using WinHue3.Functions.Rules;
 
 namespace HueLib2Test
@@ -50,6 +53,15 @@ namespace HueLib2Test
 
         }
 
+        [TestMethod] 
+        public void TimeSpanTest()
+        { 
+            TimeSpanToUShortConverter tsc = new TimeSpanToUShortConverter();
+            TimeSpan ts = (TimeSpan)tsc.Convert((ushort)65535, typeof(TimeSpan),null, CultureInfo.InvariantCulture);
+            Assert.IsTrue(ts.TotalMilliseconds == 6553500);
+            ushort us = (ushort) tsc.ConvertBack(new TimeSpan(0, 1, 49, 13, 500), typeof(ushort), null, CultureInfo.InvariantCulture);
+            Assert.IsTrue(us == 65535);
+        }
 
 
         [TestMethod]

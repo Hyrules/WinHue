@@ -47,7 +47,7 @@
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_AlwaysUsePropGrid}" Margin="10,317,20,3.667" IsChecked="{Binding MainSettingsModel.UsePropGrid}"/>
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix}" Margin="206,168,10,152.667" IsChecked="{Binding MainSettingsModel.OSRAMFix}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix_Tooltip}"/>
                     <xctk:IntegerUpDown HorizontalAlignment="Left" Height="23" Margin="128,40,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}" Increment="1" />
-                    <xctk:IntegerUpDown HorizontalAlignment="Left" Height="23" Margin="128,69,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}" Increment="1"/>
+                    <xctk:IntegerUpDown HorizontalAlignment="Left" Height="23" Margin="128,69,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}"/>
                     <xctk:TimeSpanUpDown Margin="382,10,9.545,306.909" Maximum="23:59:59" Minimum="0:0:3" Value="{Binding MainSettingsModel.RefreshTime, Converter={StaticResource TimeSpanToDoubleConverter}}" DefaultValue="0:0:30" ToolTip="{x:Static resx:GUI.RefreshTimeTooltip}" />
                     <Label Content="{x:Static resx:GUI.RefreshTime}" HorizontalAlignment="Left" Margin="241,8,0,0" VerticalAlignment="Top" Width="136"/>
                 </Grid>
