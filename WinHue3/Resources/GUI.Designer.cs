@@ -97,6 +97,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All On/Off settings.
+        /// </summary>
+        public static string AllOnOffSettings {
+            get {
+                return ResourceManager.GetString("AllOnOffSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abort.
         /// </summary>
         public static string BridgeDetectionPairing_Abort {
@@ -3085,6 +3094,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Interval between refreshes of objects..
+        /// </summary>
+        public static string RefreshTimeTooltip {
+            get {
+                return ResourceManager.GetString("RefreshTimeTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New name :.
         /// </summary>
         public static string RenameObjectForm_NewName {
@@ -4408,7 +4426,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upnp Timeout :.
+        ///   Looks up a localized string similar to Upnp Timeout.
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Network_UpnpTimeout {
             get {
@@ -4593,6 +4611,51 @@ namespace WinHue3.Resources {
         public static string ShowFloorPlanTab {
             get {
                 return ResourceManager.GetString("ShowFloorPlanTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can changed when off / Apply at toggle On.
+        /// </summary>
+        public static string Sliders_CanChange {
+            get {
+                return ResourceManager.GetString("Sliders_CanChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled when object is off / Only Toggle On.
+        /// </summary>
+        public static string Sliders_DisabledWhenOff {
+            get {
+                return ResourceManager.GetString("Sliders_DisabledWhenOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ascending.
+        /// </summary>
+        public static string Sort_Ascending {
+            get {
+                return ResourceManager.GetString("Sort_Ascending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string Sort_Default {
+            get {
+                return ResourceManager.GetString("Sort_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descending.
+        /// </summary>
+        public static string Sort_Descending {
+            get {
+                return ResourceManager.GetString("Sort_Descending", resourceCulture);
             }
         }
         

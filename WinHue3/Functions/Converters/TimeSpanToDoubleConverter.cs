@@ -4,18 +4,19 @@ using System.Windows.Data;
 
 namespace WinHue3.Functions.Converters
 {
-    public class DateFormatConverter : IValueConverter
+    public class TimeSpanToDoubleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return DateTime.Now.Date;
-            return DateTime.Parse((string)value,CultureInfo.InvariantCulture);
+            return value == null ? new TimeSpan(0, 0, 0) : TimeSpan.FromSeconds((double) value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return string.Empty;
-            return ((DateTime)value).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            if (value == null) return 0;
+            return ((TimeSpan) value).TotalSeconds;
         }
+
     }
 }
+

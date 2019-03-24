@@ -991,7 +991,7 @@
     <value>Timeout</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout" xml:space="preserve">
-    <value>Upnp Timeout :</value>
+    <value>Upnp Timeout</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip" xml:space="preserve">
     <value>Upnp Timeout in seconds</value>
@@ -1643,5 +1643,26 @@
   </data>
   <data name="RefreshTime" xml:space="preserve">
     <value>Refresh Time</value>
+  </data>
+  <data name="RefreshTimeTooltip" xml:space="preserve">
+    <value>Interval between refreshes of objects.</value>
+  </data>
+  <data name="Sliders_DisabledWhenOff" xml:space="preserve">
+    <value>Disabled when object is off / Only Toggle On</value>
+  </data>
+  <data name="Sliders_CanChange" xml:space="preserve">
+    <value>Can changed when off / Apply at toggle On</value>
+  </data>
+  <data name="Sort_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Sort_Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="Sort_Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="AllOnOffSettings" xml:space="preserve">
+    <value>All On/Off settings</value>
   </data>
 </root>

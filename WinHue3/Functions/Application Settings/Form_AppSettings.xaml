@@ -6,11 +6,15 @@
     xmlns:controls="clr-namespace:WinHue3.Controls"
     xmlns:applicationSettings="clr-namespace:WinHue3.Functions.Application_Settings"
     xmlns:models="clr-namespace:WinHue3.MainForm"
-    xmlns:integerUpDown="clr-namespace:WinHue3.Controls.IntegerUpDown" 
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     x:Class="WinHue3.Functions.Application_Settings.Form_AppSettings"
     Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="510.163" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" >
 
+    <Window.Resources>
+        <converters:TimeSpanToDoubleConverter x:Key="TimeSpanToDoubleConverter"/>
+    </Window.Resources>
+    
     <Window.DataContext>
         <applicationSettings:AppSettingsViewModel/>
     </Window.DataContext>
@@ -44,13 +48,13 @@
                     <CheckBox Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix}" Margin="206,168,10,152.667" IsChecked="{Binding MainSettingsModel.OSRAMFix}" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_OsramFix_Tooltip}"/>
                     <xctk:IntegerUpDown HorizontalAlignment="Left" Height="23" Margin="128,40,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" Value="{Binding MainSettingsModel.Timeout}" Increment="1" />
                     <xctk:IntegerUpDown HorizontalAlignment="Left" Height="23" Margin="128,69,0,0" VerticalAlignment="Top" Width="94" Maximum="60000" Minimum="1000" ToolTip="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip}" Value="{Binding MainSettingsModel.UpnpTimeout}" Increment="1"/>
-                    <xctk:TimeSpanUpDown Margin="382,10,9.545,306.909" Maximum="23:59:59" Minimum="0" Value="{Binding MainSettingsModel.RefreshTime}"/>
+                    <xctk:TimeSpanUpDown Margin="382,10,9.545,306.909" Maximum="23:59:59" Minimum="0:0:3" Value="{Binding MainSettingsModel.RefreshTime, Converter={StaticResource TimeSpanToDoubleConverter}}" DefaultValue="0:0:30" ToolTip="{x:Static resx:GUI.RefreshTimeTooltip}" />
                     <Label Content="{x:Static resx:GUI.RefreshTime}" HorizontalAlignment="Left" Margin="241,8,0,0" VerticalAlignment="Top" Width="136"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
                 <Grid>
-                    <GroupBox x:Name="GroupBox2" Header="All On/Off settings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="150" Width="251" Margin="5,5,0,0">
+                    <GroupBox x:Name="GroupBox2" Header="{x:Static resx:GUI.AllOnOffSettings}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="150" Width="251" Margin="5,5,0,0">
                         <Grid Margin="0,0,-1.667,-2.333">
                             <Label x:Name="Label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" HorizontalAlignment="Left" Margin="11,8,0,0" VerticalAlignment="Top" Width="72"/>
                             <Label x:Name="Label1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" HorizontalAlignment="Left" Margin="11,36,0,0" VerticalAlignment="Top" Width="72"/>
@@ -78,8 +82,8 @@
                     </GroupBox>
                     <GroupBox Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_SliderTitle}" Margin="177,160,6,56.667">
                         <ComboBox HorizontalAlignment="Left" Margin="0,9,-1.364,0" VerticalAlignment="Top" Width="285" SelectedValuePath="Tag" SelectedValue="{Binding DefaultModel.SlidersBehavior}">
-                            <ComboBoxItem Content="Disabled when object is off / Only Toggle On" Tag="0"/>
-                            <ComboBoxItem Content="Can changed when off / Apply at toggle On" Tag="1"/>
+                            <ComboBoxItem Content="{x:Static resx:GUI.Sliders_DisabledWhenOff}" Tag="0"/>
+                            <ComboBoxItem Content="{x:Static resx:GUI.Sliders_CanChange}" Tag="1"/>
                         </ComboBox>
                     </GroupBox>
                 </Grid>
@@ -87,9 +91,9 @@
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" HorizontalAlignment="Left"  VerticalAlignment="Top">
                 <Grid>
                     <ComboBox x:Name="CbDefaultSort" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="165" SelectedValue="{Binding ViewSettingsModel.Sort}" SelectedValuePath="Tag" >
-                        <ComboBoxItem Content="Defaut" Tag="{x:Static models:WinHueSortOrder.Default}"/>
-                        <ComboBoxItem Content="Ascending" Tag="{x:Static models:WinHueSortOrder.Ascending}"/>
-                        <ComboBoxItem Content="Descending" Tag="{x:Static models:WinHueSortOrder.Descending}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Sort_Default}" Tag="{x:Static models:WinHueSortOrder.Default}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Sort_Ascending}" Tag="{x:Static models:WinHueSortOrder.Ascending}"/>
+                        <ComboBoxItem Content="{x:Static resx:GUI.Sort_Descending}" Tag="{x:Static models:WinHueSortOrder.Descending}"/>
                     </ComboBox>
                     <Label x:Name="LblDefaultSort" Content="{x:Static resx:GUI.SettingsForm_Tab_View_DefautSort}" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="112"/>
                     <CheckBox x:Name="ChbShowId" Content="{x:Static resx:GUI.SettingsForm_Tab_View_ShowID}" HorizontalAlignment="Left" Margin="307,13,0,0" VerticalAlignment="Top" Width="106" IsChecked="{Binding ViewSettingsModel.ShowId}"/>

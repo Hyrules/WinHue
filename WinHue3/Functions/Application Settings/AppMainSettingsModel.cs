@@ -20,7 +20,7 @@ namespace WinHue3.Functions.Application_Settings
         private bool _minimizeToTray;
         private bool _usePropGrid;
         private bool _OSRAMFix;
-        private int _refreshTime;
+        private double _refreshTime;
 
         public AppMainSettingsModel()
         {
@@ -131,7 +131,7 @@ namespace WinHue3.Functions.Application_Settings
             set => SetProperty(ref _OSRAMFix,value);
         }
 
-        public int RefreshTime
+        public double RefreshTime
         {
             get => _refreshTime;
             set => SetProperty(ref _refreshTime, value);
