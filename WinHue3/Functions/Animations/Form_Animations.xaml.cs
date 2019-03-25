@@ -28,12 +28,6 @@ namespace WinHue3.Functions.Animations
             _acvm = this.DataContext as AnimationCreatorViewModel;
         }
 
-        public Form_Animations(List<IHueObject> listObjets) : base()
-        {
-            InitializeComponent();
-            _acvm = this.DataContext as AnimationCreatorViewModel;
-            _acvm.Initialize(listObjets);
-        }
 
     }
 }

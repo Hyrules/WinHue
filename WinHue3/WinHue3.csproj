@@ -243,6 +243,9 @@
       <DependentUpon>Form_BridgeFinder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\BridgeFinder\ProgressReport.cs" />
+    <Compile Include="Functions\BridgeManager\BridgeManager_Events.cs" />
+    <Compile Include="Functions\BridgeManager\BridgeManager_Methods.cs" />
+    <Compile Include="Functions\BridgeManager\BridgeManager_Properties.cs" />
     <Compile Include="Functions\BridgePairing\BridgeHandler.cs" />
     <Compile Include="Functions\BridgeSettings\BridgeSettingsHiddenObjects.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
@@ -443,7 +446,7 @@
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\ScheduleJsonConverter.cs" />
     <Compile Include="Functions\Application Settings\Settings\BridgeSaveSettings.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomSettings.cs" />
-    <Compile Include="Utils\BridgeManager.cs" />
+    <Compile Include="Functions\BridgeManager\BridgeManager.cs" />
     <Compile Include="Utils\CoordinatesCollection.cs" />
     <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
@@ -1052,7 +1055,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

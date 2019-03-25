@@ -60,7 +60,7 @@ namespace WinHue3.Functions.HotKeys.Creator
         public async Task Initialize()
         {
             CanRecordKeyUp = false;
-            _listAvailbleHueObjects = await BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            _listAvailbleHueObjects = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
         }
 
         public IBaseProperties PropertyGridObject

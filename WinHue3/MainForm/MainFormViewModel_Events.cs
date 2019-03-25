@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Interface;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;

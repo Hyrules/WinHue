@@ -23,7 +23,7 @@ namespace WinHue3.Functions.Lights.Finder
         {
             if (_asf.ListSerials.IsValid())
             {
-                DialogResult = await BridgeManager.Instance.SelectedBridge.FindNewLightsAsync(_asf.ListSerials);
+                DialogResult = await BridgeManager.BridgeManager.Instance.SelectedBridge.FindNewLightsAsync(_asf.ListSerials);
                 Close();
             }
             else

@@ -94,7 +94,7 @@ namespace WinHue3.Functions.Sensors.HueTap
                 }
             };
 
-            bool result = BridgeManager.Instance.SelectedBridge.CreateObject(newRule);
+            bool result = BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(newRule);
             if (result)
             {
                 HueTapModel.BtnOneBG = new SolidColorBrush(_deselectedColor);
@@ -107,7 +107,7 @@ namespace WinHue3.Functions.Sensors.HueTap
             }
             else
             {
-                BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
+                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
             }
     
         }

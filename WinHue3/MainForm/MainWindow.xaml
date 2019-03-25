@@ -10,7 +10,6 @@
         xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
         xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-        xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:ruleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.RuleObject"
         xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
         xmlns:scheduleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ScheduleObject"
@@ -19,7 +18,7 @@
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
-        xmlns:utils="clr-namespace:WinHue3.Utils"
+        xmlns:bridgeManager="clr-namespace:WinHue3.Functions.BridgeManager"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
@@ -286,7 +285,7 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding Source={x:Static utils:BridgeManager.Instance}, Path=ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding Source={x:Static utils:BridgeManager.Instance}, Path=SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
+                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
                         <ComboBox.Style>
                             <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -436,19 +435,19 @@
                 <TabItem Header="{x:Static resx:GUI.AllObjects}">
                     <Grid Background="#FFE5E5E5">
                         <ListView x:Name="LvMainObjects"  
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                SelectedItem="{Binding SelectedHueObject}" 
-                SelectionChanged="LvMainObjects_SelectionChanged" 
-                SelectionMode="Single" 
-                VerticalContentAlignment="Stretch" Grid.Column="0" 
-                IsEnabled="{Binding EnableListView}" 
-                behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
-                behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
-                behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
-                behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                ItemsSource="{Binding ListBridgeObjects}"
-                Margin="0,0,0,0.333" MaxHeight="8000">
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                            SelectedItem="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=SelectedObject}" 
+                            SelectionChanged="LvMainObjects_SelectionChanged" 
+                            SelectionMode="Single" 
+                            VerticalContentAlignment="Stretch" Grid.Column="0" 
+                            IsEnabled="{Binding EnableListView}" 
+                            behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
+                            behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
+                            behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
+                            behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
+                            behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
+                            ItemsSource="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=CurrentBridgeHueObjectsList}"
+                            Margin="0,0,0,0.333" MaxHeight="8000">
 
                             <ListView.Resources>
                                 <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">

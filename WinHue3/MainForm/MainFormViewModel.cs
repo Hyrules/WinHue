@@ -23,6 +23,7 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.BridgeFinder;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.RoomMap;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 
@@ -31,7 +32,7 @@ namespace WinHue3.MainForm
     public partial class MainFormViewModel : ValidatableBindableBase
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private ObservableCollection<IHueObject> _listBridgeObjects;
+        
         private readonly DispatcherTimer _findlighttimer = new DispatcherTimer();
         private readonly DispatcherTimer _findsensortimer = new DispatcherTimer();
         private readonly List<HotKeyHandle> _lhk;
@@ -42,7 +43,7 @@ namespace WinHue3.MainForm
         private readonly DispatcherTimer _ledTimer;
         private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
-        private readonly DispatcherTimer _refreshTimer = new DispatcherTimer();
+        
         
         public MainFormViewModel()
         {
@@ -56,14 +57,13 @@ namespace WinHue3.MainForm
             _hotkeyDetected = false;
             _ledTimer.Tick += _ledTimer_Tick;
             _lhk = new List<HotKeyHandle>();
-            _listBridgeObjects = new ObservableCollection<IHueObject>();
+            
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;
             _findsensortimer.Interval = new TimeSpan(0, 1, 0);
             _findsensortimer.Tick += _findsensortimer_Tick;
 
-            _refreshTimer.Interval = new TimeSpan(0,0,WinHueSettings.settings.RefreshTime);
-            _refreshTimer.Tick += _refreshTimer_Tick;
+
             _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;
@@ -76,38 +76,7 @@ namespace WinHue3.MainForm
             LoadFloorPlans();
         }
 
-        private async void _refreshTimer_Tick(object sender, EventArgs e)
-        {
-            IHueObject selected = SelectedHueObject;
-            List<IHueObject> obj = await BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync(false,true);
 
-            List<IHueObject> diff = obj.Where(x => !ListBridgeObjects.Any(y => y.Id == x.Id && y.GetType() == x.GetType())).ToList();
-
-            foreach (IHueObject ho in diff)
-            {
-                ListBridgeObjects.Remove(x => x.Id == ho.Id && x.GetType() == ho.GetType());
-            }
-
-            foreach (IHueObject o in obj)
-            {
-                IHueObject oldo = ListBridgeObjects.FirstOrDefault(x => x.Id == o.Id && x.GetType() == o.GetType());
-                if (oldo == null)
-                {
-                    ListBridgeObjects.Add(o);
-                }
-                else
-                {
-                    RefreshHueObject(ref oldo, o);
-                }
-                
-            }
-
-            if (SelectedHueObject is null) return;
-            if (obj.Any(x => x.Id == selected.Id && x.GetType() == selected.GetType()))
-            {
-                SelectedHueObject = selected;
-            }
-        }
 
         public void LoadFloorPlans()
         {

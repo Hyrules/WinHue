@@ -86,13 +86,13 @@ namespace HueLib2Test
         {
             Regex timerRegex = new Regex(@"(R(\d\d)//?)?PT(\d\d:\d\d:\d\d)A?(\d\d:\d\d:\d\d)?");
             Match mc = timerRegex.Match("PT00:12:34");
-
+            Assert.IsTrue(mc.Length >= 1);
             Regex alarmRegex = new Regex(@"(W(\d\d\d)//?)?T(\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d))?");
             Match mc2 = alarmRegex.Match("W064/T11:22:33");
-
+            Assert.IsTrue(mc2.Length >= 1);
             Regex scheduleRegex = new Regex(@"(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d)A?(\d\d:\d\d:\d\d)?");
             Match mc3 = scheduleRegex.Match("2013-12-31T00:11:33:55");
-
+            Assert.IsTrue(mc3.Length >= 1);
         }
 
         [TestMethod]
@@ -111,12 +111,6 @@ namespace HueLib2Test
             socket.Connect(RemoteEP);
             HueDatagramTransport hdgt = new HueDatagramTransport(socket);
             DtlsTransport tr = dtlsClientProtocol.Connect(hdtls, hdgt);
-
-
-
-            
-
-
 
         }
 

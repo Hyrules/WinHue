@@ -1,34 +1,20 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
-using WinHue3.Functions.EventViewer;
-using WinHue3.Functions.PropertyGrid;
-using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
 using WinHue3.Utils;
-using System.Linq;
-using System.Windows.Data;
-using Xceed.Wpf.Toolkit.PropertyGrid;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
-using WinHue3.Philips_Hue.HueObjects.SceneObject;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
-using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
-using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
-using WinHue3.Functions.Grouping;
 using WinHue3.Functions.RoomMap;
-using System;
 
 namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
-        private IHueObject _selectedObject;
+        
         private ushort? _sliderTT;
         private IBaseProperties _newstate;
         private int _sensorStatus;
@@ -41,8 +27,8 @@ namespace WinHue3.MainForm
         {
             get
             {
-                if (SelectedHueObject == null) return false;
-                if (!(SelectedHueObject is Light) && !(SelectedHueObject is Group)) return false;
+                if (BridgeManager.Instance.SelectedObject == null) return false;
+                if (!(BridgeManager.Instance.SelectedObject is Light) && !(BridgeManager.Instance.SelectedObject is Group)) return false;
                 return true;
             }
         }
@@ -53,15 +39,6 @@ namespace WinHue3.MainForm
 
         public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
 
-        public ObservableCollection<IHueObject> ListBridgeObjects
-        {
-            get => _listBridgeObjects;
-            set
-            {
-                SetProperty(ref _listBridgeObjects, value);
-                RaisePropertyChanged("MultiBridgeCB");
-            }
-        }
 
         public int SensorStatus
         {
@@ -83,12 +60,6 @@ namespace WinHue3.MainForm
         {
             get => _lastmessage;
             set => SetProperty(ref _lastmessage, value);
-        }
-
-        public IHueObject SelectedHueObject
-        {
-            get => _selectedObject;
-            set => SetProperty(ref _selectedObject, value);
         }
 
         public string TransitionTimeTooltip

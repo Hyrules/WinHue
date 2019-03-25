@@ -37,7 +37,7 @@ namespace WinHue3.Functions.Groups.Creator
 
         public async Task Initialize(Group selectedGroup = null)
         {
-            List<Light> hr = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (selectedGroup == null)
             {            
                 if (hr != null)
@@ -49,13 +49,13 @@ namespace WinHue3.Functions.Groups.Creator
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = await BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(selectedGroup.Id);
+                    Group hr2 = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(selectedGroup.Id);
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
                 }
                 BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
@@ -63,7 +63,7 @@ namespace WinHue3.Functions.Groups.Creator
 
         public async Task Initialize(string group)
         {
-            List<Light> hr = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (string.IsNullOrEmpty(group))
             {
                 
@@ -76,13 +76,13 @@ namespace WinHue3.Functions.Groups.Creator
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = await BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(group);
+                    Group hr2 = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(group);
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
                 }
                 BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }

@@ -22,7 +22,7 @@ namespace WinHue3.Functions.Lights.View
 
         public async Task Initialize()
         {
-            List<Light> lresult = await BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> lresult = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (lresult == null) return;
             _bvv.Initialize(lresult);
         }

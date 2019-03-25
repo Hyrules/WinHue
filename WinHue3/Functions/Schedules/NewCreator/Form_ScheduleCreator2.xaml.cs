@@ -47,7 +47,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             if (_isEditing)
             {
                 sc.Id = _id;
-                if (BridgeManager.Instance.SelectedBridge.ModifyObject(sc))
+                if (BridgeManager.BridgeManager.Instance.SelectedBridge.ModifyObject(sc))
                 {
                     DialogResult = true;
                     log.Info("Schedule edition success");
@@ -55,21 +55,21 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
                 }
             }
             else
             {
-                if (BridgeManager.Instance.SelectedBridge.CreateObject(sc))
+                if (BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(sc))
                 {
                     DialogResult = true;
                     log.Info("Schedule creation success");
-                    _id = BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                    _id = BridgeManager.BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                     this.Close();
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
                 }
             }
         }

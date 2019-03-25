@@ -52,15 +52,15 @@ namespace WinHue3.Functions.Rules.Creator
             {
                 Rule _newrule = _rcvm.Rule;
                 _newrule.Id = _id;
-                result = BridgeManager.Instance.SelectedBridge.ModifyObject(_newrule);
+                result = BridgeManager.BridgeManager.Instance.SelectedBridge.ModifyObject(_newrule);
 
             }
             else
             {
-                result = BridgeManager.Instance.SelectedBridge.CreateObject(_rcvm.Rule);
+                result = BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(_rcvm.Rule);
                 if (result)
                 {
-                    _id = BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                    _id = BridgeManager.BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 }
             }
 
@@ -71,7 +71,7 @@ namespace WinHue3.Functions.Rules.Creator
             }
             else
             {
-                BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
+                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
             }
         }
 
