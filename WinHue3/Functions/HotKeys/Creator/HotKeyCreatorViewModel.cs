@@ -32,7 +32,6 @@ namespace WinHue3.Functions.HotKeys.Creator
         private IBaseProperties _propertyObject;
         private ObservableCollection<HotKey> _listHotKeys;
         private readonly DispatcherTimer _hotkeyrecordTimer;
-        private Bridge _bridge;
         private HotKeyCreatorModel _hotKeyModel;
         private HotKey _selectedHotKey;
         private Type _objectype;
@@ -58,11 +57,10 @@ namespace WinHue3.Functions.HotKeys.Creator
 
         public bool NotGeneric => !_isGeneric;
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
             CanRecordKeyUp = false;
-            _bridge = bridge;
-            _listAvailbleHueObjects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
+            _listAvailbleHueObjects = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
         }
 
         public IBaseProperties PropertyGridObject
@@ -177,7 +175,7 @@ namespace WinHue3.Functions.HotKeys.Creator
             bool valid = false;
             if (_propertyObject != null)
             {
-                PropertyInfo[] prop = _propertyObject.GetType().GetHueProperties();
+                PropertyInfo[] prop = _propertyObject.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
                 foreach (PropertyInfo p in prop)
                 {
                     if (p.GetValue(_propertyObject) != null)
@@ -211,7 +209,6 @@ namespace WinHue3.Functions.HotKeys.Creator
                     hotkey.objecType = ObjectType;
 
                 }
-                /*
                 if (!HotkeyAlreadyExists(hotkey, out HotKey existingKey))
                 {
                     HotKeyHandle hkh = new HotKeyHandle(hotkey, null);
@@ -240,7 +237,6 @@ namespace WinHue3.Functions.HotKeys.Creator
                         Clearfields();
                     }
                 }
-                */
                 RaisePropertyChanged("ListHotKeys");
             }
             else

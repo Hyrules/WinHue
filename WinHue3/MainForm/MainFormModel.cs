@@ -28,6 +28,8 @@ namespace WinHue3.MainForm
         private bool _showId;
         private bool _wrapText;
         private bool _on;
+        private bool _showHiddenScenes;
+        private bool _showFloorPlanTab;
 
         private WinHueSortOrder _sort;
         private WindowState _lastState;
@@ -135,8 +137,20 @@ namespace WinHue3.MainForm
 
         public WindowState LastWindowState
         {
-            get { return _lastState; }
-            set { SetProperty(ref _lastState,value); }
+            get => _lastState;
+            set => SetProperty(ref _lastState,value);
+        }
+
+        public bool Showhiddenscenes
+        {
+            get => _showHiddenScenes; 
+            set => SetProperty(ref _showHiddenScenes,value);
+        }
+
+        public bool ShowFloorPlanTab
+        {
+            get => _showFloorPlanTab;
+            set => SetProperty(ref _showFloorPlanTab,value);
         }
     }
 }

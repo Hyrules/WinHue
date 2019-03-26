@@ -14,7 +14,6 @@ namespace WinHue3.Functions.Sensors.HueTap
     /// </summary>
     public partial class Form_HueTapConfig : Window
     {
-        private Bridge _bridge;
         HueTapConfigViewModel tcvm;
         public Form_HueTapConfig()
         {
@@ -23,13 +22,11 @@ namespace WinHue3.Functions.Sensors.HueTap
             tcvm = DataContext as HueTapConfigViewModel;  
         }
 
-        public async Task Initialize(string sensorid, Bridge bridge)
+        public async Task Initialize(string sensorid)
         {
-            _bridge = bridge;
-            tcvm.Bridge = bridge;
             tcvm.HueTapModel.Id = sensorid;
 
-            List<Scene> hr = await HueObjectHelper.GetBridgeScenesAsyncTask(_bridge);
+            List<Scene> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Scene>();
 
             if (hr != null)
             {
@@ -48,7 +45,7 @@ namespace WinHue3.Functions.Sensors.HueTap
             }
             else
             {
-                _bridge.ShowErrorMessages();
+                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
             }
         }
 

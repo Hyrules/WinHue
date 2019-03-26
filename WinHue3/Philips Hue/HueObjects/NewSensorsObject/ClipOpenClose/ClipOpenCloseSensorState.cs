@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
@@ -10,7 +11,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
     /// <summary>
     /// SensorState class.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class ClipOpenCloseSensorState : ValidatableBindableBase, ISensorStateBase
     {
         private bool _open;
@@ -18,7 +19,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
         /// <summary>
         /// Open or close.
         /// </summary>
-        [HueProperty, DataMember]
         public bool open
         {
             get => _open;
@@ -26,8 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipOpenClose
         }
 
         private string _lastupdated;
-
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

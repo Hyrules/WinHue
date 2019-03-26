@@ -1,13 +1,16 @@
 ﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
-             xmlns:converters="clr-namespace:WinHue3.Functions.Converters" xmlns:resources="clr-namespace:WinHue3.Resources" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
-    x:Class="WinHue3.Functions.Schedules.NewCreator.Controls.Sliders"
-             mc:Ignorable="d" Width="317.757" Height="455.778" Name="sliders">
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+     xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
+     xmlns:converters="clr-namespace:WinHue3.Functions.Converters" xmlns:resources="clr-namespace:WinHue3.Resources" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+     xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
+     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+     xmlns:Controls="clr-namespace:WinHue3.Controls"
+     x:Class="WinHue3.Functions.Schedules.NewCreator.Controls.Sliders"
+     mc:Ignorable="d" Width="317.757" Height="455.778" x:Name="sliders">
     <UserControl.Resources>
         <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
         <converters:DoubleToByteConverter x:Key="SliderToByteConverter"/>
@@ -18,8 +21,8 @@
     <Grid>
 
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_Hue}" HorizontalAlignment="Left" Margin="5,6,0,0" Width="308" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Maximum="65535" Margin="5,31,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding ElementName=sliders, Path=HueValue}" >
-            <Slider.Background>
+        <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Maximum="65535" Margin="5,31,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Minimum="-1" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding HueValue, ElementName=sliders}" >
+            <sliders:BindableHueSlider.Background>
                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
                     <GradientStop Color="#FFFF0000" />
                     <GradientStop Color="#FEFFFF00" Offset="0.195" />
@@ -29,13 +32,13 @@
                     <GradientStop Color="#FEFF00FF" Offset="0.856" />
                     <GradientStop Color="#FFFF0000" Offset="1.0"   />
                 </LinearGradientBrush>
-            </Slider.Background>
-            <Slider.Style>
+            </sliders:BindableHueSlider.Background>
+            <sliders:BindableHueSlider.Style>
                 <Style/>
-            </Slider.Style>
+            </sliders:BindableHueSlider.Style>
         </sliders:BindableHueSlider>
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_Brightness}" HorizontalAlignment="Left" Margin="5,54,0,0" Width="308" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Slider x:Name="SlBri"  Height="22" VerticalAlignment="Top" Maximum="254" Margin="5,79,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" Minimum="-1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding ElementName=sliders,Path=BriValue}">
+        <Slider x:Name="SlBri"  Height="22" VerticalAlignment="Top" Maximum="254" Margin="5,79,0,0" Width="308" IsSnapToTickEnabled="True" SmallChange="1" Minimum="-1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding BriValue, ElementName=sliders}">
             <Slider.Background>
                 <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
                     <GradientStop Color="White" Offset="0"/>
@@ -44,7 +47,7 @@
             </Slider.Background>
         </Slider>
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_ColorTemp}" HorizontalAlignment="Left"  Width="308" Margin="5,104,0,0" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Slider x:Name="SlCt"  Height="22" VerticalAlignment="Top" Maximum="500" Margin="5,129,0,0" Width="308" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding ElementName=sliders, Path=CtValue}">
+        <Slider x:Name="SlCt"  Height="22" VerticalAlignment="Top" Maximum="500" Margin="5,129,0,0" Width="308" Minimum="152" IsSnapToTickEnabled="True" SmallChange="1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Value="{Binding CtValue, ElementName=sliders}">
             <Slider.Background>
                 <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                     <GradientStop Color="#FFFF8912" Offset="0"/>
@@ -53,7 +56,7 @@
             </Slider.Background>
         </Slider>
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_Saturation}" HorizontalAlignment="Left" Margin="5,155,0,0" Width="308" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Slider x:Name="SlSat" Height="22" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="5,180,0,0" IsSnapToTickEnabled="True" SmallChange="1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Width="308" Value="{Binding ElementName=sliders,Path=SatValue}">
+        <Slider x:Name="SlSat" Height="22" VerticalAlignment="Top" Maximum="254" Minimum="-1" Margin="5,180,0,0" IsSnapToTickEnabled="True" SmallChange="1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Width="308" Value="{Binding SatValue, ElementName=sliders}">
             <Slider.Background>
                 <LinearGradientBrush  EndPoint="0,0.5" StartPoint="1,0.5">
                     <GradientStop Color="White" x:Name="SlSatStartGradient"/>
@@ -62,24 +65,24 @@
             </Slider.Background>
         </Slider>
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_XColorSpace}" HorizontalAlignment="Left" Margin="5,204,0,0" Width="308" RenderTransformOrigin="0.507,0" Height="25" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Slider x:Name="SlX" Maximum="1" Margin="5,229,0,0" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Minimum="-0.001" IsMoveToPointEnabled="True" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" Value="{Binding ElementName=sliders,Path=XValue}" />
+        <Slider x:Name="SlX" Maximum="1" Margin="5,229,0,0" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Minimum="-0.001" IsMoveToPointEnabled="True" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" Value="{Binding XValue, ElementName=sliders}" />
         <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_YColorSpace}" Margin="5,255,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" HorizontalContentAlignment="Center"/>
-        <Slider x:Name="SlY" Maximum="1" Margin="5,280,0,0" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Minimum="-0.001" IsMoveToPointEnabled="True" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" Value="{Binding ElementName=sliders,Path=YValue}"/>
+        <Slider x:Name="SlY" Maximum="1" Margin="5,280,0,0" IsSnapToTickEnabled="True" TickFrequency="0.001" SmallChange="0.001" Minimum="-0.001" IsMoveToPointEnabled="True" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="308" Value="{Binding YValue, ElementName=sliders}"/>
         <Label Content="{x:Static resources:GUI.MainForm_Sliders_TransitionTime}" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" Width="298" HorizontalContentAlignment="Center" />
-        <Label Content="{x:Static resources:GUI.ScheduleCreatorForm_TransitionTime_Legend}" HorizontalAlignment="Left" Margin="139,333,0,0" VerticalAlignment="Top" Width="169"/>
-        <xctk:IntegerUpDown x:Name="iudTT"  HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Width="124" Maximum="65535" Minimum="-1" Value="{Binding ElementName=sliders,Path=TTValue}"/>
-        <xctk:WatermarkComboBox x:Name="wcbAlert"  HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="298" Watermark="(Alert)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueAlert}">
+        <ComboBox Name="wcbAlert"  HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="298" SelectedValuePath="Tag" SelectedValue="{Binding HueAlert, ElementName=sliders}">
             <ComboBoxItem Content="(Alert)" Tag="{x:Null}"/>
             <ComboBoxItem Content="None" Tag="none"/>
             <ComboBoxItem Content="Identify Long (long blink)" Tag="lselect"/>
             <ComboBoxItem Content="Identify Short (short blink)" Tag="select"/>
-        </xctk:WatermarkComboBox>
-        <xctk:WatermarkComboBox x:Name="wcbEffect"  HorizontalAlignment="Left" Margin="10,393,0,0" VerticalAlignment="Top" Width="298" Watermark="(Effect)" SelectedValuePath="Tag" SelectedValue="{Binding ElementName=sliders, Path=HueEffect}">
+        </ComboBox>
+        <ComboBox x:Name="wcbEffect"  HorizontalAlignment="Left" Margin="10,393,0,0" VerticalAlignment="Top" Width="298" SelectedValuePath="Tag" SelectedValue="{Binding HueEffect, ElementName=sliders}">
             <ComboBoxItem Content="(Effect)" Tag="{x:Null}"/>
             <ComboBoxItem Content="None" Tag="none"/>
             <ComboBoxItem Content="Color loop" Tag="colorloop"/>
-        </xctk:WatermarkComboBox>
-        <CheckBox x:Name="chbOn" IsChecked="{Binding ElementName=sliders, Path=On}" Content="{x:Static resources:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="10,431,0,0" VerticalAlignment="Top" IsThreeState="True"/>
+        </ComboBox>
+        <CheckBox x:Name="chbOn" IsChecked="{Binding On, ElementName=sliders}" Content="{x:Static resources:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="10,431,0,0" VerticalAlignment="Top" IsThreeState="True"/>
+
+        <Controls:WinHueTransitionTimeUpDown x:Name="iudTT" HorizontalAlignment="Left" Height="16" Margin="99,335,0,0" VerticalAlignment="Top" Width="124" Value="{Binding TTValue, ElementName=sliders}"/>
 
     </Grid>
 </UserControl>

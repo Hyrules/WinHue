@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -22,7 +24,6 @@ namespace WinHue3.Functions.Groups.Creator
         /// </summary>
         private string _id;
 
-        private Bridge _bridge;
         private GroupCreatorViewModel gcvm;
         /// <summary>
         /// ctor
@@ -34,30 +35,54 @@ namespace WinHue3.Functions.Groups.Creator
             gcvm = this.DataContext as GroupCreatorViewModel;
         }
 
-        public async Task Initialize(Bridge bridge, Group selectedGroup = null)
+        public async Task Initialize(Group selectedGroup = null)
         {
-            _bridge = bridge;
-
+            List<Light> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (selectedGroup == null)
-            {
-                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+            {            
                 if (hr != null)
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
             }
             else
             {
-                List<Light> hr = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
                 if (hr != null)
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = (Group)await HueObjectHelper.GetObjectAsyncTask(bridge, selectedGroup.Id, typeof(Group));
+                    Group hr2 = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(selectedGroup.Id);
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
+                }
+                BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
+            }
+        }
+
+        public async Task Initialize(string group)
+        {
+            List<Light> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            if (string.IsNullOrEmpty(group))
+            {
+                
+                if (hr != null)
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+            }
+            else
+            {
+                if (hr != null)
+                {
+                    gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
+
+                    Group hr2 = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(group);
+                    if (hr2 != null)
+                        gcvm.Group = hr2;
+                }
+                else
+                {
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
                 }
                 BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
@@ -71,38 +96,9 @@ namespace WinHue3.Functions.Groups.Creator
 
         private void btnCreateGroup_Click(object sender, RoutedEventArgs e)
         {
-            if (gcvm.Group.Id == null)
-            {
-                bool result = _bridge.CreateObject(gcvm.Group);
-                if (result)
-                {
-                    DialogResult = true;
-                    log.Info("Group creation success");
-                    _id = _bridge.LastCommandMessages.LastSuccess.value;
-                    Close();
-                }
-                else
-                {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);                   
-                }
-                
-            }
-            else
-            {
-                bool result = _bridge.ModifyObject(gcvm.Group);
-                if (result)
-                {
-                    DialogResult = true;
-                    _id = gcvm.Group.Id;
-                    Close();
-
-                }
-                else
-                {
-                    MessageBoxError.ShowLastErrorMessages(_bridge);
-                }
-            }
-
+            _id = gcvm.CreateGroup();
+            DialogResult = _id != null;
+            if (DialogResult.GetValueOrDefault()) Close();
         }
 
         public string GetCreatedOrModifiedID()

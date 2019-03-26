@@ -14,7 +14,6 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
     public class PowerCustomSettings : ValidatableBindableBase
     {
         private byte? _bri;
-        private bool? _on;
         private decimal[] _xy;
         private ushort? _ct;
 
@@ -23,13 +22,6 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         {
             get => _bri;
             set => SetProperty(ref _bri, value);
-        }
-
-        [DefaultValue(null)]
-        public bool? @on
-        {
-            get => _on;
-            set => SetProperty(ref _on, value);
         }
 
         [Editor(typeof(XYEditor), typeof(XYEditor)), DefaultValue(null)]

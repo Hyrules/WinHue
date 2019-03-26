@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -7,7 +8,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
 {
-    [DataContract, ExpandableObject]
+    [JsonObject, ExpandableObject]
     public class HueMotionSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private byte? _battery;
@@ -17,14 +18,13 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         private int? _sensitivitymax;
         private int? _sensitivity;
 
-        [HueProperty, DataMember]
         public int? sensitivity
         {
             get => _sensitivity;
             set => SetProperty(ref _sensitivity,value);
         }
 
-        [HueProperty, DataMember]
+        [DontSerialize,ReadOnly(true)]
         public int? sensitivitymax
         {
             get => _sensitivitymax;
@@ -34,7 +34,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// Alert.
         /// </summary>
-        [HueProperty, DataMember, ItemsSource(typeof(AlertItemsSource))]
+        [ItemsSource(typeof(AlertItemsSource))]
         public string alert
         {
             get => _alert;
@@ -44,7 +44,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// On off state.
         /// </summary>
-        [HueProperty, DataMember]
         public bool? on
         {
             get => _on;
@@ -54,7 +53,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
@@ -64,7 +63,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueMotion
         /// <summary>
         /// Battery state.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize, ReadOnly(true)]
         public byte? battery
         {
             get => _battery;

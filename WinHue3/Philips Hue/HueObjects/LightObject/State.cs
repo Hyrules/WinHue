@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -12,7 +13,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
     /// <summary>
     /// Class for light State.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class State : ValidatableBindableBase, IBaseProperties
     {
         private bool? _reachable;
@@ -23,7 +24,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         private decimal[] _xy;
         private string _effect;
         private string _colormode;
-        private uint? _transitiontime;
+        private ushort? _transitiontime;
         private string _alert;
         private short? _briInc;
         private short? _satInc;
@@ -35,17 +36,18 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Reachable is the light is reachable ( true is the light is available to control, false if the bridge cannot control the light )
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true),Description("Reachable is the light is reachable ( true is the light is available to control, false if the bridge cannot control the light )"),Category("Properties")]
+        [Description("Reachable is the light is reachable ( true is the light is available to control, false if the bridge cannot control the light )"),Category("Properties"), DontSerialize, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
             set => SetProperty(ref _reachable ,value);
         }
 
+
         /// <summary>
         /// On state of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Description("On state."), Category("Properties"), DefaultValue(null)]
+        [Description("On state."), Category("Properties"), DefaultValue(null)]
         public bool? @on
         {
             get => _on;
@@ -55,7 +57,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Brightness of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Description("Brightness(0-255)"), Category("Properties"), DefaultValue(null)]
+        [Description("Brightness(0-255)"), Category("Properties"), DefaultValue(null)]
         public byte? bri
         {
             get => _bri;
@@ -65,7 +67,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Hue/Color of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Description("Color (0-65535)"), Category("Properties"), DefaultValue(null)]
+        [Description("Color (0-65535)"), Category("Properties"), DefaultValue(null)]
         public ushort? hue
         {
             get => _hue;
@@ -75,7 +77,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Saturation of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Description("Saturation (0-255)"), Category("Properties"), DefaultValue(null)]
+        [Description("Saturation (0-255)"), Category("Properties"), DefaultValue(null)]
         public byte? sat
         {
             get => _sat;
@@ -85,7 +87,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Float color of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false),Description("Color coordinates in CIE color space. ( float value between 0.000 and 1.000)"), Category("Properties"), Editor(typeof(XYEditor),typeof(XYEditor)), DefaultValue(null)]
+        [Description("Color coordinates in CIE color space. ( float value between 0.000 and 1.000)"), Category("Properties"), Editor(typeof(XYEditor),typeof(XYEditor)), DefaultValue(null)]
         public decimal[] xy
         {
             get => _xy;
@@ -95,7 +97,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// effect of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), ItemsSource(typeof(EffectItemsSource)),Description("Dynamic effect. ( none or colorloop )"), Category("Properties"), DefaultValue(null)]
+        [ItemsSource(typeof(EffectItemsSource)),Description("Dynamic effect. ( none or colorloop )"), Category("Properties"), DefaultValue(null)]
         public string effect
         {
             get => _effect;
@@ -105,7 +107,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Color mode of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), ItemsSource(typeof(ColormodeItemSource)), ReadOnly(true),Description("Color mode. ( hs for hue saturation, xy for XY , ct for color temperature )"),Category("Properties"), DefaultValue(null)]
+        [ItemsSource(typeof(ColormodeItemSource)), Description("Color mode. ( hs for hue saturation, xy for XY , ct for color temperature )"),Category("Properties"), DefaultValue(null)]
         public string colormode
         {
             get => _colormode;
@@ -115,8 +117,8 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Transition time of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Description("Transition time ( Given in multiple of 100ms , Default to 4 )"),Category("Properties"), DefaultValue(null)]
-        public uint? transitiontime
+        [Description("Transition time ( Given in multiple of 100ms , Default to 4 )"),Category("Properties"), DefaultValue(null)]
+        public ushort? transitiontime
         {
             get => _transitiontime;
             set => SetProperty(ref _transitiontime,value);
@@ -125,7 +127,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Alert of the group.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), ItemsSource(typeof(AlertItemsSource)),Description("Alert Effect ( none , select or lselect )"), Category("Properties"), DefaultValue(null)]
+        [ItemsSource(typeof(AlertItemsSource)),Description("Alert Effect ( none , select or lselect )"), Category("Properties"), DefaultValue(null)]
         public string alert
         {
             get => _alert;
@@ -135,7 +137,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Brightness increment.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("Brightness increment."),Category("Incrementors"), DefaultValue(null)]
+        [Description("Brightness increment."),Category("Incrementors"), DefaultValue(null)]
         public short? bri_inc
         {
             get => _briInc;
@@ -145,7 +147,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Saturation increment.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("Saturation increment."),Category("Incrementors"), DefaultValue(null)]
+        [Description("Saturation increment."),Category("Incrementors"), DefaultValue(null)]
         public short? sat_inc
         {
             get => _satInc;
@@ -155,7 +157,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Hue increment.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("Saturation increment."),Category("Incrementors"), DefaultValue(null)]
+        [Description("Saturation increment."),Category("Incrementors"), DefaultValue(null)]
         public int? hue_inc
         {
             get => _hueInc;
@@ -165,7 +167,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Color temperature increment.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("Color temperature increment."),Category("Incrementors"), DefaultValue(null)]
+        [Description("Color temperature increment."),Category("Incrementors"), DefaultValue(null)]
         public short? ct_inc
         {
             get => _ctInc;
@@ -175,7 +177,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// XY increment.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Description("XY increment."),Category("Incrementors"), Editor(typeof(XYEditor), typeof(XYEditor)), DefaultValue(null)]
+        [Description("XY increment."),Category("Incrementors"), Editor(typeof(XYEditor), typeof(XYEditor)), DefaultValue(null)]
         [XYEditor.MaxMin(0.5f, 0f)]
         public decimal[] xy_inc
         {
@@ -186,7 +188,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// ColorTemperature
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Description("Color temperature"),Category("Properties"), DefaultValue(null)]
+        [Description("Color temperature"),Category("Properties"), DefaultValue(null)]
         public ushort? ct
         {
             get => _ct;
@@ -199,7 +201,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

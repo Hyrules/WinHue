@@ -12,9 +12,9 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
     public class LightControlCt
     {
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Control CT"), Description("Min"), ReadOnly(true)]
+        [Category("Light Control CT"), Description("Min")]
         public ushort min { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Control CT"), Description("Max"), ReadOnly(true)]
+        [Category("Light Control CT"), Description("Max")]
         public ushort max { get; set; }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

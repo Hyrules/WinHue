@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,7 +14,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             RuleAction oldra = (RuleAction) value;
-            List<PropertyInfo> prop = oldra.GetType().GetListHueProperties();
+            List<PropertyInfo> prop = oldra.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList();
 
             writer.WriteStartObject();
             foreach (PropertyInfo p in prop)
@@ -47,7 +48,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
             if (obj["method"] != null)
                 newRuleAction.method = obj["method"].Value<string>();
             if (obj["body"] != null)
-                newRuleAction.body = JsonConvert.SerializeObject(obj["body"]);
+                newRuleAction.body = JsonConvert.SerializeObject(obj["body"]);            
 
             return newRuleAction;
         }

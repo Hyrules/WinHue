@@ -35,11 +35,10 @@ namespace WinHue3.Functions.ResourceLinks
                 Resourcelink rl = new Resourcelink {name = LinkCreatorModel.Name, links = new StringCollection(),description = LinkCreatorModel.Description,classid = LinkCreatorModel.ClassId, recycle = LinkCreatorModel.Recycle,Id = _id};
                 foreach (IHueObject obj in _selectedLinkObjects)
                 {
-                    HueType ht = obj.GetType().GetCustomAttribute<HueType>();
-                    string typename = ht?.HueObjectType;
+                    string typename = obj.GetType().Name.ToLower() + "s";
                     rl.links.Add($"/{typename}/{obj.Id}");
                 }
-                log.Info($"Getting Resource Link : {Serializer.SerializeToJson(rl)}");
+                log.Info($"Getting Resource Link : {Serializer.SerializeJsonObject(rl)}");
                 return rl;
             }
             set

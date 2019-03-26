@@ -13,34 +13,34 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
         /// <summary>
         /// State of the update  
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public int? updatestate { get; set; }
         /// <summary>
         /// url of the update
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false)]
+        [DataMember(IsRequired = false)]
         public string url { get; set; }
         /// <summary>
         /// Message of the update
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false)]
+        [DataMember(IsRequired = false)]
         public string text { get; set; }
         /// <summary>
         /// // Notify for the update
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public bool notify { get; set; }
 
         /// <summary>
         /// Check for update.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public bool checkforupdate { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public Devicetypes devicetypes { get; set; }
     }
 
@@ -53,18 +53,18 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
         /// <summary>
         /// Type of the update.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public bool? bridge { get; set; }
         /// <summary>
         /// Lights to update.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public List<string> lights { get; set; }
 
         /// <summary>
         /// Sensors to update.
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public List<string> sensors { get; set; }
     }
 }

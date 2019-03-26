@@ -11,16 +11,16 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
-    [DataContract]
+    [JsonObject]
     public class LightConfig
     {
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config"), Description("Archetype"), ReadOnly(true)]
+        [Category("Light Config"), Description("Archetype")]
         public string archetype { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config"), Description("Function"), ReadOnly(true)]
+        [Category("Light Config"), Description("Function")]
         public string function { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config"), Description("Direction"), ReadOnly(true)]
+        [Category("Light Config"), Description("Direction")]
         public string direction { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config"), Description("Startup"), ReadOnly(true), ExpandableObject]
+        [Category("Light Config"), Description("Startup"), ExpandableObject]
         public LightConfigStartup startup { get; set; }
         /// <summary>
         /// To string.
@@ -28,7 +28,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

@@ -784,10 +784,10 @@
     <value>ÉTAPE 1 : Choisir un nom</value>
   </data>
   <data name="SceneCreatorForm_Step2" xml:space="preserve">
-    <value>ÉTAPE 2 : Choisir une couleur</value>
+    <value>ÉTAPE 3 : Choisir une couleur</value>
   </data>
   <data name="SceneCreatorForm_Step3" xml:space="preserve">
-    <value>ÉTAPE 3 : Choisir une ou plus. ampoules</value>
+    <value>ÉTAPE 2 : Choisir une ou plus. ampoules</value>
   </data>
   <data name="SceneCreatorForm_Title" xml:space="preserve">
     <value>Créer / Modifer une scène...</value>
@@ -991,7 +991,7 @@
     <value>Timeout</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout" xml:space="preserve">
-    <value>Temps exp. Upnp :</value>
+    <value>Temps exp. Upnp</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip" xml:space="preserve">
     <value>Temps d'expiration de la recherche Upnp en secondes.</value>
@@ -1583,5 +1583,86 @@
   </data>
   <data name="PowerSettings_Warning" xml:space="preserve">
     <value>*Les paramètres peuvent prendre une certain temps à s'appliquer.</value>
+  </data>
+  <data name="Transitiontime" xml:space="preserve">
+    <value>Temps. Transition (Max : 01h49m13s.5ms)</value>
+  </data>
+  <data name="TransitionTimeToolTip" xml:space="preserve">
+    <value>Max : 01h49m13s.5ms</value>
+  </data>
+  <data name="TransitionTimeDefault" xml:space="preserve">
+    <value>(defaut)</value>
+  </data>
+  <data name="EnterPressedTooltip" xml:space="preserve">
+    <value>Appuyez sur Entrée pour appliquer la valeur</value>
+  </data>
+  <data name="FilterData" xml:space="preserve">
+    <value>Filtrer les données ici...</value>
+  </data>
+  <data name="GroupName_Watermark" xml:space="preserve">
+    <value>Nom du groupe (Optionnel)</value>
+  </data>
+  <data name="Object_Type_Watermark" xml:space="preserve">
+    <value>(Type d'objet)</value>
+  </data>
+  <data name="Object_Watermark" xml:space="preserve">
+    <value>(objet)</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>Couper</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copier</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>Coller</value>
+  </data>
+  <data name="NewSensor" xml:space="preserve">
+    <value>mon nouveau capteur</value>
+  </data>
+  <data name="MfgName" xml:space="preserve">
+    <value>mon nom de manufacturier</value>
+  </data>
+  <data name="ChooseOperator" xml:space="preserve">
+    <value>Choisir l'opérateur</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Optionnel</value>
+  </data>
+  <data name="ExampleIP" xml:space="preserve">
+    <value>ex. 192.168.1.123</value>
+  </data>
+  <data name="ExampleMask" xml:space="preserve">
+    <value>ex. 255.255.255.0</value>
+  </data>
+  <data name="ExampleGateway" xml:space="preserve">
+    <value>ex. 192.168.1.1</value>
+  </data>
+  <data name="ShowFloorPlanTab" xml:space="preserve">
+    <value>Afficher l'onglet du plan du niveau</value>
+  </data>
+  <data name="RefreshTime" xml:space="preserve">
+    <value>Temps d'actualisation</value>
+  </data>
+  <data name="RefreshTimeTooltip" xml:space="preserve">
+    <value>Intervales entres les mise à jour des objets</value>
+  </data>
+  <data name="Sliders_DisabledWhenOff" xml:space="preserve">
+    <value>Desactivé quand éteinte / Déclancher seulement.</value>
+  </data>
+  <data name="Sliders_CanChange" xml:space="preserve">
+    <value>Peuvent changer quand eteinte / S'applique sur allumé</value>
+  </data>
+  <data name="Sort_Default" xml:space="preserve">
+    <value>Par Defaut</value>
+  </data>
+  <data name="Sort_Ascending" xml:space="preserve">
+    <value>Croissant</value>
+  </data>
+  <data name="Sort_Descending" xml:space="preserve">
+    <value>Décroissant</value>
+  </data>
+  <data name="AllOnOffSettings" xml:space="preserve">
+    <value>Param. Tout Allumé / Éteint</value>
   </data>
 </root>

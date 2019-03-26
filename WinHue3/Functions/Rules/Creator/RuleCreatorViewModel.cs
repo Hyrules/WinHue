@@ -25,7 +25,6 @@ namespace WinHue3.Functions.Rules.Creator
 {
     public class RuleCreatorViewModel: ValidatableBindableBase
     {
-        private Bridge _bridge;
         private string _name;
         private bool _enabled;
         private Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings _bs;
@@ -41,11 +40,10 @@ namespace WinHue3.Functions.Rules.Creator
             
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            _bridge = bridge;
-            List<IHueObject> objects = await HueObjectHelper.GetBridgeDataStoreAsyncTask(bridge);
-            _bs = await bridge.GetBridgeSettingsAsyncTask();          
+            List<IHueObject> objects = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            _bs = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();          
             _listAvailableHueObject.AddRange(objects);
 
         }
@@ -257,6 +255,7 @@ namespace WinHue3.Functions.Rules.Creator
             {
                 case "lights":
                     SelectedHueObjectType = typeof(Light);
+                    SelectHueObjectType();
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -272,6 +271,7 @@ namespace WinHue3.Functions.Rules.Creator
                     if (SelectedRuleAction.body.Contains("scene")) goto case "scenes";
 
                     SelectedHueObjectType = typeof(Group);
+                    SelectHueObjectType();
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -285,6 +285,7 @@ namespace WinHue3.Functions.Rules.Creator
                     break;
                 case "sensors":
                     SelectedHueObjectType = typeof(Sensor);
+                    SelectHueObjectType();
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -302,6 +303,7 @@ namespace WinHue3.Functions.Rules.Creator
                     break;
                 case "scenes":
                     SelectedHueObjectType = typeof(Scene);
+                    SelectHueObjectType();
                     SceneBody sb = Serializer.DeserializeToObject<SceneBody>(SelectedRuleAction.body);
                     if (_listHueObjects.Exists(x => x.Id == sb.scene))
                     {
@@ -315,7 +317,8 @@ namespace WinHue3.Functions.Rules.Creator
                     break;
                 case "schedules":
                     SelectedHueObjectType = typeof(Schedule);
-                    if(_listHueObjects.Exists(x => x.Id == ha.id))
+                    SelectHueObjectType();
+                    if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         Schedule sc = Serializer.DeserializeToObject<Schedule>(SelectedRuleAction.body);
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -347,7 +350,7 @@ namespace WinHue3.Functions.Rules.Creator
         private bool CanAddAction()
         {
             if (ListRuleActions.Count > 7) return false;
-            if (Serializer.SerializeToJson(ActionProperties) == "{}") return false;
+            if (Serializer.SerializeJsonObject(ActionProperties) == "{}") return false;
             return true;
         }
 
@@ -369,7 +372,7 @@ namespace WinHue3.Functions.Rules.Creator
             if (result != DialogResult.Yes) return;
             ra.address = address;
             ra.method = "PUT";
-            ra.body = Serializer.SerializeToJson(_actionProperties);
+            ra.body = Serializer.SerializeJsonObject(_actionProperties);
             ListRuleActions.Add(ra);
             ActionProperties = null;
             SelectedHueObjectType = null;
@@ -416,8 +419,8 @@ namespace WinHue3.Functions.Rules.Creator
 
         public Type SelectedHueObjectType
         {
-            get { return _selectedHueObjectType; }
-            set { SetProperty(ref _selectedHueObjectType, value); }
+            get => _selectedHueObjectType;
+            set => SetProperty(ref _selectedHueObjectType, value);
         }
         #endregion
 
@@ -436,6 +439,18 @@ namespace WinHue3.Functions.Rules.Creator
         public ICommand Condition_RemoveRuleConditionCommand => new RelayCommand(param => RemoveRuleCondition(), (param) => CanRemoveRuleCondition());
         public ICommand Condition_SelectRuleConditionCommand => new RelayCommand(param => SelectRuleCondition());
         public ICommand Condition_ClearSelectedRuleConditionCommand => new RelayCommand(param => ClearSelectedRuleCondition(), (param) => CanClearRuleCondition());
+        public ICommand BtnEventCommand => new RelayCommand(InsertButtonValue, param => CanInsertButtonValue());
+
+        private bool CanInsertButtonValue()
+        {
+            // TODO : check type
+            return true;
+        }
+
+        private void InsertButtonValue(object param)
+        {
+            ConditionValue = param.ToString();
+        }
 
         private bool CanClearRuleCondition()
         {
@@ -454,7 +469,7 @@ namespace WinHue3.Functions.Rules.Creator
         {
             ListConditionProperties = null;
             if (SelectedConditionHueObject == null) return;
-            ListConditionProperties = TreeViewHelper.BuildPropertiesTree(SelectedConditionHueObject,$"/{SelectedConditionHueObject.GetHueType()}/{SelectedConditionHueObject.Id}", "object").ToList();
+            ListConditionProperties = TreeViewHelper.BuildPropertiesTree(SelectedConditionHueObject,$"/{SelectedConditionHueObject.GetType().Name}/{SelectedConditionHueObject.Id}", "object").ToList();
 
         }
 
@@ -513,11 +528,13 @@ namespace WinHue3.Functions.Rules.Creator
         private void SelectRuleCondition()
         {
             if (_selectedRuleCondition == null) return;
+
             if (_selectedRuleCondition.address.objecttype != "config")
             {
                 SelectedRuleConditionType = HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
+                SelectConditionObjectType();
                 SelectedConditionHueObject = ListConditionHueObjects.FirstOrDefault(x => x.Id == _selectedRuleCondition.address.id);
-
+                SelectConditionHueObject();
             }
             else
             {
@@ -657,20 +674,20 @@ namespace WinHue3.Functions.Rules.Creator
 
         public Type SelectedRuleConditionType
         {
-            get { return _selectedRuleConditionType; }
-            set { SetProperty(ref _selectedRuleConditionType,value); }
+            get => _selectedRuleConditionType;
+            set => SetProperty(ref _selectedRuleConditionType,value);
         }
 
         public List<IHueObject> ListConditionHueObjects
         {
-            get { return _listConditionHueObjects; }
-            set { SetProperty(ref _listConditionHueObjects,value); }
+            get => _listConditionHueObjects;
+            set => SetProperty(ref _listConditionHueObjects,value);
         }
 
         public IHueObject SelectedConditionHueObject
         {
-            get { return _selectedConditionHueObject; }
-            set { SetProperty(ref _selectedConditionHueObject,value); }
+            get => _selectedConditionHueObject;
+            set => SetProperty(ref _selectedConditionHueObject,value);
         }
 
         #endregion

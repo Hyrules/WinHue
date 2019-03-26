@@ -6,10 +6,10 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
     [DataContract]
     public class Backup
     {
-        [HueProperty, DataMember]
+        [DataMember]
         public string status { get; set; }
 
-        [HueProperty, DataMember]
+        [DataMember]
         public int errorcode { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace WinHue3.Philips_Hue.HueObjects
         /// <summary>
         /// url.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool flag
         {
             get => _flag;
@@ -31,7 +31,7 @@ namespace WinHue3.Philips_Hue.HueObjects
         /// <summary>
         /// Sensor Status.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public int status
         {
             get => _status;
@@ -41,7 +41,7 @@ namespace WinHue3.Philips_Hue.HueObjects
         /// <summary>
         /// humidity.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public int humidity
         {
             get => _humidity;
@@ -51,7 +51,7 @@ namespace WinHue3.Philips_Hue.HueObjects
         /// <summary>
         /// Open or close.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool open
         {
             get => _open;
@@ -61,28 +61,28 @@ namespace WinHue3.Philips_Hue.HueObjects
         /// <summary>
         /// Presense detected.
         /// </summary>
-        [HueProperty, DataMember]
+        [DataMember]
         public bool? presence
         {
             get => _presence;
             set => SetProperty(ref _presence, value);
         }
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public ushort? lightlevel
         {
             get => _lightlevel;
             set => SetProperty(ref _lightlevel, value);
         }
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? dark
         {
             get => _dark;
             set => SetProperty(ref _dark, value);
         }
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? daylight
         {
             get => _daylight;
@@ -92,7 +92,7 @@ namespace WinHue3.Philips_Hue.HueObjects
         /// <summary>
         /// Current temperature.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public int? temperature
         {
             get => _temperature;
@@ -103,7 +103,7 @@ namespace WinHue3.Philips_Hue.HueObjects
         /// <summary>
         /// Button event number.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public int? buttonevent
         {
             get => _buttonevent;

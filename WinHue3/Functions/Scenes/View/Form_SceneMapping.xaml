@@ -8,11 +8,12 @@
         xmlns:resources="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
     xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
     xmlns:view="clr-namespace:WinHue3.Functions.Scenes.View"
     x:Class="WinHue3.Functions.Scenes.View.Form_SceneMapping"
         mc:Ignorable="d"
-        Title="{x:Static resources:GUI.Form_SceneMapping_Title}" Height="653.956" Width="891.887" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SceneMapping.png" ResizeMode="CanResizeWithGrip">
+        Title="{x:Static resources:GUI.Form_SceneMapping_Title}" Height="653.956" Width="891.887" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/SceneMapping.png" ResizeMode="CanResizeWithGrip" x:Name="SceneMapping">
 
     <Window.Resources>
         <xcdg:DataGridCollectionViewSource x:Key="Scenes" Source="{Binding SceneMapping}" AutoCreateItemProperties="True"></xcdg:DataGridCollectionViewSource>
@@ -22,12 +23,17 @@
     </Window.DataContext>
     <Grid>
         <ToolBarTray Height="29" VerticalAlignment="Top" Margin="0,0,0.333,0">
-            <ToolBar x:Name="ToolBar" HorizontalAlignment="Left" Margin="0,0,-212,-16.333" VerticalAlignment="Top" Height="29" Width="auto">
+            <ToolBar x:Name="ToolBar" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="auto">
                 <Button Command="{Binding RefreshMappingCommand}" ToolTip="{x:Static resources:GUI.Form_SceneMapping_RefreshTooltip}">
                     <Image Source="/WinHue3;component/Resources/Reload.png" />
                 </Button>
                 <Separator/>
-                <xctk:WatermarkTextBox x:Name="TbFilter" Width="180" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="1" Watermark="Filter data here..." />
+                <xctk:WatermarkTextBox x:Name="TbFilter" Width="180" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="1" Watermark="{x:Static resources:GUI.FilterData}"/>
+            </ToolBar>
+            <ToolBar x:Name="tbEdit">
+                <Button Command="{Binding EditSceneCommand}" ToolTip="">
+                    <Image Source="/WinHue3;component/Resources/edit-2.png" Height="18"></Image>
+                </Button>
             </ToolBar>
         </ToolBarTray>
 

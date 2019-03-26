@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -25,6 +27,8 @@ using WinHue3.Philips_Hue.HueObjects.LightObject;
 using Org.BouncyCastle.Utilities;
 using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 using WinHue3.Functions.Animations2;
+using WinHue3.Functions.Converters;
+using WinHue3.Functions.Rules;
 
 namespace HueLib2Test
 {
@@ -34,11 +38,30 @@ namespace HueLib2Test
         [TestMethod]
         public void TestParser()
         {
-          //   var result = WinHueAnimationParser.ParseAnimation("SET LIGHT 1 TO BRI:232 SAT:254;");
-          //   Assert.AreEqual(new Light() { Id = "1", state = new State() { bri = 254, sat = 254 }}, result);
+            //   var result = WinHueAnimationParser.ParseAnimation("SET LIGHT 1 TO BRI:232 SAT:254;");
+            //   Assert.AreEqual(new Light() { Id = "1", state = new State() { bri = 254, sat = 254 }}, result);
+            /*Light l = new Light();
+            l.Id = 5.ToString();
+            l.swversion = "12.2334.5";*/
+            Sensor s = new Sensor();
+            s.manufacturername = "test";
+
+            //string res = JsonConvert.SerializeObject(l, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+            string res = Serializer.ModifyJsonObject(s);
+            //PropertyInfo[] pi = l.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+                            
 
         }
 
+        [TestMethod] 
+        public void TimeSpanTest()
+        { 
+            TimeSpanToUShortConverter tsc = new TimeSpanToUShortConverter();
+            TimeSpan ts = (TimeSpan)tsc.Convert((ushort)65535, typeof(TimeSpan),null, CultureInfo.InvariantCulture);
+            Assert.IsTrue(ts.TotalMilliseconds == 6553500);
+            ushort us = (ushort) tsc.ConvertBack(new TimeSpan(0, 1, 49, 13, 500), typeof(ushort), null, CultureInfo.InvariantCulture);
+            Assert.IsTrue(us == 65535);
+        }
 
 
         [TestMethod]
@@ -63,13 +86,13 @@ namespace HueLib2Test
         {
             Regex timerRegex = new Regex(@"(R(\d\d)//?)?PT(\d\d:\d\d:\d\d)A?(\d\d:\d\d:\d\d)?");
             Match mc = timerRegex.Match("PT00:12:34");
-
+            Assert.IsTrue(mc.Length >= 1);
             Regex alarmRegex = new Regex(@"(W(\d\d\d)//?)?T(\d\d:\d\d:\d\d)(A(\d\d:\d\d:\d\d))?");
             Match mc2 = alarmRegex.Match("W064/T11:22:33");
-
+            Assert.IsTrue(mc2.Length >= 1);
             Regex scheduleRegex = new Regex(@"(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d)A?(\d\d:\d\d:\d\d)?");
             Match mc3 = scheduleRegex.Match("2013-12-31T00:11:33:55");
-
+            Assert.IsTrue(mc3.Length >= 1);
         }
 
         [TestMethod]
@@ -88,12 +111,6 @@ namespace HueLib2Test
             socket.Connect(RemoteEP);
             HueDatagramTransport hdgt = new HueDatagramTransport(socket);
             DtlsTransport tr = dtlsClientProtocol.Connect(hdtls, hdgt);
-
-
-
-            
-
-
 
         }
 
@@ -152,7 +169,7 @@ namespace HueLib2Test
             DataStore ds = JsonConvert.DeserializeObject<DataStore>(test3);
             TreeViewItem tvi = TreeViewHelper.BuildPropertiesTreeFromDataStore(ds);
            
-            HueObject ho = new HueObject();
+            //HueObject ho = new HueObject();
             
 
 
@@ -207,34 +224,9 @@ namespace HueLib2Test
         [TestMethod]
         public void TestBuildTree()
         {
-          
-            
 
+            var tree =TreeViewHelper.BuildPropertiesTree(new Light() {state = new State()}, "/");
 
-            //BridgeSettings bs = new BridgeSettings();
-          //  Light l = new Light();
-            BridgeSettings bs = new BridgeSettings();
-        //    SwUpdate sw = new SwUpdate();
-        //    IHueObject obj = new Light();
-         //   Sensor ts = new Sensor(){config = new ClipGenericFlagSensorConfig(), state = new ClipGenericFlagSensorState()};
-         //   PropertyInfo[] props = bs.GetType().GetHueProperties();
-             //BuildTree(l.GetType(), "/lights/1", "");
-
-            string ssensor =
-                "{\n    \"state\": {\n        \"daylight\": true,\n        \"lastupdated\": \"2017-08-09T09:56:00\"\n    },\n    \"config\": {\n        \"on\": true,\n        \"configured\": true,\n        \"sunriseoffset\": 0,\n        \"sunsetoffset\": 0\n    },\n    \"name\": \"Daylight\",\n    \"type\": \"Daylight\",\n    \"modelid\": \"PHDL00\",\n    \"manufacturername\": \"Philips\",\n    \"swversion\": \"1.0\"\n}";
-            Sensor obj = Serializer.DeserializeToObject<Sensor>(ssensor);
-            PropertyInfo[] props = obj.GetType().GetHueProperties();
-            ISensorConfigBase cfg = (ISensorConfigBase)props[8].GetValue(obj);
-          //  ISensorConfigBase cfg = props["config"].GetValue(obj);
-            //string path = "/sensors";
-            List<TreeViewItem> lrtvi = new List<TreeViewItem>();
-
-            foreach (PropertyInfo pi in props)
-            {
-             //   lrtvi.Add(BuildTree(pi, path, null));
-
-
-            }
 
         }
 

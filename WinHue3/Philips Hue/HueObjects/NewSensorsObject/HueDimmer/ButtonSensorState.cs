@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
@@ -8,7 +9,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
     /// <summary>
     /// Hue Tap Sensor State.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class ButtonSensorState : ValidatableBindableBase, ISensorStateBase
     {
         private int? _buttonevent;
@@ -16,7 +17,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
         /// <summary>
         /// Button event number.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize]
         public int? buttonevent
         {
             get => _buttonevent;
@@ -25,7 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueDimmer
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize]
         public string lastupdated
         {
             get => _lastupdated;

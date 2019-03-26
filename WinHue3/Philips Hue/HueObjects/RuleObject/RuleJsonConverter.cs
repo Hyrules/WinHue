@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
+using WinHue3.Interface;
 
 namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 {
@@ -12,7 +14,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             Rule oldrule = (Rule) value;
-            List<PropertyInfo> props = oldrule.GetType().GetListHueProperties();
+            List<PropertyInfo> props = oldrule.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList();
             writer.WriteStartObject();
             
             foreach (PropertyInfo p in props)
@@ -61,6 +63,8 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
                 newRule.actions = obj["actions"].ToObject<RuleActionCollection>();
             if (obj["conditions"] != null)
                 newRule.conditions = obj["conditions"].ToObject<RuleConditionCollection>();
+
+            newRule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.rules);
             return newRule;
         }
 

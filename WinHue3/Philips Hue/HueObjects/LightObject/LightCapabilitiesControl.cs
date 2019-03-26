@@ -13,18 +13,18 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
-    [DataContract]
+    [JsonObject]
     public class LightCapabilitiesControl
     {
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities Control"), Description("Minimum Dim Level"), ReadOnly(true)]
+        [Category("Light Capabilities Control"), Description("Minimum Dim Level")]
         public ushort mindimlevel { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities Control"), Description("Maximum Lumens"), ReadOnly(true)]
+        [Category("Light Capabilities Control"), Description("Maximum Lumens")]
         public ushort maxlumen { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities Control"), Description("Color Gamut Type"), ReadOnly(true)]
+        [Category("Light Capabilities Control"), Description("Color Gamut Type")]
         public string colorgamuttype { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities Control"), Description("Color Gamut"), ReadOnly(true)]
+        [Category("Light Capabilities Control"), Description("Color Gamut")]
         public CoordinatesCollection colorgamut { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities Control"), Description("Color Temperature"), ReadOnly(true), ExpandableObject]
+        [Category("Light Capabilities Control"), Description("Color Temperature"),ExpandableObject]
         public LightControlCt ct {get;set;}
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

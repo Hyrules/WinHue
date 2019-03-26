@@ -13,7 +13,6 @@ namespace WinHue3.Functions.Lights.View
     public partial class Form_BulbsView : Window
     {
         private BulbsViewViewModel _bvv;
-        private Bridge _bridge;
 
         public Form_BulbsView()
         {
@@ -21,10 +20,9 @@ namespace WinHue3.Functions.Lights.View
             _bvv = DataContext as BulbsViewViewModel;
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            _bridge = bridge;
-            List<Light> lresult = await HueObjectHelper.GetBridgeLightsAsyncTask(_bridge);
+            List<Light> lresult = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (lresult == null) return;
             _bvv.Initialize(lresult);
         }

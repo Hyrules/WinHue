@@ -10,7 +10,6 @@
         xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
         xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-        xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:ruleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.RuleObject"
         xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
         xmlns:scheduleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ScheduleObject"
@@ -18,20 +17,17 @@
         xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
-        xmlns:Controls="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
+        xmlns:bridgeManager="clr-namespace:WinHue3.Functions.BridgeManager"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
     Icon="/WinHue3;component/Resources/HueGroupOn-Large.png" Closing="Window_Closing"  
     ResizeMode="CanResizeWithGrip" x:Name="MainForm" BorderThickness="0" 
-    behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" StateChanged="MainForm_StateChanged" Loaded="MainForm_Loaded"
+    behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" StateChanged="MainForm_StateChanged" 
     >
 
     <Window.Resources>
-        <DataTemplate x:Key="BridgeTemplate">
-            <Expander Header="Bridge"/>
-        </DataTemplate>
         <Style x:Key="ImageEnabled" TargetType="{x:Type Image}">
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
@@ -40,32 +36,9 @@
             </Style.Triggers>
         </Style>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
-        <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
+        <converters:DoubleToUShortConverter x:Key="DoubleToUshortConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <Style x:Key="LeftMenuButtonsStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="35,0,0,0"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}}}"/>
-            <Setter Property="Template" Value="{DynamicResource ButtonBaseControlTemplate1}"/>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="Transparent"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="SideExpanderStyle" TargetType="{x:Type Expander}">
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}}}"/>
-        </Style>
-
-
+        <converters:TimeSpanToUShortConverter x:Key="TimeSpanToUShortConverter"/>
         <Style x:Key="TbWrap" TargetType="{x:Type TextBlock}" >
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="Width" Value="auto"/>
@@ -76,285 +49,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="TbxWrap" TargetType="{x:Type TextBox}" >
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="Width" Value="auto"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="IsHitTestVisible" Value="False"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding DataContext.MainFormModel.WrapText, ElementName=MainForm}" Value="True">
-                    <Setter Property="TextWrapping" Value="Wrap"/>
-                    <Setter Property="Width" Value="75"/>
-                </DataTrigger>
-            </Style.Triggers>
 
-        </Style>
-
-        <ControlTemplate x:Key="ExpanderControlTemplate1" TargetType="{x:Type Expander}">
-            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="True">
-                <DockPanel>
-                    <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
-                        <ToggleButton.FocusVisualStyle>
-                            <Style>
-                                <Setter Property="Control.Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <Border>
-                                                <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ToggleButton.FocusVisualStyle>
-                        <ToggleButton.Style>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                            <Border Padding="{TemplateBinding Padding}">
-                                                <Grid Background="Transparent" SnapsToDevicePixels="False">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="19"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Ellipse x:Name="circle" Fill="Transparent" HorizontalAlignment="Center" Height="19" Stroke="white" VerticalAlignment="Center" Width="19"/>
-                                                    <Path x:Name="arrow" Data="M1,1.5L4.5,5 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="False" Stroke="white" StrokeThickness="2" VerticalAlignment="Center"/>
-                                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsChecked" Value="True">
-                                                    <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF5593FF"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFF3F9FF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF3C77DD"/>
-                                                    <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFD9ECFF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FFBCBCBC"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFE6E6E6"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="#FF707070"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ToggleButton.Style>
-                    </ToggleButton>
-                    <ContentPresenter x:Name="ExpandSite" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" DockPanel.Dock="Bottom" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                </DockPanel>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsExpanded" Value="True">
-                    <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
-                </Trigger>
-                <Trigger Property="ExpandDirection" Value="Right">
-                    <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
-                    <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
-                    <Setter Property="Style" TargetName="HeaderSite">
-                        <Setter.Value>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                            <Border Padding="{TemplateBinding Padding}">
-                                                <Grid Background="Transparent" SnapsToDevicePixels="False">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="19"/>
-                                                        <RowDefinition Height="*"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid>
-                                                        <Grid.LayoutTransform>
-                                                            <TransformGroup>
-                                                                <RotateTransform Angle="-90"/>
-                                                            </TransformGroup>
-                                                        </Grid.LayoutTransform>
-                                                        <Ellipse x:Name="circle" Fill="Transparent" HorizontalAlignment="Center" Height="19" Stroke="white" VerticalAlignment="Center" Width="19"/>
-                                                        <Path x:Name="arrow" Data="M1,1.5L4.5,5 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="False" Stroke="white" StrokeThickness="2" VerticalAlignment="Center"/>
-                                                    </Grid>
-                                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsChecked" Value="True">
-                                                    <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF5593FF"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFF3F9FF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF3C77DD"/>
-                                                    <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFD9ECFF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FFBCBCBC"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFE6E6E6"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="#FF707070"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="ExpandDirection" Value="Up">
-                    <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
-                    <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
-                    <Setter Property="Style" TargetName="HeaderSite">
-                        <Setter.Value>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                            <Border Padding="{TemplateBinding Padding}">
-                                                <Grid Background="Transparent" SnapsToDevicePixels="False">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="19"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid>
-                                                        <Grid.LayoutTransform>
-                                                            <TransformGroup>
-                                                                <RotateTransform Angle="180"/>
-                                                            </TransformGroup>
-                                                        </Grid.LayoutTransform>
-                                                        <Ellipse x:Name="circle" Fill="White" HorizontalAlignment="Center" Height="19" Stroke="#FF333333" VerticalAlignment="Center" Width="19"/>
-                                                        <Path x:Name="arrow" Data="M1,1.5L4.5,5 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="False" Stroke="#FF333333" StrokeThickness="2" VerticalAlignment="Center"/>
-                                                    </Grid>
-                                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsChecked" Value="True">
-                                                    <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF5593FF"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFF3F9FF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF3C77DD"/>
-                                                    <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFD9ECFF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FFBCBCBC"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFE6E6E6"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="#FF707070"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="ExpandDirection" Value="Left">
-                    <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
-                    <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
-                    <Setter Property="Style" TargetName="HeaderSite">
-                        <Setter.Value>
-                            <Style TargetType="{x:Type ToggleButton}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                            <Border Padding="{TemplateBinding Padding}">
-                                                <Grid Background="Transparent" SnapsToDevicePixels="False">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="19"/>
-                                                        <RowDefinition Height="*"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid>
-                                                        <Grid.LayoutTransform>
-                                                            <TransformGroup>
-                                                                <RotateTransform Angle="90"/>
-                                                            </TransformGroup>
-                                                        </Grid.LayoutTransform>
-                                                        <Ellipse x:Name="circle" Fill="White" HorizontalAlignment="Center" Height="19" Stroke="#FF333333" VerticalAlignment="Center" Width="19"/>
-                                                        <Path x:Name="arrow" Data="M1,1.5L4.5,5 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="False" Stroke="#FF333333" StrokeThickness="2" VerticalAlignment="Center"/>
-                                                    </Grid>
-                                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsChecked" Value="True">
-                                                    <Setter Property="Data" TargetName="arrow" Value="M1,4.5L4.5,1 8,4.5"/>
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF5593FF"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFF3F9FF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FF3C77DD"/>
-                                                    <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFD9ECFF"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Stroke" TargetName="circle" Value="#FFBCBCBC"/>
-                                                    <!--<Setter Property="Fill" TargetName="circle" Value="#FFE6E6E6"/>-->
-                                                    <Setter Property="Stroke" TargetName="arrow" Value="#FF707070"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="Button.IsDefaulted" Value="True">
-                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="DeepSkyBlue"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="Transparent"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
-                </Trigger>
-                <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="Transparent"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" TargetName="border" Value="Transparent"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
-                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
     </Window.Resources>
 
     <Window.DataContext>
@@ -392,7 +87,7 @@
                             </Style.Triggers>
                         </Style>
                     </MenuItem.Style>
-                </MenuItem >
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportConfig}" FontSize="17" Foreground="Black" >
                     <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportDataStore}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Full" FontSize="17" Foreground="Black"/>
@@ -451,7 +146,7 @@
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Sensor_SetFlag}" IsCheckable="True">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Checked">
-                                <i:InvokeCommandAction Command="{Binding CheckFlagCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding SetSensorFlagCommand}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </MenuItem>
@@ -506,7 +201,7 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>
                 <Separator/>
-                <MenuItem IsCheckable="True" IsChecked="True" Name="mnuFloorPlan" Header="{x:Static resx:GUI.MainForm_Tab_View_FloorPlan}" Foreground="Black"></MenuItem>
+                <MenuItem IsCheckable="True" IsChecked="{Binding MainFormModel.ShowFloorPlanTab}" x:Name="mnuFloorPlan" Header="{x:Static resx:GUI.MainForm_Tab_View_FloorPlan}" Foreground="Black"/>
 
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
@@ -534,7 +229,7 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="{x:Null}" >
+            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="DarkGray" >
                 <TextBlock  x:Name="LblSbMessage" Text="{Binding Lastmessage}" HorizontalAlignment="Stretch"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="0" BorderBrush="{x:Null}" Padding="1">
@@ -565,7 +260,7 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SearchingLights}" Value="True">
+                                    <DataTrigger Binding="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=SearchingLights}" Value="True">
                                         <Setter Property="Source" Value="/WinHue3;component/Resources/magnifier.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -590,8 +285,8 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <controls:CommandComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" Command="{Binding ChangeBridgeCommand}">
-                        <controls:CommandComboBox.Style>
+                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
+                        <ComboBox.Style>
                             <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
                                 <Setter Property="Background" Value="Transparent"/>
@@ -602,8 +297,8 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </controls:CommandComboBox.Style>
-                    </controls:CommandComboBox>
+                        </ComboBox.Style>
+                    </ComboBox>
                 </Grid>
             </StatusBarItem>
         </StatusBar>
@@ -629,97 +324,109 @@
                     <RowDefinition Height="auto" MinHeight="472"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
-
+                    <WrapPanel Height="36"></WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <sliders:BindableHueSlider  x:Name="SlHue" Height="22" VerticalAlignment="Top" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" BorderThickness="2" BorderBrush="#FF4951D1" SmallChange="1" LargeChange="100">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewKeyUp">
-                                <behaviors:InvokeDelegateCommandAction Command="{Binding HueKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <sliders:BindableHueSlider.Background>
-                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
-                                <GradientStop Color="#FFFF0000" />
-                                <GradientStop Color="#FEFFFF00" Offset="0.195" />
-                                <GradientStop Color="#FE00FF00" Offset="0.389" />
-                                <GradientStop Color="#FE00FFFF" Offset="0.5"   />
-                                <GradientStop Color="#FE0000FF" Offset="0.715" />
-                                <GradientStop Color="#FEFF00FF" Offset="0.856" />
-                                <GradientStop Color="#FFFF0000" Offset="1.0"   />
-                            </LinearGradientBrush>
-                        </sliders:BindableHueSlider.Background>
-                    </sliders:BindableHueSlider>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlBri" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" Width="Auto" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1" LargeChange="3">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewKeyUp">
-                                <behaviors:InvokeDelegateCommandAction Command="{Binding BriKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <sliders:BindableSlider.Background>
-                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                <GradientStop Color="White" Offset="1"/>
-                                <GradientStop Color="Black" Offset="0"/>
-                            </LinearGradientBrush>
-                        </sliders:BindableSlider.Background>
-                    </sliders:BindableSlider>
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableHueSlider  x:Name="SlHue" Height="23" VerticalAlignment="Top" Width="257" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" SmallChange="1" LargeChange="100">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding HueKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableHueSlider.Background>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
+                                    <GradientStop Color="#FFFF0000" />
+                                    <GradientStop Color="#FEFFFF00" Offset="0.195" />
+                                    <GradientStop Color="#FE00FF00" Offset="0.389" />
+                                    <GradientStop Color="#FE00FFFF" Offset="0.5"   />
+                                    <GradientStop Color="#FE0000FF" Offset="0.715" />
+                                    <GradientStop Color="#FEFF00FF" Offset="0.856" />
+                                    <GradientStop Color="#FFFF0000" Offset="1.0"   />
+                                </LinearGradientBrush>
+                            </sliders:BindableHueSlider.Background>
+                        </sliders:BindableHueSlider>
+                        <xctk:DoubleUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding ElementName=SlHue, Path=IsEnabled, Converter={StaticResource DoubleToUshortConverter}}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
+                    </WrapPanel>
+
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" />
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableSlider x:Name="SlBri" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0"  Width="257" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding BriKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableSlider.Background>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="White" Offset="1"/>
+                                    <GradientStop Color="Black" Offset="0"/>
+                                </LinearGradientBrush>
+                            </sliders:BindableSlider.Background>
+                        </sliders:BindableSlider>
+                        <xctk:ByteUpDown Height="23" Width="66" Margin="5,0,0,0" Value="{Binding MainFormModel.SliderBri}" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderBriChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                    </WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlSat" Height="22" VerticalAlignment="Top" Maximum="255" Minimum="0" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1" LargeChange="3">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewKeyUp">
-                                <behaviors:InvokeDelegateCommandAction Command="{Binding SatKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <sliders:BindableSlider.Background>
-                            <LinearGradientBrush>
-                                <GradientStop Color="White" x:Name="SlSatStartGradient"/>
-                                <GradientStop Color="{Binding Hue, ElementName=SlHue}" Offset="1" x:Name="SlSatEndGradient"/>
-                            </LinearGradientBrush>
-                        </sliders:BindableSlider.Background>
-                    </sliders:BindableSlider>
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableSlider x:Name="SlSat" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3" Width="257">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding SatKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableSlider.Background>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="White" x:Name="SlSatStartGradient"/>
+                                    <GradientStop Color="{Binding Hue, ElementName=SlHue}" Offset="1" x:Name="SlSatEndGradient"/>
+                                </LinearGradientBrush>
+                            </sliders:BindableSlider.Background>
+                        </sliders:BindableSlider>
+                        <xctk:ByteUpDown Value="{Binding MainFormModel.SliderSat}" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Height="23" Width="66" Margin="5,0,0,0" behaviors:CommandBehavior.Command="{Binding SliderSatChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                    </WrapPanel>
                     <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <sliders:BindableSlider x:Name="SlCt" Height="22" VerticalAlignment="Top" Maximum="500" Margin="10" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" BorderThickness="2" BorderBrush="#FF4951D1" LargeChange="3">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewKeyUp">
-                                <behaviors:InvokeDelegateCommandAction Command="{Binding CtKeyPressCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <sliders:BindableSlider.Background>
-                            <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                                <GradientStop Color="#FFFF8912" Offset="0"/>
-                                <GradientStop Color="#FFFFF9FD" Offset="1"/>
-                            </LinearGradientBrush>
-                        </sliders:BindableSlider.Background>
-                    </sliders:BindableSlider>
-                    <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
-                        <Label.Style>
-                            <Style TargetType="Label">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=TabType, Path=SelectedValue}" Value="tiLIFX">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableSlider x:Name="SlCt" Height="23" VerticalAlignment="Top" Maximum="500" Width="257" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding CtKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableSlider.Background>
+                                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                    <GradientStop Color="#FFFF8912" Offset="0"/>
+                                    <GradientStop Color="#FFFFF9FD" Offset="1"/>
+                                </LinearGradientBrush>
+                            </sliders:BindableSlider.Background>
+                        </sliders:BindableSlider>
+                        <xctk:DoubleUpDown Height="23" Width="66" IsEnabled="{Binding ElementName=SlCt, Path=IsEnabled}" Value="{Binding MainFormModel.SliderCt, Converter={StaticResource DoubleToUshortConverter}}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Minimum="153" Maximum="500"/>
 
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-                    </Label>
-                    <sliders:XYSliders Height="124" XValue="{Binding MainFormModel.SliderX, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" YValue="{Binding MainFormModel.SliderY, Converter={StaticResource DoubleToDecimalConverter}, Mode=TwoWay}" Command="{Binding SliderXyChangedCommand}" XSliderLabel="{x:Static resx:GUI.MainForm_Sliders_XColorSpace}" YSliderLabel="{x:Static resx:GUI.MainForm_Sliders_YColorSpace}" OldXValue="{Binding MainFormModel.OldSliderX, Mode=OneWayToSource}" OldYValue="{Binding MainFormModel.OldSliderY, Mode=OneWayToSource}" _FontColor="White" _BackgroundColor="{StaticResource HeaderBackgroundBrush}" >                        
-                        <sliders:XYSliders.Style>
-                            <Style TargetType="sliders:XYSliders">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=TabType, Path=SelectedValue}" Value="tiLIFX">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
+                    </WrapPanel>
 
-                                </Style.Triggers>
-                            </Style>
-                        </sliders:XYSliders.Style>
-                    </sliders:XYSliders>
+                    <WrapPanel Margin="10">
+                        <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="5,0,0,0"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                        <sliders:BindableSlider x:Name="SlX" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
+
+                        <xctk:DecimalUpDown Value="{Binding ElementName=SlX, Path=Value}" IsEnabled="{Binding ElementName=SlX, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
+                        <sliders:BindableSlider x:Name="SlY" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" OldValue="{Binding MainFormModel.OldSliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
+                        <xctk:DecimalUpDown Value="{Binding ElementName=SlY, Path=Value}" IsEnabled="{Binding ElementName=SlY, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
+
+                    </WrapPanel>
                     <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <sliders:BindableSlider x:Name="SlTt" Maximum="65535" Minimum="-1" Margin="10" IsSnapToTickEnabled="True" SmallChange="1" SnapsToDevicePixels="True" Value="{Binding SliderTt, Converter={StaticResource SliderToUshortConverter}, FallbackValue=-1}" IsMoveToPointEnabled="True" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Style="{StaticResource {x:Type Slider}}" LargeChange="100" />
-
+                    <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <xctk:TimeSpanUpDown Value="{Binding SliderTt, Converter={StaticResource TimeSpanToUShortConverter}}" Maximum="01:49:13.5" Minimum="0" Width="99" FractionalSecondsDigitsCount="1" Watermark="(default)"/>
+                        <!--<controls:WinHueTransitionTimeUpDown Value="{Binding SliderTt}" IsEnabled="{Binding CanTT}" Height="21" Width="136" ToolTip="{x:Static resx:GUI.TransitionTimeToolTip}" />-->
+                    </WrapPanel>
 
 
                 </StackPanel>
@@ -728,22 +435,22 @@
                 <TabItem Header="{x:Static resx:GUI.AllObjects}">
                     <Grid Background="#FFE5E5E5">
                         <ListView x:Name="LvMainObjects"  
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                SelectedItem="{Binding SelectedHueObject}" 
-                SelectionChanged="LvMainObjects_SelectionChanged" 
-                SelectionMode="Single" 
-                VerticalContentAlignment="Stretch" Grid.Column="0" 
-                IsEnabled="{Binding EnableListView}" 
-                behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
-                behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
-                behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
-                behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                ItemsSource="{Binding ListBridgeObjects}"
-                Margin="0,0,0,0.333">
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                            SelectedItem="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=SelectedObject}" 
+                            SelectionChanged="LvMainObjects_SelectionChanged" 
+                            SelectionMode="Single" 
+                            VerticalContentAlignment="Stretch" Grid.Column="0" 
+                            behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
+                            behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
+                            behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
+                            behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
+                            behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
+                            ItemsSource="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=CurrentBridgeHueObjectsList}"
+                            Margin="0,0,0,0.333" MaxHeight="8000">
 
                             <ListView.Resources>
                                 <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
+                                    <VirtualizingStackPanel>
                                     <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                                         <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
                                         <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
@@ -760,6 +467,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </WrapPanel>
+                                    </VirtualizingStackPanel>
                                 </DataTemplate>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Style.Resources>
@@ -867,7 +575,7 @@
                             <ComboBox Width="200" ItemsSource="{Binding ListFloorPlans}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedFloorPlan}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding SelectedFloorPlanChangedCommand}"></i:InvokeCommandAction>
+                                        <i:InvokeCommandAction Command="{Binding SelectedFloorPlanChangedCommand}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
@@ -887,7 +595,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                                 <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
+                                    <Style TargetType="{x:Type ListBoxItem}">
                                         <Style.Resources>
                                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
                                         </Style.Resources>
@@ -921,7 +629,7 @@
                                                 <behaviors:DragBehavior/>
                                             </i:Interaction.Behaviors>
                                             <Image Source="{Binding Image}" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
-                                            <TextBlock Text="{Binding Label}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=WrapPanel}, Path=ActualWidth  }" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}"/>
+                                            <TextBlock Text="{Binding Label}" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}}" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}"/>
                                         </WrapPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>

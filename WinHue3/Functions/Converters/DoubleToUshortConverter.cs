@@ -9,14 +9,13 @@ namespace WinHue3.Functions.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return -1;
+            if (value == null) return null;
             return System.Convert.ToDouble(value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
-            if ((double) value == -1) return null;
+            if (value == null) return null;
             return System.Convert.ToUInt16(value);
 
         }

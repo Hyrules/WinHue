@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
@@ -13,36 +15,41 @@ using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 
 namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 {
-    [DataContract,Serializable]
+    [JsonObject]
     public class DataStore
     {
-        [DataMember(EmitDefaultValue = false,IsRequired =false),HueProperty]
-        public Dictionary<string,Light> lights { get; set; }
+        public Dictionary<string, Light> lights { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Group> groups { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Schedule> schedules { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Scene> scenes { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Sensor> sensors { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Rule> rules { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public Dictionary<string, Resourcelink> resourcelinks { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), HueProperty]
         public BridgeSettings config { get; set; }
+
+        public List<IHueObject> ToList()
+        {
+            List<IHueObject> huelist = new List<IHueObject>();
+            huelist.AddRange(lights.Select(x => {x.Value.Id = x.Key;return x.Value;}).ToList());
+            huelist.AddRange(groups.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
+            huelist.AddRange(schedules.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
+            huelist.AddRange(sensors.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
+            huelist.AddRange(scenes.Select(x => { x.Value.Id = x.Key; return  x.Value; }).ToList());
+            huelist.AddRange(rules.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
+            huelist.AddRange(resourcelinks.Select(x => { x.Value.Id = x.Key; return x.Value; }).ToList());
+            return huelist;
+        }
 
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

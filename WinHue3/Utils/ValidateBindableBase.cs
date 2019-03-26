@@ -17,6 +17,7 @@ namespace WinHue3.Utils
 
         protected ValidatableBindableBase()
         {
+            _isChanged = false;
             this._validationContext = new ValidationContext(this);
         }
 

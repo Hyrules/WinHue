@@ -1,33 +1,34 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
 {
-    [DataContract]
+    [JsonObject]
     public class LightLevelState : ValidatableBindableBase, ISensorStateBase
     {
         private ushort? _lightlevel;
         private bool? _dark;
         private bool? _daylight;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize,ReadOnly(true)]
         public ushort? lightlevel
         {
             get => _lightlevel;
             set => SetProperty(ref _lightlevel,value);
         }
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize,ReadOnly(true)]
         public bool? dark
         {
             get => _dark;
             set => SetProperty(ref _dark,value);
         }
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize, ReadOnly(true)]
         public bool? daylight
         {
             get => _daylight;
@@ -36,7 +37,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

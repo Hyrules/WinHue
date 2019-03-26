@@ -15,7 +15,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             Version api = Version.Parse(ApiVersion);
             Version limit = Version.Parse("1.20.0");
             if (api < limit) return false;
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate2\": {\"autoinstall\" : "+Serializer.SerializeToJson(autoinstall)+"}}");
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate2\": {\"autoinstall\" : "+Serializer.SerializeJsonObject(autoinstall)+"}}");
             switch (comres.Status)
             {
                 case WebExceptionStatus.Success:

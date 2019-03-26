@@ -1,30 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
 {
     public class ScheduleJsonConverter : JsonConverter
     {
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             Schedule oldsch = (Schedule) value;
-            List<PropertyInfo> prop = oldsch.GetType().GetListHueProperties();
+            List<PropertyInfo> prop = oldsch.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList();
 
             writer.WriteStartObject();
             foreach (PropertyInfo p in prop)
             {
                 if (p.GetValue(oldsch) == null) continue;
+                if (p.GetCustomAttributes(typeof(JsonIgnoreAttribute)).Count() == 1) continue;
                 writer.WritePropertyName(p.Name);
                 if (p.Name == "command")
                 {
                     writer.WriteStartObject();
-                    List<PropertyInfo> pi = oldsch.command.GetType().GetListHueProperties();
+                    List<PropertyInfo> pi = oldsch.command.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList(); ;
                     foreach (PropertyInfo pc in pi)
                     {
                         if(pc.GetValue(oldsch.command) == null) continue;
@@ -55,6 +60,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
 
             
         }
+
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
@@ -101,6 +107,26 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
                 newSchedule.command.body = JsonConvert.SerializeObject(obj["command"]["body"]);
             if (obj["command"]["method"] != null)
                 newSchedule.command.method = obj["command"]["method"].Value<string>();
+
+            if (newSchedule.localtime == null) return newSchedule;
+
+            if (newSchedule.localtime.Contains("PT"))
+            {
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+            }
+            else if (newSchedule.localtime.Contains("W"))
+            {
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+            }
+            else if (newSchedule.localtime.Contains("T"))
+            {
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+            }
+            else
+            {
+                newSchedule.Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+            }
+
             return newSchedule;
         }
 

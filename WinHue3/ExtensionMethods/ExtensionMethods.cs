@@ -37,23 +37,6 @@ namespace WinHue3.ExtensionMethods
 
     }
 
-    public static class TaskUtilities
-    {
-#pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
-        public static async void FireAndForgetSafeAsync(this Task task, IErrorHandler handler = null)
-#pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
-        {
-            try
-            {
-                await task;
-            }
-            catch (Exception ex)
-            {
-                handler?.HandleError(ex);
-            }
-        }
-    }
-
     public static class StringExtensionMethods
     {
         /// <summary>
@@ -120,87 +103,7 @@ namespace WinHue3.ExtensionMethods
             return Nullable.GetUnderlyingType(n.GetType()) != null;
         }
 
-        public static string GetHueType(this object obj)
-        {
-            HueType ht = obj.GetType().GetCustomAttribute<HueType>();
-            return ht?.HueObjectType;
-        }
 
-      /*  public static List<PropertyInfo> GetListHueProperties(this  obj)
-        {
-            if (obj is Type) return ((Type) obj).GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
-            return obj?.GetType().GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
-        }*/
-
-        public static PropertyInfo[] GetArrayHueProperties(this object obj)
-        {
-            if (obj is Type) return ((Type)obj).GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
-            return obj?.GetType().GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
-        }
-
-    }
-
-    public static class TypeExtensionMethods
-    {
-        public static string GetHueType(this Type type)
-        {
-            HueType ht = type.GetCustomAttribute<HueType>();
-            return ht?.HueObjectType;
-        }
-
-        public static PropertyInfo[] GetHueProperties(this Type type)
-        {
-            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToArray();
-        }
-
-        public static List<PropertyInfo> GetListHueProperties(this Type type)
-        {
-            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList();
-        }
-
-        public static bool HasHueProperties(this Type type)
-        {
-            return type.GetProperties().Where(pi => Attribute.IsDefined(pi, typeof(HuePropertyAttribute))).ToList().Count > 0;
-        }
-
-        public static PropertyInfo[] GetPublicProperties(this Type type)
-        {
-            if (type.IsInterface)
-            {
-                var propertyInfos = new List<PropertyInfo>();
-
-                var considered = new List<Type>();
-                var queue = new Queue<Type>();
-                considered.Add(type);
-                queue.Enqueue(type);
-                while (queue.Count > 0)
-                {
-                    var subType = queue.Dequeue();
-                    foreach (var subInterface in subType.GetInterfaces())
-                    {
-                        if (considered.Contains(subInterface)) continue;
-
-                        considered.Add(subInterface);
-                        queue.Enqueue(subInterface);
-                    }
-
-                    var typeProperties = subType.GetProperties(
-                        BindingFlags.FlattenHierarchy
-                        | BindingFlags.Public
-                        | BindingFlags.Instance);
-
-                    var newPropertyInfos = typeProperties
-                        .Where(x => !propertyInfos.Contains(x));
-
-                    propertyInfos.InsertRange(0, newPropertyInfos);
-                }
-
-                return propertyInfos.ToArray();
-            }
-
-            return type.GetProperties(BindingFlags.FlattenHierarchy
-                                      | BindingFlags.Public | BindingFlags.Instance);
-        }
     }
 
     public static class ObservableCollectionExtensionMethods
@@ -258,6 +161,17 @@ namespace WinHue3.ExtensionMethods
             }
         }
 
+        public static void Remove<T>(this ObservableCollection<T> collection, Func<T,bool> predicate)
+        {
+            foreach (var item in collection.ToList())
+            {
+                if (predicate(item))
+                {
+                    collection.Remove(item);
+                }
+            }
+        }
+
     }
 
     public static class ArrayExtensionMethods
@@ -275,23 +189,6 @@ namespace WinHue3.ExtensionMethods
         }
     }
 
-    public static class DictionaryExtensionMethods
-    {
-        public static List<T> ToHueList<T>(this Dictionary<string, T> dic) where T : IHueObject
-        {
-            List<T> newlist = new List<T>();
-
-            foreach (KeyValuePair<string, T> kvp in dic)
-            {
-                T obj = kvp.Value;
-                obj.Id = kvp.Key;
-                newlist.Add(obj);
-            }
-
-            return newlist;
-        }
-
-    }
 
     public static class BitmapImageExtensionMethods
     {
@@ -327,23 +224,5 @@ namespace WinHue3.ExtensionMethods
         }
     }
 
-    /*
-    public static class CommonPropertiesExtensionMethods
-    {
 
-        public static void CopyValues(this CommonProperties commonprop, CommonProperties target, CommonProperties source)
-        {
-            Type t = typeof(CommonProperties);
-
-            var properties = t.GetProperties().Where(prop => prop.CanRead && prop.CanWrite);
-
-            foreach (var prop in properties)
-            {
-                var value = prop.GetValue(source, null);
-                if (value != null)
-                    prop.SetValue(target, value, null);
-            }
-        }
-
-    }*/
 }

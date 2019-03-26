@@ -24,17 +24,27 @@ namespace WinHue3.Functions.PropertyGrid
             InitializeComponent();
         }
 
-        public object SelectedObject
-        {
-            get => PropertyGrid.SelectedObject;
-            set => PropertyGrid.SelectedObject = value;
-        }
-
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
             this.Hide();
         }
+
+        public object SelectedObject
+        {
+            get { return (object)GetValue(SelectedObjectProperty); }
+            set { SetValue(SelectedObjectProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedObject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedObjectProperty =
+            DependencyProperty.Register("SelectedObject", typeof(object), typeof(Form_PropertyGrid), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedObjectChanged));
+
+        private static void OnSelectedObjectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Form_PropertyGrid fpg = d as Form_PropertyGrid;
+            fpg.PropertyGrid.SelectedObject = e.NewValue;
+        }
+
     }
 }

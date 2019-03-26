@@ -8,23 +8,20 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
     /// <summary>
     /// Actions.
     /// </summary>
-    [DataContract,JsonConverter(typeof(RuleActionJsonConverter)),ExpandableObject]
+    [JsonObject,JsonConverter(typeof(RuleActionJsonConverter)),ExpandableObject]
     public class RuleAction
     {
         /// <summary>
         /// Address.
         /// </summary>
-        [HueProperty, DataMember]
         public HueAddress address { get; set; }
         /// <summary>
         /// Method.
         /// </summary>
-        [HueProperty, DataMember]
         public string method { get; set; }
         /// <summary>
         /// Body.
         /// </summary>
-        [HueProperty, DataMember]
         public string body { get; set; }
 
         /// <summary>

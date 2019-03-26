@@ -17,33 +17,33 @@ namespace WinHue3.Functions.Scenes.View
     {
 
         private readonly SceneMappingViewModel _smv;
-        private Bridge _bridge;
+
         public Form_SceneMapping()
         {
             InitializeComponent();
             _smv = DataContext as SceneMappingViewModel;
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            _bridge = bridge;
-            List<Light> lresult = await HueObjectHelper.GetBridgeLightsAsyncTask(bridge);
+
+            List<Light> lresult = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (lresult != null)
             {
-                List<Scene> sresult = await HueObjectHelper.GetBridgeScenesAsyncTask(bridge);
+                List<Scene> sresult = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Scene>();
                 if (sresult != null)
                 {
                     
-                    _smv.Initialize(sresult, lresult, _bridge);
+                    _smv.Initialize(sresult, lresult);
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(bridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
                 }
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(bridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
             }
         }
 

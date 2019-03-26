@@ -8,8 +8,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using System.Windows.Media;
 using WinHue3.Functions.RoomMap;
 using Xceed.Wpf.AvalonDock.Controls;
+
 
 namespace WinHue3.Functions.Behaviors
 {
@@ -59,6 +61,7 @@ namespace WinHue3.Functions.Behaviors
 
         private void AssociatedObject_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
+
             if (!AssociatedObject.IsMouseCaptured) return;
             FrameworkElement fe = sender as FrameworkElement;
             Canvas canvas = fe.FindVisualAncestor<Canvas>();    

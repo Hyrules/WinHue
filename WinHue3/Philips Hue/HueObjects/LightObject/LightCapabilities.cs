@@ -11,14 +11,14 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
-    [DataContract]
+    [JsonObject]
     public class LightCapabilities
     {
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities"), Description("Certified"), ReadOnly(true)]
+        [Category("Light Capabilities"), Description("Certified")]
         public bool certified { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities"), Description("Control"), ReadOnly(true),ExpandableObject]
+        [Category("Light Capabilities"), Description("Control"),ExpandableObject]
         public LightCapabilitiesControl control { get; set; }
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Capabilities"), Description("Streaming"), ReadOnly(true),ExpandableObject]
+        [Category("Light Capabilities"), Description("Streaming"),ExpandableObject]
         public LightCapabilitiesStreaming streaming { get;set; }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

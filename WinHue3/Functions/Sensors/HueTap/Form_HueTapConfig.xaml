@@ -6,7 +6,7 @@
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:hueTap="clr-namespace:WinHue3.Functions.Sensors.HueTap"
-        Title="{x:Static resx:GUI.HueTapSetupForm_Title}" Height="615" Width="556" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/huetap.png" BorderThickness="2" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}">
+        Title="{x:Static resx:GUI.HueTapSetupForm_Title}" Height="615" Width="556" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/huetap.png" >
     <Window.DataContext>
         <hueTap:HueTapConfigViewModel/>
     </Window.DataContext>

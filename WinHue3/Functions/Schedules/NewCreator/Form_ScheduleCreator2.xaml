@@ -1,20 +1,21 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- xmlns:resx="clr-namespace:WinHue3.Resources"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
-        xmlns:slider ="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:enum="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
-        xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:WinHue3.Resources"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:local="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
+    xmlns:slider ="clr-namespace:WinHue3.Functions.Schedules.NewCreator.Controls"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:enum="clr-namespace:WinHue3.Functions.Schedules.NewCreator"
+    xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:controls="clr-namespace:WinHue3.Controls"
     xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:utils="clr-namespace:WinHue3.Utils"
     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
     x:Class="WinHue3.Functions.Schedules.NewCreator.Form_ScheduleCreator2"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.ScheduleCreatorForm_Title}" Height="553.578" Width="712.986" WindowStartupLocation="CenterOwner">
@@ -72,23 +73,25 @@
                 </Style>
             </ContentControl.Style>
         </ContentControl>
-        <controls:CommandComboBox x:Name="cbScheduleObjectType"  HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="339" Command="{Binding ChangeContentCommand}" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
+        <ComboBox x:Name="cbScheduleObjectType"  HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="339" behaviors:CommandBehavior.Command="{Binding ChangeContentCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" SelectedValue="{Binding Content}" SelectedValuePath="Tag">
             <ComboBoxItem Content="Lights" Tag="{x:Static local:ContentTypeVm.Light}"/>
             <ComboBoxItem Content="Group" Tag="{x:Static local:ContentTypeVm.Group}"/>
             <ComboBoxItem Content="Sensors" Tag="{x:Static local:ContentTypeVm.Sensor}"/>
             <ComboBoxItem Content="Schedules" Tag="{x:Static local:ContentTypeVm.Schedule}"/>
             <ComboBoxItem Content="Scenes" Tag="{x:Static local:ContentTypeVm.Scene}"/>
-        </controls:CommandComboBox>
+        </ComboBox>
         <Button x:Name="btnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="613,485,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click" />
         <Button x:Name="btnSave"  Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="533,485,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
 
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="{Binding Header.Name}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.Label_Name}"/>
+        
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,46,0,0" TextWrapping="Wrap" Text="{Binding Header.Description}" VerticalAlignment="Top" Width="339" Watermark="{x:Static resx:GUI.ScheduleCreatorForm_Description}"/>
-        <controls:CommandComboBox x:Name="wcbScheduleType"  HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" Watermark="Schedule Type" Command="{Binding ChangeDateTimeFormat}">
+        
+        <ComboBox x:Name="wcbScheduleType"  HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="339" SelectedValuePath="Tag" SelectedValue="{Binding Header.ScheduleType}" behaviors:CommandBehavior.Command="{Binding ChangeDateTimeFormat}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged">
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Schedule}" Tag="T"/>
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Alarm}" Tag="W"/>
             <ComboBoxItem Content="{x:Static resx:GUI.ScheduleCreatorForm_Timer}" Tag="PT" />
-        </controls:CommandComboBox>
+        </ComboBox>
         <xctk:CheckComboBox HorizontalAlignment="Left" Height="20" Margin="199,101,0,0" VerticalAlignment="Top" Width="150" DisplayMemberPath="Text" ValueMemberPath="Name">
             <xctk:CheckComboBox.Style>
                 <Style TargetType="xctk:CheckComboBox">
@@ -98,7 +101,6 @@
                             <Setter Property="IsEnabled" Value="True"/>
                         </DataTrigger>
                     </Style.Triggers>
-
                 </Style>
             </xctk:CheckComboBox.Style>
             <xctk:CheckComboBox.SelectedValue>

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
@@ -12,13 +11,11 @@ namespace WinHue3.Functions.Sensors.Creator
     public partial class Form_SensorCreator : Window
     {
         private SensorCreatorViewModel _scvm;
-        private readonly Bridge _bridge;
         private string _sensorId;
         private bool _editing;
 
-        public Form_SensorCreator(Bridge bridge, Sensor obj = null)
+        public Form_SensorCreator(Sensor obj = null)
         {
-            _bridge = bridge;
             InitializeComponent();
             _scvm = DataContext as SensorCreatorViewModel;
             if (obj != null)
@@ -37,16 +34,16 @@ namespace WinHue3.Functions.Sensors.Creator
             bool result;
             if (!_editing)
             {
-                result = _bridge.CreateObject(sensor);
-                _sensorId = _bridge.LastCommandMessages.LastSuccess.value;
+                result = BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(sensor);
+                _sensorId = BridgeManager.BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
             }
             else
             {
                 sensor.Id = _sensorId;              
-                result = _bridge.ModifyObject(sensor);
+                result = BridgeManager.BridgeManager.Instance.SelectedBridge.ModifyObject(sensor);
                 if (result)
                 {
-                    _bridge.ChangeSensorConfig(sensor.Id,sensor.config);
+                    BridgeManager.BridgeManager.Instance.SelectedBridge.ChangeSensorConfig(sensor.Id,sensor.config);
                 }
 
             }
@@ -58,7 +55,7 @@ namespace WinHue3.Functions.Sensors.Creator
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(_bridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
             }
                                                        
  

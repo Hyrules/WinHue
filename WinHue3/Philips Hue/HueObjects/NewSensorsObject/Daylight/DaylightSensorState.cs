@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
@@ -9,7 +10,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
     /// <summary>
     /// Sensor for the daylight saving time.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class DaylightSensorState : ValidatableBindableBase, ISensorStateBase
     {
  
@@ -18,7 +19,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
         /// <summary>
         /// daylight saving time or not.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public bool? daylight
         {
             get => _daylight;
@@ -27,7 +28,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DataMember, ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

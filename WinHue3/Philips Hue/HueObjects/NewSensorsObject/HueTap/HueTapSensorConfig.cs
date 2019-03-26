@@ -1,10 +1,11 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueTap
 {
-    [DataContract]
+    [JsonObject]
     public class HueTapSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private bool? _on;
@@ -12,7 +13,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.HueTap
         /// <summary>
         /// On off state.
         /// </summary>
-        [HueProperty, DataMember]
         public bool? on
         {
             get => _on;

@@ -6,7 +6,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:daylight="clr-namespace:WinHue3.Functions.Sensors.Daylight"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         x:Class="WinHue3.Functions.Sensors.Daylight.Form_Daylight"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="{x:Static resx:GUI.DaylightForm_Title}" Height="190" Width="288" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/sensor.png" BorderThickness="0" BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=WindowTitleBrush}"
 >
     <Window.DataContext>
@@ -57,7 +59,7 @@
         <Slider x:Name="SlSunsetOffset" HorizontalAlignment="Left" Margin="141,95,0,0" VerticalAlignment="Top" Width="120" Maximum="120" Minimum="-120" SmallChange="1" TabIndex="3" IsSnapToTickEnabled="True" ToolTip="{x:Static resx:GUI.DaylightForm_SunsetOffset_ToolTip}" Value="{Binding Daylight.SunsetOffset}"/>
         <Label Content="{Binding Value, ElementName=SlSunriseOffset}" HorizontalAlignment="Left" Margin="102,64,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Value, ElementName=SlSunsetOffset}" HorizontalAlignment="Left" Margin="102,89,0,0" VerticalAlignment="Top"/>
-        <xctk:WatermarkTextBox x:Name="TbLong" HorizontalAlignment="Left" Margin="141,9,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Longitude , ValidatesOnDataErrors=True ,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{W|E}" MaxLength="9" TabIndex="0" Width="120"/>
-        <xctk:WatermarkTextBox x:Name="TbLat" HorizontalAlignment="Left" Margin="141,38,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Latitude ,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Watermark="DDD.DDDD{N|S}" MaxLength="9" TabIndex="1" Width="120" />
+        <xctk:WatermarkTextBox x:Name="TbLong" HorizontalAlignment="Left" Margin="141,9,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Longitude , ValidatesOnDataErrors=True ,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" MaxLength="9" TabIndex="0" Width="120" Watermark="DDD.DDDD{W|E}"/>
+        <xctk:WatermarkTextBox x:Name="TbLat" HorizontalAlignment="Left" Margin="141,38,0,0" TextWrapping="Wrap" Text="{Binding Daylight.Latitude ,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" MaxLength="9" TabIndex="1" Width="120" Watermark="DDD.DDDD{N|S}"/>
     </Grid>
 </Window>

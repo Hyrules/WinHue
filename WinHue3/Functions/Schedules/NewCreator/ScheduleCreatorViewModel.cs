@@ -7,14 +7,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using log4net.Core;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -32,7 +28,6 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         private ObservableCollection<IHueObject> _listTargetHueObject;
         private ValidatableBindableBase _selectedViewModel;
-        private Bridge _bridge;
         private ScheduleCreatorHeader _header;
         private ContentTypeVm _content;
         private List<IHueObject> _currentHueObjectList;
@@ -53,13 +48,13 @@ namespace WinHue3.Functions.Schedules.NewCreator
             if (Content != ContentTypeVm.Light && Content != ContentTypeVm.Group) return;
             if (_selectedViewModel is ScheduleCreatorSlidersViewModel)
             {
-                string json = Serializer.SerializeToJson(SelectedViewModel);
+                string json = Serializer.SerializeJsonObject(SelectedViewModel);
                 SelectedViewModel = new ScheduleCreatorPropertyGridViewModel();
                 ((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject = Serializer.DeserializeToObject<State>(json);
             }
             else
             {
-                string json = Serializer.SerializeToJson(((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject);
+                string json = Serializer.SerializeJsonObject(((ScheduleCreatorPropertyGridViewModel)SelectedViewModel).SelectedObject);
                 SelectedViewModel = Serializer.DeserializeToObject<ScheduleCreatorSlidersViewModel>(json);
             }
         }
@@ -259,7 +254,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             AdrTarget = new HueAddress
             {
                 api = "api",
-                key = _bridge.ApiKey
+                key = BridgeManager.BridgeManager.Instance.SelectedBridge.ApiKey
             };
 
             switch (_content)
@@ -314,10 +309,9 @@ namespace WinHue3.Functions.Schedules.NewCreator
             }
         }
 
-        public async Task Initialize(Bridge bridge)
+        public async Task Initialize()
         {
-            _bridge = bridge;
-            _currentHueObjectList = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
+            _currentHueObjectList = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
             
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());
@@ -346,17 +340,16 @@ namespace WinHue3.Functions.Schedules.NewCreator
             if(_selectedViewModel is ScheduleCreatorPropertyGridViewModel)
             {
                 ScheduleCreatorPropertyGridViewModel scpg = _selectedViewModel as ScheduleCreatorPropertyGridViewModel;
-                body = Serializer.SerializeToJson(scpg.SelectedObject); 
+                body = Serializer.ModifyJsonObject(scpg.SelectedObject); 
             }
             else if(_selectedViewModel is ScheduleCreatorSlidersViewModel)
             {
                 ScheduleCreatorSlidersViewModel scsv = _selectedViewModel as ScheduleCreatorSlidersViewModel;
-                body = Serializer.SerializeToJson(scsv);
+                body = Serializer.SerializeJsonObject(scsv);
             }
             else
             {
-                body = Serializer.SerializeToJson(
-                    new Philips_Hue.HueObjects.GroupObject.Action() {scene = SelectedTarget.Id});
+                body = Serializer.ModifyJsonObject(new Action() {scene = SelectedTarget.Id});
             }
 
             sc.command.body = body;

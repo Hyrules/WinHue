@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,29 +13,28 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
-    [DataContract]
+    [JsonObject]
     public class LightConfigStartup : ValidatableBindableBase
     {
         private string _mode;
         private bool _configured;
         private PowerCustomSettings _customsettings;
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config Startup"), Description("Mode"), ReadOnly(true)]
+        [Category("Light Config Startup"), Description("Mode")]
         public string mode
         {
             get => _mode; 
             set => SetProperty(ref _mode,value);
         }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config Startup"), Description("Configured"), ReadOnly(true)]
+        [Category("Light Config Startup"), Description("Configured")]
         public bool configured
         {
             get => _configured;
             set => SetProperty(ref _configured, value);
         }
         
-        [CanBeNull]
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Light Config Startup"), Description("Custom Settings"), ExpandableObject]
+        [Category("Light Config Startup"), Description("Custom Settings"), ExpandableObject]
         public PowerCustomSettings customsettings
         {
             get => _customsettings;
@@ -47,7 +47,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <returns></returns>
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
+            return Serializer.SerializeJsonObject(this);
         }
     }
 }

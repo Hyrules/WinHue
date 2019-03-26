@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -8,7 +9,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
     /// <summary>
     /// Rules condition.
     /// </summary>
-    [DataContract,ExpandableObject]
+    [JsonObject,ExpandableObject]
     public class RuleCondition : ValidatableBindableBase
     {
         private HueAddress _address;
@@ -18,7 +19,6 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Address.
         /// </summary>
-        [HueProperty, DataMember]
         public HueAddress address
         {
             get => _address;
@@ -27,7 +27,6 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Operator.
         /// </summary>
-        [HueProperty, DataMember]
         public string @operator
         {
             get => _operator;
@@ -37,7 +36,6 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Value.
         /// </summary>
-        [HueProperty, DataMember]
         public dynamic value
         {
             get => _value;

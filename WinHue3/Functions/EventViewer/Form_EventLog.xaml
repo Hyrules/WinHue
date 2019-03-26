@@ -5,11 +5,8 @@
         xmlns:eventViewer="clr-namespace:WinHue3.Functions.EventViewer"
         x:Name="FormEventLogger" x:Class="WinHue3.Functions.EventViewer.Form_EventLog"
     Title="{x:Static resx:GUI.EventLogForm_Title}" Height="457" Width="925.044" WindowStartupLocation="CenterOwner" Closing="Window_Closing" Icon="/WinHue3;component/Resources/eventlog.png" ResizeMode="CanResizeWithGrip">
-    <Window.DataContext>
-        <eventViewer:EventViewerViewModel/>
-    </Window.DataContext>
     <Grid>
-        <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{Binding EventViewerModel.ListLogEntries}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" Margin="0,0,0,19">
+        <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Source={x:Static eventViewer:EventLog.Instance}, Path=ListLogs}" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" GridLinesVisibility="Horizontal" Margin="0,0,0,19" >
             <DataGrid.Columns>
                 <DataGridTemplateColumn MinWidth="100" Header="Timestamp">
                     <DataGridTemplateColumn.CellTemplate>

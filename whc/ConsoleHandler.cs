@@ -219,14 +219,14 @@ namespace whc
                 }},
                 {"ll", "List the lights available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Light> bresult = _bridge.GetListObjects<Light>();
+                    List<Light> bresult = _bridge.GetListObjects<Light>();
                     if(bresult != null)
                     {
-                        Dictionary<string, Light> listLights = bresult;
-                        foreach(KeyValuePair<string,Light> kvp in listLights)
+                        List<Light> listLights = bresult;
+                        foreach(Light kvp in listLights)
                         {
                             WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, ModelID={kvp.Value.modelid}, Type={kvp.Value.type}");
+                                $"[ID]={kvp.Id}, Name={kvp.name}, ModelID={kvp.modelid}, Type={kvp.type}");
                         } 
                     }               
                     else
@@ -236,14 +236,14 @@ namespace whc
                 }},
                 {"lg", "List the groups available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Group> bresult = _bridge.GetListObjects<Group>();
+                    List<Group> bresult = _bridge.GetListObjects<Group>();
                     if(bresult != null)
                     {
-                        Dictionary<string, Group> listgroups = bresult;
-                        foreach(KeyValuePair<string,Group> kvp in listgroups)
+                        List<Group> listgroups = bresult;
+                        foreach(Group kvp in listgroups)
                         {
                             WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, MembersID=[{string.Join(",", kvp.Value.lights)}], Type={kvp.Value.type}");
+                                $"[ID]={kvp.Id}, Name={kvp.name}, MembersID=[{string.Join(",", kvp.lights)}], Type={kvp.type}");
                         } 
                     }               
                     else
@@ -253,14 +253,14 @@ namespace whc
                 }},
                 {"ls", "List the scenes available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Scene> bresult = _bridge.GetListObjects<Scene>();
+                    List<Scene> bresult = _bridge.GetListObjects<Scene>();
                     if(bresult != null)
                     {
-                        Dictionary<string, Scene> listscenes = bresult;
-                        foreach(KeyValuePair<string,Scene> kvp in listscenes)
+                        List<Scene> listscenes = bresult;
+                        foreach(Scene kvp in listscenes)
                         {
                             WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, MembersID=[{string.Join(",", kvp.Value.lights)}]");
+                                $"[ID]={kvp.Id}, Name={kvp.name}, MembersID=[{string.Join(",", kvp.lights)}]");
                         } 
                     }               
                     else
@@ -270,12 +270,12 @@ namespace whc
                 }},
                 {"lc", "List the schedules available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Schedule> bresult = _bridge.GetListObjects<Schedule>();
+                    List<Schedule> bresult = _bridge.GetListObjects<Schedule>();
                     if(bresult != null)
                     {
-                        foreach(KeyValuePair<string,Schedule> kvp in bresult)
+                        foreach(Schedule kvp in bresult)
                         {
-                            WriteMessageToConsole($"[ID]={kvp.Key}, Name={kvp.Value.name}, Time={kvp.Value.localtime}");
+                            WriteMessageToConsole($"[ID]={kvp.Id}, Name={kvp.name}, Time={kvp.localtime}");
                         } 
                     }               
                     else
@@ -285,15 +285,15 @@ namespace whc
                 }},
                 {"lo", "List the sensors available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Sensor> bresult = _bridge.GetListObjects<Sensor>();
+                    List<Sensor> bresult = _bridge.GetListObjects<Sensor>();
                     
                     if(bresult != null)
                     {
                         
-                        foreach(KeyValuePair<string,Sensor> kvp in bresult)
+                        foreach(Sensor kvp in bresult)
                         {
                             WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, Type={kvp.Value.type}, Model={kvp.Value.modelid}, SwVersion={kvp.Value.swversion}, Manufacturer={kvp.Value.manufacturername}");
+                                $"[ID]={kvp.Id}, Name={kvp.name}, Type={kvp.type}, Model={kvp.modelid}, SwVersion={kvp.swversion}, Manufacturer={kvp.manufacturername}");
                         } 
                     }               
                     else
@@ -303,15 +303,15 @@ namespace whc
                 }},
                 {"lr", "List the rules available in the bridge", delegate(string v)
                 {
-                    Dictionary<string,Rule> bresult = _bridge.GetListObjects<Rule>();
+                    List<Rule> bresult = _bridge.GetListObjects<Rule>();
 
                     if(bresult != null)
                     {
-                        Dictionary<string, Rule> listrules = bresult;
-                        foreach(KeyValuePair<string, Rule> kvp in listrules)
+                        List<Rule> listrules = bresult;
+                        foreach(Rule kvp in listrules)
                         {
                             WriteMessageToConsole(
-                                $"[ID]={kvp.Key}, Name={kvp.Value.name}, Owner={kvp.Value.owner}, Status={kvp.Value.status}, TimesTriggered={kvp.Value.timestriggered}");
+                                $"[ID]={kvp.Id}, Name={kvp.name}, Owner={kvp.owner}, Status={kvp.status}, TimesTriggered={kvp.timestriggered}");
                         } 
                     }               
                     else
@@ -1144,7 +1144,7 @@ namespace whc
             GroupOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine("");
             Console.WriteLine(@"****** SENSORS OPTIONS *******");
-            GroupOpts.WriteOptionDescriptions(Console.Out);
+            SensorOpts.WriteOptionDescriptions(Console.Out);
             Console.WriteLine(@"*** Rules, sensors, scenes, schedules cannot be created by console. Please use WinHue 3 desktop application to create them. ***");
             Console.WriteLine(@"*** You need to pair a bridge with WinHue gui before you send a command to the bridge for the first time.***");
         }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
@@ -8,7 +9,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
     /// <summary>
     /// Sensor for detecting presence.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class PresenceSensorState : ValidatableBindableBase, ISensorStateBase
     {
         private bool? _presence;
@@ -16,7 +17,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
         /// <summary>
         /// Presense detected.
         /// </summary>
-        [HueProperty, DataMember]
         public bool? presence
         {
             get => _presence;
@@ -25,7 +25,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipPresence
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize,ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

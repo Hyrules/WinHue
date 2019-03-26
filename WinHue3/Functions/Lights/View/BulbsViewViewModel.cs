@@ -60,8 +60,8 @@ namespace WinHue3.Functions.Lights.View
                 dt.Columns.Add(lvp.name);
             }
 
-            PropertyInfo[] listproperties = typeof(Light).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "state").ToArray();
-            PropertyInfo[] liststate = typeof(State).GetHueProperties().Where(x => !x.Name.Contains("_inc")).ToArray();
+            PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "state").ToArray();
+            PropertyInfo[] liststate = typeof(State).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList().Where(x => !x.Name.Contains("_inc")).ToArray();
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
 
             listproperties.CopyTo(listPropertyInfos, 0);
@@ -106,8 +106,8 @@ namespace WinHue3.Functions.Lights.View
             DataTable dt = new DataTable();
             dt.Columns.Add("Lights");
 
-            PropertyInfo[] listproperties = typeof(Light).GetHueProperties().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "state").ToArray();
-            PropertyInfo[] liststate = typeof(State).GetHueProperties().Where(x => !x.Name.Contains("_inc")).ToArray();
+            PropertyInfo[] listproperties = typeof(Light).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList().Where(x => !x.Name.Contains("name") && x.Name != "Image" && x.Name != "state").ToArray();
+            PropertyInfo[] liststate = typeof(State).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList().Where(x => !x.Name.Contains("_inc")).ToArray();
             
             PropertyInfo[] listPropertyInfos = new PropertyInfo[listproperties.Length + liststate.Length];
 

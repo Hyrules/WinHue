@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
@@ -9,7 +10,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
     /// <summary>
     /// Humidity Sensor State.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class ClipHumiditySensorState : ValidatableBindableBase, ISensorStateBase
     { 
         private int _humidity;
@@ -17,7 +18,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
         /// <summary>
         /// humidity.
         /// </summary>
-        [HueProperty, DataMember]
         public int humidity
         {
             get => _humidity;
@@ -26,7 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize,ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

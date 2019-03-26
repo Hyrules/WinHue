@@ -16,19 +16,23 @@
     </Window.DataContext>
     <Grid>
         <ToolBarTray Margin="0,0,0,430.667">
-            <ToolBar x:Name="ToolBar" HorizontalAlignment="Left" Margin="0,0,-212,-16.333" VerticalAlignment="Top" Height="29" Width="auto">
-                <Button Command="{Binding RefreshMappingCommand}" ToolTip="{x:Static resx:GUI.Form_SceneMapping_RefreshTooltip}">
-                    <Image Source="/WinHue3;component/Resources/1409707765_reload.png" />
+            <ToolBar x:Name="ToolBar" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="auto">
+                <Button Command="{Binding RefreshGroupViewCommand}" ToolTip="{x:Static resx:GUI.Form_SceneMapping_RefreshTooltip}">
+                    <Image Source="/WinHue3;component/Resources/Reload.png" />
                 </Button>
                 <Separator/>
                 <xctk:WatermarkTextBox x:Name="TbFilter" Width="180" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="1" Watermark="Filter data here..." />
                 <Separator/>
-                <CheckBox x:Name="Checkbox" Content="{x:Static resx:GUI.Form_BulbsViewView_Reverse}" Height="24" VerticalAlignment="Top" IsChecked="{Binding Reverse}" Width="81"/>
+                <CheckBox x:Name="Checkbox" Content="{x:Static resx:GUI.Form_BulbsViewView_Reverse}" Height="24" VerticalAlignment="Top" IsChecked="{Binding Reverse}" Width="56"/>
+            </ToolBar>
+            <ToolBar x:Name="ToolBarEdit">
+                <Button Command="{Binding EditGroupCommand}" >
+                    <Image Height="16" Source="/WinHue3;component/Resources/edit-2.png"></Image>
+                </Button>
             </ToolBar>
         </ToolBarTray>
 
-
-        <xcdg:DataGridControl Margin="0,32,0,-0.333" ItemsSource="{Binding GroupsDetails}" IsCopyCommandEnabled="False" ReadOnly="True">
+        <xcdg:DataGridControl Margin="0,32,0,-0.333" ItemsSource="{Binding GroupsDetails}" IsCopyCommandEnabled="False" ReadOnly="True" SelectedItem="{Binding SelectedGroup}">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView IsAlternatingRowStyleEnabled="True"/>
             </xcdg:DataGridControl.View>

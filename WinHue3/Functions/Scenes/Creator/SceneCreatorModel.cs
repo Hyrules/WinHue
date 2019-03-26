@@ -13,6 +13,7 @@ namespace WinHue3.Functions.Scenes.Creator
 
         public SceneCreatorModel()
         {
+            _name = string.Empty;
             _state = new State() { @on = true };
             _state.on = true;
             _state.transitiontime = null;
@@ -28,15 +29,7 @@ namespace WinHue3.Functions.Scenes.Creator
         public ushort? Hue
         {
             get => _state.hue;
-            set
-            {
-                _state.hue = value;
-                RaisePropertyChanged();
-                if (value == null) return;
-                Ct = null;
-                X = null;
-                Y = null;
-            }
+            set { _state.hue = value;RaisePropertyChanged(); }
         }
 
         public byte? Bri
@@ -56,40 +49,34 @@ namespace WinHue3.Functions.Scenes.Creator
             get => _state.xy?[0];
             set
             {
-                if (value != null)
+                if (value == null)
+                    _state.xy = null;
+                else
                 {
-                    if (_state.xy == null) _state.xy = new decimal[2];
+                    if(_state.xy == null)
+                        _state.xy = new decimal[2];
                     _state.xy[0] = Convert.ToDecimal(value);
+                    RaisePropertyChanged();
                 }
-                if (Y < 0)
-                    Y = 0;
-                RaisePropertyChanged();
-                RaisePropertyChanged("Y");
-                if (value == null) return;
-                Ct = null;
-                Hue = null;
             }
         }
 
         public decimal? Y
         {
             get => _state.xy?[1];
-
             set
             {
-                if (value != null)
+                if (value == null)
+                    _state.xy = null;
+                else
                 {
-                    if (_state.xy == null) _state.xy = new decimal[2];
+                    if (_state.xy == null)
+                        _state.xy = new decimal[2];
                     _state.xy[1] = Convert.ToDecimal(value);
+                    RaisePropertyChanged();
                 }
-                if (X < 0)
-                    X = 0;
-                RaisePropertyChanged();
-                RaisePropertyChanged("X");
-                if (value == null) return;
-                Ct = null;
-                Hue = null;
             }
+        
         }
 
         public string Name
@@ -101,22 +88,13 @@ namespace WinHue3.Functions.Scenes.Creator
         public ushort? Ct
         {
             get => _state.ct;
-            set
-            {
-                _state.ct = value;
-                if (value == null) return;
-                X = null;
-                Y = null;
-                Hue = null;
-            }
+            set { _state.ct = value; RaisePropertyChanged();}
         }
 
-        public uint? TT
+        public ushort? TT
         {
             get => _state.transitiontime;
-            set
-            {
-                _state.transitiontime = value; RaisePropertyChanged("TransitionTimeMessage"); }
+            set { _state.transitiontime = value; RaisePropertyChanged(); }
         }
 
         public bool On
@@ -125,37 +103,6 @@ namespace WinHue3.Functions.Scenes.Creator
             set { _state.on = value; RaisePropertyChanged(); }
         }
 
-        public string TransitionTimeMessage
-        {
-            get
-            {
-                if (TT >= 0)
-                {
-                    int time = (int)(TT * 100);
-                    if (time == 0)
-                    {
-                        return $"{GUI.MainForm_Sliders_TransitionTime} : {GUI.MainForm_Sliders_TransitionTime_Instant}";
-                    }
-                    else if (time > 0 && time < 1000)
-                    {
-                        return $"{GUI.MainForm_Sliders_TransitionTime} : {(double)time:0.##} {GUI.MainForm_Sliders_TransitionTime_Unit_Millisec}";
-                    }
-                    else if (time >= 1000 && time < 60000)
-                    {
-                        return $"{GUI.MainForm_Sliders_TransitionTime} : {((double)time / 1000):0.##} {GUI.MainForm_Sliders_TransitionTime_Unit_Seconds}";
-                    }
-                    else
-                    {
-                        return $"{GUI.MainForm_Sliders_TransitionTime} : {((double)time / 60000):0.##} {GUI.MainForm_Sliders_TransitionTime_Unit_Minutes}";
-                    }
-                }
-                else
-                {
-                    return $"{GUI.MainForm_Sliders_TransitionTime} : {GUI.MainForm_Sliders_TransitionTime_Unit_None}";
-                }
-            }
-
-        }
 
         public bool Recycle
         {

@@ -111,20 +111,20 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
             sliders.SlY.Value = Convert.ToDouble(e.NewValue);
         }
 
-        public double TTValue
+        public ushort? TTValue
         {
-            get => (double)GetValue(TransitionTimeProperty);
+            get => (ushort?)GetValue(TransitionTimeProperty);
             set => SetValue(TransitionTimeProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TransitionTimeProperty =
-            DependencyProperty.Register("TTValue", typeof(double), typeof(Sliders), new FrameworkPropertyMetadata(-1d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TtPropertyChangedCallback));
+            DependencyProperty.Register("TTValue", typeof(ushort?), typeof(Sliders), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TtPropertyChangedCallback));
 
         private static void TtPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Sliders sliders = d as Sliders;
-            sliders.iudTT.Value = Convert.ToInt32(e.NewValue);
+            sliders.iudTT.Value = Convert.ToUInt16(e.NewValue);
         }
 
 

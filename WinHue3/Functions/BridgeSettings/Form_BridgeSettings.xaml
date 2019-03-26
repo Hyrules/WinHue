@@ -7,6 +7,7 @@
         xmlns:controls="clr-namespace:WinHue3.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
+        xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
         Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
     <i:Interaction.Triggers>
@@ -75,7 +76,7 @@
                     <Label x:Name="LblLinkButton" Content="{Binding GeneralModel.Linkstate}" HorizontalAlignment="Left" Margin="121,227,0,0" VerticalAlignment="Top" Width="210"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Timezone}" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="106"/>
                     <ComboBox x:Name="CbTimezones" HorizontalAlignment="Left" Margin="121,107,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}"/>
-                    <xctk:WatermarkTextBox x:Name="TbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" Watermark="Optional"/>
+                    <xctk:WatermarkTextBox x:Name="TbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" Watermark="{x:Static resx:GUI.Optional}"/>
                     <Button x:Name="BtnApplyGeneralSettings" Content="{x:Static resx:GUI.Button_Apply}" HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}"/>
                 </Grid>
             </TabItem>
@@ -90,10 +91,10 @@
                     <xctk:IntegerUpDown x:Name="NudProxyPort" HorizontalAlignment="Left" Margin="107,192,0,0" VerticalAlignment="Top" Width="71" Maximum="65535" Minimum="0" Value="{Binding NetworkModel.Proxyport}" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyPort}" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="92"/>
                     <CheckBox x:Name="ChbDhcp" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Left" Margin="336,26,0,0" VerticalAlignment="Top" Width="125" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click"/>
-                    <xctk:WatermarkTextBox x:Name="TbIpAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.123" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" />
-                    <xctk:WatermarkTextBox x:Name="TbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 255.255.255.0" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <xctk:WatermarkTextBox x:Name="TbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.1" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <xctk:WatermarkTextBox x:Name="TbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Watermark="eg. 192.168.1.2" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
+                    <xctk:WatermarkTextBox x:Name="TbIpAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleIP}"/>
+                    <xctk:WatermarkTextBox x:Name="TbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleMask}"/>
+                    <xctk:WatermarkTextBox x:Name="TbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleGateway}"/>
+                    <xctk:WatermarkTextBox x:Name="TbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleIP}"/>
                     <Button x:Name="BtnApplyNetworkSettings" Style="{StaticResource BtnApplyNetwork}"  Content="{x:Static resx:GUI.Button_Apply}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" />
                 </Grid>
             </TabItem>

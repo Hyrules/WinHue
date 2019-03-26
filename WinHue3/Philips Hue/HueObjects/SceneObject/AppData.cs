@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -8,7 +9,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
     /// <summary>
     /// Scene App Data object
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class AppData : ValidatableBindableBase
     {
         private int? _version;
@@ -17,7 +18,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Version info.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Category("Apddata Properties"),Description("App specific version of the data field. App should take versioning into account when parsing the data string.")]
+        [Category("Apddata Properties"),Description("App specific version of the data field. App should take versioning into account when parsing the data string.")]
         public int? version
         {
             get => _version;
@@ -27,7 +28,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         /// <summary>
         /// Free format string.
         /// </summary>
-        [HueProperty, DataMember(IsRequired = false), Category("Apddata Properties"),Description("App specific data. Free format string.")]
+        [Category("Apddata Properties"),Description("App specific data. Free format string.")]
         public string data
         {
             get => _data;

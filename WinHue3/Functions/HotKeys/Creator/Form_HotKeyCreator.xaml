@@ -7,13 +7,12 @@
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resources="clr-namespace:WinHue3.Resources"
-    xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
+        xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:creator="clr-namespace:WinHue3.Functions.HotKeys.Creator"
         xmlns:controls="clr-namespace:WinHue3.Controls"
-        xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
         x:Class="WinHue3.Functions.HotKeys.Creator.Form_HotKeyCreator"
         mc:Ignorable="d"
         Title="{x:Static resources:GUI.Form_HotKeyCreator_Title}" Height="506.231" Width="962.867" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/hotkeys.png" PreviewKeyUp="Window_PreviewKeyUp">
@@ -36,29 +35,18 @@
         <xctk:PropertyGrid x:Name="PgObjectPresets" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Height="185" Width="594" ShowSearchBox="False" ShowSortOptions="False" ShowTitle="False" SelectedObject="{Binding PropertyGridObject}"/>
         <Button x:Name="BtnDone" Content="Done" HorizontalAlignment="Left" Margin="863,442,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click"/>
         <Button x:Name="BtnAdd" Style="{StaticResource BtnSave}"  Content="{x:Static resources:GUI.Button_Add}" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="98" Command="{Binding AddHotkeyCommand}" Height="26"/>
-        <controls:CommandComboBox x:Name="CbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,105,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" Command="{Binding ChangeObjectTypeCommand}" Watermark="(object type)" Style="{StaticResource {x:Type ComboBox}}">
-            <ComboBoxItem x:Name="CbOtLight" Content="{x:Static resources:GUI.Lights}">
-                <ComboBoxItem.Tag>
-                    <x:Type TypeName="lightObject:Light"/>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-            <ComboBoxItem x:Name="CbOtGroup" Content="{x:Static resources:GUI.Groups}">
-                <ComboBoxItem.Tag>
-                    <x:Type TypeName="groupObject:Group"/>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-            <ComboBoxItem x:Name="CbOtScene" Content="{x:Static resources:GUI.Scenes}">
-                <ComboBoxItem.Tag>
-                    <x:Type TypeName="sceneObject:Scene"/>
-                </ComboBoxItem.Tag>
-            </ComboBoxItem>
-        </controls:CommandComboBox>
-        <controls:CommandComboBox x:Name="CbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" ItemsSource="{Binding ListHueObject}" DisplayMemberPath="name" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}" Watermark="(object)" Style="{StaticResource {x:Type ComboBox}}"/>
+        <xctk:WatermarkComboBox x:Name="CbObjectType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,105,0,0" Height="24" SelectedValue="{Binding ObjectType}" SelectedValuePath="Tag"  IsEnabled="{Binding NotGeneric}" behaviors:CommandBehavior.Command="{Binding ChangeObjectTypeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" Watermark="{x:Static resources:GUI.Object_Type_Watermark}">
+            <ComboBoxItem x:Name="CbOtLight" Content="{x:Static resources:GUI.Lights}" Tag="{x:Type lightObject:Light}"/>
+            <ComboBoxItem x:Name="CbOtGroup" Content="{x:Static resources:GUI.Groups}" Tag="{x:Type groupObject:Group}"/>
+            <ComboBoxItem x:Name="CbOtScene" Content="{x:Static resources:GUI.Scenes}" Tag="{x:Type sceneObject:Scene}"/>
+        </xctk:WatermarkComboBox>
+        <xctk:WatermarkComboBox x:Name="CbListObjects" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="329" Height="24" DisplayMemberPath="name" ItemsSource="{Binding ListHueObject}" SelectedItem="{Binding SelectedHueObject, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" IsEnabled="{Binding NotGeneric}" Watermark="{x:Static resources:GUI.Object_Watermark}"/>
         <Label x:Name="Label1" Content="{x:Static resources:GUI.Form_HotKeyCreator_BridgeObject}" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="328"/>
         <Button x:Name="BtnRecordKeyPress" Content="{x:Static resources:GUI.Form_HotKeyCreator_Record}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="98" Command="{Binding RecordHotKeyCommand}" Height="30" />
         <Label x:Name="Label2" Content="{Binding CurrentHotKey, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="113,165,0,0" VerticalAlignment="Top" Width="226" Height="30" Background="{Binding HotKeyModel.RecordButtonColor}" BorderBrush="#FF8E8E8E" BorderThickness="1"/>
-        <xctk:WatermarkTextBox x:Name="TbHotkeyName" Watermark="{x:Static resources:GUI.Label_Name}" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="{Binding HotKeyModel.Name, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="329"/>
-        <xctk:WatermarkTextBox x:Name="TbHotkeyDesc" Watermark="{x:Static resources:GUI.Form_HotKeyCreator_Description}" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Description, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="329" />
+        <xctk:WatermarkTextBox x:Name="TbHotkeyName" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Text="{Binding HotKeyModel.Name, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="329" Watermark="{x:Static resources:GUI.Label_Name}"/>
+        <xctk:WatermarkTextBox x:Name="TbHotkeyDesc" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="{Binding HotKeyModel.Description, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="329" Watermark="{x:Static resources:GUI.Form_HotKeyCreator_Description}"/> 
+        
         <DataGrid x:Name="DataGrid" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Height="206" Width="928" AlternationCount="-5" SelectionMode="Single" CanUserReorderColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" ItemsSource="{Binding ListHotKeys}" SelectedItem="{Binding SelectedHotKey}" AlternatingRowBackground="#FFF2F2F2" BorderBrush="#FFCECECE" AllowDrop="True" CanUserAddRows="False" AutomationProperties.IsColumnHeader="True" Background="White" AutomationProperties.IsRowHeader="True" GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resources:GUI.Label_Name}" Binding="{Binding Name}"  Width="100" IsReadOnly="True"/>

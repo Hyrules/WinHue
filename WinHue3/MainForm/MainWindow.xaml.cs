@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.EventViewer;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
@@ -22,19 +21,17 @@ namespace WinHue3.MainForm
     public partial class MainWindow : Window
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Form_EventLog _fel;
         private MainFormViewModel _mfvm;
 
         /// <summary>
         /// Form of the Eventlog.
         /// </summary>
 
-        public MainWindow(Form_EventLog formEventLog)
+        public MainWindow()
         {
-            _fel = formEventLog;           
+        
             InitializeComponent();
             _mfvm = DataContext as MainFormViewModel;
-            _mfvm.Eventlogform = _fel;
 
             Hue.DetectLocalProxy = WinHueSettings.settings.DetectProxy;
              Trayicon.Icon = Properties.Resources.icon;
@@ -135,12 +132,6 @@ namespace WinHue3.MainForm
 
 
         }
-
-        private void MainForm_Loaded(object sender, RoutedEventArgs e)
-        {
-            _mfvm.PropertyGrid.Owner = this;
-        }
-
 
     }
 }

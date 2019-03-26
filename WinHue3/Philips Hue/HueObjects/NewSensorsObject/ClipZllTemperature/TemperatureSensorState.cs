@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
@@ -9,7 +10,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature
     /// <summary>
     /// Temperature sensor state.
     /// </summary>
-    [DataContract]
+    [JsonObject]
     public class TemperatureSensorState : ValidatableBindableBase, ISensorStateBase
     {
         private int? _temperature;
@@ -17,7 +18,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature
         /// <summary>
         /// Current temperature.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize,ReadOnly(true)]
         public int? temperature
         {
             get => _temperature;
@@ -26,7 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllTemperature
 
         private string _lastupdated;
 
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize,ReadOnly(true)]
         public string lastupdated
         {
             get => _lastupdated;

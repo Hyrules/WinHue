@@ -7,7 +7,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
 {
-    [DataContract]
+    [JsonObject]
     public class ClipGenericStatusSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private string _url;
@@ -18,7 +18,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
         /// <summary>
         /// url.
         /// </summary>
-        [HueProperty,DataMember]
         public string url
         {
             get => _url;
@@ -28,7 +27,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
         /// <summary>
         /// On off state.
         /// </summary>
-        [HueProperty,DataMember]
         public bool? on
         {
             get => _on;
@@ -38,7 +36,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
         /// <summary>
         /// Sensor reachability.
         /// </summary>
-        [HueProperty,DataMember, ReadOnly(true), JsonIgnore]
+        [DontSerialize, ReadOnly(true)]
         public bool? reachable
         {
             get => _reachable;
@@ -48,7 +46,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus
         /// <summary>
         /// Battery state.
         /// </summary>
-        [HueProperty,DataMember]
         public byte? battery
         {
             get => _battery;

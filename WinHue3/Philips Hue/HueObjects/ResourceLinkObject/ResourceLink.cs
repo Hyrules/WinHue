@@ -5,13 +5,14 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
 {
-    [DataContract, HueType("resourcelinks")]
+    [JsonObject]
     public class Resourcelink : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -28,7 +29,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// ID of the ResourceLink
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("ID of the resource link"), JsonIgnore, ReadOnly(true)]
+        [Category("Resource Link"),Description("ID of the resource link"), JsonIgnore]
         public string Id
         {
             get => _id;
@@ -38,7 +39,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// Image of the ResourceLink
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Image of the resource link"), Browsable(false), JsonIgnore]
+        [Category("Resource Link"), Description("Image of the resource link"), Browsable(false), JsonIgnore]
         public ImageSource Image
         {
             get => _image;
@@ -48,7 +49,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// Name of the resource link
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"), Description("Name of the resource link")]
+        [Category("Resource Link"), Description("Name of the resource link")]
         public string name
         {
             get => _name;
@@ -58,7 +59,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// Description of the resource link
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Description of the resource link")]
+        [Category("Resource Link"),Description("Description of the resource link")]
         public string description
         {
             get => _description;
@@ -68,7 +69,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// Type of Resource Link
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Type of the resource link"), ReadOnly(true)]
+        [Category("Resource Link"),Description("Type of the resource link"), DontSerialize]
         public string type
         {
             get => _type;
@@ -78,7 +79,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// Class of the resource link
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Class of the resource link"), CreateOnly]
+        [Category("Resource Link"),Description("Class of the resource link"), CreateOnly]
         public ushort classid
         {
             get => _classid;
@@ -88,7 +89,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// Owner of the resource link
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Owner of the resource link"), ReadOnly(true)]
+        [Category("Resource Link"),Description("Owner of the resource link"), DontSerialize]
         public string owner
         {
             get => _owner;
@@ -98,7 +99,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// Owner of the resource link
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("Allow Recycle of the resource link"),CreateOnly]
+        [Category("Resource Link"),Description("Allow Recycle of the resource link"),CreateOnly]
         public bool? recycle
         {
             get => _recycle;
@@ -108,14 +109,14 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
         /// <summary>
         /// List of resource links
         /// </summary>
-        [HueProperty, DataMember(EmitDefaultValue = false, IsRequired = false), Category("Resource Link"),Description("List of resource links")]
+        [Category("Resource Link"),Description("List of resource links")]
         public StringCollection links
         {
             get => _links;
             set => SetProperty(ref _links,value);
         }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
+        [ReadOnly(true), JsonIgnore, Browsable(false)]
         public bool visible
         {
             get { return _visible; }
@@ -127,10 +128,16 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
             return MemberwiseClone();
         }
 
+        [OnDeserialized]
+        void OnDeserialize(StreamingContext ctx)
+        {
+            Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
+        }
+
         public override string ToString()
         {
-            return Serializer.SerializeToJson(this);
-            
+            return name;
+
         }
     }
 

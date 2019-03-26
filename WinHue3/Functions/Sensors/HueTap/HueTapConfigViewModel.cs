@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
-using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -15,7 +14,6 @@ namespace WinHue3.Functions.Sensors.HueTap
         private readonly System.Windows.Media.Color _selectedColor = System.Windows.Media.Color.FromArgb(128, 255, 0, 0);
         private readonly System.Windows.Media.Color _deselectedColor = System.Windows.Media.Color.FromArgb(0, 0, 0, 0);
         private Scene _selectedScene;
-        private Bridge _bridge;
 
         private HueTapModel _huetapmodel;
 
@@ -95,7 +93,7 @@ namespace WinHue3.Functions.Sensors.HueTap
                 }
             };
 
-            bool result = _bridge.CreateObject(newRule);
+            bool result = BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(newRule);
             if (result)
             {
                 HueTapModel.BtnOneBG = new SolidColorBrush(_deselectedColor);
@@ -108,7 +106,7 @@ namespace WinHue3.Functions.Sensors.HueTap
             }
             else
             {
-                _bridge.ShowErrorMessages();
+                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
             }
     
         }
@@ -133,10 +131,6 @@ namespace WinHue3.Functions.Sensors.HueTap
             set { SetProperty(ref _selectedScene,value); RaisePropertyChanged("CanSave"); }
         }
 
-        public Bridge Bridge
-        {
-            get => _bridge;
-            set => SetProperty(ref _bridge,value);
-        }
+
     }
 }

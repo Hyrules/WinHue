@@ -13,7 +13,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
     {
         public async Task<bool> StartNewObjectsSearchAsyncTask(Type objecttype)
         {            
-            string typename = objecttype.GetHueType();
+            string typename = objecttype.Name.ToLower() + "s";
             
             CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + $"/{typename}"), WebRequestType.Post);
 
@@ -53,7 +53,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             }
 
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + $"/lights"), WebRequestType.Post, lsl.deviceid.Count == 0 ? "" : Serializer.SerializeToJson(lsl));
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + $"/lights"), WebRequestType.Post, lsl.deviceid.Count == 0 ? "" : Serializer.SerializeJsonObject(lsl));
 
             if (comres.Status == WebExceptionStatus.Success)
             {

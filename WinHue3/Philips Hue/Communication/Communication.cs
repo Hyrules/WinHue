@@ -33,7 +33,8 @@ namespace WinHue3.Philips_Hue.Communication
             result.Url = url;
             try
             {
-                WebClientTimeout wc = new WebClientTimeout {Proxy = null, Timeout = _timeout};
+                WebHeaderCollection whc = new WebHeaderCollection {{HttpRequestHeader.ContentType, "application/json"}};
+                WebClientTimeout wc = new WebClientTimeout {Proxy = null, Timeout = _timeout, Headers = whc};
 
                 string Method = string.Empty;
                 string received = string.Empty;

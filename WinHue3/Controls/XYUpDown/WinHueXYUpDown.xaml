@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="WinHue3.Controls.WinHueXYUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="20.936" Width="115.848" LostFocus="UserControl_LostFocus"
+             x:Name="CtlNud" MinHeight="20">
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="{Binding ElementName=CtlNud, Path=ActualHeight }" Width="{Binding ElementName=CtlNud, Path=ActualWidth}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="18"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="TbValue" TextWrapping="Wrap" HorizontalContentAlignment="Right"  VerticalContentAlignment="Center" Grid.Column="0" PreviewKeyDown="TbValue_OnPreviewKeyDown" BorderThickness="1,1,0,1" PreviewKeyUp="TbValue_OnPreviewKeyUp" />
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <RepeatButton x:Name="BtnIncrement" Click="BtnIncrement_Click" HorizontalContentAlignment="Center"  Grid.Row="0">
+                <Path Data="M 0 6 L 12 6 L 6 0 Z">
+                    <Path.Style>
+                        <Style TargetType="{x:Type Path}">
+                            <Setter Property="Fill" Value="Black"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEnabled, ElementName=BtnIncrement}" Value="False">
+                                    <Setter Property="Fill" Value="DarkGray"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Path.Style>
+                </Path>
+
+            </RepeatButton>
+            <RepeatButton x:Name="BtnDecrement" Click="BtnDecrement_Click" Grid.Row="1" HorizontalContentAlignment="Center"  >
+                <Path Data="M 0 0 L 6 6 L 12 0 Z">
+                    <Path.Style>
+                        <Style TargetType="{x:Type Path}">
+                            <Setter Property="Fill" Value="Black"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEnabled, ElementName=BtnDecrement}" Value="False">
+                                    <Setter Property="Fill" Value="DarkGray"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Path.Style>
+                </Path>
+            </RepeatButton>
+        </Grid>
+    </Grid>
+</UserControl>

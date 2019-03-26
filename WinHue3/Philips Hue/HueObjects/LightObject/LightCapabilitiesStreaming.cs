@@ -10,12 +10,12 @@ using WinHue3.Philips_Hue.Communication;
 
 namespace WinHue3.Philips_Hue.HueObjects.LightObject
 {
-    [DataContract]
+    [JsonObject]
     public class LightCapabilitiesStreaming
     {
-        [DataMember, Category("Light Capabilities Streaming"), Description("Renderer"), ReadOnly(true)]
+        [Category("Light Capabilities Streaming"), Description("Renderer")]
         public bool renderer { get; set; }
-        [DataMember, Category("Light Capabilities Streaming"), Description("Proxy"), ReadOnly(true)]
+        [Category("Light Capabilities Streaming"), Description("Proxy")]
         public bool proxy { get; set; }
 
         /// <summary>

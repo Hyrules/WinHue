@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
 {
-    [DataContract]
+    [JsonObject]
     public class DaylightSensorConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private string _l;
@@ -17,7 +18,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
         /// <summary>
         /// Longitude of the sensor.
         /// </summary>
-        [HueProperty, DataMember]
         public string @long
         {
             get => _l;
@@ -27,7 +27,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
         /// <summary>
         /// Latitude of the sensor.
         /// </summary>
-        [HueProperty, DataMember]
         public string lat
         {
             get => _lat;
@@ -37,7 +36,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
         /// <summary>
         /// Sunrise offset.
         /// </summary>
-        [HueProperty, DataMember]
         public sbyte? sunriseoffset
         {
             get => _sunriseoffset;
@@ -47,7 +45,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
         /// <summary>
         /// Sunset offsett.
         /// </summary>
-        [HueProperty, DataMember]
         public sbyte? sunsetoffset
         {
             get => _sunsetoffset;
@@ -57,7 +54,7 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight
         /// <summary>
         /// Is The Sensor Configured.
         /// </summary>
-        [HueProperty, DataMember, ReadOnly(true)]
+        [DontSerialize, ReadOnly(true)]
         public bool? configured
         {
             get => _configured;

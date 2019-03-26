@@ -27,7 +27,6 @@ namespace WinHue3.Functions.ResourceLinks
     public partial class Form_ResourceLinksCreator : Window
     {
         private ResourceLinkCreatorViewModel rlcvm;
-        private Bridge _bridge;
         private string id;
 
         public Form_ResourceLinksCreator()
@@ -36,14 +35,13 @@ namespace WinHue3.Functions.ResourceLinks
             rlcvm = this.DataContext as ResourceLinkCreatorViewModel;
         }
 
-        public async Task Initialize(Bridge bridge, Resourcelink rl = null)
+        public async Task Initialize(Resourcelink rl = null)
         {
-            _bridge = bridge;
            
             rlcvm.LinkCreatorModel.ShowID = WinHueSettings.settings.ShowID;
             rlcvm.LinkCreatorModel.Wrap = WinHueSettings.settings.WrapText;
 
-            List<IHueObject> hr = await HueObjectHelper.GetBridgeDataStoreAsyncTask(_bridge);
+            List<IHueObject> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
             if (hr == null) return;
             ObservableCollection<IHueObject> listbrobj = new ObservableCollection<IHueObject>();
             List<IHueObject> listobj = hr;
@@ -91,18 +89,18 @@ namespace WinHue3.Functions.ResourceLinks
         private void btnCreateResourceLink_Click(object sender, RoutedEventArgs e)
         {
             Resourcelink rl = rlcvm.Resourcelink;
-            bool result = rlcvm.IsEditing ? _bridge.ModifyObject(rl) : _bridge.CreateObject(rl);
+            bool result = rlcvm.IsEditing ? BridgeManager.BridgeManager.Instance.SelectedBridge.ModifyObject(rl) : BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(rl);
             
             
             if (result)
             {
-                id = rlcvm.IsEditing ? rl.Id : _bridge.LastCommandMessages.LastSuccess.value;
+                id = rlcvm.IsEditing ? rl.Id : BridgeManager.BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 DialogResult = true;
                 Close();
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(_bridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
             }
 
         }

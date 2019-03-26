@@ -42,8 +42,8 @@
     </Window.Resources>
 
     <Grid>
-        <xctk:WatermarkTextBox x:Name="TbIpAddress" HorizontalAlignment="Left" Margin="64,7,0,0" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="218"  BorderThickness="2">
-        </xctk:WatermarkTextBox>
+        <TextBox x:Name="TbIpAddress" HorizontalAlignment="Left" Margin="64,7,0,0" TextWrapping="Wrap" Text="{Binding BridgeIPAddress,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="218"  BorderThickness="2"/>
+        
         <Label x:Name="Label" Content="{x:Static resx:GUI.Form_AddManualIP_IP}" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="49"/>
         <Button x:Name="BtnSaveIp" Content="{x:Static resx:GUI.Button_Apply}" Style="{StaticResource BtnApply}" HorizontalAlignment="Left" Margin="127,39,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveIp_Click" Height="27"/>
         <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="207,39,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click" Height="27"/>

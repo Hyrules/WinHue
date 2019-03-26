@@ -45,7 +45,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(state));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(state));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -92,7 +92,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(state));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(state));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -148,7 +148,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string url = BridgeUrl + $"/lights/{id}/config/";
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, "{\"startup\": { \"customsettings\" : " + Serializer.SerializeToJson(state) + "}}");
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, "{\"startup\": { \"customsettings\" : " + Serializer.SerializeJsonObject(state) + "}}");
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -231,7 +231,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> StoreCurrentLightStateAsyncTask(string id)
         {
             string url = BridgeUrl + $"/scenes/{id}";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(new Scene() {storelightstate = true}));
+            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(new Scene() {storelightstate = true}));
 
             if (comres.Status == WebExceptionStatus.Success)
             {
@@ -256,7 +256,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(state));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(state));
 
                 if (comres.Status == WebExceptionStatus.Success)
                 {
@@ -286,7 +286,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(state));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(state));
 
                 if (comres.Status == WebExceptionStatus.Success)
                 {
@@ -313,7 +313,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public bool RenameObject(IHueObject hueobj)
         {
-            string typename = hueobj.GetHueType();
+            string typename = hueobj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{hueobj.Id}";
 
             CommResult comres;
@@ -346,14 +346,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public async Task<bool> RenameObjectASyncTask(IHueObject hueobj)
         {
-            string typename = hueobj.GetHueType();
+            string typename = hueobj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{hueobj.Id}";
 
             CommResult comres;
 
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(hueobj));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(hueobj));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -378,7 +378,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public bool CreateObject(IHueObject newobject)
         {
-            string typename = newobject.GetHueType();
+            string typename = newobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)newobject.Clone();
             string url = BridgeUrl + $@"/{typename}";
             if (typename == null) return false;
@@ -387,7 +387,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             if (!Virtual)
             {
-                comres = Comm.SendRequest(new Uri(url), WebRequestType.Post, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(clone)));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(clone));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -413,7 +413,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public async Task<bool> CreateObjectAsyncTask(IHueObject newobject)
         {
-            string typename = newobject.GetHueType();
+            string typename = newobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)newobject.Clone();
             string url = BridgeUrl + $@"/{typename}";
             if (typename == null) return false;
@@ -422,7 +422,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(clone)));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(clone));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -449,7 +449,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public bool RemoveObject(IHueObject obj)
         {
-            string typename = obj.GetHueType();
+            string typename = obj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{obj.Id}";
             CommResult comres;
 
@@ -513,7 +513,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>HueObject (Light,Group,Sensor,Rule,Schedule,Scene)</returns>
         public async Task<bool> RemoveObjectAsyncTask(IHueObject obj)
         {
-            string typename = obj.GetHueType();
+            string typename = obj.GetType().Name.ToLower() + "s";
             string url = BridgeUrl + $@"/{typename}/{obj.Id}";
             CommResult comres;
 
@@ -544,7 +544,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public bool ModifyObject(IHueObject modifiedobject)
         {
-            string typename = modifiedobject.GetHueType();
+            string typename = modifiedobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)modifiedobject.Clone();
             string url = BridgeUrl + $@"/{typename}/{modifiedobject.Id}";
             if (typename == null) return false;
@@ -553,7 +553,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             if (!Virtual)
             {
-                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(clone)));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(clone));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -579,7 +579,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>BridgeCommResult</returns>
         public async Task<bool> ModifyObjectAsyncTask(IHueObject modifiedobject)
         {
-            string typename = modifiedobject.GetHueType();
+            string typename = modifiedobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)modifiedobject.Clone();
             string url = BridgeUrl + $@"/{typename}/{modifiedobject.Id}";
             if (typename == null) return false;
@@ -588,7 +588,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(modifiedobject));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(modifiedobject));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -617,7 +617,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             if (!Virtual)
             {
-                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(ClearNotAllowedCreationProperties(newconfig)));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(newconfig));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -648,7 +648,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(newconfig));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(newconfig));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -679,7 +679,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newstate)));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(newstate));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -709,7 +709,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(ClearNotAllowedModifyProperties(newstate)));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(newstate));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -737,7 +737,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.SerializeToJson(entertain));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(entertain));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -766,7 +766,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             CommResult comres;
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeToJson(loc));
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeJsonObject(loc));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -818,7 +818,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns></returns>
         private object ClearNotAllowedModifyProperties(object obj)
         {
-            PropertyInfo[] listproperties = obj.GetType().GetHueProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (PropertyInfo p in listproperties)
             {
                 if (Attribute.IsDefined(p, typeof(CreateOnlyAttribute)) || Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))
@@ -835,7 +835,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns></returns>
         private object ClearNotAllowedCreationProperties(object obj)
         {
-            PropertyInfo[] listproperties = obj.GetType().GetHueProperties();
+            PropertyInfo[] listproperties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             foreach (PropertyInfo p in listproperties)
             {
                 if (Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))

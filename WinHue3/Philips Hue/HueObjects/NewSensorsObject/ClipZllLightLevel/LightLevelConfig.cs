@@ -1,10 +1,11 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 
 namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
 {
-    [DataContract]
+    [JsonObject]
     public class LightLevelConfig : ValidatableBindableBase, ISensorConfigBase
     {
         private uint? _tholddark;
@@ -13,7 +14,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
         /// <summary>
         /// Threshold for insufficient light level.
         /// </summary>
-        [HueProperty, DataMember]
         public uint? tholddark
         {
             get => _tholddark;
@@ -23,7 +23,6 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipZllLightLevel
         /// <summary>
         /// Threshold for sufficient light leve.
         /// </summary>
-        [HueProperty, DataMember]
         public uint? tholdoffset
         {
             get => _tholdoffset;

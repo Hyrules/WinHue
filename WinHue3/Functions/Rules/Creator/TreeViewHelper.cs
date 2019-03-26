@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using WinHue3.ExtensionMethods;
@@ -19,7 +21,9 @@ namespace WinHue3.Functions.Rules.Creator
     {
         public static HuePropertyTreeViewItem BuildPropertiesTree(object root,  string currentpath, string name = null, string selectedpath = null)
         {
-            PropertyInfo[] listprops = root.GetArrayHueProperties();
+            PropertyInfo[] listprops = root.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => x.Name != "Image" && x.Name != "Id").ToArray();
+
+
             HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Address = new HueAddress(currentpath), Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal};
 
             foreach (PropertyInfo p in listprops)
@@ -27,7 +31,7 @@ namespace WinHue3.Functions.Rules.Creator
                 string actualpath = currentpath + "/" + p.Name;
                 object value = p.GetValue(root);
 
-                if (value == null || !value.GetType().HasHueProperties())
+                if (value == null || p.PropertyType.IsPrimitive || p.PropertyType == typeof(string))
                 {
 
                     tvi.Items.Add(new HuePropertyTreeViewItem()
@@ -58,7 +62,7 @@ namespace WinHue3.Functions.Rules.Creator
 
         public static HuePropertyTreeViewItem BuildPropertyBranch(object root, string currentpath, string name = null,string selectedpath = null)
         {
-            PropertyInfo[] listprops = root.GetArrayHueProperties();
+            PropertyInfo[] listprops = root.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => x.Name != "Image" && x.Name != "Id").ToArray();
             HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { IsSelected = false, Address = new HueAddress(currentpath), Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal };
            // tvi.Expanded -= Tvi_Expanded;
             foreach (PropertyInfo p in listprops)
@@ -75,7 +79,7 @@ namespace WinHue3.Functions.Rules.Creator
                     PropInfo = p,
                 };
 
-                if (value != null && value.GetType().HasHueProperties())
+                if (value != null)
                 {
                     hptvi.Items.Add(new HuePropertyTreeViewItem() {Header = "Loading..."});
                     hptvi.Tag = value;
