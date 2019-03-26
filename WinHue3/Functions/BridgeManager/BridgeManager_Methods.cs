@@ -31,7 +31,18 @@ namespace WinHue3.Functions.BridgeManager
 {
     public sealed partial class BridgeManager
     {
-     
+        public void FindSensor()
+        {
+            _findsensortimer.Start();
+            SearchingSensors = _findsensortimer.IsEnabled;
+        }
+
+        public void FindLight()
+        {           
+            _findlighttimer.Start();
+            SearchingLights = _findlighttimer.IsEnabled;
+        }
+
         private void RefreshHueObject(ref IHueObject obj, IHueObject newobject)
         {
             if (obj == null || newobject == null) return;
@@ -51,7 +62,6 @@ namespace WinHue3.Functions.BridgeManager
             await RefreshCurrentListHueObject();
             _refreshTimer.Start();
             RaisePropertyChanged("UpdateAvailable");
-            RaisePropertyChanged("EnableListView");
         }
 
         public void LoadVirtualBridge()
@@ -113,7 +123,7 @@ namespace WinHue3.Functions.BridgeManager
                         SelectedBridge = selbr;
                     }
 
-                    await BridgeManager.Instance.RefreshCurrentListHueObject();
+                    await RefreshCurrentListHueObject();
                     RaisePropertyChanged("UpdateAvailable");
                 }
             }

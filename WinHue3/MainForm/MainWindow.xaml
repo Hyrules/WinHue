@@ -260,7 +260,7 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SearchingLights}" Value="True">
+                                    <DataTrigger Binding="{Binding Source={x:Static bridgeManager:BridgeManager.Instance}, Path=SearchingLights}" Value="True">
                                         <Setter Property="Source" Value="/WinHue3;component/Resources/magnifier.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -440,7 +440,6 @@
                             SelectionChanged="LvMainObjects_SelectionChanged" 
                             SelectionMode="Single" 
                             VerticalContentAlignment="Stretch" Grid.Column="0" 
-                            IsEnabled="{Binding EnableListView}" 
                             behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
                             behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
                             behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 

@@ -22,13 +22,25 @@ namespace WinHue3.Functions.BridgeManager
         public ObservableCollection<IHueObject> CurrentBridgeHueObjectsList
         {
             get => _listCurrentBridgeHueObjects;
-            private set => SetProperty(ref _listCurrentBridgeHueObjects, value);
+            set => SetProperty(ref _listCurrentBridgeHueObjects, value);
         }
 
         public Bridge SelectedBridge
         {
             get => _selectedBridge;
             set => SetProperty(ref _selectedBridge, value);
+        }
+
+        public bool SearchingLights
+        {
+            get => _findlighttimer.IsEnabled;
+            set => SetProperty(ref _searchingLights, value);
+        }
+
+        public bool SearchingSensors
+        {
+            get => _findsensortimer.IsEnabled;
+            set => SetProperty(ref _searchingSensors, value);
         }
     }
 }

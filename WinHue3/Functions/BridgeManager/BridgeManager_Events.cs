@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
@@ -12,7 +13,6 @@ namespace WinHue3.Functions.BridgeManager
 {
     public sealed partial class BridgeManager
     {
-        #region EVENTS
         public event BridgeRemoved OnBridgeRemoved;
         public delegate void BridgeRemoved(Bridge b);
 
@@ -68,6 +68,32 @@ namespace WinHue3.Functions.BridgeManager
             OnBridgeMessageAdded?.Invoke(sender, e);
         }
 
-        #endregion
+        private async void _findlighttimer_Tick(object sender, EventArgs e)
+        {
+            _findlighttimer.Stop();
+            log.Info("Done searching for new lights.");
+            List<IHueObject> hr = await SelectedBridge.GetBridgeNewLightsAsyncTask();
+            if (hr == null) return;
+            List<IHueObject> newlights = hr;
+            log.Info($"Found {newlights.Count} new lights.");
+            CurrentBridgeHueObjectsList.AddRange(newlights);
+            CommandManager.InvalidateRequerySuggested();
+            RaisePropertyChanged("SearchingLights");
+        }
+
+        private async void _findsensortimer_Tick(object sender, EventArgs e)
+        {
+            _findsensortimer.Stop();
+            log.Info("Done searching for new sensors.");
+            List<IHueObject> hr = await SelectedBridge.GetBridgeNewSensorsAsyncTask();
+            if (hr == null) return;
+            List<IHueObject> newsensors = hr;
+            log.Info($"Found {newsensors.Count} new sensors.");
+            CurrentBridgeHueObjectsList.AddRange(newsensors);
+            CommandManager.InvalidateRequerySuggested();
+            RaisePropertyChanged("SearchingLights");
+        }
+
+        
     }
 }

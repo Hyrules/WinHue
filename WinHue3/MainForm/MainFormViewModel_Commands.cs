@@ -18,7 +18,7 @@ namespace WinHue3.MainForm
     {
         private bool EnableButtons()
         {
-            return BridgeManager.Instance.SelectedBridge != null && EnableListView;
+            return BridgeManager.Instance.SelectedBridge != null;
         }
 
         private bool CanBridgeSettings()
@@ -46,20 +46,16 @@ namespace WinHue3.MainForm
             return BridgeManager.Instance.SelectedObject is Light || BridgeManager.Instance.SelectedObject is Group || BridgeManager.Instance.SelectedObject is Scene ;
         }
 
-        public bool EnableListView => !BridgeManager.Instance.SelectedBridge?.RequiredUpdate ?? false;
-
-        public bool SearchingLights => _findlighttimer.IsEnabled;
-
         public bool CanSearchNewLights()
         {
             if (!EnableButtons()) return false;
-            return !_findlighttimer.IsEnabled ;
+            return !BridgeManager.Instance.SearchingLights;
         }
 
         private bool CanSearchNewSensor()
         {
             if (!EnableButtons()) return false;
-            return !_findsensortimer.IsEnabled ;
+            return !BridgeManager.Instance.SearchingSensors;
         }
 
         private void Expand(Type objecttype)

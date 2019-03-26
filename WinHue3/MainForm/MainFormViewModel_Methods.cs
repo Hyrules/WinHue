@@ -14,7 +14,6 @@ using Newtonsoft.Json;
 using WinHue3.Functions.Advanced_Creator;
 using WinHue3.Functions.Application_Settings;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.BridgeSettings;
 using WinHue3.Functions.Groups.Creator;
 using WinHue3.Functions.Groups.View;
 using WinHue3.Functions.HotKeys;
@@ -31,7 +30,6 @@ using WinHue3.Functions.Sensors.Daylight;
 using WinHue3.Functions.Sensors.HueTap;
 using WinHue3.Functions.User_Management;
 using WinHue3.MainForm.Wait;
-using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -61,6 +59,7 @@ using WinHue3.Functions.PropertyGrid;
 using WinHue3.Functions.RoomMap;
 using Binding = System.Windows.Data.Binding;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using WinHue3.ExtensionMethods;
 
 namespace WinHue3.MainForm
 {
@@ -120,10 +119,6 @@ namespace WinHue3.MainForm
             await BridgeManager.Instance.RefreshCurrentListHueObject();
         }
 
-
-
-
-
         private void UpdateFloorPlanIcons(ImageSource image, string id, Type objecttype)
         {
             if (SelectedFloorPlan == null) return;
@@ -144,20 +139,20 @@ namespace WinHue3.MainForm
                     BridgeManager.Instance.SelectedObject.Image = hr;
                     UpdateFloorPlanIcons(hr, BridgeManager.Instance.SelectedObject.Id, BridgeManager.Instance.SelectedObject.GetType());
 
-                    int index = _listBridgeObjects.FindIndex(x => x.Id == BridgeManager.Instance.SelectedObject.Id && x.GetType() == BridgeManager.Instance.SelectedObject.GetType());
+                    int index = BridgeManager.Instance.CurrentBridgeHueObjectsList.FindIndex(x => x.Id == BridgeManager.Instance.SelectedObject.Id && x.GetType() == BridgeManager.Instance.SelectedObject.GetType());
                     if (index == -1) return;
                     if (BridgeManager.Instance.SelectedObject is Light light)
                     {
                         light.state.on = !light.state.on;
-                        ((Light) ListBridgeObjects[index]).state.on = !((Light) ListBridgeObjects[index]).state.on;
+                        ((Light) BridgeManager.Instance.CurrentBridgeHueObjectsList[index]).state.on = !((Light) BridgeManager.Instance.CurrentBridgeHueObjectsList[index]).state.on;
                     }
                     else
                     {
                         ((Group) BridgeManager.Instance.SelectedObject).action.on = !((Group) BridgeManager.Instance.SelectedObject).action.on;
-                        ((Group) ListBridgeObjects[index]).action.on = !((Group) ListBridgeObjects[index]).action.on;
+                        ((Group) BridgeManager.Instance.CurrentBridgeHueObjectsList[index]).action.on = !((Group) BridgeManager.Instance.CurrentBridgeHueObjectsList[index]).action.on;
                     }
 
-                    ListBridgeObjects[index].Image = hr;
+                    BridgeManager.Instance.CurrentBridgeHueObjectsList[index].Image = hr;
                 }
             }
             else
@@ -221,8 +216,7 @@ namespace WinHue3.MainForm
             if (success)
             {
                 log.Info("Seaching for new lights...");
-                _findlighttimer.Start();
-                RaisePropertyChanged("SearchingLights");
+                BridgeManager.Instance.FindLight();
             }
             else
             {
@@ -244,8 +238,7 @@ namespace WinHue3.MainForm
             if (fas.ShowDialog() == true)
             {
                 Thread.Sleep(60000);
-                _findlighttimer.Start();
-                RaisePropertyChanged("SearchingLights");
+                BridgeManager.Instance.FindLight();
             }
         }
 
@@ -260,7 +253,7 @@ namespace WinHue3.MainForm
             Group hr = BridgeManager.Instance.SelectedBridge.GetObject<Group>(fgc.GetCreatedOrModifiedID());
             if (hr != null)
             {
-                _listBridgeObjects.Add(hr);
+                BridgeManager.Instance.CurrentBridgeHueObjectsList.Add(hr);
             }
             else
             {
@@ -278,11 +271,11 @@ namespace WinHue3.MainForm
             Scene hr = await BridgeManager.Instance.SelectedBridge.GetObjectAsync<Scene>(fsc.GetCreatedOrModifiedID());
             if (hr != null)
             {
-                _listBridgeObjects.Add(hr);
+                BridgeManager.Instance.CurrentBridgeHueObjectsList.Add(hr);
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.Instance.SelectedBridge);
+                BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
             }
         }
 
@@ -295,7 +288,7 @@ namespace WinHue3.MainForm
             Schedule sc = await BridgeManager.Instance.SelectedBridge.GetObjectAsync<Schedule>(fscc.GetCreatedOrModifiedId());
             if (sc != null)
             {
-                _listBridgeObjects.Add(sc);
+                BridgeManager.Instance.CurrentBridgeHueObjectsList.Add(sc);
             }
             else
             {
@@ -312,7 +305,7 @@ namespace WinHue3.MainForm
             Rule rule = await BridgeManager.Instance.SelectedBridge.GetObjectAsync<Rule>(frc.GetCreatedOrModifiedID());
             if (rule != null)
             {
-                _listBridgeObjects.Add(rule);
+                BridgeManager.Instance.CurrentBridgeHueObjectsList.Add(rule);
             }
             else
             {
@@ -329,7 +322,7 @@ namespace WinHue3.MainForm
             Sensor hr = BridgeManager.Instance.SelectedBridge.GetObject<Sensor>(fsc.GetCreatedOrModifiedID());
             if (hr != null)
             {
-                ListBridgeObjects.Add(hr);
+                BridgeManager.Instance.CurrentBridgeHueObjectsList.Add(hr);
             }
             else
             {
@@ -343,8 +336,7 @@ namespace WinHue3.MainForm
             if (bresult)
             {
                 log.Info("Looking for new sensors for 1 minute.");
-                _findsensortimer.Start();
-                RaisePropertyChanged("SearchingLights");
+                BridgeManager.Instance.FindSensor();
             }
             else
             {
@@ -373,7 +365,7 @@ namespace WinHue3.MainForm
             Resourcelink hr = BridgeManager.Instance.SelectedBridge.GetObject<Resourcelink>(frc.GetCreatedModifiedId());
             if (hr != null)
             {
-                ListBridgeObjects.Add(hr);
+                BridgeManager.Instance.CurrentBridgeHueObjectsList.Add(hr);
             }
             else
             {
@@ -1005,7 +997,7 @@ namespace WinHue3.MainForm
                 try
                 {
                     IHueObject oldobj = (IHueObject) BridgeManager.Instance.SelectedObject.Clone();
-                    BridgeManager.Instance.SelectedObject = ListBridgeObjects.Single(x => x.GetType() == oldobj.GetType() && x.Id == oldobj.Id);
+                    BridgeManager.Instance.SelectedObject = BridgeManager.Instance.CurrentBridgeHueObjectsList.Single(x => x.GetType() == oldobj.GetType() && x.Id == oldobj.Id);
                     await EditObject();
                 }
                 catch (Exception)
@@ -1062,7 +1054,7 @@ namespace WinHue3.MainForm
 
                 if (hr != null)
                 {
-                    ListBridgeObjects.Add(hr);
+                    BridgeManager.Instance.CurrentBridgeHueObjectsList.Add(hr);
                 }
                 else
                 {
@@ -1095,10 +1087,10 @@ namespace WinHue3.MainForm
             if (result)
             {
                 int index =
-                    ListBridgeObjects.FindIndex(
+                    BridgeManager.Instance.CurrentBridgeHueObjectsList.FindIndex(
                         x => x.Id == BridgeManager.Instance.SelectedObject.Id && x.GetType() == BridgeManager.Instance.SelectedObject.GetType());
                 if (index == -1) return;
-                ListBridgeObjects.RemoveAt(index);
+                BridgeManager.Instance.CurrentBridgeHueObjectsList.RemoveAt(index);
                 BridgeManager.Instance.SelectedObject = null;
                 log.Info($"Object ID : {index} removed.");
             }
@@ -1113,9 +1105,9 @@ namespace WinHue3.MainForm
             Form_RenameObject fro = new Form_RenameObject(BridgeManager.Instance.SelectedBridge, BridgeManager.Instance.SelectedObject) {Owner = Application.Current.MainWindow};
             if (fro.ShowDialog() != true) return;
             BridgeManager.Instance.SelectedObject.name = fro.GetNewName();
-            int index = ListBridgeObjects.FindIndex(x => x.Id == BridgeManager.Instance.SelectedObject.Id && x.GetType() == BridgeManager.Instance.SelectedObject.GetType());
+            int index = BridgeManager.Instance.CurrentBridgeHueObjectsList.FindIndex(x => x.Id == BridgeManager.Instance.SelectedObject.Id && x.GetType() == BridgeManager.Instance.SelectedObject.GetType());
             if (index == -1) return;
-            ListBridgeObjects[index].name = fro.GetNewName();
+            BridgeManager.Instance.CurrentBridgeHueObjectsList[index].name = fro.GetNewName();
             log.Info($"Renamed object ID : {index} renamed.");
         }
 
@@ -1171,12 +1163,12 @@ namespace WinHue3.MainForm
 
         private void OpenWinHueWebsite()
         {
-            Process.Start("https://hyrules.github.io/WinHue3/");
+            Process.Start("https://hyrules.github.io/WinHue/");
         }
 
         private void OpenWinHueSupport()
         {
-            Process.Start("https://github.com/Hyrules/WinHue3/issues");
+            Process.Start("https://github.com/Hyrules/WinHue/issues");
         }
 
         #endregion
@@ -1315,7 +1307,7 @@ namespace WinHue3.MainForm
 
         private void CreateFloorPlan()
         {
-            Form_RoomMapCreator frmp = new Form_RoomMapCreator(_listBridgeObjects.ToList())
+            Form_RoomMapCreator frmp = new Form_RoomMapCreator(BridgeManager.Instance.CurrentBridgeHueObjectsList.ToList())
             {
                 Owner = Application.Current.MainWindow
             };
@@ -1326,7 +1318,7 @@ namespace WinHue3.MainForm
         private async Task SelectHueElement()
         {
             if (SelectedHueElement == null) return;
-            BridgeManager.Instance.SelectedObject = ListBridgeObjects.FirstOrDefault(x => x.Id == SelectedHueElement.Id && x.GetType() == GetTypeFromHueElementEnum(SelectedHueElement.HueType));
+            BridgeManager.Instance.SelectedObject = BridgeManager.Instance.CurrentBridgeHueObjectsList.FirstOrDefault(x => x.Id == SelectedHueElement.Id && x.GetType() == GetTypeFromHueElementEnum(SelectedHueElement.HueType));
             await ClickObject();
             SelectedHueElement.Image = BridgeManager.Instance.SelectedObject.Image;
         }
@@ -1381,7 +1373,7 @@ namespace WinHue3.MainForm
 
             foreach (HueElement h in SelectedFloorPlan.Elements)
             {
-                IHueObject obj = ListBridgeObjects.FirstOrDefault(x => x.Id == h.Id && x.GetType() == GetTypeFromHueElementEnum(h.HueType));
+                IHueObject obj = BridgeManager.Instance.CurrentBridgeHueObjectsList.FirstOrDefault(x => x.Id == h.Id && x.GetType() == GetTypeFromHueElementEnum(h.HueType));
                 if (obj == null) continue;
                 h.Image = obj.Image;
             }
