@@ -88,7 +88,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
         [DataMember(EmitDefaultValue = true)]
         public bool ShowFloorPlanTab { get; set; }
         [DataMember(EmitDefaultValue = true)]
-        public int RefreshTime { get; set; }
+        public double RefreshTime { get; set; }
 
         public override string ToString()
         {

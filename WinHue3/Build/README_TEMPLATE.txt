@@ -2,7 +2,7 @@
 /// WinHue 3 - {release}
 /////////////////////////////////////////////////////// 
 
-NOTE : You need Microsoft Dot Net Framework 4.7.2 for this program to work properly. 
+NOTE : You need Microsoft Dot Net Framework 4.5.2 for this program to work properly. 
 You might also need Visual C++ 2010 Redistributable library. 
 Both are available at Microsoft's website. 
 
@@ -18,7 +18,6 @@ Added:
 - Option to hide the floor plan tab in the application view settings.
 
 Changed:
-- MOVED TO .NET FRAMEWORK 4.7.2
 - Scene Creator display of sliders and values.
 - Replaced many Transition related up down with a practical TransitionTime Up Down. No more guessing the transition time.
 - Replaced some wpf toolkit up down with my own. ( bug alert ! there might be bugs in there )

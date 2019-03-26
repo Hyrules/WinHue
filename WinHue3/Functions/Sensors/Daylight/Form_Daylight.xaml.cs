@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
 using WinHue3.Utils;

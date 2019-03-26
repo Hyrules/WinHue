@@ -152,8 +152,8 @@ end;
 
 function InitializeSetup(): Boolean;
 begin
-    if not IsDotNetDetected('v4.7.2', 0) then begin
-        MsgBox('WinHue requires Microsoft .NET Framework 4.7.2.'#13#13
+    if not IsDotNetDetected('v4.5.2', 0) then begin
+        MsgBox('WinHue requires Microsoft .NET Framework 4.5.2.'#13#13
             'Please use Windows Update to install this version,'#13
             'and then re-run the WinHue setup program.', mbInformation, MB_OK);
         result := false;

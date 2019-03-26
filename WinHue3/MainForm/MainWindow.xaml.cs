@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.EventViewer;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;

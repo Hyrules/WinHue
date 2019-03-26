@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject;

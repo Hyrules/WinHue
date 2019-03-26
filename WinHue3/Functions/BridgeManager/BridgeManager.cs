@@ -27,7 +27,7 @@ namespace WinHue3.Functions.BridgeManager
         {
             ListBridges = new ObservableCollection<Bridge>();
             CurrentBridgeHueObjectsList = new ObservableCollection<IHueObject>();
-            _refreshTimer.Interval = new TimeSpan(0, 0, WinHueSettings.settings.RefreshTime);
+            _refreshTimer.Interval = new TimeSpan(0, 0, (int)WinHueSettings.settings.RefreshTime);
             _refreshTimer.Tick += _refreshTimer_Tick;
             _findlighttimer.Interval = new TimeSpan(0, 1, 0);
             _findlighttimer.Tick += _findlighttimer_Tick;

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using log4net;
 
 namespace WinHue3.Functions.EventViewer
 {
@@ -9,7 +8,7 @@ namespace WinHue3.Functions.EventViewer
     /// </summary>
     public partial class Form_EventLog : Window
     {
-        private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        
         public Form_EventLog()
         {
             InitializeComponent();

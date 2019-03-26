@@ -50,6 +50,7 @@ namespace WinHue3.Functions.Application_Settings
             WinHueSettings.settings.SlidersBehavior = _appSettingsViewModel.DefaultModel.SlidersBehavior;
             WinHueSettings.settings.OSRAMFix = _appSettingsViewModel.MainSettingsModel.OSRAMFix;
             WinHueSettings.settings.ShowFloorPlanTab = _appSettingsViewModel.ViewSettingsModel.ShowFloorPlanTab;
+            WinHueSettings.settings.RefreshTime = _appSettingsViewModel.MainSettingsModel.RefreshTime;
 
             string pathtostartupfile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "WinHue3.lnk");
 

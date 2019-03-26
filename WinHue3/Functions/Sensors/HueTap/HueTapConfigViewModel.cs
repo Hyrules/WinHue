@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
-using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;

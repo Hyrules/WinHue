@@ -60,6 +60,7 @@ using WinHue3.Functions.RoomMap;
 using Binding = System.Windows.Data.Binding;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using WinHue3.ExtensionMethods;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.MainForm
 {
@@ -1150,7 +1151,7 @@ namespace WinHue3.MainForm
         private void ShowPropertyGrid()
         {
             Form_PropertyGrid fpg = new Form_PropertyGrid {Owner = Application.Current.MainWindow};
-            Binding selectedBinding = new Binding("BridgeManager.Instance.SelectedObject") {Source = this, Mode = BindingMode.TwoWay};
+            Binding selectedBinding = new Binding("SelectedObject") {Source = BridgeManager.Instance, Mode = BindingMode.TwoWay};
             BindingOperations.SetBinding(fpg, Form_PropertyGrid.SelectedObjectProperty, selectedBinding);
             fpg.Show();
         }

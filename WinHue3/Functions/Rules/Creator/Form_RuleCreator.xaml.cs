@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Resources;
-using WinHue3.Utils;
-using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
 namespace WinHue3.Functions.Rules.Creator
 {
