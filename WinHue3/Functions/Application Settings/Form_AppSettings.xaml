@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:resx="clr-namespace:WinHue3.Resources"
-    xmlns:controls="clr-namespace:WinHue3.Controls"
     xmlns:applicationSettings="clr-namespace:WinHue3.Functions.Application_Settings"
     xmlns:models="clr-namespace:WinHue3.MainForm"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -13,6 +12,7 @@
 
     <Window.Resources>
         <converters:TimeSpanToDoubleConverter x:Key="TimeSpanToDoubleConverter"/>
+        <converters:TimeSpanToUShortConverter x:Key="TimeSpanToUShortConverter"/>
     </Window.Resources>
     
     <Window.DataContext>
@@ -58,15 +58,14 @@
                         <Grid Margin="0,0,-1.667,-2.333">
                             <Label x:Name="Label" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllON}" HorizontalAlignment="Left" Margin="11,8,0,0" VerticalAlignment="Top" Width="72"/>
                             <Label x:Name="Label1" Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_CommandsAllOFF}" HorizontalAlignment="Left" Margin="11,36,0,0" VerticalAlignment="Top" Width="72"/>
-
-                            <controls:WinHueTransitionTimeUpDown HorizontalAlignment="Left" Height="17" Margin="88,10,0,0" VerticalAlignment="Top" Width="143" Value="{Binding DefaultModel.AllOnTt}"/>
-                            <controls:WinHueTransitionTimeUpDown HorizontalAlignment="Left" Height="20" Margin="88,41,0,0" VerticalAlignment="Top" Width="143" Value="{Binding DefaultModel.AllOffTt}"/>
+                            <xctk:TimeSpanUpDown HorizontalAlignment="Left" Height="20" Margin="88,10,0,0" VerticalAlignment="Top" Width="143" Value="{Binding DefaultModel.AllOnTt, Converter={StaticResource TimeSpanToUShortConverter}}" Watermark="{x:Static resx:GUI.TransitionTimeDefault}" Maximum="01:49:13.5" Minimum="0"/>
+                            <xctk:TimeSpanUpDown HorizontalAlignment="Left" Height="20" Margin="88,41,0,0" VerticalAlignment="Top" Width="143" Value="{Binding DefaultModel.AllOffTt, Converter={StaticResource TimeSpanToUShortConverter}}" Watermark="{x:Static resx:GUI.TransitionTimeDefault}" Maximum="01:49:13.5" Minimum="0"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox x:Name="GroupBox3" Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults_DefaultTT}" HorizontalAlignment="Left" Margin="5,159,0,0" VerticalAlignment="Top" Height="123" Width="167">
                         <Grid>
                             <TextBlock x:Name="TextBlock1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,35,0,0" Width="150" Height="33" TextWrapping="Wrap" TextAlignment="Center"><Run Text="{x:Static resx:GUI.TransitionTimeToolTip}"/></TextBlock>
-                            <controls:WinHueTransitionTimeUpDown Height="13" Width="Auto" Margin="2,10,9.636,70.364" Value="{Binding DefaultModel.DefaultTt}"/>
+                            <xctk:TimeSpanUpDown Height="20" Width="Auto" Margin="2,10,9.636,70.364" Value="{Binding DefaultModel.DefaultTt, Converter={StaticResource TimeSpanToUShortConverter}}" Maximum="01:49:13.5" Minimum="0" Watermark="{x:Static resx:GUI.TransitionTimeDefault}"/>
                         </Grid>
 
 

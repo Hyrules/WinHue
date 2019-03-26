@@ -6,9 +6,6 @@
     xmlns:creator="clr-namespace:WinHue3.Functions.Scenes.Creator"
     xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
-    xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-    xmlns:uShortUpDown="clr-namespace:WinHue3.Controls.UShortUpDown"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Name="FormSceneCreator" x:Class="WinHue3.Functions.Scenes.Creator.Form_SceneCreator" Title="{x:Static resx:GUI.SceneCreatorForm_Title}" Height="582.291" Width="929.382" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/WinHue3;component/Resources/scenes.png">
     <Window.DataContext>
@@ -18,7 +15,7 @@
         <converters:DoubleToUShortConverter x:Key="DoubleToUshortConverter"/>
         <converters:DoubleToByteConverter x:Key="DoubleToByteConverter"/>
         <converters:SliderToXYConverter x:Key="SliderToXyConverter"/>
-        <converters:DoubleToUShortConverter x:Key="SliderToUshortConverter"/>
+        <converters:TimeSpanToUShortConverter x:Key="TimeSpanToUShortConverter"/>
         <Style TargetType="{x:Type ListView}" >
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true" >
@@ -127,10 +124,7 @@
                     <xctk:DoubleUpDown HorizontalAlignment="Left" Height="23" Margin="314,119,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Ct, Converter={StaticResource DoubleToUshortConverter}}" IsEnabled="{Binding ElementName=cbCT, Path=IsChecked}" Minimum="153" Maximum="500"/>
                     <xctk:DecimalUpDown HorizontalAlignment="Left" Height="20" Margin="314,205,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.X}" IsEnabled="{Binding ElementName=cbXY, Path=IsChecked}" Maximum="1" Minimum="0" Increment="0.001"/>
                     <xctk:DecimalUpDown HorizontalAlignment="Left" Height="20" Margin="314,230,0,0" VerticalAlignment="Top" Width="73" Value="{Binding SceneCreatorModel.Y}" IsEnabled="{Binding ElementName=cbXY, Path=IsChecked}" Maximum="1" Minimum="0" Increment="0.001"/>
-                    <controls:WinHueTransitionTimeUpDown HorizontalAlignment="Left" Height="18" Margin="283,279,0,0" VerticalAlignment="Top" Width="104" Value="{Binding SceneCreatorModel.TT}" IsEnabled="{Binding ElementName=cbTT, Path=IsChecked}"/>
-
-
-
+                    <xctk:TimeSpanUpDown HorizontalAlignment="Left" Height="20" Margin="283,279,0,0" VerticalAlignment="Top" Width="104" Value="{Binding SceneCreatorModel.TT, Converter={StaticResource TimeSpanToUShortConverter}}" IsEnabled="{Binding ElementName=cbTT, Path=IsChecked}" Watermark="{x:Static resx:GUI.TransitionTimeDefault}"/>
                 </Grid>
                 <CheckBox x:Name="ChbRecycle" Content="{x:Static resx:GUI.SceneCreatorForm_Recycle}" HorizontalAlignment="Left" Margin="135,310,0,0" VerticalAlignment="Top" Width="82" IsChecked="{Binding SceneCreatorModel.Recycle}"/>
                 <Button x:Name="BtnSelectLight" Content="{x:Static resx:GUI.Button_Add}" Margin="242,337,10.091,0" VerticalAlignment="Top" Height="31" Command="{Binding AddSelectedLightsToSceneCommand}"/>

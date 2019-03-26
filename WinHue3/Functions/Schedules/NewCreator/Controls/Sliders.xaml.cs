@@ -119,14 +119,7 @@ namespace WinHue3.Functions.Schedules.NewCreator.Controls
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TransitionTimeProperty =
-            DependencyProperty.Register("TTValue", typeof(ushort?), typeof(Sliders), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TtPropertyChangedCallback));
-
-        private static void TtPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Sliders sliders = d as Sliders;
-            sliders.iudTT.Value = Convert.ToUInt16(e.NewValue);
-        }
-
+            DependencyProperty.Register("TTValue", typeof(ushort?), typeof(Sliders), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public string HueEffect
         {

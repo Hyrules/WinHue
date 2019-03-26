@@ -16,6 +16,7 @@
         <converters:DoubleToByteConverter x:Key="SliderToByteConverter"/>
         <converters:HueColorConverter x:Key="HueColorConverter"/>
         <converters:SliderToXYConverter x:Key="SliderToXyConverter"/>
+        <converters:TimeSpanToUShortConverter x:Key="TimeSpanToUShortConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -81,8 +82,8 @@
             <ComboBoxItem Content="Color loop" Tag="colorloop"/>
         </ComboBox>
         <CheckBox x:Name="chbOn" IsChecked="{Binding On, ElementName=sliders}" Content="{x:Static resources:GUI.ScheduleCreatorForm_ON}" HorizontalAlignment="Left" Margin="10,431,0,0" VerticalAlignment="Top" IsThreeState="True"/>
-
-        <Controls:WinHueTransitionTimeUpDown x:Name="iudTT" HorizontalAlignment="Left" Height="16" Margin="99,335,0,0" VerticalAlignment="Top" Width="124" Value="{Binding TTValue, ElementName=sliders}"/>
+        <xctk:TimeSpanUpDown x:Name="iudTT" HorizontalAlignment="Left" Height="20" Margin="99,335,0,0" VerticalAlignment="Top" Width="124" Value="{Binding TTValue, ElementName=sliders, Converter={StaticResource TimeSpanToUShortConverter}}" Watermark="{x:Static resources:GUI.TransitionTimeDefault}" Maximum="01:49:13.5" Minimum="0"/>
+        
 
     </Grid>
 </UserControl>
