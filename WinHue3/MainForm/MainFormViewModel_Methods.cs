@@ -615,7 +615,6 @@ namespace WinHue3.MainForm
             }
         }
 
-
         private async Task SliderChangeCt()
         {
             switch (WinHueSettings.settings.SlidersBehavior)
@@ -668,7 +667,6 @@ namespace WinHue3.MainForm
                 }
             }
         }
-
 
         private async Task SliderChangeSat()
         {
