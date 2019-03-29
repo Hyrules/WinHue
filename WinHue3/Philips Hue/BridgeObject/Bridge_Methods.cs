@@ -37,13 +37,13 @@ namespace WinHue3.Philips_Hue.BridgeObject
 
         private void RemoveHiddenObjects<T>(ref List<T> list, List<Tuple<string, string>> hiddenObjects) where T : IHueObject
         {
-
+            
             foreach (Tuple<string, string> h in hiddenObjects)
             {
-
-                int index = list.FindItemIndex(x => x.Id == h.Item1 && x.GetType().Name == h.Item2);
-                if (index == -1) continue;
-                list.RemoveAt(index);
+                list.RemoveAll(x => x.Id == h.Item1 && x.GetType().Name == h.Item2);
+                //int index = list.FindItemIndex(x => x.Id == h.Item1 && x.GetType().Name == h.Item2);
+                //if (index == -1) continue;
+                //list.RemoveAt(index);
             }
         }
 
