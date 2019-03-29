@@ -28,8 +28,8 @@ namespace WinHue3.Functions.BridgeSettings
         private Capabilities _caps;
         private bool _canAutoInstall;
         private bool _canClose;
-        private DispatcherTimer _updateTimer;
-        private DispatcherTimer _updateProgressTimer;
+        private readonly DispatcherTimer _updateTimer;
+        private readonly DispatcherTimer _updateProgressTimer;
 
         private int _updateProgress;
 
@@ -52,7 +52,7 @@ namespace WinHue3.Functions.BridgeSettings
 
         private async Task Initialize()
         {
-            List<IHueObject> lo = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            List<IHueObject> lo = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync(true);
             HiddenObjects.ListObjects = new ObservableCollection<IHueObject>(lo);
             foreach (Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[BridgeManager.BridgeManager.Instance.SelectedBridge.Mac].hiddenobjects)
             {
