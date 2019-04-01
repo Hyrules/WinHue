@@ -1,7 +1,7 @@
 <h1>WinHue</h1>
 
 <b>Requirements :</b> <br/>
-- [Microsoft Dot Net Framework 4.5.1](https://www.microsoft.com/en-ca/download/details.aspx?id=40773) <br/>
+- [Microsoft Dot Net Framework 4.5.2](https://dotnet.microsoft.com/download/dotnet-framework/net452) <br/>
 - [Visual C++ 2010 Redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=5555)<br/>
 - [A complete Philips Hue Light system including some philips hue lights and bridge (Api version 1.16 or greater)](https://www2.meethue.com/en-us/products/starter-kits#filters=STARTER_KITS_SU&sliders=&support=&price=&priceBoxes=&page=&layout=12.subcategory.p-grid-icon)
 
@@ -22,7 +22,7 @@ WinHue is a windows desktop application to control the philips hue lighting syst
 
 <b>Install Procedure :</b>
 
-1. Download the [latest release](https://github.com/Hyrules/WinHue3/releases/latest)
+1. Download the [latest release](https://github.com/Hyrules/WinHue/releases/latest)
 2. Install the release.
 3. Pair the bridge with WinHue.
 4. Have fun !
