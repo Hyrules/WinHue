@@ -67,7 +67,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Hue/Color of the group.
         /// </summary>
-        [Description("Color (0-65535)"), Category("Properties")]
+        [Description("Color (0-65535)"), Category("Properties"), DefaultValue(null)]
         public ushort? hue
         {
             get => _hue;
