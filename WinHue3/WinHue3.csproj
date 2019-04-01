@@ -251,7 +251,9 @@
     <Compile Include="Functions\Grouping\BridgeGroup.cs" />
     <Compile Include="Functions\Grouping\BridgeSubGroup.cs" />
     <Compile Include="Functions\Grouping\IGroup.cs" />
+    <Compile Include="Functions\Groups\Creator\GroupCreator.cs" />
     <Compile Include="Functions\HotKeys\HotKeyConverter.cs" />
+    <Compile Include="Functions\HotKeys\HotKeyManager.cs" />
     <Compile Include="Functions\PowerSettings\Form_PowerCustomSettings.xaml.cs">
       <DependentUpon>Form_PowerCustomSettings.xaml</DependentUpon>
     </Compile>

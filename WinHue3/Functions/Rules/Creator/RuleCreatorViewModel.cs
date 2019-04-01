@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.Rules.Validation;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -18,7 +19,6 @@ using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Utils;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
-using Bridge = WinHue3.Philips_Hue.BridgeObject.Bridge;
 
 
 namespace WinHue3.Functions.Rules.Creator
@@ -42,8 +42,8 @@ namespace WinHue3.Functions.Rules.Creator
 
         public async Task Initialize()
         {
-            List<IHueObject> objects = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
-            _bs = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();          
+            List<IHueObject> objects = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            _bs = await BridgesManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();          
             _listAvailableHueObject.AddRange(objects);
 
         }

@@ -149,5 +149,15 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         {
             return MemberwiseClone();
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Rule hueobject && hueobject.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

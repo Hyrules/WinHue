@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -11,8 +12,8 @@ namespace WinHue3.Functions.Sensors.HueTap
 {
     public class HueTapConfigViewModel : ValidatableBindableBase
     {
-        private readonly System.Windows.Media.Color _selectedColor = System.Windows.Media.Color.FromArgb(128, 255, 0, 0);
-        private readonly System.Windows.Media.Color _deselectedColor = System.Windows.Media.Color.FromArgb(0, 0, 0, 0);
+        private readonly Color _selectedColor = Color.FromArgb(128, 255, 0, 0);
+        private readonly Color _deselectedColor = Color.FromArgb(0, 0, 0, 0);
         private Scene _selectedScene;
 
         private HueTapModel _huetapmodel;
@@ -93,7 +94,7 @@ namespace WinHue3.Functions.Sensors.HueTap
                 }
             };
 
-            bool result = BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(newRule);
+            bool result = BridgesManager.Instance.SelectedBridge.CreateObject(newRule);
             if (result)
             {
                 HueTapModel.BtnOneBG = new SolidColorBrush(_deselectedColor);
@@ -106,7 +107,7 @@ namespace WinHue3.Functions.Sensors.HueTap
             }
             else
             {
-                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
+                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
             }
     
         }

@@ -134,10 +134,20 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
             Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.resource);
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Resourcelink hueobject && hueobject.Id == Id;
+        }
+
         public override string ToString()
         {
             return name;
 
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 

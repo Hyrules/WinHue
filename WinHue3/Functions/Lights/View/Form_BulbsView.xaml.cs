@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using WinHue3.Utils;
 
 namespace WinHue3.Functions.Lights.View
 {
@@ -22,7 +21,7 @@ namespace WinHue3.Functions.Lights.View
 
         public async Task Initialize()
         {
-            List<Light> lresult = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> lresult = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (lresult == null) return;
             _bvv.Initialize(lresult);
         }

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using log4net;
-using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Interface;
@@ -40,6 +39,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
             
             foreach (Tuple<string, string> h in hiddenObjects)
             {
+                
                 list.RemoveAll(x => x.Id == h.Item1 && x.GetType().Name == h.Item2);
                 //int index = list.FindItemIndex(x => x.Id == h.Item1 && x.GetType().Name == h.Item2);
                 //if (index == -1) continue;

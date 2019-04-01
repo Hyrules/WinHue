@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -23,13 +24,13 @@ namespace WinHue3.Functions.Groups.View
 
         public async Task Initialize()
         {
-            List<Light> comlgt = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> comlgt = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
 
             _gvv = DataContext as GroupViewViewModel;
 
             if (comlgt != null)
             {
-                List<Group> comgrp = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Group>();
+                List<Group> comgrp = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Group>();
                 if (comgrp != null)
                 {
 
@@ -37,7 +38,7 @@ namespace WinHue3.Functions.Groups.View
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
                 }
 
                 DataContext = _gvv;
@@ -45,7 +46,7 @@ namespace WinHue3.Functions.Groups.View
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
             }
         }
 

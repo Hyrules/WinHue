@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Input;
 using OpenHardwareMonitor.Hardware;
 using WinHue3.Functions.BridgeManager;
-using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -51,7 +50,7 @@ namespace WinHue3.Addons.CpuTempMon
             _temp.OnSensorUpdated += _temp_OnSensorUpdated;
             _temp.Start();
 
-            List<IHueObject> hr = BridgeManager.Instance.SelectedBridge.GetAllObjects();
+            List<IHueObject> hr = BridgesManager.Instance.SelectedBridge.GetAllObjects();
 
             if (hr == null) return;
             ListLightGroups.AddRange(hr.Where(x => x is Light));
@@ -105,11 +104,11 @@ namespace WinHue3.Addons.CpuTempMon
 
             if (SelectedObject is Light)
             {
-                BridgeManager.Instance.SelectedBridge.SetState(new State() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
+                BridgesManager.Instance.SelectedBridge.SetState(new State() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
             }
             else
             {
-                BridgeManager.Instance.SelectedBridge.SetState(new Philips_Hue.HueObjects.GroupObject.Action() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
+                BridgesManager.Instance.SelectedBridge.SetState(new Philips_Hue.HueObjects.GroupObject.Action() { hue = hueTemp, bri = Bri, sat = Sat, @on = true, transitiontime = 9 }, _selectedObject.Id);
             }
 
             

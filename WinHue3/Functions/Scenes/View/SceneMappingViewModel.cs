@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.Scenes.Creator;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -140,7 +141,7 @@ namespace WinHue3.Functions.Scenes.View
         public void ProcessDoubleClick()
         {
             if (_row == null) return;
-            BridgeManager.BridgeManager.Instance.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
+            BridgesManager.Instance.SelectedBridge.ActivateScene(((DataRowView) _row).Row.ItemArray[0].ToString());
         }
 
         private bool ObjectSelected()

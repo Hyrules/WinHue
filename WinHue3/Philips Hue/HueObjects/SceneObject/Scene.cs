@@ -209,5 +209,15 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         {
             return MemberwiseClone();
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Scene hueobject && hueobject.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

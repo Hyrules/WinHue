@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
@@ -26,7 +27,7 @@ namespace WinHue3.Functions.Sensors.HueTap
         {
             tcvm.HueTapModel.Id = sensorid;
 
-            List<Scene> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Scene>();
+            List<Scene> hr = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Scene>();
 
             if (hr != null)
             {
@@ -45,7 +46,7 @@ namespace WinHue3.Functions.Sensors.HueTap
             }
             else
             {
-                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
+                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
             }
         }
 

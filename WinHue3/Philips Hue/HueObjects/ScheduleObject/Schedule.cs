@@ -2,8 +2,6 @@
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
-using WinHue3.Interface;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -158,6 +156,16 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Schedule hueobject && hueobject.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

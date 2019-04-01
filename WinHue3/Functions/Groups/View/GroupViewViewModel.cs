@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Groups.Creator;
-using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
-using Xceed.Wpf.DataGrid;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
 using Group = WinHue3.Philips_Hue.HueObjects.GroupObject.Group;
 

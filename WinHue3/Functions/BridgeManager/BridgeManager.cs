@@ -8,12 +8,12 @@ using WinHue3.Utils;
 
 namespace WinHue3.Functions.BridgeManager
 {
-    public sealed partial class BridgeManager : ValidatableBindableBase
+    public sealed partial class BridgesManager : ValidatableBindableBase
     {
         private readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public static readonly BridgeManager _bridgeManager = new BridgeManager();
+        private static readonly BridgesManager _bridgeManager = new BridgesManager();
         private IHueObject _selectedObject;
-        public static BridgeManager Instance => _bridgeManager;
+        public static BridgesManager Instance => _bridgeManager;
         private ObservableCollection<IHueObject> _listCurrentBridgeHueObjects;
         private readonly DispatcherTimer _refreshTimer = new DispatcherTimer();
         private readonly DispatcherTimer _findlighttimer = new DispatcherTimer();
@@ -23,7 +23,7 @@ namespace WinHue3.Functions.BridgeManager
         private ObservableCollection<Bridge> _listBridges;
         private Bridge _selectedBridge;
 
-        private BridgeManager()
+        private BridgesManager()
         {
             ListBridges = new ObservableCollection<Bridge>();
             CurrentBridgeHueObjectsList = new ObservableCollection<IHueObject>();

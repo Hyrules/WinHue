@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using WinHue3.ExtensionMethods;
-using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.HueObjects.Common;
-using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
 
 namespace WinHue3.Functions.BridgeSettings

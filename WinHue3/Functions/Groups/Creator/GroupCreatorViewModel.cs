@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
@@ -75,16 +76,16 @@ namespace WinHue3.Functions.Groups.Creator
             bool result = false;
             if (Group.Id == null)
             {
-                result = BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(Group);
+                result = BridgeManager.BridgesManager.Instance.SelectedBridge.CreateObject(Group);
                 if (result)
                 {
                     log.Info("Group creation success");
-                    _id = BridgeManager.BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                    _id = BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 }
             }
             else
             {
-                result = BridgeManager.BridgeManager.Instance.SelectedBridge.ModifyObject(Group);
+                result = BridgesManager.Instance.SelectedBridge.ModifyObject(Group);
                 if (result)
                 {
                     log.Info("Group modification success");
@@ -94,7 +95,7 @@ namespace WinHue3.Functions.Groups.Creator
 
             if(!result)
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgesManager.Instance.SelectedBridge);
             }
 
             return _id;

@@ -9,7 +9,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Functions.BridgeManager
 {
-    public sealed partial class BridgeManager
+    public sealed partial class BridgesManager
     {
         public event BridgeRemoved OnBridgeRemoved;
         public delegate void BridgeRemoved(Bridge b);

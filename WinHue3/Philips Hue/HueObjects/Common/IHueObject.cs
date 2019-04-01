@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Media;
 using WinHue3.Functions;
 
 namespace WinHue3.Philips_Hue.HueObjects.Common
@@ -10,5 +12,5 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
         string name { get; set; }
         object Clone();
         bool visible { get; set; }
-    }
+  }
 }

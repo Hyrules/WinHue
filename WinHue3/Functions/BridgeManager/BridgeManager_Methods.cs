@@ -29,7 +29,7 @@ using WinHue3.Utils;
 
 namespace WinHue3.Functions.BridgeManager
 {
-    public sealed partial class BridgeManager
+    public sealed partial class BridgesManager
     {
         public void FindSensor()
         {

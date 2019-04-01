@@ -99,7 +99,7 @@ namespace HueLib2Test
         public void TestDTLS()
         {
            
-            IPEndPoint LocalEP = new IPEndPoint(IPAddress.Any, 0);
+            IPEndPoint LocalEP = new IPEndPoint(IPAddress.Any, 2100);
             IPEndPoint RemoteEP = new IPEndPoint(IPAddress.Parse("192.168.5.30"),2100);
             Socket socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
             socket.Bind(LocalEP);

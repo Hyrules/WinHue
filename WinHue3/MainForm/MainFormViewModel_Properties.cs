@@ -27,8 +27,8 @@ namespace WinHue3.MainForm
         {
             get
             {
-                if (BridgeManager.Instance.SelectedObject == null) return false;
-                if (!(BridgeManager.Instance.SelectedObject is Light) && !(BridgeManager.Instance.SelectedObject is Group)) return false;
+                if (BridgesManager.Instance.SelectedObject == null) return false;
+                if (!(BridgesManager.Instance.SelectedObject is Light) && !(BridgesManager.Instance.SelectedObject is Group)) return false;
                 return true;
             }
         }
@@ -103,13 +103,13 @@ namespace WinHue3.MainForm
             }
         }
 
-        public bool MultiBridgeCB => BridgeManager.Instance.ListBridges.Count > 1;
+        public bool MultiBridgeCB => BridgesManager.Instance.ListBridges.Count > 1;
 
         public Visibility UpdateAvailable
         {
             get
             {
-                BridgeSettings cr = BridgeManager.Instance.SelectedBridge?.GetBridgeSettings();
+                BridgeSettings cr = BridgesManager.Instance.SelectedBridge?.GetBridgeSettings();
                 if (cr == null) return Visibility.Collapsed;
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }

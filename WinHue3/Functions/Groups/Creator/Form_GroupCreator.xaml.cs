@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using WinHue3.ExtensionMethods;
-using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Resources;
@@ -32,12 +30,12 @@ namespace WinHue3.Functions.Groups.Creator
         public Form_GroupCreator()
         {
             InitializeComponent();
-            gcvm = this.DataContext as GroupCreatorViewModel;
+            gcvm = DataContext as GroupCreatorViewModel;
         }
 
         public async Task Initialize(Group selectedGroup = null)
         {
-            List<Light> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> hr = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (selectedGroup == null)
             {            
                 if (hr != null)
@@ -49,13 +47,13 @@ namespace WinHue3.Functions.Groups.Creator
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(selectedGroup.Id);
+                    Group hr2 = await BridgesManager.Instance.SelectedBridge.GetObjectAsync<Group>(selectedGroup.Id);
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
                 }
                 BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
@@ -63,7 +61,7 @@ namespace WinHue3.Functions.Groups.Creator
 
         public async Task Initialize(string group)
         {
-            List<Light> hr = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> hr = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
             if (string.IsNullOrEmpty(group))
             {
                 
@@ -76,13 +74,13 @@ namespace WinHue3.Functions.Groups.Creator
                 {
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
-                    Group hr2 = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetObjectAsync<Group>(group);
+                    Group hr2 = await BridgesManager.Instance.SelectedBridge.GetObjectAsync<Group>(group);
                     if (hr2 != null)
                         gcvm.Group = hr2;
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
                 }
                 BtnCreateGroup.Content = GUI.GroupCreatorForm_ModifyGroupButton;
             }
