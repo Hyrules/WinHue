@@ -7,14 +7,14 @@ You might also need Visual C++ 2010 Redistributable library.
 Both are available at Microsoft's website. 
 
 Fixed:
-- Crash at startup when having hidden object.
-- Hidden objects hiding properly.
+- rule creator adding caps to paths.
 
 Added:
 - 
 
 Changed:
-- Replace more controls.
+- Moved to a HotKeyManager instead of mainform handling hotkeys.
+- Rollback to xceed toolkit 3.4.0 to avoid bug in property grid.
 
 Updated :
 - 

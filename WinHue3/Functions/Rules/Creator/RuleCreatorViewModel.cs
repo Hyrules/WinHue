@@ -469,7 +469,7 @@ namespace WinHue3.Functions.Rules.Creator
         {
             ListConditionProperties = null;
             if (SelectedConditionHueObject == null) return;
-            ListConditionProperties = TreeViewHelper.BuildPropertiesTree(SelectedConditionHueObject,$"/{SelectedConditionHueObject.GetType().Name}/{SelectedConditionHueObject.Id}", "object").ToList();
+            ListConditionProperties = TreeViewHelper.BuildPropertiesTree(SelectedConditionHueObject,$"/{SelectedConditionHueObject.GetType().Name.ToLower()}/{SelectedConditionHueObject.Id}", "object").ToList();
 
         }
 
