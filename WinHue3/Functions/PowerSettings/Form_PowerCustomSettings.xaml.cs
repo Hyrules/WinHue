@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using WinHue3.Philips_Hue.BridgeObject;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using WinHue3.Utils;
+
 
 namespace WinHue3.Functions.PowerSettings
 {
@@ -36,7 +25,7 @@ namespace WinHue3.Functions.PowerSettings
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            bool result = await BridgeManager.BridgeManager.Instance.SelectedBridge.SetPowerCustomSettingsAsyncTask(pfsvm.Customsettings, _id);
+            bool result = await BridgesManager.Instance.SelectedBridge.SetPowerCustomSettingsAsyncTask(pfsvm.Customsettings, _id);
             if (result)
             {
                 DialogResult = true;
@@ -44,7 +33,7 @@ namespace WinHue3.Functions.PowerSettings
             }
             else
             {
-                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
+                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
             }
         }
 

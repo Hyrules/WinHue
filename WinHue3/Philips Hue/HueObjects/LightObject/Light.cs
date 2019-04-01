@@ -5,7 +5,6 @@ using System.Windows.Media;
 using log4net;
 using Newtonsoft.Json;
 using WinHue3.Functions.Lights.SupportedDevices;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -113,6 +112,11 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         [Browsable(false), JsonIgnore]
         public bool visible { get => _visible; set => SetProperty(ref _visible,value);}
 
+        public override bool Equals(object obj)
+        {
+            return obj is Light hueobject && hueobject.Id == Id;
+        }
+
         /// <summary>
         /// Capabilities of the light.
         /// </summary>
@@ -217,5 +221,9 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
             return MemberwiseClone();
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

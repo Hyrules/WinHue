@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.Daylight;
 using WinHue3.Utils;
@@ -35,7 +36,7 @@ namespace WinHue3.Functions.Sensors.Daylight
                 sunsetoffset = Convert.ToSByte(_dvm.Daylight.SunsetOffset)
             };
 
-            bool bresult = BridgeManager.BridgeManager.Instance.SelectedBridge.ChangeSensorConfig(_id, config);
+            bool bresult = BridgesManager.Instance.SelectedBridge.ChangeSensorConfig(_id, config);
             if(bresult)
             {
                 this.Close();
@@ -43,7 +44,7 @@ namespace WinHue3.Functions.Sensors.Daylight
             else
             {
                
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgeManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgesManager.Instance.SelectedBridge);
             }
  
 

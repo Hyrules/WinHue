@@ -7,7 +7,8 @@ You might also need Visual C++ 2010 Redistributable library.
 Both are available at Microsoft's website. 
 
 Fixed:
-- 
+- Crash at startup when having hidden object.
+- Hidden objects hiding properly.
 
 Added:
 - 

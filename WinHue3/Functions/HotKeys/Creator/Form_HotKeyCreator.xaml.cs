@@ -37,11 +37,6 @@ namespace WinHue3.Functions.HotKeys.Creator
                 _hkv.CaptureHotkey(e);
         }
 
-        public List<HotKey> GetHotKeys()
-        {
-            return _hkv.ListHotKeys.ToList();
-        }
-
         private void btnHelpGeneric_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(GlobalStrings.Form_Hotkey_Help_Generic, GlobalStrings.Help, MessageBoxButton.OK,MessageBoxImage.Information);

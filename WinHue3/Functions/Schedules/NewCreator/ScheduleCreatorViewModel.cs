@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -254,7 +255,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             AdrTarget = new HueAddress
             {
                 api = "api",
-                key = BridgeManager.BridgeManager.Instance.SelectedBridge.ApiKey
+                key = BridgeManager.BridgesManager.Instance.SelectedBridge.ApiKey
             };
 
             switch (_content)
@@ -311,7 +312,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
 
         public async Task Initialize()
         {
-            _currentHueObjectList = await BridgeManager.BridgeManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            _currentHueObjectList = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
             
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());

@@ -1,6 +1,7 @@
 ﻿
 using System.Threading.Tasks;
 using System.Windows;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.RuleObject;
 using WinHue3.Resources;
 
@@ -50,15 +51,15 @@ namespace WinHue3.Functions.Rules.Creator
             {
                 Rule _newrule = _rcvm.Rule;
                 _newrule.Id = _id;
-                result = BridgeManager.BridgeManager.Instance.SelectedBridge.ModifyObject(_newrule);
+                result = BridgesManager.Instance.SelectedBridge.ModifyObject(_newrule);
 
             }
             else
             {
-                result = BridgeManager.BridgeManager.Instance.SelectedBridge.CreateObject(_rcvm.Rule);
+                result = BridgesManager.Instance.SelectedBridge.CreateObject(_rcvm.Rule);
                 if (result)
                 {
-                    _id = BridgeManager.BridgeManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                    _id = BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
                 }
             }
 
@@ -69,7 +70,7 @@ namespace WinHue3.Functions.Rules.Creator
             }
             else
             {
-                BridgeManager.BridgeManager.Instance.SelectedBridge.ShowErrorMessages();
+                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
             }
         }
 

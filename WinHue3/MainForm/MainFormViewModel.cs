@@ -17,30 +17,21 @@ namespace WinHue3.MainForm
 {
     public partial class MainFormViewModel : ValidatableBindableBase
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType); 
-        private readonly List<HotKeyHandle> _lhk;
-        private List<HotKey> _listHotKeys;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private string _lastmessage = string.Empty;
         private MainFormModel _mainFormModel;
         private CpuTempMonitor _ctm;
-        private readonly DispatcherTimer _ledTimer;
+
         private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
                 
         public MainFormViewModel()
         {
-
-            _ledTimer = new DispatcherTimer()
-            {
-                Interval = new TimeSpan(0, 0, 0, 2)
-
-            };
             Comm.CommunicationTimedOut += Comm_CommunicationTimedOut;
             Comm.Timeout = WinHueSettings.settings.Timeout;
             _hotkeyDetected = false;
-            _ledTimer.Tick += _ledTimer_Tick;
-            _lhk = new List<HotKeyHandle>();        
-            _listHotKeys = WinHueSettings.hotkeys.listHotKeys;
+
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;            
             _mainFormModel.Sort = WinHueSettings.settings.Sort;
@@ -68,11 +59,7 @@ namespace WinHue3.MainForm
             MessageBox.Show("Not Responding");
         }
 
-        private void _ledTimer_Tick(object sender, EventArgs e)
-        {
-            _ledTimer.Stop();
-            HotkeyDetected = false;
-        }
+
 
         public MainFormModel MainFormModel
         {
@@ -104,13 +91,15 @@ namespace WinHue3.MainForm
                 }
             }
 
-            BridgeManager.Instance.OnBridgeMessageAdded += Bridge_OnMessageAdded;
-            BridgeManager.Instance.OnBridgeNotResponding += Bridge_BridgeNotResponding;
-            BridgeManager.Instance.LoadBridges();  
-            
-            if (BridgeManager.Instance.SelectedBridge != null)
-                _ctm = new CpuTempMonitor(BridgeManager.Instance.SelectedBridge);
-            
+            BridgesManager.Instance.OnBridgeMessageAdded += Bridge_OnMessageAdded;
+            BridgesManager.Instance.OnBridgeNotResponding += Bridge_BridgeNotResponding;
+            BridgesManager.Instance.LoadBridges();
+
+            if (BridgesManager.Instance.SelectedBridge != null)
+            {
+                _ctm = new CpuTempMonitor(BridgesManager.Instance.SelectedBridge);
+                HotKeyManager.Instance.StartHotKeyCapture();
+            }
         }
 
 

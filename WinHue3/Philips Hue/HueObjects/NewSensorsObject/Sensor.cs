@@ -185,6 +185,11 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             set => SetProperty(ref _swupdate, value);
         }*/
 
+        public override bool Equals(object obj)
+        {
+            return obj is Sensor hueobject && hueobject.Id == Id;
+        }
+
         [JsonIgnore, Browsable(false)]
         public bool visible
         {
@@ -200,6 +205,11 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
         public override string ToString()
         {
             return name;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 

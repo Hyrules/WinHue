@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using WinHue3.ExtensionMethods;
-using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Utils;
+using WinHue3.Functions.BridgeManager;
 
 namespace WinHue3.Functions.Lights.Finder
 {
@@ -23,7 +22,7 @@ namespace WinHue3.Functions.Lights.Finder
         {
             if (_asf.ListSerials.IsValid())
             {
-                DialogResult = await BridgeManager.BridgeManager.Instance.SelectedBridge.FindNewLightsAsync(_asf.ListSerials);
+                DialogResult = await BridgesManager.Instance.SelectedBridge.FindNewLightsAsync(_asf.ListSerials);
                 Close();
             }
             else
