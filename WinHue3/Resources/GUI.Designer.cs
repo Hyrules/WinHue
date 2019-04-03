@@ -1744,6 +1744,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entertainment.
+        /// </summary>
+        public static string GroupCreatorForm_Type_Entertainment {
+            get {
+                return ResourceManager.GetString("GroupCreatorForm_Type_Entertainment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Light Group.
         /// </summary>
         public static string GroupCreatorForm_Type_LightGroup {

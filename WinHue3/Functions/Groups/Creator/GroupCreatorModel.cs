@@ -42,7 +42,7 @@ namespace WinHue3.Functions.Groups.Creator
             set => SetProperty(ref _listAvailableLights,value);
         }
 
-        public bool CanClass => Type == "Room";
+        public bool CanClass => Type != "LightGroup";
 
         public string Type
         {

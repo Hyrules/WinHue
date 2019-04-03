@@ -104,7 +104,7 @@ namespace HueLib2Test
             Socket socket = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,ProtocolType.Udp);
             socket.Bind(LocalEP);
             
-            BasicTlsPskIdentity tlsid = new BasicTlsPskIdentity("1fIrjIf1mhoD1CsygnKB4xv0SE2AMIG0YEbPc3oi",HexStringToByteArray("8C85548411AA03CE62C1FE778EB6DB58"));
+            BasicTlsPskIdentity tlsid = new BasicTlsPskIdentity("0jodHoH6BvouvzmGR-Y8nJfa0XTN1j8sz2tstYJ", HexStringToByteArray("C4D0375C64A9FD05EDE7841805F2DB47"));
             HueDtlsClient hdtls = new HueDtlsClient(tlsid,null);
             hdtls.NotifyHandshakeComplete();
             DtlsClientProtocol dtlsClientProtocol = new DtlsClientProtocol(new SecureRandom());

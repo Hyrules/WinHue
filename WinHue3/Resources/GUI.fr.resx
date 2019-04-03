@@ -1665,4 +1665,7 @@
   <data name="AllOnOffSettings" xml:space="preserve">
     <value>Param. Tout Allumé / Éteint</value>
   </data>
+  <data name="GroupCreatorForm_Type_Entertainment" xml:space="preserve">
+    <value>Divertissement</value>
+  </data>
 </root>

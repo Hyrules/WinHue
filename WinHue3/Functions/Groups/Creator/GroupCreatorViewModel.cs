@@ -40,13 +40,14 @@ namespace WinHue3.Functions.Groups.Creator
                     }
                 }
                 GroupCreator.Listlights = list;
+                GroupCreator.Class = gr.@class;
             }
             get
             {
                 Group gr = new Group {name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
                 if (_id != string.Empty)
                     gr.Id = _id;
-                if (GroupCreator.Type == "Room")
+                if (GroupCreator.Type != "LightGroup")
                     gr.@class = GroupCreator.Class;
                 return gr;
             }

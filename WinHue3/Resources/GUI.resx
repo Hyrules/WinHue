@@ -1665,4 +1665,7 @@
   <data name="AllOnOffSettings" xml:space="preserve">
     <value>All On/Off settings</value>
   </data>
+  <data name="GroupCreatorForm_Type_Entertainment" xml:space="preserve">
+    <value>Entertainment</value>
+  </data>
 </root>
