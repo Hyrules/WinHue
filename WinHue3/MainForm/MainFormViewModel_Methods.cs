@@ -101,6 +101,7 @@ namespace WinHue3.MainForm
         private void CreateEntertainment()
         {
             Form_EntertainmentCreator fec = new Form_EntertainmentCreator() {Owner = Application.Current.MainWindow};
+            fec.Initialize();
             fec.ShowDialog();
         }
 
@@ -130,6 +131,17 @@ namespace WinHue3.MainForm
         private async Task DoubleClickObject()
         {
             log.Debug("Double click on : " + BridgesManager.Instance.SelectedObject);
+
+            switch (BridgesManager.Instance.SelectedObject)
+            {
+                case Light l:
+                    break;
+                case Group g:
+                    break;
+                case Scene sn:
+                    break;
+            }
+
             if ((BridgesManager.Instance.SelectedObject is Light) || (BridgesManager.Instance.SelectedObject is Group ))
             {
                 ImageSource hr = await BridgesManager.Instance.SelectedBridge.ToggleObjectOnOffStateAsyncTask(BridgesManager.Instance.SelectedObject, SliderTt, null, _newstate);
@@ -148,8 +160,11 @@ namespace WinHue3.MainForm
                     }
                     else
                     {
-                        ((Group) BridgesManager.Instance.SelectedObject).action.on = !((Group) BridgesManager.Instance.SelectedObject).action.on;
-                        ((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).action.on = !((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).action.on;
+                        if (((Group) BridgesManager.Instance.SelectedObject).type != "Entertainment")
+                        {
+                            ((Group) BridgesManager.Instance.SelectedObject).action.on = !((Group) BridgesManager.Instance.SelectedObject).action.on;
+                            ((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).action.on = !((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).action.on;
+                        }
                     }
 
                     BridgesManager.Instance.CurrentBridgeHueObjectsList[index].Image = hr;

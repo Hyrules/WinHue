@@ -34,6 +34,7 @@ namespace WinHue3.MainForm
         {
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
+            if (BridgesManager.Instance.SelectedObject is Group grp && grp.@class == "TV") return false;
             if (BridgesManager.Instance.SelectedObject is Scene && ((Scene) BridgesManager.Instance.SelectedObject).version == 1) return false;
             return !(BridgesManager.Instance.SelectedObject is Light);
         }

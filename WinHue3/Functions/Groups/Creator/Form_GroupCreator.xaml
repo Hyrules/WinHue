@@ -69,7 +69,6 @@
         <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="170" IsEnabled="{Binding CanChangeType}"  SelectedValue="{Binding GroupCreator.Type}" SelectedValuePath="Tag">
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_LightGroup}" Tag="LightGroup"/>
             <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_Room}" Tag="Room"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_Entertainment}" Tag="Entertainment"/>
         </ComboBox>
         <ComboBox x:Name="ComboBox1" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Width="170" SelectedValue="{Binding GroupCreator.Class}" SelectedValuePath="Tag" IsEnabled="{Binding GroupCreator.CanClass}">
 

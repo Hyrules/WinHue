@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WinHue3.Annotations;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using Xceed.Wpf.DataGrid.Converters;
 using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3.ExtensionMethods
@@ -221,6 +222,12 @@ namespace WinHue3.ExtensionMethods
                 }
             }
             return -1;
+        }
+
+        public static ObservableCollection<T> ToObservableCollection<T>(this List<T> list)
+        {
+            return new ObservableCollection<T>(list);
+
         }
     }
 

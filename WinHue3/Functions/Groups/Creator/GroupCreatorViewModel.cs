@@ -47,7 +47,7 @@ namespace WinHue3.Functions.Groups.Creator
                 Group gr = new Group {name = GroupCreator.Name, type = GroupCreator.Type, lights = GroupCreator.Listlights.Select(x => x.Id).ToList()};
                 if (_id != string.Empty)
                     gr.Id = _id;
-                if (GroupCreator.Type != "LightGroup")
+                if (GroupCreator.Type == "Room")
                     gr.@class = GroupCreator.Class;
                 return gr;
             }
@@ -77,7 +77,7 @@ namespace WinHue3.Functions.Groups.Creator
             bool result = false;
             if (Group.Id == null)
             {
-                result = BridgeManager.BridgesManager.Instance.SelectedBridge.CreateObject(Group);
+                result = BridgesManager.Instance.SelectedBridge.CreateObject(Group);
                 if (result)
                 {
                     log.Info("Group creation success");
@@ -96,7 +96,7 @@ namespace WinHue3.Functions.Groups.Creator
 
             if(!result)
             {
-                MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
             }
 
             return _id;

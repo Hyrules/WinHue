@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinHue3.Utils;
+﻿using WinHue3.Utils;
 
 namespace WinHue3.Functions.Entertainment
 {
@@ -12,6 +7,8 @@ namespace WinHue3.Functions.Entertainment
         private decimal _x;
         private decimal _y;
         private decimal _z;
+        private string _name;
+        private string _description;
 
         public EntertrainmentModel()
         {
@@ -23,5 +20,8 @@ namespace WinHue3.Functions.Entertainment
         public decimal X { get => _x; set => SetProperty(ref _x,value); }
         public decimal Y { get => _y; set => SetProperty(ref _y, value); }
         public decimal Z { get => _z; set => SetProperty(ref _z, value); }
+
+        public string Name { get => _name; set => SetProperty(ref _name,value); }
+        public string Description { get => _description; set => SetProperty(ref _description,value); }
     }
 }

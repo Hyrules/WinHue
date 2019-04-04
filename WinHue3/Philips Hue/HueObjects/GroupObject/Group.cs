@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Windows.Media;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Interface;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
@@ -127,8 +128,16 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)
         {
-            if(state?.any_on != null)
-                Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault() ? (state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
+            if (state?.any_on != null)
+            {
+                if (type != "Entertainment")
+                    Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault()
+                        ? (state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large)
+                        : Properties.Resources.HueGroupOff_Large);
+                else
+                    Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment);
+            }
+                
 
         }
 
