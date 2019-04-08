@@ -1,68 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-namespace WinHue3.Utils
+namespace WinHue3.Philips_Hue.HueObjects.GroupObject
 {
-    [Serializable,ExpandableObject]
-    public sealed class StringCollection : BindingList<string>, ICustomTypeDescriptor
+    
+    public sealed class Location : Dictionary<string, decimal[]>, ICustomTypeDescriptor
     {
-        public StringCollection() : base(new BindingList<string>())
-        {
-            
-        }
-
-        public static implicit operator StringCollection(List<string> list)
-        {          
-            return new StringCollection(list);
-        }
-
-        public static implicit operator List<string>(StringCollection sc)
-        {
-            List<string> list = new List<string>();
-
-            foreach (var i in sc)
-            {
-                list.Add(i);
-            }
-
-            return list;
-        }
-
-        public StringCollection(List<string> list)
-        {
-            foreach (var i in list)
-            {
-                this.Items.Add(i);
-            }
-            
-        }
-
-        public void AddRange(IEnumerable<string> collection)
-        {
-            foreach (var i in collection)
-            {
-                this.Items.Add(i);
-            }
-        }
-
         public override string ToString()
         {
-            return string.Join(",", this.Items);
+            return "...";
         }
 
-
-        #region TYPE_DESCRIPTOR
+        #region TypeDescriptor       
 
         PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties()
         {
             // Create a collection object to hold property descriptors
             PropertyDescriptorCollection pds = new PropertyDescriptorCollection(null);
 
-            for (int i = 0; i < Count; i++)
+            foreach (string s in Keys)
             {
-                pds.Add(new StringPropertyDescriptor(this, i));
+                pds.Add(new LocationPropertyDescriptor(this[s], s));
             }
 
             return pds;
@@ -100,7 +59,7 @@ namespace WinHue3.Utils
 
         object ICustomTypeDescriptor.GetEditor(Type editorBaseType)
         {
-            return TypeDescriptor.GetEditor(this,editorBaseType,true);
+            return TypeDescriptor.GetEditor(this, editorBaseType, true);
         }
 
         EventDescriptorCollection ICustomTypeDescriptor.GetEvents()
@@ -110,7 +69,7 @@ namespace WinHue3.Utils
 
         EventDescriptorCollection ICustomTypeDescriptor.GetEvents(Attribute[] attributes)
         {
-            return TypeDescriptor.GetEvents(this, attributes,true);
+            return TypeDescriptor.GetEvents(this, attributes, true);
         }
 
         PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes)
@@ -126,38 +85,38 @@ namespace WinHue3.Utils
         #endregion
     }
 
-    public class StringPropertyDescriptor : PropertyDescriptor
+    public class LocationPropertyDescriptor : PropertyDescriptor
     {
-        private BindingList<string> _owner;
-        private int _index;
-        private string Value => _owner[_index];
+        private decimal[] _owner;
+        private string _key;
+        private decimal[] Value => _owner;
 
-        public StringPropertyDescriptor(BindingList<string> owner, int index) : base(index.ToString(), null)
+        public LocationPropertyDescriptor(decimal[] owner, string key) : base(key, null)
         {
             _owner = owner;
-            _index = index;
+            _key = key;
         }
 
-        
+        public override string DisplayName => $"ID : {_key}";
 
         public override bool CanResetValue(object component)
         {
-            return false;
+            return true;
         }
 
         public override object GetValue(object component)
         {
-            return Value;
+            return $"X: {_owner[0]}, Y: {_owner[1]}, Z: {_owner[2]}";
         }
 
         public override void ResetValue(object component)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void SetValue(object component, object value)
         {
-            _owner[_index] = value.ToString();
+            _owner = (decimal[]) value;
         }
 
         public override bool ShouldSerializeValue(object component)
@@ -167,6 +126,6 @@ namespace WinHue3.Utils
 
         public override Type ComponentType => _owner.GetType();
         public override bool IsReadOnly => true;
-        public override Type PropertyType => Value.GetType();
+        public override Type PropertyType => _owner.GetType();
     }
 }

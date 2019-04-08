@@ -1668,4 +1668,19 @@
   <data name="GroupCreatorForm_Type_Entertainment" xml:space="preserve">
     <value>Divertissement</value>
   </data>
+  <data name="Locations" xml:space="preserve">
+    <value>Emplacement</value>
+  </data>
+  <data name="EntertainmentLights" xml:space="preserve">
+    <value>Ampoules du divertissement</value>
+  </data>
+  <data name="AvailableLights" xml:space="preserve">
+    <value>Ampoules Disponibles</value>
+  </data>
+  <data name="Button_Remove" xml:space="preserve">
+    <value>Retirer</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Active la diffusion</value>
+  </data>
 </root>

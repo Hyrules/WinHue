@@ -242,6 +242,7 @@
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
     <Compile Include="Functions\Converters\TimeSpanToDoubleConverter.cs" />
     <Compile Include="Functions\Converters\TimeSpanToUShortConverter.cs" />
+    <Compile Include="Functions\Entertainment\EntertainmentLight.cs" />
     <Compile Include="Functions\Entertainment\EntertainmentViewModel.cs" />
     <Compile Include="Functions\Entertainment\EntertrainmentModel.cs" />
     <Compile Include="Functions\Entertainment\Form_EntertainmentCreator.xaml.cs">
@@ -347,11 +348,10 @@
     <Compile Include="Philips Hue\BridgeObject\Bridge_ObjectSetter.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge_Settings.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge_Update.cs" />
-    <Compile Include="Philips Hue\BridgeObject\Entertainment API\Entertainment.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDatagramTransport.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDtlsClient.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueTlsAuthentication.cs" />
-    <Compile Include="Philips Hue\BridgeObject\Entertainment API\Location.cs" />
+    <Compile Include="Philips Hue\HueObjects\GroupObject\Location.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\StreamMessage.cs" />
     <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
     <Compile Include="Philips Hue\Communication\HueCreateDataContractResolver.cs" />
@@ -372,6 +372,8 @@
     <Compile Include="Philips Hue\HueObjects\GroupObject\Group.cs" />
     <Compile Include="Philips Hue\HueObjects\GroupObject\GroupState.cs" />
     <Compile Include="Philips Hue\HueObjects\Common\IHueObject.cs" />
+    <Compile Include="Philips Hue\HueObjects\GroupObject\Presence.cs" />
+    <Compile Include="Philips Hue\HueObjects\GroupObject\Stream.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\LightCapabilities.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\LightCapabilitiesStreaming.cs" />
     <Compile Include="Philips Hue\HueObjects\LightObject\LightConfig.cs" />

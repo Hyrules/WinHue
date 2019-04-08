@@ -106,6 +106,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available Lights.
+        /// </summary>
+        public static string AvailableLights {
+            get {
+                return ResourceManager.GetString("AvailableLights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abort.
         /// </summary>
         public static string BridgeDetectionPairing_Abort {
@@ -700,6 +709,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Button_Remove {
+            get {
+                return ResourceManager.GetString("Button_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Button_Save {
@@ -858,6 +876,15 @@ namespace WinHue3.Resources {
         public static string EntertainmentCreatorForm_Z_Message {
             get {
                 return ResourceManager.GetString("EntertainmentCreatorForm_Z_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entertainment Lights.
+        /// </summary>
+        public static string EntertainmentLights {
+            get {
+                return ResourceManager.GetString("EntertainmentLights", resourceCulture);
             }
         }
         
@@ -1848,6 +1875,15 @@ namespace WinHue3.Resources {
         public static string ListView_others {
             get {
                 return ResourceManager.GetString("ListView_others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string Locations {
+            get {
+                return ResourceManager.GetString("Locations", resourceCulture);
             }
         }
         
@@ -4665,6 +4701,15 @@ namespace WinHue3.Resources {
         public static string Sort_Descending {
             get {
                 return ResourceManager.GetString("Sort_Descending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Sreaming.
+        /// </summary>
+        public static string Stream {
+            get {
+                return ResourceManager.GetString("Stream", resourceCulture);
             }
         }
         

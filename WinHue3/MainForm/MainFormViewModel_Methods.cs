@@ -98,11 +98,16 @@ namespace WinHue3.MainForm
             fa.ShowDialog();
         }
 
-        private void CreateEntertainment()
+        private async Task CreateEntertainment()
         {
             Form_EntertainmentCreator fec = new Form_EntertainmentCreator() {Owner = Application.Current.MainWindow};
-            fec.Initialize();
-            fec.ShowDialog();
+            await fec.Initialize();
+            if (fec.ShowDialog().GetValueOrDefault())
+            {
+                
+
+            }
+
         }
 
         private void CreateAdvanced()
@@ -800,6 +805,11 @@ namespace WinHue3.MainForm
         #endregion
 
         #region CONTEXT_MENU_METHODS
+
+        private async Task EnableStreaming()
+        {
+            await BridgesManager.Instance.SelectedBridge.SetEntertrainementGroupStreamStatus(BridgesManager.Instance.SelectedObject.Id, true);
+        }
 
         private void SetPowerMode()
         {

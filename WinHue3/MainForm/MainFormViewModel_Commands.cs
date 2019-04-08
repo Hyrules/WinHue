@@ -34,8 +34,8 @@ namespace WinHue3.MainForm
         {
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
-            if (BridgesManager.Instance.SelectedObject is Group grp && grp.@class == "TV") return false;
-            if (BridgesManager.Instance.SelectedObject is Scene && ((Scene) BridgesManager.Instance.SelectedObject).version == 1) return false;
+            if (BridgesManager.Instance.SelectedObject is Group group && group.@class == "TV") return false;
+            if (BridgesManager.Instance.SelectedObject is Scene scene && scene.version == 1) return false;
             return !(BridgesManager.Instance.SelectedObject is Light);
         }
 
@@ -67,9 +67,9 @@ namespace WinHue3.MainForm
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group)
+            else if (BridgesManager.Instance.SelectedObject is Group group)
             {
-                return ((Group)BridgesManager.Instance.SelectedObject).action?.hue != null;
+                return group.action?.hue != null;
             }
             return false;
         }
@@ -83,9 +83,9 @@ namespace WinHue3.MainForm
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group)
+            else if (BridgesManager.Instance.SelectedObject is Group group)
             {
-                return ((Group)BridgesManager.Instance.SelectedObject).action?.bri != null;
+                return group.action?.bri != null;
             }
             return false;
         }
@@ -99,9 +99,9 @@ namespace WinHue3.MainForm
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group)
+            else if (BridgesManager.Instance.SelectedObject is Group group)
             {
-                return ((Group)BridgesManager.Instance.SelectedObject).action?.ct != null;
+                return group.action?.ct != null;
             }
             return false;
         }
@@ -131,9 +131,9 @@ namespace WinHue3.MainForm
                 if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
                 return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group)
+            else if (BridgesManager.Instance.SelectedObject is Group group)
             {
-                return ((Group)BridgesManager.Instance.SelectedObject).action?.xy != null;
+                return group.action?.xy != null;
             }
             return false;
         }
@@ -155,9 +155,7 @@ namespace WinHue3.MainForm
 
         private bool CanSetSensivity()
         {
-            if (!(BridgesManager.Instance.SelectedObject is Sensor)) return false;
-
-            return ((Sensor) BridgesManager.Instance.SelectedObject).type == "ZLLPresence";
+            return BridgesManager.Instance.SelectedObject is Sensor sensor && sensor.type == "ZLLPresence";
         }
 
         private bool CanReplaceState()
@@ -195,14 +193,13 @@ namespace WinHue3.MainForm
 
         private bool IsGroupZero()
         {
-            return BridgesManager.Instance.SelectedObject is Group && BridgesManager.Instance.SelectedObject.Id == "0";
+            return BridgesManager.Instance.SelectedObject is Group group && group.Id == "0";
         }
 
         private bool CanUpdateBridge()
         {
             if (!EnableButtons()) return false;
-            if (BridgesManager.Instance.SelectedBridge == null) return false;
-            return BridgesManager.Instance.SelectedBridge.UpdateAvailable;
+            return BridgesManager.Instance.SelectedBridge != null && BridgesManager.Instance.SelectedBridge.UpdateAvailable;
         }
 
         private bool CanStrobe()
@@ -219,14 +216,17 @@ namespace WinHue3.MainForm
 
         private bool CanSetSensorStatus()
         {
-            if (!(BridgesManager.Instance.SelectedObject is Sensor)) return false;
-            return ((Sensor)BridgesManager.Instance.SelectedObject).type == "CLIPGenericStatus";
+            return BridgesManager.Instance.SelectedObject is Sensor sensor && sensor.type == "CLIPGenericStatus";
         }
 
         private bool CanSetSensorFlag()
         {
-            if (!(BridgesManager.Instance.SelectedObject is Sensor)) return false;
-            return ((Sensor)BridgesManager.Instance.SelectedObject).type == "CLIPGenericFlag";
+            return BridgesManager.Instance.SelectedObject is Sensor sensor && sensor.type == "CLIPGenericFlag";
+        }
+
+        private bool CanStream()
+        {
+            return BridgesManager.Instance.SelectedObject is Group group && group.type == "Entertainment";
         }
 
         //*************** MainMenu Commands ********************        
@@ -251,7 +251,7 @@ namespace WinHue3.MainForm
         public ICommand CreateSensorCommand => new RelayCommand(param => CreateSensor(), param => EnableButtons());
         public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(),  param => EnableButtons());
         public ICommand CreateFloorPlanCommand => new RelayCommand(param => CreateFloorPlan(), (param)=> EnableButtons());
-        public ICommand CreateEntertainmentCommand => new RelayCommand(param => CreateEntertainment(),  param => EnableButtons());
+        public ICommand CreateEntertainmentCommand => new AsyncRelayCommand(param => CreateEntertainment(),  param => EnableButtons());
 
         public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
         public ICommand TouchLinkCommand => new AsyncRelayCommand(param => DoTouchLink(), param => EnableButtons());
@@ -303,6 +303,7 @@ namespace WinHue3.MainForm
         public ICommand ToggleDim75Command => new AsyncRelayCommand(param => OnDim(191), param => CanToggleDim());
         public ICommand SetSensorStatusCommand => new AsyncRelayCommand(param => SetSensorStatus(), param => CanSetSensorStatus());
         public ICommand SetSensorFlagCommand => new AsyncRelayCommand(param => SetSensorFlag(), param => CanSetSensorFlag());
+        public ICommand EnableStreamCommand => new AsyncRelayCommand(param => EnableStreaming(), (param) => CanStream());
 
         //*************** ListView Commands ********************
         public ICommand DoubleClickObjectCommand => new AsyncRelayCommand(param => DoubleClickObject(), param => IsDoubleClickable());

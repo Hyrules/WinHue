@@ -539,6 +539,8 @@
                                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
                                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
                                     </MenuItem>
+                                    <Separator />
+                                    <MenuItem Header="{x:Static resx:GUI.Stream}" Command="{Binding EnableStreamCommand}"/>
                                     <Separator/>
                                     <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
                                 </ContextMenu>
