@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Threading;
 using Hardcodet.Wpf.TaskbarNotification;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Utils;
-using HotKey = WinHue3.Functions.HotKeys.HotKey;
 using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.RoomMap;
 

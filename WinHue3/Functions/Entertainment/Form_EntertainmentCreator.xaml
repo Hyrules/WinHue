@@ -7,7 +7,6 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
         xmlns:light="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
-        xmlns:Controls="clr-namespace:WinHue3.Controls"
         x:Class="WinHue3.Functions.Entertainment.Form_EntertainmentCreator"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.EntertainmentCreatorForm_Title}" Height="700.229" Width="927.66" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
