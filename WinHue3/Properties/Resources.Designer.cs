@@ -233,6 +233,16 @@ namespace WinHue3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap entertainment_on {
+            get {
+                object obj = ResourceManager.GetObject("entertainment_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap erase {
             get {
                 object obj = ResourceManager.GetObject("erase", resourceCulture);

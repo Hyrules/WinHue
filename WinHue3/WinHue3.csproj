@@ -414,6 +414,7 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleConditionCollection.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionCollection.cs" />
+    <Compile Include="Philips Hue\HueObjects\SceneObject\GroupeTypeItemSource.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\StatusItemsSource.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
@@ -1035,7 +1036,9 @@
   <ItemGroup>
     <Resource Include="Functions\Animations2\Grammar.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\entertainment_on.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

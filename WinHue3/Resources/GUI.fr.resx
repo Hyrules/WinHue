@@ -1683,4 +1683,13 @@
   <data name="Stream" xml:space="preserve">
     <value>Active la diffusion</value>
   </data>
+  <data name="PressLinkButton" xml:space="preserve">
+    <value>Appuyez sur le bouton de lien sur la passerelle avant d'ajouter un utilisateur.</value>
+  </data>
+  <data name="LightScene" xml:space="preserve">
+    <value>Scène d'ampoule</value>
+  </data>
+  <data name="GroupScene" xml:space="preserve">
+    <value>Scène de groupe</value>
+  </data>
 </root>

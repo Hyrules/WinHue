@@ -1816,6 +1816,15 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Scene.
+        /// </summary>
+        public static string GroupScene {
+            get {
+                return ResourceManager.GetString("GroupScene", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign.
         /// </summary>
         public static string HueTapSetupForm_AssignButton {
@@ -1866,6 +1875,15 @@ namespace WinHue3.Resources {
         public static string Lights {
             get {
                 return ResourceManager.GetString("Lights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light Scene.
+        /// </summary>
+        public static string LightScene {
+            get {
+                return ResourceManager.GetString("LightScene", resourceCulture);
             }
         }
         
@@ -3117,6 +3135,15 @@ namespace WinHue3.Resources {
         public static string PowerSettings_Warning {
             get {
                 return ResourceManager.GetString("PowerSettings_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must press the link button on the bridge before adding a user..
+        /// </summary>
+        public static string PressLinkButton {
+            get {
+                return ResourceManager.GetString("PressLinkButton", resourceCulture);
             }
         }
         

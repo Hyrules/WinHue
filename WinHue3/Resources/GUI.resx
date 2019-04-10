@@ -1683,4 +1683,13 @@
   <data name="Stream" xml:space="preserve">
     <value>Enable Sreaming</value>
   </data>
+  <data name="PressLinkButton" xml:space="preserve">
+    <value>You must press the link button on the bridge before adding a user.</value>
+  </data>
+  <data name="LightScene" xml:space="preserve">
+    <value>Light Scene</value>
+  </data>
+  <data name="GroupScene" xml:space="preserve">
+    <value>Group Scene</value>
+  </data>
 </root>
