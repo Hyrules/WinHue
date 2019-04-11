@@ -78,6 +78,7 @@ namespace WinHue3.Functions.User_Management
             return SelectedUser != null;
         }
 
+        [Obsolete]
         private async Task Delete()
         {
             bool cr = await _bridge.RemoveUserAsyncTask(UsersModel.Key);

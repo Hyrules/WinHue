@@ -257,6 +257,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <param name="username">Username to remove</param>
         /// <returns>True or false if the user has been removed.</returns>
+        [Obsolete]
         public bool RemoveUser(string username)
         {
 
@@ -277,6 +278,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// </summary>
         /// <param name="username">Username to remove</param>
         /// <returns>True or false if the user has been removed.</returns>
+        [Obsolete]
         public async Task<bool> RemoveUserAsyncTask(string username)
         {
             string url = BridgeUrl + "/config/whitelist/" + username;
