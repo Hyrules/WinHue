@@ -1,34 +1,21 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Net;
-using System.Net.Security;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto.Tls;
 using Org.BouncyCastle.Security;
-using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
-using WinHue3.Utils;
 using WinHue3.Functions.Rules.Creator;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using Org.BouncyCastle.Utilities;
 using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
-using WinHue3.Functions.Animations2;
 using WinHue3.Functions.Converters;
-using WinHue3.Functions.Rules;
 
 namespace HueLib2Test
 {
@@ -51,6 +38,14 @@ namespace HueLib2Test
             //PropertyInfo[] pi = l.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
                             
 
+        }
+
+        [TestMethod]
+        public void HueApiTest()
+        {
+            WinHue3.Philips_Hue_2.Hue_Objects.Light.Light light = new WinHue3.Philips_Hue_2.Hue_Objects.Light.Light("16", "192.168.5.30","30jodHoH6BvouvzmGR-Y8nJfa0XTN1j8sz2tstYJ");
+
+           // light.Toggle(false);
         }
 
         [TestMethod] 

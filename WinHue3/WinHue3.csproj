@@ -319,6 +319,33 @@
     <Compile Include="Functions\Schedules\NewCreator\ScheduleCreatorViewModel.cs" />
     <Compile Include="Functions\User Management\ManageUsersModel.cs" />
     <Compile Include="Functions\Scenes\Creator\SceneCreatorModel.cs" />
+    <Compile Include="Philips Hue 2\Bridge Object\Hue.cs" />
+    <Compile Include="Philips Hue 2\Bridge Object\HueDevice.cs" />
+    <Compile Include="Philips Hue 2\BridgeMessages\Error.cs" />
+    <Compile Include="Philips Hue 2\BridgeMessages\IMessage.cs" />
+    <Compile Include="Philips Hue 2\BridgeMessages\MessageJsonConverter.cs" />
+    <Compile Include="Philips Hue 2\BridgeMessages\Messages.cs" />
+    <Compile Include="Philips Hue 2\BridgeMessages\Success.cs" />
+    <Compile Include="Philips Hue 2\Communication\CommResult.cs" />
+    <Compile Include="Philips Hue 2\Communication\Communication.cs" />
+    <Compile Include="Philips Hue 2\Communication\HueCreateDataContractResolver.cs" />
+    <Compile Include="Philips Hue 2\Communication\HueModifyDataContractResolver.cs" />
+    <Compile Include="Philips Hue 2\Communication\Operations.cs" />
+    <Compile Include="Philips Hue 2\Communication\Serializer.cs" />
+    <Compile Include="Philips Hue 2\Communication\WebClientTimeout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Philips Hue 2\Hue Objects\Common\HueBaseObject.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\Light.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\LightCapabilities.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\LightCapabilitiesControl.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\LightCapabilitiesStreaming.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\LightConfig.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\LightConfigStartup.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\LightControlCt.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\LightSwUpdate.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\PowerCustomSettings.cs" />
+    <Compile Include="Philips Hue 2\Hue Objects\Light\State.cs" />
     <Compile Include="Philips Hue\BridgeObject\Bridge.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\AlertItemSource.cs" />
     <Compile Include="Philips Hue\BridgeObject\BridgeObjects\Backup.cs" />
@@ -1039,10 +1066,11 @@
   <ItemGroup>
     <None Include="Resources\entertainment_on.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
