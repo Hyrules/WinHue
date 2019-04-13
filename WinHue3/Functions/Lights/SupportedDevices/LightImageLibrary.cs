@@ -10,30 +10,28 @@ namespace WinHue3.Functions.Lights.SupportedDevices
     public static class LightImageLibrary
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static Dictionary<string, Dictionary<string,ImageSource>> _images;
+        private static Dictionary<string, Dictionary<bool,ImageSource>> _images;
 
         static LightImageLibrary()
         {
-            _images = new Dictionary<string, Dictionary<string, ImageSource>>();
+            _images = new Dictionary<string, Dictionary<bool, ImageSource>>();
             
-            _images.Add("DefaultHUE", new Dictionary<string, ImageSource>()
+            _images.Add("DefaultHUE", new Dictionary<bool, ImageSource>()
             {
-                {"on", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_on)},
-                {"off", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_off)},
-                {"unr", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_unr)},
+                {true, GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_on)},
+                {false, GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLight_off)},
             });
 
-            _images.Add("DefaultLIFX", new Dictionary<string, ImageSource>()
+            _images.Add("DefaultLIFX", new Dictionary<bool, ImageSource>()
             {
-                {"on", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_on)},
-                {"off", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_off)},
-                {"unr", GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_unr)},
+                {true, GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_on)},
+                {false, GDIManager.CreateImageSourceFromImage(Properties.Resources.DefaultLIFX_off)},
             });
 
             LoadLightsImages();
         }
 
-        public static Dictionary<string, Dictionary<string, ImageSource>> Images => _images;
+        public static Dictionary<string, Dictionary<bool, ImageSource>> Images => _images;
 
         public static void LoadLightsImages()
         {
@@ -42,7 +40,7 @@ namespace WinHue3.Functions.Lights.SupportedDevices
             log.Info("Image path = " + path + "\\lights");
             foreach (string file in listlightsfiles)
             {
-                if (!(file.Contains("_unr.png") || file.Contains("_off.png") || file.Contains("_on.png"))) continue; // CHECK IF FILE PATTERN FOR NAMING IS VALID. OTHERWISE IGNORE.
+                if (!(file.Contains("_off.png") || file.Contains("_on.png"))) continue; // CHECK IF FILE PATTERN FOR NAMING IS VALID. OTHERWISE IGNORE.
                 try
                 {
                     string filename = Path.GetFileNameWithoutExtension(file); // GET FILE NAME WITHOUT EXTENSION (.png)                     
@@ -56,14 +54,13 @@ namespace WinHue3.Functions.Lights.SupportedDevices
                     if (!Images.ContainsKey(modelORarchetype))
                     {
                         //*** CHECK IF THE 3 FILES EXISTS OTHERWISE IGNORE***
-                        if (File.Exists($"{path}\\lights\\{filenamenostate}_on.png") && File.Exists($"{path}\\lights\\{filenamenostate}_off.png") && File.Exists($"{path}\\lights\\{filenamenostate}_unr.png"))
+                        if (File.Exists($"{path}\\lights\\{filenamenostate}_on.png") && File.Exists($"{path}\\lights\\{filenamenostate}_off.png"))
                         {
                             log.Info($"Loading images for {filenamenostate}...");
-                            Images.Add(modelORarchetype, new Dictionary<string, ImageSource>()
+                            Images.Add(modelORarchetype, new Dictionary<bool, ImageSource>()
                             {
-                                {"on" , new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_on.png" )) },
-                                {"off", new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_off.png")) },
-                                {"unr", new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_unr.png")) }
+                                {true, new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_on.png" )) },
+                                {false, new BitmapImage(new Uri($@"{path}\lights\{filenamenostate}_off.png")) },
                             });
 
                         }

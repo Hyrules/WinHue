@@ -161,6 +161,13 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)
         {
+            RefreshImage();
+                
+
+        }
+
+        public void RefreshImage()
+        {
             if (state?.any_on != null)
             {
                 if (type != "Entertainment")
@@ -168,13 +175,11 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
                         ? (state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large)
                         : Properties.Resources.HueGroupOff_Large);
                 else
-                    Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment);
+                    Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault()
+                        ? (state.all_on.GetValueOrDefault() ? Properties.Resources.entertainment_on : Properties.Resources.entertainment_off)
+                        : Properties.Resources.entertainment_off);
             }
-                
-
         }
-
-
 
         public override bool Equals(object obj)
         {

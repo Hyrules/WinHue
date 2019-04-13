@@ -137,43 +137,27 @@ namespace WinHue3.MainForm
         {
             log.Debug("Double click on : " + BridgesManager.Instance.SelectedObject);
 
-            switch (BridgesManager.Instance.SelectedObject)
-            {
-                case Light l:
-                    break;
-                case Group g:
-                    break;
-                case Scene sn:
-                    break;
-            }
 
             if ((BridgesManager.Instance.SelectedObject is Light) || (BridgesManager.Instance.SelectedObject is Group ))
             {
-                ImageSource hr = await BridgesManager.Instance.SelectedBridge.ToggleObjectOnOffStateAsyncTask(BridgesManager.Instance.SelectedObject, SliderTt, null, _newstate);
-                if (hr != null)
+                bool result = await BridgesManager.Instance.SelectedBridge.ToggleObjectOnOffStateAsyncTask(BridgesManager.Instance.SelectedObject, SliderTt, null, _newstate);
+                  
+                //UpdateFloorPlanIcons(hr, BridgesManager.Instance.SelectedObject.Id, BridgesManager.Instance.SelectedObject.GetType());
+
+                int index = BridgesManager.Instance.CurrentBridgeHueObjectsList.FindIndex(x => x.Id == BridgesManager.Instance.SelectedObject.Id && x.GetType() == BridgesManager.Instance.SelectedObject.GetType());
+                if (index == -1) return;
+                if (BridgesManager.Instance.SelectedObject is Light)
                 {
-                    
-                    BridgesManager.Instance.SelectedObject.Image = hr;
-                    UpdateFloorPlanIcons(hr, BridgesManager.Instance.SelectedObject.Id, BridgesManager.Instance.SelectedObject.GetType());
-
-                    int index = BridgesManager.Instance.CurrentBridgeHueObjectsList.FindIndex(x => x.Id == BridgesManager.Instance.SelectedObject.Id && x.GetType() == BridgesManager.Instance.SelectedObject.GetType());
-                    if (index == -1) return;
-                    if (BridgesManager.Instance.SelectedObject is Light light)
-                    {
-                        light.state.on = !light.state.on;
-                        ((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.on = !((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.on;
-                    }
-                    else
-                    {
-                        if (((Group) BridgesManager.Instance.SelectedObject).type != "Entertainment")
-                        {
-                            ((Group) BridgesManager.Instance.SelectedObject).action.on = !((Group) BridgesManager.Instance.SelectedObject).action.on;
-                            ((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).action.on = !((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).action.on;
-                        }
-                    }
-
-                    BridgesManager.Instance.CurrentBridgeHueObjectsList[index].Image = hr;
+                    ((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.on = !((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.on;
+                    ((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).RefreshImage();
                 }
+                else
+                {
+                    ((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.any_on = !((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.any_on;
+                    ((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).RefreshImage();
+
+                }
+
             }
             else
             {
