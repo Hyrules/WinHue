@@ -8,6 +8,7 @@ Both are available at Microsoft's website.
 
 Fixed:
 - rule creator adding caps and s to paths.
+- Update manager not pointing to the right address.
 
 Added:
 - 
@@ -15,12 +16,14 @@ Added:
 Changed:
 - Moved to a HotKeyManager instead of mainform handling hotkeys.
 - Rollback to xceed toolkit 3.4.0 to avoid bug in property grid.
+- Way the light are displayed. Removed the unreachable light image needed.
+- Unreachable will now show as greyed out.
 
 Updated :
 - 
 
 Removed :
-- Delete button of the User management window. Philips has now removed the possibility for the API users to remove users. You need to user philips portal to do so : https://account.meethue.com/apps
+- Delete button of the User management window. Philips has now removed the possibility for the API users to remove users. You need to use philips portal to do so : https://account.meethue.com/apps
 
 WIP:
 - Animation creator. (Not Available yet)

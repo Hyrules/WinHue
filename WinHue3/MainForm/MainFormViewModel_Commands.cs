@@ -328,8 +328,7 @@ namespace WinHue3.MainForm
         //*************** Toolbar ******************************
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons() && CanRunTempPlugin);
         public ICommand CpuTempMonSettingsCommand => new RelayCommand(param => CpuTempMonSettings(), (param) => EnableButtons() && CanRunTempPlugin);
-        public ICommand RssFeedMonCommand => new RelayCommand(param => RssFeedMon(), (param) => EnableButtons());
-        public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(), (param) => EnableButtons());
+
         //*************** Help ******************************
         public ICommand OpenWinHueWebsiteCommand => new RelayCommand(param => OpenWinHueWebsite());
         public ICommand OpenWinHueSupportCommand => new RelayCommand(param => OpenWinHueSupport());
@@ -344,9 +343,5 @@ namespace WinHue3.MainForm
         public ICommand SelectedFloorPlanChangedCommand => new RelayCommand(param => SelectedFloorPlanChanged());
         public ICommand SetPowerModeCommand => new RelayCommand(param => SetPowerMode(), (param) => EnableButtons());
 
-        //      public ICommand RssFeedMonCommand => new RelayCommand(param => RunRssFeedMon(),  EnableButtons());
-        //      
-        //     public ICommand RssFeedMonSettingsCommand => new RelayCommand(param => RssFeedMonSettings(),  EnableButtons());
-        //   public ICommand ClapperCommand => new RelayCommand(param => Clapper(),  EnableButtons());
     }
 }

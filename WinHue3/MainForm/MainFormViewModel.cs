@@ -20,14 +20,12 @@ namespace WinHue3.MainForm
         private MainFormModel _mainFormModel;
         private CpuTempMonitor _ctm;
 
-        private bool _hotkeyDetected;
         private TaskbarIcon _tbt;
                 
         public MainFormViewModel()
         {
             Comm.CommunicationTimedOut += Comm_CommunicationTimedOut;
             Comm.Timeout = WinHueSettings.settings.Timeout;
-            _hotkeyDetected = false;
 
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;            
@@ -64,17 +62,17 @@ namespace WinHue3.MainForm
 
         private void Initialize()
         {
-            UpdateManager.CheckForWinHueUpdate();
+            UpdateManager.Instance.CheckForWinHueUpdate();
 
-            if (UpdateManager.UpdateAvailable)
+            if (UpdateManager.Instance.UpdateAvailable)
             {
-                RaisePropertyChanged("AppUpdateAvailable");
+               
                 if (WinHueSettings.settings.CheckForUpdate)
                 {
 
                     if (MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        UpdateManager.DownloadUpdate();
+                        UpdateManager.Instance.DownloadUpdate();
                     }
 
                 }

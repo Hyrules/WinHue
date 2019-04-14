@@ -225,7 +225,7 @@ namespace WinHue3.Functions.BridgePairing
             {
                 if (WinHueSettings.settings.CheckForBridgeUpdate)
                 {
-                    kvp.Value.RequiredUpdate = UpdateManager.CheckBridgeNeedUpdate(kvp.Value.ApiVersion);
+                    kvp.Value.RequiredUpdate = UpdateManager.Instance.CheckBridgeNeedUpdate(kvp.Value.ApiVersion);
                 }
                 else
                 {
@@ -310,14 +310,7 @@ namespace WinHue3.Functions.BridgePairing
             newBridge.SwVersion = bresult.swversion;
             newBridge.ApiVersion = bresult.apiversion;
 
-            if (WinHueSettings.settings.CheckForBridgeUpdate)
-            {
-                newBridge.RequiredUpdate = UpdateManager.CheckBridgeNeedUpdate(newBridge.ApiVersion);
-            }
-            else
-            {
-                newBridge.RequiredUpdate = false;
-            }
+            newBridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.Instance.CheckBridgeNeedUpdate(newBridge.ApiVersion);
 
             if (ListBridges.Any(x => x.Mac == newBridge.Mac))
             {

@@ -36,9 +36,6 @@ namespace WinHue3.MainForm
 
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated();
 
-        public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
-
-
         public int SensorStatus
         {
             get => _sensorStatus;

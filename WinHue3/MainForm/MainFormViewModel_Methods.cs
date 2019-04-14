@@ -59,7 +59,6 @@ using WinHue3.Functions.PropertyGrid;
 using WinHue3.Functions.RoomMap;
 using Binding = System.Windows.Data.Binding;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using WinHue3.ExtensionMethods;
 
 namespace WinHue3.MainForm
 {
@@ -197,18 +196,16 @@ namespace WinHue3.MainForm
         {
             string onoffs = onoff ? "on" : "off";
             log.Info($"Sending all {onoffs} command to bridge" + BridgesManager.Instance.SelectedBridge.IpAddress);
-            Action act = new Action {@on = onoff};
+            Action act = new Action {on = onoff};
             if (WinHueSettings.settings.AllOnTT != null) act.transitiontime = WinHueSettings.settings.AllOnTT;
-            bool bresult = await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(act, "0");
-            if (!bresult) return;
+            if (!await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(act, "0")) return;
             log.Debug("Refreshing the main view.");
             await BridgesManager.Instance.RefreshCurrentListHueObject();
         }
 
         private async Task CheckForNewBulb()
         {
-            bool success = await BridgesManager.Instance.SelectedBridge.StartNewObjectsSearchAsyncTask(typeof(Light));
-            if (success)
+            if (await BridgesManager.Instance.SelectedBridge.StartNewObjectsSearchAsyncTask(typeof(Light)))
             {
                 log.Info("Seaching for new lights...");
                 BridgesManager.Instance.FindLight();
@@ -434,14 +431,14 @@ namespace WinHue3.MainForm
             switch (BridgesManager.Instance.SelectedObject)
             {
                 case Light l:
-                    @on = l.state.@on.GetValueOrDefault();
+                    on = l.state.on.GetValueOrDefault();
                     break;
                 case Group g:
-                    @on = g.action.@on.GetValueOrDefault();
+                    on = g.action.on.GetValueOrDefault();
                     break;
             }
 
-            if (@on)
+            if (on)
             {
                 await SetHueSliderNow();
             }
@@ -480,8 +477,8 @@ namespace WinHue3.MainForm
                     case Light light:
                         light.state.hue = MainFormModel.SliderHue;
                         break;
-                    case Group @group:
-                        @group.action.hue = MainFormModel.SliderHue;
+                    case Group group:
+                        group.action.hue = MainFormModel.SliderHue;
                         break;
                 }
             }
@@ -508,8 +505,6 @@ namespace WinHue3.MainForm
                     }
 
                     break;
-                default:
-                    break;
             }
         }
 
@@ -533,8 +528,8 @@ namespace WinHue3.MainForm
                     case Light light:
                         light.state.bri = MainFormModel.SliderBri;
                         break;
-                    case Group @group:
-                        @group.action.bri = MainFormModel.SliderBri;
+                    case Group group:
+                        group.action.bri = MainFormModel.SliderBri;
                         break;
                 }
             }
@@ -586,8 +581,8 @@ namespace WinHue3.MainForm
                     case Light light:
                         light.state.ct = MainFormModel.SliderCt;
                         break;
-                    case Group @group:
-                        @group.action.ct = MainFormModel.SliderCt;
+                    case Group group:
+                        group.action.ct = MainFormModel.SliderCt;
                         break;
                 }
             }
@@ -614,8 +609,6 @@ namespace WinHue3.MainForm
                     }
 
                     break;
-                default:
-                    break;
             }
         }
 
@@ -639,8 +632,8 @@ namespace WinHue3.MainForm
                     case Light light:
                         light.state.sat = MainFormModel.SliderSat;
                         break;
-                    case Group @group:
-                        @group.action.sat = MainFormModel.SliderSat;
+                    case Group group:
+                        group.action.sat = MainFormModel.SliderSat;
                         break;
                 }
             }
@@ -679,7 +672,7 @@ namespace WinHue3.MainForm
         private async Task SetXYSlidersNow()
         {
             IBaseProperties bp = BasePropertiesCreator.CreateBaseProperties(BridgesManager.Instance.SelectedObject.GetType());
-            bp.xy = new decimal[2]
+            bp.xy = new decimal[]
             {
                 MainFormModel.SliderX,
                 MainFormModel.SliderY
@@ -702,9 +695,9 @@ namespace WinHue3.MainForm
                         light.state.xy[0] = MainFormModel.SliderX;
                         light.state.xy[1] = MainFormModel.SliderY;
                         break;
-                    case Group @group:
-                        @group.action.xy[0] = MainFormModel.SliderX;
-                        @group.action.xy[1] = MainFormModel.SliderY;
+                    case Group group:
+                        group.action.xy[0] = MainFormModel.SliderX;
+                        group.action.xy[1] = MainFormModel.SliderY;
                         break;
                 }
             }
@@ -715,29 +708,25 @@ namespace WinHue3.MainForm
             switch (BridgesManager.Instance.SelectedObject)
             {
                 case Light light:
-                    light = (Light) BridgesManager.Instance.SelectedObject;
-
                     MainFormModel.SliderBri = light.state.bri ?? 0;
                     MainFormModel.SliderHue = light.state.hue ?? 0;
                     MainFormModel.SliderSat = light.state.sat ?? 0;
                     MainFormModel.SliderCt = light.state.ct ?? 153;
                     MainFormModel.SliderX = light.state.xy?[0] ?? 0;
                     MainFormModel.SliderY = light.state.xy?[1] ?? 0;
-                    MainFormModel.On = light.state.@on ?? false;
+                    MainFormModel.On = light.state.on ?? false;
                     break;
                 case Group group:
-                    @group = (Group) BridgesManager.Instance.SelectedObject;
-
-                    MainFormModel.SliderBri = @group.action.bri ?? 0;
-                    MainFormModel.SliderHue = @group.action.hue ?? 0;
-                    MainFormModel.SliderSat = @group.action.sat ?? 0;
-                    MainFormModel.SliderCt = @group.action.ct ?? 153;
-                    MainFormModel.SliderX = @group.action.xy?[0] ?? 0;
-                    MainFormModel.SliderY = @group.action.xy?[1] ?? 0;
-                    MainFormModel.On = @group.action.@on ?? false;
+                    
+                    MainFormModel.SliderBri = group.action.bri ?? 0;
+                    MainFormModel.SliderHue = group.action.hue ?? 0;
+                    MainFormModel.SliderSat = group.action.sat ?? 0;
+                    MainFormModel.SliderCt = group.action.ct ?? 153;
+                    MainFormModel.SliderX = group.action.xy?[0] ?? 0;
+                    MainFormModel.SliderY = group.action.xy?[1] ?? 0;
+                    MainFormModel.On = group.action.on ?? false;
                     break;
                 case Scene scene:
-                    scene = (Scene) BridgesManager.Instance.SelectedObject;
                     MainFormModel.On = scene.On;
                     break;
                 default:
@@ -798,7 +787,7 @@ namespace WinHue3.MainForm
         private async Task ReplaceCurrentState()
         {
             if (MessageBox.Show(GlobalStrings.Scene_Replace_Current_States, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) return;
-            log.Info($@"Replacing scene {((Scene) BridgesManager.Instance.SelectedObject).name} lights state with current one.");
+            log.Info($@"Replacing scene {BridgesManager.Instance.SelectedObject.name} lights state with current one.");
             await BridgesManager.Instance.SelectedBridge.StoreCurrentLightStateAsyncTask(BridgesManager.Instance.SelectedObject.Id);
         }
 
@@ -811,7 +800,7 @@ namespace WinHue3.MainForm
                 case Group group:
                 {
                     Form_GroupCreator fgc = new Form_GroupCreator() {Owner = Application.Current.MainWindow};
-                    await fgc.Initialize(@group);
+                    await fgc.Initialize(group);
                     if (fgc.ShowDialog() == true)
                     {
                         await BridgesManager.Instance.RefreshCurrentObject();
@@ -1027,13 +1016,8 @@ namespace WinHue3.MainForm
             log.Debug($"Object ID {BridgesManager.Instance.SelectedObject.Id} removal " + result);
             if (result)
             {
-                int index =
-                    BridgesManager.Instance.CurrentBridgeHueObjectsList.FindIndex(
-                        x => x.Id == BridgesManager.Instance.SelectedObject.Id && x.GetType() == BridgesManager.Instance.SelectedObject.GetType());
-                if (index == -1) return;
-                BridgesManager.Instance.CurrentBridgeHueObjectsList.RemoveAt(index);
+                BridgesManager.Instance.CurrentBridgeHueObjectsList.Remove(BridgesManager.Instance.SelectedObject);
                 BridgesManager.Instance.SelectedObject = null;
-                log.Info($"Object ID : {index} removed.");
             }
             else
             {
@@ -1045,11 +1029,8 @@ namespace WinHue3.MainForm
         {
             Form_RenameObject fro = new Form_RenameObject(BridgesManager.Instance.SelectedBridge, BridgesManager.Instance.SelectedObject) {Owner = Application.Current.MainWindow};
             if (fro.ShowDialog() != true) return;
-            BridgesManager.Instance.SelectedObject.name = fro.GetNewName();
-            int index = BridgesManager.Instance.CurrentBridgeHueObjectsList.FindIndex(x => x.Id == BridgesManager.Instance.SelectedObject.Id && x.GetType() == BridgesManager.Instance.SelectedObject.GetType());
-            if (index == -1) return;
-            BridgesManager.Instance.CurrentBridgeHueObjectsList[index].name = fro.GetNewName();
-            log.Info($"Renamed object ID : {index} renamed.");
+            BridgesManager.Instance.SelectedObject.name = fro.GetNewName();            
+            log.Info($"Renamed object ID : {BridgesManager.Instance.SelectedObject.Id} renamed.");
         }
 
         private void CopyToJson(bool raw)
@@ -1197,14 +1178,6 @@ namespace WinHue3.MainForm
             _ctm.ShowSettingsForm();
         }
 
-        private void RssFeedMon()
-        {
-        }
-
-        private void RssFeedMonSettings()
-        {
-        }
-
         private async Task ClickObject()
         {
             if (BridgesManager.Instance.SelectedObject != null)
@@ -1226,8 +1199,6 @@ namespace WinHue3.MainForm
                         case ClipGenericStatusSensorState state:
                             SensorStatus = state.status;
                             break;
-                        default:
-                            break;
                     }
                 }
             }
@@ -1238,7 +1209,7 @@ namespace WinHue3.MainForm
         private void DoAppUpdate()
         {
             if (MessageBox.Show(GlobalStrings.UpdateAvailableDownload, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                UpdateManager.DownloadUpdate();
+                UpdateManager.Instance.DownloadUpdate();
         }
 
         private void MinimizeToTray()
@@ -1261,7 +1232,6 @@ namespace WinHue3.MainForm
             if (SelectedHueElement == null) return;
             BridgesManager.Instance.SelectedObject = BridgesManager.Instance.CurrentBridgeHueObjectsList.FirstOrDefault(x => x.Id == SelectedHueElement.Id && x.GetType() == GetTypeFromHueElementEnum(SelectedHueElement.HueType));
             await ClickObject();
-            SelectedHueElement.Image = BridgesManager.Instance.SelectedObject.Image;
         }
 
         private Type GetTypeFromHueElementEnum(HueElementType type)

@@ -20,6 +20,7 @@
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
         xmlns:bridgeManager="clr-namespace:WinHue3.Functions.BridgeManager"
         xmlns:hotKeys="clr-namespace:WinHue3.Functions.HotKeys"
+        xmlns:utils="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
@@ -279,7 +280,7 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding AppUpdateAvailable}" Value="True">
+                                    <DataTrigger Binding="{Binding Source={x:Static utils:UpdateManager.Instance}, Path=UpdateAvailable}" Value="True">
                                         <Setter Property="Source" Value="/WinHue3;component/Resources/UpdateSearch.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
