@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.Windows.Forms;
 using System.Windows.Media;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Interface;
@@ -168,17 +169,27 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
 
         public void RefreshImage()
         {
-            if (state?.any_on != null)
+
+            switch (type)
             {
-                if (type != "Entertainment")
-                    Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault()
-                        ? (state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large)
-                        : Properties.Resources.HueGroupOff_Large);
-                else
-                    Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault()
-                        ? (state.all_on.GetValueOrDefault() ? Properties.Resources.entertainment_on : Properties.Resources.entertainment_off)
-                        : Properties.Resources.entertainment_off);
+                case "Entertainment":
+                    if (state.all_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment_on);
+                    else if (state.any_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment_on);
+                    else
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment_off);
+                    break;
+                default:
+                    if (state.all_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOn_Large);
+                    else if (state.any_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupSome_Large);
+                    else
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOff_Large);
+                    break;
             }
+
         }
 
         public override bool Equals(object obj)

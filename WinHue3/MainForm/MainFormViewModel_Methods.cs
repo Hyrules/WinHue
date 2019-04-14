@@ -125,10 +125,9 @@ namespace WinHue3.MainForm
             await BridgesManager.Instance.RefreshCurrentListHueObject();
         }
 
-        private void UpdateFloorPlanIcons(ImageSource image, string id, Type objecttype)
+        private void UpdateFloorPlanIcons(ImageSource image ,string id, Type objecttype)
         {
-            if (SelectedFloorPlan == null) return;
-            HueElement he = SelectedFloorPlan.Elements.FirstOrDefault(x => x.Id == id && x.HueType == GetHueElementEnumFromType(objecttype));
+            HueElement he = SelectedFloorPlan?.Elements.FirstOrDefault(x => x.Id == id && x.HueType == GetHueElementEnumFromType(objecttype));
             if (he == null) return;
             he.Image = image;
         }
@@ -137,55 +136,47 @@ namespace WinHue3.MainForm
         {
             log.Debug("Double click on : " + BridgesManager.Instance.SelectedObject);
 
-
-            if ((BridgesManager.Instance.SelectedObject is Light) || (BridgesManager.Instance.SelectedObject is Group ))
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                bool result = await BridgesManager.Instance.SelectedBridge.ToggleObjectOnOffStateAsyncTask(BridgesManager.Instance.SelectedObject, SliderTt, null, _newstate);
-                  
-                //UpdateFloorPlanIcons(hr, BridgesManager.Instance.SelectedObject.Id, BridgesManager.Instance.SelectedObject.GetType());
-
-                int index = BridgesManager.Instance.CurrentBridgeHueObjectsList.FindIndex(x => x.Id == BridgesManager.Instance.SelectedObject.Id && x.GetType() == BridgesManager.Instance.SelectedObject.GetType());
-                if (index == -1) return;
-                if (BridgesManager.Instance.SelectedObject is Light)
-                {
-                    ((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.on = !((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.on;
-                    ((Light) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).RefreshImage();
-                }
-                else
-                {
-                    ((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.any_on = !((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).state.any_on;
-                    ((Group) BridgesManager.Instance.CurrentBridgeHueObjectsList[index]).RefreshImage();
-
-                }
-
-            }
-            else
-            {
-                log.Info($"Activating scene : {BridgesManager.Instance.SelectedObject.Id}");
-                Scene scene = (Scene) BridgesManager.Instance.SelectedObject;
-                if (!scene.On)
-                {
-                    await BridgesManager.Instance.SelectedBridge.ActivateSceneAsyncTask(BridgesManager.Instance.SelectedObject.Id);
-                }
-                else
-                {
-                    foreach (string l in scene.lights)
+                case Light light:
+                    if (!await BridgesManager.Instance.SelectedBridge.ToggleObjectOnOffStateAsyncTask(BridgesManager.Instance.SelectedObject, SliderTt, null, _newstate)) break;
+                    light.state.on = !light.state.on;
+                    light.RefreshImage();
+                    UpdateFloorPlanIcons(light.Image, BridgesManager.Instance.SelectedObject.Id, BridgesManager.Instance.SelectedObject.GetType());
+                    break;
+                case Group group:
+                    if (!await BridgesManager.Instance.SelectedBridge.ToggleObjectOnOffStateAsyncTask(BridgesManager.Instance.SelectedObject, SliderTt, null, _newstate)) break;
+                    group.state.all_on = !group.state.all_on;
+                    group.RefreshImage();
+                    UpdateFloorPlanIcons(group.Image, BridgesManager.Instance.SelectedObject.Id, BridgesManager.Instance.SelectedObject.GetType());
+                    break;
+                case Scene scene:
+                    log.Info($"Activating scene : {BridgesManager.Instance.SelectedObject.Id}");
+                    if (!scene.On)
                     {
-                        await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(new State() {on = false}, l);
+                        await BridgesManager.Instance.SelectedBridge.ActivateSceneAsyncTask(BridgesManager.Instance.SelectedObject.Id);
                     }
-                }
+                    else
+                    {
+                        foreach (string l in scene.lights)
+                        {
+                            await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(new State() { on = false }, l);
+                        }
+                    }
 
-                ((Scene) BridgesManager.Instance.SelectedObject).On = !((Scene) BridgesManager.Instance.SelectedObject).On;
+                    scene.On = !scene.On;
+                    break;
             }
+
         }
 
         private async Task Strobe()
         {
             for (int i = 0; i <= 20; i++)
             {
-                await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(new Action() {@on = true, transitiontime = 0}, "2");
+                await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(new Action() {on = true, transitiontime = 0}, "2");
                 Thread.Sleep(100);
-                await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(new Action() {@on = false, transitiontime = 0}, "2");
+                await BridgesManager.Instance.SelectedBridge.SetStateAsyncTask(new Action() {on = false, transitiontime = 0}, "2");
                 Thread.Sleep(100);
             }
         }
@@ -815,97 +806,109 @@ namespace WinHue3.MainForm
         {
             log.Debug("Editing object : " + BridgesManager.Instance.SelectedObject);
 
-            if (BridgesManager.Instance.SelectedObject is Group)
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                Form_GroupCreator fgc = new Form_GroupCreator() {Owner = Application.Current.MainWindow};
-                await fgc.Initialize((Group) BridgesManager.Instance.SelectedObject);
-                if (fgc.ShowDialog() == true)
+                case Group group:
                 {
-                    await BridgesManager.Instance.RefreshCurrentObject();
+                    Form_GroupCreator fgc = new Form_GroupCreator() {Owner = Application.Current.MainWindow};
+                    await fgc.Initialize(@group);
+                    if (fgc.ShowDialog() == true)
+                    {
+                        await BridgesManager.Instance.RefreshCurrentObject();
+                    }
+
+                    break;
                 }
-            }
-            else if (BridgesManager.Instance.SelectedObject is Schedule)
-            {
-                Form_ScheduleCreator2 fsc = new Form_ScheduleCreator2() {Owner = Application.Current.MainWindow};
-                await fsc.Initialize();
-                fsc.EditSchedule(BridgesManager.Instance.SelectedObject as Schedule);
-                if (fsc.ShowDialog() == true)
+                case Schedule schedule:
                 {
-                    await BridgesManager.Instance.RefreshCurrentObject();
+                    Form_ScheduleCreator2 fsc = new Form_ScheduleCreator2() {Owner = Application.Current.MainWindow};
+                    await fsc.Initialize();
+                    fsc.EditSchedule(schedule);
+                    if (fsc.ShowDialog() == true)
+                    {
+                        await BridgesManager.Instance.RefreshCurrentObject();
+                    }
+
+                    break;
                 }
-            }
-            else if (BridgesManager.Instance.SelectedObject is Sensor obj)
-            {
-                obj = (Sensor) BridgesManager.Instance.SelectedObject;
-                switch (obj.modelid)
-                {
-                    case "PHDL00":
-                        Sensor cr = await BridgesManager.Instance.SelectedBridge.GetObjectAsync<Sensor>(obj.Id);
-                        if (cr != null)
-                        {
-                            cr.Id = obj.Id;
-                            Form_Daylight dl = new Form_Daylight(cr) {Owner = Application.Current.MainWindow};
-                            if (dl.ShowDialog() == true)
+                case Sensor obj:
+                    switch (obj.modelid)
+                    {
+                        case "PHDL00":
+                            Sensor cr = await BridgesManager.Instance.SelectedBridge.GetObjectAsync<Sensor>(obj.Id);
+                            if (cr != null)
                             {
-                                await BridgesManager.Instance.RefreshCurrentObject();
+                                cr.Id = obj.Id;
+                                Form_Daylight dl = new Form_Daylight(cr) {Owner = Application.Current.MainWindow};
+                                if (dl.ShowDialog() == true)
+                                {
+                                    await BridgesManager.Instance.RefreshCurrentObject();
+                                }
                             }
-                        }
 
-                        break;
-                    case "ZGPSWITCH":
-                        Form_HueTapConfig htc = new Form_HueTapConfig()
-                        {
-                            Owner = Application.Current.MainWindow
-                        };
-                        await htc.Initialize(obj.Id);
-                        if (htc.ShowDialog() == true)
-                        {
-                            await BridgesManager.Instance.RefreshCurrentObject();
-                        }
-
-                        break;
-                    default:
-                        Sensor crs = await BridgesManager.Instance.SelectedBridge.GetObjectAsync<Sensor>(obj.Id);
-                        if (crs != null)
-                        {
-                            Form_SensorCreator fsc = new Form_SensorCreator(crs)
+                            break;
+                        case "ZGPSWITCH":
+                            Form_HueTapConfig htc = new Form_HueTapConfig()
                             {
                                 Owner = Application.Current.MainWindow
                             };
-                            if (fsc.ShowDialog() == true)
+                            await htc.Initialize(obj.Id);
+                            if (htc.ShowDialog() == true)
                             {
                                 await BridgesManager.Instance.RefreshCurrentObject();
                             }
-                        }
 
-                        break;
-                }
-            }
-            else if (BridgesManager.Instance.SelectedObject is Rule)
-            {
-                Form_RuleCreator frc = new Form_RuleCreator((Rule) BridgesManager.Instance.SelectedObject) {Owner = Application.Current.MainWindow};
-                await frc.Initialize();
-                if (frc.ShowDialog() == true)
+                            break;
+                        default:
+                            Sensor crs = await BridgesManager.Instance.SelectedBridge.GetObjectAsync<Sensor>(obj.Id);
+                            if (crs != null)
+                            {
+                                Form_SensorCreator fsc = new Form_SensorCreator(crs)
+                                {
+                                    Owner = Application.Current.MainWindow
+                                };
+                                if (fsc.ShowDialog() == true)
+                                {
+                                    await BridgesManager.Instance.RefreshCurrentObject();
+                                }
+                            }
+
+                            break;
+                    }
+
+                    break;
+                case Rule _:
                 {
-                    await BridgesManager.Instance.RefreshCurrentObject();
+                    Form_RuleCreator frc = new Form_RuleCreator((Rule) BridgesManager.Instance.SelectedObject) {Owner = Application.Current.MainWindow};
+                    await frc.Initialize();
+                    if (frc.ShowDialog() == true)
+                    {
+                        await BridgesManager.Instance.RefreshCurrentObject();
+                    }
+
+                    break;
                 }
-            }
-            else if (BridgesManager.Instance.SelectedObject is Scene)
-            {
-                Form_SceneCreator fscc = new Form_SceneCreator() {Owner = Application.Current.MainWindow};
-                await fscc.Inititalize(BridgesManager.Instance.SelectedObject.Id);
-                if (fscc.ShowDialog() == true)
+                case Scene _:
                 {
-                    await BridgesManager.Instance.RefreshCurrentObject();
+                    Form_SceneCreator fscc = new Form_SceneCreator() {Owner = Application.Current.MainWindow};
+                    await fscc.Inititalize(BridgesManager.Instance.SelectedObject.Id);
+                    if (fscc.ShowDialog() == true)
+                    {
+                        await BridgesManager.Instance.RefreshCurrentObject();
+                    }
+
+                    break;
                 }
-            }
-            else if (BridgesManager.Instance.SelectedObject is Resourcelink)
-            {
-                Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator() {Owner = Application.Current.MainWindow};
-                await frlc.Initialize((Resourcelink) BridgesManager.Instance.SelectedObject);
-                if (frlc.ShowDialog() == true)
+                case Resourcelink _:
                 {
-                    await BridgesManager.Instance.RefreshCurrentObject();
+                    Form_ResourceLinksCreator frlc = new Form_ResourceLinksCreator() {Owner = Application.Current.MainWindow};
+                    await frlc.Initialize((Resourcelink) BridgesManager.Instance.SelectedObject);
+                    if (frlc.ShowDialog() == true)
+                    {
+                        await BridgesManager.Instance.RefreshCurrentObject();
+                    }
+
+                    break;
                 }
             }
         }
@@ -1151,7 +1154,7 @@ namespace WinHue3.MainForm
         {
             if (param == null) return;
             string p = param.ToString();
-            string data = string.Empty;
+
             JsonSerializerSettings jss = new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore};
 
             SaveFileDialog sfd = new SaveFileDialog
@@ -1165,7 +1168,7 @@ namespace WinHue3.MainForm
             {
                 List<IHueObject> listobject = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
 
-                data = JsonConvert.SerializeObject(listobject.ToDictionary(x => x.Id, x => x), Formatting.Indented, jss);
+                string data = JsonConvert.SerializeObject(listobject.ToDictionary(x => x.Id, x => x), Formatting.Indented, jss);
 
                 if (data != string.Empty)
                 {

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 using Org.BouncyCastle.Crypto.Tls;
 
 namespace WinHue3.Philips_Hue.BridgeObject.Entertainment_API

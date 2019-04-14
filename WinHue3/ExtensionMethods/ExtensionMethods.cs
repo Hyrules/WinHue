@@ -47,11 +47,7 @@ namespace WinHue3.ExtensionMethods
         /// <returns></returns>
         public static bool IsValid(this string str)
         {
-            if(!string.IsNullOrWhiteSpace(str) && !string.IsNullOrEmpty(str))
-            {
-                return true;
-            }
-            return false;
+            return !string.IsNullOrWhiteSpace(str) && !string.IsNullOrEmpty(str);
         }
 
         /// <summary>
@@ -61,7 +57,7 @@ namespace WinHue3.ExtensionMethods
         /// <returns></returns>
         public static string CapitalizeFirstLetter(this string str)
         {
-            if (String.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(str))
                 throw new ArgumentException("ARGH!");
             return str.First().ToString().ToUpper() + str.Substring(1);
         }
@@ -73,7 +69,7 @@ namespace WinHue3.ExtensionMethods
         /// <returns></returns>
         public static string LowerFirstLetter(this string str)
         {
-            if (String.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(str))
                 throw new ArgumentException("ARGH!");
             return str.First().ToString().ToLower() + str.Substring(1);
         }

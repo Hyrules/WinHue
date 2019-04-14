@@ -56,18 +56,10 @@ namespace WinHue3.MainForm
             MessageBox.Show("Not Responding");
         }
 
-
-
         public MainFormModel MainFormModel
         {
             get => _mainFormModel;
             set => SetProperty(ref _mainFormModel, value);
-        }
-
-        public bool HotkeyDetected
-        {
-            get => _hotkeyDetected;
-            set => SetProperty(ref _hotkeyDetected, value);
         }
 
         private void Initialize()
@@ -92,11 +84,9 @@ namespace WinHue3.MainForm
             BridgesManager.Instance.OnBridgeNotResponding += Bridge_BridgeNotResponding;
             BridgesManager.Instance.LoadBridges();
 
-            if (BridgesManager.Instance.SelectedBridge != null)
-            {
-                _ctm = new CpuTempMonitor(BridgesManager.Instance.SelectedBridge);
-                HotKeyManager.Instance.StartHotKeyCapture();
-            }
+            if (BridgesManager.Instance.SelectedBridge == null) return;
+            _ctm = new CpuTempMonitor(BridgesManager.Instance.SelectedBridge);
+            HotKeyManager.Instance.StartHotKeyCapture();
         }
 
 

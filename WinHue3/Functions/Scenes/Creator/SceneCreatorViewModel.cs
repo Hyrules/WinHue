@@ -201,7 +201,7 @@ namespace WinHue3.Functions.Scenes.Creator
         {
             _bgWorker.DoWork += BgWorker_DoWork;
             _bgWorker.RunWorkerCompleted += _bgWorker_RunWorkerCompleted;
-            _bgWorker.RunWorkerAsync(new object[] { ListSceneLights, BridgeManager.BridgesManager.Instance.SelectedBridge });
+            _bgWorker.RunWorkerAsync(new object[] { ListSceneLights, BridgesManager.Instance.SelectedBridge });
         }
 
         private void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -212,7 +212,6 @@ namespace WinHue3.Functions.Scenes.Creator
         void BgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             object[] objarr = (object[]) e.Argument;
-            Bridge br = (Bridge)objarr[1];
             ObservableCollection<Light> li = (ObservableCollection<Light>)objarr[0];
             ObservableCollection<Light> liOriginalState = new ObservableCollection<Light>();
             foreach (Light obj in li)

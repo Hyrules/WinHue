@@ -151,8 +151,8 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// <summary>
         /// Return the new image from the light
         /// </summary>
-        /// <param name="imagestate">Requested state of the light.</param>
         /// <param name="modelid">model id of the light.</param>
+        /// <param name="archetype">Archetype of the light.</param>
         /// <returns>New image of the light</returns>
         private ImageSource GetImageForLight(string modelid = null, string archetype = null)
         {

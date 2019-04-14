@@ -28,8 +28,7 @@ namespace WinHue3.MainForm
             get
             {
                 if (BridgesManager.Instance.SelectedObject == null) return false;
-                if (!(BridgesManager.Instance.SelectedObject is Light) && !(BridgesManager.Instance.SelectedObject is Group)) return false;
-                return true;
+                return BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group;
             }
         }
 
@@ -117,20 +116,20 @@ namespace WinHue3.MainForm
 
         public ObservableCollection<Floor> ListFloorPlans
         {
-            get { return _listFloorPlans; }
-            set { SetProperty(ref _listFloorPlans, value); }
+            get => _listFloorPlans;
+            set => SetProperty(ref _listFloorPlans, value);
         }
 
         public Floor SelectedFloorPlan
         {
-            get { return _selectedFloorPlan; }
-            set { SetProperty(ref _selectedFloorPlan, value); }
+            get => _selectedFloorPlan;
+            set => SetProperty(ref _selectedFloorPlan, value);
         }
 
         public HueElement SelectedHueElement
         {
-            get { return _selectedHueElement; }
-            set { SetProperty(ref _selectedHueElement, value); }
+            get => _selectedHueElement;
+            set => SetProperty(ref _selectedHueElement, value);
         }
     }
 }

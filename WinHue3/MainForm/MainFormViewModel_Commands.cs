@@ -34,15 +34,14 @@ namespace WinHue3.MainForm
         {
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
-            if (BridgesManager.Instance.SelectedObject is Group group && group.@class == "TV") return false;
-            if (BridgesManager.Instance.SelectedObject is Scene scene && scene.version == 1) return false;
-            return !(BridgesManager.Instance.SelectedObject is Light);
-        }
-
-        private bool CanSchedule()
-        {
-            if (!IsObjectSelected() ) return false;
-            return BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group || BridgesManager.Instance.SelectedObject is Scene ;
+            switch (BridgesManager.Instance.SelectedObject)
+            {
+                case Group group when @group.@class == "TV":
+                case Scene scene when scene.version == 1:
+                    return false;
+                default:
+                    return !(BridgesManager.Instance.SelectedObject is Light);
+            }
         }
 
         public bool CanSearchNewLights()
@@ -61,81 +60,91 @@ namespace WinHue3.MainForm
         private bool CanHue()
         {
             if (!IsObjectSelected()) return false;
-            if (BridgesManager.Instance.SelectedObject is Light light)
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
-                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
+                case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
+                    return false;
+                case Light light when light.state.@on == false && WinHueSettings.settings.SlidersBehavior == 0:
+                    return false;
+                case Light light:
+                    return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canhue;
+                case Group group:
+                    return @group.action?.hue != null;
+                default:
+                    return false;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group group)
-            {
-                return group.action?.hue != null;
-            }
-            return false;
         }
 
         private bool CanBri()
         {
             if (!IsObjectSelected()) return false;
-            if (BridgesManager.Instance.SelectedObject is Light light)
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
-                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
+                case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
+                    return false;
+                case Light light when light.state.@on == false && WinHueSettings.settings.SlidersBehavior == 0:
+                    return false;
+                case Light light:
+                    return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canbri;
+                case Group group:
+                    return @group.action?.bri != null;
+                default:
+                    return false;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group group)
-            {
-                return group.action?.bri != null;
-            }
-            return false;
         }
 
         private bool CanCt()
         {
             if (!IsObjectSelected()) return false;
-            if (BridgesManager.Instance.SelectedObject is Light light)
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
-                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
+                case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
+                    return false;
+                case Light light when light.state.@on == false && WinHueSettings.settings.SlidersBehavior == 0:
+                    return false;
+                case Light light:
+                    return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canct;
+                case Group group:
+                    return @group.action?.ct != null;
+                default:
+                    return false;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group group)
-            {
-                return group.action?.ct != null;
-            }
-            return false;
         }
 
         private bool CanSat()
         {
             if (!IsObjectSelected()) return false;
-            if (BridgesManager.Instance.SelectedObject is Light light)
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
-                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
+                case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
+                    return false;
+                case Light light when light.state.@on == false && WinHueSettings.settings.SlidersBehavior == 0:
+                    return false;
+                case Light light:
+                    return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
+                case Group _:
+                    return ((Group)BridgesManager.Instance.SelectedObject).action?.sat != null;
+                default:
+                    return false;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group)
-            {
-                return ((Group)BridgesManager.Instance.SelectedObject).action?.sat != null;
-            }
-            return false;
         }
 
         private bool CanXy()
         {
             if (!IsObjectSelected()) return false;
-            if (BridgesManager.Instance.SelectedObject is Light light)
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                if (light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix) return false;
-                if (light.state.on == false && WinHueSettings.settings.SlidersBehavior == 0) return false;
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
+                case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
+                    return false;
+                case Light light when light.state.@on == false && WinHueSettings.settings.SlidersBehavior == 0:
+                    return false;
+                case Light light:
+                    return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canxy;
+                case Group group:
+                    return @group.action?.xy != null;
+                default:
+                    return false;
             }
-            else if (BridgesManager.Instance.SelectedObject is Group group)
-            {
-                return group.action?.xy != null;
-            }
-            return false;
         }
 
         private bool IsDoubleClickable()
@@ -145,12 +154,15 @@ namespace WinHue3.MainForm
 
         private bool CanIdentify()
         {
-            if (BridgesManager.Instance.SelectedObject is Group) return true;
-            if (BridgesManager.Instance.SelectedObject is Light light)
+            switch (BridgesManager.Instance.SelectedObject)
             {
-                return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canalert;
+                case Group _:
+                    return true;
+                case Light light:
+                    return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Canalert;
+                default:
+                    return false;
             }
-            return false;
         }
 
         private bool CanSetSensivity()
@@ -166,11 +178,7 @@ namespace WinHue3.MainForm
 
         private bool CanCloneSensor()
         {
-            if (BridgesManager.Instance.SelectedObject is Sensor)
-            {
-                return ((Sensor) BridgesManager.Instance.SelectedObject).type.Contains("CLIP");
-            }
-            return false;
+            return BridgesManager.Instance.SelectedObject is Sensor && ((Sensor) BridgesManager.Instance.SelectedObject).type.Contains("CLIP");
         }
 
         private bool CanClone()
@@ -210,8 +218,7 @@ namespace WinHue3.MainForm
         private bool CanToggleDim()
         {
             if (!IsObjectSelected()) return false;
-            if (!(BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group)) return false;
-            return true;
+            return BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group;
         }
 
         private bool CanSetSensorStatus()
