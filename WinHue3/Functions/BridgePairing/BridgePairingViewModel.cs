@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -13,7 +11,6 @@ using WinHue3.Interface;
 using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Resources;
 using WinHue3.Utils;
 using WinHue3.Validations;
@@ -78,10 +75,7 @@ namespace WinHue3.Functions.BridgePairing
                 log.Info($"Bridge Dectected : {brlist.Count}");
                 log.Info("Bridge detection complete.");                
             }
-            else
-            {
-                
-            }
+
             Cursor_Tools.ShowNormalCursor();
             CommandManager.InvalidateRequerySuggested();
         }
@@ -103,10 +97,7 @@ namespace WinHue3.Functions.BridgePairing
                     UpdateBridgeList(brlist);
                     log.Info("Scan for bridge completed.");
                 }
-                else
-                {
-                    
-                }
+
             }
             else
             {
