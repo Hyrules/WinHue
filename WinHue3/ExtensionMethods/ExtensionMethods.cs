@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.ServiceModel.Dispatcher;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using WinHue3.Annotations;
-using WinHue3.Philips_Hue.HueObjects.Common;
-using Xceed.Wpf.DataGrid.Converters;
-using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3.ExtensionMethods
 {
