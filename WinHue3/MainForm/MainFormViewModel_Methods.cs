@@ -979,8 +979,10 @@ namespace WinHue3.MainForm
 
             if (result)
             {
+                string id = BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+
                 log.Info("Object cloned succesfully !");
-                IHueObject hr = await BridgesManager.Instance.SelectedBridge.GetObjectAsync(BridgesManager.Instance.SelectedObject.Id, BridgesManager.Instance.SelectedObject.GetType());
+                IHueObject hr = await BridgesManager.Instance.SelectedBridge.GetObjectAsync(id, BridgesManager.Instance.SelectedObject.GetType());
 
                 if (hr != null)
                 {

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Interface;
+using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 {
@@ -21,20 +24,31 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
             {
                 if (p.GetValue(oldrule) == null) continue;
                 if (Attribute.IsDefined(p, typeof(JsonIgnoreAttribute))) continue;
+                if (Attribute.IsDefined(p, typeof(DontSerialize))) continue;
+                
+                if (serializer.ContractResolver is HueModifyDataContractResolver)
+                {
+                    if (Attribute.IsDefined(p, typeof(CreateOnlyAttribute))) continue;
+                }
+
                 writer.WritePropertyName(p.Name);
-                if (p.Name == "conditions" )
+                switch (p.Name)
                 {
-                    string str = JsonConvert.SerializeObject(oldrule.conditions, new JsonSerializerSettings(){ NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });                    
-                    writer.WriteRawValue(str);
-                }
-                else if (p.Name == "actions")
-                {
-                    string str = JsonConvert.SerializeObject(oldrule.actions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
-                    writer.WriteRawValue(str);
-                }
-                else
-                {
-                    writer.WriteValue(p.GetValue(oldrule));
+                    case "conditions":
+                    {
+                        string str = JsonConvert.SerializeObject(oldrule.conditions, new JsonSerializerSettings(){ NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });                    
+                        writer.WriteRawValue(str);
+                        break;
+                    }
+                    case "actions":
+                    {
+                        string str = JsonConvert.SerializeObject(oldrule.actions, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, StringEscapeHandling = StringEscapeHandling.Default });
+                        writer.WriteRawValue(str);
+                        break;
+                    }
+                    default:
+                        writer.WriteValue(p.GetValue(oldrule));
+                        break;
                 }
                 
             }

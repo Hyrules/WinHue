@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -17,6 +19,44 @@ namespace WinHue3.Functions.Rules.Creator
 {
    public static class TreeViewHelper
     {
+        public static HuePropertyTreeViewItem BuildPropertiesTree2(object root, string currentpath, string name = null, string selectedpath = null)
+        {
+            Stack<Tuple<string,object>> propstoexplore = new Stack<Tuple<string, object>>();
+            Stack<HuePropertyTreeViewItem> stvi = new Stack<HuePropertyTreeViewItem>();
+            stvi.Push(new HuePropertyTreeViewItem(){Header = name, Address = new HueAddress(currentpath), Name= name });
+            HuePropertyTreeViewItem currenttvi;
+            propstoexplore.Push(new Tuple<string, object>(name,root));
+            
+
+            while (propstoexplore.Count > 0)
+            {
+                currenttvi = stvi.Pop();
+                Tuple<string,object> currentobject = propstoexplore.Pop();
+                if (currentobject.Item2 == null || currentobject.Item2 is string || currentobject.Item2.GetType().IsPrimitive || currentobject.Item2.GetType().IsArray)
+                {
+                    currenttvi.Items.Add(new HuePropertyTreeViewItem() {Name=currentobject.Item1, Header = currentobject.Item1,PropType = currentobject.GetType()});
+                }
+                else
+                {
+                    stvi.Push(currenttvi);
+                    currenttvi = new HuePropertyTreeViewItem() {Header= currentobject.Item1};
+                    PropertyInfo[] listprops = currentobject.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => x.Name != "Image" && x.Name != "Id").ToArray();
+                    foreach (PropertyInfo p in listprops)
+                    {
+                        object value = p.GetValue(currentobject);
+                        propstoexplore.Push(new Tuple<string, object>(p.Name, value));
+                    }
+                }
+
+            }
+
+            currenttvi = stvi.Pop();
+
+            return currenttvi;
+
+        }
+
+
         public static HuePropertyTreeViewItem BuildPropertiesTree(object root,  string currentpath, string name = null, string selectedpath = null)
         {
             PropertyInfo[] listprops = root.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => x.Name != "Image" && x.Name != "Id").ToArray();
@@ -65,7 +105,7 @@ namespace WinHue3.Functions.Rules.Creator
            // tvi.Expanded -= Tvi_Expanded;
             foreach (PropertyInfo p in listprops)
             {
-                string actualpath = currentpath + "/" + p.Name;
+                string actualpath = currentpath + "/" + p.Name;  
                 object value = p.GetValue(root);
                 HuePropertyTreeViewItem hptvi = new HuePropertyTreeViewItem()
                 {

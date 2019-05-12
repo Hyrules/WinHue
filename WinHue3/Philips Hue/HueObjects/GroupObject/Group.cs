@@ -144,7 +144,7 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
             set => SetProperty(ref _visible, value);
         }
 
-        [Category("Streaming"), Description("List of locations of lights in the group (For entertainment mode only)"),ExpandableObject]
+        [Category("Streaming"), Description("List of locations of lights in the group (For entertainment mode only)"),ExpandableObject­, DontSerialize]
         public Location Locations
         {
             get => _locations;

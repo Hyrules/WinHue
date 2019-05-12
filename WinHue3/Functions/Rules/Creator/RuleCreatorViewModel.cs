@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.Rules.Validation;
 using WinHue3.Philips_Hue.Communication;
@@ -42,7 +43,7 @@ namespace WinHue3.Functions.Rules.Creator
 
         public async Task Initialize()
         {
-            List<IHueObject> objects = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            List<IHueObject> objects = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync(WinHueSettings.settings.ShowHiddenScenes,true);
             _bs = await BridgesManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();          
             _listAvailableHueObject.AddRange(objects);
 
@@ -511,7 +512,7 @@ namespace WinHue3.Functions.Rules.Creator
                     ListConditionHueObjects = _listAvailableHueObject.OfType<Resourcelink>().ToList<IHueObject>();
                     break;
                 case Type brs when brs == typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings):
-                    ListConditionProperties = TreeViewHelper.BuildPropertiesTree(_bs, "/config", "Config").ToList();
+                    ListConditionProperties = TreeViewHelper.BuildPropertiesTree2(_bs, "/config", "Config").ToList();
                     break;
                 default:
                     ListConditionHueObjects = null;

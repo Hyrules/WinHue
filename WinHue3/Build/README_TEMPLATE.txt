@@ -7,15 +7,17 @@ You might also need Visual C++ 2010 Redistributable library.
 Both are available at Microsoft's website. 
 
 Fixed:
-- rule creator adding caps and s to paths.
+
 - Update manager not pointing to the right address.
+- Cloning rule giving an error.
+- Cloning scenes giving an error.
+- Fixed rule creator behavior when creating rule with hidden or group zero.
 
 Added:
-- 
+- Added the streaming trigger to the context menu. Won't do anything at the moment beside triggering the streaming flag on the entertainment group.
+- Entertainement Creator now available. You can create entertainment group. ( Not currently used in WinHue )
 
 Changed:
-- Moved to a HotKeyManager instead of mainform handling hotkeys.
-- Rollback to xceed toolkit 3.4.0 to avoid bug in property grid.
 - Way the light are displayed. Removed the unreachable light image needed.
 - Unreachable will now show as greyed out.
 
@@ -27,7 +29,7 @@ Removed :
 
 WIP:
 - Animation creator. (Not Available yet)
-- Entertainment creator. (not Available yet)
+- Cannot clone entertainement at the moment.
 
 
 

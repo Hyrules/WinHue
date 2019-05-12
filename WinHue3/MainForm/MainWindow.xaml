@@ -51,7 +51,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
+        
     </Window.Resources>
 
     <Window.DataContext>
@@ -66,19 +66,19 @@
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" Foreground="White" >
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" Foreground="Black" >
+        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" FontSize="19" >
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" Foreground="White" >
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/settings.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}" FontSize="17" Foreground="Black">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/pair-bridge.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" FontSize="17" Foreground="Black">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" Foreground="Black">
                     <MenuItem.Style>
                         <Style TargetType="{x:Type MenuItem}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -91,21 +91,21 @@
                     </MenuItem.Style>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportConfig}" FontSize="17" Foreground="Black" >
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportDataStore}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Full" FontSize="17" Foreground="Black"/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportConfig}" Foreground="Black" >
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportDataStore}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Full" Foreground="Black"/>
                     <Separator/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportLights}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Lights" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportGroups}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Groups" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportScenes}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Scenes" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSchedules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Schedules" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportRules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Rules" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSensors}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Sensors" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportResLink}" Command="{Binding ExportDataStoreCommand}" CommandParameter="ResourceLinks" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportLights}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Lights" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportGroups}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Groups" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportScenes}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Scenes" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSchedules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Schedules" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportRules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Rules" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSensors}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Sensors" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportResLink}" Command="{Binding ExportDataStoreCommand}" CommandParameter="ResourceLinks" Foreground="black"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17" Foreground="Black"/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" Foreground="Black"/>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.Edit}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.Edit}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}" Foreground="Black"/>
@@ -164,7 +164,7 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Foreground="Black" Background="Red"/>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/cputemp.png" Height="16"/>
@@ -172,7 +172,7 @@
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" Foreground="Black">
@@ -206,7 +206,7 @@
                 <MenuItem IsCheckable="True" IsChecked="{Binding MainFormModel.ShowFloorPlanTab}" x:Name="mnuFloorPlan" Header="{x:Static resx:GUI.MainForm_Tab_View_FloorPlan}" Foreground="Black"/>
 
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/WebSite.png" Height="16"/>

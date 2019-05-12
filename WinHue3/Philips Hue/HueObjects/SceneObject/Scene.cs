@@ -193,14 +193,14 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         }
 
         [Category("Scene Properties"),Description("Type of the scene"),ItemsSource(typeof(GroupeTypeItemSource))]
-        public string Type
+        public string type
         {
             get => _type; 
             set => SetProperty(ref _type,value);
         }
 
         [Category("Scene Properties"),Description("Group ID that a scene is linked to.")]
-        public string Group
+        public string group
         {
             get => _group; 
             set => SetProperty(ref _group,value);
@@ -219,6 +219,8 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         void OnDeserialized(StreamingContext ctx)
         {
             Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
+            if (appdata.data is null && appdata.version is null)
+                appdata = null;
         }
 
 

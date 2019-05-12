@@ -2,8 +2,6 @@
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
-using WinHue3.Interface;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -81,7 +79,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         /// <summary>
         /// Owner of the rule.
         /// </summary>
-        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"),Description("Owner of the rule"), ReadOnly(true)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false), Category("Rule Properties"),Description("Owner of the rule"), ReadOnly(true), DontSerialize]
         public string owner
         {
             get => _owner;
