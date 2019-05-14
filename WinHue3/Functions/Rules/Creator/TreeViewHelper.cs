@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -19,45 +20,57 @@ namespace WinHue3.Functions.Rules.Creator
 {
    public static class TreeViewHelper
     {
-        public static HuePropertyTreeViewItem BuildPropertiesTree2(object root, string currentpath, string name = null, string selectedpath = null)
+        public static HuePropertyTreeViewItem BuildPropertiesTree(object root, string currentpath, string name = null, string selectedpath = null)
         {
-            Stack<Tuple<string,object>> propstoexplore = new Stack<Tuple<string, object>>();
-            Stack<HuePropertyTreeViewItem> stvi = new Stack<HuePropertyTreeViewItem>();
-            stvi.Push(new HuePropertyTreeViewItem(){Header = name, Address = new HueAddress(currentpath), Name= name });
-            HuePropertyTreeViewItem currenttvi;
-            propstoexplore.Push(new Tuple<string, object>(name,root));
-            
-
-            while (propstoexplore.Count > 0)
-            {
-                currenttvi = stvi.Pop();
-                Tuple<string,object> currentobject = propstoexplore.Pop();
-                if (currentobject.Item2 == null || currentobject.Item2 is string || currentobject.Item2.GetType().IsPrimitive || currentobject.Item2.GetType().IsArray)
-                {
-                    currenttvi.Items.Add(new HuePropertyTreeViewItem() {Name=currentobject.Item1, Header = currentobject.Item1,PropType = currentobject.GetType()});
-                }
-                else
-                {
-                    stvi.Push(currenttvi);
-                    currenttvi = new HuePropertyTreeViewItem() {Header= currentobject.Item1};
-                    PropertyInfo[] listprops = currentobject.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => x.Name != "Image" && x.Name != "Id").ToArray();
-                    foreach (PropertyInfo p in listprops)
-                    {
-                        object value = p.GetValue(currentobject);
-                        propstoexplore.Push(new Tuple<string, object>(p.Name, value));
-                    }
-                }
-
-            }
-
-            currenttvi = stvi.Pop();
-
-            return currenttvi;
-
+            string obj = JsonConvert.SerializeObject(root, new JsonSerializerSettings(){NullValueHandling = NullValueHandling.Ignore,TypeNameHandling = TypeNameHandling.Objects});
+            Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(obj);
+            HuePropertyTreeViewItem roottvi = new HuePropertyTreeViewItem(){Header = name};
+            BuildTree(dic, roottvi);
+            return roottvi;
         }
 
+        private static void BuildTree(object item, HuePropertyTreeViewItem node)
+        {
+            if (item is KeyValuePair<string, object> kvp)
+            {
+                if (kvp.Key == "Id" || kvp.Key == "Image") return;
+                HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { Header = kvp.Key, PropType = kvp.Value.GetType(), FontWeight = FontWeights.Normal, IsSelected = false };
+                node.Items.Add(tvi);
+                if (!IsPrimitive(kvp.Value))
+                    BuildTree(kvp.Value, tvi);
+            }
+            else if (item is Dictionary<string, object> dic)
+            {
+                foreach (KeyValuePair<string, object> k in dic)
+                {
+                    BuildTree(k, node);
+                }
+                
+            }
+            else if(item is JToken obj)
+            {
+                if (IsPrimitive(obj)) return;
+                Dictionary<string, object> tdic = obj.ToObject<Dictionary<string, object>>();
+                
+                foreach (KeyValuePair<string, object> tkvp in tdic)
+                {
+                    HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { Header = tkvp.Key, PropType = tkvp.Value.GetType(), FontWeight = FontWeights.Normal, IsSelected = false};
+                    node.Items.Add(tvi);
+                    if (IsPrimitive(tkvp.Value)) continue;
+                    BuildTree(tkvp.Value,tvi);
+                }
+                
+              
 
-        public static HuePropertyTreeViewItem BuildPropertiesTree(object root,  string currentpath, string name = null, string selectedpath = null)
+            }
+        }
+
+        private static bool IsPrimitive(object obj)
+        {
+            return (obj is null) || (obj is Array) || (obj.GetType().IsPrimitive) || (obj is string) || (obj is DateTime) || (obj is JArray);
+        }
+
+        public static HuePropertyTreeViewItem BuildPropertiesTreeOld(object root,  string currentpath, string name = null, string selectedpath = null)
         {
             PropertyInfo[] listprops = root.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => x.Name != "Image" && x.Name != "Id").ToArray();
 

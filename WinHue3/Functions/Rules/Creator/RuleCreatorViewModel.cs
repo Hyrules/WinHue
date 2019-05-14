@@ -512,7 +512,7 @@ namespace WinHue3.Functions.Rules.Creator
                     ListConditionHueObjects = _listAvailableHueObject.OfType<Resourcelink>().ToList<IHueObject>();
                     break;
                 case Type brs when brs == typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings):
-                    ListConditionProperties = TreeViewHelper.BuildPropertiesTree2(_bs, "/config", "Config").ToList();
+                    ListConditionProperties = TreeViewHelper.BuildPropertiesTree(_bs, "/config", "Config").ToList();
                     break;
                 default:
                     ListConditionHueObjects = null;

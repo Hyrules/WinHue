@@ -70,15 +70,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="164.235,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding Condition_AddConditionCommand}" Grid.Column="1"/>
-                    <controls:BindableTreeView x:Name="TvProperties" HorizontalAlignment="Left" Height="208" Margin="10,38,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}" Grid.ColumnSpan="2"
-                                               Grid.Column="0">
+                    <controls:BindableTreeView x:Name="TvProperties" HorizontalAlignment="Left" Height="208" Margin="10,38,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}" Grid.ColumnSpan="2" Grid.Column="0">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="rules:HuePropertyTreeViewItem">
                                 <Setter Property="IsSelected" Value="True"/>
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </controls:BindableTreeView>
-                    <xctk:WatermarkComboBox x:Name="cbOperator"  HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}"  Grid.ColumnSpan="2" Watermark="{x:Static resx:GUI.ChooseOperator}"
+                    <xctk:WatermarkComboBox x:Name="cbOperator" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}"  Grid.ColumnSpan="2" Watermark="{x:Static resx:GUI.ChooseOperator}"
                               Grid.Column="0">
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
