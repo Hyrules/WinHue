@@ -24,17 +24,19 @@ namespace WinHue3.Functions.Rules.Creator
         {
             string obj = JsonConvert.SerializeObject(root, new JsonSerializerSettings(){NullValueHandling = NullValueHandling.Ignore,TypeNameHandling = TypeNameHandling.Objects});
             Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(obj);
-            HuePropertyTreeViewItem roottvi = new HuePropertyTreeViewItem(){Header = name};
-            BuildTree(dic, roottvi);
+            HuePropertyTreeViewItem roottvi = new HuePropertyTreeViewItem(){Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal, IsSelected = false, Address = new HueAddress(currentpath)};
+            BuildTree(dic, roottvi, selectedpath);
             return roottvi;
         }
 
-        private static void BuildTree(object item, HuePropertyTreeViewItem node)
+        private static void BuildTree(object item, HuePropertyTreeViewItem node, string selectedpath = null)
         {
             if (item is KeyValuePair<string, object> kvp)
             {
                 if (kvp.Key == "Id" || kvp.Key == "Image") return;
-                HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { Header = kvp.Key, PropType = kvp.Value.GetType(), FontWeight = FontWeights.Normal, IsSelected = false };
+                HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { Header = kvp.Key, PropType = kvp.Value.GetType(), FontWeight = FontWeights.Normal, IsSelected = false, Address = new HueAddress(node.Address + $"/{kvp.Key}")};
+                if (tvi.Address == selectedpath)
+                    tvi.IsSelected = true;
                 node.Items.Add(tvi);
                 if (!IsPrimitive(kvp.Value))
                     BuildTree(kvp.Value, tvi);
@@ -54,7 +56,10 @@ namespace WinHue3.Functions.Rules.Creator
                 
                 foreach (KeyValuePair<string, object> tkvp in tdic)
                 {
-                    HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { Header = tkvp.Key, PropType = tkvp.Value.GetType(), FontWeight = FontWeights.Normal, IsSelected = false};
+                    HuePropertyTreeViewItem tvi = new HuePropertyTreeViewItem() { Header = tkvp.Key, PropType = tkvp.Value.GetType(), FontWeight = FontWeights.Normal, IsSelected = false, Address = new HueAddress(node.Address + $"/{tkvp.Key}")};
+                    if (tvi.Address == selectedpath)
+                        tvi.IsSelected = true;
+
                     node.Items.Add(tvi);
                     if (IsPrimitive(tkvp.Value)) continue;
                     BuildTree(tkvp.Value,tvi);
