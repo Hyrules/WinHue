@@ -530,17 +530,15 @@ namespace WinHue3.Functions.Rules.Creator
         {
             if (_selectedRuleCondition == null) return;
 
+            SelectedRuleConditionType = _selectedRuleCondition.address.objecttype == "config" ? typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings) : HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
+            SelectConditionObjectType();
+
             if (_selectedRuleCondition.address.objecttype != "config")
             {
-                SelectedRuleConditionType = HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
-                SelectConditionObjectType();
                 SelectedConditionHueObject = ListConditionHueObjects.FirstOrDefault(x => x.Id == _selectedRuleCondition.address.id);
                 SelectConditionHueObject();
             }
-            else
-            {
-                SelectedRuleConditionType = typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings);
-            }
+
             if (SelectedConditionHueObject != null || SelectedRuleConditionType == typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings))
             {
                 ConditionOperator = _selectedRuleCondition.@operator;
@@ -590,6 +588,8 @@ namespace WinHue3.Functions.Rules.Creator
                 nrt.IsSelected = true;
                 return nrt;
             }
+
+
 
             return null;
         }

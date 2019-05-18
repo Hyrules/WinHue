@@ -166,7 +166,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </xctk:WatermarkComboBox>
-                    <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="511.235,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25" Grid.Column="1"/>
+                    <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="511.235,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25" Grid.Column="1" Background="Red"/>
                     <Button Content="{x:Static resx:GUI.Button_Clear}" HorizontalAlignment="Left" Margin="244.235,276,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="25" Grid.Column="1"/>
                 </Grid>
             </TabItem>
