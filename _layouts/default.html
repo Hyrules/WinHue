@@ -8,17 +8,17 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <!-- Magnific Popup CSS -->
-    <link rel="stylesheet" href="./assets/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" href="./assets/magnific-popup/popup-styles.css">
+    <link rel="stylesheet" href="/WinHue/assets/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="/WinHue/assets/magnific-popup/popup-styles.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/default.css">
+    <link rel="stylesheet" href="/WinHue/css/common.css">
+    <link rel="stylesheet" href="/WinHue/css/default.css">
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700" rel="stylesheet">
     <!-- Page Icons: 1. Chrome and Opera -->
-    <link rel="icon" sizes="192x192" href="./assets/icon.png">
+    <link rel="icon" sizes="192x192" href="/WinHue/assets/icon.png">
     <!-- 2. Safari -->
-    <link rel="apple-touch-icon" href="./assets/icon.png">
+    <link rel="apple-touch-icon" href="/WinHue/assets/icon.png">
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#000000">
   </head>
@@ -28,7 +28,7 @@
         <div class="container" id="jumboContent">
             <h1 class="display-3" id="title">WinHue</h1>
             <p>{{ site.github.project_tagline }}</p>
-            <p>
+            <div>
               <div class="btn-group btn-flex btn-btm-pad">
                   <a class="btn btn-light btn-lg" href="{{ site.github.releases[0].assets[0].browser_download_url }}" role="button" data-toggle="tooltip" data-placement="bottom" title="{{ site.github.releases[0].name }}" onclick="thanks()">Download WinHue</a>
                   <button type="button" class="btn btn-light btn-lg dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,60 +42,72 @@
                   </div>
               </div>
               <a class="btn btn-outline-light btn-lg rightmost header-btn btn-btm-pad" href="{{ site.github.repository_url }}" role="button">View on GitHub</a>
-            </p>
+            </div>
           <p id="winLIFXpromo">Looking for an app to control the LIFX lighting system? Try <a href="https://hyrules.github.io/WinLIFX">WinLIFX</a>.</p>
         </div>
     </div>
+
+
+
     <!-- Main Content -->
     <div class="container">
+<!--        <div class="row row-btm-pad">-->
+<!--            <div class="col-md-12">-->
+<!--                <nav class="nav nav-pills">-->
+<!--                    <a class="text-sm-center nav-link active">Overview</a>-->
+<!--                    <a class="text-sm-center nav-link" href="features">Features</a>-->
+<!--                </nav>-->
+<!--            </div>-->
+<!--        </div>-->
+
       <div class="row row-btm-pad">
         <div class="col-md-6">
-        <h2>Introduction</h2>
-        <p>WinHue is a desktop application that can control the Philips Hue lighting system. It is easy to install and use, and is one of the few fully-featured Hue apps on Windows.</p>
-        <p>Plus, it's FREE!</p>
+            <p>WinHue is a Windows desktop application for controlling the <b>Philips Hue</b> lighting system.</p>
+            <p>It is <b>simple to use</b>; lights and groups can be easily switched on and off with just a double click.</p>
+            <p>Completely <b>free and open source</b>, it's also one of the few fully-featured Hue apps on Windows.</p>
       </div>
         <div class="col-md-6">
-          <a class="image-link" href="./img/Main Window.png" data-effect="mfp-zoom-in">
-            <img src="./img/Main Window.png"  class="img-fluid" alt="The main window of WinHue.">
+          <a class="image-link" href="assets/img/mainWindow.png" data-effect="mfp-zoom-in">
+            <img src="assets/img/mainWindow.png"  class="img-fluid" alt="The main window of WinHue.">
           </a>
         </div>
       </div>
       <div class="row row-btm-pad">
         <div class="col-md-6 order-md-2">
-          <h2>Edit Everything</h2>
-          <p>Many items on the Hue bridge can be created, modified and deleted. These include:</p>
+          <h2>Simple Control</h2>
+            <p>There are intuitive creators for default bridge items:</p>
           <ul>
             <li>Groups</li>
             <li>Schedules</li>
             <li>Scenes</li>
             <li>Rules</li>
             <li>Sensors</li>
-            <li>More!</li>
+            <li>Resource Links</li>
           </ul>
-          <p>Timer and schedules can also be set to recurr at certain times!</p>
+            <p>And even if that's not enough, there's an advanced creator for custom JSON input to the bridge.</p>
         </div>
         <div class="col-md-6 order-md-1">
           <div class="row row-gall-pad">
             <div class="col-6 col-gall-l">
-                <a class="image-link" href="./assets/createSchedules.png" data-effect="mfp-zoom-in">
-                  <img src="./assets/createSchedules.png"  class="img-fluid" alt="Creating schedules with WinHue.">
+                <a class="image-link" href="/WinHue/assets/img/createSchedules.png" data-effect="mfp-zoom-in">
+                  <img src="/WinHue/assets/img/createSchedules.png"  class="img-fluid" alt="WinHue's schedule creator.">
                 </a>
             </div>
             <div class="col-6 col-gall-r">
-                <a class="image-link" href="./assets/groupCreator.png" data-effect="mfp-zoom-in">
-                  <img src="./assets/groupCreator.png"  class="img-fluid" alt="The group creator dialog.">
+                <a class="image-link" href="/WinHue/assets/img/groupCreator.png" data-effect="mfp-zoom-in">
+                  <img src="/WinHue/assets/img/groupCreator.png"  class="img-fluid" alt="The group creator dialog.">
                 </a>
             </div>
           </div>
           <div class="row">
               <div class="col-6 col-gall-l">
-                  <a class="image-link" href="./assets/ruleCreator.png" data-effect="mfp-zoom-in">
-                    <img src="./assets/ruleCreator.png"  class="img-fluid" alt="The rule creator dialog.">
+                  <a class="image-link" href="/WinHue/assets/img/ruleCreator.png" data-effect="mfp-zoom-in">
+                    <img src="/WinHue/assets/img/ruleCreator.png"  class="img-fluid" alt="The rule creator dialog.">
                   </a>
               </div>
               <div class="col-6 col-gall-r">
-                  <a class="image-link" href="./assets/createScenes.png" data-effect="mfp-zoom-in">
-                    <img src="./assets/createScenes.png"  class="img-fluid" alt="Creating scenes with WinHue.">
+                  <a class="image-link" href="/WinHue/assets/img/createScenes.png" data-effect="mfp-zoom-in">
+                    <img src="/WinHue/assets/img/createScenes.png"  class="img-fluid" alt="WinHue's scene creator.">
                   </a>
               </div>
           </div>
@@ -103,20 +115,18 @@
       </div>
       <div class="row row-btm-pad">
           <div class="col-md-6">
-            <h2>Full Control</h2>
-            <p>WinHue allows ultimate control of lights and groups.</p>
+            <h2>Unique Features</h2>
+            <p>WinHue offers unique features that cannot be found in the official Hue app.</p>
             <ul>
-              <li>Name</li>
-              <li>Color</li>
-              <li>Brightness</li>
-              <li>White Temperature</li>
-              <li>Saturation</li>
+                <li>Assigning Hotkeys to toggle lights.</li>
+                <li>Floorplan layouts to map your home's lighting system.</li>
+                <li>Advanced granular control of evey item on the bridge.</li>
             </ul>
             <p>Quick and easy setup with support for multiple bridges means you'll be up and running with little more than a tap of the push-link button on your bridge.</p>
           </div>
           <div class="col-md-6">
-              <a class="image-link" href="./assets/pairing.png" data-effect="mfp-zoom-in">
-                <img src="./assets/pairing.png" class="img-fluid" alt="WinHue pairing dialog and process.">
+              <a class="image-link" href="/WinHue/assets/img/floorplan.png" data-effect="mfp-zoom-in">
+                <img src="/WinHue/assets/img/floorplan.png" class="img-fluid" alt="WinHue's floorplan creator.">
               </a>
           </div>
         </div>
@@ -142,14 +152,14 @@
               </form>
             </div>
             <div class="col-md-6 order-md-1 d-none d-md-block">
-                <img src="./assets/group_on.png" class="img-fluid" alt="WinHue pairing dialog and process.">
+                <img src="/WinHue/assets/img/group_on.png" class="img-fluid" alt="Three Philips Hue bulbs in a row, illuminated.">
             </div>
           </div>
     </div>
 
     <footer class="footer">
         <div class="container">
-          <span class="footer-content"><a href="{{ site.github.repository_url }}">{{ site.github.project_title }}</a> is maintained by <a href="{{ site.github.owner_url }}"><img src="{{ site.github.owner_gravatar_url }}"/> {{ site.github.owner_name }}</a>, with help from <a href="{{ site.github.contributors[1].html_url }}"><img src="{{ site.github.contributors[1].avatar_url }}"/> {{ site.github.contributors[1].login }}</a> ({{ site.github.contributors[1].contributions }}), <a href="{{ site.github.contributors[2].html_url }}"><img src="{{ site.github.contributors[2].avatar_url }}"/> {{ site.github.contributors[2].login }}</a> ({{ site.github.contributors[2].contributions }}) and <a href="{{ site.github.repository_url }}/graphs/contributors">others</a>.</span>
+          <span class="footer-content"><a href="{{ site.github.repository_url }}">{{ site.github.project_title }}</a> is maintained by <a href="{{ site.github.owner_url }}"><img src="{{ site.github.owner_gravatar_url }}"/WinHue/> {{ site.github.owner_name }}</a>, with help from <a href="{{ site.github.contributors[1].html_url }}"><img src="{{ site.github.contributors[1].avatar_url }}"/WinHue/> {{ site.github.contributors[1].login }}</a> ({{ site.github.contributors[1].contributions }}), <a href="{{ site.github.contributors[2].html_url }}"><img src="{{ site.github.contributors[2].avatar_url }}"/WinHue/> {{ site.github.contributors[2].login }}</a> ({{ site.github.contributors[2].contributions }}) and <a href="{{ site.github.repository_url }}/graphs/contributors">others</a>.</span>
         </div>
     </footer>
 
@@ -204,8 +214,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha256-98vAGjEDGN79TjHkYWVD4s87rvWkdWLHPs5MC3FvFX4=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <script src="./assets/magnific-popup/magnific-popup.js"></script>
-    <script src="./js/common.js"></script>
-    <script src="./js/default.js"></script>
+    <script src="/WinHue/assets/magnific-popup/magnific-popup.js"></script>
+    <script src="/WinHue/js/common.js"></script>
+    <script src="/WinHue/js/default.js"></script>
   </body>
 </html>

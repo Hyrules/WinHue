@@ -19,12 +19,20 @@
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
-@keyframes AnimationName { 
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-<<<<<<< HEAD
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
 }
-=======
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: white;
+    color: black;
 }
->>>>>>> upstream/gh-pages
+
