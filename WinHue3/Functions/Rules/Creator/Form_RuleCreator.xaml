@@ -172,7 +172,12 @@
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}">
                 <Grid>
-                    <ListView HorizontalAlignment="Left" Height="269" Margin="357,7,0,0" VerticalAlignment="Top" Width="335" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListRuleActions}" SelectedItem="{Binding SelectedRuleAction}" behaviors:OnClickBehavior.Command="{Binding Action_SelectRuleActionCommand}" BorderBrush="#FFABADB3" AutomationProperties.IsRowHeader="True" BorderThickness="1">
+                    <ListView HorizontalAlignment="Left" Height="269" Margin="357,7,0,0" VerticalAlignment="Top" Width="335" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListRuleActions}" SelectedItem="{Binding SelectedRuleAction}" BorderBrush="#FFABADB3" AutomationProperties.IsRowHeader="True" BorderThickness="1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding Action_SelectRuleActionCommand}"/>
+                            </i:EventTrigger>    
+                        </i:Interaction.Triggers>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>

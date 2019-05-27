@@ -252,11 +252,13 @@ namespace WinHue3.Functions.Rules.Creator
         {
             if (SelectedRuleAction == null) return;
             HueAddress ha = SelectedRuleAction.address;
+            CurrentPath = SelectedRuleAction.address;
             switch (ha.objecttype)
             {
                 case "lights":
                     SelectedHueObjectType = typeof(Light);
                     SelectHueObjectType();
+                    CurrentPath = SelectedRuleAction.address;
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -362,13 +364,13 @@ namespace WinHue3.Functions.Rules.Creator
             RuleAction ra = new RuleAction();
             HueAddress address = new HueAddress(CurrentPath);
 
-     /*       if (ListRuleActions.Any(x => x.address == address))
+            if (ListRuleActions.Any(x => x.address == address))
             {
                 result = MessageBox.Show(GlobalStrings.Rule_ActionAlreadyExists, GlobalStrings.Warning,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                     ListRuleActions.Remove(ListRuleActions.FirstOrDefault(x => x.address == address));
-            }*/
+            }
 
             if (result != DialogResult.Yes) return;
             ra.address = address;
