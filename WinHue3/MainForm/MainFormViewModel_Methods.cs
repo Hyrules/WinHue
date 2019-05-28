@@ -1132,7 +1132,6 @@ namespace WinHue3.MainForm
         }
 
 
-
         private async Task ExportDataStore(object param)
         {
             if (param == null) return;
@@ -1149,10 +1148,48 @@ namespace WinHue3.MainForm
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                List<IHueObject> listobject = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
+                string data = string.Empty;
+                List <IHueObject> listobject = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync(true);
 
-                string data = JsonConvert.SerializeObject(listobject.ToDictionary(x => x.Id, x => x), Formatting.Indented, jss);
+                Dictionary<string, Dictionary<string, IHueObject>> datastore = new Dictionary<string, Dictionary<string, IHueObject>>();
 
+                switch (p)
+                {
+                    default:
+                    case "Full":                        
+                        datastore.Add("lights", listobject.OfType<Light>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        datastore.Add("groups", listobject.OfType<Group>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        datastore.Add("scenes", listobject.OfType<Scene>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        datastore.Add("schedules", listobject.OfType<Schedule>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        datastore.Add("rules", listobject.OfType<Rule>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        datastore.Add("resourcelinks", listobject.OfType<Resourcelink>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        datastore.Add("sensors", listobject.OfType<Sensor>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                    case "Groups":
+                        datastore.Add("groups", listobject.OfType<Group>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                    case "Lights":
+                        datastore.Add("lights", listobject.OfType<Light>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                    case "Scenes":
+                        datastore.Add("scenes", listobject.OfType<Scene>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                    case "Schedules":
+                        datastore.Add("schedules", listobject.OfType<Schedule>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                    case "Rules":
+                        datastore.Add("rules", listobject.OfType<Rule>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                    case "ResourceLinks":
+                        datastore.Add("resourcelinks", listobject.OfType<Resourcelink>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                    case "Sensors":
+                        datastore.Add("sensors", listobject.OfType<Sensor>().ToList<IHueObject>().ToDictionary(x => x.Id, x => x));
+                        break;
+                }
+
+                data = JsonConvert.SerializeObject(datastore, Formatting.Indented, jss);
+                
                 if (data != string.Empty)
                 {
                     try

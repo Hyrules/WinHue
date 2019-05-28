@@ -8,6 +8,7 @@ Both are available at Microsoft's website.
 
 Fixed:
 
+- Exporting config from the main menu caused a crash.
 - A bug where editing a rule action caused a crash.
 - Update manager not pointing to the right address.
 - Cloning rule giving an error.
