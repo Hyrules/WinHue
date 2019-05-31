@@ -425,9 +425,9 @@ namespace WinHue3.Functions.Rules.Creator
             get => _selectedHueObjectType;
             set => SetProperty(ref _selectedHueObjectType, value);
         }
-        #endregion
+#endregion
 
-        #region RuleCondition
+#region RuleCondition
         private List<HuePropertyTreeViewItem> _listConditionProperties;
         private string _conditionValue;
         private HuePropertyTreeViewItem _selectedConditionProperty;
@@ -693,7 +693,7 @@ namespace WinHue3.Functions.Rules.Creator
             set => SetProperty(ref _selectedConditionHueObject,value);
         }
 
-        #endregion
+#endregion
     }
 }
 
