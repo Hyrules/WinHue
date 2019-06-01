@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
 
@@ -14,6 +15,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
         public ScheduleCreatorViewModel _scvm;
         private bool _isEditing = false;
         private string _id = string.Empty;
+        private Bridge _bridge;
 
         public Form_ScheduleCreator2()
         {
@@ -22,9 +24,10 @@ namespace WinHue3.Functions.Schedules.NewCreator
             
         }
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge)
         {
-            await _scvm.Initialize();
+            _bridge = bridge;
+            await _scvm.Initialize(bridge);
         }
 
         public void EditSchedule(Schedule sc)
@@ -45,7 +48,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             if (_isEditing)
             {
                 sc.Id = _id;
-                if (BridgeManager.BridgesManager.Instance.SelectedBridge.ModifyObject(sc))
+                if (_bridge.ModifyObject(sc))
                 {
                     DialogResult = true;
                     log.Info("Schedule edition success");
@@ -53,21 +56,21 @@ namespace WinHue3.Functions.Schedules.NewCreator
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgesManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
                 }
             }
             else
             {
-                if (BridgeManager.BridgesManager.Instance.SelectedBridge.CreateObject(sc))
+                if (_bridge.CreateObject(sc))
                 {
                     DialogResult = true;
                     log.Info("Schedule creation success");
-                    _id = BridgeManager.BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                    _id = _bridge.LastCommandMessages.LastSuccess.value;
                     this.Close();
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgeManager.BridgesManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
                 }
             }
         }

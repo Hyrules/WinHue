@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Resources;
 using WinHue3.Utils;
@@ -14,10 +15,11 @@ namespace WinHue3.Functions.Sensors.Creator
         private SensorCreatorViewModel _scvm;
         private string _sensorId;
         private bool _editing;
-
-        public Form_SensorCreator(Sensor obj = null)
+        private Bridge _bridge; 
+        public Form_SensorCreator(Bridge bridge,Sensor obj = null)
         {
             InitializeComponent();
+            _bridge = bridge;
             _scvm = DataContext as SensorCreatorViewModel;
             if (obj != null)
             {
@@ -35,16 +37,16 @@ namespace WinHue3.Functions.Sensors.Creator
             bool result;
             if (!_editing)
             {
-                result = BridgesManager.Instance.SelectedBridge.CreateObject(sensor);
-                _sensorId = BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                result = _bridge.CreateObject(sensor);
+                _sensorId = _bridge.LastCommandMessages.LastSuccess.value;
             }
             else
             {
                 sensor.Id = _sensorId;              
-                result = BridgesManager.Instance.SelectedBridge.ModifyObject(sensor);
+                result = _bridge.ModifyObject(sensor);
                 if (result)
                 {
-                    BridgesManager.Instance.SelectedBridge.ChangeSensorConfig(sensor.Id,sensor.config);
+                    _bridge.ChangeSensorConfig(sensor.Id,sensor.config);
                 }
 
             }
@@ -56,7 +58,7 @@ namespace WinHue3.Functions.Sensors.Creator
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
                                                        
  

@@ -18,7 +18,6 @@
         xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
-        xmlns:bridgeManager="clr-namespace:WinHue3.Functions.BridgeManager"
         xmlns:hotKeys="clr-namespace:WinHue3.Functions.HotKeys"
         xmlns:utils="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.MainForm.MainWindow"
@@ -249,7 +248,7 @@
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="Background" Value="Red"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static hotKeys:HotKeyManager.Instance}, Path=HotkeyDetected}" Value="True">
+                                    <DataTrigger Binding="{Binding HotkeyDetected}" Value="True">
                                         <Setter Property="Background" Value="Green"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -262,7 +261,7 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=SearchingLights}" Value="True">
+                                    <DataTrigger Binding="{Binding SearchingLights}" Value="True">
                                         <Setter Property="Source" Value="/WinHue3;component/Resources/magnifier.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -280,14 +279,14 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static utils:UpdateManager.Instance}, Path=UpdateAvailable}" Value="True">
+                                    <DataTrigger Binding="{Binding UpdateAvailable}" Value="True">
                                         <Setter Property="Source" Value="/WinHue3;component/Resources/UpdateSearch.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Image.Style>
                     </Image>
-                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
+                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
                         <ComboBox.Style>
                             <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -437,7 +436,7 @@
                     <Grid Background="#FFE5E5E5">
                         <ListView x:Name="LvMainObjects"  
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                            SelectedItem="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=SelectedObject}" 
+                            SelectedItem="{Binding SelectedObject}" 
                             SelectionChanged="LvMainObjects_SelectionChanged" 
                             SelectionMode="Single" 
                             VerticalContentAlignment="Stretch" Grid.Column="0" 
@@ -446,7 +445,7 @@
                             behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                             behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                             behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                            ItemsSource="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=CurrentBridgeHueObjectsList}"
+                            ItemsSource="{Binding CurrentBridgeHueObjectsList}"
                             Margin="0,0,0,0.333" MaxHeight="8000">
 
                             <ListView.Resources>

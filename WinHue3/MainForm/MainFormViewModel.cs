@@ -9,6 +9,8 @@ using WinHue3.Philips_Hue.Communication;
 using WinHue3.Utils;
 using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.RoomMap;
+using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.MainForm
 {
@@ -19,9 +21,9 @@ namespace WinHue3.MainForm
         private string _lastmessage = string.Empty;
         private MainFormModel _mainFormModel;
         private CpuTempMonitor _ctm;
-
         private TaskbarIcon _tbt;
-                
+        private HotKeyManager _hkm;        
+
         public MainFormViewModel()
         {
             Comm.CommunicationTimedOut += Comm_CommunicationTimedOut;
@@ -34,6 +36,15 @@ namespace WinHue3.MainForm
             _mainFormModel.WrapText = WinHueSettings.settings.WrapText;
             _mainFormModel.Showhiddenscenes = WinHueSettings.settings.ShowHiddenScenes;
             _mainFormModel.ShowFloorPlanTab = WinHueSettings.settings.ShowFloorPlanTab;
+
+            ListBridges = new ObservableCollection<Bridge>();
+            CurrentBridgeHueObjectsList = new ObservableCollection<IHueObject>();
+            _refreshTimer.Interval = new TimeSpan(0, 0, (int)WinHueSettings.settings.RefreshTime);
+            _refreshTimer.Tick += _refreshTimer_Tick;
+            _findlighttimer.Interval = new TimeSpan(0, 1, 0);
+            _findlighttimer.Tick += _findlighttimer_Tick;
+            _findsensortimer.Interval = new TimeSpan(0, 1, 0);
+            _findsensortimer.Tick += _findsensortimer_Tick;
             LoadFloorPlans();
         }
 
@@ -78,13 +89,14 @@ namespace WinHue3.MainForm
                 }
             }
 
-            BridgesManager.Instance.OnBridgeMessageAdded += Bridge_OnMessageAdded;
-            BridgesManager.Instance.OnBridgeNotResponding += Bridge_BridgeNotResponding;
-            BridgesManager.Instance.LoadBridges();
+            OnBridgeMessageAdded += Bridge_OnMessageAdded;
+            OnBridgeNotResponding += Bridge_BridgeNotResponding;
+            LoadBridges();
 
-            if (BridgesManager.Instance.SelectedBridge == null) return;
-            _ctm = new CpuTempMonitor(BridgesManager.Instance.SelectedBridge);
-            HotKeyManager.Instance.StartHotKeyCapture();
+            if (SelectedBridge == null) return;
+            _ctm = new CpuTempMonitor(SelectedBridge);
+            _hkm = new HotKeyManager(SelectedBridge);
+            _hkm.StartHotKeyCapture();
         }
 
 

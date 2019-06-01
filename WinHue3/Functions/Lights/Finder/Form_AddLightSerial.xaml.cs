@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using WinHue3.ExtensionMethods;
-using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.Lights.Finder
 {
@@ -10,10 +10,11 @@ namespace WinHue3.Functions.Lights.Finder
     public partial class Form_AddLightSerial : Window
     {
         private AddLightSerialViewModel _asf;
-
-        public Form_AddLightSerial()
+        private Bridge _bridge;
+        public Form_AddLightSerial(Bridge bridge)
         {
             InitializeComponent();
+            _bridge = bridge;
             _asf = DataContext as AddLightSerialViewModel;
 
         }
@@ -22,7 +23,7 @@ namespace WinHue3.Functions.Lights.Finder
         {
             if (_asf.ListSerials.IsValid())
             {
-                DialogResult = await BridgesManager.Instance.SelectedBridge.FindNewLightsAsync(_asf.ListSerials);
+                DialogResult = await _bridge.FindNewLightsAsync(_asf.ListSerials);
                 Close();
             }
             else

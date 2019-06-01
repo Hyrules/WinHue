@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.Rules.Validation;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -20,7 +19,7 @@ using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Utils;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
-
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.Rules.Creator
 {
@@ -29,6 +28,7 @@ namespace WinHue3.Functions.Rules.Creator
         private string _name;
         private bool _enabled;
         private Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings _bs;
+        private Bridge _bridge;
         public RuleCreatorViewModel()
         {
             _name = string.Empty;
@@ -41,10 +41,11 @@ namespace WinHue3.Functions.Rules.Creator
             
         }
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge)
         {
-            List<IHueObject> objects = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync(WinHueSettings.settings.ShowHiddenScenes,true);
-            _bs = await BridgesManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();          
+            _bridge = bridge;
+            List<IHueObject> objects = await _bridge.GetAllObjectsAsync(WinHueSettings.settings.ShowHiddenScenes,true);
+            _bs = await _bridge.GetBridgeSettingsAsyncTask();          
             _listAvailableHueObject.AddRange(objects);
 
         }

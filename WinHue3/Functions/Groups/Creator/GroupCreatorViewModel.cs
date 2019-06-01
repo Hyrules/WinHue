@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
@@ -72,35 +73,5 @@ namespace WinHue3.Functions.Groups.Creator
 
         public ICommand ClearFieldsCommand => new RelayCommand(param => ClearFields());
 
-        public string CreateGroup()
-        {
-            bool result = false;
-            if (Group.Id == null)
-            {
-                result = BridgesManager.Instance.SelectedBridge.CreateObject(Group);
-                if (result)
-                {
-                    log.Info("Group creation success");
-                    _id = BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
-                }
-            }
-            else
-            {
-                result = BridgesManager.Instance.SelectedBridge.ModifyObject(Group);
-                if (result)
-                {
-                    log.Info("Group modification success");
-                    _id = Group.Id;
-                }
-            }
-
-            if(!result)
-            {
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
-            }
-
-            return _id;
-
-        }
     }
 }

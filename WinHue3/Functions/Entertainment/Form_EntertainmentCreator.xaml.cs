@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.Entertainment
 {
@@ -10,16 +10,18 @@ namespace WinHue3.Functions.Entertainment
     public partial class Form_EntertainmentCreator : Window
     {
         private EntertainmentViewModel _evm;
-
+        private Bridge _bridge;
         public Form_EntertainmentCreator()
         {
             InitializeComponent();
+
             _evm = DataContext as EntertainmentViewModel;
         }
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge)
         {
-            await _evm.Initialize();
+            _bridge = bridge;
+            await _evm.Initialize(_bridge);
 
         }
 
@@ -36,7 +38,7 @@ namespace WinHue3.Functions.Entertainment
             }
             else
             {
-                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
+                _bridge.ShowErrorMessages();
             }
         }
     }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
@@ -18,15 +18,15 @@ namespace WinHue3.Functions.HotKeys
     public sealed class HotKeyManager : ValidatableBindableBase
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly HotKeyManager _instance = new HotKeyManager();
         private readonly List<HotKeyHandle> _lhk;
         private ObservableCollection<HotKey> _listHotKeys;
         private readonly DispatcherTimer _ledTimer;
         private bool _hotkeyDetected;
-        public static HotKeyManager Instance => _instance;
+        private Bridge _bridge;
 
-        private HotKeyManager()
+        public HotKeyManager(Bridge bridge)
         {
+            _bridge = bridge;
             _lhk = new List<HotKeyHandle>();
             LoadHotkeys();
             _ledTimer = new DispatcherTimer()
@@ -81,19 +81,19 @@ namespace WinHue3.Functions.HotKeys
             try
             {
                 HotKey h = ListHotKeys.First(x => x.Modifier == m && x.Key == k);
-                if (!(h.objecType == null && BridgesManager.Instance.SelectedObject == null))
+                if (!(h.objecType == null && _bridge == null))
                 {
                     HotkeyDetected = true;
                     _ledTimer.Start();
-                    Type objtype = h?.objecType == null ? BridgesManager.Instance.SelectedObject.GetType() : h.objecType;
+                    Type objtype = h?.objecType == null ? _bridge.GetType() : h.objecType;
 
                     if (objtype == typeof(Scene))
                     {
-                        BridgesManager.Instance.SelectedBridge.ActivateScene(h.id);
+                        _bridge.ActivateScene(h.id);
                     }
                     else if (objtype == typeof(Group) || objtype == typeof(Light))
                     {
-                        BridgesManager.Instance.SelectedBridge.SetState(h.properties, h.id);
+                        _bridge.SetState(h.properties, h.id);
                     }
                     else
                     {

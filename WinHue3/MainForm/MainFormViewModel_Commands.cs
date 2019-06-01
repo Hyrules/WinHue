@@ -16,51 +16,51 @@ namespace WinHue3.MainForm
     {
         private bool EnableButtons()
         {
-            return BridgesManager.Instance.SelectedBridge != null;
+            return SelectedBridge != null;
         }
 
         private bool CanBridgeSettings()
         {
-            return BridgesManager.Instance.SelectedBridge != null;
+            return SelectedBridge != null;
         }
 
         private bool IsObjectSelected()
         {
             RaisePropertyChanged("CanTT");
-            return BridgesManager.Instance.SelectedObject != null;
+            return SelectedObject != null;
         }
 
         private bool IsEditable()
         {
             if (!IsObjectSelected()) return false;
             if (IsGroupZero()) return false;
-            switch (BridgesManager.Instance.SelectedObject)
+            switch (SelectedObject)
             {
                 case Group group when @group.@class == "TV":
                 case Scene scene when scene.version == 1:
                     return false;
                 default:
-                    return !(BridgesManager.Instance.SelectedObject is Light);
+                    return !(SelectedObject is Light);
             }
         }
 
         public bool CanSearchNewLights()
         {
             if (!EnableButtons()) return false;
-            return !BridgesManager.Instance.SearchingLights;
+            return !SearchingLights;
         }
 
         private bool CanSearchNewSensor()
         {
             if (!EnableButtons()) return false;
-            return !BridgesManager.Instance.SearchingSensors;
+            return !SearchingSensors;
         }
 
     
         private bool CanHue()
         {
             if (!IsObjectSelected()) return false;
-            switch (BridgesManager.Instance.SelectedObject)
+            switch (SelectedObject)
             {
                 case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
                     return false;
@@ -78,7 +78,7 @@ namespace WinHue3.MainForm
         private bool CanBri()
         {
             if (!IsObjectSelected()) return false;
-            switch (BridgesManager.Instance.SelectedObject)
+            switch (SelectedObject)
             {
                 case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
                     return false;
@@ -96,7 +96,7 @@ namespace WinHue3.MainForm
         private bool CanCt()
         {
             if (!IsObjectSelected()) return false;
-            switch (BridgesManager.Instance.SelectedObject)
+            switch (SelectedObject)
             {
                 case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
                     return false;
@@ -114,7 +114,7 @@ namespace WinHue3.MainForm
         private bool CanSat()
         {
             if (!IsObjectSelected()) return false;
-            switch (BridgesManager.Instance.SelectedObject)
+            switch (SelectedObject)
             {
                 case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
                     return false;
@@ -123,7 +123,7 @@ namespace WinHue3.MainForm
                 case Light light:
                     return SupportedDeviceType.DeviceType.ContainsKey(light.type) && SupportedDeviceType.DeviceType[light.type].Cansat;
                 case Group _:
-                    return ((Group)BridgesManager.Instance.SelectedObject).action?.sat != null;
+                    return ((Group)SelectedObject).action?.sat != null;
                 default:
                     return false;
             }
@@ -132,7 +132,7 @@ namespace WinHue3.MainForm
         private bool CanXy()
         {
             if (!IsObjectSelected()) return false;
-            switch (BridgesManager.Instance.SelectedObject)
+            switch (SelectedObject)
             {
                 case Light light when light.state.reachable == false && light.manufacturername != "OSRAM" && WinHueSettings.settings.OSRAMFix:
                     return false;
@@ -149,12 +149,12 @@ namespace WinHue3.MainForm
 
         private bool IsDoubleClickable()
         {
-            return BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group || BridgesManager.Instance.SelectedObject is Scene;
+            return SelectedObject is Light || SelectedObject is Group || SelectedObject is Scene;
         }
 
         private bool CanIdentify()
         {
-            switch (BridgesManager.Instance.SelectedObject)
+            switch (SelectedObject)
             {
                 case Group _:
                     return true;
@@ -167,24 +167,24 @@ namespace WinHue3.MainForm
 
         private bool CanSetSensivity()
         {
-            return BridgesManager.Instance.SelectedObject is Sensor sensor && sensor.type == "ZLLPresence";
+            return SelectedObject is Sensor sensor && sensor.type == "ZLLPresence";
         }
 
         private bool CanReplaceState()
         {
             if (!IsObjectSelected()) return false;
-            return BridgesManager.Instance.SelectedObject is Scene;
+            return SelectedObject is Scene;
         }
 
         private bool CanCloneSensor()
         {
-            return BridgesManager.Instance.SelectedObject is Sensor && ((Sensor) BridgesManager.Instance.SelectedObject).type.Contains("CLIP");
+            return SelectedObject is Sensor && ((Sensor) SelectedObject).type.Contains("CLIP");
         }
 
         private bool CanClone()
         {
             if (!IsObjectSelected()) return false;
-            return BridgesManager.Instance.SelectedObject is Scene | BridgesManager.Instance.SelectedObject is Group | BridgesManager.Instance.SelectedObject is Rule | CanCloneSensor() | BridgesManager.Instance.SelectedObject is Resourcelink;
+            return SelectedObject is Scene | SelectedObject is Group | SelectedObject is Rule | CanCloneSensor() | SelectedObject is Resourcelink;
         }
 
         private bool CanRename()
@@ -201,39 +201,39 @@ namespace WinHue3.MainForm
 
         private bool IsGroupZero()
         {
-            return BridgesManager.Instance.SelectedObject is Group group && group.Id == "0";
+            return SelectedObject is Group group && group.Id == "0";
         }
 
         private bool CanUpdateBridge()
         {
             if (!EnableButtons()) return false;
-            return BridgesManager.Instance.SelectedBridge != null && BridgesManager.Instance.SelectedBridge.UpdateAvailable;
+            return SelectedBridge != null && SelectedBridge.UpdateAvailable;
         }
 
         private bool CanStrobe()
         {
-            return BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group;
+            return SelectedObject is Light || SelectedObject is Group;
         }
 
         private bool CanToggleDim()
         {
             if (!IsObjectSelected()) return false;
-            return BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group;
+            return SelectedObject is Light || SelectedObject is Group;
         }
 
         private bool CanSetSensorStatus()
         {
-            return BridgesManager.Instance.SelectedObject is Sensor sensor && sensor.type == "CLIPGenericStatus";
+            return SelectedObject is Sensor sensor && sensor.type == "CLIPGenericStatus";
         }
 
         private bool CanSetSensorFlag()
         {
-            return BridgesManager.Instance.SelectedObject is Sensor sensor && sensor.type == "CLIPGenericFlag";
+            return SelectedObject is Sensor sensor && sensor.type == "CLIPGenericFlag";
         }
 
         private bool CanStream()
         {
-            return BridgesManager.Instance.SelectedObject is Group group && group.type == "Entertainment";
+            return SelectedObject is Group group && group.type == "Entertainment";
         }
 
         //*************** MainMenu Commands ********************        
@@ -249,8 +249,8 @@ namespace WinHue3.MainForm
         public ICommand CheckForUpdateCommand => new AsyncRelayCommand(param => CheckForBridgeUpdate(), param => EnableButtons());
         public ICommand UpdateBridgeCommand => new AsyncRelayCommand(param => DoBridgeUpdate(), param => CanUpdateBridge());
         public ICommand ManageUsersCommand => new AsyncRelayCommand(param => ManageUsers(),  param => EnableButtons());
-        public ICommand ChangeBridgeSettingsCommand => new AsyncRelayCommand(param => BridgesManager.Instance.ChangeBridgeSettings(), param => CanBridgeSettings());
-        public ICommand RefreshViewCommand => new AsyncRelayCommand(param => BridgesManager.Instance.RefreshCurrentListHueObject(), param => EnableButtons());
+        public ICommand ChangeBridgeSettingsCommand => new AsyncRelayCommand(param => ChangeBridgeSettings(), param => CanBridgeSettings());
+        public ICommand RefreshViewCommand => new AsyncRelayCommand(param => RefreshCurrentListHueObject(), param => EnableButtons());
         public ICommand CreateGroupCommand => new AsyncRelayCommand(param => CreateGroup(), param => EnableButtons());
         public ICommand CreateSceneCommand => new AsyncRelayCommand(param => CreateScene(), param => EnableButtons());
         public ICommand CreateScheduleCommand => new AsyncRelayCommand(param => CreateSchedule(), param => EnableButtons());
@@ -283,7 +283,7 @@ namespace WinHue3.MainForm
         public ICommand CtKeyPressCommand => new AsyncRelayCommand(SliderChangeCtKeypress);
 
         //*************** App Menu Commands ******************
-        public ICommand DoBridgePairingCommand => new RelayCommand(param => BridgesManager.Instance.DoBridgePairing());
+        public ICommand DoBridgePairingCommand => new RelayCommand(param => DoBridgePairing());
         public ICommand ExportDataStoreCommand => new AsyncRelayCommand(ExportDataStore, param => EnableButtons());
 
         //*************** Context Menu Commands *************
@@ -323,7 +323,7 @@ namespace WinHue3.MainForm
         public ICommand SortListViewCommand => new AsyncRelayCommand(param => SortListView(), param => EnableButtons());
         public ICommand ShowPropertyGridCommand => new RelayCommand(param => ShowPropertyGrid());
         //*************** StatusBar Commands ************************
-        public ICommand ChangeBridgeCommand => new AsyncRelayCommand(param => BridgesManager.Instance.ChangeBridge());
+        public ICommand ChangeBridgeCommand => new AsyncRelayCommand(param => ChangeBridge());
         public ICommand DoAppUpdateCommand=> new RelayCommand(param => DoAppUpdate());
         //*************** Toolbar ******************************
         public ICommand CpuTempMonCommand => new RelayCommand(param => RunCpuTempMon(), (param) => EnableButtons() && CanRunTempPlugin);
@@ -333,7 +333,7 @@ namespace WinHue3.MainForm
         public ICommand OpenWinHueWebsiteCommand => new RelayCommand(param => OpenWinHueWebsite());
         public ICommand OpenWinHueSupportCommand => new RelayCommand(param => OpenWinHueSupport());
 
-        public ICommand LoadVirtualBridgeCommand => new RelayCommand(param => BridgesManager.Instance.LoadVirtualBridge());
+        public ICommand LoadVirtualBridgeCommand => new RelayCommand(param => LoadVirtualBridge());
         
         //*************** Title bar **************************
         public ICommand MinimizeToTrayCommand => new RelayCommand(param => MinimizeToTray());

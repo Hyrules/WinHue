@@ -32,7 +32,7 @@ using WinHue3.Functions.Rules;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 
-namespace HueLib2Test
+namespace WinHueTest
 {
     [TestClass]
     public class UnitTest1
@@ -48,15 +48,7 @@ namespace HueLib2Test
         }
 
 
-        [TestMethod]
-        public void TestRuleCreator()
-        {
-            RuleCreatorViewModel rcvm = new RuleCreatorViewModel();
-            rcvm.Initialize();
-            Assert.IsNotNull(rcvm.ListHueObjects);
-            Console.WriteLine(rcvm.ListHueObjects.Count);
 
-        }
 
         [TestMethod] 
         public void TimeSpanTest()

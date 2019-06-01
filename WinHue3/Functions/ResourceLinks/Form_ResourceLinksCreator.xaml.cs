@@ -6,9 +6,9 @@ using System.Windows;
 using System.Windows.Data;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Interface;
 using WinHue3.MainForm;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -28,20 +28,20 @@ namespace WinHue3.Functions.ResourceLinks
     {
         private ResourceLinkCreatorViewModel rlcvm;
         private string id;
-
+        private Bridge _bridge;
         public Form_ResourceLinksCreator()
         {        
             InitializeComponent();
             rlcvm = this.DataContext as ResourceLinkCreatorViewModel;
         }
 
-        public async Task Initialize(Resourcelink rl = null)
+        public async Task Initialize(Bridge bridge,Resourcelink rl = null)
         {
-           
+            _bridge = bridge;
             rlcvm.LinkCreatorModel.ShowID = WinHueSettings.settings.ShowID;
             rlcvm.LinkCreatorModel.Wrap = WinHueSettings.settings.WrapText;
 
-            List<IHueObject> hr = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            List<IHueObject> hr = await _bridge.GetAllObjectsAsync();
             if (hr == null) return;
             ObservableCollection<IHueObject> listbrobj = new ObservableCollection<IHueObject>();
             List<IHueObject> listobj = hr;
@@ -89,18 +89,18 @@ namespace WinHue3.Functions.ResourceLinks
         private void btnCreateResourceLink_Click(object sender, RoutedEventArgs e)
         {
             Resourcelink rl = rlcvm.Resourcelink;
-            bool result = rlcvm.IsEditing ? BridgesManager.Instance.SelectedBridge.ModifyObject(rl) : BridgesManager.Instance.SelectedBridge.CreateObject(rl);
+            bool result = rlcvm.IsEditing ? _bridge.ModifyObject(rl) : _bridge.CreateObject(rl);
             
             
             if (result)
             {
-                id = rlcvm.IsEditing ? rl.Id : BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                id = rlcvm.IsEditing ? rl.Id : _bridge.LastCommandMessages.LastSuccess.value;
                 DialogResult = true;
                 Close();
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
 
         }

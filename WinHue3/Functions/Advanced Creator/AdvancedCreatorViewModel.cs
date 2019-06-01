@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Utils;
 using MessageBox = System.Windows.Forms.MessageBox;
 using WebRequestType = WinHue3.Philips_Hue.Communication.WebRequestType;
@@ -16,9 +17,11 @@ namespace WinHue3.Functions.Advanced_Creator
         private string _type;
         private WebRequestType _requestType;
         private string _url;
+        private Bridge _bridge;
 
-        public AdvancedCreatorViewModel()
+        public AdvancedCreatorViewModel(Bridge bridge)
         {
+            _bridge = bridge;
             _text = string.Empty;
             _type = string.Empty;
             _requestType = WebRequestType.Post;
@@ -29,13 +32,13 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             Type = "schedules";
             RequestType = WebRequestType.Post;
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl + "/schedules";
+            Url = _bridge.BridgeUrl + "/schedules";
             Text = @"{
     ""name"" : ""{YOUR NAME}"",
     ""description"" : ""{YOUR DESCRIPTION}"",
     ""localtime"" : ""{YYYY-MM-DDTHH:mm:ss}"",
     ""command"" : {
-        ""address"": ""/api/" + BridgeManager.BridgesManager.Instance.SelectedBridge + @"/groups/1/action"",
+        ""address"": ""/api/" + _bridge + @"/groups/1/action"",
         ""method"": ""PUT"",
         ""body"": {
             ""on"" : true
@@ -48,7 +51,7 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             Type = "sensors";
             RequestType = WebRequestType.Post;
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl + "/sensors";
+            Url = _bridge.BridgeUrl + "/sensors";
             Text = @"{
     ""name"" : ""YOUR NAME"",
     ""description"" : ""YOUR DESCRIPTION"",
@@ -67,7 +70,7 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             Type = "rules";
             RequestType = WebRequestType.Post;
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl + "/rules";
+            Url = _bridge.BridgeUrl + "/rules";
             Text = @"{  
     ""name"":""YOUR NAME"",
     ""conditions"":[
@@ -99,7 +102,7 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             Type = "resourcelinks";
             RequestType = WebRequestType.Post;
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl + "/resourcelinks";
+            Url = _bridge.BridgeUrl + "/resourcelinks";
             Text = @"{
     ""name"": ""Sunrise"",
     ""description"": ""Carla's wakeup experience"",
@@ -116,7 +119,7 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             Type = "groups";
             RequestType = WebRequestType.Post;
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl + "/groups";
+            Url = _bridge.BridgeUrl + "/groups";
             Text = @"{
     ""name"": ""Living room"",
     ""type"": ""Room"",
@@ -151,10 +154,10 @@ namespace WinHue3.Functions.Advanced_Creator
 
             if (result == DialogResult.Yes)
             {
-                string json = await BridgesManager.Instance.SelectedBridge.SendRawCommandAsyncTask(Url, Text, RequestType);
+                string json = await _bridge.SendRawCommandAsyncTask(Url, Text, RequestType);
                 if (json == null)
                 {
-                    BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
+                    _bridge.ShowErrorMessages();
                 }
                 else
                 {
@@ -164,7 +167,7 @@ namespace WinHue3.Functions.Advanced_Creator
                     }
                     else
                     {
-                        MessageBox.Show(BridgesManager.Instance.SelectedBridge.LastCommandMessages.ToString(), GlobalStrings.Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(_bridge.LastCommandMessages.ToString(), GlobalStrings.Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         OnObjectCreated?.Invoke(this, EventArgs.Empty);
                     }
                 
@@ -177,7 +180,7 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             Type = "scenes";
             RequestType = WebRequestType.Post;
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl + "/scenes";
+            Url = _bridge.BridgeUrl + "/scenes";
             Text = @"{
     ""lights""
         :[""3"",""2"",""5""],
@@ -195,7 +198,7 @@ namespace WinHue3.Functions.Advanced_Creator
         {
             Type = "scenes";
             RequestType = WebRequestType.Put;
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl + "/scenes/<scene id>/lights/<light id>/state";
+            Url = _bridge.BridgeUrl + "/scenes/<scene id>/lights/<light id>/state";
             Text = @"{ 
     ""on"":true,
     ""bri"":255,
@@ -224,7 +227,7 @@ namespace WinHue3.Functions.Advanced_Creator
         
         private void SetBridgeUrl()
         {
-            Url = BridgesManager.Instance.SelectedBridge.BridgeUrl;
+            Url = _bridge.BridgeUrl;
         }
 
         public string Text

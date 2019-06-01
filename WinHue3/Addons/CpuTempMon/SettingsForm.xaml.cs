@@ -21,7 +21,7 @@ namespace WinHue3.Addons.CpuTempMon
         {
             InitializeComponent();
             _cpuvm = DataContext as CpuTempViewModel;
-            _cpuvm.Initialize(temp);
+            _cpuvm.Initialize(bridge,temp);
 
         }
 

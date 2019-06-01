@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
-using WinHue3.Functions.BridgeManager;
-using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.Entertainment
 {
@@ -20,7 +17,7 @@ namespace WinHue3.Functions.Entertainment
         private EntertrainmentModel _entertainmentModel;
         private Light _selectedLight;
         private EntertainmentLight _selectedEntertainmentLight;
-
+        private Bridge _bridge;
         private bool CanAddLight() => SelectedLight != null;
 
         public EntertainmentViewModel()
@@ -29,9 +26,10 @@ namespace WinHue3.Functions.Entertainment
             _entertainmentModel = new EntertrainmentModel();
         }
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge)
         {
-            ListAvailableLights = (await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Light>()).ToObservableCollection();
+            _bridge = bridge;
+            ListAvailableLights = (await _bridge.GetListObjectsAsync<Light>()).ToObservableCollection();
 
         }
 
@@ -47,18 +45,18 @@ namespace WinHue3.Functions.Entertainment
                 type = "Entertainment"
             };
 
-            success = BridgesManager.Instance.SelectedBridge.CreateObject(entertainment);
+            success = _bridge.CreateObject(entertainment);
 
             if (success)
             {
                 Location loc = new Location();
-                newid = BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                newid = _bridge.LastCommandMessages.LastSuccess.value;
                 foreach (EntertainmentLight el in ListLights)
                 {
                    loc.Add(el.Light.Id, el.Location);
                 }
 
-                success = success && BridgesManager.Instance.SelectedBridge.SetEntertrainementLightLocation(newid, loc);
+                success = success && _bridge.SetEntertrainementLightLocation(newid, loc);
             }
 
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
@@ -27,8 +26,8 @@ namespace WinHue3.MainForm
         {
             get
             {
-                if (BridgesManager.Instance.SelectedObject == null) return false;
-                return BridgesManager.Instance.SelectedObject is Light || BridgesManager.Instance.SelectedObject is Group;
+                if (SelectedObject == null) return false;
+                return SelectedObject is Light || SelectedObject is Group;
             }
         }
 
@@ -99,13 +98,13 @@ namespace WinHue3.MainForm
             }
         }
 
-        public bool MultiBridgeCB => BridgesManager.Instance.ListBridges.Count > 1;
+        public bool MultiBridgeCB => ListBridges.Count > 1;
 
         public Visibility UpdateAvailable
         {
             get
             {
-                BridgeSettings cr = BridgesManager.Instance.SelectedBridge?.GetBridgeSettings();
+                BridgeSettings cr = SelectedBridge?.GetBridgeSettings();
                 if (cr == null) return Visibility.Collapsed;
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }

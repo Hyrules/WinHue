@@ -1,6 +1,5 @@
-﻿
-using System.Windows;
-using WinHue3.Functions.BridgeManager;
+﻿using System.Windows;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 
 
@@ -14,10 +13,11 @@ namespace WinHue3.Functions.PowerSettings
 
         private PowerCustomSettingsViewModel pfsvm;
         private string _id;
-
-        public Form_PowerCustomSettings(PowerCustomSettings lightstate, string id)
+        private Bridge _bridge;
+        public Form_PowerCustomSettings(Bridge bridge,PowerCustomSettings lightstate, string id)
         {
             InitializeComponent();
+            _bridge = bridge;
             _id = id;
             pfsvm = DataContext as PowerCustomSettingsViewModel;
             pfsvm.Customsettings = lightstate;
@@ -25,7 +25,7 @@ namespace WinHue3.Functions.PowerSettings
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            bool result = await BridgesManager.Instance.SelectedBridge.SetPowerCustomSettingsAsyncTask(pfsvm.Customsettings, _id);
+            bool result = await _bridge.SetPowerCustomSettingsAsyncTask(pfsvm.Customsettings, _id);
             if (result)
             {
                 DialogResult = true;
@@ -33,7 +33,7 @@ namespace WinHue3.Functions.PowerSettings
             }
             else
             {
-                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
+                _bridge.ShowErrorMessages();
             }
         }
 
