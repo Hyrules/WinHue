@@ -36,7 +36,7 @@ Download using chocolatey :
 3. Pair the bridge with WinHue.
 4. Have fun !
 
-*Thanks to [bcurran3](https://chocolatey.org/packages/winhue) for the chcolatey package.
+*Thanks to [bcurran3](https://chocolatey.org/packages/winhue) for the chocolatey package.
 
 <b>Usage : </b>
 - See the [Usage wiki](../../wiki/Basic-Usage) page for WinHue usage.<br/>
