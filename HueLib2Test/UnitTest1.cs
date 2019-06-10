@@ -35,7 +35,7 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 namespace WinHueTest
 {
     [TestClass]
-    public class UnitTest1
+    public class WinHueMiscTests
     {
         private Bridge bridge;
         private List<IHueObject> listobj;

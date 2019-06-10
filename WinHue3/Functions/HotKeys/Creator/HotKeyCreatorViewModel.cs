@@ -59,7 +59,7 @@ namespace WinHue3.Functions.HotKeys.Creator
         public async Task Initialize(Bridge bridge, ObservableCollection<HotKey> listHotkeys)
         {
             _bridge = bridge;
-            _listHotKeys = listHotkeys;
+            ListHotKeys = listHotkeys;
             CanRecordKeyUp = false;
             _listAvailbleHueObjects = await _bridge.GetAllObjectsAsync();
         }

@@ -47,6 +47,7 @@ namespace WinHue3.Functions.Groups.Creator
             {
                 if (hr != null)
                 {
+                    _id = selectedGroup.Id;
                     gcvm.GroupCreator.ListAvailableLights = new ObservableCollection<Light>(hr);
 
                     Group hr2 = await _bridge.GetObjectAsync<Group>(selectedGroup.Id);
@@ -64,6 +65,7 @@ namespace WinHue3.Functions.Groups.Creator
         public async Task Initialize(string group)
         {
             List<Light> hr = await _bridge.GetListObjectsAsync<Light>();
+            _id = group;
             if (string.IsNullOrEmpty(group))
             {
                 

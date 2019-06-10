@@ -36,7 +36,8 @@ namespace WinHue3.Functions.Lights.SupportedDevices
         public static void LoadLightsImages()
         {
             string[] listlightsfiles = Directory.GetFiles("lights", "*.png");
-            string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string loc = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string path = Path.GetDirectoryName(loc);
             log.Info("Image path = " + path + "\\lights");
             foreach (string file in listlightsfiles)
             {
