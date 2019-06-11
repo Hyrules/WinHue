@@ -24,10 +24,17 @@ namespace WinHueTest.Schedules
         }
 
         [TestMethod]
-        public void TestSerialization()
+        public void TestSerializationCreate()
         {
 
         }
+
+        [TestMethod]
+        public void TestSerializationModify()
+        {
+
+        }
+
 
         [TestMethod]
         public void TestDeserialization()

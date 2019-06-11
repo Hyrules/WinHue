@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Interface;
@@ -19,12 +20,14 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         {
             Schedule oldsch = (Schedule) value;
             List<PropertyInfo> prop = oldsch.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList();
+            JsonContract contract = serializer.ContractResolver.ResolveContract(typeof(Schedule));
 
             writer.WriteStartObject();
             foreach (PropertyInfo p in prop)
             {
+                if (!contract.) continue;
                 if (p.GetValue(oldsch) == null) continue;
-                if (p.GetCustomAttributes(typeof(JsonIgnoreAttribute)).Count() == 1) continue;
+
                 writer.WritePropertyName(p.Name);
                 if (p.Name == "command")
                 {
