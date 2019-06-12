@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using WinHue3.ExtensionMethods;
 using WinHue3.Interface;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.Communication;
 
 namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
 {
@@ -25,7 +26,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
             writer.WriteStartObject();
             foreach (PropertyInfo p in prop)
             {
-                if (!contract.) continue;
+                //if (contract.GetType() == typeof(HueModifyDataContractResolver) && p.GetCustomAttribute<CreateOnlyAttribute>() == null) continue;
                 if (p.GetValue(oldsch) == null) continue;
 
                 writer.WritePropertyName(p.Name);
