@@ -31,20 +31,44 @@ using WinHue3.Functions.Converters;
 using WinHue3.Functions.Rules;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using System.Net.Http;
 
 namespace WinHueTest
 {
     [TestClass]
     public class WinHueMiscTests
     {
-        private Bridge bridge;
-        private List<IHueObject> listobj;
 
-        [TestInitialize]
-        public void InitTests()
+        [TestMethod]
+        public void HttpGetTest()
         {
-            bridge = new Bridge(IPAddress.Parse("192.168.5.30"), "00:17:88:26:5f:33", "Philips hue", "30jodHoH6BvouvzmGR-Y8nJfa0XTN1j8sz2tstYJ");
-            listobj = bridge.GetAllObjects();
+            HttpClient client = new HttpClient
+            {
+                Timeout = new TimeSpan(0, 0, 0, 3000),
+                BaseAddress = new Uri("http://banane/api/1234567890/")
+            };
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response;
+            try
+            {
+                response = client.GetAsync("lights").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    Task<string> task = response.Content.ReadAsStringAsync();
+                    task.RunSynchronously();
+                    string data = task.Result;
+                }
+                else
+                {
+
+                }
+            }
+            catch(WebException ex)
+            {
+                Assert.Fail(ex.Message.ToString());
+            }
+
+
         }
 
 
