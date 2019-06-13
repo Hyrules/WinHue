@@ -97,6 +97,7 @@ namespace WinHue3.MainForm
             _ctm = new CpuTempMonitor(SelectedBridge);
             _hkm = new HotKeyManager(SelectedBridge);
             _hkm.StartHotKeyCapture();
+            CurrentView = 2;
         }
 
 

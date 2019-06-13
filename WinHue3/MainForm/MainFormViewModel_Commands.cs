@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Diagnostics;
+using System.Windows.Input;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.Lights.SupportedDevices;
@@ -322,6 +323,9 @@ namespace WinHue3.MainForm
         public ICommand ViewGroupsCommand => new AsyncRelayCommand(param => ViewGroups(), param => EnableButtons());
         public ICommand SortListViewCommand => new AsyncRelayCommand(param => SortListView(), param => EnableButtons());
         public ICommand ShowPropertyGridCommand => new RelayCommand(param => ShowPropertyGrid());
+
+        public ICommand SwitchViewCommandIcon => new RelayCommand(param => SwitchView(1));
+        public ICommand SwitchViewCommandList => new RelayCommand(param => SwitchView(2));
         //*************** StatusBar Commands ************************
         public ICommand ChangeBridgeCommand => new AsyncRelayCommand(param => ChangeBridge());
         public ICommand DoAppUpdateCommand=> new RelayCommand(param => DoAppUpdate());

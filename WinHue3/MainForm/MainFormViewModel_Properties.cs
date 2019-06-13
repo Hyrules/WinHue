@@ -21,6 +21,7 @@ namespace WinHue3.MainForm
         private ObservableCollection<Floor> _listFloorPlans;
         private Floor _selectedFloorPlan;
         private HueElement _selectedHueElement;
+        private int _currentView;
 
         public bool CanTT
         {
@@ -55,6 +56,13 @@ namespace WinHue3.MainForm
         {
             get => _lastmessage;
             set => SetProperty(ref _lastmessage, value);
+
+        }
+
+        public int CurrentView
+        {
+            get => _currentView;
+            set => SetProperty(ref _currentView, value);
         }
 
         public string TransitionTimeTooltip

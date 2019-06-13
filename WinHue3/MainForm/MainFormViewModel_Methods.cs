@@ -1066,6 +1066,11 @@ namespace WinHue3.MainForm
 
         #region VIEW_TAB_METHODS
 
+        private void SwitchView(int id)
+        {
+            CurrentView = id;
+        }
+
         private async Task SortListView()
         {
             await RefreshCurrentListHueObject();
