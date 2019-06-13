@@ -469,6 +469,11 @@
                                         </WrapPanel>
                                     </VirtualizingStackPanel>
                                 </DataTemplate>
+                                <DataTemplate x:Key="HueIconList">
+                                    <VirtualizingStackPanel>
+
+                                    </VirtualizingStackPanel>
+                                </DataTemplate>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Style.Resources>
                                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
