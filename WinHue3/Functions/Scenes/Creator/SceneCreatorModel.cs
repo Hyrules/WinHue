@@ -10,6 +10,7 @@ namespace WinHue3.Functions.Scenes.Creator
         private string _name;
         private bool _recycle;
         private State _state;
+        private string _type;
 
         public SceneCreatorModel()
         {
@@ -18,6 +19,7 @@ namespace WinHue3.Functions.Scenes.Creator
             _state.on = true;
             _state.transitiontime = null;
             _recycle = false;
+            _type = "LightScene";
         }
 
         public State State
@@ -108,6 +110,12 @@ namespace WinHue3.Functions.Scenes.Creator
         {
             get => _recycle;
             set => SetProperty(ref _recycle,value);
+        }
+
+        public string Type
+        {
+            get => _type;
+            set => SetProperty(ref _type,value);
         }
     }
 }

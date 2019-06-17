@@ -1665,4 +1665,31 @@
   <data name="AllOnOffSettings" xml:space="preserve">
     <value>All On/Off settings</value>
   </data>
+  <data name="GroupCreatorForm_Type_Entertainment" xml:space="preserve">
+    <value>Entertainment</value>
+  </data>
+  <data name="Locations" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="EntertainmentLights" xml:space="preserve">
+    <value>Entertainment Lights</value>
+  </data>
+  <data name="AvailableLights" xml:space="preserve">
+    <value>Available Lights</value>
+  </data>
+  <data name="Button_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Enable Sreaming</value>
+  </data>
+  <data name="PressLinkButton" xml:space="preserve">
+    <value>You must press the link button on the bridge before adding a user.</value>
+  </data>
+  <data name="LightScene" xml:space="preserve">
+    <value>Light Scene</value>
+  </data>
+  <data name="GroupScene" xml:space="preserve">
+    <value>Group Scene</value>
+  </data>
 </root>

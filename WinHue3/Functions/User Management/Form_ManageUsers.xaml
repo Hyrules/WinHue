@@ -20,8 +20,8 @@
 
         <xctk:WatermarkTextBox x:Name="WatermarkTextBox" HorizontalAlignment="Left" Margin="281,43,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Devtype}" VerticalAlignment="Top" Width="326" Watermark="{x:Static resx:GUI.ManageUsers_DeviceType}" MaxLength="19"/>
         <xctk:WatermarkTextBox x:Name="WatermarkTextBox1" HorizontalAlignment="Left" Margin="280,10,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.ApplicationName}" VerticalAlignment="Top" Width="327" Watermark="{x:Static resx:GUI.ManageUsers_Username}" MaxLength="20" />
-        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.Button_Done}" HorizontalAlignment="Left" Margin="554,291,0,0" VerticalAlignment="Top" Width="68" Click="btnDone_Click"/>
-        <Button x:Name="BtnDelete" Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="281,290,0,0" VerticalAlignment="Top" Width="75" Background="Red" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.Button_Done}" HorizontalAlignment="Left" Margin="554,290,0,0" VerticalAlignment="Top" Width="68" Click="btnDone_Click"/>
+        <Button x:Name="BtnDelete" Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="281,290,0,0" VerticalAlignment="Top" Width="75" Background="Red" Command="{Binding DeleteCommand}" Visibility="Collapsed"/>
         <Button x:Name="BtnAddUser" Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="442,290,0,0" VerticalAlignment="Top" Width="107" Command="{Binding AddUserCommand}"/>
         <Label x:Name="LblLastUsed" Content="{x:Static resx:GUI.ManageUsers_LastUsed}" HorizontalAlignment="Left" Margin="281,83,0,0" VerticalAlignment="Top" Width="114"/>
         <Label x:Name="LblCreate" Content="{x:Static resx:GUI.ManageUsers_CreateDate}" HorizontalAlignment="Left" Margin="281,113,0,0" VerticalAlignment="Top" Width="114"/>
@@ -30,6 +30,7 @@
         <TextBox x:Name="TbKey" HorizontalAlignment="Left" Margin="400,151,0,0" TextWrapping="Wrap" Text="{Binding UsersModel.Key}" VerticalAlignment="Top" Width="207" BorderThickness="0" IsReadOnly="True" Height="52"/>
         <Label x:Name="Label" Content="{x:Static resx:GUI.ManageUsers_Key}" HorizontalAlignment="Left" Margin="281,146,0,0" VerticalAlignment="Top" Width="114"/>
         <Button x:Name="BtnClear" Content="{x:Static resx:GUI.Button_Clear}" HorizontalAlignment="Left" Margin="362,290,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClearCommand}"/>
+        <TextBox HorizontalAlignment="Left" Height="42" Margin="281,243,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.PressLinkButton}" VerticalAlignment="Top" Width="341"/>
 
     </Grid>
 </Window>

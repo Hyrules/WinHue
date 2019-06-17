@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
@@ -15,7 +15,7 @@ namespace WinHue3.Functions.Scenes.View
     /// </summary>
     public partial class Form_SceneMapping : Window
     {
-
+        private Bridge _bridge;
         private readonly SceneMappingViewModel _smv;
 
         public Form_SceneMapping()
@@ -24,26 +24,26 @@ namespace WinHue3.Functions.Scenes.View
             _smv = DataContext as SceneMappingViewModel;
         }
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge)
         {
-
-            List<Light> lresult = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            _bridge = bridge;
+            List<Light> lresult = await _bridge.GetListObjectsAsync<Light>();
             if (lresult != null)
             {
-                List<Scene> sresult = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Scene>();
+                List<Scene> sresult = await _bridge.GetListObjectsAsync<Scene>();
                 if (sresult != null)
                 {
                     
-                    _smv.Initialize(sresult, lresult);
+                    _smv.Initialize(_bridge,sresult, lresult);
                 }
                 else
                 {
-                    MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                    MessageBoxError.ShowLastErrorMessages(_bridge);
                 }
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
         }
 

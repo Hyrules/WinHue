@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.Windows.Forms;
 using System.Windows.Media;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Interface;
+using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -26,6 +29,9 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
         private string _uniqueid;
         private string _class;
         private bool _visible;
+        private StringCollection _sensors;
+        private Location _locations;
+        private Stream _stream;
 
         /// <summary>
         /// Image of the group.
@@ -124,11 +130,65 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
             set => SetProperty(ref _class,value);
         }
 
+        [Category("Group Properties"), Description("List of sensors in group")]
+        public StringCollection sensors
+        {
+            get => _sensors;
+            set => SetProperty(ref _sensors, value);
+        }
+
+        [JsonIgnore, Browsable(false)]
+        public bool visible
+        {
+            get => _visible;
+            set => SetProperty(ref _visible, value);
+        }
+
+        [Category("Streaming"), Description("List of locations of lights in the group (For entertainment mode only)"),ExpandableObject­, DontSerialize]
+        public Location Locations
+        {
+            get => _locations;
+            set => SetProperty(ref _locations, value);
+
+        }
+
+        [Category("Streaming"), Description("Streaming status and settings"), ExpandableObject]
+        public Stream stream
+        {
+            get => _stream;
+            set => SetProperty(ref _stream, value);
+        }
+
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)
         {
-            if(state?.any_on != null)
-                Image = GDIManager.CreateImageSourceFromImage(state.any_on.GetValueOrDefault() ? (state.all_on.GetValueOrDefault() ? Properties.Resources.HueGroupOn_Large : Properties.Resources.HueGroupSome_Large) : Properties.Resources.HueGroupOff_Large);
+            RefreshImage();
+                
+
+        }
+
+        public void RefreshImage()
+        {
+
+            switch (type)
+            {
+                case "Entertainment":
+                    if (state.all_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment_on);
+                    else if (state.any_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment_on);
+                    else
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.entertainment_off);
+                    break;
+                default:
+                    if (state.all_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOn_Large);
+                    else if (state.any_on.GetValueOrDefault())
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupSome_Large);
+                    else
+                        Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOff_Large);
+                    break;
+            }
 
         }
 
@@ -156,11 +216,6 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
             return base.GetHashCode();
         }
 
-        [JsonIgnore, Browsable(false)]
-        public bool visible
-        {
-            get => _visible;
-            set => SetProperty(ref _visible, value);
-        }
+
     }
 }

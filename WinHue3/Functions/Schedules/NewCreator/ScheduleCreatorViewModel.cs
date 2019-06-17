@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -19,6 +18,7 @@ using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Utils;
 using Group = WinHue3.Philips_Hue.HueObjects.GroupObject.Group;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.Schedules.NewCreator
 {
@@ -39,6 +39,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
         private int _repetitions;
         private HueAddress _adrTarget;
         private bool _propGridLG;
+        private Bridge _bridge;
 
         public ICommand SelectTargetObject => new RelayCommand(param => SelectTarget());
         public ICommand ChangeDateTimeFormat => new RelayCommand(param => ChangeDateTime());
@@ -207,6 +208,8 @@ namespace WinHue3.Functions.Schedules.NewCreator
                     }
                 }
             }
+
+            AdrTarget = sc.command.address;
         }
 
         private void SetEmptyViewModel()
@@ -255,7 +258,7 @@ namespace WinHue3.Functions.Schedules.NewCreator
             AdrTarget = new HueAddress
             {
                 api = "api",
-                key = BridgeManager.BridgesManager.Instance.SelectedBridge.ApiKey
+                key = _bridge.ApiKey
             };
 
             switch (_content)
@@ -310,9 +313,10 @@ namespace WinHue3.Functions.Schedules.NewCreator
             }
         }
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge)
         {
-            _currentHueObjectList = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            _bridge = bridge;
+            _currentHueObjectList = await _bridge.GetAllObjectsAsync();
             
             if (_currentHueObjectList == null) return;
             ListTargetHueObject.AddRange(_currentHueObjectList.Where(x => x is Light).ToList());

@@ -329,7 +329,7 @@ namespace WinHue3.Functions.BridgeManager
                         if (b.Value.apikey == string.Empty) continue;
 
                         bridge.LastCommandMessages.OnMessageAdded += LastCommandMessages_OnMessageAdded;
-                        bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.CheckBridgeNeedUpdate(bridge.ApiVersion);
+                        bridge.RequiredUpdate = WinHueSettings.settings.CheckForBridgeUpdate && UpdateManager.Instance.CheckBridgeNeedUpdate(bridge.ApiVersion);
 
                         log.Info("Bridge not in the list adding it...");
                         ListBridges.Add(bridge);

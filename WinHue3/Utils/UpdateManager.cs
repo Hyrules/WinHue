@@ -11,29 +11,31 @@ using WinHue3.Philips_Hue.Communication;
 
 namespace WinHue3.Utils
 {
-    public static class UpdateManager
+    public class UpdateManager : ValidatableBindableBase
     {
+        private static readonly UpdateManager _instance = new UpdateManager();
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private const string UPDATE_URL = "https://raw.githubusercontent.com/Hyrules/WinHue3/master/update.md";
-        //private const string UPDATE_URL = "https://raw.githubusercontent.com/Hyrules/WinHue3/dev/update.md";
-        private static bool _updateAvailable;
-        private static Update _update;
-        private static readonly WebClient wc;
+        private const string UPDATE_URL = "https://raw.githubusercontent.com/Hyrules/WinHue/master/update.md";
+        private bool _updateAvailable;
+        private Update _update;
+        private readonly WebClient wc;
 
-        public static bool UpdateAvailable
+        public bool UpdateAvailable
         {
             get => _updateAvailable;
-            set => _updateAvailable = value;
+            set => SetProperty(ref _updateAvailable,value);
         }
 
-        static UpdateManager()
+        public static UpdateManager Instance => _instance;
+
+        public UpdateManager()
         {
             wc = new WebClient();
             wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
             UpdateAvailable = false;
         }
 
-        public static bool CheckForWinHueUpdate()
+        public bool CheckForWinHueUpdate()
         {
             log.Info("Checking for WinHue 3 update...");
             CommResult data = Comm.SendRequest(new Uri(UPDATE_URL), WebRequestType.Get);
@@ -55,7 +57,7 @@ namespace WinHue3.Utils
             return UpdateAvailable;
         }
 
-        public static bool CheckBridgeNeedUpdate(string actualversion)
+        public bool CheckBridgeNeedUpdate(string actualversion)
         {
             try
             {
@@ -69,7 +71,7 @@ namespace WinHue3.Utils
             
         }
 
-        public static void DownloadUpdate()
+        public void DownloadUpdate()
         {
             if (UpdateAvailable)
             {
@@ -121,7 +123,7 @@ namespace WinHue3.Utils
             }
         }
 
-        private static void DoUpdate(string path)
+        private void DoUpdate(string path)
         {
             if (MessageBox.Show(GlobalStrings.NewUpdateDownloaded, GlobalStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
             try
@@ -135,7 +137,7 @@ namespace WinHue3.Utils
             Application.Current.Shutdown();
         }
 
-        private static void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled || e.Error != null) return;
             DoUpdate(e.UserState.ToString());

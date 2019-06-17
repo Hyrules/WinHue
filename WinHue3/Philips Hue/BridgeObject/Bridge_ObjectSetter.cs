@@ -10,6 +10,7 @@ using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
@@ -381,7 +382,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = newobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)newobject.Clone();
             string url = BridgeUrl + $@"/{typename}";
-            if (typename == null) return false;
 
             CommResult comres;
 
@@ -416,7 +416,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             string typename = newobject.GetType().Name.ToLower() + "s";
             IHueObject clone = (IHueObject)newobject.Clone();
             string url = BridgeUrl + $@"/{typename}";
-            if (typename == null) return false;
 
             CommResult comres;
 
@@ -726,33 +725,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             return false;
         }
 
-        /// <summary>
-        /// Create an entertainment Area
-        /// </summary>
-        /// <param name="entertain">Entertainment Area definition</param>
-        /// <returns>Success or error</returns>
-        public async Task<bool> CreateEntertainmentArea(Entertainment entertain)
-        {
-            string url = BridgeUrl + $@"/groups";
-            CommResult comres;
-            if (!Virtual)
-            {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(entertain));
-                if (comres.Status == WebExceptionStatus.Success)
-                {
-                    LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
-                    return LastCommandMessages.Success;
-                }
-
-            }
-            else
-            {
-                LastCommandMessages.AddMessage(new Success() { Address = url, value = $"Created Entertrainement Area" });
-                return LastCommandMessages.Success;
-            }
-            ProcessCommandFailure(url, comres.Status);
-            return false;
-        }
 
         /// <summary>
         /// Set Entertrainment Group light location
@@ -760,13 +732,13 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <param name="id">ID of the group</param>
         /// <param name="loc">Location information</param>
         /// <returns></returns>
-        public async Task<bool> SetEntertrainementLightLocation(string id, Location loc)
+        public bool SetEntertrainementLightLocation(string id, Location loc)
         {
             string url = BridgeUrl + $@"/groups/{id}";
             CommResult comres;
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.SerializeJsonObject(loc));
+                comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.SerializeJsonObject(loc));
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -792,10 +764,11 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> SetEntertrainementGroupStreamStatus(string id, bool status)
         {
             string url = BridgeUrl + $@"/groups/{id}";
+
             CommResult comres;
             if (!Virtual)
             {
-                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, $"\"stream\":{status}");
+                comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, "{\"stream\":{\"active\":"+ status.ToString().ToLower()+ "}}");
                 if (comres.Status == WebExceptionStatus.Success)
                 {
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
@@ -809,40 +782,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             }
             ProcessCommandFailure(url, comres.Status);
             return false;
-        }
-
-        /// <summary>
-        /// Set to null all properties that are not allow to be set at modification.
-        /// </summary>
-        /// <param name="obj">Object to be parsed.</param>
-        /// <returns></returns>
-        private object ClearNotAllowedModifyProperties(object obj)
-        {
-            PropertyInfo[] listproperties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            foreach (PropertyInfo p in listproperties)
-            {
-                if (Attribute.IsDefined(p, typeof(CreateOnlyAttribute)) || Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))
-                    p.SetValue(obj, null);
-            }
-
-            return obj;
-        }
-
-        /// <summary>
-        ///  Set to null all properties that are not allow to be set at creation.
-        /// </summary>
-        /// <param name="hueobject">Object to be parsed</param>
-        /// <returns></returns>
-        private object ClearNotAllowedCreationProperties(object obj)
-        {
-            PropertyInfo[] listproperties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            foreach (PropertyInfo p in listproperties)
-            {
-                if (Attribute.IsDefined(p, typeof(ReadOnlyAttribute)))
-                    p.SetValue(obj, null);
-            }
-
-            return obj;
         }
 
         public async Task<bool> SendStreamPacketAsync(StreamMessage packet)

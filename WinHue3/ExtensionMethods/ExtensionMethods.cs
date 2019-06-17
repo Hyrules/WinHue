@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.ServiceModel.Dispatcher;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using WinHue3.Annotations;
-using WinHue3.Philips_Hue.HueObjects.Common;
-using IHueObject = WinHue3.Philips_Hue.HueObjects.Common.IHueObject;
 
 namespace WinHue3.ExtensionMethods
 {
@@ -46,11 +38,7 @@ namespace WinHue3.ExtensionMethods
         /// <returns></returns>
         public static bool IsValid(this string str)
         {
-            if(!string.IsNullOrWhiteSpace(str) && !string.IsNullOrEmpty(str))
-            {
-                return true;
-            }
-            return false;
+            return !string.IsNullOrWhiteSpace(str) && !string.IsNullOrEmpty(str);
         }
 
         /// <summary>
@@ -60,7 +48,7 @@ namespace WinHue3.ExtensionMethods
         /// <returns></returns>
         public static string CapitalizeFirstLetter(this string str)
         {
-            if (String.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(str))
                 throw new ArgumentException("ARGH!");
             return str.First().ToString().ToUpper() + str.Substring(1);
         }
@@ -72,7 +60,7 @@ namespace WinHue3.ExtensionMethods
         /// <returns></returns>
         public static string LowerFirstLetter(this string str)
         {
-            if (String.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(str))
                 throw new ArgumentException("ARGH!");
             return str.First().ToString().ToLower() + str.Substring(1);
         }
@@ -221,6 +209,12 @@ namespace WinHue3.ExtensionMethods
                 }
             }
             return -1;
+        }
+
+        public static ObservableCollection<T> ToObservableCollection<T>(this List<T> list)
+        {
+            return new ObservableCollection<T>(list);
+
         }
     }
 

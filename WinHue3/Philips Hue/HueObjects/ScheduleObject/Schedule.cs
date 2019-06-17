@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using WinHue3.Interface;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Utils;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -11,7 +12,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
     /// <summary>
     /// Class for a schedule.
     /// </summary>
-    [JsonObject, JsonConverter(typeof(ScheduleJsonConverter))]
+    [JsonObject]
     public class Schedule : ValidatableBindableBase, IHueObject
     {
         private string _name;
@@ -80,7 +81,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         /// <summary>
         /// Command to be executed when the schedule is triggered
         /// </summary>
-        [ExpandableObject, Category("Command"), Description("Command of the schedule")]
+        [ExpandableObject, Category("Command"), Description("Command of the schedule"), JsonConverter(typeof(CommandJsonConverter))]
         public Command command
         {
             get => _command;
@@ -140,8 +141,29 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         [DataMember(EmitDefaultValue = false, IsRequired = false), ReadOnly(true), JsonIgnore, Browsable(false)]
         public bool visible
         {
-            get { return _visible; }
-            set { SetProperty(ref _visible,value); }
+            get => _visible;
+            set => SetProperty(ref _visible,value);
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext ctx)
+        {
+            if (localtime.Contains("PT"))
+            {
+                Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
+            }
+            else if (localtime.Contains("W"))
+            {
+                Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
+            }
+            else if (localtime.Contains("T"))
+            {
+                Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
+            }
+            else
+            {
+                Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.schedules);
+            }
         }
 
         /// <summary>

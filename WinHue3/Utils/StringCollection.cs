@@ -46,8 +46,11 @@ namespace WinHue3.Utils
                 this.Items.Add(i);
             }
         }
-        
-        
+
+        public override string ToString()
+        {
+            return string.Join(",", this.Items);
+        }
 
 
         #region TYPE_DESCRIPTOR
@@ -135,6 +138,8 @@ namespace WinHue3.Utils
             _index = index;
         }
 
+        
+
         public override bool CanResetValue(object component)
         {
             return false;
@@ -161,7 +166,7 @@ namespace WinHue3.Utils
         }
 
         public override Type ComponentType => _owner.GetType();
-        public override bool IsReadOnly => false;
+        public override bool IsReadOnly => true;
         public override Type PropertyType => Value.GetType();
     }
 }

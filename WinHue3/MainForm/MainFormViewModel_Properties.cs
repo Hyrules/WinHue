@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Resources;
@@ -22,23 +21,20 @@ namespace WinHue3.MainForm
         private ObservableCollection<Floor> _listFloorPlans;
         private Floor _selectedFloorPlan;
         private HueElement _selectedHueElement;
+        private int _currentView;
 
         public bool CanTT
         {
             get
             {
-                if (BridgesManager.Instance.SelectedObject == null) return false;
-                if (!(BridgesManager.Instance.SelectedObject is Light) && !(BridgesManager.Instance.SelectedObject is Group)) return false;
-                return true;
+                if (SelectedObject == null) return false;
+                return SelectedObject is Light || SelectedObject is Group;
             }
         }
 
         public object IsMasterDebugger => System.Diagnostics.Debugger.IsAttached;
 
         private bool CanRunTempPlugin => UacHelper.IsProcessElevated();
-
-        public bool AppUpdateAvailable => UpdateManager.UpdateAvailable;
-
 
         public int SensorStatus
         {
@@ -60,6 +56,13 @@ namespace WinHue3.MainForm
         {
             get => _lastmessage;
             set => SetProperty(ref _lastmessage, value);
+
+        }
+
+        public int CurrentView
+        {
+            get => _currentView;
+            set => SetProperty(ref _currentView, value);
         }
 
         public string TransitionTimeTooltip
@@ -103,13 +106,13 @@ namespace WinHue3.MainForm
             }
         }
 
-        public bool MultiBridgeCB => BridgesManager.Instance.ListBridges.Count > 1;
+        public bool MultiBridgeCB => ListBridges.Count > 1;
 
         public Visibility UpdateAvailable
         {
             get
             {
-                BridgeSettings cr = BridgesManager.Instance.SelectedBridge?.GetBridgeSettings();
+                BridgeSettings cr = SelectedBridge?.GetBridgeSettings();
                 if (cr == null) return Visibility.Collapsed;
                 return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
@@ -117,20 +120,20 @@ namespace WinHue3.MainForm
 
         public ObservableCollection<Floor> ListFloorPlans
         {
-            get { return _listFloorPlans; }
-            set { SetProperty(ref _listFloorPlans, value); }
+            get => _listFloorPlans;
+            set => SetProperty(ref _listFloorPlans, value);
         }
 
         public Floor SelectedFloorPlan
         {
-            get { return _selectedFloorPlan; }
-            set { SetProperty(ref _selectedFloorPlan, value); }
+            get => _selectedFloorPlan;
+            set => SetProperty(ref _selectedFloorPlan, value);
         }
 
         public HueElement SelectedHueElement
         {
-            get { return _selectedHueElement; }
-            set { SetProperty(ref _selectedHueElement, value); }
+            get => _selectedHueElement;
+            set => SetProperty(ref _selectedHueElement, value);
         }
     }
 }

@@ -45,13 +45,24 @@
         </Style>
     </Window.Resources>
 
-    <Grid IsManipulationEnabled="True">
+    <Grid IsManipulationEnabled="True" >
 
         <Button Content="{x:Static resx:GUI.Button_Save}" Style="{StaticResource BtnSave}" HorizontalAlignment="Left" Margin="706,507,0,0" VerticalAlignment="Top" Width="88" x:Name="BtnSaveScene" Click="btnSaveScene_Click" Height="30" />
         <Button Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="799,507,0,0" VerticalAlignment="Top" Width="88" x:Name="BtnCancel" Click="btnCancel_Click" Height="30" IsCancel="True" SnapsToDevicePixels="True"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,502,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.SceneCreatorForm_Message}" VerticalAlignment="Top" Height="42" Width="611"/>
         <Button x:Name="BtnPreview" Content="{x:Static resx:GUI.SceneCreatorForm_PreviewButton}" HorizontalAlignment="Left" Margin="626,507,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding DoPreviewSceneCommand}" />
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step3}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="410" Width="232" Margin="8,87,0,0" ToolTip="CTRL-Click to select multiple light.">
+            <GroupBox.Style>
+                <Style TargetType="GroupBox">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SceneType, Path=SelectedValue}" Value="GroupScene">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </GroupBox.Style>
             <Grid>
                 <controls:BindableListView x:Name="LvAvailableLights" ItemsSource="{Binding ListAvailableLights}" SelectedItemsList="{Binding SelectedAvailableLights}" HorizontalAlignment="Left" Height="386" VerticalAlignment="Top" Width="219" Margin="1,0,0,0" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="{x:Null}">
                     <ListView.ItemTemplate>
@@ -132,10 +143,25 @@
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_Step1}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="646" Margin="8,10,0,0">
             <Grid>
-                <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="6,11,0,0" TextWrapping="Wrap" Text="{Binding SceneCreatorModel.Name}" MaxLines="1" MaxLength="32" Width="618" Height="23" SnapsToDevicePixels="True" VerticalContentAlignment="Stretch" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.SceneCreatorForm_SceneName}"/>
+                <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="6,11,0,0" TextWrapping="Wrap" Text="{Binding SceneCreatorModel.Name}" MaxLines="1" MaxLength="32" Width="478" Height="23" SnapsToDevicePixels="True" VerticalContentAlignment="Stretch" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.SceneCreatorForm_SceneName}"/>
+                <xctk:WatermarkComboBox x:Name="SceneType"  HorizontalAlignment="Left" Margin="489,12,0,0" VerticalAlignment="Top" Width="135" SelectedValuePath="Tag" SelectedValue="{Binding SceneCreatorModel.Type}" IsEnabled="False">
+                    <ComboBoxItem Content="{x:Static resx:GUI.LightScene}" Tag="LightScene"/>
+                    <ComboBoxItem Content="{x:Static resx:GUI.GroupScene}" Tag="GroupScene"/>
+                </xctk:WatermarkComboBox>
             </Grid>
         </GroupBox>
         <GroupBox Header="{x:Static resx:GUI.SceneCreatorForm_SelectedLights}" HorizontalAlignment="Left" Margin="659,10,0,0" VerticalAlignment="Top" Height="487" Width="247">
+            <GroupBox.Style>
+                <Style TargetType="GroupBox">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SceneType, Path=SelectedValue}" Value="GroupScene">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </GroupBox.Style>
             <Grid>
                 <ListView x:Name="LbSelectedLights" ItemsSource="{Binding ListSceneLights}" SelectedItem="{Binding SelectedSceneLight}"  HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="233" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ClipToBounds="True" BorderBrush="{x:Null}" BorderThickness="0" SelectionMode="Single" Background="{x:Null}">
                     <ListView.ItemTemplate>

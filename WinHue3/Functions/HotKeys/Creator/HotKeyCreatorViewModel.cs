@@ -17,7 +17,7 @@ using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
-using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.HotKeys.Creator
 {
@@ -37,6 +37,7 @@ namespace WinHue3.Functions.HotKeys.Creator
         private bool _canRecordKeyUp;
         private bool _isGeneric;
         private OpenFileDialog ofd;
+        private Bridge _bridge;
 
         public HotKeyCreatorViewModel()
         {
@@ -45,7 +46,6 @@ namespace WinHue3.Functions.HotKeys.Creator
             _listHotKeys = new ObservableCollection<HotKey>();
             _hotkeyrecordTimer.Interval = new TimeSpan(0, 0, 0, 10);
             _hotkeyrecordTimer.Tick += _hotkeyrecordTimer_Tick;
-            _listHotKeys = HotKeyManager.Instance.ListHotKeys;
             ofd = new OpenFileDialog
             {
                 DefaultExt = "exe",
@@ -56,10 +56,12 @@ namespace WinHue3.Functions.HotKeys.Creator
 
         public bool NotGeneric => !_isGeneric;
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge, ObservableCollection<HotKey> listHotkeys)
         {
+            _bridge = bridge;
+            ListHotKeys = listHotkeys;
             CanRecordKeyUp = false;
-            _listAvailbleHueObjects = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
+            _listAvailbleHueObjects = await _bridge.GetAllObjectsAsync();
         }
 
         public IBaseProperties PropertyGridObject

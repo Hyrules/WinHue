@@ -8,18 +8,8 @@
         xmlns:mainForm="clr-namespace:WinHue3.MainForm"
         xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
         xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
-        xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-        xmlns:ruleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.RuleObject"
-        xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
-        xmlns:scheduleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ScheduleObject"
-        xmlns:newSensorsObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.NewSensorsObject"
-        xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
-        xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
-        xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
-        xmlns:bridgeManager="clr-namespace:WinHue3.Functions.BridgeManager"
-        xmlns:hotKeys="clr-namespace:WinHue3.Functions.HotKeys"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
@@ -29,6 +19,7 @@
     >
 
     <Window.Resources>
+
         <Style x:Key="ImageEnabled" TargetType="{x:Type Image}">
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
@@ -36,7 +27,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="DoubleToUshortConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:TimeSpanToUShortConverter x:Key="TimeSpanToUShortConverter"/>
@@ -50,7 +40,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
+        
     </Window.Resources>
 
     <Window.DataContext>
@@ -65,19 +55,19 @@
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" >
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" FontSize="17" Foreground="White" >
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" FontSize="17" Foreground="Black" >
+        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" FontSize="19" >
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" Foreground="White" >
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/settings.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}" FontSize="17" Foreground="Black">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_BridgePairing}" Command="{Binding DoBridgePairingCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/pair-bridge.png" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" FontSize="17" Foreground="Black">
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_VirtualBridge}" Command="{Binding LoadVirtualBridgeCommand}" Foreground="Black">
                     <MenuItem.Style>
                         <Style TargetType="{x:Type MenuItem}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -90,21 +80,21 @@
                     </MenuItem.Style>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportConfig}" FontSize="17" Foreground="Black" >
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportDataStore}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Full" FontSize="17" Foreground="Black"/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportConfig}" Foreground="Black" >
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportDataStore}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Full" Foreground="Black"/>
                     <Separator/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportLights}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Lights" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportGroups}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Groups" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportScenes}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Scenes" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSchedules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Schedules" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportRules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Rules" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSensors}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Sensors" FontSize="17" Foreground="black"/>
-                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportResLink}" Command="{Binding ExportDataStoreCommand}" CommandParameter="ResourceLinks" FontSize="17" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportLights}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Lights" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportGroups}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Groups" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportScenes}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Scenes" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSchedules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Schedules" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportRules}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Rules" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportSensors}" Command="{Binding ExportDataStoreCommand}" CommandParameter="Sensors" Foreground="black"/>
+                    <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_ExportResLink}" Command="{Binding ExportDataStoreCommand}" CommandParameter="ResourceLinks" Foreground="black"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" FontSize="17" Foreground="Black"/>
+                <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Quit}" Command="{Binding QuitApplicationCommand}" Foreground="Black"/>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.Edit}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.Edit}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}" Foreground="Black"/>
@@ -163,7 +153,7 @@
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Foreground="Black" Background="Red"/>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Tools}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_CpuTempMon}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Command="{Binding CpuTempMonCommand}" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/cputemp.png" Height="16"/>
@@ -171,7 +161,7 @@
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
                 <Separator/>
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_SceneMapping}" Command="{Binding ViewSceneMappingCommand}" Foreground="Black">
@@ -203,9 +193,11 @@
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View_PropertyGrid}" Foreground="Black" Command="{Binding ShowPropertyGridCommand}"/>
                 <Separator/>
                 <MenuItem IsCheckable="True" IsChecked="{Binding MainFormModel.ShowFloorPlanTab}" x:Name="mnuFloorPlan" Header="{x:Static resx:GUI.MainForm_Tab_View_FloorPlan}" Foreground="Black"/>
-
+                <Separator/>
+                <MenuItem Header="Normal View" Command="{Binding SwitchViewCommandIcon}" Foreground="Black"/>
+                <MenuItem Header="List View" Command="{Binding SwitchViewCommandList}" Foreground="Black"/>
             </MenuItem>
-            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" FontSize="17">
+            <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Help_Website}" Command="{Binding OpenWinHueWebsiteCommand}" Foreground="Black" >
                     <MenuItem.Icon>
                         <Image Source="/WinHue3;component/Resources/WebSite.png" Height="16"/>
@@ -248,7 +240,7 @@
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="Background" Value="Red"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static hotKeys:HotKeyManager.Instance}, Path=HotkeyDetected}" Value="True">
+                                    <DataTrigger Binding="{Binding HotkeyDetected}" Value="True">
                                         <Setter Property="Background" Value="Green"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -261,7 +253,7 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=SearchingLights}" Value="True">
+                                    <DataTrigger Binding="{Binding SearchingLights}" Value="True">
                                         <Setter Property="Source" Value="/WinHue3;component/Resources/magnifier.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -279,14 +271,14 @@
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Source" Value="{x:Null}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding AppUpdateAvailable}" Value="True">
+                                    <DataTrigger Binding="{Binding UpdateAvailable}" Value="True">
                                         <Setter Property="Source" Value="/WinHue3;component/Resources/UpdateSearch.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Image.Style>
                     </Image>
-                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
+                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
                         <ComboBox.Style>
                             <Style TargetType="{x:Type ComboBox}">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -436,7 +428,7 @@
                     <Grid Background="#FFE5E5E5">
                         <ListView x:Name="LvMainObjects"  
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                            SelectedItem="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=SelectedObject}" 
+                            SelectedItem="{Binding SelectedObject}" 
                             SelectionChanged="LvMainObjects_SelectionChanged" 
                             SelectionMode="Single" 
                             VerticalContentAlignment="Stretch" Grid.Column="0" 
@@ -445,31 +437,11 @@
                             behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
                             behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
                             behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                            ItemsSource="{Binding Source={x:Static bridgeManager:BridgesManager.Instance}, Path=CurrentBridgeHueObjectsList}"
+                            ItemsSource="{Binding CurrentBridgeHueObjectsList}"
                             Margin="0,0,0,0.333" MaxHeight="8000">
 
                             <ListView.Resources>
-                                <DataTemplate x:Key="HueIcon" DataType="common:IHueObject">
-                                    <VirtualizingStackPanel>
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                        <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
-                                        <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
-                                            <TextBlock.Style>
-                                                <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </WrapPanel>
-                                    </VirtualizingStackPanel>
-                                </DataTemplate>
-                                <Style TargetType="{x:Type ListViewItem}">
+ <Style TargetType="{x:Type ListViewItem}">
                                     <Style.Resources>
                                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
                                     </Style.Resources>
@@ -484,46 +456,86 @@
                                         </EventTrigger>
                                     </Style.Triggers>
                                 </Style>
-
-                                <DataTemplate DataType="{x:Type lightObject:Light}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type groupObject:Group}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type ruleObject:Rule}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type newSensorsObject:Sensor}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type scheduleObject:Schedule}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type resourcelinkObject:Resourcelink}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type sceneObject:Scene}" >
-                                    <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                        <ContentPresenter ContentTemplate="{DynamicResource HueIcon}" />
-                                    </WrapPanel>
-                                </DataTemplate>
-
                             </ListView.Resources>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding}">
+                                        <ContentControl.Style>
+                                            <Style TargetType="ContentControl">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <VirtualizingStackPanel>
+                                                                <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                                                    <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                                    <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                                                                    <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
+                                                                        <TextBlock.Style>
+                                                                            <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
+                                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                                                    </TextBlock>
+                                                                </WrapPanel>
+                                                            </VirtualizingStackPanel>
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=MainForm, Path=DataContext.CurrentView}" Value="2">
+                                                        <Setter Property="ContentTemplate">
+                                                            <Setter.Value>
+                                                                <DataTemplate>
+                                                                    <VirtualizingStackPanel>
+                                                                        <WrapPanel Width="300" VerticalAlignment="Center">
+                                                                            <Grid>
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="32"/>
+                                                                                    <ColumnDefinition Width="*"/>
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <Image Source="{Binding Image}" Height="32" Grid.Column="0"/>
+                                                                                <WrapPanel Grid.Column="1">
+                                                                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
+                                                                                    <WrapPanel>
+                                                                                        <TextBlock Text=" - [" FontStyle="Italic"/>
+                                                                                        <TextBlock FontStyle="Italic" Text="{Binding Id}"/>
+                                                                                        <TextBlock Text="]" FontStyle="Italic"/>
+                                                                                        <WrapPanel.Style>
+                                                                                            <Style TargetType="WrapPanel">
+                                                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                                <Style.Triggers>
+                                                                                                    <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                                                    </DataTrigger>
+                                                                                                </Style.Triggers>
+                                                                                            </Style>
+                                                                                            
+
+                                                                                        </WrapPanel.Style>
+                                                                                    </WrapPanel>
+                                                                                </WrapPanel>
+                                                                                    
+                                                                            </Grid>
+                                                                        </WrapPanel>
+                                                                    </VirtualizingStackPanel>
+                                                                </DataTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ContentControl.Style>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
+                                    
                                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
@@ -539,6 +551,8 @@
                                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
                                         <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
                                     </MenuItem>
+                                    <Separator />
+                                    <MenuItem Header="{x:Static resx:GUI.Stream}" Command="{Binding EnableStreamCommand}"/>
                                     <Separator/>
                                     <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
                                 </ContextMenu>
@@ -722,9 +736,9 @@
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_ResourceLink}"  Command="{Binding CreateResourceLinkCommand}">
                     <Image Source="/WinHue3;component/Resources/resource.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>
-                <!--<Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_EntertainmentCreator}"  Command="{Binding CreateEntertainmentCommand}" >
+                <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_EntertainmentCreator}"  Command="{Binding CreateEntertainmentCommand}" >
                     <Image Source="/WinHue3;component/Resources/entertainment.png" Height="32" Style="{StaticResource ImageEnabled}"/>
-                </Button>-->
+                </Button>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}"  Command="{Binding CreateAdvancedCommand}" >
                     <Image Source="/WinHue3;component/Resources/advanced.png" Height="32" Style="{StaticResource ImageEnabled}"/>
                 </Button>

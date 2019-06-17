@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using WinHue3.Utils;
@@ -14,7 +15,7 @@ namespace WinHue3.Functions.Scenes.Creator
     public partial class Form_SceneCreator : Window
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        private Bridge _bridge;
 
         /// <summary>
         /// Id of the new or modified scene.
@@ -33,22 +34,22 @@ namespace WinHue3.Functions.Scenes.Creator
 
         }
 
-        public async Task Inititalize(string sceneid = null)
+        public async Task Inititalize(Bridge bridge,string sceneid = null)
         {
-
+            _bridge = bridge;
             _currentsceneid = sceneid ?? string.Empty;
 
-            List<Light> hr = await BridgesManager.Instance.SelectedBridge.GetListObjectsAsync<Light>();
+            List<Light> hr = await _bridge.GetListObjectsAsync<Light>();
 
             if (hr != null)
             {
-                Scene cr = sceneid != null ? BridgesManager.Instance.SelectedBridge.GetObject<Scene>(sceneid) : null;
+                Scene cr = sceneid != null ? _bridge.GetObject<Scene>(sceneid) : null;
                 _currentsceneid = sceneid;
-                _scvm.Initialize(hr, cr);
+                _scvm.Initialize(bridge,hr, cr);
             }
             else
             {
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
             }
 
         }
@@ -67,17 +68,17 @@ namespace WinHue3.Functions.Scenes.Creator
 
             if (_currentsceneid == null)
             {
-                result = BridgesManager.Instance.SelectedBridge.CreateObject(newScene);
+                result = _bridge.CreateObject(newScene);
             }
             else
             {
                 newScene.Id = _currentsceneid;
-                result = BridgesManager.Instance.SelectedBridge.ModifyObject(newScene);
+                result = _bridge.ModifyObject(newScene);
             }
             
             if (result)
             {
-                string id = _currentsceneid ?? BridgesManager.Instance.SelectedBridge.LastCommandMessages.LastSuccess.value;
+                string id = _currentsceneid ?? _bridge.LastCommandMessages.LastSuccess.value;
                 log.Info("Id of the scene" + id);
                 _currentsceneid = id;
                 DialogResult = true;
@@ -85,8 +86,8 @@ namespace WinHue3.Functions.Scenes.Creator
             }
             else
             {
-                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
-                log.Error(BridgesManager.Instance.SelectedBridge.LastCommandMessages);
+                _bridge.ShowErrorMessages();
+                log.Error(_bridge.LastCommandMessages);
             }
             
         }

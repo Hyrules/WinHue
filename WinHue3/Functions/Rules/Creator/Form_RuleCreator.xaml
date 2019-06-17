@@ -25,10 +25,10 @@
     <Window.DataContext>
         <creator:RuleCreatorViewModel/>
     </Window.DataContext>
-    <Grid Margin="0,0,1,0">
+    <Grid Margin="0,0,1,0" >
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="623" Watermark="{x:Static resx:GUI.RuleCreatorForm_Name}"/>
 
-        <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708">
+        <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708" Background="{StaticResource HeaderBackgroundBrush}">
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Conditions}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -70,15 +70,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="164.235,277,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding Condition_AddConditionCommand}" Grid.Column="1"/>
-                    <controls:BindableTreeView x:Name="TvProperties" HorizontalAlignment="Left" Height="208" Margin="10,38,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}" Grid.ColumnSpan="2"
-                                               Grid.Column="0">
+                    <controls:BindableTreeView x:Name="TvProperties" HorizontalAlignment="Left" Height="208" Margin="10,38,0,0" VerticalAlignment="Top" Width="335" ItemsSource="{Binding ListConditionProperties}"  VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" SelectedItem_="{Binding SelectedConditionProperty, Mode=TwoWay}" Grid.ColumnSpan="2" Grid.Column="0">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="rules:HuePropertyTreeViewItem">
                                 <Setter Property="IsSelected" Value="True"/>
                             </Style>
                         </TreeView.ItemContainerStyle>
                     </controls:BindableTreeView>
-                    <xctk:WatermarkComboBox x:Name="cbOperator"  HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}"  Grid.ColumnSpan="2" Watermark="{x:Static resx:GUI.ChooseOperator}"
+                    <xctk:WatermarkComboBox x:Name="cbOperator" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="335"  SelectedValuePath="Tag" SelectedValue="{Binding ConditionOperator}"  Grid.ColumnSpan="2" Watermark="{x:Static resx:GUI.ChooseOperator}"
                               Grid.Column="0">
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Equals}" Tag="eq"/>
                         <ComboBoxItem Content="{x:Static resx:GUI.RuleCreatorForm_Changed}" Tag="dx"/>
@@ -167,13 +166,18 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </xctk:WatermarkComboBox>
-                    <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="511.235,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25" Grid.Column="1"/>
+                    <Button Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" Margin="511.235,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Condition_RemoveRuleConditionCommand}" Height="25" Grid.Column="1" Background="Red"/>
                     <Button Content="{x:Static resx:GUI.Button_Clear}" HorizontalAlignment="Left" Margin="244.235,276,0,0" VerticalAlignment="Top" Width="85" Command="{Binding Condition_ClearSelectedRuleConditionCommand}" Height="25" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Actions}">
                 <Grid>
-                    <ListView HorizontalAlignment="Left" Height="269" Margin="357,7,0,0" VerticalAlignment="Top" Width="335" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListRuleActions}" SelectedItem="{Binding SelectedRuleAction}" behaviors:OnClickBehavior.Command="{Binding Action_SelectRuleActionCommand}" BorderBrush="#FFABADB3" AutomationProperties.IsRowHeader="True" BorderThickness="1">
+                    <ListView HorizontalAlignment="Left" Height="269" Margin="357,7,0,0" VerticalAlignment="Top" Width="335" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListRuleActions}" SelectedItem="{Binding SelectedRuleAction}" BorderBrush="#FFABADB3" AutomationProperties.IsRowHeader="True" BorderThickness="1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding Action_SelectRuleActionCommand}"/>
+                            </i:EventTrigger>    
+                        </i:Interaction.Triggers>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>

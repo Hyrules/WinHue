@@ -9,8 +9,8 @@ namespace WinHue3.Functions.Rules.Creator
 
         public PropertyItem SelectedPropertyItem
         {
-            get { return (PropertyItem)GetValue(SelectedPropertyItemProperty); }
-            set { SetValue(SelectedPropertyItemProperty, value); }
+            get => (PropertyItem)GetValue(SelectedPropertyItemProperty);
+            set => SetValue(SelectedPropertyItemProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
@@ -19,8 +19,7 @@ namespace WinHue3.Functions.Rules.Creator
 
         private static void OnSelectedPropertyItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var item = e.NewValue as Xceed.Wpf.Toolkit.PropertyGrid.PropertyGrid;
-            if (item != null)
+            if (e.NewValue is Xceed.Wpf.Toolkit.PropertyGrid.PropertyGrid item)
             {
                 item.SetValue(PropertyItemBase.IsSelectedProperty, true);
             }

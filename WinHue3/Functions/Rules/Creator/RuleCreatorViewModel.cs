@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using WinHue3.ExtensionMethods;
-using WinHue3.Functions.BridgeManager;
+using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Rules.Validation;
 using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
@@ -19,7 +19,7 @@ using WinHue3.Philips_Hue.HueObjects.ScheduleObject;
 using WinHue3.Philips_Hue.HueObjects.ResourceLinkObject;
 using WinHue3.Utils;
 using Action = WinHue3.Philips_Hue.HueObjects.GroupObject.Action;
-
+using WinHue3.Philips_Hue.BridgeObject;
 
 namespace WinHue3.Functions.Rules.Creator
 {
@@ -28,6 +28,7 @@ namespace WinHue3.Functions.Rules.Creator
         private string _name;
         private bool _enabled;
         private Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings _bs;
+        private Bridge _bridge;
         public RuleCreatorViewModel()
         {
             _name = string.Empty;
@@ -40,10 +41,11 @@ namespace WinHue3.Functions.Rules.Creator
             
         }
 
-        public async Task Initialize()
+        public async Task Initialize(Bridge bridge)
         {
-            List<IHueObject> objects = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync();
-            _bs = await BridgesManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();          
+            _bridge = bridge;
+            List<IHueObject> objects = await _bridge.GetAllObjectsAsync(WinHueSettings.settings.ShowHiddenScenes,true);
+            _bs = await _bridge.GetBridgeSettingsAsyncTask();          
             _listAvailableHueObject.AddRange(objects);
 
         }
@@ -251,11 +253,13 @@ namespace WinHue3.Functions.Rules.Creator
         {
             if (SelectedRuleAction == null) return;
             HueAddress ha = SelectedRuleAction.address;
+            CurrentPath = SelectedRuleAction.address;
             switch (ha.objecttype)
             {
                 case "lights":
                     SelectedHueObjectType = typeof(Light);
                     SelectHueObjectType();
+                    CurrentPath = SelectedRuleAction.address;
                     if (_listHueObjects.Exists(x => x.Id == ha.id))
                     {
                         SelectedHueObject = _listHueObjects.Find(x => x.Id == ha.id);
@@ -361,13 +365,13 @@ namespace WinHue3.Functions.Rules.Creator
             RuleAction ra = new RuleAction();
             HueAddress address = new HueAddress(CurrentPath);
 
-     /*       if (ListRuleActions.Any(x => x.address == address))
+            if (ListRuleActions.Any(x => x.address == address))
             {
                 result = MessageBox.Show(GlobalStrings.Rule_ActionAlreadyExists, GlobalStrings.Warning,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                     ListRuleActions.Remove(ListRuleActions.FirstOrDefault(x => x.address == address));
-            }*/
+            }
 
             if (result != DialogResult.Yes) return;
             ra.address = address;
@@ -422,9 +426,9 @@ namespace WinHue3.Functions.Rules.Creator
             get => _selectedHueObjectType;
             set => SetProperty(ref _selectedHueObjectType, value);
         }
-        #endregion
+#endregion
 
-        #region RuleCondition
+#region RuleCondition
         private List<HuePropertyTreeViewItem> _listConditionProperties;
         private string _conditionValue;
         private HuePropertyTreeViewItem _selectedConditionProperty;
@@ -529,17 +533,15 @@ namespace WinHue3.Functions.Rules.Creator
         {
             if (_selectedRuleCondition == null) return;
 
+            SelectedRuleConditionType = _selectedRuleCondition.address.objecttype == "config" ? typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings) : HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
+            SelectConditionObjectType();
+
             if (_selectedRuleCondition.address.objecttype != "config")
             {
-                SelectedRuleConditionType = HueObjectCreator.CreateHueObject(_selectedRuleCondition.address.objecttype).GetType();
-                SelectConditionObjectType();
                 SelectedConditionHueObject = ListConditionHueObjects.FirstOrDefault(x => x.Id == _selectedRuleCondition.address.id);
                 SelectConditionHueObject();
             }
-            else
-            {
-                SelectedRuleConditionType = typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings);
-            }
+
             if (SelectedConditionHueObject != null || SelectedRuleConditionType == typeof(Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings))
             {
                 ConditionOperator = _selectedRuleCondition.@operator;
@@ -589,6 +591,8 @@ namespace WinHue3.Functions.Rules.Creator
                 nrt.IsSelected = true;
                 return nrt;
             }
+
+
 
             return null;
         }
@@ -690,7 +694,7 @@ namespace WinHue3.Functions.Rules.Creator
             set => SetProperty(ref _selectedConditionHueObject,value);
         }
 
-        #endregion
+#endregion
     }
 }
 

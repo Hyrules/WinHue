@@ -1,13 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Dynamic;
-using System.Reflection;
-using System.Runtime.Serialization;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using WinHue3.ExtensionMethods;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipGenericStatus;
 using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.ClipHumidity;

@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Media;
 using log4net;
 using WinHue3.Functions.Application_Settings.Settings;
+using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Interface;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
@@ -106,59 +107,6 @@ namespace WinHue3.Philips_Hue.BridgeObject
             return bresult.portalservices != null;
         }
 
-        /// <summary>
-        /// Return the new image from the light
-        /// </summary>
-        /// <param name="imagestate">Requested state of the light.</param>
-        /// <param name="modelid">model id of the light.</param>
-        /// <returns>New image of the light</returns>
-        private ImageSource GetImageForLight(LightImageState imagestate, string modelid = null, string archetype = null)
-        {
-            string modelID = modelid ?? "DefaultHUE";
-            string state = string.Empty;
-
-            switch (imagestate)
-            {
-                case LightImageState.Off:
-                    state = "off";
-                    break;
-                case LightImageState.On:
-                    state = "on";
-                    break;
-                case LightImageState.Unr:
-                    state = "unr";
-                    break;
-                default:
-                    state = "off";
-                    break;
-            }
-
-            if (modelID == string.Empty)
-            {
-                log.Debug("STATE : " + state + " empty MODELID using default images");
-                return LightImageLibrary.Images["DefaultHUE"][state];
-            }
-
-            ImageSource newImage;
-
-            if (LightImageLibrary.Images.ContainsKey(modelID)) // Check model ID first
-            {
-                log.Debug("STATE : " + state + " MODELID : " + modelID);
-                newImage = LightImageLibrary.Images[modelID][state];
-
-            }
-            else if (archetype != null && LightImageLibrary.Images.ContainsKey(archetype)) // Check archetype after model ID, giving model ID priority
-            {
-                log.Debug("STATE : " + state + " ARCHETYPE : " + archetype);
-                newImage = LightImageLibrary.Images[archetype][state];
-            }
-            else // Neither model ID or archetype are known
-            {
-                log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " and ARCHETYPE : " + archetype + " using default images.");
-                newImage = LightImageLibrary.Images["DefaultHUE"][state];
-            }
-            return newImage;
-        }
 
         /// <summary>
         /// GEt the list of newly discovered lights
@@ -255,84 +203,62 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <param name="dimvalue">Value for the dim (Optional)</param>
         /// <param name="state">New state at toggle (Optional)</param>
         /// <returns>The new image of the object.</returns> 
-        public async Task<ImageSource> ToggleObjectOnOffStateAsyncTask(IHueObject obj, ushort? tt = null, byte? dimvalue = null, IBaseProperties state = null)
+        public async Task<bool> ToggleObjectOnOffStateAsyncTask(IHueObject obj, ushort? tt = null, byte? dimvalue = null, IBaseProperties state = null)
         {
-            ImageSource hr = null;
+            bool result = false;
             if (obj is Light)
             {
                 Light bresult = await GetObjectAsync<Light>(obj.Id);
-                if (bresult == null) return null;
+                if (bresult == null) return false;
                 Light currentState = bresult;
 
-                if (currentState.state.reachable == false && currentState.manufacturername != "OSRAM")
+                if (currentState.state.@on == true)
                 {
-                    hr = GetImageForLight(LightImageState.Unr, currentState.modelid, currentState.config.archetype);
+                    log.Debug("Toggling light state : OFF");
+                    result = await SetStateAsyncTask(new State { @on = false, transitiontime = tt }, obj.Id);
                 }
                 else
                 {
-                    if (currentState.state.@on == true)
+                    log.Debug("Toggling light state : ON");
+
+                    State newstate;
+
+                    if (WinHueSettings.settings.SlidersBehavior == 0)
                     {
-                        log.Debug("Toggling light state : OFF");
-                        bool bsetlightstate = await SetStateAsyncTask(new State { @on = false, transitiontime = tt }, obj.Id);
-
-                        if (bsetlightstate)
+                        newstate = new State()
                         {
-                            hr = GetImageForLight(LightImageState.Off, currentState.modelid, currentState.config.archetype);
+                            on = true,
+                            transitiontime = tt
+                        }; ;
+                        if (!WinHueSettings.settings.UseLastBriState && bresult.state.bri != null)
+                        {
+                            newstate.bri = dimvalue ?? WinHueSettings.settings.DefaultBriLight;
                         }
-
                     }
                     else
                     {
-                        log.Debug("Toggling light state : ON");
-
-                        State newstate;
-
-                        if (WinHueSettings.settings.SlidersBehavior == 0)
-                        {
-                            newstate = new State()
-                            {
-                                on = true,
-                                transitiontime = tt
-                            }; ;
-                            if (!WinHueSettings.settings.UseLastBriState && bresult.state.bri != null)
-                            {
-                                newstate.bri = dimvalue ?? WinHueSettings.settings.DefaultBriLight;
-                            }
-                        }
-                        else
-                        {
-                            newstate = state as State ?? new State();
-                            newstate.on = true;
-                            newstate.transitiontime = tt;
-                        }
-
-                        bool bsetlightstate = await SetStateAsyncTask(newstate, obj.Id);
-
-                        if (bsetlightstate)
-                        {
-
-                            hr = GetImageForLight(LightImageState.On, currentState.modelid, currentState.config.archetype);
-                        }
-
+                        newstate = state as State ?? new State();
+                        newstate.on = true;
+                        newstate.transitiontime = tt;
                     }
 
+                    result = await SetStateAsyncTask(newstate, obj.Id);
+
+
                 }
+
+                
             }
             else
             {
                 Group bresult = await GetObjectAsync<Group>(obj.Id);
 
-                if (bresult == null) return null;
+                if (bresult == null) return false;
                 Group currentstate = bresult;
                 if (currentstate.action.@on == true)
                 {
                     log.Debug("Toggling group state : ON");
-                    bool bsetgroupstate = await SetStateAsyncTask(new Action { @on = false, transitiontime = tt }, obj.Id);
-
-                    if (bsetgroupstate)
-                    {
-                        hr = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOff_Large);
-                    }
+                    result = await SetStateAsyncTask(new Action { @on = false, transitiontime = tt }, obj.Id);
 
                 }
                 else
@@ -361,16 +287,13 @@ namespace WinHue3.Philips_Hue.BridgeObject
                         newaction.transitiontime = tt;
                     }
 
-                    bool bsetgroupstate = await SetStateAsyncTask(newaction, obj.Id);
-                    if (bsetgroupstate)
-                    {
-                        hr = GDIManager.CreateImageSourceFromImage(Properties.Resources.HueGroupOn_Large);
-                    }
+                    result = await SetStateAsyncTask(newaction, obj.Id);
+                    
 
                 }
             }
 
-            return hr;
+            return result;
         }
 
         /// <summary>

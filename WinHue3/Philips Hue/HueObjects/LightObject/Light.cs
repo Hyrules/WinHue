@@ -23,11 +23,6 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        /// <summary>
-        /// List of possible light state.
-        /// </summary>
-        private enum LightImageState { On = 0, Off = 1, Unr = 3 }
-
         private string _name;
         private ImageSource _image;
         private string _type;
@@ -112,11 +107,6 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         [Browsable(false), JsonIgnore]
         public bool visible { get => _visible; set => SetProperty(ref _visible,value);}
 
-        public override bool Equals(object obj)
-        {
-            return obj is Light hueobject && hueobject.Id == Id;
-        }
-
         /// <summary>
         /// Capabilities of the light.
         /// </summary>
@@ -144,42 +134,34 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)
         {
-            if(state?.on != null)
-                Image = GetImageForLight(state.reachable.GetValueOrDefault() ? state.@on.GetValueOrDefault() ? LightImageState.On : LightImageState.Off : LightImageState.Unr, modelid, config.archetype);
+            RefreshImage();
+        }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Light hueobject && hueobject.Id == Id;
+        }
+
+        public void RefreshImage()
+        {
+            if (state?.on != null)
+                Image = GetImageForLight(modelid, config.archetype);
         }
 
         /// <summary>
         /// Return the new image from the light
         /// </summary>
-        /// <param name="imagestate">Requested state of the light.</param>
         /// <param name="modelid">model id of the light.</param>
+        /// <param name="archetype">Archetype of the light.</param>
         /// <returns>New image of the light</returns>
-        private ImageSource GetImageForLight(LightImageState imagestate, string modelid = null, string archetype = null)
+        private ImageSource GetImageForLight(string modelid = null, string archetype = null)
         {
             string modelID = modelid ?? "DefaultHUE";
-            string state = string.Empty;
-
-            switch (imagestate)
-            {
-                case LightImageState.Off:
-                    state = "off";
-                    break;
-                case LightImageState.On:
-                    state = "on";
-                    break;
-                case LightImageState.Unr:
-                    state = "unr";
-                    break;
-                default:
-                    state = "off";
-                    break;
-            }
 
             if (modelID == string.Empty)
             {
                 log.Debug("STATE : " + state + " empty MODELID using default images");
-                return LightImageLibrary.Images["DefaultHUE"][state];
+                return LightImageLibrary.Images["DefaultHUE"][state.on.GetValueOrDefault()];
             }
 
             ImageSource newImage;
@@ -187,18 +169,18 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
             if (LightImageLibrary.Images.ContainsKey(modelID)) // Check model ID first
             {
                 log.Debug("STATE : " + state + " MODELID : " + modelID);
-                newImage = LightImageLibrary.Images[modelID][state];
+                newImage = LightImageLibrary.Images[modelID][state.on.GetValueOrDefault()];
 
             }
             else if (archetype != null && LightImageLibrary.Images.ContainsKey(archetype)) // Check archetype after model ID, giving model ID priority
             {
                 log.Debug("STATE : " + state + " ARCHETYPE : " + archetype);
-                newImage = LightImageLibrary.Images[archetype][state];
+                newImage = LightImageLibrary.Images[archetype][state.on.GetValueOrDefault()];
             }
             else // Neither model ID or archetype are known
             {
                 log.Debug("STATE : " + state + " unknown MODELID : " + modelID + " and ARCHETYPE : " + archetype + " using default images.");
-                newImage = LightImageLibrary.Images["DefaultHUE"][state];
+                newImage = LightImageLibrary.Images["DefaultHUE"][state.on.GetValueOrDefault()];
             }
             return newImage;
         }

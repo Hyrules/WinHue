@@ -31,6 +31,8 @@ namespace WinHue3.Functions.BridgeSettings
 
         private int _updateProgress;
 
+        private Bridge _bridge;
+
         public BridgeSettingsViewModel()
         {
             _generalModel = new BridgeSettingsGeneralModel();
@@ -47,12 +49,13 @@ namespace WinHue3.Functions.BridgeSettings
             UpdateProgress = 0;
             CanClose = true;
         }
-
-        private async Task Initialize()
+        /*
+        private async Task Initialize(Bridge bridge)
         {
-            List<IHueObject> lo = await BridgesManager.Instance.SelectedBridge.GetAllObjectsAsync(true);
+            _bridge = bridge;
+            List<IHueObject> lo = await _bridge.GetAllObjectsAsync(true);
             HiddenObjects.ListObjects = new ObservableCollection<IHueObject>(lo);
-            foreach (Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[BridgesManager.Instance.SelectedBridge.Mac].hiddenobjects)
+            foreach (Tuple<string,string> t in WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects)
             {
                 if (HiddenObjects.ListObjects.Any(x => x.Id == t.Item1 && x.GetType().Name == t.Item2))
                 {
@@ -64,7 +67,7 @@ namespace WinHue3.Functions.BridgeSettings
 
             HiddenObjects.AcceptChanges();
         }
-
+        */
         public ICommand SaveHiddenObjectsCommand => new RelayCommand(param => SaveHiddenObjects(), (param) => CanSaveHiddenObjects());
 
         private bool CanSaveHiddenObjects()
@@ -74,12 +77,12 @@ namespace WinHue3.Functions.BridgeSettings
 
         private void SaveHiddenObjects()
         {
-            WinHueSettings.bridges.BridgeInfo[BridgesManager.Instance.SelectedBridge.Mac].hiddenobjects.Clear();
+            WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Clear();
             foreach (IHueObject l in HiddenObjects.HiddenObjects)
             {
-                if (!WinHueSettings.bridges.BridgeInfo[BridgesManager.Instance.SelectedBridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetType().Name))
+                if (!WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Any(x => x.Item1 == l.Id && x.Item2 == l.GetType().Name))
                 {
-                    WinHueSettings.bridges.BridgeInfo[BridgesManager.Instance.SelectedBridge.Mac].hiddenobjects.Add(new Tuple<string, string>(l.Id, l.GetType().Name));
+                    WinHueSettings.bridges.BridgeInfo[_bridge.Mac].hiddenobjects.Add(new Tuple<string, string>(l.Id, l.GetType().Name));
                 }
                 
             }
@@ -128,7 +131,7 @@ namespace WinHue3.Functions.BridgeSettings
         public ICommand ForceCheckUpdateCommand => new AsyncRelayCommand(param => ForceCheckUpdate(), param => CanCheckForUpdate());
         public ICommand ApplyUpdateSettingsCommand => new AsyncRelayCommand(param => ApplyUpdateSettings());
         public ICommand UpdateBridgeFirmwareCommand => new AsyncRelayCommand(param => UpdateBridgeFirmware(), param => CanUpdateFirmware());
-        public ICommand InitializeCommand => new AsyncRelayCommand(param => Initialize());
+        public ICommand InitializeCommand => new AsyncRelayCommand(param => Initialize(_bridge));
 
         private bool CanCheckForUpdate()
         {
@@ -153,7 +156,7 @@ namespace WinHue3.Functions.BridgeSettings
         {
             if (MessageBox.Show(GlobalStrings.Update_Confirmation, GlobalStrings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
             
-            bool result = await BridgesManager.Instance.SelectedBridge.UpdateBridgeAsyncTask();
+            bool result = await _bridge.UpdateBridgeAsyncTask();
             if (result)
             {
                 CanClose = false;
@@ -163,32 +166,32 @@ namespace WinHue3.Functions.BridgeSettings
             }
             else
             {
-                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
+                _bridge.ShowErrorMessages();
             }
 
         }
 
         private async Task ApplyUpdateSettings()
         {
-            bool result = await BridgesManager.Instance.SelectedBridge.SetAutoInstallAsyncTask(new autoinstall()
+            bool result = await _bridge.SetAutoInstallAsyncTask(new autoinstall()
             {
                 on = SoftwareModel.AutoUpdate,
                 updatetime = SoftwareModel.UpdateTime.ToString("\\THH:mm:ss")
             });
             if (result) return;
-            BridgeManager.BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
+            _bridge.ShowErrorMessages();
         }
 
         private async Task ForceCheckUpdate()
         {
-            bool result = await BridgesManager.Instance.SelectedBridge.CheckOnlineForUpdateAsyncTask();
+            bool result = await _bridge.CheckOnlineForUpdateAsyncTask();
             if (result)
             {
                 MessageBox.Show(GlobalStrings.CheckingForUpdate, GlobalStrings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                BridgesManager.Instance.SelectedBridge.ShowErrorMessages();
+                _bridge.ShowErrorMessages();
             }
 
         }
@@ -239,7 +242,7 @@ namespace WinHue3.Functions.BridgeSettings
 
         private async Task ApplyNetworkSettings()
         {
-            bool cr =  await BridgesManager.Instance.SelectedBridge.SetBridgeSettingsAsyncTask(new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings()
+            bool cr =  await _bridge.SetBridgeSettingsAsyncTask(new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings()
             {
                 dhcp = NetworkModel.Dhcp,
                 ipaddress = NetworkModel.Ip,
@@ -251,7 +254,7 @@ namespace WinHue3.Functions.BridgeSettings
 
             if (!cr)
             {
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
                 
             }else
             {
@@ -261,18 +264,19 @@ namespace WinHue3.Functions.BridgeSettings
 
         private async Task ApplyGeneralSettings()
         {
-            bool cr = await BridgesManager.Instance.SelectedBridge.ChangeBridgeNameAsyncTask(GeneralModel.Name);
+            bool cr = await _bridge.ChangeBridgeNameAsyncTask(GeneralModel.Name);
             if(!cr)
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
 
-            cr = await BridgesManager.Instance.SelectedBridge.SetBridgeSettingsAsyncTask(new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings() { timezone = GeneralModel.Timezone });
+            cr = await _bridge.SetBridgeSettingsAsyncTask(new Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings() { timezone = GeneralModel.Timezone });
             if (!cr)
-                MessageBoxError.ShowLastErrorMessages(BridgesManager.Instance.SelectedBridge);
+                MessageBoxError.ShowLastErrorMessages(_bridge);
         }
 
         public async Task Initialize(Bridge bridge)
         {
-            Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings cr = await BridgesManager.Instance.SelectedBridge.GetBridgeSettingsAsyncTask();
+            _bridge = bridge;
+            Philips_Hue.BridgeObject.BridgeObjects.BridgeSettings cr = await _bridge.GetBridgeSettingsAsyncTask();
             if (cr != null)
             {
                 //****** General Pane **********
@@ -284,7 +288,7 @@ namespace WinHue3.Functions.BridgeSettings
                 GeneralModel.Zigbeechannel = cr.zigbeechannel.ToString();
                 GeneralModel.Utc = cr.UTC;
 
-                List<string> tz = await BridgesManager.Instance.SelectedBridge.GetTimeZonesAsyncTask();
+                List<string> tz = await _bridge.GetTimeZonesAsyncTask();
                 if (tz != null)
                 {
                     GeneralModel.ListTimeZones = tz;
@@ -320,7 +324,7 @@ namespace WinHue3.Functions.BridgeSettings
                 NetworkModel.AcceptChanges();
             }
 
-            Capabilities = await BridgesManager.Instance.SelectedBridge.GetBridgeCapabilitiesAsyncTask();
+            Capabilities = await _bridge.GetBridgeCapabilitiesAsyncTask();
 
         }
         

@@ -78,6 +78,7 @@ namespace WinHue3.Functions.User_Management
             return SelectedUser != null;
         }
 
+        [Obsolete]
         private async Task Delete()
         {
             bool cr = await _bridge.RemoveUserAsyncTask(UsersModel.Key);
@@ -126,7 +127,7 @@ namespace WinHue3.Functions.User_Management
             SelectedUser = null;
         }
 
-        public ICommand DeleteCommand => new AsyncRelayCommand(param => Delete(), param => CanDeleteUser());
+        //public ICommand DeleteCommand => new AsyncRelayCommand(param => Delete(), param => CanDeleteUser());
         public ICommand AddUserCommand => new AsyncRelayCommand(param => AddUser(), param => CanAddUser());
         public ICommand ClearCommand => new RelayCommand(param => Clear(), (param) => CanDeleteUser());
 

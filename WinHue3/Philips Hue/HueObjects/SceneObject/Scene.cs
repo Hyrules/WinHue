@@ -34,6 +34,8 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         private ushort? _transitiontime;
         private bool _visible;
         private bool _on;
+        private string _type;
+        private string _group;
 
         /// <summary>
         /// Image of the rule.
@@ -54,6 +56,7 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
             get => _id;
             set => SetProperty(ref _id,value);
         }
+
 
         /// <summary>
         /// Name of the scene.
@@ -189,6 +192,20 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
             set => SetProperty(ref _on, value);
         }
 
+        [Category("Scene Properties"),Description("Type of the scene"),ItemsSource(typeof(GroupeTypeItemSource))]
+        public string type
+        {
+            get => _type; 
+            set => SetProperty(ref _type,value);
+        }
+
+        [Category("Scene Properties"),Description("Group ID that a scene is linked to.")]
+        public string group
+        {
+            get => _group; 
+            set => SetProperty(ref _group,value);
+        }
+
         /// <summary>
         /// To String.
         /// </summary>
@@ -202,6 +219,8 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
         void OnDeserialized(StreamingContext ctx)
         {
             Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.scenes);
+            if (appdata.data is null && appdata.version is null)
+                appdata = null;
         }
 
 

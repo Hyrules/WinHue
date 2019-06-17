@@ -6,33 +6,80 @@
         xmlns:local="clr-namespace:WinHue3.Functions.Entertainment"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:resx="clr-namespace:WinHue3.Resources"
+        xmlns:light="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
         x:Class="WinHue3.Functions.Entertainment.Form_EntertainmentCreator"
         mc:Ignorable="d"
-        Title="{x:Static resx:GUI.EntertainmentCreatorForm_Title}" Height="250.775" Width="563.296" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="{x:Static resx:GUI.EntertainmentCreatorForm_Title}" Height="700.229" Width="927.66" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
     <Window.DataContext>
         <local:EntertainmentViewModel/>
     </Window.DataContext>
-    <Grid>
-        <GroupBox Header="{x:Static resx:GUI.EntertainmentCreatorForm_Coordinates}" HorizontalAlignment="Left" Height="183" Margin="174,0,0,0" VerticalAlignment="Top" Width="220">
-            <Grid Margin="0,0,-2,-2.667">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="29*"/>
-                    <ColumnDefinition Width="76*"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="X" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top"/>
-                <Label Content="Y" HorizontalAlignment="Left" Margin="33.185,19,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                <Label Content="Z" HorizontalAlignment="Left" Margin="103.185,19,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="-1" Grid.ColumnSpan="2"/>
-                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="18.185,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="-1" Grid.Column="1"/>
-                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="85.185,67,0,0" VerticalAlignment="Top" Width="57" Increment="0.1" Maximum="1" Minimum="0" Grid.Column="1" IsEnabled="False"/>
-                <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="22" Margin="7,111,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.EntertainmentCreatorForm_Z_Message}" VerticalAlignment="Top" Width="197"/>
-                <Button Content="{x:Static resx:GUI.Button_Add}" Grid.Column="1" HorizontalAlignment="Left" Margin="71,138,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddLightCommand}"/>
+    <Grid Margin="0,0,0.182,2.727">
+        <GroupBox Header="{x:Static resx:GUI.EntertainmentCreatorForm_Coordinates}" HorizontalAlignment="Left" Height="121" Margin="10,129,0,0" VerticalAlignment="Top" Width="222">
+            <Grid Margin="0,0,-1.545,-2">
+
+                <Label Content="X" HorizontalAlignment="Left" Margin="11,4,0,0" VerticalAlignment="Top" Width="54" HorizontalContentAlignment="Center"/>
+                <Label Content="Y" HorizontalAlignment="Left" Margin="77,4,0,0" VerticalAlignment="Top" Width="54" HorizontalContentAlignment="Center"/>
+                <Label Content="Z" HorizontalAlignment="Left" Margin="142,4,0,0" VerticalAlignment="Top" Width="54" HorizontalContentAlignment="Center"/>
+                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="12,35,0,0" VerticalAlignment="Top" Width="54" Increment="0.1" Maximum="1" Minimum="-1" Value="{Binding EntertainmentModel.X}"/>
+                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="78,35,0,0" VerticalAlignment="Top" Width="54" Increment="0.1" Maximum="1" Minimum="-1" Value="{Binding EntertainmentModel.Y}"/>
+                <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="145,35,0,0" VerticalAlignment="Top" Width="54" Increment="0.1" Maximum="1" Minimum="0" IsEnabled="False" Value="{Binding EntertainmentModel.Z}"/>
+                <TextBlock HorizontalAlignment="Left" Height="36" Margin="10,60,-0.273,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.EntertainmentCreatorForm_Z_Message}" VerticalAlignment="Top" Width="202"/>
             </Grid>
         </GroupBox>
-        <ListBox HorizontalAlignment="Left" Height="173" Margin="399,10,0,0" VerticalAlignment="Top" Width="143" ItemsSource="{Binding ListEtLights}"/>
-        <ListBox HorizontalAlignment="Left" Height="173" Margin="10,10,0,0" VerticalAlignment="Top" Width="159" ItemsSource="{Binding ListAvailableLights}"/>
-        <Button Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="467,192,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="387,192,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnCancel"  Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="825,626,0,0" VerticalAlignment="Top" Width="75" Click="BtnCancel_Click"/>
+        <Button x:Name="btnSave"  Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="745,626,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
+        <GroupBox Header="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Height="129" Margin="10,0,0,0" VerticalAlignment="Top" Width="222">
+            <Grid>
+                <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding EntertainmentModel.Name}" VerticalAlignment="Top" Width="192" Watermark="{x:Static resx:GUI.Optional}"/>
+                <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="57" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding EntertainmentModel.Description}" VerticalAlignment="Top" Width="192" Watermark="{x:Static resx:GUI.Optional}"/>
+            </Grid>
+
+        </GroupBox>
+        <GroupBox Header="{x:Static resx:GUI.AvailableLights}" HorizontalAlignment="Left" Height="335" Margin="10,250,0,0" VerticalAlignment="Top" Width="222">
+            <Grid>
+                <ListBox Margin="0,0,10.182,-0.455" BorderThickness="0" ItemsSource="{Binding ListAvailableLights}" SelectedItem="{Binding SelectedLight}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type light:Light}">
+                            <WrapPanel >
+                                <Image Source="{Binding Image}" Height="16" Width="16"/>
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding name}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="{x:Static resx:GUI.EntertainmentLights}" HorizontalAlignment="Left" Height="621" Margin="237,0,0,0" VerticalAlignment="Top" Width="663">
+            <ListView Margin="0,0,-1.364,3.818" ItemsSource="{Binding ListLights}" BorderThickness="0" SelectedItem="{Binding SelectedEntertainmentLight}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="local:EntertainmentLight">
+                                    <Image Source="{Binding Light.Image }" Height="16"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="{x:Static resx:GUI.Label_Name}" DisplayMemberBinding="{Binding Light.name}" Width="200"/>
+                        <GridViewColumn Header="{x:Static resx:GUI.Locations}" Width="300">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="local:EntertainmentLight">
+                                    <WrapPanel>
+                                        <TextBlock Text="X : "/><TextBlock Text="{Binding Location[0]}"/>
+                                        <TextBlock Text=", Y : "/><TextBlock Text="{Binding Location[1]}"/>
+                                        <TextBlock Text=", Z : "/><TextBlock Text="{Binding Location[2]}"/>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+        <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="129,590,0,0" VerticalAlignment="Top" Width="103" Height="22" Command="{Binding AddEntertainmentLightCommand}"/>
+        <Button Content="{x:Static resx:GUI.Button_Remove}" HorizontalAlignment="Left" Margin="276,626,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RemoveEntertainmentLightCommand}" Background="Red"/>
 
     </Grid>
 </Window>
