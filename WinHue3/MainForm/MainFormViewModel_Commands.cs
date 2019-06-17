@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;

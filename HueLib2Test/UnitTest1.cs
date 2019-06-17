@@ -38,6 +38,14 @@ namespace WinHueTest
     [TestClass]
     public class WinHueMiscTests
     {
+        [TestMethod]
+        public void TestHueObject()
+        {
+            HueObject<Light> light = new HueObject<Light>();
+            Type t = light.Type;
+
+        }
+
 
         [TestMethod]
         public void HttpGetTest()

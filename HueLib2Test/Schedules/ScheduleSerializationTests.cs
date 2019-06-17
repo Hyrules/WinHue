@@ -43,9 +43,16 @@ namespace WinHueTest.Schedules
         public void TestDeserialization()
         {
             string schedule =
-                "{\"1\":{\"name\":\"Work\",\"description\":\"\",\"command\":{\"address\":\"/api/2854d5c1-b8fc-4f41-8910-756fc00b6e0a/lights/2/state\",\"body\":{\"on\":true,\"bri\":254,\"hue\":65535,\"sat\":254},\"method\":\"PUT\"},\"localtime\":\"W124/T06:00:00\",\"time\":\"W124/T10:00:00\",\"created\":\"2018-12-24T14:46:20\",\"status\":\"disabled\",\"recycle\":false}}";
+                "{\"name\":\"Work\",\"description\":\"This is my description\",\"command\":{\"address\":\"/api/2854d5c1-b8fc-4f41-8910-756fc00b6e0a/lights/2/state\",\"body\":{\"on\":true,\"bri\":254,\"hue\":65535,\"sat\":254},\"method\":\"PUT\"},\"localtime\":\"W124/T06:00:00\",\"time\":\"W124/T10:00:00\",\"created\":\"2018-12-24T14:46:20\",\"status\":\"disabled\",\"recycle\":false}";
             Schedule sc = JsonConvert.DeserializeObject<Schedule>(schedule);
-
+            Assert.AreEqual("Work", sc.name,"Name is not equal");
+            Assert.AreEqual("This is my description", sc.description,"Description is not equal");
+            Assert.AreEqual("W124/T06:00:00", sc.localtime, "localtime is not equal");
+            Assert.AreEqual("/api/2854d5c1-b8fc-4f41-8910-756fc00b6e0a/lights/2/state", sc.command.address, "Command Address is not equal");
+            Assert.AreEqual("{\"on\":true,\"bri\":254,\"hue\":65535,\"sat\":254}", sc.command.body, "Command body is not equal");
+            Assert.AreEqual("2018-12-24T14:46:20", sc.created, "Created is not equal");
+            Assert.IsFalse(sc.recycle.GetValueOrDefault(), "Recycle is not eu");
+            Assert.AreEqual("disabled",sc.status,"Status is not equal");
         }
 
     }

@@ -208,6 +208,8 @@ namespace WinHue3.Functions.Schedules.NewCreator
                     }
                 }
             }
+
+            AdrTarget = sc.command.address;
         }
 
         private void SetEmptyViewModel()

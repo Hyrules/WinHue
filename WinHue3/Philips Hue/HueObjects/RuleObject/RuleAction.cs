@@ -8,7 +8,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
     /// <summary>
     /// Actions.
     /// </summary>
-    [JsonObject,JsonConverter(typeof(RuleActionJsonConverter)),ExpandableObject]
+    [JsonObject,ExpandableObject,JsonConverter(typeof(RuleActionJsonConverter))]
     public class RuleAction
     {
         /// <summary>

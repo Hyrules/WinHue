@@ -22,6 +22,8 @@ Added:
 Changed:
 - Way the light are displayed. Removed the unreachable light image needed.
 - Unreachable will now show as greyed out.
+- Simplified Schedule deserialization / serialization.
+- Simplified rule deserialization / serialization.
 
 Updated :
 - 

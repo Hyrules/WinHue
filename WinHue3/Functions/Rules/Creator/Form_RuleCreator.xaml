@@ -25,10 +25,10 @@
     <Window.DataContext>
         <creator:RuleCreatorViewModel/>
     </Window.DataContext>
-    <Grid Margin="0,0,1,0">
+    <Grid Margin="0,0,1,0" >
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="623" Watermark="{x:Static resx:GUI.RuleCreatorForm_Name}"/>
 
-        <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708">
+        <TabControl HorizontalAlignment="Left" Height="368" Margin="5,32,0,0" VerticalAlignment="Top" Width="708" Background="{StaticResource HeaderBackgroundBrush}">
             <TabItem Header="{x:Static resx:GUI.RuleCreatorForm_Conditions}">
                 <Grid>
                     <Grid.ColumnDefinitions>

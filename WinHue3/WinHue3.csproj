@@ -356,7 +356,7 @@
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDatagramTransport.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDtlsClient.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueTlsAuthentication.cs" />
-    <Compile Include="Philips Hue\Communication2\Getters.cs" />
+    <Compile Include="Philips Hue\Communication2\Communication.cs" />
     <Compile Include="Philips Hue\HueObjects\GroupObject\Location.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\StreamMessage.cs" />
     <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
@@ -420,7 +420,9 @@
     <Compile Include="Philips Hue\HueObjects\NewSensorsObject\UnknownSensorState.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleConditionCollection.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionCollection.cs" />
+    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleConditionJsonConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\SceneObject\GroupeTypeItemSource.cs" />
+    <Compile Include="Philips Hue\HueObjects\ScheduleObject\CommandJsonConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\StatusItemsSource.cs" />
     <Compile Include="Philips Hue\HueObjects\SensorState.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomBridges.cs" />
@@ -440,17 +442,16 @@
     <Compile Include="Philips Hue\HueObjects\Common\HueAddress.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleActionJsonConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\RuleObject\RuleCondition.cs" />
-    <Compile Include="Philips Hue\HueObjects\RuleObject\RuleJsonConverter.cs" />
     <Compile Include="Philips Hue\HueObjects\SceneObject\AppData.cs" />
     <Compile Include="Philips Hue\HueObjects\SceneObject\Scene.cs" />
     <Compile Include="Philips Hue\HueObjects\SceneObject\SceneBody.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\Command.cs" />
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\Schedule.cs" />
-    <Compile Include="Philips Hue\HueObjects\ScheduleObject\ScheduleJsonConverter.cs" />
     <Compile Include="Functions\Application Settings\Settings\BridgeSaveSettings.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomSettings.cs" />
     <Compile Include="Functions\BridgeManager\BridgeManager.cs" />
     <Compile Include="Utils\CoordinatesCollection.cs" />
+    <Compile Include="Utils\HueObject.cs" />
     <Compile Include="Utils\StringCollection.cs" />
     <Compile Include="Utils\TriggerHelper.cs" />
     <Compile Include="Utils\UACHelper.cs" />

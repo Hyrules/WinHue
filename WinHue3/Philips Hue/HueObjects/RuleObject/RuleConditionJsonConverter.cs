@@ -5,38 +5,38 @@ using WinHue3.Philips_Hue.HueObjects.Common;
 
 namespace WinHue3.Philips_Hue.HueObjects.RuleObject
 {
-    public class RuleActionJsonConverter : JsonConverter
+    public class RuleConditionJsonConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            RuleAction ra = (RuleAction) value;
+            RuleCondition rc = (RuleCondition) value;
             writer.WriteStartObject();
             writer.WritePropertyName("address");
-            writer.WriteValue(ra.address);
-            writer.WritePropertyName("body");
-            writer.WriteRaw(ra.body);
-            writer.WritePropertyName("method");
-            writer.WriteValue(ra.method);
+            writer.WriteValue(rc.address);
+            writer.WritePropertyName("operator");
+            writer.WriteValue(rc.@operator);
+            writer.WriteValue(rc.value);
             writer.WriteEndObject();
             writer.WriteEnd();
-            
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject obj = serializer.Deserialize<JObject>(reader);
-            RuleAction ra = new RuleAction
+            RuleCondition rc = new RuleCondition
             {
                 address = new HueAddress(obj["address"].Value<string>()),
-                method = obj["method"].Value<string>(),
-                body = obj["body"].ToString(),
+                @operator = obj["operator"].Value<string>()
             };
-            return ra;
+
+            if(obj.ContainsKey("value"))
+                rc.value = obj["value"].Value<string>();
+            return rc;
         }
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(RuleAction) == objectType;
+            return typeof(RuleCondition) == objectType;
         }
     }
 }

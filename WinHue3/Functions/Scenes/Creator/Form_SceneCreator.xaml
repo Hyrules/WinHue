@@ -45,7 +45,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid IsManipulationEnabled="True">
+    <Grid IsManipulationEnabled="True" >
 
         <Button Content="{x:Static resx:GUI.Button_Save}" Style="{StaticResource BtnSave}" HorizontalAlignment="Left" Margin="706,507,0,0" VerticalAlignment="Top" Width="88" x:Name="BtnSaveScene" Click="btnSaveScene_Click" Height="30" />
         <Button Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="799,507,0,0" VerticalAlignment="Top" Width="88" x:Name="BtnCancel" Click="btnCancel_Click" Height="30" IsCancel="True" SnapsToDevicePixels="True"/>

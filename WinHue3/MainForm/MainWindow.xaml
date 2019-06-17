@@ -8,18 +8,8 @@
         xmlns:mainForm="clr-namespace:WinHue3.MainForm"
         xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
         xmlns:sliders="clr-namespace:WinHue3.MainForm.Sliders"
-        xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
-        xmlns:ruleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.RuleObject"
-        xmlns:sceneObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.SceneObject"
-        xmlns:scheduleObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ScheduleObject"
-        xmlns:newSensorsObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.NewSensorsObject"
-        xmlns:groupObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.GroupObject"
-        xmlns:lightObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.LightObject"
-        xmlns:resourcelinkObject="clr-namespace:WinHue3.Philips_Hue.HueObjects.ResourceLinkObject"
         xmlns:roomMap="clr-namespace:WinHue3.Functions.RoomMap"
-        xmlns:hotKeys="clr-namespace:WinHue3.Functions.HotKeys"
-        xmlns:utils="clr-namespace:WinHue3.Utils"
         x:Class="WinHue3.MainForm.MainWindow"
     Title="{Binding Title}" Height="824.356" Width="1349.484" 
     WindowStartupLocation="CenterScreen" MinHeight="600" MinWidth="800" 
@@ -37,7 +27,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:DoubleToUShortConverter x:Key="DoubleToUshortConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:TimeSpanToUShortConverter x:Key="TimeSpanToUShortConverter"/>
@@ -509,8 +498,28 @@
                                                                                     <ColumnDefinition Width="32"/>
                                                                                     <ColumnDefinition Width="*"/>
                                                                                 </Grid.ColumnDefinitions>
-                                                                                <Image Source="{Binding Image}" Height="24" Grid.Column="0"/>
-                                                                                <TextBlock Text="{Binding name}" Grid.Column="1" VerticalAlignment="Center"/>
+                                                                                <Image Source="{Binding Image}" Height="32" Grid.Column="0"/>
+                                                                                <WrapPanel Grid.Column="1">
+                                                                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
+                                                                                    <WrapPanel>
+                                                                                        <TextBlock Text=" - [" FontStyle="Italic"/>
+                                                                                        <TextBlock FontStyle="Italic" Text="{Binding Id}"/>
+                                                                                        <TextBlock Text="]" FontStyle="Italic"/>
+                                                                                        <WrapPanel.Style>
+                                                                                            <Style TargetType="WrapPanel">
+                                                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                                <Style.Triggers>
+                                                                                                    <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                                                    </DataTrigger>
+                                                                                                </Style.Triggers>
+                                                                                            </Style>
+                                                                                            
+
+                                                                                        </WrapPanel.Style>
+                                                                                    </WrapPanel>
+                                                                                </WrapPanel>
+                                                                                    
                                                                             </Grid>
                                                                         </WrapPanel>
                                                                     </VirtualizingStackPanel>
