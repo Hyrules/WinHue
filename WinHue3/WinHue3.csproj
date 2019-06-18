@@ -259,6 +259,9 @@
     <Compile Include="Functions\Groups\Creator\GroupCreator.cs" />
     <Compile Include="Functions\HotKeys\HotKeyConverter.cs" />
     <Compile Include="Functions\HotKeys\HotKeyManager.cs" />
+    <Compile Include="Functions\Mqtt\Client\Form_MqttClient.xaml.cs">
+      <DependentUpon>Form_MqttClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions\PowerSettings\Form_PowerCustomSettings.xaml.cs">
       <DependentUpon>Form_PowerCustomSettings.xaml</DependentUpon>
     </Compile>
@@ -591,6 +594,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Entertainment\Form_EntertainmentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\Mqtt\Client\Form_MqttClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1046,13 +1053,11 @@
   <ItemGroup>
     <None Include="Resources\entertainment_on.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Functions\Mqtt\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_AssemblyInfoFilename="..\..\..\..\Documents\Visual Studio 2012\Projects\WinHue3_1\WinHue3\Properties\AssemblyInfo.cs" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

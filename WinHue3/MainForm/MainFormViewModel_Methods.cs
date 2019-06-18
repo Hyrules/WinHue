@@ -53,6 +53,7 @@ using WinHue3.Philips_Hue.HueObjects.NewSensorsObject.CLIPGenericFlag;
 using WinHue3.Functions.Animations;
 using WinHue3.Functions.Entertainment;
 using WinHue3.Functions.EventViewer;
+using WinHue3.Functions.Mqtt.Client;
 using WinHue3.Functions.PowerSettings;
 using WinHue3.Functions.PropertyGrid;
 using WinHue3.Functions.RoomMap;
@@ -1340,6 +1341,15 @@ namespace WinHue3.MainForm
                 if (callback != null)
                     await callback();
             }
+        }
+
+        private void CreateMqttConditions()
+        {
+            Form_MqttClient fmqtt = new Form_MqttClient
+            {
+                Owner = Application.Current.MainWindow
+            };
+            fmqtt.ShowDialog();
         }
 
         private async Task SliderChangeHueKeypress(object e)

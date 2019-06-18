@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.Lights.SupportedDevices;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
@@ -258,6 +259,8 @@ namespace WinHue3.MainForm
         public ICommand CreateAdvancedCommand => new RelayCommand(param => CreateAdvanced(),  param => EnableButtons());
         public ICommand CreateFloorPlanCommand => new RelayCommand(param => CreateFloorPlan(), (param)=> EnableButtons());
         public ICommand CreateEntertainmentCommand => new AsyncRelayCommand(param => CreateEntertainment(),  param => EnableButtons());
+
+        public ICommand CreateMqttConditionCommand => new RelayCommand(param => CreateMqttConditions(), param => EnableButtons());
 
         public ICommand CreateAnimationCommand => new RelayCommand(param => CreateAnimation());
         public ICommand TouchLinkCommand => new AsyncRelayCommand(param => DoTouchLink(), param => EnableButtons());

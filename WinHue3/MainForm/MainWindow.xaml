@@ -160,6 +160,7 @@
                     </MenuItem.Icon>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                 </MenuItem>
+                <MenuItem Header="{x:Static resx:GUI.MqttClient}" Foreground="Black" Command="{Binding CreateMqttConditionCommand}"/>
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
