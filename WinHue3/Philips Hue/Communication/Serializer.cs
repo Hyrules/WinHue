@@ -122,7 +122,7 @@ namespace WinHue3.Philips_Hue.Communication
 
                 return default(T);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 log.Error($"Error deserializing object {typeof(T).Name} : " + json);
                 return default(T);
