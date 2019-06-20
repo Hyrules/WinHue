@@ -145,7 +145,7 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         public void RefreshImage()
         {
             if (state?.on != null)
-                Image = GetImageForLight(modelid, config.archetype);
+                Image = GetImageForLight(modelid, config?.archetype);
         }
 
         /// <summary>
