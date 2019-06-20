@@ -43,7 +43,9 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             string val = (string) value;
-            writer.WriteRaw(val);
+            JObject obj = JObject.Parse(val);
+            obj.WriteTo(writer);
+            
 
         }
 

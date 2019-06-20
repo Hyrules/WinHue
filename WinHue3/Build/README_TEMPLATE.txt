@@ -7,7 +7,7 @@ You might also need Visual C++ 2010 Redistributable library.
 Both are available at Microsoft's website. 
 
 Fixed:
-- 
+- Unable to save rules or edit them.
 
 Added:
 - 
