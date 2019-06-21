@@ -22,5 +22,53 @@ namespace WinHue3.Philips_Hue.Communication2
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        public static async Task<string> PostAsync(string url, string data)
+        {
+            HttpResponseMessage httpr = await client.PostAsync(url, new StringContent(data));
+            if (httpr.IsSuccessStatusCode)
+            {
+                return await httpr.Content.ReadAsStringAsync();
+            }
+        }
+
+        public static async Task<string> GetAsync(string url)
+        {
+            HttpResponseMessage httpr = await client.GetAsync(url);
+            if(httpr.IsSuccessStatusCode)
+            {
+                return await httpr.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                
+            }
+        }
+
+        public static async Task<string> PutAsync(string url, string data)
+        {
+            HttpResponseMessage httpr = await client.PutAsync(url, new StringContent(data));
+            if (httpr.IsSuccessStatusCode)
+            {
+                return await httpr.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                
+            }
+        }
+
+        public static async Task<string> DeleteAsync(string url, string data)
+        {
+            HttpResponseMessage httpr = await client.DeleteAsync(url);
+            if (httpr.IsSuccessStatusCode)
+            {
+                return await httpr.Content.ReadAsStringAsync();
+            }
+            else
+            {
+
+            }
+        }
+
     }
 }
