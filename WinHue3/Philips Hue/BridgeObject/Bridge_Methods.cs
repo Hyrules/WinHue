@@ -6,15 +6,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using log4net;
 using WinHue3.Functions.Application_Settings.Settings;
-using WinHue3.Functions.BridgeManager;
-using WinHue3.Functions.Lights.SupportedDevices;
-using WinHue3.Interface;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.Communication2;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.HueObjects.GroupObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
@@ -162,14 +159,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>json test resulting of the command.</returns>
         public string SendRawCommand(string url, string data, WebRequestType type)
         {
-            CommResult comres = Comm.SendRequest(new Uri(url), type, data);
-            if (comres.Status == WebExceptionStatus.Success)
+            HttpResult comres = HueHttpClient.SendRequest(new Uri(url), type, data);
+            if (comres.Success)
             {
                 if(type != WebRequestType.Get)
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return comres.Data;
             }
-            ProcessCommandFailure(url,comres.Status); 
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -183,14 +180,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>json test resulting of the command.</returns>
         public async Task<string> SendRawCommandAsyncTask(string url, string data, WebRequestType type)
         {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), type, data);
-            if (comres.Status == WebExceptionStatus.Success)
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), type, data);
+            if (comres.Success)
             {
                 if(type != WebRequestType.Get)
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return comres.Data;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 

@@ -6,7 +6,9 @@ using System.Net;
 using System.Reflection;
 using System.Windows;
 using Newtonsoft.Json;
+using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.Communication2;
 
 
 namespace WinHue3.Utils
@@ -38,8 +40,8 @@ namespace WinHue3.Utils
         public bool CheckForWinHueUpdate()
         {
             log.Info("Checking for WinHue 3 update...");
-            CommResult data = Comm.SendRequest(new Uri(UPDATE_URL), WebRequestType.Get);
-            if (data.Status == WebExceptionStatus.Success)
+            HttpResult data = HueHttpClient.SendRequest(new Uri(UPDATE_URL), WebRequestType.Get);
+            if (data.Success)
             {
                 _update = JsonConvert.DeserializeObject<Update>(data.Data);
             }

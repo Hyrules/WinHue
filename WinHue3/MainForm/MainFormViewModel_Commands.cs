@@ -346,7 +346,7 @@ namespace WinHue3.MainForm
 
         public ICommand SelectHueElementCommand => new AsyncRelayCommand(param => SelectHueElement());
         public ICommand SelectedFloorPlanChangedCommand => new RelayCommand(param => SelectedFloorPlanChanged());
-        public ICommand SetPowerModeCommand => new RelayCommand(param => SetPowerMode(), (param) => EnableButtons());
+        public ICommand SetPowerModeCommand => new AsyncRelayCommand(param => SetPowerMode(), (param) => EnableButtons());
 
     }
 }

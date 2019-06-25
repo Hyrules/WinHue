@@ -1,37 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Net.Security;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using Newtonsoft.Json;
-using Org.BouncyCastle.Crypto.Tls;
-using Org.BouncyCastle.Security;
-using WinHue3.ExtensionMethods;
-using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
-using WinHue3.Philips_Hue.Communication;
-using WinHue3.Philips_Hue.HueObjects.NewSensorsObject;
 using WinHue3.Utils;
-using WinHue3.Functions.Rules.Creator;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
-using Org.BouncyCastle.Utilities;
-using WinHue3.Philips_Hue.BridgeObject.Entertainment_API;
-using WinHue3.Functions.Animations2;
 using WinHue3.Functions.Converters;
-using WinHue3.Functions.Rules;
-using WinHue3.Philips_Hue.BridgeObject;
-using WinHue3.Philips_Hue.HueObjects.Common;
-using System.Net.Http;
 
 namespace WinHueTest
 {
@@ -50,31 +23,8 @@ namespace WinHueTest
         [TestMethod]
         public void HttpGetTest()
         {
-            HttpClient client = new HttpClient
-            {
-                Timeout = new TimeSpan(0, 0, 0, 3000),
-                BaseAddress = new Uri("http://banane/api/1234567890/")
-            };
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response;
-            try
-            {
-                response = client.GetAsync("lights").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    Task<string> task = response.Content.ReadAsStringAsync();
-                    task.RunSynchronously();
-                    string data = task.Result;
-                }
-                else
-                {
 
-                }
-            }
-            catch(WebException ex)
-            {
-                Assert.Fail(ex.Message.ToString());
-            }
+            
 
 
         }

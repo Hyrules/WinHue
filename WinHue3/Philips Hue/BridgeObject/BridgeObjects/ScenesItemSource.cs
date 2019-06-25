@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.HueObjects.SceneObject;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -10,11 +9,11 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
         public ItemCollection GetValues()
         {
             ItemCollection listscenes = new ItemCollection();
-            List<Scene> list = BridgesManager.Instance.SelectedBridge.GetListObjects<Scene>();
+         /*   List<Scene> list = BridgesManager.Instance.SelectedBridge.GetListObjects<Scene>();
             foreach (Scene s in list)
             {
                 listscenes.Add(s.Id);
-            }
+            }*/
             return listscenes;
         }
     }

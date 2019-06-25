@@ -5,13 +5,13 @@ using Hardcodet.Wpf.TaskbarNotification;
 using WinHue3.Addons.CpuTempMon;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.HotKeys;
-using WinHue3.Philips_Hue.Communication;
 using WinHue3.Utils;
 using WinHue3.Functions.RoomMap;
 using WinHue3.Philips_Hue.HueObjects.Common;
 using WinHue3.Philips_Hue.BridgeObject;
 using MQTTnet.Client;
 using MQTTnet;
+using WinHue3.Philips_Hue.Communication2;
 
 namespace WinHue3.MainForm
 {
@@ -28,8 +28,8 @@ namespace WinHue3.MainForm
 
         public MainFormViewModel()
         {
-            Comm.CommunicationTimedOut += Comm_CommunicationTimedOut;
-            Comm.Timeout = WinHueSettings.settings.Timeout;
+            HueHttpClient.OnCommunicationTimeOut += Comm_CommunicationTimedOut;
+            HueHttpClient.Timeout = WinHueSettings.settings.Timeout;
 
             _mainFormModel = new MainFormModel();
             _sliderTT = WinHueSettings.settings.DefaultTT;            

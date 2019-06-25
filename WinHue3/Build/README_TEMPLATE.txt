@@ -11,10 +11,10 @@ Fixed:
 - No Archetype resulting in an exception while getting the light type.
 
 Added:
-- 
+- Smaller icon view. 
 
 Changed:
-- 
+- Replace webclient with Httpclient. 
 
 Updated :
 - 

@@ -28,6 +28,11 @@ namespace WinHue3.Functions.PowerSettings
             pfvm = DataContext as PowerFailureSettingsViewModel;
         }
 
+        public async Task Initialize(Bridge bridge)
+        {
+            await pfvm.Initialize(bridge);
+        }
+
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();

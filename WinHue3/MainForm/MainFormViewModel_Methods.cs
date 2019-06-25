@@ -57,6 +57,7 @@ using WinHue3.Functions.Mqtt.Client;
 using WinHue3.Functions.PowerSettings;
 using WinHue3.Functions.PropertyGrid;
 using WinHue3.Functions.RoomMap;
+using WinHue3.Philips_Hue.Communication2;
 using Binding = System.Windows.Data.Binding;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
@@ -111,10 +112,11 @@ namespace WinHue3.MainForm
 
         private void CreateAdvanced()
         {
-            Form_AdvancedCreator fac = new Form_AdvancedCreator(SelectedBridge)
+            Form_AdvancedCreator fac = new Form_AdvancedCreator()
             {
                 Owner = Application.Current.MainWindow,
             };
+            fac.Initialize(SelectedBridge);
             fac.OnObjectCreated += Fac_OnObjectCreated;
             fac.Show();
         }
@@ -775,12 +777,13 @@ namespace WinHue3.MainForm
             await SelectedBridge.SetEntertrainementGroupStreamStatus(SelectedObject.Id, true);
         }
 
-        private void SetPowerMode()
+        private async Task SetPowerMode()
         {
             Form_PowerFailureSettings fps = new Form_PowerFailureSettings()
             {
                 Owner = Application.Current.MainWindow
             };
+            await fps.Initialize(SelectedBridge);
             fps.ShowDialog();
         }
 
@@ -1108,7 +1111,7 @@ namespace WinHue3.MainForm
         {
             Form_AppSettings settings = new Form_AppSettings {Owner = Application.Current.MainWindow};
             if (settings.ShowDialog() != true) return;
-            Comm.Timeout = WinHueSettings.settings.Timeout;
+            HueHttpClient.Timeout = WinHueSettings.settings.Timeout;
             if (MainFormModel.ShowId != WinHueSettings.settings.ShowID)
             {
                 MainFormModel.ShowId = WinHueSettings.settings.ShowID;
@@ -1347,7 +1350,7 @@ namespace WinHue3.MainForm
         {
             Form_MqttClient fmqtt = new Form_MqttClient
             {
-                Owner = Application.Current.MainWindow
+                Owner = Application.Current.MainWindow,
             };
             fmqtt.ShowDialog();
         }

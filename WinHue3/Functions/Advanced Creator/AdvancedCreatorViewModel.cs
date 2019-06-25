@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Newtonsoft.Json;
-using WinHue3.Functions.BridgeManager;
+using WinHue3.Philips_Hue;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Utils;
 using MessageBox = System.Windows.Forms.MessageBox;
-using WebRequestType = WinHue3.Philips_Hue.Communication.WebRequestType;
+
 
 namespace WinHue3.Functions.Advanced_Creator
 {
@@ -19,13 +19,17 @@ namespace WinHue3.Functions.Advanced_Creator
         private string _url;
         private Bridge _bridge;
 
-        public AdvancedCreatorViewModel(Bridge bridge)
+        public AdvancedCreatorViewModel()
         {
-            _bridge = bridge;
             _text = string.Empty;
             _type = string.Empty;
-            _requestType = WebRequestType.Post;
             _url = string.Empty;
+            _requestType = WebRequestType.Post;
+        }
+
+        public void Initialize(Bridge bridge)
+        {
+            _bridge = bridge;
         }
 
         private void CreateScheduleTemplate()
