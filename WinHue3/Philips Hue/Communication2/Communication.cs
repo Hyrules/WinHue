@@ -97,10 +97,10 @@ namespace WinHue3.Philips_Hue.Communication2
                         httpr = client.GetAsync(url).Result;
                         break;
                     case WebRequestType.Post:
-                        httpr = client.PutAsync(url, new StringContent(data)).Result;
+                        httpr = client.PostAsync(url, new StringContent(data)).Result;
                         break;
                     case WebRequestType.Delete:
-                        httpr = client.PutAsync(url, new StringContent(data)).Result;
+                        httpr = client.DeleteAsync(url).Result;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, $"{type} is not a recognized value.");
