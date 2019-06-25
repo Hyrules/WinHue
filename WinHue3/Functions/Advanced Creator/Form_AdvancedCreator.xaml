@@ -12,6 +12,7 @@
         xmlns:advancedCreator="clr-namespace:WinHue3.Functions.Advanced_Creator"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:philipsHue="clr-namespace:WinHue3.Philips_Hue"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.MainForm_Tab_Home_Group_Creators_AdvancedCreator}" Height="600" Width="800" ResizeMode="CanResizeWithGrip" MinHeight="600" MinWidth="800" Icon="/WinHue3;component/Resources/advanced.png" WindowStartupLocation="CenterOwner" Name="Window">
     <Window.DataContext>
@@ -59,10 +60,10 @@
 
         <xctk:WatermarkTextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,46,97,0" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}"/>
         <ComboBox Margin="0,46,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content">
-            <ComboBoxItem Content="POST" Tag="{x:Static comm:WebRequestType.Post}"/>
-            <ComboBoxItem Content="PUT" Tag="{x:Static comm:WebRequestType.Put}"/>
-            <ComboBoxItem Content="DELETE" Tag="{x:Static comm:WebRequestType.Delete}"/>
-            <ComboBoxItem Content="GET" Tag="{x:Static comm:WebRequestType.Get}"/>
+            <ComboBoxItem Content="POST" Tag="{x:Static philipsHue:WebRequestType.Post}"/>
+            <ComboBoxItem Content="PUT" Tag="{x:Static philipsHue:WebRequestType.Put}"/>
+            <ComboBoxItem Content="DELETE" Tag="{x:Static philipsHue:WebRequestType.Delete}"/>
+            <ComboBoxItem Content="GET" Tag="{x:Static philipsHue:WebRequestType.Get}"/>
         </ComboBox>
         <avalonedit:TextEditor ShowLineNumbers="True" Margin="0,80,0,20" >
             <i:Interaction.Behaviors>

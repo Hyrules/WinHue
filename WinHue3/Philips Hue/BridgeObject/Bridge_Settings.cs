@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Philips_Hue.BridgeObject.BridgeObjects;
 using WinHue3.Philips_Hue.Communication;
+using WinHue3.Philips_Hue.Communication2;
 
 namespace WinHue3.Philips_Hue.BridgeObject
 {
@@ -21,14 +22,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
             Version limit = Version.Parse("1.15.0");
             if (api < limit) return null;
             string url = BridgeUrl + "/capabilities";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 Capabilities cap = Serializer.DeserializeToObject<Capabilities>(comres.Data);
                 return cap;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
     
@@ -39,14 +40,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public Capabilities GetBridgeCapabilities()
         {
             string url = BridgeUrl + "/capabilities";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 Capabilities cap = Serializer.DeserializeToObject<Capabilities>(comres.Data);
                 return cap;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -58,14 +59,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public BasicConfig GetBridgeBasicConfig()
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 BasicConfig config = Serializer.DeserializeToObject<BasicConfig>(comres.Data);
                 return config;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
 
         }
@@ -78,14 +79,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<BasicConfig> GetBridgeBasicConfigAsyncTask()
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 BasicConfig config = Serializer.DeserializeToObject<BasicConfig>(comres.Data);
                 return config;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
 
         }
@@ -94,18 +95,18 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// Change the name of the bridge.
         /// </summary>
         /// <param name="name">New name of the bridge.</param>
-        /// <returns>BridgeCommResult if the operation is successfull</returns>
+        /// <returns>BridgeHttpResult if the operation is successfull</returns>
         public async Task<bool> ChangeBridgeNameAsyncTask(string name)
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(new BridgeSettings() { name = name }));
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(new BridgeSettings() { name = name }));
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -113,18 +114,18 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// Change the name of the bridge.
         /// </summary>
         /// <param name="name">New name of the bridge.</param>
-        /// <returns>BridgeCommResult if the operation is successfull</returns>
+        /// <returns>BridgeHttpResult if the operation is successfull</returns>
         public bool ChangeBridgeName(string name)
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(new BridgeSettings() { name = name }));
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(new BridgeSettings() { name = name }));
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -135,16 +136,16 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public BridgeSettings GetBridgeSettings()
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 BridgeSettings bs = Serializer.DeserializeToObject<BridgeSettings>(comres.Data);
                 if (bs != null) return bs;
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -155,16 +156,16 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<BridgeSettings> GetBridgeSettingsAsyncTask()
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 BridgeSettings bs = Serializer.DeserializeToObject<BridgeSettings>(comres.Data);
                 if (bs != null) return bs;
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -175,14 +176,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <return>The new settings of the bridge.</return>
         public async Task<bool> SetBridgeSettingsAsyncTask(BridgeSettings settings)
         {
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, Serializer.ModifyJsonObject(settings));
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, Serializer.ModifyJsonObject(settings));
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-            ProcessCommandFailure(BridgeUrl + "/config",comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, BridgeUrl + "/config", WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -194,14 +195,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public bool SetBridgeSettings(BridgeSettings settings)
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(settings));
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Put, Serializer.ModifyJsonObject(settings));
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -221,14 +222,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 newuser.generateclientkey = null;
             }
 
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(newuser));
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(newuser));
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success ? LastCommandMessages.LastSuccess.value : null;
             }
-            ProcessCommandFailure(url,comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -241,14 +242,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<string> CreateUserAsyncTask(string deviceType)
         {
             string url = "http://" + _ipAddress + "/api";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(new User() { devicetype = deviceType }));
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Post, Serializer.CreateJsonObject(new User() { devicetype = deviceType }));
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success ? LastCommandMessages.LastSuccess.value : null;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -262,14 +263,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
 
             string url = BridgeUrl + "/config/whitelist/" + username;
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Delete);
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Delete);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-            ProcessCommandFailure(url,comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -282,14 +283,14 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<bool> RemoveUserAsyncTask(string username)
         {
             string url = BridgeUrl + "/config/whitelist/" + username;
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Delete);
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Delete);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -300,9 +301,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public Dictionary<string, Whitelist> GetUserList()
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 BridgeSettings brs = Serializer.DeserializeToObject<BridgeSettings>(comres.Data);
                 if (brs != null)
@@ -312,7 +313,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -323,9 +324,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public async Task<Dictionary<string, Whitelist>> GetUserListAsyncTask()
         {
             string url = BridgeUrl + "/config";
-            CommResult comres = await Comm.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
+            HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 BridgeSettings brs = Serializer.DeserializeToObject<BridgeSettings>(comres.Data);
                 if (brs != null)
@@ -335,7 +336,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -346,9 +347,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
         public List<string> GetTimeZones()
         {
             string url = BridgeUrl + "/info/timezones";
-            CommResult comres = Comm.SendRequest(new Uri(url), WebRequestType.Get);
+            HttpResult comres =HueHttpClient.SendRequest(new Uri(url), WebRequestType.Get);
 
-            if (comres.Status == WebExceptionStatus.Success)
+            if (comres.Success)
             {
                 List<string> timezones = Serializer.DeserializeToObject<List<string>>(comres.Data);
                 if (timezones != null)
@@ -358,7 +359,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-            ProcessCommandFailure(url, comres.Status);
+            BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
 
         }
@@ -378,9 +379,9 @@ namespace WinHue3.Philips_Hue.BridgeObject
             }
             else
             {
-                CommResult comres = await Comm.SendRequestAsyncTask(new Uri(BridgeUrl + "/info/timezones"), WebRequestType.Get);
+                HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(BridgeUrl + "/info/timezones"), WebRequestType.Get);
 
-                if (comres.Status == WebExceptionStatus.Success)
+                if (comres.Success)
                 {
                     List<string> timezones = Serializer.DeserializeToObject<List<string>>(comres.Data);
                     if (timezones != null)
@@ -390,7 +391,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                     return null;
                 }
-                ProcessCommandFailure(BridgeUrl + "/info/timezones", comres.Status);
+                BridgeNotResponding.Invoke(this, new BridgeNotRespondingEventArgs(this, BridgeUrl + "/info/timezones", WebExceptionStatus.NameResolutionFailure));
                 return null;
             }
 

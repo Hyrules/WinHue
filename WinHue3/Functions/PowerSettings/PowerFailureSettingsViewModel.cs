@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WinHue3.Functions.BridgeManager;
 using WinHue3.Philips_Hue.BridgeObject;
 using WinHue3.Philips_Hue.HueObjects.LightObject;
 using WinHue3.Utils;
@@ -24,7 +23,6 @@ namespace WinHue3.Functions.PowerSettings
         public ICommand SetPowerFailureCommand => new AsyncRelayCommand(SetPowerFailure);
         public ICommand SetPowerCustomCommand => new RelayCommand(SetPowerCustom);
         public ICommand SetRefreshLightCommand => new AsyncRelayCommand(SetRefreshLight);
-        public ICommand InitializeCommand => new AsyncRelayCommand(param => Initialize(_bridge));
 
         private async Task SetRefreshLight(object obj)
         {
@@ -47,7 +45,7 @@ namespace WinHue3.Functions.PowerSettings
             bool result = (bool)fcs.ShowDialog();
         }
 
-        private async Task Initialize(Bridge bridge)
+        public async Task Initialize(Bridge bridge)
         {
             _bridge = bridge;
             if (_bridge == null) return;

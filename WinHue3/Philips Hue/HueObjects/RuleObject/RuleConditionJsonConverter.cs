@@ -10,13 +10,16 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             RuleCondition rc = (RuleCondition) value;
-            writer.WriteStartObject();
+           // writer.wri
             writer.WritePropertyName("address");
             writer.WriteValue(rc.address);
             writer.WritePropertyName("operator");
             writer.WriteValue(rc.@operator);
-            writer.WriteValue(rc.value);
-            writer.WriteEndObject();
+            if (rc.value != null)
+            {
+                writer.WritePropertyName("value");
+                writer.WriteValue(rc.value);
+            }
             writer.WriteEnd();
         }
 

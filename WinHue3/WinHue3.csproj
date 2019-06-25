@@ -238,9 +238,6 @@
       <DependentUpon>Form_BridgeFinder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\BridgeFinder\ProgressReport.cs" />
-    <Compile Include="Functions\BridgeManager\BridgeManager_Events.cs" />
-    <Compile Include="Functions\BridgeManager\BridgeManager_Methods.cs" />
-    <Compile Include="Functions\BridgeManager\BridgeManager_Properties.cs" />
     <Compile Include="Functions\BridgePairing\BridgeHandler.cs" />
     <Compile Include="Functions\BridgeSettings\BridgeSettingsHiddenObjects.cs" />
     <Compile Include="Functions\Converters\BoolToEnabledConverter.cs" />
@@ -259,6 +256,9 @@
     <Compile Include="Functions\Groups\Creator\GroupCreator.cs" />
     <Compile Include="Functions\HotKeys\HotKeyConverter.cs" />
     <Compile Include="Functions\HotKeys\HotKeyManager.cs" />
+    <Compile Include="Functions\Mqtt\Client\Form_MqttClient.xaml.cs">
+      <DependentUpon>Form_MqttClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions\PowerSettings\Form_PowerCustomSettings.xaml.cs">
       <DependentUpon>Form_PowerCustomSettings.xaml</DependentUpon>
     </Compile>
@@ -357,6 +357,7 @@
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueDtlsClient.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\HueTlsAuthentication.cs" />
     <Compile Include="Philips Hue\Communication2\Communication.cs" />
+    <Compile Include="Philips Hue\Communication\WebRequestTypes.cs" />
     <Compile Include="Philips Hue\HueObjects\GroupObject\Location.cs" />
     <Compile Include="Philips Hue\BridgeObject\Entertainment API\StreamMessage.cs" />
     <Compile Include="Philips Hue\BridgeObject\SearchResult.cs" />
@@ -449,7 +450,6 @@
     <Compile Include="Philips Hue\HueObjects\ScheduleObject\Schedule.cs" />
     <Compile Include="Functions\Application Settings\Settings\BridgeSaveSettings.cs" />
     <Compile Include="Functions\Application Settings\Settings\CustomSettings.cs" />
-    <Compile Include="Functions\BridgeManager\BridgeManager.cs" />
     <Compile Include="Utils\CoordinatesCollection.cs" />
     <Compile Include="Utils\HueObject.cs" />
     <Compile Include="Utils\StringCollection.cs" />
@@ -591,6 +591,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Functions\Entertainment\Form_EntertainmentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Functions\Mqtt\Client\Form_MqttClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1046,9 +1050,7 @@
   <ItemGroup>
     <None Include="Resources\entertainment_on.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Functions\Mqtt\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
@@ -1056,7 +1058,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)lights\*" "$(TargetDir)lights\*" /e /y
+    <PostBuildEvent>xcopy "$(SolutionDir)lights\*" "$(TargetDir)lights\*" /i /d /e /y
 powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Build\process_readme.ps1" "$(SolutionDir)WinHue3\Build\README_TEMPLATE.txt" "$(TargetDir)WinHue3.exe"
 powershell -ExecutionPolicy ByPass -file "$(SolutionDir)WinHue3\Build\process_installer.ps1" "$(SolutionDir)inno\installer_template.iss" "$(SolutionDir)WinHue3\\"</PostBuildEvent>
   </PropertyGroup>

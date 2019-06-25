@@ -1692,4 +1692,7 @@
   <data name="GroupScene" xml:space="preserve">
     <value>Scène de groupe</value>
   </data>
+  <data name="MqttClient" xml:space="preserve">
+    <value>Client MQTT</value>
+  </data>
 </root>

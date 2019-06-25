@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace WinHue3.Philips_Hue.Communication
 {
-    public enum WebRequestType { Put, Get, Post, Delete };
-
+ 
+    [Obsolete]
     public static class Comm
     {
         private static int _timeout = 3000;

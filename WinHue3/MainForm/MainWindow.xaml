@@ -160,6 +160,7 @@
                     </MenuItem.Icon>
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                 </MenuItem>
+                <!--<MenuItem Header="{x:Static resx:GUI.MqttClient}" Foreground="Black" Command="{Binding CreateMqttConditionCommand}"/>-->
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
@@ -468,6 +469,7 @@
                                                             <VirtualizingStackPanel>
                                                                 <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
                                                                     <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+
                                                                     <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
                                                                     <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
                                                                         <TextBlock.Style>

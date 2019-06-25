@@ -9,7 +9,7 @@ namespace WinHue3.Philips_Hue.HueObjects.RuleObject
     /// <summary>
     /// Rules condition.
     /// </summary>
-    [JsonObject,ExpandableObject, JsonConverter(typeof(RuleConditionJsonConverter))]
+    [JsonObject,ExpandableObject/*, JsonConverter(typeof(RuleConditionJsonConverter))*/]
     public class RuleCondition : ValidatableBindableBase
     {
         private HueAddress _address;

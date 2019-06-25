@@ -14,7 +14,7 @@
         xmlns:controls="clr-namespace:WinHue3.Controls"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.Form_PowerFailureSettings_Title}" Height="450" Width="601.158" Name="PowerSettingsWindow"
-        behaviors:WindowContentRenderedBehavior.Command="{Binding InitializeCommand}" WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <local:PowerFailureSettingsViewModel/>
     </Window.DataContext>
