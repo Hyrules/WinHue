@@ -9,6 +9,7 @@ Both are available at Microsoft's website.
 Fixed:
 - Unable to save rules or edit them.
 - No Archetype resulting in an exception while getting the light type.
+- Http send command error.
 
 Added:
 - Smaller icon view. 
