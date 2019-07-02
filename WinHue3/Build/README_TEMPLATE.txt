@@ -7,15 +7,13 @@ You might also need Visual C++ 2010 Redistributable library.
 Both are available at Microsoft's website. 
 
 Fixed:
-- Unable to save rules or edit them.
-- No Archetype resulting in an exception while getting the light type.
-- Http send command error.
+- Time property is deprecated and will be removed eventually. This fixes crashes when deserializing schedules.
 
 Added:
-- Smaller icon view. 
+- 
 
 Changed:
-- Replace webclient with Httpclient. 
+- 
 
 Updated :
 - 
