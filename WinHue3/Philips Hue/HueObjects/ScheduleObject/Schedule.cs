@@ -27,6 +27,7 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         private bool? _autodelete;
         private string _starttime;
         private bool _visible;
+        private string _time;
 
         /// <summary>
         /// Image of the rule.
@@ -56,6 +57,13 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         {
             get => _name;
             set => SetProperty(ref _name,value);
+        }
+
+        [Category("Schedule Properties"), Description ("Time of the schedule (DEPRECATED use localtime instead)")]
+        public string time
+        {
+            get => _time;
+            set => SetProperty(ref _time, value);
         }
 
         /// <summary>
@@ -148,15 +156,17 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
         [OnDeserialized]
         private void OnDeserialized(StreamingContext ctx)
         {
-            if (localtime.Contains("PT"))
+            string currenttime = localtime ?? time;
+
+            if (currenttime.Contains("PT"))
             {
                 Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.timer_clock);
             }
-            else if (localtime.Contains("W"))
+            else if (currenttime.Contains("W"))
             {
                 Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.stock_alarm);
             }
-            else if (localtime.Contains("T"))
+            else if (currenttime.Contains("T"))
             {
                 Image = GDIManager.CreateImageSourceFromImage(Properties.Resources.SchedulesLarge);
             }
