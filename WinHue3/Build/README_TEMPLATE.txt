@@ -12,7 +12,7 @@ Fixed:
 - Possible crash when settings files are empty.
 
 Added:
-- 
+- New error message window with more details.
 
 Changed:
 - 

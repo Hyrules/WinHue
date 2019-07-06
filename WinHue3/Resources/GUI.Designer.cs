@@ -889,6 +889,33 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error content :.
+        /// </summary>
+        public static string ErrorContent {
+            get {
+                return ResourceManager.GetString("ErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry but an unexpected exception occured. Please report the exception on the support website so the developper can fix the issues. Please include the most recent log located in the logs folder..
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event Log....
         /// </summary>
         public static string EventLogForm_Title {
@@ -1902,6 +1929,24 @@ namespace WinHue3.Resources {
         public static string Locations {
             get {
                 return ResourceManager.GetString("Locations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Folder.
+        /// </summary>
+        public static string LogFolder {
+            get {
+                return ResourceManager.GetString("LogFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can get your latest log here :.
+        /// </summary>
+        public static string LogLocation {
+            get {
+                return ResourceManager.GetString("LogLocation", resourceCulture);
             }
         }
         
