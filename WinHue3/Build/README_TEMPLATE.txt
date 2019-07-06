@@ -15,7 +15,7 @@ Added:
 - New error message window with more details.
 
 Changed:
-- 
+- WinHue will now backup your settings files before overwriting it.
 
 Updated :
 - 
