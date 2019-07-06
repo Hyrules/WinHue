@@ -9,6 +9,7 @@ Both are available at Microsoft's website.
 Fixed:
 - Time property is deprecated and will be removed eventually. This fixes crashes when deserializing schedules.
 - Fixed a crash resuming from sleep.
+- Possible crash when settings files are empty.
 
 Added:
 - 

@@ -9,6 +9,7 @@ using WinHue3.Utils;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using WinHue3.Functions.Application_Settings.Settings;
 using WinHue3.Functions.EventViewer;
@@ -27,13 +28,18 @@ namespace WinHue3
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
+            Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version} started");
+            Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated()}");
+
+            
+
             if (log4net.LogManager.GetRepository() is Hierarchy hier)
             {
                 DataGridViewAppender dgva = (DataGridViewAppender)hier.GetAppenders().FirstOrDefault(appender => appender.Name.Equals("DataGridViewAppender"));
                 dgva.DgEventLog = EventLog.Instance.ListLogs;
             }
 
-            Log.Info(WinHueSettings.settings.Language);
+            Log.Info($"Loading language {WinHueSettings.settings.Language}");
             if (!string.IsNullOrEmpty(WinHueSettings.settings.Language) &&
                 !string.IsNullOrWhiteSpace(WinHueSettings.settings.Language))
             {
@@ -45,10 +51,10 @@ namespace WinHue3
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Log.Info($@"WinHue {Assembly.GetExecutingAssembly().GetName().Version} started");
-            Log.Info($"User is running as administrator : {UacHelper.IsProcessElevated()}");
+            
+            
             MainForm.MainWindow wnd = new MainForm.MainWindow();
-         
+            
             double height = SystemParameters.WorkArea.Height * 0.75 >= MainWindow.MinHeight
                 ? SystemParameters.WorkArea.Height*0.75
                 : MainWindow.MinHeight;
@@ -83,11 +89,17 @@ namespace WinHue3
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-          
-            MessageBox.Show("Sorry but an unexpected exception occured. Please report the exception on the support website so the developper can fix the issues. Please include the most recent log located in the logs folder.");
-            string ex = Serializer.SerializeJsonObject(e.ExceptionObject);
+            StringBuilder sb = new StringBuilder();
+            Exception ex = (Exception) e.ExceptionObject;
+            sb.AppendLine("Sorry but an unexpected exception occured. Please report the exception on the support website so the developper can fix the issues. Please include the most recent log located in the logs folder.\r\n");
+            sb.AppendLine($"Error message : {ex.Message}");
+            sb.AppendLine($"Source : {ex.Source}");
+            sb.AppendLine($"Date : {ex.Data}");
+            sb.AppendLine($"Stack : {ex.StackTrace}");
+            MessageBox.Show(sb.ToString());
+            string exmsg = Serializer.SerializeJsonObject(e.ExceptionObject);
             Log.Fatal("Unexpected Exception : ",(Exception)e.ExceptionObject);
-            Log.Fatal(ex);
+            Log.Fatal(exmsg);
         }
 
 
