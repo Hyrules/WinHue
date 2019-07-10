@@ -5,6 +5,8 @@
 - [Visual C++ 2010 Redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=5555)<br/>
 - [A complete Philips Hue Light system including some philips hue lights and bridge (Api version 1.16 or greater)](https://www2.meethue.com/en-us/products/starter-kits#filters=STARTER_KITS_SU&sliders=&support=&price=&priceBoxes=&page=&layout=12.subcategory.p-grid-icon)
 
+***PHILIPS HUE HAS RELEASED BLUETOOTH BULBS. WINHUE DOES NOT SUPPORT THOSE LIGHTS***
+
 <b>Description :</b>
 
 WinHue is a windows desktop application to control the philips hue lighting system. It is was created for desktop pc using the microsoft .net framework. It is not intended to run on Windows phones and tablet and those plateforms will not be supported. WinHue also include a console version that comes with the installer. 
