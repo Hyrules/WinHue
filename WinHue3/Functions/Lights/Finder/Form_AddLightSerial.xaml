@@ -12,12 +12,19 @@
     <Window.DataContext>
         <finder:AddLightSerialViewModel/>
     </Window.DataContext>
-    <Grid>
-        
-        <TextBox HorizontalAlignment="Left" Height="66" Margin="10,48,0,0" TextWrapping="Wrap" Text="{Binding ListSerials, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="361" VerticalScrollBarVisibility="Visible"/>
-        <TextBlock Text="{x:Static resx:GUI.AddLightSerialForm_Message}" HorizontalAlignment="Left" Height="38" Margin="10,10,0,0" VerticalAlignment="Top" Width="361" TextWrapping="WrapWithOverflow"/>
-        <Button x:Name="BtnFind" Content="{x:Static resx:GUI.AddLightSerialForm_Seach}" HorizontalAlignment="Left" Margin="216,119,0,0" VerticalAlignment="Top" Width="75" Click="btnFind_Click"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="296,119,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="31"/>
+        </Grid.RowDefinitions>
+
+        <TextBox TextWrapping="Wrap" Text="{Binding ListSerials, UpdateSourceTrigger=PropertyChanged}" VerticalScrollBarVisibility="Visible" Grid.Row="1"/>
+        <TextBlock Text="{x:Static resx:GUI.AddLightSerialForm_Message}" TextWrapping="WrapWithOverflow" Padding="5,0" Margin="0,0,0,10"/>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="2">
+            <Button x:Name="BtnFind" Content="{x:Static resx:GUI.AddLightSerialForm_Seach}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnFind_Click"/>
+            <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnCancel_Click" Margin="10,0,0,0"/>
+        </StackPanel>
 
     </Grid>
 </Window>

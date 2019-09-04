@@ -40,7 +40,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
     </Window.Resources>
 
     <Window.DataContext>
@@ -49,13 +49,8 @@
 
 
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="81" />
-            <RowDefinition/>
-            <RowDefinition Height="28"/>
-        </Grid.RowDefinitions>
-        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" FontSize="19" >
+    <DockPanel>
+        <Menu Height="31" VerticalAlignment="Top" Background="{StaticResource HeaderBackgroundBrush}" Foreground="White" FontSize="19" DockPanel.Dock="Top" >
             <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_File}" Foreground="White" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Menu_Settings}" Command="{Binding OpenSettingsWindowCommand}" Foreground="Black" >
                     <MenuItem.Icon>
@@ -161,6 +156,7 @@
                     <MenuItem Header="{x:Static resx:GUI.MainForm_ToolsTab_Settings}" Command="{Binding CpuTempMonSettingsCommand}"/>
                 </MenuItem>
                 <!--<MenuItem Header="{x:Static resx:GUI.MqttClient}" Foreground="Black" Command="{Binding CreateMqttConditionCommand}"/>-->
+
             </MenuItem>
             <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_View}" >
                 <MenuItem Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Refresh}" Command="{Binding RefreshViewCommand}" Foreground="Black"/>
@@ -211,461 +207,7 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="2" Margin="0,1,0,0">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="350"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" BorderBrush="DarkGray" >
-                <TextBlock  x:Name="LblSbMessage" Text="{Binding Lastmessage}" HorizontalAlignment="Stretch"/>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="0" BorderBrush="{x:Null}" Padding="1">
-                <Grid Height="22" Width="345">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="3"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="3"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Width="19" Height="19" Grid.Column="0" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_HotKey}" CornerRadius="10">
-                        <Border.Style>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="Background" Value="Red"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding HotkeyDetected}" Value="True">
-                                        <Setter Property="Background" Value="Green"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                    </Border>
-
-                    <Image Width="19" Height="19" Grid.Column="2" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_Search}">
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="{x:Null}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SearchingLights}" Value="True">
-                                        <Setter Property="Source" Value="/WinHue3;component/Resources/magnifier.png"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-
-                    <Image Width="19" Height="19" Grid.Column="4" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_UpdateAvailable}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewMouseUp">
-                                <i:InvokeCommandAction Command="{Binding DoAppUpdateCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="{x:Null}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding UpdateAvailable}" Value="True">
-                                        <Setter Property="Source" Value="/WinHue3;component/Resources/UpdateSearch.png"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
-                        <ComboBox.Style>
-                            <Style TargetType="{x:Type ComboBox}">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding MultiBridgeCB}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ComboBox.Style>
-                    </ComboBox>
-                </Grid>
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="0,76,-0.333,0.333" Grid.RowSpan="2" Background="{StaticResource HeaderBackgroundBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="350"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="{x:Static resx:GUI.BridgeUpdateRequired}" FontSize="40" Margin="5,181,9.667,0"  Height="198" VerticalAlignment="Top" TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="#FF7D7D7D" Grid.Column="0">
-                <TextBlock.Style>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Visibility" Value="Hidden"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding EnableListView}" Value="False">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" MinHeight="472"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
-                    <WrapPanel Height="36"></WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableHueSlider  x:Name="SlHue" Height="23" VerticalAlignment="Top" Width="257" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" SmallChange="1" LargeChange="100">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding HueKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableHueSlider.Background>
-                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
-                                    <GradientStop Color="#FFFF0000" />
-                                    <GradientStop Color="#FEFFFF00" Offset="0.195" />
-                                    <GradientStop Color="#FE00FF00" Offset="0.389" />
-                                    <GradientStop Color="#FE00FFFF" Offset="0.5"   />
-                                    <GradientStop Color="#FE0000FF" Offset="0.715" />
-                                    <GradientStop Color="#FEFF00FF" Offset="0.856" />
-                                    <GradientStop Color="#FFFF0000" Offset="1.0"   />
-                                </LinearGradientBrush>
-                            </sliders:BindableHueSlider.Background>
-                        </sliders:BindableHueSlider>
-                        <xctk:DoubleUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding ElementName=SlHue, Path=IsEnabled, Converter={StaticResource DoubleToUshortConverter}}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
-                    </WrapPanel>
-
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" />
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableSlider x:Name="SlBri" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0"  Width="257" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding BriKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableSlider.Background>
-                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                    <GradientStop Color="White" Offset="1"/>
-                                    <GradientStop Color="Black" Offset="0"/>
-                                </LinearGradientBrush>
-                            </sliders:BindableSlider.Background>
-                        </sliders:BindableSlider>
-                        <xctk:ByteUpDown Height="23" Width="66" Margin="5,0,0,0" Value="{Binding MainFormModel.SliderBri}" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderBriChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
-                    </WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableSlider x:Name="SlSat" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3" Width="257">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding SatKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableSlider.Background>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="White" x:Name="SlSatStartGradient"/>
-                                    <GradientStop Color="{Binding Hue, ElementName=SlHue}" Offset="1" x:Name="SlSatEndGradient"/>
-                                </LinearGradientBrush>
-                            </sliders:BindableSlider.Background>
-                        </sliders:BindableSlider>
-                        <xctk:ByteUpDown Value="{Binding MainFormModel.SliderSat}" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Height="23" Width="66" Margin="5,0,0,0" behaviors:CommandBehavior.Command="{Binding SliderSatChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
-                    </WrapPanel>
-                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
-                    <WrapPanel Margin="10" VerticalAlignment="Top">
-                        <sliders:BindableSlider x:Name="SlCt" Height="23" VerticalAlignment="Top" Maximum="500" Width="257" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewKeyUp">
-                                    <behaviors:InvokeDelegateCommandAction Command="{Binding CtKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <sliders:BindableSlider.Background>
-                                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                                    <GradientStop Color="#FFFF8912" Offset="0"/>
-                                    <GradientStop Color="#FFFFF9FD" Offset="1"/>
-                                </LinearGradientBrush>
-                            </sliders:BindableSlider.Background>
-                        </sliders:BindableSlider>
-                        <xctk:DoubleUpDown Height="23" Width="66" IsEnabled="{Binding ElementName=SlCt, Path=IsEnabled}" Value="{Binding MainFormModel.SliderCt, Converter={StaticResource DoubleToUshortConverter}}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Minimum="153" Maximum="500"/>
-
-                    </WrapPanel>
-
-                    <WrapPanel Margin="10">
-                        <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="5,0,0,0"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
-                            <Label.Style>
-                                <Style TargetType="{x:Type Label}">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                        <sliders:BindableSlider x:Name="SlX" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
-
-                        <xctk:DecimalUpDown Value="{Binding ElementName=SlX, Path=Value}" IsEnabled="{Binding ElementName=SlX, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
-                        <sliders:BindableSlider x:Name="SlY" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" OldValue="{Binding MainFormModel.OldSliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
-                        <xctk:DecimalUpDown Value="{Binding ElementName=SlY, Path=Value}" IsEnabled="{Binding ElementName=SlY, Path=IsEnabled}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
-
-                    </WrapPanel>
-                    <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
-                    <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
-                        <xctk:TimeSpanUpDown Value="{Binding SliderTt, Converter={StaticResource TimeSpanToUShortConverter}}" Maximum="01:49:13.5" Minimum="0" Width="99" FractionalSecondsDigitsCount="1" Watermark="(default)"/>
-                    </WrapPanel>
-
-
-                </StackPanel>
-            </Grid>
-            <TabControl Grid.Column="0" Margin="1,3,349.667,0" Grid.ColumnSpan="2">
-                <TabItem Header="{x:Static resx:GUI.AllObjects}">
-                    <Grid Background="#FFE5E5E5">
-                        <ListView x:Name="LvMainObjects"  
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                            SelectedItem="{Binding SelectedObject}" 
-                            SelectionChanged="LvMainObjects_SelectionChanged" 
-                            SelectionMode="Single" 
-                            VerticalContentAlignment="Stretch" Grid.Column="0" 
-                            behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
-                            behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
-                            behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
-                            behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
-                            behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
-                            ItemsSource="{Binding CurrentBridgeHueObjectsList}"
-                            Margin="0,0,0,0.333" MaxHeight="8000">
-
-                            <ListView.Resources>
- <Style TargetType="{x:Type ListViewItem}">
-                                    <Style.Resources>
-                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
-                                    </Style.Resources>
-                                    <Style.Triggers>
-                                        <EventTrigger RoutedEvent="Control.MouseDoubleClick">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ListView.Resources>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}">
-                                        <ContentControl.Style>
-                                            <Style TargetType="ContentControl">
-                                                <Setter Property="ContentTemplate">
-                                                    <Setter.Value>
-                                                        <DataTemplate>
-                                                            <VirtualizingStackPanel>
-                                                                <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                                                    <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
-
-                                                                    <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
-                                                                    <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
-                                                                        <TextBlock.Style>
-                                                                            <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
-                                                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                                                <Style.Triggers>
-                                                                                    <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
-                                                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                                                    </DataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </TextBlock.Style>
-                                                                    </TextBlock>
-                                                                </WrapPanel>
-                                                            </VirtualizingStackPanel>
-                                                        </DataTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=MainForm, Path=DataContext.CurrentView}" Value="2">
-                                                        <Setter Property="ContentTemplate">
-                                                            <Setter.Value>
-                                                                <DataTemplate>
-                                                                    <VirtualizingStackPanel>
-                                                                        <WrapPanel Width="300" VerticalAlignment="Center">
-                                                                            <Grid>
-                                                                                <Grid.ColumnDefinitions>
-                                                                                    <ColumnDefinition Width="32"/>
-                                                                                    <ColumnDefinition Width="*"/>
-                                                                                </Grid.ColumnDefinitions>
-                                                                                <Image Source="{Binding Image}" Height="32" Grid.Column="0"/>
-                                                                                <WrapPanel Grid.Column="1">
-                                                                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
-                                                                                    <WrapPanel>
-                                                                                        <TextBlock Text=" - [" FontStyle="Italic"/>
-                                                                                        <TextBlock FontStyle="Italic" Text="{Binding Id}"/>
-                                                                                        <TextBlock Text="]" FontStyle="Italic"/>
-                                                                                        <WrapPanel.Style>
-                                                                                            <Style TargetType="WrapPanel">
-                                                                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                                                                <Style.Triggers>
-                                                                                                    <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
-                                                                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                                                                    </DataTrigger>
-                                                                                                </Style.Triggers>
-                                                                                            </Style>
-                                                                                            
-
-                                                                                        </WrapPanel.Style>
-                                                                                    </WrapPanel>
-                                                                                </WrapPanel>
-                                                                                    
-                                                                            </Grid>
-                                                                        </WrapPanel>
-                                                                    </VirtualizingStackPanel>
-                                                                </DataTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ContentControl.Style>
-                                    </ContentControl>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    
-                                    <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}" />
-                            </ListView.ItemContainerStyle>
-                            <ListView.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}"/>
-                                    <Separator/>
-                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
-                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
-                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
-                                    </MenuItem>
-                                    <Separator />
-                                    <MenuItem Header="{x:Static resx:GUI.Stream}" Command="{Binding EnableStreamCommand}"/>
-                                    <Separator/>
-                                    <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
-                                </ContextMenu>
-                            </ListView.ContextMenu>
-                            <ListView.GroupStyle>
-                                <GroupStyle>
-                                    <GroupStyle.ContainerStyle>
-                                        <Style TargetType="{x:Type GroupItem}">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate>
-                                                        <Expander IsExpanded="True">
-                                                            <Expander.Header >
-                                                                <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
-                                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
-                                                                </Grid>
-                                                            </Expander.Header>
-                                                            <ItemsPresenter />
-                                                        </Expander>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </GroupStyle.ContainerStyle>
-                                </GroupStyle>
-                            </ListView.GroupStyle>
-                        </ListView>
-                    </Grid>
-                </TabItem>
-                <TabItem Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuFloorPlan}" >
-                    <TabItem.Header>
-                        <WrapPanel>
-                            <Label Content="{x:Static resx:GUI.FloorPlan}"/>
-                            <ComboBox Width="200" ItemsSource="{Binding ListFloorPlans}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedFloorPlan}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding SelectedFloorPlanChangedCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </ComboBox>
-
-                        </WrapPanel>
-
-                    </TabItem.Header>
-                    <Grid Background="#FFE5E5E5">
-                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
-                            <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedHueElement}" ItemsSource="{Binding SelectedFloorPlan.Elements, FallbackValue={x:Null}}" Height="{Binding SelectedFloorPlan.CanvasHeight, FallbackValue=0}" Width="{Binding SelectedFloorPlan.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding SelectHueElementCommand}"/>
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="PreviewMouseDoubleClick">
-                                        <i:InvokeCommandAction Command="{Binding DoubleClickObjectCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="{x:Type ListBoxItem}">
-                                        <Style.Resources>
-                                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
-                                        </Style.Resources>
-                                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
-                                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                                        <Style.Triggers>
-                                            <EventTrigger RoutedEvent="Control.MouseDoubleClick">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
-                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <Canvas Height="{Binding SelectedFloorPlan.CanvasHeight}" Width="{Binding SelectedFloorPlan.CanvasWidth}" IsItemsHost="True" >
-                                            <Canvas.Background>
-                                                <ImageBrush ImageSource="{Binding SelectedFloorPlan.Image}" Stretch="{Binding SelectedFloorPlan.StretchMode}"/>
-                                            </Canvas.Background>
-                                        </Canvas>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate DataType="roomMap:HueElement">
-                                        <WrapPanel Height="{Binding PanelHeight}" Width="{Binding PanelWidth}" Background="{x:Null}" ToolTip="{Binding Label}">
-                                            <i:Interaction.Behaviors>
-                                                <behaviors:DragBehavior/>
-                                            </i:Interaction.Behaviors>
-                                            <Image Source="{Binding Image}" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
-                                            <TextBlock Text="{Binding Label}" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}}" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}"/>
-                                        </WrapPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </ScrollViewer>
-                    </Grid>
-                </TabItem>
-            </TabControl>
-        </Grid>
-
-        <tb:TaskbarIcon x:Name="Trayicon" Height="659" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" Grid.RowSpan="2" >
-            <!--<tb:TaskbarIcon.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Lights" x:Name="mnuLights"/>
-                        <MenuItem Header="Groups" x:Name="mnuGroups"/>
-                        <MenuItem Header="Scenes" x:Name="mnuScenes"/>
-                    </ContextMenu>
-                </tb:TaskbarIcon.ContextMenu>-->
-        </tb:TaskbarIcon>
-        <ToolBarTray Height="45" Margin="0,31,0,0" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}">
+        <ToolBarTray Height="45" VerticalAlignment="Top" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}" DockPanel.Dock="Top">
             <ToolBar Header="{x:Static resx:GUI.MainForm_Tab_Home_Group_Search}" Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuSearch}" >
                 <Separator/>
                 <Button ToolTip="{x:Static resx:GUI.MainForm_Tab_Home_Group_SearchLight}" Command="{Binding SearchNewLightsCommand}">
@@ -775,6 +317,459 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-    </Grid>
+        <StatusBar x:Name="SbStatusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="27" VerticalAlignment="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="350"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch" BorderThickness="1" Margin="1" >
+                <TextBlock  x:Name="LblSbMessage" Text="{Binding Lastmessage}" HorizontalAlignment="Stretch"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2" BorderThickness="1" Margin="0" BorderBrush="{x:Null}" Padding="1">
+                <Grid Height="22" Width="345">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Width="19" Height="19" Grid.Column="0" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_HotKey}" CornerRadius="10">
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Background" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HotkeyDetected}" Value="True">
+                                        <Setter Property="Background" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+
+                    <Image Width="19" Height="19" Grid.Column="2" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_Search}">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{x:Null}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SearchingLights}" Value="True">
+                                        <Setter Property="Source" Value="/WinHue3;component/Resources/magnifier.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+
+                    <Image Width="19" Height="19" Grid.Column="4" ToolTip="{x:Static resx:GUI.MainForm_StatusBar_ToolTip_UpdateAvailable}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <i:InvokeCommandAction Command="{Binding DoAppUpdateCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{x:Null}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UpdateAvailable}" Value="True">
+                                        <Setter Property="Source" Value="/WinHue3;component/Resources/UpdateSearch.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <ComboBox Grid.Column="5" x:Name="CbListBridge" ItemsSource="{Binding ListBridges}" DisplayMemberPath="LongName" SelectedItem="{Binding SelectedBridge}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200" Height="22" BorderThickness="0" Padding="0" behaviors:CommandBehavior.Command="{Binding ChangeBridgeCommand}" behaviors:CommandBehavior.RoutedEventName="SelectionChanged" HorizontalContentAlignment="Stretch">
+                        <ComboBox.Style>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MultiBridgeCB}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
+                </Grid>
+            </StatusBarItem>
+        </StatusBar>
+        <tb:TaskbarIcon x:Name="Trayicon" Height="0" VerticalAlignment="Top" ToolTipText="WinHue 3" TrayMouseDoubleClick="Trayicon_TrayMouseDoubleClick" DockPanel.Dock="Top" Width="0" HorizontalAlignment="Left" >
+            <!--<tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Lights" x:Name="mnuLights"/>
+                        <MenuItem Header="Groups" x:Name="mnuGroups"/>
+                        <MenuItem Header="Scenes" x:Name="mnuScenes"/>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>-->
+
+        </tb:TaskbarIcon>
+        <Grid Background="{StaticResource HeaderBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{x:Static resx:GUI.BridgeUpdateRequired}" FontSize="40" Margin="5,181,9.667,0"  Height="198" VerticalAlignment="Top" TextWrapping="Wrap" HorizontalAlignment="Center" Foreground="#FF7D7D7D" Grid.Column="0">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EnableListView}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" MinHeight="472"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
+                    <WrapPanel Height="36"/>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_HueColor}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlHue}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableHueSlider  x:Name="SlHue" Height="23" VerticalAlignment="Top" Width="257" Value="{Binding MainFormModel.SliderHue}" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlHue}" IsMoveToPointEnabled="True" Command="{Binding SliderHueChangedCommand}" Maximum="65535" OldValue="{Binding MainFormModel.OldSliderHue, Mode=OneWayToSource}" SmallChange="1" LargeChange="100">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding HueKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableHueSlider.Background>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1.0,0.5" >
+                                    <GradientStop Color="#FFFF0000" />
+                                    <GradientStop Color="#FEFFFF00" Offset="0.195" />
+                                    <GradientStop Color="#FE00FF00" Offset="0.389" />
+                                    <GradientStop Color="#FE00FFFF" Offset="0.5"   />
+                                    <GradientStop Color="#FE0000FF" Offset="0.715" />
+                                    <GradientStop Color="#FEFF00FF" Offset="0.856" />
+                                    <GradientStop Color="#FFFF0000" Offset="1.0"   />
+                                </LinearGradientBrush>
+                            </sliders:BindableHueSlider.Background>
+                        </sliders:BindableHueSlider>
+                        <xctk:DoubleUpDown HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="66" Margin="5,0,0,0" IsEnabled="{Binding IsEnabled, Converter={StaticResource DoubleToUshortConverter}, ElementName=SlHue}" Value="{Binding MainFormModel.SliderHue}" behaviors:CommandBehavior.Command="{Binding SliderHueChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}"/>
+                    </WrapPanel>
+
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Brightness}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" Foreground="White" />
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableSlider x:Name="SlBri" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0"  Width="257" Value="{Binding MainFormModel.SliderBri}"  SmallChange="1" AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlBri}" IsMoveToPointEnabled="True" Command="{Binding SliderBriChangedCommand}" OldValue="{Binding MainFormModel.OldSliderBri, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding BriKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableSlider.Background>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="White" Offset="1"/>
+                                    <GradientStop Color="Black" Offset="0"/>
+                                </LinearGradientBrush>
+                            </sliders:BindableSlider.Background>
+                        </sliders:BindableSlider>
+                        <xctk:ByteUpDown Height="23" Width="66" Margin="5,0,0,0" Value="{Binding MainFormModel.SliderBri}" IsEnabled="{Binding IsEnabled, ElementName=SlBri}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderBriChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                    </WrapPanel>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_Saturation}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableSlider x:Name="SlSat" Height="23" VerticalAlignment="Top" Maximum="255" Minimum="0" IsSnapToTickEnabled="True" SmallChange="1" Value="{Binding MainFormModel.SliderSat}"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlSat}" IsMoveToPointEnabled="True" Command="{Binding SliderSatChangedCommand}" OldValue="{Binding MainFormModel.OldSliderSat, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3" Width="257">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding SatKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableSlider.Background>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="White" x:Name="SlSatStartGradient"/>
+                                    <GradientStop Color="{Binding Hue, ElementName=SlHue}" Offset="1" x:Name="SlSatEndGradient"/>
+                                </LinearGradientBrush>
+                            </sliders:BindableSlider.Background>
+                        </sliders:BindableSlider>
+                        <xctk:ByteUpDown Value="{Binding MainFormModel.SliderSat}" IsEnabled="{Binding IsEnabled, ElementName=SlSat}" Height="23" Width="66" Margin="5,0,0,0" behaviors:CommandBehavior.Command="{Binding SliderSatChangedCommand}" behaviors:CommandBehavior.RoutedEventName="EnterPressed" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" />
+                    </WrapPanel>
+                    <Label Content="{x:Static resx:GUI.MainForm_Sliders_ColorTemp}" HorizontalAlignment="Center"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}"/>
+                    <WrapPanel Margin="10" VerticalAlignment="Top">
+                        <sliders:BindableSlider x:Name="SlCt" Height="23" VerticalAlignment="Top" Maximum="500" Width="257" Minimum="153" IsSnapToTickEnabled="True" Value="{Binding MainFormModel.SliderCt}"  SmallChange="1"  AutoToolTipPlacement="TopLeft" ToolTip="{Binding Value, ElementName=SlCt}" IsMoveToPointEnabled="True" Command="{Binding SliderCtChangedCommand}" OldValue="{Binding MainFormModel.OldSliderCt, Mode=OneWayToSource}" Style="{StaticResource {x:Type Slider}}" LargeChange="3">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewKeyUp">
+                                    <behaviors:InvokeDelegateCommandAction Command="{Binding CtKeyPressCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <sliders:BindableSlider.Background>
+                                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                    <GradientStop Color="#FFFF8912" Offset="0"/>
+                                    <GradientStop Color="#FFFFF9FD" Offset="1"/>
+                                </LinearGradientBrush>
+                            </sliders:BindableSlider.Background>
+                        </sliders:BindableSlider>
+                        <xctk:DoubleUpDown Height="23" Width="66" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Value="{Binding MainFormModel.SliderCt, Converter={StaticResource DoubleToUshortConverter}}" Margin="5,0,0,0" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderCtChangedCommand}" ToolTip="{x:Static resx:GUI.EnterPressedTooltip}" Minimum="153" Maximum="500"/>
+
+                    </WrapPanel>
+
+                    <WrapPanel Margin="10">
+                        <Label Content="{x:Static resx:GUI.MoodCreatorForm_XYColorSpace}" HorizontalAlignment="Center" Margin="5,0,0,0"  Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlCt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=TabType}" Value="tiLIFX">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                        <sliders:BindableSlider x:Name="SlX" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderX}" OldValue="{Binding MainFormModel.OldSliderX}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
+
+                        <xctk:DecimalUpDown Value="{Binding Value, ElementName=SlX}" IsEnabled="{Binding IsEnabled, ElementName=SlX}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
+                        <sliders:BindableSlider x:Name="SlY" Maximum="1.000" Minimum="0.000" Height="23" Width="257" Value="{Binding MainFormModel.SliderY}" OldValue="{Binding MainFormModel.OldSliderY}" Margin="0,0,0,5" Command="{Binding SliderXyChangedCommand}" LargeChange="0.1" SmallChange="0.001"/>
+                        <xctk:DecimalUpDown Value="{Binding Value, ElementName=SlY}" IsEnabled="{Binding IsEnabled, ElementName=SlY}" Height="23" Width="66" Margin="5,0,0,5" behaviors:CommandBehavior.RoutedEventName="EnterPressed" behaviors:CommandBehavior.Command="{Binding SliderXyChangedCommand}" Maximum="1" Minimum="0" Increment="0.001" FormatString="F3"/>
+
+                    </WrapPanel>
+                    <Label x:Name="LblTt" Content="{Binding TransitionTimeTooltip, Mode=OneWay}" HorizontalAlignment="Center" Width="350" HorizontalContentAlignment="Center" IsEnabled="{Binding IsEnabled, ElementName=SlTt}" Foreground="White" Background="{DynamicResource HeaderBackgroundBrush}" />
+                    <WrapPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <xctk:TimeSpanUpDown Value="{Binding SliderTt, Converter={StaticResource TimeSpanToUShortConverter}}" Maximum="01:49:13.5" Minimum="0" Width="99" FractionalSecondsDigitsCount="1" Watermark="(default)"/>
+                    </WrapPanel>
+
+
+                </StackPanel>
+            </Grid>
+            <TabControl Grid.Column="0">
+                <TabItem Header="{x:Static resx:GUI.AllObjects}">
+                    <Grid>
+                        <ListView x:Name="LvMainObjects"  
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                SelectedItem="{Binding SelectedObject}" 
+                                SelectionChanged="LvMainObjects_SelectionChanged" 
+                                SelectionMode="Single" 
+                                VerticalContentAlignment="Stretch" Grid.Column="0" 
+                                behaviors:OnClickBehavior.Command="{Binding ClickObjectCommand}" 
+                                behaviors:OnClickBehavior.IgnoreClick_CanExecute="true"
+                                behaviors:OnDoubleClickBehavior.Command="{Binding DoubleClickObjectCommand}" 
+                                behaviors:OnDoubleClickBehavior.IgnoreDblClick_CanExecute="True"
+                                behaviors:KeyUpBehavior.Command="{Binding DeleteObjectCommand}"
+                                ItemsSource="{Binding CurrentBridgeHueObjectsList}" MaxHeight="8000" BorderBrush="{x:Null}">
+
+                            <ListView.Resources>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="Control.MouseDoubleClick">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.Resources>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding}">
+                                        <ContentControl.Style>
+                                            <Style TargetType="{x:Type ContentControl}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <VirtualizingStackPanel>
+                                                                <WrapPanel Orientation="Vertical" Margin="5,5,5,5" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                                                    <Image Height="48" Width="48" Source="{Binding Image}" SnapsToDevicePixels="True" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                                                                    <TextBlock x:Name="tblName" Text="{Binding name}" Style="{StaticResource TbWrap}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
+                                                                    <TextBlock  x:Name="tblShowId" Text="{Binding Id}" TextAlignment="Center" FontStyle="Italic">
+                                                                        <TextBlock.Style>
+                                                                            <Style BasedOn="{StaticResource TbWrap}" TargetType="{x:Type TextBlock}">
+                                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                                                    </TextBlock>
+                                                                </WrapPanel>
+                                                            </VirtualizingStackPanel>
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DataContext.CurrentView, ElementName=MainForm}" Value="2">
+                                                        <Setter Property="ContentTemplate">
+                                                            <Setter.Value>
+                                                                <DataTemplate>
+                                                                    <VirtualizingStackPanel>
+                                                                        <WrapPanel Width="300" VerticalAlignment="Center">
+                                                                            <Grid>
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="32"/>
+                                                                                    <ColumnDefinition Width="*"/>
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <Image Source="{Binding Image}" Height="32" Grid.Column="0"/>
+                                                                                <WrapPanel Grid.Column="1">
+                                                                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
+                                                                                    <WrapPanel>
+                                                                                        <WrapPanel.Style>
+                                                                                            <Style TargetType="{x:Type WrapPanel}">
+                                                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                                <Style.Triggers>
+                                                                                                    <DataTrigger Binding="{Binding DataContext.MainFormModel.ShowId, ElementName=MainForm}" Value="True">
+                                                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                                                    </DataTrigger>
+                                                                                                </Style.Triggers>
+                                                                                            </Style>
+
+
+                                                                                        </WrapPanel.Style>
+                                                                                        <TextBlock Text=" - [" FontStyle="Italic"/>
+                                                                                        <TextBlock FontStyle="Italic" Text="{Binding Id}"/>
+                                                                                        <TextBlock Text="]" FontStyle="Italic"/>
+                                                                                    </WrapPanel>
+                                                                                </WrapPanel>
+
+                                                                            </Grid>
+                                                                        </WrapPanel>
+                                                                    </VirtualizingStackPanel>
+                                                                </DataTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ContentControl.Style>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+
+                                    <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}" />
+                            </ListView.ItemContainerStyle>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Edit}" Command="{Binding EditObjectCommand}"/>
+                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Rename}" Command="{Binding RenameObjectCommand}"/>
+                                    <Separator/>
+                                    <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_Copy}">
+                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJson}" Command="{Binding CopyToJsonCommand}"/>
+                                        <MenuItem Header="{x:Static resx:GUI.MainForm_ListView_Context_CopyToJsonRaw}" Command="{Binding CopyToJsonRawCommand}"/>
+                                    </MenuItem>
+                                    <Separator />
+                                    <MenuItem Header="{x:Static resx:GUI.Stream}" Command="{Binding EnableStreamCommand}"/>
+                                    <Separator/>
+                                    <MenuItem Header="{x:Static resx:GUI.Button_Delete}" Command="{Binding DeleteObjectCommand}" Background="Red"/>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Expander IsExpanded="True">
+                                                            <Expander.Header >
+                                                                <Grid Width="Auto" HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}" Background="{StaticResource HeaderBackgroundBrush}">
+                                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" FontStyle="Italic" Foreground="White" Padding="3"/>
+                                                                </Grid>
+                                                            </Expander.Header>
+                                                            <ItemsPresenter />
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+                <TabItem Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=mnuFloorPlan}" >
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{x:Static resx:GUI.FloorPlan}"/>
+                            <ComboBox ItemsSource="{Binding ListFloorPlans}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedFloorPlan}" Height="21" VerticalAlignment="Center" Width="200">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedFloorPlanChangedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Background="#FFE5E5E5">
+                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
+                            <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedHueElement}" ItemsSource="{Binding SelectedFloorPlan.Elements, FallbackValue={x:Null}}" Height="{Binding SelectedFloorPlan.CanvasHeight, FallbackValue=0}" Width="{Binding SelectedFloorPlan.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectHueElementCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="PreviewMouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding DoubleClickObjectCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Style.Resources>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
+                                        </Style.Resources>
+                                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                                        <Style.Triggers>
+                                            <EventTrigger RoutedEvent="Control.MouseDoubleClick">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="(SolidColorBrush.Color)" To="Red" Duration="0:0:.3" AutoReverse="True"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.3" AutoReverse="True"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas Height="{Binding SelectedFloorPlan.CanvasHeight}" Width="{Binding SelectedFloorPlan.CanvasWidth}" IsItemsHost="True" >
+                                            <Canvas.Background>
+                                                <ImageBrush ImageSource="{Binding SelectedFloorPlan.Image}" Stretch="{Binding SelectedFloorPlan.StretchMode}"/>
+                                            </Canvas.Background>
+                                        </Canvas>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="roomMap:HueElement">
+                                        <WrapPanel Height="{Binding PanelHeight}" Width="{Binding PanelWidth}" Background="{x:Null}" ToolTip="{Binding Label}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:DragBehavior/>
+                                            </i:Interaction.Behaviors>
+                                            <Image Source="{Binding Image}" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
+                                            <TextBlock Text="{Binding Label}" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}}" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+    </DockPanel>
 
 </Window>

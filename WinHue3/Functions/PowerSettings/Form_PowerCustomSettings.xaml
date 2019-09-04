@@ -11,11 +11,17 @@
     <Window.DataContext>
         <local:PowerCustomSettingsViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="31"/>
+        </Grid.RowDefinitions>
 
         <xctk:PropertyGrid VerticalAlignment="Top" Height="393" ShowSearchBox="False" ShowSortOptions="False" SelectedObject="{Binding Customsettings}"/>
-        <Button x:Name="btnSave"  Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="187,398,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click" />
-        <Button x:Name="btnCancel"  Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="267,398,0,0" VerticalAlignment="Top" Width="75" Click="BtnCancel_Click"/>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="1">
+            <Button x:Name="btnCancel"  Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnCancel_Click" Height="21"/>
+            <Button x:Name="btnSave"  Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnSave_Click" Height="21" Margin="10,0,0,0" />
+        </StackPanel>
 
     </Grid>
 </Window>

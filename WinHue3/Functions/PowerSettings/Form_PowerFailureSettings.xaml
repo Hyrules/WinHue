@@ -19,8 +19,12 @@
         <local:PowerFailureSettingsViewModel/>
     </Window.DataContext>
 
-    <Grid>
-        <ListView Margin="15,10,9.667,54.667" ItemsSource="{Binding ListLights}">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="31"/>
+        </Grid.RowDefinitions>
+        <ListView ItemsSource="{Binding ListLights}">
             <ListView.Resources>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -102,8 +106,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnClose" Content="{x:Static resx:GUI.Button_Done}" Margin="504,371,15.667,21.667" Click="BtnClose_Click"/>
-        <Label Content="{x:Static resx:GUI.PowerSettings_Warning}" HorizontalAlignment="Left" Margin="15,373,0,0" VerticalAlignment="Top" Width="484"/>
+        <Button x:Name="btnClose" Content="{x:Static resx:GUI.Button_Done}" Click="BtnClose_Click" Grid.Row="1" Width="75" Height="21" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <Label Content="{x:Static resx:GUI.PowerSettings_Warning}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="484" Grid.Row="1"/>
 
     </Grid>
 </Window>
