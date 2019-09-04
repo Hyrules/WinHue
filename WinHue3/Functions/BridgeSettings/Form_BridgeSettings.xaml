@@ -56,71 +56,128 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.Button_Done}" HorizontalAlignment="Left" Margin="398,316,0,0" VerticalAlignment="Top" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." IsEnabled="{Binding CanClose}" />
-        <TabControl HorizontalAlignment="Left" Height="311" VerticalAlignment="Top" Width="483">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="31"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.Button_Done}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Click="btnDone_Click" ToolTip="Done will close the app without applying the modifications." IsEnabled="{Binding CanClose}" Grid.Row="1" Height="21" />
+        <TabControl>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings}">
-                <Grid >
-                    <Label Content="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_UTC}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="LblTime" Content="{Binding GeneralModel.Utc}" HorizontalAlignment="Left" Margin="121,41,0,0" VerticalAlignment="Top" Width="213"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_SwVersion}" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="LblSwVersion" Content="{Binding GeneralModel.Swversion}" HorizontalAlignment="Left" Margin="121,134,0,0" VerticalAlignment="Top" Width="213"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ZigBeeChannel}" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="LblZigbee" Content="{Binding GeneralModel.Zigbeechannel}" HorizontalAlignment="Left" Height="26" Margin="121,196,0,0" VerticalAlignment="Top" Width="213"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LocalTime}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="LblLocalTime" Content="{Binding GeneralModel.Localtime}" HorizontalAlignment="Left" Margin="121,72,0,0" VerticalAlignment="Top" Width="213"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ApiVersion}" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Label x:Name="LblApiVersion" Content="{Binding GeneralModel.Apiversion}" HorizontalAlignment="Left" Margin="121,165,0,0" VerticalAlignment="Top" Width="213"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LinkButtonState}" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="LblLinkButton" Content="{Binding GeneralModel.Linkstate}" HorizontalAlignment="Left" Margin="121,227,0,0" VerticalAlignment="Top" Width="210"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Timezone}" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="106"/>
-                    <ComboBox x:Name="CbTimezones" HorizontalAlignment="Left" Margin="121,107,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}"/>
-                    <xctk:WatermarkTextBox x:Name="TbName" HorizontalAlignment="Left" Margin="121,11,0,0" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="210" Watermark="{x:Static resx:GUI.Optional}"/>
-                    <Button x:Name="BtnApplyGeneralSettings" Content="{x:Static resx:GUI.Button_Apply}" HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyGeneralSettingsCommand}"/>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_UTC}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1"/>
+                    <Label x:Name="LblTime" Content="{Binding GeneralModel.Utc}" Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_SwVersion}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4"/>
+                    <Label x:Name="LblSwVersion" Content="{Binding GeneralModel.Swversion}" Grid.Row="4" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ZigBeeChannel}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" Grid.Row="6"/>
+                    <Label x:Name="LblZigbee" Content="{Binding GeneralModel.Zigbeechannel}" Grid.Row="6" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LocalTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2"/>
+                    <Label x:Name="LblLocalTime" Content="{Binding GeneralModel.Localtime}" Grid.Row="2" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_ApiVersion}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5"/>
+                    <Label x:Name="LblApiVersion" Content="{Binding GeneralModel.Apiversion}" Grid.Row="5" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_LinkButtonState}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7"/>
+                    <Label x:Name="LblLinkButton" Content="{Binding GeneralModel.Linkstate}" Grid.Row="7" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_GeneralSettings_Timezone}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" Grid.Row="3"/>
+                    <ComboBox x:Name="CbTimezones" HorizontalAlignment="Left" VerticalAlignment="Center" Width="210" ItemsSource="{Binding GeneralModel.ListTimeZones}" SelectedItem="{Binding GeneralModel.Timezone}" Grid.Row="3" Grid.Column="1"/>
+                    <xctk:WatermarkTextBox x:Name="TbName" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding GeneralModel.Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="210" Watermark="{x:Static resx:GUI.Optional}" Grid.Column="1"/>
+                    <Button x:Name="BtnApplyGeneralSettings" Content="{x:Static resx:GUI.Button_Apply}" HorizontalAlignment="Right" Width="75" Command="{Binding ApplyGeneralSettingsCommand}" Grid.Row="8" Grid.Column="1" Height="21" VerticalAlignment="Bottom"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings}">
-                <Grid>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_MAC}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="LblMac"  Content="{Binding NetworkModel.Mac}" HorizontalAlignment="Left" Margin="107,20,0,0" VerticalAlignment="Top" Width="155"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_IPAddress}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="92" />
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Netmask}" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Gateway}" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress}" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top"/>
-                    <xctk:IntegerUpDown x:Name="NudProxyPort" HorizontalAlignment="Left" Margin="107,192,0,0" VerticalAlignment="Top" Width="71" Maximum="65535" Minimum="0" Value="{Binding NetworkModel.Proxyport}" IsEnabled="{Binding NetworkModel.EnableDHCPControls}"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyPort}" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="92"/>
-                    <CheckBox x:Name="ChbDhcp" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Left" Margin="336,26,0,0" VerticalAlignment="Top" Width="125" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click"/>
-                    <xctk:WatermarkTextBox x:Name="TbIpAddress" HorizontalAlignment="Left" Margin="107,52,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleIP}"/>
-                    <xctk:WatermarkTextBox x:Name="TbNetmask" HorizontalAlignment="Left" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleMask}"/>
-                    <xctk:WatermarkTextBox x:Name="TbGateway" HorizontalAlignment="Left" Margin="107,108,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleGateway}"/>
-                    <xctk:WatermarkTextBox x:Name="TbProxyAddress" HorizontalAlignment="Left" Margin="107,163,0,0" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleIP}"/>
-                    <Button x:Name="BtnApplyNetworkSettings" Style="{StaticResource BtnApplyNetwork}"  Content="{x:Static resx:GUI.Button_Apply}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Left" Margin="394,227,0,0" VerticalAlignment="Top" Width="75" />
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_MAC}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="LblMac"  Content="{Binding NetworkModel.Mac}" Width="155" Grid.Column="1" HorizontalAlignment="Left"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_IPAddress}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Grid.Row="2" />
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Netmask}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Grid.Row="3"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_Gateway}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Grid.Row="4"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5"/>
+                    <xctk:IntegerUpDown x:Name="NudProxyPort" HorizontalAlignment="Left" VerticalAlignment="Center" Width="71" Maximum="65535" Minimum="0" Value="{Binding NetworkModel.Proxyport}" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Grid.Row="6" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_ProxyPort}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Grid.Row="6"/>
+                    <CheckBox x:Name="ChbDhcp" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_NetworkSettings_DHCP}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="125" IsChecked="{Binding NetworkModel.Dhcp}" Click="chbDHCP_Click" Grid.Column="1"/>
+                    <xctk:WatermarkTextBox x:Name="TbIpAddress" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding NetworkModel.Ip, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleIP}" Grid.Row="2" Grid.Column="1"/>
+                    <xctk:WatermarkTextBox x:Name="TbNetmask" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding NetworkModel.Netmask, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleMask}" Grid.Row="3" Grid.Column="1"/>
+                    <xctk:WatermarkTextBox x:Name="TbGateway" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding NetworkModel.Gateway, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleGateway}" Grid.Row="4" Grid.Column="1"/>
+                    <xctk:WatermarkTextBox x:Name="TbProxyAddress" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding NetworkModel.Proxy, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="145" IsEnabled="{Binding NetworkModel.EnableDHCPControls}" Watermark="{x:Static resx:GUI.ExampleIP}" Grid.Row="5" Grid.Column="1"/>
+                    <Button x:Name="BtnApplyNetworkSettings" Style="{StaticResource BtnApplyNetwork}"  Content="{x:Static resx:GUI.Button_Apply}" Command="{Binding ApplyNetworkSettingsCommand}"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Grid.Row="7" Height="21" Grid.Column="1" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus}">
-                <Grid>
-                    <CheckBox x:Name="ChbPortalService" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_PortalService}" IsChecked="{Binding PortalModel.Portalservice,Mode=OneWay}" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" IsHitTestVisible="False" ToolTip="This option cannot be modified." Width="211"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Connection}" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label x:Name="LblPortalConnection" Content="{Binding PortalModel.Connection}" HorizontalAlignment="Left" Margin="134,52,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_SignedOn}" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Incoming}" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Outgoing}" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Communication}" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="119"/>
-                    <Label x:Name="LblSignedon" Content="{Binding PortalModel.Signedon}" HorizontalAlignment="Left" Margin="134,83,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="LblIncoming" Content="{Binding PortalModel.Incoming}" HorizontalAlignment="Left" Margin="134,114,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="LblOutgoing" Content="{Binding PortalModel.Outgoing}" HorizontalAlignment="Left" Margin="134,145,0,0" VerticalAlignment="Top" Width="333"/>
-                    <Label x:Name="LblComm" Content="{Binding PortalModel.Communication}" HorizontalAlignment="Left" Margin="134,176,0,0" VerticalAlignment="Top" Width="333"/>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="ChbPortalService" Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_PortalService}" IsChecked="{Binding PortalModel.Portalservice,Mode=OneWay}" VerticalAlignment="Center" IsHitTestVisible="False" ToolTip="This option cannot be modified." Margin="10" Grid.ColumnSpan="2"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Connection}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Grid.Row="1"/>
+                    <Label x:Name="LblPortalConnection" Content="{Binding PortalModel.Connection}" Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_SignedOn}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Grid.Row="2"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Incoming}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Grid.Row="3"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Outgoing}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Grid.Row="4"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_PortalStatus_Communication}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Grid.Row="5"/>
+                    <Label x:Name="LblSignedon" Content="{Binding PortalModel.Signedon}" Grid.Row="2" Grid.Column="1"/>
+                    <Label x:Name="LblIncoming" Content="{Binding PortalModel.Incoming}" Grid.Row="3" Grid.Column="1"/>
+                    <Label x:Name="LblOutgoing" Content="{Binding PortalModel.Outgoing}" Grid.Row="4" Grid.Column="1"/>
+                    <Label x:Name="LblComm" Content="{Binding PortalModel.Communication}" Grid.Row="5" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate}">
-                <Grid Margin="0,0,-0.333,-0.333">
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" Margin="9,8,0,0" VerticalAlignment="Top" Width="90"/>
-                    <Label x:Name="LblUpdateState" Content="{Binding SoftwareModel.Updatestate}" HorizontalAlignment="Left" Margin="99,8,0,0" VerticalAlignment="Top" Width="289" Height="26"/>
-                    <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Margin="10,224,0,0" Width="170" Command="{Binding ForceCheckUpdateCommand}" VerticalContentAlignment="Top" Height="20" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="chbAutoInstall"  Content="" HorizontalAlignment="Left" Margin="103,45,0,0" VerticalAlignment="Top" IsChecked="{Binding SoftwareModel.AutoUpdate}" IsEnabled="{Binding CanAutoInstall}"/>
-                    <Button Content="{x:Static resx:GUI.Button_Apply}" Width="75" Margin="392,224,10,0" Command="{Binding ApplyUpdateSettingsCommand}" Height="20" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
-                    <xctk:DateTimePickerBase HorizontalAlignment="Left" Margin="104,75,0,0" VerticalAlignment="Top" Width="70" Format="Custom" Value="{Binding SoftwareModel.UpdateTime}" FormatString="HH:mm:ss">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
+                    <Label x:Name="LblUpdateState" Content="{Binding SoftwareModel.Updatestate}" Grid.Column="1"/>
+                    <CheckBox x:Name="chbAutoInstall"  Content="" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding SoftwareModel.AutoUpdate}" IsEnabled="{Binding CanAutoInstall}" Grid.Row="1" Grid.Column="1"/>
+                    <Button Content="{x:Static resx:GUI.Button_Apply}" Width="75" Command="{Binding ApplyUpdateSettingsCommand}" Height="21" VerticalContentAlignment="Top" VerticalAlignment="Bottom" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Margin="10"/>
+                    <xctk:DateTimePickerBase HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Format="Custom" Value="{Binding SoftwareModel.UpdateTime}" FormatString="HH:mm:ss" Grid.Row="2" Grid.Column="1">
                         <xctk:DateTimePickerBase.Style>
                             <Style TargetType="xctk:DateTimePickerBase">
                                 <Setter Property="IsEnabled" Value="False"/>
@@ -132,14 +189,17 @@
                             </Style>
                         </xctk:DateTimePickerBase.Style>
                     </xctk:DateTimePickerBase>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_UpdateTime}" Margin="9,70,0,0" Width="90" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Height="26" VerticalAlignment="Top"/>
-                    <ProgressBar HorizontalAlignment="Left" Height="15" Margin="10,200,0,0" VerticalAlignment="Top" Width="457" Maximum="179" Value="{Binding UpdateProgress}"/>
-                    <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Command="{Binding UpdateBridgeFirmwareCommand}" HorizontalAlignment="Left" Margin="185,224,0,0" VerticalAlignment="Top" Width="103"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_AutoInstall}" HorizontalAlignment="Left" Margin="9,39,0,0" VerticalAlignment="Top" Width="89"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastUpdate}" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="89"/>
-                    <Label Content="{Binding SoftwareModel.LastUpdate}" HorizontalAlignment="Left" Margin="104,101,0,0" VerticalAlignment="Top" Width="151"/>
-                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastCheck}" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="89"/>
-                    <Label Content="{Binding SoftwareModel.LastChange}" HorizontalAlignment="Left" Margin="104,132,0,0" VerticalAlignment="Top" Width="151"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_UpdateTime}" Width="90" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Height="26" VerticalAlignment="Top" Grid.Row="2"/>
+                    <ProgressBar Height="15" VerticalAlignment="Bottom" Maximum="179" Value="{Binding UpdateProgress}" Grid.Row="5" Grid.ColumnSpan="2" Margin="10,0"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_AutoInstall}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Grid.Row="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastUpdate}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Grid.Row="3"/>
+                    <Label Content="{Binding SoftwareModel.LastUpdate}" Grid.Row="3" Grid.Column="1"/>
+                    <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastCheck}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Grid.Row="4"/>
+                    <Label Content="{Binding SoftwareModel.LastChange}" Grid.Row="4" Grid.Column="1"/>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10">
+                        <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Width="170" Command="{Binding ForceCheckUpdateCommand}" VerticalContentAlignment="Top" Height="21" VerticalAlignment="Top" Margin="0"/>
+                        <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Command="{Binding UpdateBridgeFirmwareCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Margin="10,0,0,0" Height="21"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Capabilities_Title}">
@@ -160,8 +220,17 @@
 
             </TabItem>
             <TabItem Header="{x:Static resx:GUI.BridgeSettingsForm_Tab_HiddenObjects}">
-                <Grid>
-                    <ListBox Margin="0,0,254.667,26.667" ItemsSource="{Binding HiddenObjects.ListObjects}" SelectedItem="{Binding HiddenObjects.SelectedObject}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox ItemsSource="{Binding HiddenObjects.ListObjects}" SelectedItem="{Binding HiddenObjects.SelectedObject}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type common:IHueObject}">
                                 <WrapPanel>
@@ -172,7 +241,11 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <ListBox Margin="252,0,2.667,26.667" ItemsSource="{Binding HiddenObjects.HiddenObjects}" SelectedItem="{Binding HiddenObjects.SelectedHiddenObject}">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="10,0">
+                        <Button Content="-&gt;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="21" Command="{Binding HiddenObjects.AddObjectToHiddenCommand}" Height="21"/>
+                        <Button Content="X" Width="21" Command="{Binding HiddenObjects.RemoveHiddenObjectCommand}" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <ListBox ItemsSource="{Binding HiddenObjects.HiddenObjects}" SelectedItem="{Binding HiddenObjects.SelectedHiddenObject}" Grid.Column="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type common:IHueObject}">
                                 <WrapPanel>
@@ -183,10 +256,10 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Button Content="{x:Static resx:GUI.Button_Save}" Width="75" Margin="399,241,2.667,2.667" Command="{Binding SaveHiddenObjectsCommand}"/>
-                    <Button Content="{x:Static resx:GUI.Button_Clear}" Width="75" Margin="319,241,82.667,2.667" Command="{Binding HiddenObjects.ClearHiddenObjectsCommand}"/>
-                    <Button Content="->" HorizontalAlignment="Left" Margin="227,68,0,0" VerticalAlignment="Top" Width="20" Command="{Binding HiddenObjects.AddObjectToHiddenCommand}"/>
-                    <Button Content="X" Width="20" Margin="227,93,229.667,150.667" Command="{Binding HiddenObjects.RemoveHiddenObjectCommand}"/>
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="3" Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button Content="{x:Static resx:GUI.Button_Clear}" Width="75" Command="{Binding HiddenObjects.ClearHiddenObjectsCommand}" Height="21"/>
+                        <Button Content="{x:Static resx:GUI.Button_Save}" Width="75" Command="{Binding SaveHiddenObjectsCommand}" Height="21" Margin="10,0,0,0"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
 
