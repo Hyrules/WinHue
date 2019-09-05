@@ -14,9 +14,9 @@
     <Window.DataContext>
         <view:GroupViewViewModel/>
     </Window.DataContext>
-    <Grid>
-        <ToolBarTray Margin="0,0,0,430.667">
-            <ToolBar x:Name="ToolBar" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="auto">
+    <DockPanel>
+        <ToolBarTray Height="45" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource HeaderBackgroundBrush}">
+            <ToolBar x:Name="ToolBar" HorizontalAlignment="Left" Width="auto" Height="43">
                 <Button Command="{Binding RefreshGroupViewCommand}" ToolTip="{x:Static resx:GUI.Form_SceneMapping_RefreshTooltip}">
                     <Image Source="/WinHue3;component/Resources/Reload.png" />
                 </Button>
@@ -27,16 +27,15 @@
             </ToolBar>
             <ToolBar x:Name="ToolBarEdit">
                 <Button Command="{Binding EditGroupCommand}" >
-                    <Image Height="16" Source="/WinHue3;component/Resources/edit-2.png"></Image>
+                    <Image Height="16" Source="/WinHue3;component/Resources/edit-2.png"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>
 
-        <xcdg:DataGridControl Margin="0,32,0,-0.333" ItemsSource="{Binding GroupsDetails}" IsCopyCommandEnabled="False" ReadOnly="True" SelectedItem="{Binding SelectedGroup}">
+        <xcdg:DataGridControl ItemsSource="{Binding GroupsDetails}" IsCopyCommandEnabled="False" ReadOnly="True" SelectedItem="{Binding SelectedGroup}">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView IsAlternatingRowStyleEnabled="True"/>
             </xcdg:DataGridControl.View>
         </xcdg:DataGridControl>
-
-    </Grid>
+    </DockPanel>
 </Window>

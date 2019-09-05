@@ -33,18 +33,18 @@
 
         <xctk:WatermarkTextBox x:Name="WatermarkTextBox" TextWrapping="Wrap" Text="{Binding UsersModel.Devtype}" VerticalAlignment="Center" Watermark="{x:Static resx:GUI.ManageUsers_DeviceType}" MaxLength="19" Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Grid.ColumnSpan="2"/>
         <xctk:WatermarkTextBox x:Name="WatermarkTextBox1" TextWrapping="Wrap" Text="{Binding UsersModel.ApplicationName}" VerticalAlignment="Center" Watermark="{x:Static resx:GUI.ManageUsers_Username}" MaxLength="20" Grid.Column="1" Margin="0,0,0,10" Grid.ColumnSpan="2" />
-        <Label x:Name="LblLastUsed" Content="{x:Static resx:GUI.ManageUsers_LastUsed}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Grid.Row="2" Grid.Column="1"/>
-        <Label x:Name="LblCreate" Content="{x:Static resx:GUI.ManageUsers_CreateDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Grid.Row="3" Grid.Column="1"/>
+        <Label x:Name="LblLastUsed" Content="{x:Static resx:GUI.ManageUsers_LastUsed}" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1"/>
+        <Label x:Name="LblCreate" Content="{x:Static resx:GUI.ManageUsers_CreateDate}" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1"/>
         <Label x:Name="LblLastUsedDate" Content="{Binding UsersModel.Lastused}" Grid.Row="2" Grid.Column="2"/>
         <Label x:Name="LblCreateDate" Content="{Binding UsersModel.Created}" Grid.Row="3" Grid.Column="2"/>
         <TextBox x:Name="TbKey" TextWrapping="Wrap" Text="{Binding UsersModel.Key}" BorderThickness="0" IsReadOnly="True" Grid.Row="4" Grid.Column="2" Margin="3.25,5,0,0"/>
-        <Label x:Name="Label" Content="{x:Static resx:GUI.ManageUsers_Key}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Grid.Row="4" Grid.Column="1"/>
+        <Label x:Name="Label" Content="{x:Static resx:GUI.ManageUsers_Key}" VerticalAlignment="Top" Grid.Row="4" Grid.Column="1"/>
         <TextBox TextWrapping="Wrap" Text="{x:Static resx:GUI.PressLinkButton}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Button x:Name="BtnDelete" Content="{x:Static resx:GUI.Button_Delete}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Background="Red" Command="{Binding DeleteCommand}" Visibility="Collapsed" Height="21" Margin="0" Grid.RowSpan="2"/>
-        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="10" Grid.ColumnSpan="2">
+        <Button x:Name="BtnDone" Content="{x:Static resx:GUI.Button_Done}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Click="btnDone_Click" Margin="0" Height="21" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="6"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="0,10,0,0">
             <Button x:Name="BtnClear" Content="{x:Static resx:GUI.Button_Clear}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding ClearCommand}" Height="21"/>
-            <Button x:Name="BtnAddUser" Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="107" Command="{Binding AddUserCommand}" Margin="10,0,0,0" Height="21"/>
-            <Button x:Name="BtnDone" Content="{x:Static resx:GUI.Button_Done}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Click="btnDone_Click" Margin="10,0,0,0" Height="21"/>
+            <Button x:Name="BtnAddUser" Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Command="{Binding AddUserCommand}" Margin="10,0,0,0" Height="21"/>
         </StackPanel>
 
     </Grid>

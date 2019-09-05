@@ -45,13 +45,50 @@
     <Window.DataContext>
         <creator:GroupCreatorViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="175"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
 
 
-        <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" />
+        <StackPanel Margin="0,0,10,0">
+            <Label Content="{x:Static resx:GUI.GroupCreatorForm_GroupName}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Padding="5" />
+            <xctk:WatermarkTextBox x:Name="TbGroupName" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Height="23" Watermark="{x:Static resx:GUI.GroupName_Watermark}"/>
+            <Label x:Name="Label" Content="{x:Static resx:GUI.GroupCreatorForm_Type}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0" Padding="5"/>
+            <ComboBox x:Name="ComboBox" VerticalAlignment="Top" IsEnabled="{Binding CanChangeType}"  SelectedValue="{Binding GroupCreator.Type}" SelectedValuePath="Tag">
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_LightGroup}" Tag="LightGroup"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_Room}" Tag="Room"/>
+            </ComboBox>
+            <Label x:Name="Label1" Content="{x:Static resx:GUI.GroupCreatorForm_Class}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+            <ComboBox x:Name="ComboBox1" VerticalAlignment="Top" SelectedValue="{Binding GroupCreator.Class}" SelectedValuePath="Tag" IsEnabled="{Binding GroupCreator.CanClass}">
 
-        <xctk:WatermarkTextBox x:Name="TbGroupName" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding GroupCreator.Name}" VerticalAlignment="Top" Width="170" Height="23" Watermark="{x:Static resx:GUI.GroupName_Watermark}"/>
-        <customControls:BindableListView x:Name="BindableListView" Margin="185,10,9.667,47" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_LivingRoom}" Tag="Living room"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Kitchen}" Tag="Kitchen"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Dining}" Tag="Dining"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Bedroom}" Tag="Bedroom"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_KidsBedroom}" Tag="Kids bedroom"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Bathroom}" Tag="Bathroom"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Nursery}" Tag="Nursery"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Recreation}" Tag="Recreation"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Office}" Tag="Office"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Gym}" Tag="Gym"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Hallway}" Tag="Hallway"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Toilet}" Tag="Toilet"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_FrontDoor}" Tag="Front door"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Garage}" Tag="Garage"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Terrace}" Tag="Terrace"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Garden}" Tag="Garden"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_DriveWay}" Tag="Driveway"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Carport}" Tag="Carport"/>
+                <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Other}" Tag="Other"/>
+            </ComboBox>
+        </StackPanel>
+        <customControls:BindableListView x:Name="BindableListView" ItemsSource="{Binding GroupCreator.ListAvailableLights}" SelectedItemsList="{Binding GroupCreator.Listlights, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
             <customControls:BindableListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
@@ -66,38 +103,12 @@
                 </DataTemplate>
             </customControls:BindableListView.ItemTemplate>
         </customControls:BindableListView>
-        <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="170" IsEnabled="{Binding CanChangeType}"  SelectedValue="{Binding GroupCreator.Type}" SelectedValuePath="Tag">
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_LightGroup}" Tag="LightGroup"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Type_Room}" Tag="Room"/>
-        </ComboBox>
-        <ComboBox x:Name="ComboBox1" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Width="170" SelectedValue="{Binding GroupCreator.Class}" SelectedValuePath="Tag" IsEnabled="{Binding GroupCreator.CanClass}">
-
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_LivingRoom}" Tag="Living room"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Kitchen}" Tag="Kitchen"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Dining}" Tag="Dining"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Bedroom}" Tag="Bedroom"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_KidsBedroom}" Tag="Kids bedroom"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Bathroom}" Tag="Bathroom"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Nursery}" Tag="Nursery"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Recreation}" Tag="Recreation"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Office}" Tag="Office"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Gym}" Tag="Gym"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Hallway}" Tag="Hallway"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Toilet}" Tag="Toilet"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_FrontDoor}" Tag="Front door"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Garage}" Tag="Garage"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Terrace}" Tag="Terrace"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Garden}" Tag="Garden"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_DriveWay}" Tag="Driveway"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Carport}" Tag="Carport"/>
-            <ComboBoxItem Content="{x:Static resx:GUI.GroupCreatorForm_Class_Other}" Tag="Other"/>
-        </ComboBox>
-        <Label x:Name="Label" Content="{x:Static resx:GUI.GroupCreatorForm_Type}" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Label1" Content="{x:Static resx:GUI.GroupCreatorForm_Class}" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" Margin="0,0,9.667,19" Click="btnCancel_Click" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
-        <Button x:Name="BtnCreateGroup" Style="{StaticResource BtnSave}" Content="{x:Static resx:GUI.GroupCreatorForm_CreateGroupButton}" Margin="0,0,89.667,19" Click="btnCreateGroup_Click" HorizontalAlignment="Right" Width="98" Height="23" VerticalAlignment="Bottom" />
-        <Button x:Name="BtnClear" Content="{x:Static resx:GUI.Button_Clear}" Command="{Binding ClearFieldsCommand}" Margin="0,0,193.667,19" HorizontalAlignment="Right" Width="74" Height="23" VerticalAlignment="Bottom"/>
-        <Label x:Name="Label2" Content="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" Margin="185,0,285.667,23" FontSize="10" Height="24" VerticalAlignment="Bottom"/>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">
+            <Button x:Name="BtnClear" Content="{x:Static resx:GUI.Button_Clear}" Command="{Binding ClearFieldsCommand}" HorizontalAlignment="Right" Width="75" Height="21" VerticalAlignment="Bottom"/>
+            <Button x:Name="BtnCreateGroup" Style="{StaticResource BtnSave}" Content="{x:Static resx:GUI.GroupCreatorForm_CreateGroupButton}" Click="btnCreateGroup_Click" HorizontalAlignment="Right" Width="98" Height="21" VerticalAlignment="Bottom" Margin="10,0,0,0" />
+            <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" Click="btnCancel_Click" HorizontalAlignment="Right" Width="75" Height="21" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+        </StackPanel>
+        <Label x:Name="Label2" Content="{x:Static resx:GUI.GroupCreatorForm_HoldCtrl}" FontSize="10" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Padding="0,0,5,5"/>
     </Grid>
 </Window>
 

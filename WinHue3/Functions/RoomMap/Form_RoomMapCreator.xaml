@@ -27,36 +27,14 @@
     <Window.DataContext>
         <local:RoomMapViewModel/>
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="196"></RowDefinition>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="45"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="196"/>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <ListBox x:Name="ListLightsGroups" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Width="196"  ItemsSource="{Binding ListLights}" dd:DragDrop.IsDragSource="True" dd:DragDrop.UseDefaultDragAdorner="True" dd:DragDrop.DropHandler="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible" SnapsToDevicePixels="True">
-            <ListBox.Resources>
-                <DataTemplate DataType="{x:Type local:HueElement}">
-                    <WrapPanel >
-                        <Image Height="32" Source="{Binding Image}"/>
-                        <Label Content="{Binding Label}" />
-                    </WrapPanel>
-                </DataTemplate>
-            </ListBox.Resources>
-
-        </ListBox>
-
-        <ToolBarTray Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,0,-0.333,0" Height="45" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}" VerticalAlignment="Top">
+    <DockPanel>
+        <ToolBarTray Height="45" IsLocked="True" Background="{StaticResource HeaderBackgroundBrush}" VerticalAlignment="Top" DockPanel.Dock="Top">
             <ToolBar Header="Edit" BandIndex="1" >
                 <Button Height="24" Width="24" Command="{Binding MakeAllSameSizeCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_MakeAllSameSize}">
-                    <Image Source="/WinHue3;component/Resources/copy.png"></Image>
+                    <Image Source="/WinHue3;component/Resources/copy.png"/>
                 </Button>
                 <Button Height="24" Width="24" Command="{Binding DeleteSelectedElementCommand}" ToolTip="{x:Static resx:GUI.FormRoomMap_RemoveHueElement}">
-                    <Image Source="/WinHue3;component/Resources/trash-2.png"></Image>
+                    <Image Source="/WinHue3;component/Resources/trash-2.png"/>
                 </Button>
             </ToolBar>
             <ToolBar Height="43" Header="{x:Static resx:GUI.FormRoomMap_FloorPlan}" BandIndex="0">
@@ -78,70 +56,92 @@
             </ToolBar>
 
         </ToolBarTray>
-        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListFloors}" SelectedItem="{Binding SelectedFloor}" ScrollViewer.VerticalScrollBarVisibility="Visible" SnapsToDevicePixels="True" >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectFloorPlanCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="local:Floor">
-                    <WrapPanel>
-                        <Label Content="{Binding Name}"/>
-                        <Label Content="*">
-                            <Label.Style>
-                                <Style TargetType="Label">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChanged}" Value="True" utils:TriggerTracing.TraceEnabled="True" utils:TriggerTracing.TriggerName="Modified">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                    </WrapPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button x:Name="btnDone" Grid.Row="3" Grid.Column="1" Content="{x:Static resx:GUI.Button_Done}" Margin="0,0,9.667,6.667" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="81" Click="btnDone_Click" />
-        <ScrollViewer Grid.Column="1" Grid.Row="1"  Grid.RowSpan="2" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
-            <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding FloorModel.Elements, FallbackValue={x:Null}}" Height="{Binding FloorModel.CanvasHeight, FallbackValue=0}" Width="{Binding FloorModel.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="41"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding ListFloors}" SelectedItem="{Binding SelectedFloor}" ScrollViewer.VerticalScrollBarVisibility="Visible" SnapsToDevicePixels="True" >
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PreviewKeyUp">
-                        <behaviors:InvokeDelegateCommandAction Command="{Binding DeleteHueElementCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}" />
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectFloorPlanCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
-                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas dd:DragDrop.IsDropTarget="True" Height="{Binding FloorModel.CanvasHeight, FallbackValue=0}" Width="{Binding FloorModel.CanvasWidth, FallbackValue=0}" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True" IsItemsHost="True" >
-                            <Canvas.Background>
-                                <ImageBrush ImageSource="{Binding FloorModel.Image, FallbackValue={x:Null}}" Stretch="{Binding FloorModel.StretchMode, FallbackValue=None}"/>
-                            </Canvas.Background>
-                        </Canvas>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="local:HueElement">
-                        <WrapPanel Height="{Binding PanelHeight}" Width="{Binding PanelWidth}" Background="{x:Null}" ToolTip="{Binding name}">
-                            <i:Interaction.Behaviors>
-                                <behaviors:DragBehavior/>
-                            </i:Interaction.Behaviors>
-                            <Image Source="/WinHue3;component/Resources/HueLightOn-Large.png" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
-                            <TextBlock Text="{Binding Label}" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=WrapPanel}, Path=ActualWidth  }" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}" Background="White"/>
+                    <DataTemplate DataType="local:Floor">
+                        <WrapPanel>
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="*">
+                                <Label.Style>
+                                    <Style TargetType="{x:Type Label}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChanged}" Value="True" utils:TriggerTracing.TraceEnabled="True" utils:TriggerTracing.TriggerName="Modified">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
                         </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </ScrollViewer>
-        <Label Content="{x:Static resx:GUI.FormRoomMap_RightClick}" Margin="0,0,357.667,19.667" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Height="26" VerticalAlignment="Bottom"/>
+            <ListBox x:Name="ListLightsGroups"  ItemsSource="{Binding ListLights}" dd:DragDrop.IsDragSource="True" dd:DragDrop.UseDefaultDragAdorner="True" dd:DragDrop.DropHandler="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible" SnapsToDevicePixels="True" Grid.Row="1">
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type local:HueElement}">
+                        <WrapPanel >
+                            <Image Height="32" Source="{Binding Image}"/>
+                            <Label Content="{Binding Label}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.Resources>
 
-    </Grid>
+            </ListBox>
+            <Button x:Name="btnDone" Grid.Row="3" Grid.Column="1" Content="{x:Static resx:GUI.Button_Done}" Height="21" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Click="btnDone_Click" Margin="0,0,10,0" />
+            <ScrollViewer Grid.Column="1"  Grid.RowSpan="2" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#FF5F5F5F">
+                <ListBox x:Name="DragDropMap" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding FloorModel.Elements, FallbackValue={x:Null}}" Height="{Binding FloorModel.CanvasHeight, FallbackValue=0}" Width="{Binding FloorModel.CanvasWidth, FallbackValue=0}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewKeyUp">
+                            <behaviors:InvokeDelegateCommandAction Command="{Binding DeleteHueElementCommand}" CommandParameter="{Binding InvokeParameter, RelativeSource={RelativeSource Self}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                            <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas dd:DragDrop.IsDropTarget="True" Height="{Binding FloorModel.CanvasHeight, FallbackValue=0}" Width="{Binding FloorModel.CanvasWidth, FallbackValue=0}" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.UseDefaultDragAdorner="True" IsItemsHost="True" >
+                                <Canvas.Background>
+                                    <ImageBrush ImageSource="{Binding FloorModel.Image, FallbackValue={x:Null}}" Stretch="{Binding FloorModel.StretchMode, FallbackValue=None}"/>
+                                </Canvas.Background>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="local:HueElement">
+                            <WrapPanel Height="{Binding PanelHeight}" Width="{Binding PanelWidth}" Background="{x:Null}" ToolTip="{Binding name}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:DragBehavior/>
+                                </i:Interaction.Behaviors>
+                                <Image Source="/WinHue3;component/Resources/HueLightOn-Large.png" Height="{Binding ImageHeight}" Width="{Binding ImageWidth}"/>
+                                <TextBlock Text="{Binding Label}" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}}" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding LabelVisible}" Background="White"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+            <Label Content="{x:Static resx:GUI.FormRoomMap_RightClick}" Grid.Row="2" Grid.Column="1" Height="26" VerticalAlignment="Top" Padding="0,0,5,5" HorizontalAlignment="Left"/>
+
+        </Grid>
+    </DockPanel>
 </Window>
 

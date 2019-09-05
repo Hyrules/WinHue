@@ -9,14 +9,19 @@
         x:Class="WinHue3.Functions.Scenes.Creator.ColorPicker.Form_SelectColorFromImage"
         mc:Ignorable="d"
         Title="{x:Static resx:GUI.SelectColorFromImageForm_Title}" Height="569.334" Width="735.333" WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip" Background="{Binding SelectedColorBackground}">
-    
-    <Grid>
-        <Image x:Name="ImageViewer" Margin="0,0,0,53" PreviewMouseDown="ImageViewer_PreviewMouseDown" Source="{Binding ImageSource}"/>
-        <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" Margin="0,0,10,10" Click="btnCancel_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
-        <Button x:Name="BtnSelect" Content="{x:Static resx:GUI.Button_Select}" Margin="0,0,90,10" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" IsEnabled="{Binding CanSelectColor}" Click="btnSelect_Click"/>
 
-        <Button x:Name="BtnLoadImage" Content="{x:Static resx:GUI.SelectColorFromImageForm_LoadImageButton}" HorizontalAlignment="Right" Margin="0,0,170,10" VerticalAlignment="Bottom" Command="{Binding LoadImageCommand}" Height="22" Width="87"/>
-        <Button x:Name="BtnLoadRgbSpectrum" Content="{x:Static resx:GUI.SelectColorFromImageForm_LoadRGBImageButton}" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="121" Command="{Binding LoadRGBColorCommand}" IsEnabled="{Binding CanLoadRGB}"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="41"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="ImageViewer" Margin="0,0,0,53" PreviewMouseDown="ImageViewer_PreviewMouseDown" Source="{Binding ImageSource}"/>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Margin="0,0,10,0">
+            <Button x:Name="BtnLoadImage" Content="{x:Static resx:GUI.SelectColorFromImageForm_LoadImageButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding LoadImageCommand}" Height="21" Width="87"/>
+            <Button x:Name="BtnSelect" Content="{x:Static resx:GUI.Button_Select}" Margin="10,0,0,0" Height="21" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" IsEnabled="{Binding CanSelectColor}" Click="btnSelect_Click"/>
+            <Button x:Name="BtnCancel" Content="{x:Static resx:GUI.Button_Cancel}" Margin="10,0,0,0" Click="btnCancel_Click" Height="21" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        </StackPanel>
+        <Button x:Name="BtnLoadRgbSpectrum" Content="{x:Static resx:GUI.SelectColorFromImageForm_LoadRGBImageButton}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="121" Command="{Binding LoadRGBColorCommand}" IsEnabled="{Binding CanLoadRGB}" Grid.Row="1" Height="21"/>
 
     </Grid>
 </Window>

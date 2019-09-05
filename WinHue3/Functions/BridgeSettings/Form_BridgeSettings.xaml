@@ -9,7 +9,7 @@
         xmlns:common="clr-namespace:WinHue3.Philips_Hue.HueObjects.Common"
         xmlns:behaviors="clr-namespace:WinHue3.Functions.Behaviors"
         x:Class="WinHue3.Functions.BridgeSettings.Form_BridgeSettings"
-        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="381.502" Width="501.727" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="{x:Static resx:GUI.BridgeSettingsForm_Title}" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" Icon="/WinHue3;component/Resources/settings.png" Loaded="Window_Loaded" Closing="Window_Closing">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
@@ -176,7 +176,7 @@
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_Tab_SoftwareUpdate_UpdateState}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
                     <Label x:Name="LblUpdateState" Content="{Binding SoftwareModel.Updatestate}" Grid.Column="1"/>
                     <CheckBox x:Name="chbAutoInstall"  Content="" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding SoftwareModel.AutoUpdate}" IsEnabled="{Binding CanAutoInstall}" Grid.Row="1" Grid.Column="1"/>
-                    <Button Content="{x:Static resx:GUI.Button_Apply}" Width="75" Command="{Binding ApplyUpdateSettingsCommand}" Height="21" VerticalContentAlignment="Top" VerticalAlignment="Bottom" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Margin="10"/>
+                    <Button Content="{x:Static resx:GUI.Button_Apply}" Width="75" Command="{Binding ApplyUpdateSettingsCommand}" Height="21" VerticalContentAlignment="Top" VerticalAlignment="Bottom" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right"/>
                     <xctk:DateTimePickerBase HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Format="Custom" Value="{Binding SoftwareModel.UpdateTime}" FormatString="HH:mm:ss" Grid.Row="2" Grid.Column="1">
                         <xctk:DateTimePickerBase.Style>
                             <Style TargetType="xctk:DateTimePickerBase">
@@ -190,13 +190,13 @@
                         </xctk:DateTimePickerBase.Style>
                     </xctk:DateTimePickerBase>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_UpdateTime}" Width="90" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Height="26" VerticalAlignment="Top" Grid.Row="2"/>
-                    <ProgressBar Height="15" VerticalAlignment="Bottom" Maximum="179" Value="{Binding UpdateProgress}" Grid.Row="5" Grid.ColumnSpan="2" Margin="10,0"/>
+                    <ProgressBar Height="15" VerticalAlignment="Bottom" Maximum="179" Value="{Binding UpdateProgress}" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,0,0,10"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_AutoInstall}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Grid.Row="1"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastUpdate}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Grid.Row="3"/>
                     <Label Content="{Binding SoftwareModel.LastUpdate}" Grid.Row="3" Grid.Column="1"/>
                     <Label Content="{x:Static resx:GUI.BridgeSettingsForm_LastCheck}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Grid.Row="4"/>
                     <Label Content="{Binding SoftwareModel.LastChange}" Grid.Row="4" Grid.Column="1"/>
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal">
                         <Button Content="{x:Static resx:GUI.BridgeSettingsForm_ForceCheckUpdate}" HorizontalAlignment="Left" Width="170" Command="{Binding ForceCheckUpdateCommand}" VerticalContentAlignment="Top" Height="21" VerticalAlignment="Top" Margin="0"/>
                         <Button Content="{x:Static resx:GUI.MainForm_Tab_Home_Group_SettingsUpdateButton}" Command="{Binding UpdateBridgeFirmwareCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Margin="10,0,0,0" Height="21"/>
                     </StackPanel>

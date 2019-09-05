@@ -13,8 +13,18 @@
     <Window.DataContext>
         <local:EntertainmentViewModel/>
     </Window.DataContext>
-    <Grid Margin="0,0,0.182,2.727">
-        <GroupBox Header="{x:Static resx:GUI.EntertainmentCreatorForm_Coordinates}" HorizontalAlignment="Left" Height="121" Margin="10,129,0,0" VerticalAlignment="Top" Width="222">
+    <Grid Margin="10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="41"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="{x:Static resx:GUI.EntertainmentCreatorForm_Coordinates}" HorizontalAlignment="Left" Height="121" VerticalAlignment="Top" Width="222" Grid.Row="1">
             <Grid Margin="0,0,-1.545,-2">
 
                 <Label Content="X" HorizontalAlignment="Left" Margin="11,4,0,0" VerticalAlignment="Top" Width="54" HorizontalContentAlignment="Center"/>
@@ -26,32 +36,15 @@
                 <TextBlock HorizontalAlignment="Left" Height="36" Margin="10,60,-0.273,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.EntertainmentCreatorForm_Z_Message}" VerticalAlignment="Top" Width="202"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="btnCancel"  Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" Margin="825,626,0,0" VerticalAlignment="Top" Width="75" Click="BtnCancel_Click"/>
-        <Button x:Name="btnSave"  Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" Margin="745,626,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
-        <GroupBox Header="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Height="129" Margin="10,0,0,0" VerticalAlignment="Top" Width="222">
+        <GroupBox Header="{x:Static resx:GUI.Label_Name}" HorizontalAlignment="Left" Height="129" VerticalAlignment="Top" Width="222" Margin="0,0,10,0">
             <Grid>
                 <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding EntertainmentModel.Name}" VerticalAlignment="Top" Width="192" Watermark="{x:Static resx:GUI.Optional}"/>
                 <xctk:WatermarkTextBox HorizontalAlignment="Left" Height="57" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding EntertainmentModel.Description}" VerticalAlignment="Top" Width="192" Watermark="{x:Static resx:GUI.Optional}"/>
             </Grid>
 
         </GroupBox>
-        <GroupBox Header="{x:Static resx:GUI.AvailableLights}" HorizontalAlignment="Left" Height="335" Margin="10,250,0,0" VerticalAlignment="Top" Width="222">
-            <Grid>
-                <ListBox Margin="0,0,10.182,-0.455" BorderThickness="0" ItemsSource="{Binding ListAvailableLights}" SelectedItem="{Binding SelectedLight}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type light:Light}">
-                            <WrapPanel >
-                                <Image Source="{Binding Image}" Height="16" Width="16"/>
-                                <TextBlock Text=" - "/>
-                                <TextBlock Text="{Binding name}"/>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="{x:Static resx:GUI.EntertainmentLights}" HorizontalAlignment="Left" Height="621" Margin="237,0,0,0" VerticalAlignment="Top" Width="663">
+        <GroupBox Header="{x:Static resx:GUI.AvailableLights}" HorizontalAlignment="Left" Width="222" Grid.Row="2" Grid.RowSpan="2" Margin="0,0,0,10"/>
+        <GroupBox Header="{x:Static resx:GUI.EntertainmentLights}" Grid.RowSpan="3" Grid.Column="1">
             <ListView Margin="0,0,-1.364,3.818" ItemsSource="{Binding ListLights}" BorderThickness="0" SelectedItem="{Binding SelectedEntertainmentLight}">
                 <ListView.View>
                     <GridView>
@@ -67,9 +60,12 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate DataType="local:EntertainmentLight">
                                     <WrapPanel>
-                                        <TextBlock Text="X : "/><TextBlock Text="{Binding Location[0]}"/>
-                                        <TextBlock Text=", Y : "/><TextBlock Text="{Binding Location[1]}"/>
-                                        <TextBlock Text=", Z : "/><TextBlock Text="{Binding Location[2]}"/>
+                                        <TextBlock Text="X : "/>
+                                        <TextBlock Text="{Binding Location[0]}"/>
+                                        <TextBlock Text=", Y : "/>
+                                        <TextBlock Text="{Binding Location[1]}"/>
+                                        <TextBlock Text=", Z : "/>
+                                        <TextBlock Text="{Binding Location[2]}"/>
                                     </WrapPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -78,8 +74,14 @@
                 </ListView.View>
             </ListView>
         </GroupBox>
-        <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" Margin="129,590,0,0" VerticalAlignment="Top" Width="103" Height="22" Command="{Binding AddEntertainmentLightCommand}"/>
-        <Button Content="{x:Static resx:GUI.Button_Remove}" HorizontalAlignment="Left" Margin="276,626,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RemoveEntertainmentLightCommand}" Background="Red"/>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+            <Button x:Name="btnSave"  Content="{x:Static resx:GUI.Button_Save}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnSave_Click" Height="21"/>
+            <Button x:Name="btnCancel"  Content="{x:Static resx:GUI.Button_Cancel}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="BtnCancel_Click" Height="21" Margin="10,0,0,0"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+            <Button Content="{x:Static resx:GUI.Button_Add}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="21" Command="{Binding AddEntertainmentLightCommand}" Margin="0,0,-3,0"/>
+            <Button Content="{x:Static resx:GUI.Button_Remove}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding RemoveEntertainmentLightCommand}" Background="Red" Margin="10,0,0,0" Height="21"/>
+        </StackPanel>
 
     </Grid>
 </Window>

@@ -18,8 +18,8 @@
     <Window.DataContext>
         <advancedCreator:AdvancedCreatorViewModel/>
     </Window.DataContext>
-    <Grid x:Name="DockPanel">
-        <ToolBarTray>
+    <DockPanel>
+        <ToolBarTray Height="45" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource HeaderBackgroundBrush}">
             <ToolBar Header="{x:Static resx:GUI.Form_AdvancedCreator_Templates}">
                 <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_RuleTemplate}" Command="{Binding CreateRuleTemplateCommand}"  >
                     <Image Source="/WinHue3;component/Resources/rules.png" Height="32"/>
@@ -27,7 +27,7 @@
                 <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_SensorTemplate}" Command="{Binding CreateSensorTemplateCommand}">
                     <Image Source="/WinHue3;component/Resources/sensor.png" Height="32"/>
                 </Button>
-                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_ResourceLinkTemplate}" Command="{Binding CreateResourceLinkTemplateCommand }" >
+                <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_ResourceLinkTemplate}" Command="{Binding CreateResourceLinkTemplateCommand}" >
                     <Image Source="/WinHue3;component/Resources/resource.png" Height="32"/>
                 </Button>
                 <Button ToolTip="{x:Static resx:GUI.Form_AdvancedCreator_GroupTemplate}" Command="{Binding CreateGroupTemplateCommand}">
@@ -52,25 +52,35 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <Button Margin="0,46,0,0" Command="{Binding SetBridgeUrlCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Width="29" Height="29" VerticalAlignment="Top">
-            <Button.Content>
-                <Image Source="/WinHue3;component/Resources/bridge.png" HorizontalAlignment="Left" Width="22"  Margin="0,0,0,-0.333" Height="23" VerticalAlignment="Top"/>
-            </Button.Content>
-        </Button>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding SetBridgeUrlCommand}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Width="28" Height="28">
+                <Image Source="/WinHue3;component/Resources/bridge.png"  Margin="0,0,0,-0.333"/>
+            </Button>
 
-        <xctk:WatermarkTextBox TextWrapping="Wrap" Height="28" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Margin="30,46,97,0" VerticalAlignment="Top" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}"/>
-        <ComboBox Margin="0,46,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content">
-            <ComboBoxItem Content="POST" Tag="{x:Static philipsHue:WebRequestType.Post}"/>
-            <ComboBoxItem Content="PUT" Tag="{x:Static philipsHue:WebRequestType.Put}"/>
-            <ComboBoxItem Content="DELETE" Tag="{x:Static philipsHue:WebRequestType.Delete}"/>
-            <ComboBoxItem Content="GET" Tag="{x:Static philipsHue:WebRequestType.Get}"/>
-        </ComboBox>
-        <avalonedit:TextEditor ShowLineNumbers="True" Margin="0,80,0,20" >
-            <i:Interaction.Behaviors>
-                <controls:AvalonEditBehaviour  EditorText="{Binding Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </i:Interaction.Behaviors>
-        </avalonedit:TextEditor>
-    </Grid>
+            <xctk:WatermarkTextBox TextWrapping="Wrap" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" Watermark="{x:Static resx:GUI.Form_AdvancedCreator_UrlWatermark}" Grid.Column="1" VerticalContentAlignment="Center"/>
+            <ComboBox HorizontalAlignment="Right" Width="100" SelectedValue="{Binding RequestType}" SelectedValuePath="Content" Grid.Column="2" VerticalContentAlignment="Center">
+                <ComboBoxItem Content="POST" Tag="{x:Static philipsHue:WebRequestType.Post}"/>
+                <ComboBoxItem Content="PUT" Tag="{x:Static philipsHue:WebRequestType.Put}"/>
+                <ComboBoxItem Content="DELETE" Tag="{x:Static philipsHue:WebRequestType.Delete}"/>
+                <ComboBoxItem Content="GET" Tag="{x:Static philipsHue:WebRequestType.Get}"/>
+            </ComboBox>
+            <avalonedit:TextEditor ShowLineNumbers="True" Grid.Row="1" Grid.ColumnSpan="3" >
+                <i:Interaction.Behaviors>
+                    <controls:AvalonEditBehaviour  EditorText="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </i:Interaction.Behaviors>
+            </avalonedit:TextEditor>
+        </Grid>
+
+    </DockPanel>
 
 </Window>
 

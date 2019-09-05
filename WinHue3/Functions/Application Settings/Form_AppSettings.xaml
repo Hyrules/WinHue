@@ -8,7 +8,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:converters="clr-namespace:WinHue3.Functions.Converters"
     x:Class="WinHue3.Functions.Application_Settings.Form_AppSettings"
-    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="437.258" Width="510.163" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" >
+    Title="{x:Static resx:GUI.SettingsForm_Title}" Height="450" Width="510.163" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="/WinHue3;component/Resources/gear_in.png" >
 
     <Window.Resources>
         <converters:TimeSpanToDoubleConverter x:Key="TimeSpanToDoubleConverter"/>
@@ -18,10 +18,18 @@
     <Window.DataContext>
         <applicationSettings:AppSettingsViewModel/>
     </Window.DataContext>
-    <Grid>
-        <Button Content="{x:Static resx:GUI.Button_Apply}" x:Name="BtnApply" HorizontalAlignment="Left" Margin="329,372,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>
-        <Button Content="{x:Static resx:GUI.Button_Cancel}" x:Name="BtnCancel" HorizontalAlignment="Left" Margin="409,372,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
-        <TabControl x:Name="TcSettings" HorizontalAlignment="Left" Height="367" VerticalAlignment="Top" Width="484">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="31"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="85"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="{x:Static resx:GUI.Button_Apply}" x:Name="BtnApply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnApply_Click" Grid.Row="1" Grid.Column="1" Width="75" Height="21"/>
+        <Button Content="{x:Static resx:GUI.Button_Cancel}" x:Name="BtnCancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Click="btnCancel_Click" Grid.Row="1" Height="21"/>
+        <TabControl x:Name="TcSettings" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_MainSettings}">
                 <Grid>
 
@@ -52,7 +60,7 @@
                     <Label Content="{x:Static resx:GUI.RefreshTime}" HorizontalAlignment="Left" Margin="241,8,0,0" VerticalAlignment="Top" Width="136"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}" HorizontalAlignment="Left" VerticalAlignment="Top"  >
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Defaults}"  >
                 <Grid>
                     <GroupBox x:Name="GroupBox2" Header="{x:Static resx:GUI.AllOnOffSettings}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="150" Width="251" Margin="5,5,0,0">
                         <Grid Margin="0,0,-1.667,-2.333">
@@ -87,7 +95,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}" HorizontalAlignment="Left"  VerticalAlignment="Top">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_View}">
                 <Grid>
                     <ComboBox x:Name="CbDefaultSort" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="165" SelectedValue="{Binding ViewSettingsModel.Sort}" SelectedValuePath="Tag" >
                         <ComboBoxItem Content="{x:Static resx:GUI.Sort_Default}" Tag="{x:Static models:WinHueSortOrder.Default}"/>
@@ -101,7 +109,7 @@
                     <CheckBox  Margin="307,106,9.545,215.909" Content="{x:Static resx:GUI.ShowFloorPlanTab}" IsChecked="{Binding ViewSettingsModel.ShowFloorPlanTab}"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TabItem Header="{x:Static resx:GUI.SettingsForm_Tab_Theme}">
                 <Grid>
                     <Label Content="{x:Static resx:GUI.SettingsForm_Tab_MainSettings_Theme}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="60"/>
                     <ComboBox HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="176" SelectedValuePath="Tag" SelectedValue="{Binding MainSettingsModel.Themecolor}"  Style="{StaticResource {x:Type ComboBox}}" IsEnabled="False" >
