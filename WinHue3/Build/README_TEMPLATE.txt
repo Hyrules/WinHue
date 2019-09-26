@@ -10,6 +10,8 @@ Fixed:
 - Time property is deprecated and will be removed eventually. This fixes crashes when deserializing schedules.
 - Fixed a crash resuming from sleep.
 - Possible crash when settings files are empty.
+- Fixed crash when modifiying the transition time for a scene.
+- Fixed the crash in bridge pairing window while scanning for bridge.
 
 Added:
 - New error message window with more details.
