@@ -29,7 +29,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 Capabilities cap = Serializer.DeserializeToObject<Capabilities>(comres.Data);
                 return cap;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
     
@@ -47,7 +47,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 Capabilities cap = Serializer.DeserializeToObject<Capabilities>(comres.Data);
                 return cap;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -66,7 +66,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 BasicConfig config = Serializer.DeserializeToObject<BasicConfig>(comres.Data);
                 return config;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
 
         }
@@ -86,7 +86,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 BasicConfig config = Serializer.DeserializeToObject<BasicConfig>(comres.Data);
                 return config;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
 
         }
@@ -106,7 +106,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -125,7 +125,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -145,7 +145,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -165,7 +165,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -183,7 +183,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, BridgeUrl + "/config", WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, BridgeUrl + "/config", WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -202,7 +202,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -229,7 +229,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success ? LastCommandMessages.LastSuccess.value : null;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -249,7 +249,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success ? LastCommandMessages.LastSuccess.value : null;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -270,7 +270,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -290,7 +290,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return LastCommandMessages.Success;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return false;
         }
 
@@ -313,7 +313,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -336,7 +336,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
         }
 
@@ -359,7 +359,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                 LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                 return null;
             }
-             BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
+            BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, url, WebExceptionStatus.NameResolutionFailure));
             return null;
 
         }
@@ -391,7 +391,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
                     LastCommandMessages.AddMessage(Serializer.DeserializeToObject<List<IMessage>>(comres.Data));
                     return null;
                 }
-                 BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, BridgeUrl + "/info/timezones", WebExceptionStatus.NameResolutionFailure));
+                BridgeNotResponding?.Invoke(this, new BridgeNotRespondingEventArgs(this, BridgeUrl + "/info/timezones", WebExceptionStatus.NameResolutionFailure));
                 return null;
             }
 

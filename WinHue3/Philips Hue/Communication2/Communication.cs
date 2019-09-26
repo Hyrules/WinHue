@@ -3,35 +3,44 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Net.Http;
 using WinHue3.Functions.Application_Settings.Settings;
+using System.Threading;
 
 namespace WinHue3.Philips_Hue.Communication2
 {
     public static class HueHttpClient
     {
 
-        private static readonly HttpClient client;
-        private static HttpClientHandler clientHandler;
+        private static HttpClient client;
+
 
 
         public static int Timeout
         {
             get => client.Timeout.Milliseconds;
-            set => client.Timeout = TimeSpan.FromMilliseconds(value);
+            set {
+                Init(value);
+            }
         }
 
         public static string LastJson;
 
         static HueHttpClient()
         {
-            clientHandler = new HttpClientHandler();
+            Init();
+        }
 
+        private static void Init(int? timeout = null)
+        {
+  
+            if(client != null) { client.Dispose(); }
             client = new HttpClient
             {
-                Timeout = new TimeSpan(0, 0, 0, WinHueSettings.settings.Timeout),
-                
+                Timeout = new TimeSpan(0, 0, 0, timeout ?? WinHueSettings.settings.Timeout),
+
             };
-            
+
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
         }
 
         public static async Task<HttpResult> SendRequestAsyncTask(Uri url, WebRequestType type, string data = "")

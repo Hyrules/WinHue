@@ -1,0 +1,25 @@
+﻿<Window x:Class="WinHue3.Functions.Error.Form_ErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinHue3.Functions.Error"
+        xmlns:resx="clr-namespace:WinHue3.Resources"
+
+        mc:Ignorable="d"
+        Title="{x:Static resx:GUI.Error}" Height="607.19" Width="800" Topmost="True" WindowStartupLocation="CenterScreen" Icon="/WinHue3;component/Resources/large_error.png" ResizeMode="NoResize" >
+    <Grid>
+
+        <TextBlock HorizontalAlignment="Left" Margin="143,10,0,0" TextWrapping="Wrap" Text="{x:Static resx:GUI.ErrorMessage}" VerticalAlignment="Top" Width="628" TextAlignment="Justify" Height="47"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="24,10,0,0" VerticalAlignment="Top" Width="100" Source="/WinHue3;component/Resources/large_error.png"/>
+        <TextBox x:Name="tbErrorMessage" HorizontalAlignment="Left" Height="391" Margin="10,141,0,0" TextWrapping="Wrap" Text="Error message goes here..." VerticalAlignment="Top" Width="761" IsReadOnly="True"/>
+        <Button Content="{x:Static resx:GUI.Button_Ok}" HorizontalAlignment="Left" Margin="696,542,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Label Content="{x:Static resx:GUI.ErrorContent}" HorizontalAlignment="Left" Margin="4,115,0,0" VerticalAlignment="Top" Width="146"/>
+        <TextBlock Margin="143,78,452.182,477.909">
+            <Hyperlink Click="Hyperlink_Click" >
+                <TextBlock Text="{x:Static resx:GUI.LogFolder}" Height="22"></TextBlock>
+            </Hyperlink>
+        </TextBlock>
+        <TextBlock Text="{x:Static resx:GUI.LogLocation}" HorizontalAlignment="Left" Margin="143,57,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

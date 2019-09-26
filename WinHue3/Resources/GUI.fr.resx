@@ -1695,4 +1695,19 @@
   <data name="MqttClient" xml:space="preserve">
     <value>Client MQTT</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Désolé mais une erreur inattendue s'est produite. Veuillez svp rapporter cette exception sur le site web de support afin de corriger le problème. Veuillez de plus inclure le journal le plus récent.</value>
+  </data>
+  <data name="ErrorContent" xml:space="preserve">
+    <value>Contenu de l'erreur :</value>
+  </data>
+  <data name="LogFolder" xml:space="preserve">
+    <value>Dossier des journaux</value>
+  </data>
+  <data name="LogLocation" xml:space="preserve">
+    <value>Vous pouvez accéder à votre journal le plus récent ici :</value>
+  </data>
 </root>

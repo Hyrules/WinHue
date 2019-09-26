@@ -1695,4 +1695,19 @@
   <data name="MqttClient" xml:space="preserve">
     <value>MQTT client</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Sorry but an unexpected exception occured. Please report the exception on the support website so the developper can fix the issues. Please include the most recent log located in the logs folder.</value>
+  </data>
+  <data name="ErrorContent" xml:space="preserve">
+    <value>Error content :</value>
+  </data>
+  <data name="LogFolder" xml:space="preserve">
+    <value>Log Folder</value>
+  </data>
+  <data name="LogLocation" xml:space="preserve">
+    <value>You can get your latest log here :</value>
+  </data>
 </root>

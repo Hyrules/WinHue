@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.ServiceProcess;
 using System.Xml;
@@ -204,6 +205,10 @@ namespace WinHue3.Philips_Hue
 
             BridgeSettings desc = new BridgeSettings();
             
+            HttpClient client = new HttpClient();
+            client.Timeout = TimeSpan.FromMilliseconds(50);
+            
+
             for (byte x = 2; x <= 254; x++)
             {
                 if (_ipscanBgw.CancellationPending)
@@ -216,45 +221,55 @@ namespace WinHue3.Philips_Hue
                 if (x == currentip) continue;
                 ipArray[3] = x;
 
-                HueHttpClient.Timeout = 50;
+                
                 if (_ipscanBgw.CancellationPending) break;
-
-                HttpResult comres = HueHttpClient.SendRequest(new Uri($@"http://{new IPAddress(ipArray)}/api/config"), WebRequestType.Get);
-
-                if (comres.Success)
+                try
                 {
-                    desc = Serializer.DeserializeToObject<BridgeSettings>(comres.Data); // try to deserialize the received message.
-                    if (desc == null) continue; // if the deserialisation didn't work it means this is not a bridge continue with next ip.
-                    Bridge bridge = new Bridge()
+                    HttpResponseMessage httpr = client.GetAsync(new Uri($@"http://{new IPAddress(ipArray)}/api/config")).Result;
+                    if (httpr.IsSuccessStatusCode)
                     {
-                        IpAddress = new IPAddress(ipArray),
-                        ApiVersion = desc.apiversion,
-                        Mac = desc.mac
-                    };
-
-                    if (newlist.Count > 0)
-                    {
-                        if (!newlist.Any(y => Equals(y.Value.IpAddress, ipArray)))
+                        desc = Serializer.DeserializeToObject<BridgeSettings>(httpr.Content.ReadAsStringAsync().Result); // try to deserialize the received message.
+                        if (desc == null) continue; // if the deserialisation didn't work it means this is not a bridge continue with next ip.
+                        Bridge bridge = new Bridge()
                         {
+                            IpAddress = new IPAddress(ipArray),
+                            ApiVersion = desc.apiversion,
+                            Mac = desc.mac
+                        };
 
-                            log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
-                            newlist.Add(desc.mac, bridge);
+                        if (newlist.Count > 0)
+                        {
+                            if (!newlist.Any(y => Equals(y.Value.IpAddress, ipArray)))
+                            {
+
+                                log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
+                                newlist.Add(desc.mac, bridge);
+                            }
+                            else
+                            {
+                                log.Info($"Bridge {bridge.Name} at {bridge.IpAddress} already in the list ignoring...");
+                            }
                         }
                         else
                         {
-                            log.Info($"Bridge {bridge.Name} at {bridge.IpAddress} already in the list ignoring...");
+                            log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
+                            newlist.Add(desc.mac, bridge);
                         }
                     }
-                    else
-                    {
-                        log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
-                        newlist.Add(desc.mac, bridge);
-                    }
                 }
+                catch(System.TimeoutException)
+                {
+                    // Address is not responding ignore.
+                }
+                catch(Exception)
+                {
+                    
+                }
+          
                 
             }
 
-            HueHttpClient.Timeout = WinHueSettings.settings.Timeout;
+            client.Dispose();
             e.Result = newlist;
             log.Info("Ending IP scan for bridge.");
         }
