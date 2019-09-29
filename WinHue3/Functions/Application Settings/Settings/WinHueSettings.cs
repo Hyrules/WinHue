@@ -211,8 +211,12 @@ namespace WinHue3.Functions.Application_Settings.Settings
                 string result = JsonConvert.SerializeObject(hotkeys, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.Indented});
                 log.Debug($@"Saving hotkeys : {hotkeys}");
                 string filepath = Path.Combine(path, "WinHue\\WinHueHotkeys.set");
-                log.Info("Backuping WinHueHotkeys.set file to WinHueHotkeys.set.bak");
-                File.Copy(filepath, filepath + ".bak", true);
+                if(File.Exists(filepath))
+                {
+                    log.Info("Backuping WinHueHotkeys.set file to WinHueHotkeys.set.bak");
+                    File.Copy(filepath, filepath + ".bak", true);
+                }
+
                 if (CreateWinHueDirectory())
                 {
                     File.WriteAllText(filepath, result);
@@ -277,8 +281,12 @@ namespace WinHue3.Functions.Application_Settings.Settings
                 string result = JsonConvert.SerializeObject(bridges, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.Indented });
                 log.Debug($@"Saving bridge settings : {bridges}");
                 string filepath = Path.Combine(path, "WinHue\\WinHueBridges.set");
-                log.Info("Backuping WinHueBridge.set file to WinHueBridge.set.bak");
-                File.Copy(filepath,filepath+".bak",true);
+                if (File.Exists(filepath))
+                {
+                    log.Info("Backuping WinHueBridge.set file to WinHueBridge.set.bak");
+                    File.Copy(filepath, filepath + ".bak", true);
+                }
+                
                 if (CreateWinHueDirectory())
                 {
                     File.WriteAllText(filepath, result);
@@ -344,8 +352,12 @@ namespace WinHue3.Functions.Application_Settings.Settings
                 string result = JsonConvert.SerializeObject(settings ,new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.Indented });
                 log.Debug($@"Saving settings : {settings}");
                 string filepath = Path.Combine(path, "WinHue\\WinHueSettings.set");
-                log.Info("Backuping WinHueSettings.set file to WinHueSettings.set.bak");
-                File.Copy(filepath, filepath + ".bak", true);
+                if(File.Exists(filepath))
+                {
+                    log.Info("Backuping WinHueSettings.set file to WinHueSettings.set.bak");
+                    File.Copy(filepath, filepath + ".bak", true);
+                }
+                
                 if (CreateWinHueDirectory())
                 {
                     File.WriteAllText(filepath, result);
