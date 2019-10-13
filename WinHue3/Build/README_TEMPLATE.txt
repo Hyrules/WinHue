@@ -8,6 +8,8 @@ Both are available at Microsoft's website.
 
 Fixed:
 - Fixed blank screen on first pairing (saving bug)
+- Fixed missing elements in the treeview when creating rules.
+- Fixed a bug where searching for an new sensor and refreshing before the end of the minute would add a duplicate to the main window.
 
 Added:
 - 

@@ -508,7 +508,12 @@ namespace WinHue3.MainForm
             if (hr == null) return;
             List<IHueObject> newsensors = hr;
             log.Info($"Found {newsensors.Count} new sensors.");
-            CurrentBridgeHueObjectsList.AddRange(newsensors);
+            foreach(IHueObject i in newsensors)
+            {
+                if(!CurrentBridgeHueObjectsList.Any(x => x.Id == i.Id && x.GetType() == typeof(i)))
+                    CurrentBridgeHueObjectsList.AddRange(newsensors);
+            }
+            
             CommandManager.InvalidateRequerySuggested();
             RaisePropertyChanged("SearchingLights");
         }

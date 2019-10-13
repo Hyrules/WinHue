@@ -12,7 +12,7 @@ namespace WinHue3.Functions.Rules.Creator
         public static HuePropertyTreeViewItem BuildPropertiesTree(object root, string currentpath, string name = null, string selectedpath = null)
         {
             string obj = JsonConvert.SerializeObject(root, new JsonSerializerSettings(){NullValueHandling = NullValueHandling.Ignore,TypeNameHandling = TypeNameHandling.Objects});
-            Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(obj);
+            Dictionary<string, object> dic = JsonConvert.DeserializeObject<Dictionary<string, object>>(obj,new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Include });
             HuePropertyTreeViewItem roottvi = new HuePropertyTreeViewItem(){Header = name, PropType = root.GetType(), FontWeight = FontWeights.Normal, IsSelected = false, Address = new HueAddress(currentpath)};
             BuildTree(dic, roottvi, selectedpath);
             return roottvi;

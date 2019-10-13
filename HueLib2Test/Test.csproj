@@ -93,6 +93,7 @@
     <Compile Include="Groups\GroupViewModelTests.cs" />
     <Compile Include="Lights\LightSerializationTests.cs" />
     <Compile Include="Mqtt\MqttTests.cs" />
+    <Compile Include="Rules\BuildTreeViewListTests.cs" />
     <Compile Include="Rules\RuleSerializationTests.cs" />
     <Compile Include="Rules\RuleViewModelTests.cs" />
     <Compile Include="Schedules\ScheduleSerializationTests.cs" />
