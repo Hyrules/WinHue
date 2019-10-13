@@ -510,7 +510,7 @@ namespace WinHue3.MainForm
             log.Info($"Found {newsensors.Count} new sensors.");
             foreach(IHueObject i in newsensors)
             {
-                if(!CurrentBridgeHueObjectsList.Any(x => x.Id == i.Id && x.GetType() == typeof(i)))
+                if(!CurrentBridgeHueObjectsList.Any(x => x.Id == i.Id && x.GetType() == i.GetType()))
                     CurrentBridgeHueObjectsList.AddRange(newsensors);
             }
             
