@@ -55,7 +55,7 @@ namespace WinHue3.Functions.Sensors.HueTap
             HueTapModel.BtnThreeBG = new SolidColorBrush(_selectedColor);
             HueTapModel.BtnTwoBG = new SolidColorBrush(_deselectedColor);
             HueTapModel.BtnFourBG = new SolidColorBrush(_deselectedColor);
-            HueTapModel.Buttonid = "18";
+            HueTapModel.Buttonid = "17";
 
         }
 
@@ -65,7 +65,7 @@ namespace WinHue3.Functions.Sensors.HueTap
             HueTapModel.BtnFourBG = new SolidColorBrush(_selectedColor);
             HueTapModel.BtnTwoBG = new SolidColorBrush(_deselectedColor);
             HueTapModel.BtnThreeBG = new SolidColorBrush(_deselectedColor);
-            HueTapModel.Buttonid = "17";
+            HueTapModel.Buttonid = "18";
 
         }
 
