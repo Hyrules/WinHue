@@ -108,14 +108,14 @@
                     <Slider x:Name="SlCt" Value="{Binding SceneCreatorModel.Ct, Converter={StaticResource DoubleToUshortConverter}}" Height="23" VerticalAlignment="Top" Maximum="500" Margin="10,119,99,0" Width="Auto" Minimum="153" IsSnapToTickEnabled="True" SmallChange="1" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True" IsEnabled="{Binding ElementName=cbCT, Path=IsChecked}">
                         <Slider.Background>
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                <GradientStop Color="#FFFF8912" Offset="0"/>
-                                <GradientStop Color="#FFFFF9FD" Offset="1"/>
+                                <GradientStop Color="#FFFF8912" Offset="1"/>
+                                <GradientStop Color="#FFFFF9FD" Offset="0"/>
                             </LinearGradientBrush>
                         </Slider.Background>
                     </Slider>
                     <Slider x:Name="SlSat" Value="{Binding SceneCreatorModel.Sat, Converter={StaticResource DoubleToUshortConverter}}" Height="23" VerticalAlignment="Top" Maximum="255" Margin="10,162,99,0" IsSnapToTickEnabled="True" SmallChange="1" AutoToolTipPlacement="TopLeft" IsMoveToPointEnabled="True" IsEnabled="{Binding ElementName=cbSAT, Path=IsChecked}">
                         <Slider.Background>
-                            <LinearGradientBrush  EndPoint="0.5,0" StartPoint="0.5,1">
+                            <LinearGradientBrush  EndPoint="1,0" StartPoint="0,0">
                                 <GradientStop Color="White" x:Name="SlSatStartGradient"/>
                                 <GradientStop Color="{Binding Hue, ElementName=SlHue}" Offset="1" x:Name="SlSatEndGradient"/>
                             </LinearGradientBrush>

@@ -15,7 +15,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeMessages
         /// <summary>s
         /// Address of the error.
         /// </summary>
-        [DataMember(EmitDefaultValue=false,IsRequired=false)]
+        [DataMember(EmitDefaultValue=false,IsRequired=false, Name = "Address")]
         public string address { get; set; }
         /// <summary>
         /// Description of the error.

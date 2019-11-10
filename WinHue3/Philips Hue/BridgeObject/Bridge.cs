@@ -2,6 +2,7 @@
 using System.Net;
 using WinHue3.Philips_Hue.BridgeObject.BridgeMessages;
 using WinHue3.Utils;
+using System.Linq;
 
 namespace WinHue3.Philips_Hue.BridgeObject
 {
@@ -31,7 +32,22 @@ namespace WinHue3.Philips_Hue.BridgeObject
             _ipAddress = IPAddress.None;
             _apiKey = string.Empty;
             _lastCommandMessages = new Messages();
+            _lastCommandMessages.OnMessageAdded += _lastCommandMessages_OnMessageAdded;
             _updateAvailable = false;
+        }
+
+        private void _lastCommandMessages_OnMessageAdded(object sender, MessageAddedEventArgs e)
+        {
+            if (e.Messages.All(x => x.GetType() == typeof(Error)))
+            {
+                foreach(Error err in e.Messages)
+                {
+                    if(err.type == 1)
+                    {
+                        BridgeAccessDenied?.Invoke(this, new BridgeAccessDeniedEventArgs(this, err.address));
+                    }
+                }
+            }
         }
 
         /// <summary>

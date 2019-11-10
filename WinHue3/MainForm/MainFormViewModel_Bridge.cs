@@ -407,6 +407,7 @@ namespace WinHue3.MainForm
                         if (fbf.IpFound())
                         {
                             br.BridgeNotResponding += Br_BridgeNotResponding;
+                            br.BridgeAccessDenied += Br_BridgeAccessDenied;
                             br.IpAddress = fbf.newip;
                             if (!br.IsDefault) continue;
                             SelectedBridge = br;
@@ -428,6 +429,11 @@ namespace WinHue3.MainForm
                 break;
             }
 
+        }
+
+        private void Br_BridgeAccessDenied(object sender, BridgeAccessDeniedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
