@@ -94,6 +94,7 @@ namespace WinHue3.MainForm
 
             OnBridgeMessageAdded += Bridge_OnMessageAdded;
             OnBridgeNotResponding += Bridge_BridgeNotResponding;
+            OnBridgeAccessDenied += Bridge_OnBridgeAccessDenied;
             LoadBridges();
 
             if (SelectedBridge == null) return;
@@ -102,8 +103,6 @@ namespace WinHue3.MainForm
             _hkm.StartHotKeyCapture();
             CurrentView = 1;
         }
-
-
 
     }
 }

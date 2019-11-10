@@ -27,7 +27,12 @@ namespace WinHue3.MainForm
             e.Bridge.BridgeNotResponding += Bridge_BridgeNotResponding;
         }
 
-
+        private void Bridge_OnBridgeAccessDenied(object sender, BridgeAccessDeniedEventArgs e)
+        {
+            SelectedBridge = null;
+            MessageBox.Show(GlobalStrings.BridgeNotAuthorized, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            DoBridgePairing();
+        }
 
 
 

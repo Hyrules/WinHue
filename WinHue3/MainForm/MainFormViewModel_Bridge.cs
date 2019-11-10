@@ -450,6 +450,9 @@ namespace WinHue3.MainForm
         public event BridgeAddedMessage OnBridgeMessageAdded;
         public delegate void BridgeAddedMessage(object sender, MessageAddedEventArgs e);
 
+        public event BridgeAccessDenied OnBridgeAccessDenied;
+        public delegate void BridgeAccessDenied(object sender, BridgeAccessDeniedEventArgs e);
+
         private async void _refreshTimer_Tick(object sender, EventArgs e)
         {
             IHueObject selected = SelectedObject;

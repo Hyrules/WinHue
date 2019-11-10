@@ -768,4 +768,7 @@
   <data name="ErrorSaving" xml:space="preserve">
     <value>An error occured while saving.</value>
   </data>
+  <data name="BridgeNotAuthorized" xml:space="preserve">
+    <value>Bridge api key seems to have been revoked. Please pair the bridge again.</value>
+  </data>
 </root>

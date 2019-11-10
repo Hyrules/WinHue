@@ -777,4 +777,7 @@
   <data name="ErrorSaving" xml:space="preserve">
     <value>Une erreur s'est produit pendant la sauvegarde.</value>
   </data>
+  <data name="BridgeNotAuthorized" xml:space="preserve">
+    <value>La clé api pour cette passerelle semble avoir été révoquée. Veuillez refaire l'association à la passerelle.</value>
+  </data>
 </root>

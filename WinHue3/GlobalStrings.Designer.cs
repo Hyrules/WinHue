@@ -313,6 +313,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bridge api key seems to have been revoked. Please pair the bridge again..
+        /// </summary>
+        public static string BridgeNotAuthorized {
+            get {
+                return ResourceManager.GetString("BridgeNotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bridge not paired or authorized. Do you want to proceed with the pairing procedure?.
         /// </summary>
         public static string BridgeSetupNotCompleted {
