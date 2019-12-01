@@ -3,7 +3,8 @@
 <b>Requirements :</b> <br/>
 - [Microsoft Dot Net Framework 4.5.2](https://dotnet.microsoft.com/download/dotnet-framework/net452) <br/>
 - [Visual C++ 2010 Redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=5555)<br/>
-- [A complete Philips Hue Light system including some philips hue lights and bridge (Api version 1.16 or greater)](https://www2.meethue.com/en-us/products/starter-kits#filters=STARTER_KITS_SU&sliders=&support=&price=&priceBoxes=&page=&layout=12.subcategory.p-grid-icon)
+- [A complete Philips Hue Light system including some philips hue lights and bridge Gen 2 (square with rounded corners))](https://www2.meethue.com/en-us/products/starter-kits#filters=STARTER_KITS_SU&sliders=&support=&price=&priceBoxes=&page=&layout=12.subcategory.p-grid-icon)
+- A Philips Hue Bridge 2nd Gen (
 
 ***PHILIPS HUE HAS RELEASED BLUETOOTH ENABLES HUE BULBS. WINHUE DOES NOT SUPPORT THAT NEW AND SEVERELY LIMITED MODE OF COMMUNICATION FOUND IN THOSE NEW HUE LIGHTS BULBS. HOWEVER, THOSE LIGHT BULBS ARE STILL HUE LIGHT BULBS AND WILL WORK JUST FINE WITH WINHUE, EXACTLY LIKE THE PREVIOUS NONE BLUETOOTH ENABLE HUE LIGHT BULBS. THE USE OF A BRIDGE IS MANDATORY AS IT IS THE COMPUTER THAT CONTROLS THE ENTIRE SYSTEM PERMITTING AUTOMATION. IT'S ALSO THE INTERFACE TO YOUR HOME ETHERNET AND Wi-Fi USED BY WINHUE, AND IT WILL PERMIT A FAR GREATER RANGE OF COVERAGE COMPARED TO BLUETOOTH. THE BRIDGE RANGE WILL USUALLY COVER AN ENTIRE REGULAR SIZE HOUSE IF NOT WAY MORE AS EACH ADDED LIGHT ACT LIKE A SIGNAL REPEATER EXTENDING THE RANGE EVEN FURTHER. AS FOR BLUETOOTH, IT IS QUITE SEVERELY RESTRICTED IN RANGE, TO ABOUT 15 FEET (ONE ROOM), AND IT WILL LIMIT YOUR CONTROL TO 10 LIGHT OR LESS. FINALLY, BLUETOOTH DOES NOT SUPPORT THE USE OF TIMERS.
 ***
