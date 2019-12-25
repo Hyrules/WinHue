@@ -11,10 +11,12 @@ namespace WinHue3.Philips_Hue.BridgeObject
 {
     public partial class Bridge
     {
+        private const string MIN_API_VERSION = "1.35.0";
+
         public async Task<bool> SetAutoInstallAsyncTask(autoinstall autoinstall)
         {
-            Version api = Version.Parse(ApiVersion);
-            Version limit = Version.Parse("1.20.0");
+            Version api = ApiVersion;
+            Version limit = Version.Parse(MIN_API_VERSION);
             if (api < limit) return false;
             HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(BridgeUrl + "/config"), WebRequestType.Put, "{\"swupdate2\": {\"autoinstall\" : "+Serializer.SerializeJsonObject(autoinstall)+"}}");
             if (comres.Success)
@@ -31,8 +33,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or false if the operation is successful (does not return if there is an update)</returns>
         public bool CheckOnlineForUpdate()
         {
-            Version api = Version.Parse(ApiVersion);
-            Version limit = Version.Parse("1.20.0");
+            Version api = ApiVersion;
+            Version limit = Version.Parse(MIN_API_VERSION);
             string swu = "swupdate";
             if (api > limit)
             {
@@ -55,8 +57,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or false if the operation is successful (does not return if there is an update)</returns>
         public async Task<bool> CheckOnlineForUpdateAsyncTask()
         {
-            Version api = Version.Parse(ApiVersion);
-            Version limit = Version.Parse("1.20.0");
+            Version api = ApiVersion;
+            Version limit = Version.Parse("MIN_API_VERSION");
             string swu = "swupdate";
 
             if (api > limit)
@@ -131,8 +133,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or False command sent succesfully.</returns>
         public bool UpdateBridge()
         {
-            Version api = Version.Parse(ApiVersion);
-            Version limit = Version.Parse("1.20.0");
+            Version api = ApiVersion;
+            Version limit = Version.Parse(MIN_API_VERSION);
 
             string updatestring = "";
             updatestring = api > limit ? "{\"swupdate2\": {\"install\": true}}" : "{\"swupdate\":{\"updatestate\":3}}";
@@ -152,8 +154,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>True or False command sent succesfully.</returns>
         public async Task<bool> UpdateBridgeAsyncTask()
         {
-            Version api = Version.Parse(ApiVersion);
-            Version limit = Version.Parse("1.20.0");
+            Version api = ApiVersion;
+            Version limit = Version.Parse(MIN_API_VERSION);
 
             string updatestring = "";
             updatestring = api > limit ? "{\"swupdate2\": {\"install\": true}}" : "{\"swupdate\":{\"updatestate\":3}}";

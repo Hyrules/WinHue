@@ -28,13 +28,7 @@ namespace WinHue3.Functions.BridgePairing
 
             foreach (KeyValuePair<string, BridgeSaveSettings> b in savedbridges)
             {
-                IPAddress.TryParse(b.Value.ip, out IPAddress ip);
-                if (ip == null)
-                {
-                    log.Error($"Unable to parse IP ignoring bridge {b.Value.name}");
-                    continue;
-                }
-                Bridge br = new Bridge() {IpAddress = ip};
+                Bridge br = new Bridge() {IpAddress = b.Value.ip};
                 BasicConfig bc = br.GetBridgeBasicConfig();
                 if (bc == null)
                 {

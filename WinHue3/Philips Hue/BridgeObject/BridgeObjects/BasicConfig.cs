@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using WinHue3.Philips_Hue.HueObjects.Common;
+using System;
 
 namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
 {
@@ -13,7 +14,7 @@ namespace WinHue3.Philips_Hue.BridgeObject.BridgeObjects
         [DataMember]
         public string swversion { get; set; }
         [DataMember]
-        public string apiversion { get; set; }
+        public Version apiversion { get; set; }
         [DataMember]
         public string mac { get; set; }
         [DataMember]

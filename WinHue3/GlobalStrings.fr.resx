@@ -151,7 +151,7 @@
     <value>Veuillez sélectionner une passerelle et appuyez sur Jumeler afin de démarrer le jumelage.</value>
   </data>
   <data name="BridgeDetectionPairing_SetDefault" xml:space="preserve">
-    <value>Passerelle par défaut non définie</value>
+    <value>Passerelle par défaut non définie.</value>
   </data>
   <data name="BridgeDetectionPairing_Upnp_Not_Working" xml:space="preserve">
     <value>Les services UPNP et SSDP ne semblent pas fonctionner. Veuillez les activer afin de permettre des meilleurs résultats lors de la détection de la passerelle.</value>
@@ -214,10 +214,10 @@
     <value>Veuillez svp appuyer sur le bouton LINK maintenant et appuyez sur OK pour terminer.</value>
   </data>
   <data name="Daylight_Latitude_Error" xml:space="preserve">
-    <value>La latitude ne doit pas être vide et doit être au format DDD.DDDD{N|S}</value>
+    <value>La latitude ne doit pas être vide et doit être au format DDD.DDDD{N|S}.</value>
   </data>
   <data name="Daylight_Longitude_Error" xml:space="preserve">
-    <value>La longitude ne doit pas être vide et doit être au format DDD.DDDD{E|W}</value>
+    <value>La longitude ne doit pas être vide et doit être au format DDD.DDDD{E|W}.</value>
   </data>
   <data name="Disable_DHCP" xml:space="preserve">
     <value>Désactiver le DHCP permet d'entrer une adresse ip manuellement.</value>
@@ -394,7 +394,7 @@
     <value>Aucune erreur trouvée dans le code.</value>
   </data>
   <data name="Invalid_IP" xml:space="preserve">
-    <value>L'adresse IP saisie n'est pas dans un format valide</value>
+    <value>L'adresse IP saisie n'est pas dans un format valide.</value>
   </data>
   <data name="Invalid_Mood_file" xml:space="preserve">
     <value>Fichier ambiance invalide</value>
@@ -476,7 +476,7 @@
     <value>Entrez "none" pour aucun proxy.</value>
   </data>
   <data name="Require_admin" xml:space="preserve">
-    <value>L'utilisateur actuel n'est pas administrateur. L'application nécessite les droits d'administrateur pour pouvoir fonctionner correctement. Veuillez svp redémarrer avec les droits d'administrateur ou executer l'application en sélectionnant "Executer en tant qu'Administrateur"</value>
+    <value>L'utilisateur actuel n'est pas administrateur. L'application nécessite les droits d'administrateur pour pouvoir fonctionner correctement. Veuillez svp redémarrer avec les droits d'administrateur ou executer l'application en sélectionnant "Executer en tant qu'Administrateur".</value>
   </data>
   <data name="ResourceLinks_NameNeeded" xml:space="preserve">
     <value>Veuillez saisir un nom pour le lien.</value>
@@ -586,7 +586,7 @@
     <value>Le nom de la scène saisie est invalide.</value>
   </data>
   <data name="Scene_NotFound" xml:space="preserve">
-    <value>La scène dans cette règle n'existe plus. </value>
+    <value>La scène dans cette règle n'existe plus.</value>
   </data>
   <data name="Scene_Replace_Current_States" xml:space="preserve">
     <value>Remplacer l'état des ampoule de la scène par l'état actuel ?</value>
@@ -665,7 +665,7 @@
     <value>Ne capteur ne répond pas. Assurez-vous que l'url est valide.</value>
   </data>
   <data name="Settings_ChangeIp" xml:space="preserve">
-    <value>Adresse IP configuré à :</value>
+    <value>Adresse IP configuré à : </value>
   </data>
   <data name="Settings_CPU_Temp_NoValue" xml:space="preserve">
     <value>Impossible de tester le gradient. Assurez-vous que vous avez sélectionné une temperature de début et de fin du gradient ainsi qu'un ampoule pour test.</value>
@@ -685,7 +685,7 @@
     <comment>Enter a Device Type to identify your device in the bridge</comment>
   </data>
   <data name="Tooltip_UserManager_Username" xml:space="preserve">
-    <value>Entrez un type de périphérique pour identifier votre périphérique dans la passerelle</value>
+    <value>Entrez un type de périphérique pour identifier votre périphérique dans la passerelle.</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>Une nouvelle mise à jour du firmware est disponible.</value>
@@ -779,5 +779,8 @@
   </data>
   <data name="BridgeNotAuthorized" xml:space="preserve">
     <value>La clé api pour cette passerelle semble avoir été révoquée. Veuillez refaire l'association à la passerelle.</value>
+  </data>
+  <data name="BridgeNotCompatible" xml:space="preserve">
+    <value>Cette passerelle (V1) n'est pas compatible avec WinHue.</value>
   </data>
 </root>

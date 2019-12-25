@@ -252,6 +252,7 @@ namespace WinHue3.Functions.BridgePairing
             Form_AddManualIp fip = new Form_AddManualIp();
             if (fip.ShowDialog() == true)
             {
+                
                 Bridge bridge = new Bridge(){IpAddress = IPAddress.Parse(fip.GetIPAddress()) };
                 switch (AddManualBridge(bridge))
                 {
@@ -261,6 +262,10 @@ namespace WinHue3.Functions.BridgePairing
                     case AddManualBridgeResult.Alreadyexists:
                         MessageBox.Show(GlobalStrings.Bridge_Already_Detected, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                         log.Error($"ip {fip.TbIpAddress} already exists.");
+                        break;
+                    case AddManualBridgeResult.NotCompatible:
+                        MessageBox.Show(GlobalStrings.BridgeNotCompatible, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        log.Error($"ip {fip.TbIpAddress} is a Bridge V1 and is not compatible with this appliation. It will be Ignored.");
                         break;
                     case AddManualBridgeResult.NotResponding:
                         MessageBox.Show(GlobalStrings.Error_Bridge_Not_Responding, GlobalStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -280,7 +285,8 @@ namespace WinHue3.Functions.BridgePairing
             Success,
             Alreadyexists,
             NotResponding,
-            UnknownError
+            UnknownError,
+            NotCompatible
         }
 
         /// <summary>
@@ -295,6 +301,11 @@ namespace WinHue3.Functions.BridgePairing
             if (bresult == null)
             {
                 return newBridge.LastCommandMessages.LastError.type == -1 ? AddManualBridgeResult.NotResponding : AddManualBridgeResult.UnknownError;
+            }
+
+            if(bresult.modelid == "BSB001")
+            {
+                return AddManualBridgeResult.NotCompatible;
             }
 
             newBridge.Mac = bresult.mac;

@@ -74,6 +74,11 @@ namespace WinHue3.Philips_Hue
                             if (bresult != null)
                             {
                                 log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
+                                if (bresult.modelid == "BSB001")
+                                {
+                                    log.Info("Bridge V1 Detected Ignoring...");
+                                    continue;
+                                }
                                 newdetectedBridge.Add(dev.RootHostName, bresult);
                             }
 
@@ -111,6 +116,11 @@ namespace WinHue3.Philips_Hue
                             if (bresult != null)
                             {
                                 log.Info($"Bridge found : {bridge.Name} at {bridge.IpAddress} ");
+                                if(bresult.modelid == "BSB001")
+                                {
+                                    log.Info("Bridge V1 Detected Ignoring...");
+                                    continue;
+                                }
                                 newdetectedBridge.Add(dev.internalipaddress, bresult);
                             }
                             
@@ -230,11 +240,18 @@ namespace WinHue3.Philips_Hue
                     {
                         desc = Serializer.DeserializeToObject<BridgeSettings>(httpr.Content.ReadAsStringAsync().Result); // try to deserialize the received message.
                         if (desc == null) continue; // if the deserialisation didn't work it means this is not a bridge continue with next ip.
+                        if (desc.modelid == "BSB001")
+                        {
+                            log.Info("Bridge V1 Detected Ignoring...");
+                            continue;
+                        }
+
                         Bridge bridge = new Bridge()
                         {
                             IpAddress = new IPAddress(ipArray),
-                            ApiVersion = desc.apiversion,
-                            Mac = desc.mac
+                            ApiVersion = Version.Parse(desc.apiversion),
+                            Mac = desc.mac,
+                            
                         };
 
                         if (newlist.Count > 0)
@@ -291,6 +308,7 @@ namespace WinHue3.Philips_Hue
             throw new Exception("Local IP Address Not Found!");
         }
 
+ 
         /// <summary>
         /// Detect if there is a bridge at provided ip Address.
         /// </summary>
@@ -305,6 +323,33 @@ namespace WinHue3.Philips_Hue
                 bridge = true;
             }
             return bridge;
+        }
+
+        /// <summary>
+        /// Check if bridge is a V2
+        /// </summary>
+        /// <param name="bridgeip"></param>
+        /// <returns></returns>
+        public static bool IsBridgeV2(IPAddress bridgeip)
+        {
+
+            HttpResult res = HueHttpClient.SendRequest(new Uri($"http://{bridgeip}/api/config"), WebRequestType.Get);
+            try
+            {
+                BasicConfig bc = Serializer.DeserializeToObject<BasicConfig>(res.Data);
+                if (bc.modelid == "BSB002")
+                {
+                    return true;
+                }
+
+            }
+            catch(Exception ex)
+            {
+                log.Error("An error occured : " + ex.Message);
+            }
+
+            return false;
+
         }
 
         /// <summary>
@@ -363,12 +408,12 @@ namespace WinHue3.Philips_Hue
 
     public class IpScanProgressEventArgs : EventArgs
     {
-        public IpScanProgressEventArgs(byte progress)
+        public IpScanProgressEventArgs(int progress)
         {
             Progress = progress;
         }
 
-        public byte Progress { get; }
-    
+        public int Progress { get; }
     }
+
 }

@@ -322,6 +322,15 @@ namespace WinHue3 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This bridge (V1) is not compatible with WinHue..
+        /// </summary>
+        public static string BridgeNotCompatible {
+            get {
+                return ResourceManager.GetString("BridgeNotCompatible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bridge not paired or authorized. Do you want to proceed with the pairing procedure?.
         /// </summary>
         public static string BridgeSetupNotCompleted {
@@ -349,7 +358,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Color temperature cannot be selected at the same time as Hue or Saturation. .
+        ///   Looks up a localized string similar to Color temperature cannot be selected at the same time as Hue or Saturation..
         /// </summary>
         public static string ColorTempWarning {
             get {
@@ -448,7 +457,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The bridge is not responding. .
+        ///   Looks up a localized string similar to The bridge is not responding..
         /// </summary>
         public static string Error_Bridge_Not_Responding {
             get {
@@ -655,7 +664,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transition time must be a value between 0 and 65535.
+        ///   Looks up a localized string similar to Transition time must be a value between 0 and 65535..
         /// </summary>
         public static string Error_ScheduleInvalidTT {
             get {
@@ -880,7 +889,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please record an hotkey.
+        ///   Looks up a localized string similar to Please record an hotkey..
         /// </summary>
         public static string Hotkey_RecordHotkey {
             get {
@@ -997,7 +1006,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scene file invalid .
+        ///   Looks up a localized string similar to Scene file invalid.
         /// </summary>
         public static string Invalid_Scene_File {
             get {
@@ -1006,7 +1015,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entered string is not valid.
+        ///   Looks up a localized string similar to Entered string is not valid..
         /// </summary>
         public static string InvalidString {
             get {
@@ -1267,7 +1276,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select at least one resource for this resource link,.
+        ///   Looks up a localized string similar to Please select at least one resource for this resource link..
         /// </summary>
         public static string ResourceLinks_SelectAtLeastOne {
             get {
@@ -1843,7 +1852,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IP Address set to:: .
+        ///   Looks up a localized string similar to IP Address set to : .
         /// </summary>
         public static string Settings_ChangeIp {
             get {
@@ -1906,7 +1915,7 @@ namespace WinHue3 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to export the requested config.
+        ///   Looks up a localized string similar to Unable to export the requested config..
         /// </summary>
         public static string UnableToExport {
             get {

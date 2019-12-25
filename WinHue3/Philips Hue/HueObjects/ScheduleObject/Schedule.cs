@@ -153,6 +153,8 @@ namespace WinHue3.Philips_Hue.HueObjects.ScheduleObject
             set => SetProperty(ref _visible,value);
         }
 
+        public bool Unreachable => false;
+
         [OnDeserialized]
         private void OnDeserialized(StreamingContext ctx)
         {

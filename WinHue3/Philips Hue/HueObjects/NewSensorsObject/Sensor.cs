@@ -193,6 +193,8 @@ namespace WinHue3.Philips_Hue.HueObjects.NewSensorsObject
             set { SetProperty(ref _visible, value); }
         }
 
+        public bool Unreachable => false;
+
         public T GetState<T>() where T : ISensorStateBase
         {
             return (T) _state;

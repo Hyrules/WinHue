@@ -199,7 +199,7 @@
     <value>MAC</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_Netmask" xml:space="preserve">
-    <value>Netmask :</value>
+    <value>Netmask : </value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_ProxyAddress" xml:space="preserve">
     <value>Proxy Address :</value>
@@ -466,7 +466,7 @@
     <value>Copy as JSON Formatted</value>
   </data>
   <data name="MainForm_ListView_Context_CopyToJsonRaw" xml:space="preserve">
-    <value>Copy as JSON </value>
+    <value>Copy as JSON</value>
   </data>
   <data name="MainForm_ListView_Context_Edit" xml:space="preserve">
     <value>Edit...</value>
@@ -802,7 +802,7 @@
     <value>Brightness</value>
   </data>
   <data name="ScheduleCreatorForm_ColorTemp" xml:space="preserve">
-    <value>Color Temp.</value>
+    <value>Color Temp</value>
   </data>
   <data name="ScheduleCreatorForm_DaysOfWeek" xml:space="preserve">
     <value>Days of week</value>
@@ -925,10 +925,10 @@
     <value>Sensor Config</value>
   </data>
   <data name="SensorCreatorForm_SensorType" xml:space="preserve">
-    <value>Sensor Type : </value>
+    <value>Sensor Type :</value>
   </data>
   <data name="SensorCreatorForm_SwVersion" xml:space="preserve">
-    <value>SwVersion : </value>
+    <value>SwVersion :</value>
   </data>
   <data name="SensorCreatorForm_TestURLButton" xml:space="preserve">
     <value>Test URL</value>
@@ -994,7 +994,7 @@
     <value>Upnp Timeout</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip" xml:space="preserve">
-    <value>Upnp Timeout in seconds</value>
+    <value>Upnp Timeout in seconds.</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Startup" xml:space="preserve">
     <value>Startup</value>
@@ -1210,10 +1210,10 @@
     <value>Greater Than</value>
   </data>
   <data name="MainForm_ToolsTab_CpuTempMon_Tooltip" xml:space="preserve">
-    <value>WinHue must be run as administrator in order to run the CPU Temp Monitor</value>
+    <value>WinHue must be run as administrator in order to run the CPU Temp Monitor.</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_Check_Update" xml:space="preserve">
-    <value>Prompt if there is a WinHue update at startup</value>
+    <value>Prompt if there is a WinHue update at startup.</value>
   </data>
   <data name="MainForm_StatusBar_ToolTip_UpdateAvailable" xml:space="preserve">
     <value>WinHue update available. Click here to update.</value>
@@ -1231,10 +1231,10 @@
     <value>Bridge update required. Please update the bridge in order to use WinHue with this bridge.</value>
   </data>
   <data name="MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate" xml:space="preserve">
-    <value>Check for bridge update</value>
+    <value>Check for bridge update.</value>
   </data>
   <data name="MainForm_Menu_VirtualBridge" xml:space="preserve">
-    <value>Load a bridge datastore from file....</value>
+    <value>Load a bridge datastore from file...</value>
   </data>
   <data name="SettingsForm_Tab_MainSettings_NoCheckBridgeVersion" xml:space="preserve">
     <value>Check for Bridge version. (You might encounter crashes that the dev will not fix if you choose not to)</value>
@@ -1648,7 +1648,7 @@
     <value>Interval between refreshes of objects.</value>
   </data>
   <data name="Sliders_DisabledWhenOff" xml:space="preserve">
-    <value>Disabled when object is off / Only Toggle On</value>
+    <value>Disabled when object is off / Only Toggle On.</value>
   </data>
   <data name="Sliders_CanChange" xml:space="preserve">
     <value>Can changed when off / Apply at toggle On</value>

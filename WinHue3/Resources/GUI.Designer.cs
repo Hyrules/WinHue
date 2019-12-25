@@ -421,7 +421,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Netmask :.
+        ///   Looks up a localized string similar to Netmask : .
         /// </summary>
         public static string BridgeSettingsForm_Tab_NetworkSettings_Netmask {
             get {
@@ -1987,7 +1987,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy as JSON .
+        ///   Looks up a localized string similar to Copy as JSON.
         /// </summary>
         public static string MainForm_ListView_Context_CopyToJsonRaw {
             get {
@@ -2320,7 +2320,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load a bridge datastore from file.....
+        ///   Looks up a localized string similar to Load a bridge datastore from file....
         /// </summary>
         public static string MainForm_Menu_VirtualBridge {
             get {
@@ -2779,7 +2779,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for bridge update.
+        ///   Looks up a localized string similar to Check for bridge update..
         /// </summary>
         public static string MainForm_Tab_Home_Group_SettingsUpdateButton_CheckForUpdate {
             get {
@@ -2941,7 +2941,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WinHue must be run as administrator in order to run the CPU Temp Monitor.
+        ///   Looks up a localized string similar to WinHue must be run as administrator in order to run the CPU Temp Monitor..
         /// </summary>
         public static string MainForm_ToolsTab_CpuTempMon_Tooltip {
             get {
@@ -3841,7 +3841,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Color Temp..
+        ///   Looks up a localized string similar to Color Temp.
         /// </summary>
         public static string ScheduleCreatorForm_ColorTemp {
             get {
@@ -4246,7 +4246,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sensor Type : .
+        ///   Looks up a localized string similar to Sensor Type :.
         /// </summary>
         public static string SensorCreatorForm_SensorType {
             get {
@@ -4255,7 +4255,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SwVersion : .
+        ///   Looks up a localized string similar to SwVersion :.
         /// </summary>
         public static string SensorCreatorForm_SwVersion {
             get {
@@ -4408,7 +4408,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prompt if there is a WinHue update at startup.
+        ///   Looks up a localized string similar to Prompt if there is a WinHue update at startup..
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Check_Update {
             get {
@@ -4561,7 +4561,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upnp Timeout in seconds.
+        ///   Looks up a localized string similar to Upnp Timeout in seconds..
         /// </summary>
         public static string SettingsForm_Tab_MainSettings_Network_UpnpTimeout_ToolTip {
             get {
@@ -4750,7 +4750,7 @@ namespace WinHue3.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disabled when object is off / Only Toggle On.
+        ///   Looks up a localized string similar to Disabled when object is off / Only Toggle On..
         /// </summary>
         public static string Sliders_DisabledWhenOff {
             get {

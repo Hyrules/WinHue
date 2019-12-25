@@ -123,6 +123,8 @@ namespace WinHue3.Philips_Hue.HueObjects.ResourceLinkObject
             set { SetProperty(ref _visible,value); }
         }
 
+        public bool Unreachable => false;
+
         public object Clone()
         {
             return MemberwiseClone();

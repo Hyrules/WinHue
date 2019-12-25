@@ -59,11 +59,11 @@ namespace WinHue3.Utils
             return UpdateAvailable;
         }
 
-        public bool CheckBridgeNeedUpdate(string actualversion)
+        public bool CheckBridgeNeedUpdate(Version actualversion)
         {
             try
             {
-                return new Version(_update.BridgeVersion) > new Version(actualversion);
+                return new Version(_update.BridgeVersion) > actualversion;
             }
             catch (Exception)
             {

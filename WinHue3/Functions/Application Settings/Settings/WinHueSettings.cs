@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 using WinHue3.Functions.RoomMap;
+using System.Linq;
 
 namespace WinHue3.Functions.Application_Settings.Settings
 {
@@ -133,7 +134,7 @@ namespace WinHue3.Functions.Application_Settings.Settings
         {
             try
             {
-                bridges.BridgeInfo[mac].ip = ip.ToString();
+                bridges.BridgeInfo[mac].ip = ip;
                 SaveBridges();
                 return true;
             }
@@ -329,7 +330,14 @@ namespace WinHue3.Functions.Application_Settings.Settings
                 sr.Close();
                 log.Debug("Deserializing the settings file.");
                 bridges = JsonConvert.DeserializeObject<CustomBridges>(settingsString, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+
                 result = true;
+            }
+            catch (JsonSerializationException e)
+            {
+                bridges = new CustomBridges();
+                result = false;
+                log.Error("Error while deserializing the bridge settings file.");
             }
             catch (Exception ex)
             {

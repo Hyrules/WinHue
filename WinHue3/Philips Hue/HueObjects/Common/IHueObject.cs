@@ -12,5 +12,7 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
         string name { get; set; }
         object Clone();
         bool visible { get; set; }
+
+        bool Unreachable { get; }
   }
 }

@@ -18,8 +18,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns></returns>
         public async Task<Capabilities> GetBridgeCapabilitiesAsyncTask()
         {
-            Version api = Version.Parse(ApiVersion);
-            Version limit = Version.Parse("1.15.0");
+            Version api = ApiVersion;
+            Version limit = Version.Parse(MIN_API_VERSION);
             if (api < limit) return null;
             string url = BridgeUrl + "/capabilities";
             HttpResult comres = await HueHttpClient.SendRequestAsyncTask(new Uri(url), WebRequestType.Get);
@@ -216,8 +216,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         {
             string url = "http://" + _ipAddress + "/api";
             User newuser = new User() { devicetype = deviceType, generateclientkey = generatesteamkey };
-            Version current = new Version(ApiVersion);
-            if(current < Version.Parse("1.22"))
+            Version current = ApiVersion;
+            if(current < Version.Parse(MIN_API_VERSION))
             {
                 newuser.generateclientkey = null;
             }
@@ -370,8 +370,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <returns>a list of all the timezones supported by the bridge.</returns>
         public async Task<List<string>> GetTimeZonesAsyncTask()
         {
-            Version api = Version.Parse(ApiVersion);
-            Version limit = Version.Parse("1.15.0");
+            Version api = ApiVersion;
+            Version limit = Version.Parse(MIN_API_VERSION);
             if (api > limit)
             {
                 Capabilities cap = await GetBridgeCapabilitiesAsyncTask();
@@ -396,6 +396,8 @@ namespace WinHue3.Philips_Hue.BridgeObject
             }
 
         }
+
+
     }
 
 

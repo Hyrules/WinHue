@@ -9,7 +9,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using WinHue3.ExtensionMethods;
 using WinHue3.Functions.Application_Settings.Settings;
@@ -35,7 +37,7 @@ namespace WinHue3.MainForm
     public partial class MainFormViewModel
     {
         #region VARIABLES
-        private Philips_Hue.HueObjects.Common.IHueObject _selectedObject;
+        private IHueObject _selectedObject;
         private ObservableCollection<IHueObject> _listCurrentBridgeHueObjects;
         private readonly DispatcherTimer _refreshTimer = new DispatcherTimer();
         private readonly DispatcherTimer _findlighttimer = new DispatcherTimer();
@@ -322,6 +324,7 @@ namespace WinHue3.MainForm
             bridge.ApiVersion = bc.apiversion;
             bridge.Name = bc.name;
             bridge.SwVersion = bc.swversion;
+            
             WinHueSettings.bridges.BridgeInfo[bridge.Mac].name = bridge.Name;
             WinHueSettings.SaveBridges();
             return true;
@@ -336,13 +339,13 @@ namespace WinHue3.MainForm
                 if (WinHueSettings.bridges.BridgeInfo.ContainsKey(br.Mac))
                     WinHueSettings.bridges.BridgeInfo[br.Mac] = new BridgeSaveSettings
                     {
-                        ip = br.IpAddress.ToString(),
+                        ip = br.IpAddress,
                         apikey = br.ApiKey,
                         name = br.Name,
                     };
                 else
                     WinHueSettings.bridges.BridgeInfo.Add(br.Mac,
-                        new BridgeSaveSettings { ip = br.IpAddress.ToString(), apikey = br.ApiKey, name = br.Name });
+                        new BridgeSaveSettings { ip = br.IpAddress, apikey = br.ApiKey, name = br.Name });
 
                 if (br.IsDefault) WinHueSettings.bridges.DefaultBridge = br.Mac;
             }
@@ -370,15 +373,16 @@ namespace WinHue3.MainForm
                 foreach (KeyValuePair<string, BridgeSaveSettings> b in WinHueSettings.bridges.BridgeInfo)
                 {
                     log.Info($"Bridge OK. Checking if bridge already in the bridge list...");
+                    
                     if (ListBridges.All(x => x.Mac != b.Key))
                     {
                         Bridge bridge = new Bridge()
                         {
                             ApiKey = b.Value.apikey,
-                            IpAddress = IPAddress.Parse(b.Value.ip),
+                            IpAddress = b.Value.ip,
                             Name = b.Value.name,
                             IsDefault = b.Key == WinHueSettings.bridges.DefaultBridge,
-                            Mac = b.Key
+                            Mac = b.Key,
                         };
                         if (b.Value.apikey == string.Empty) continue;
 
@@ -420,11 +424,14 @@ namespace WinHue3.MainForm
                     }
                     else
                     {
+
                         if (!br.IsDefault) continue;
                         SelectedBridge = br;
                     }
                 }
 
+                // REMOVE ALL BRIDGES WHICH ARE NOT VERSION 1.35 OR HIGHER
+                //ListBridges.Remove(x => x.ApiVersion < System.Version.Parse("1.36"));
 
                 break;
             }

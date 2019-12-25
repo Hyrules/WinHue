@@ -14,7 +14,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
     {
         private Messages _lastCommandMessages;
         private string _apiKey = string.Empty;
-        private string _apiversion = string.Empty;
+        private Version _apiversion;
         private string _mac = string.Empty;
         private string _swversion;
         private bool _isdefault;
@@ -115,7 +115,7 @@ namespace WinHue3.Philips_Hue.BridgeObject
         /// <summary>
         /// Version of the bridge api
         /// </summary>
-        public string ApiVersion
+        public Version ApiVersion
         {
             get => _apiversion;
             set => SetProperty(ref _apiversion,value);

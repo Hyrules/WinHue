@@ -49,5 +49,6 @@ namespace WinHue3.Utils
 
         public Type Type => _type;
 
+
     }
 }

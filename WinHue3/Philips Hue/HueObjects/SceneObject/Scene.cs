@@ -206,6 +206,8 @@ namespace WinHue3.Philips_Hue.HueObjects.SceneObject
             set => SetProperty(ref _group,value);
         }
 
+        public bool Unreachable => false;
+
         /// <summary>
         /// To String.
         /// </summary>

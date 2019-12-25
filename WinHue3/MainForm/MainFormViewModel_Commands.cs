@@ -16,7 +16,8 @@ namespace WinHue3.MainForm
     {
         private bool EnableButtons()
         {
-            return SelectedBridge != null;
+            if (SelectedBridge == null) return false;
+            return true;
         }
 
         private bool CanBridgeSettings()

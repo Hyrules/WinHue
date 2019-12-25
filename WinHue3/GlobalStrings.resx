@@ -202,7 +202,7 @@
     <value>Signed In</value>
   </data>
   <data name="ColorTempWarning" xml:space="preserve">
-    <value>Color temperature cannot be selected at the same time as Hue or Saturation. </value>
+    <value>Color temperature cannot be selected at the same time as Hue or Saturation.</value>
   </data>
   <data name="Confirm_Delete_Object" xml:space="preserve">
     <value>Are you sure you want to delete {0}?</value>
@@ -235,7 +235,7 @@
     <value>The bridge name cannot be empty or blank.</value>
   </data>
   <data name="Error_Bridge_Not_Responding" xml:space="preserve">
-    <value>The bridge is not responding. </value>
+    <value>The bridge is not responding.</value>
   </data>
   <data name="Error_Bridge_Settings" xml:space="preserve">
     <value>There was an error while applying the brige new settings. See the log for more details.</value>
@@ -361,7 +361,7 @@
     <value>Please fill at least one property.</value>
   </data>
   <data name="Hotkey_RecordHotkey" xml:space="preserve">
-    <value>Please record an hotkey</value>
+    <value>Please record an hotkey.</value>
   </data>
   <data name="Hotkey_SelectObject" xml:space="preserve">
     <value>Please select a bridge object.</value>
@@ -397,7 +397,7 @@
     <value>Invalid mood file</value>
   </data>
   <data name="Invalid_Scene_File" xml:space="preserve">
-    <value>Scene file invalid </value>
+    <value>Scene file invalid</value>
   </data>
   <data name="Language_Change_Warning" xml:space="preserve">
     <value>Please restart the application in order to apply language change.</value>
@@ -478,7 +478,7 @@
     <value>Please enter a name for the resource link.</value>
   </data>
   <data name="ResourceLinks_SelectAtLeastOne" xml:space="preserve">
-    <value>Please select at least one resource for this resource link,</value>
+    <value>Please select at least one resource for this resource link.</value>
   </data>
   <data name="Rule" xml:space="preserve">
     <value>Rule</value>
@@ -658,7 +658,7 @@
     <value>Unable to contact sensor. Please make sure that the sensor url is valid.</value>
   </data>
   <data name="Settings_ChangeIp" xml:space="preserve">
-    <value>IP Address set to:: </value>
+    <value>IP Address set to : </value>
   </data>
   <data name="Settings_CPU_Temp_NoValue" xml:space="preserve">
     <value>Unable to test gradient. Please make sure that you have a value for the start and stop temperature as well as a light selected to test on.</value>
@@ -715,13 +715,13 @@
     <value>Time must be a valid HH:mm:ss value.</value>
   </data>
   <data name="Error_ScheduleInvalidTT" xml:space="preserve">
-    <value>Transition time must be a value between 0 and 65535</value>
+    <value>Transition time must be a value between 0 and 65535.</value>
   </data>
   <data name="RssFeedMonitor_CriteriaAlreadyExists" xml:space="preserve">
     <value>This criteria already exists. Replace?</value>
   </data>
   <data name="InvalidString" xml:space="preserve">
-    <value>Entered string is not valid</value>
+    <value>Entered string is not valid.</value>
   </data>
   <data name="AdvancedCreator_ObjectCreated" xml:space="preserve">
     <value>Object created successfully!</value>
@@ -763,12 +763,15 @@
     <value>A plan has been modified. If you continue you will lose your modifications. Continue ?</value>
   </data>
   <data name="UnableToExport" xml:space="preserve">
-    <value>Unable to export the requested config</value>
+    <value>Unable to export the requested config.</value>
   </data>
   <data name="ErrorSaving" xml:space="preserve">
     <value>An error occured while saving.</value>
   </data>
   <data name="BridgeNotAuthorized" xml:space="preserve">
     <value>Bridge api key seems to have been revoked. Please pair the bridge again.</value>
+  </data>
+  <data name="BridgeNotCompatible" xml:space="preserve">
+    <value>This bridge (V1) is not compatible with WinHue.</value>
   </data>
 </root>

@@ -1038,10 +1038,10 @@ namespace whc
                         {
                             string mac = WinHueSettings.bridges.DefaultBridge;
                             var bridgeSettings = WinHueSettings.bridges.BridgeInfo[mac];
-                            string ip = bridgeSettings.ip;
+                            IPAddress ip = bridgeSettings.ip;
                             string name = bridgeSettings.name;
                             string apiKey = bridgeSettings.apikey;
-                            _bridge = new Bridge(IPAddress.Parse(ip), mac, name, apiKey);
+                            _bridge = new Bridge(ip, mac, name, apiKey);
                             if (_bridge != null && _error == false)
                             {
                                 extra = ObjOpts.Parse(extra);

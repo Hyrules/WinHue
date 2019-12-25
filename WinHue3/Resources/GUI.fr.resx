@@ -190,7 +190,7 @@
     <value>DHCP</value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_Gateway" xml:space="preserve">
-    <value>Passerelle :</value>
+    <value>Passerelle : </value>
   </data>
   <data name="BridgeSettingsForm_Tab_NetworkSettings_IPAddress" xml:space="preserve">
     <value>Adresse IP :</value>
@@ -265,10 +265,10 @@
     <value>Dern. date util. :</value>
   </data>
   <data name="BridgeSettingsForm_Title" xml:space="preserve">
-    <value>Modifier les paramètres de la passerelle....</value>
+    <value>Modifier les paramètres de la passerelle...</value>
   </data>
   <data name="DaylightForm_Latitude" xml:space="preserve">
-    <value>Latitude :</value>
+    <value>Latitude : </value>
   </data>
   <data name="DaylightForm_Longitude" xml:space="preserve">
     <value>Longitude :</value>
@@ -295,7 +295,7 @@
     <value>Journal des événements...</value>
   </data>
   <data name="Form_AddManualIP_IP" xml:space="preserve">
-    <value>IP :</value>
+    <value>IP : </value>
   </data>
   <data name="Form_AddManualIP_Title" xml:space="preserve">
     <value>Adresse IP Manuelle</value>
@@ -583,7 +583,7 @@
     <value>Creer un groupe...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Creators_CreateHotkey" xml:space="preserve">
-    <value>Créateur de Raccourci</value>
+    <value>Créateur de Raccourci...</value>
   </data>
   <data name="MainForm_Tab_Home_Group_Creators_CreateMood" xml:space="preserve">
     <value>Creer une ambiance...</value>
@@ -670,7 +670,7 @@
     <value>Paramètres</value>
   </data>
   <data name="MoodCreatorForm_Brightness" xml:space="preserve">
-    <value>Lumin.</value>
+    <value>Lumin</value>
   </data>
   <data name="MoodCreatorForm_ColorTemp" xml:space="preserve">
     <value>Temp. Coul.</value>
@@ -715,7 +715,7 @@
     <value>Supprimer</value>
   </data>
   <data name="ResourceLinkCreatorForm_Title" xml:space="preserve">
-    <value>Création / Modification de lien de ressources</value>
+    <value>Création / Modification de lien de ressources...</value>
   </data>
   <data name="ResourceLinkCreatorForm_Watermark_Description" xml:space="preserve">
     <value>Une description est optionnelle</value>
@@ -796,7 +796,7 @@
     <value>Alarme</value>
   </data>
   <data name="ScheduleCreatorForm_Autodelete" xml:space="preserve">
-    <value>Auto Suppr.</value>
+    <value>Auto Suppr</value>
   </data>
   <data name="ScheduleCreatorForm_Brightness" xml:space="preserve">
     <value>Luminosité</value>
@@ -868,7 +868,7 @@
     <value>Chronomètre</value>
   </data>
   <data name="ScheduleCreatorForm_Title" xml:space="preserve">
-    <value>Créer / Modifier un cédule</value>
+    <value>Créer / Modifier un cédule...</value>
   </data>
   <data name="ScheduleCreatorForm_Title_Create" xml:space="preserve">
     <value>Créer une cédule pour </value>
@@ -901,7 +901,7 @@
     <value>Charger Image RVB</value>
   </data>
   <data name="SelectColorFromImageForm_Title" xml:space="preserve">
-    <value>Choisir une couleur à partir d'une image....</value>
+    <value>Choisir une couleur à partir d'une image...</value>
   </data>
   <data name="SensorCreatorForm_CreateButton" xml:space="preserve">
     <value>Créer</value>
@@ -910,10 +910,10 @@
     <value>Modifier</value>
   </data>
   <data name="SensorCreatorForm_MfgName" xml:space="preserve">
-    <value>Nom Manuf.</value>
+    <value>Nom Manuf. :</value>
   </data>
   <data name="SensorCreatorForm_ModelId" xml:space="preserve">
-    <value>Id du modèle :</value>
+    <value>Id du modèle : </value>
   </data>
   <data name="SensorCreatorForm_On" xml:space="preserve">
     <value>Allumé</value>
@@ -1153,7 +1153,7 @@
     <value>Ampoule de scène</value>
   </data>
   <data name="MainForm_StatusBar_ToolTip_HotKey" xml:space="preserve">
-    <value>Indique sur une clé raccourci a été détectée</value>
+    <value>Indique sur une clé raccourci a été détectée.</value>
   </data>
   <data name="MainForm_StatusBar_ToolTip_Search" xml:space="preserve">
     <value>Indique sur une recherche pour des nouveaux capteur ou ampoule est en cours.</value>
@@ -1351,7 +1351,7 @@
     <value>Dernière MAJ</value>
   </data>
   <data name="BridgeSettingsForm_LastCheck" xml:space="preserve">
-    <value>Dernière Modif.</value>
+    <value>Dernière Modif</value>
   </data>
   <data name="SettingsForm_Tab_Defaults_SliderTitle" xml:space="preserve">
     <value>Bouton Glissoir</value>
@@ -1372,7 +1372,7 @@
     <value>Recherche de la passerelle...</value>
   </data>
   <data name="BridgeFinder_Trying" xml:space="preserve">
-    <value>Essaie de l'IP :</value>
+    <value>Essaie de l'IP : </value>
   </data>
   <data name="EntertainmentCreatorForm_Title" xml:space="preserve">
     <value>Créateur de divertissement</value>
@@ -1405,7 +1405,7 @@
     <value>Fichiers</value>
   </data>
   <data name="FormRoomMap_Delete" xml:space="preserve">
-    <value>Êtes-vous certain de vouloir supprimer le plan d'étage {0}</value>
+    <value>Êtes-vous certain de vouloir supprimer le plan d'étage {0} ?</value>
   </data>
   <data name="Form_CreateFloorPlan_Height" xml:space="preserve">
     <value>Hauteur du canvas</value>
@@ -1645,7 +1645,7 @@
     <value>Temps d'actualisation</value>
   </data>
   <data name="RefreshTimeTooltip" xml:space="preserve">
-    <value>Intervales entres les mise à jour des objets</value>
+    <value>Intervales entres les mise à jour des objets.</value>
   </data>
   <data name="Sliders_DisabledWhenOff" xml:space="preserve">
     <value>Desactivé quand éteinte / Déclancher seulement.</value>
