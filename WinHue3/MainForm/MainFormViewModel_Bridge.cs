@@ -108,6 +108,7 @@ namespace WinHue3.MainForm
             PropertyInfo[] pi = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             foreach (PropertyInfo p in pi)
             {
+                if (p.Name == "Unreachable") continue;
                 object value = p.GetValue(newobject);
                 p.SetValue(obj, value);
             }
