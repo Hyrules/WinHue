@@ -131,7 +131,6 @@ namespace WinHue3.Philips_Hue.HueObjects.LightObject
         [Category("Light Properties"), Description("Current light supports streaming features"), DontSerialize]
         public bool Streaming { get => _streaming; set => SetProperty(ref _streaming,value); }
 
-        public bool Unreachable => !state.reachable.GetValueOrDefault(false);
 
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)

@@ -159,8 +159,6 @@ namespace WinHue3.Philips_Hue.HueObjects.GroupObject
             set => SetProperty(ref _stream, value);
         }
 
-        public bool Unreachable => false;
-
         [OnDeserialized]
         void OnDeserialized(StreamingContext ctx)
         {

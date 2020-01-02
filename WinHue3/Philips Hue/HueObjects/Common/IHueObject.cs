@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Windows.Media;
 using WinHue3.Functions;
@@ -13,6 +14,5 @@ namespace WinHue3.Philips_Hue.HueObjects.Common
         object Clone();
         bool visible { get; set; }
 
-        bool Unreachable { get; }
   }
 }
