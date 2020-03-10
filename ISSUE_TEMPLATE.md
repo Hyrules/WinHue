@@ -6,6 +6,7 @@ available in the release section of this site. Support will not be done on older
 WinHue version : (eg. 3.0.2400.0)
 Bridge api version : (1.16)
 Light model : (if you have a problem with a particular light)
+Bridge version : V1 (Round) or V2 (Square with round corner)
 
 ### Expected behavior and actual behavior
 
