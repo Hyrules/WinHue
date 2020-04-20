@@ -4,6 +4,7 @@
 - [Microsoft Dot Net Framework 4.5.2](https://dotnet.microsoft.com/download/dotnet-framework/net452) <br/>
 - [Visual C++ 2010 Redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=5555)<br/>
 - [A complete Philips Hue Light system including some philips hue lights and bridge Gen 2 (square with rounded corners))](https://www2.meethue.com/en-us/products/starter-kits#filters=STARTER_KITS_SU&sliders=&support=&price=&priceBoxes=&page=&layout=12.subcategory.p-grid-icon)
+OR
 - [ConBee II](https://phoscon.de/en/conbee2)
 
 
