@@ -16,7 +16,7 @@ namespace WinHue3.Functions.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return null;
-            return ((bool)value) ? new SolidColorBrush(System.Windows.Media.Colors.Black) { Opacity = 0.2f } : null;
+            return (!(bool)value) ? new SolidColorBrush(System.Windows.Media.Colors.Black) { Opacity = 0.2f } : null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

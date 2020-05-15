@@ -354,6 +354,7 @@ namespace WinHue3.Functions.Rules.Creator
         private bool CanAddAction()
         {
             if (ListRuleActions.Count > 7) return false;
+            if (ActionProperties == null) return false;
             if (Serializer.SerializeJsonObject(ActionProperties) == "{}") return false;
             return true;
         }

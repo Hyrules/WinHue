@@ -114,7 +114,7 @@ namespace WinHue3.MainForm
             {
                 BridgeSettings cr = SelectedBridge?.GetBridgeSettings();
                 if (cr == null) return Visibility.Collapsed;
-                return cr.swupdate.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
+                return cr.swupdate?.updatestate == 2 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 

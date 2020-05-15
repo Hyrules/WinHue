@@ -314,8 +314,22 @@ namespace WinHue3.Functions.BridgeSettings
                 //****** Software Pane *********
                 CanAutoInstall = cr.swupdate2 != null;
                 SoftwareModel.AutoUpdate = cr.swupdate2?.autoinstall.@on ?? false;
+
+                //*Date = { 1/1/0001 12:00:00 AM}*/
                 SoftwareModel.Updatestate = cr.swupdate2 != null ? cr.swupdate2.state : cr.swupdate.updatestate.ToString();
-                SoftwareModel.UpdateTime = cr.swupdate2 != null ? DateTime.Parse(cr.swupdate2.autoinstall.updatetime.Replace("T","")) : DateTime.Parse("00:00:00");
+                // TODO : FIX DATE PARSING FOR DECONZ
+                try
+                {
+                    SoftwareModel.UpdateTime = cr.swupdate2 != null ? DateTime.Parse(cr.swupdate2.autoinstall.updatetime.Replace("T", "")) : DateTime.Parse("00:00:00");
+                }
+                catch(Exception ex)
+                {
+
+                }
+                finally
+                {
+                    SoftwareModel.UpdateTime = DateTime.Parse("00:00:00");
+                }
                 SoftwareModel.LastChange = cr.swupdate2 != null ? cr.swupdate2.lastchange : string.Empty;
                 SoftwareModel.LastUpdate = cr.swupdate2 != null ? cr.swupdate2.bridge.lastinstall : string.Empty;
                 GeneralModel.AcceptChanges();
